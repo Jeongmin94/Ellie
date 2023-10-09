@@ -8,7 +8,7 @@
     - Asset 직렬화 방식: Force Text(수정하지 마세요.)
     - Unity Version Control: Visible Meta Files(수정하지 마세요.)
 - VCS: Git, Github
-    - GUI 툴은 사용하고 싶은거 사용하세요.(Fork, Soucre Tree ...)
+    - GUI 툴은 사용하고 싶은거 사용하세요.(Fork, Source Tree ...)
 
 # 2. 작업 관리
 
