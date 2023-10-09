@@ -1,6 +1,5 @@
 ﻿using System;
 
-// master commit test
 namespace Ellie.Scripts.Data
 {
     public class Data<T>
