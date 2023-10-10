@@ -58,6 +58,9 @@ public class PlayerController : MonoBehaviour
 
     void Start()
     {
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         crossHair.SetActive(false);
@@ -252,8 +255,8 @@ public class PlayerController : MonoBehaviour
         rollStartTime = Time.time;
         while (Time.time - rollStartTime < 0.5f)
         {
-            rb.AddForce(characterBody.forward * rollingForce);
-            //rb.velocity = characterBody.forward * moveForce * sprintCoeff * zoomCoeff * 1.5f;
+            //rb.AddForce(characterBody.forward * rollingForce * Time.deltaTime);
+            rb.velocity = characterBody.forward * moveForce * sprintCoeff * zoomCoeff * rollingForce;
             yield return null;
         }
         isRolling = false;
