@@ -30,8 +30,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float sprintFovIncreaseSpeed;
     [Header("달리기 종료 시 카메라 줌 인 속도(달리기를 멈출 시 fov가 회복되는 속도입니다.")]
     [SerializeField] float sprintEndFovRecoverySpeed;
-    
 
+    
     [Header("기타")]
     [SerializeField] Transform characterBody;
     [SerializeField] Transform cameraArm;
@@ -40,9 +40,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField] Transform shootPos;
 
     Ray shootRay;
-
     Animator animator;
     Rigidbody rb;
+    
 
     private float rollStartTime;
 
@@ -55,10 +55,9 @@ public class PlayerController : MonoBehaviour
 
     private Vector2 moveInput;
 
-
+    
     void Start()
     {
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
         animator = GetComponent<Animator>();
