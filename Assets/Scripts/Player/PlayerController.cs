@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Player.States;
+using System.Collections;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,77 +10,121 @@ namespace Assets.Scripts.Player
     {
         [Header("Movement")]
         private float moveSpeed;
-        [SerializeField] private float walkSpeed;
-        [SerializeField] private float sprintSpeed;
-        [SerializeField] private Transform orientation;
-        [SerializeField] private float jumpForce;
-        [SerializeField] private float additionalJumpForce;
-        [SerializeField] private float jumpCooldown;
-        [SerializeField] private float airMultiplier;
 
-        private bool canJump;
-        private bool isSprinting;
+        [SerializeField] public float walkSpeed;
+        public float WalkSpeed { get { return walkSpeed; } }
+        [SerializeField] public float sprintSpeed;
+        public float SprintSpeed { get { return sprintSpeed; } }
+
+        [SerializeField] public Transform orientation;
+        [SerializeField] public float jumpForce;
+        [SerializeField] public float additionalJumpForce;
+        [SerializeField] public float jumpCooldown;
+        [SerializeField] public float airMultiplier;
+
 
         [Header("Ground Check")]
-        [SerializeField] private float playerHeight;
-        [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private float groundDrag;
-        [SerializeField] private float additionalGravityForce;
+        [SerializeField] public float playerHeight;
+        [SerializeField] public LayerMask groundLayer;
+        [SerializeField] public float groundDrag;
+        [SerializeField] public float additionalGravityForce;
 
-        private bool isGrounded;
-        private bool isFalling;
+        public bool isGrounded;
+        public bool isFalling;
+        public bool isJumping;
+        public bool canJump;
 
         [Header("KeyBinds")]
-        [SerializeField] private KeyCode jumpKey = KeyCode.Space;
-        [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+        [SerializeField] public KeyCode jumpKey = KeyCode.Space;
+        [SerializeField] public KeyCode sprintKey = KeyCode.LeftShift;
 
 
-        private float horizontalInput;
-        private float verticalInput;
+        public float horizontalInput;
+        public float verticalInput;
 
+        public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
-        private Rigidbody rb;
+        public Rigidbody rb;
+
+        private PlayerStateMachine stateMachine;
 
         private void Start()
         {
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
             canJump = true;
-            moveSpeed = walkSpeed;
+            InitStateMachine();
         }
+        private void InitStateMachine()
+        {
+            PlayerStateIdle playerStateIdle = new PlayerStateIdle(this);
+            stateMachine = new PlayerStateMachine(PlayerStateName.Idle, playerStateIdle);
 
+            PlayerStateWalk playerStateWalk = new PlayerStateWalk(this);
+            stateMachine.AddState(PlayerStateName.Walk, playerStateWalk);
+            PlayerStateSprint playerStateSprint = new PlayerStateSprint(this);
+            stateMachine.AddState(PlayerStateName.Sprint, playerStateSprint);
+            PlayerStateJump playerStateJump = new PlayerStateJump(this);
+            stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
+
+        }
         private void Update()
         {
             GetInput();
             CheckGround();
-            ControlSpeed();
+            stateMachine?.UpdateState();
 
         }
 
         private void FixedUpdate()
         {
             CalculateMoveDirection();
-            MovePlayer();
+            stateMachine?.FixedUpdateState();
+        }
+        public void MovePlayer(float moveSpeed)
+        {
+            rb.AddForce(MoveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+        }
 
+        public void JumpPlayer()
+        {
+            StartCoroutine(Jump());
+        }
+
+        private IEnumerator Jump()
+        {
+            canJump = false;
+            float jumpInputTime = 0;
+     
+            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            while (jumpInputTime < 0.5f && Input.GetKey(KeyCode.Space))
+            {
+                Debug.Log(jumpInputTime);
+                jumpInputTime += Time.deltaTime;
+                rb.AddForce(transform.up * additionalJumpForce, ForceMode.Force);
+                yield return null;
+            }
+            isFalling = true;
+            yield return new WaitForSeconds(jumpCooldown - jumpInputTime);
+            canJump = true;
+            //착지 스테이트로 전이인데 일단 Idle로 보내자
+            //Controller.ChangeState(PlayerStateName.Idle);
+        }
+
+        public void Fall()
+        {
+            rb.AddForce(-transform.up * additionalGravityForce, ForceMode.Force);
+        }
+        public void ChangeState(PlayerStateName nextStateName)
+        {
+            stateMachine.ChangeState(nextStateName);
         }
         private void GetInput()
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
-
-            if (Input.GetKeyDown(jumpKey) && canJump && isGrounded)
-            {
-                canJump = false;
-                StartCoroutine(Jump());
-            }
-            if(Input.GetKey(sprintKey))
-            {
-                moveSpeed = sprintSpeed;
-            }
-            if (Input.GetKeyUp(sprintKey))
-            {
-                moveSpeed = walkSpeed;
-            }
+            MoveInput = new Vector2(horizontalInput, verticalInput);
         }
 
         private void CheckGround()
@@ -98,48 +143,13 @@ namespace Assets.Scripts.Player
         {
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         }
-        private void MovePlayer()
-        {
-            if (isGrounded)
-                rb.AddForce(MoveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
-            else
-            {
-                rb.AddForce(MoveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-                if(isFalling)
-                    rb.AddForce(-transform.up * additionalGravityForce, ForceMode.Force);
-            }
-        }
-        private void ControlSpeed()
-        {
-            Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            if (flatVelocity.magnitude > moveSpeed)
-            {
-                Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
-                rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
-            }
-        }
 
-        private IEnumerator Jump()
+        private void OnCollisionEnter(Collision collision)
         {
-            //일단 힘을 가하자
-            isFalling = false;
-            float jumpInputTime = 0;
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            while (jumpInputTime < 0.5f && Input.GetKey(jumpKey))
+            if(isJumping && collision.gameObject.CompareTag("Ground"))
             {
-                jumpInputTime += Time.deltaTime;
-                rb.AddForce(transform.up * additionalJumpForce, ForceMode.Force);
-                yield return null;
+                ChangeState(PlayerStateName.Idle);
             }
-            isFalling = true;
-            yield return new WaitForSeconds(jumpCooldown - jumpInputTime);
-            ResetJump();
-        }
-
-        private void ResetJump()
-        {
-            canJump = true;
         }
     }
 }

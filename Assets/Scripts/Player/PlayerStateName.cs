@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player
     public enum PlayerStateName
     {
         Idle,
-        Move,
+        Walk,
         Sprint,
         Jump,
         Dodge,
