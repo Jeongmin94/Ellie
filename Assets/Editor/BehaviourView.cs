@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.UIElements;
 using UnityEditor.Experimental.GraphView;
 using UnityEditor;
@@ -19,7 +17,7 @@ public class BehaviourTreeView : GraphView
         this.AddManipulator(new SelectionDragger());        // 노드 선택 드래그
         this.AddManipulator(new RectangleSelector());       // 다중 선택 드래그
 
-        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Scripts/BehaviourTree/Editor/BehaviourTreeEditor.uss");
+        var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Editor/BehaviourTreeEditor.uss");
         styleSheets.Add(styleSheet);
     }
 }
