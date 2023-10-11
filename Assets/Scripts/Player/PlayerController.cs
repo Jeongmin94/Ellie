@@ -20,6 +20,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private float playerHeight;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundDrag;
+        [SerializeField] private float additionalGravityForce;
         private bool isGrounded;
 
         [Header("KeyBinds")]
@@ -83,7 +84,10 @@ namespace Assets.Scripts.Player
             if (isGrounded)
                 rb.AddForce(MoveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
             else
+            {
                 rb.AddForce(MoveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
+                rb.AddForce(-transform.up * additionalGravityForce, ForceMode.Force);
+            }
         }
         private void ControlSpeed()
         {
