@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -10,7 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float moveForce;
     [Header("달리기 계수(달리는 동안 이동 속도에 곱해집니다.)")]
     [SerializeField] float maxSprintCoeff;
-   
+
     [Header("회피 힘(회피 시 바라보는 방향으로 가해지는 힘의 크기입니다.)")]
     [SerializeField] float rollingForce;
 
@@ -30,7 +29,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] float sprintFovIncreaseSpeed;
     [Header("달리기 종료 시 카메라 줌 인 속도(달리기를 멈출 시 fov가 회복되는 속도입니다.")]
     [SerializeField] float sprintEndFovRecoverySpeed;
-    
+
 
     [Header("기타")]
     [SerializeField] Transform characterBody;
