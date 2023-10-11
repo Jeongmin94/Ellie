@@ -6,5 +6,6 @@ public class InspectorView : VisualElement
 
     public InspectorView()
     {
+
     }
 }
