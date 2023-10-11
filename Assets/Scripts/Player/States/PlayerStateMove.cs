@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Player.States
 {
-    internal class PlayerState_Move : PlayerBaseState
+    internal class PlayerStateMove : PlayerBaseState
     {
-        public PlayerState_Move(PlayerController controller) : base(controller)
+        public PlayerStateMove(PlayerController controller) : base(controller)
         {
         }
 
