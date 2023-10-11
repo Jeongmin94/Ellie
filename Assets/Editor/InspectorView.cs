@@ -1,3 +1,5 @@
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 public class InspectorView : VisualElement
@@ -6,6 +8,6 @@ public class InspectorView : VisualElement
 
     public InspectorView()
     {
-
     }
+    
 }
