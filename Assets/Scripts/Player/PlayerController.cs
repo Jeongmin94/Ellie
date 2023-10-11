@@ -8,23 +8,31 @@ namespace Assets.Scripts.Player
     public class PlayerController : MonoBehaviour
     {
         [Header("Movement")]
-        [SerializeField] private float moveSpeed;
+        private float moveSpeed;
+        [SerializeField] private float walkSpeed;
+        [SerializeField] private float sprintSpeed;
         [SerializeField] private Transform orientation;
         [SerializeField] private float jumpForce;
+        [SerializeField] private float additionalJumpForce;
         [SerializeField] private float jumpCooldown;
         [SerializeField] private float airMultiplier;
 
         private bool canJump;
+        private bool isSprinting;
 
         [Header("Ground Check")]
         [SerializeField] private float playerHeight;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private float groundDrag;
         [SerializeField] private float additionalGravityForce;
+
         private bool isGrounded;
+        private bool isFalling;
 
         [Header("KeyBinds")]
         [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+        [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
+
 
         private float horizontalInput;
         private float verticalInput;
@@ -37,6 +45,7 @@ namespace Assets.Scripts.Player
             rb = GetComponent<Rigidbody>();
             rb.freezeRotation = true;
             canJump = true;
+            moveSpeed = walkSpeed;
         }
 
         private void Update()
@@ -44,22 +53,32 @@ namespace Assets.Scripts.Player
             GetInput();
             CheckGround();
             ControlSpeed();
+
         }
 
         private void FixedUpdate()
         {
             CalculateMoveDirection();
             MovePlayer();
+
         }
         private void GetInput()
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
 
-            if (Input.GetKey(jumpKey) && canJump && isGrounded)
+            if (Input.GetKeyDown(jumpKey) && canJump && isGrounded)
             {
                 canJump = false;
                 StartCoroutine(Jump());
+            }
+            if(Input.GetKey(sprintKey))
+            {
+                moveSpeed = sprintSpeed;
+            }
+            if (Input.GetKeyUp(sprintKey))
+            {
+                moveSpeed = walkSpeed;
             }
         }
 
@@ -86,7 +105,8 @@ namespace Assets.Scripts.Player
             else
             {
                 rb.AddForce(MoveDirection.normalized * moveSpeed * 10f * airMultiplier, ForceMode.Force);
-                rb.AddForce(-transform.up * additionalGravityForce, ForceMode.Force);
+                if(isFalling)
+                    rb.AddForce(-transform.up * additionalGravityForce, ForceMode.Force);
             }
         }
         private void ControlSpeed()
@@ -101,10 +121,19 @@ namespace Assets.Scripts.Player
 
         private IEnumerator Jump()
         {
+            //일단 힘을 가하자
+            isFalling = false;
+            float jumpInputTime = 0;
             rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
-            yield return new WaitForSeconds(jumpCooldown);
+            while (jumpInputTime < 0.5f && Input.GetKey(jumpKey))
+            {
+                jumpInputTime += Time.deltaTime;
+                rb.AddForce(transform.up * additionalJumpForce, ForceMode.Force);
+                yield return null;
+            }
+            isFalling = true;
+            yield return new WaitForSeconds(jumpCooldown - jumpInputTime);
             ResetJump();
         }
 
