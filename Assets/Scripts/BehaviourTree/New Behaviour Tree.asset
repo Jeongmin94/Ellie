@@ -1,22 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-9190217156104029304
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c5024777b5c7284db3fb38a9110546d, type: 3}
-  m_Name: DebugLogNode
-  m_EditorClassIdentifier: 
-  state: 0
-  isStarted: 0
-  position: {x: 578, y: 494}
-  guid: 029e7dafc3cf9644381bde92a374579c
-  message: ccc
 --- !u!114 &-8806698575562170075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isStarted: 0
-  position: {x: 578, y: 136.5}
+  position: {x: 97.7991, y: 348.00003}
   guid: 5c8a8b1620aeaf34eb6e2802ce4f2083
   duration: 1
 --- !u!114 &-2795107899306269259
@@ -48,7 +31,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isStarted: 0
-  position: {x: 578, y: 387}
+  position: {x: 366.994, y: 360.49997}
   guid: baaabcfc57b496744a644103a9dbda90
   duration: 1
 --- !u!114 &11400000
@@ -69,10 +52,8 @@ MonoBehaviour:
   - {fileID: 1305885184007786160}
   - {fileID: 8286216244732035751}
   - {fileID: -8806698575562170075}
-  - {fileID: -9190217156104029304}
   - {fileID: -2795107899306269259}
   - {fileID: 4391331204993127556}
-  - {fileID: 8723716689056457186}
   - {fileID: 5488249341745004292}
 --- !u!114 &1305885184007786160
 MonoBehaviour:
@@ -88,7 +69,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isStarted: 0
-  position: {x: -78, y: 290.5}
+  position: {x: 140.99597, y: 25.000004}
   guid: c58e3587d206c8c40889d40be872d50a
   child: {fileID: 8286216244732035751}
 --- !u!114 &4391331204993127556
@@ -105,7 +86,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isStarted: 0
-  position: {x: 576, y: 17}
+  position: {x: -69.9762, y: 328.9925}
   guid: 45777f84170b60642b77ca51451044f5
   message: aaa
 --- !u!114 &5488249341745004292
@@ -122,7 +103,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isStarted: 0
-  position: {x: 576, y: 252.5}
+  position: {x: 226.00003, y: 347.99994}
   guid: bcdf4ab9e0109154ba528d8c4ef2c691
   message: bbb
 --- !u!114 &8286216244732035751
@@ -139,29 +120,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   isStarted: 0
-  position: {x: 271, y: 290.5}
+  position: {x: 218.16496, y: 120.99997}
   guid: a32eda32f15d99a4991a9374d3042467
   children:
   - {fileID: -8806698575562170075}
   - {fileID: -2795107899306269259}
-  - {fileID: -9190217156104029304}
   - {fileID: 4391331204993127556}
-  - {fileID: 8723716689056457186}
   - {fileID: 5488249341745004292}
---- !u!114 &8723716689056457186
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13fdb837e00ac284a87e5f3b2980dd1e, type: 3}
-  m_Name: WaitNode
-  m_EditorClassIdentifier: 
-  state: 0
-  isStarted: 0
-  position: {x: 592, y: 627}
-  guid: ae64f6e3200edbd42be72c0bf0c29ada
-  duration: 1
