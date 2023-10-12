@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Player.States;
+﻿using Assets.Scripts.Camera;
+using Assets.Scripts.Player.States;
 using System.Collections;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
@@ -9,10 +10,13 @@ namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
+        public ThirdPersonCamera cam;
         [SerializeField] private float walkSpeed;
         public float WalkSpeed { get { return walkSpeed; } }
         [SerializeField] private float sprintSpeed;
         public float SprintSpeed { get { return sprintSpeed; } }
+        [SerializeField] private float dodgeSpeed;
+        public float DodgeSpeed { get { return dodgeSpeed; } }
 
         private const float MOVE_FORCE = 10f;
 
@@ -29,15 +33,22 @@ namespace Assets.Scripts.Player
         [Header("Ground Check")]
         [SerializeField] private float playerHeight;
         [SerializeField] private LayerMask groundLayer;
-        [SerializeField] private float groundDrag;
+        [SerializeField] public float groundDrag;
         [SerializeField] private float additionalGravityForce;
-        public float AdditionalGravityForce { get { return additionalGravityForce; } }  
+        public float AdditionalGravityForce { get { return additionalGravityForce; } }
 
         private const float ADDITIONAL_GROUND_CHECK_DIST = 0.2f;
+
+        [Header("Dodge")]
+        [SerializeField] private float dodgeInvulnerableTime;
+        public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
+        [SerializeField] private float dodgeForce;
+        public float DodgeForce { get { return dodgeForce; } }
 
         public bool isGrounded;
         public bool isFalling;
         public bool isJumping;
+        public bool isDodging;
         public bool canJump;
 
         private float horizontalInput;
@@ -78,6 +89,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Sprint, playerStateSprint);
             PlayerStateJump playerStateJump = new PlayerStateJump(this);
             stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
+            PlayerStateDodge playerStateDodge = new PlayerStateDodge(this);
+            stateMachine.AddState(PlayerStateName.Dodge, playerStateDodge);
         }
 
         public void MovePlayer(float moveSpeed)
@@ -101,7 +114,7 @@ namespace Assets.Scripts.Player
             canJump = true;
         }
 
-        
+
         public void ChangeState(PlayerStateName nextStateName)
         {
             stateMachine.ChangeState(nextStateName);

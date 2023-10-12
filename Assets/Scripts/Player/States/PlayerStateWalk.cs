@@ -40,6 +40,10 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
+            if(Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Controller.ChangeState(PlayerStateName.Dodge);
+            }
         }
 
         public override void OnFixedUpdateState()

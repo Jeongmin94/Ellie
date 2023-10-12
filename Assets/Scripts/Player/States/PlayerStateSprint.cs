@@ -32,8 +32,11 @@ namespace Assets.Scripts.Player.States
                 Controller.ChangeState(PlayerStateName.Walk);
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
-                //점프하면 점프 스테이트로 전이
                 Controller.ChangeState(PlayerStateName.Jump);
+            }
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Controller.ChangeState(PlayerStateName.Dodge);
             }
         }
 
