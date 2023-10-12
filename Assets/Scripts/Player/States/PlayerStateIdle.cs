@@ -30,11 +30,13 @@ namespace Assets.Scripts.Player.States
             {
                 //입력이 들어온 것
                 //스테이트 전이
+                Controller.Anim.SetTrigger("Walk");
                 Controller.ChangeState(PlayerStateName.Walk);
             }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
                 //점프하면 점프 스테이트로 전이
+                Controller.Anim.SetTrigger("Jump");
                 Controller.ChangeState(PlayerStateName.Jump);
             }
         }

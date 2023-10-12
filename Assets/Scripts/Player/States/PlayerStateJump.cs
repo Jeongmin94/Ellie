@@ -27,6 +27,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
+            Controller.Anim.SetTrigger("Idle");
             Controller.isJumping = false;
         }
 
@@ -40,6 +41,7 @@ namespace Assets.Scripts.Player.States
             else
             {
                 Controller.isFalling = true;
+                Controller.Anim.SetBool("IsFalling", true);
             }
             if (Controller.isFalling)
                 rb.AddForce(-rb.transform.up * Controller.AdditionalGravityForce, ForceMode.Force);

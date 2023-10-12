@@ -29,15 +29,20 @@ namespace Assets.Scripts.Player.States
         {
             ControlSpeed();
             if (Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                Controller.Anim.SetTrigger("Walk");
                 Controller.ChangeState(PlayerStateName.Walk);
+            }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
+                Controller.Anim.SetTrigger("Jump");
                 Controller.ChangeState(PlayerStateName.Jump);
             }
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }
+            
         }
 
         public override void OnFixedUpdateState()

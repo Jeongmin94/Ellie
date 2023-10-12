@@ -46,6 +46,10 @@ namespace Assets.Scripts.Player
         [SerializeField] private float dodgeForce;
         public float DodgeForce { get { return dodgeForce; } }
 
+        [Header("Attack")]
+        [SerializeField] private bool hasRock;
+
+
         public bool isGrounded;
         public bool isFalling;
         public bool isJumping;
@@ -58,6 +62,7 @@ namespace Assets.Scripts.Player
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
+        public Animator Anim { get; private set; }
 
         private PlayerStateMachine stateMachine;
 
@@ -65,6 +70,7 @@ namespace Assets.Scripts.Player
         {
             Rb = GetComponent<Rigidbody>();
             Rb.freezeRotation = true;
+            Anim = GetComponentInChildren<Animator>();
             canJump = true;
             InitStateMachine();
             aimCam.SetActive(false);
@@ -160,8 +166,10 @@ namespace Assets.Scripts.Player
         {
             if (isJumping && collision.gameObject.CompareTag("Ground"))
             {
+                Anim.SetBool("IsFalling", false);
                 isFalling = false;
                 ChangeState(PlayerStateName.Idle);
+                //Anim.SetTrigger("Idle");
             }
         }
     }

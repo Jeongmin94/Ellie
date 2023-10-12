@@ -13,5 +13,9 @@ namespace Assets.Scripts.Player
         Sprint,
         Jump,
         Dodge,
+        MeleeAttack,
+        Zoom,
+        Charging,
+        Shoot
     }
 }
