@@ -10,7 +10,8 @@ namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public ThirdPersonCamera cam;
+        public GameObject mainCam;
+        public GameObject aimCam;
         [SerializeField] private float walkSpeed;
         public float WalkSpeed { get { return walkSpeed; } }
         [SerializeField] private float sprintSpeed;
@@ -66,12 +67,24 @@ namespace Assets.Scripts.Player
             Rb.freezeRotation = true;
             canJump = true;
             InitStateMachine();
+            aimCam.SetActive(false);
         }
         private void Update()
         {
             GetInput();
             CheckGround();
             stateMachine?.UpdateState();
+            //Aim Camera Test
+            if (Input.GetMouseButtonDown(0))
+            {
+                mainCam.gameObject.SetActive(false);
+                aimCam.SetActive(true);
+            }
+            if (Input.GetMouseButtonUp(0))
+            {
+                mainCam.gameObject.SetActive(true);
+                aimCam.SetActive(false);
+            }
         }
         private void FixedUpdate()
         {
