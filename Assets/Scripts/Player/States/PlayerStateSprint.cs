@@ -10,10 +10,10 @@ namespace Assets.Scripts.Player.States
     internal class PlayerStateSprint : PlayerBaseState
     {
         private float moveSpeed;
-        private Rigidbody rb;
+        private readonly Rigidbody rb;
         public PlayerStateSprint(PlayerController controller) : base(controller)
         {
-            rb = controller.rb;
+            rb = controller.Rb;
         }
 
         public override void OnEnterState()

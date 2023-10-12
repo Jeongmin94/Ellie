@@ -476,9 +476,9 @@ MonoBehaviour:
   sprintSpeed: 9
   orientation: {fileID: 421776008}
   jumpForce: 12
-  additionalJumpForce: 0.5
+  additionalJumpForce: 1.5
   jumpCooldown: 0.5
-  airMultiplier: 0
+  maximumAdditionalJumpInputTime: 0.3
   playerHeight: 2
   groundLayer:
     serializedVersion: 2
@@ -489,11 +489,6 @@ MonoBehaviour:
   isFalling: 0
   isJumping: 0
   canJump: 0
-  jumpKey: 32
-  sprintKey: 304
-  horizontalInput: 0
-  verticalInput: 0
-  rb: {fileID: 0}
 --- !u!1001 &934261102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1644,8 +1639,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7607966850036795024}
-  m_LocalRotation: {x: 0.19041058, y: 0.000000027279636, z: -0.000000005291135, w: 0.98170453}
-  m_LocalPosition: {x: 0, y: 0.8388901, z: 0.43792915}
+  m_LocalRotation: {x: 0.09853762, y: 0.000000004280641, z: -4.2386697e-10, w: 0.99513334}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1722,7 +1717,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7607966850279672979}
-  m_LocalRotation: {x: 0.098537624, y: -0.000000015913386, z: 0.0000000015757364, w: 0.99513334}
+  m_LocalRotation: {x: 0.098537624, y: 0.0000000042806607, z: -4.238689e-10, w: 0.99513334}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

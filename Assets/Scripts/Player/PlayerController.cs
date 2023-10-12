@@ -3,57 +3,69 @@ using System.Collections;
 using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Playables;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        [Header("Movement")]
-        private float moveSpeed;
-
-        [SerializeField] public float walkSpeed;
+        [SerializeField] private float walkSpeed;
         public float WalkSpeed { get { return walkSpeed; } }
-        [SerializeField] public float sprintSpeed;
+        [SerializeField] private float sprintSpeed;
         public float SprintSpeed { get { return sprintSpeed; } }
 
-        [SerializeField] public Transform orientation;
-        [SerializeField] public float jumpForce;
-        [SerializeField] public float additionalJumpForce;
-        [SerializeField] public float jumpCooldown;
-        [SerializeField] public float airMultiplier;
+        private const float MOVE_FORCE = 10f;
+
+        [SerializeField] private Transform orientation;
+        [Header("Jump")]
+        [SerializeField] private float jumpForce;
+        [SerializeField] private float additionalJumpForce;
+        public float AdditionalJumpForce { get { return additionalJumpForce; } }
+        [SerializeField] private float jumpCooldown;
+        [SerializeField] private float maximumAdditionalJumpInputTime;
+        public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
 
 
         [Header("Ground Check")]
-        [SerializeField] public float playerHeight;
-        [SerializeField] public LayerMask groundLayer;
-        [SerializeField] public float groundDrag;
-        [SerializeField] public float additionalGravityForce;
+        [SerializeField] private float playerHeight;
+        [SerializeField] private LayerMask groundLayer;
+        [SerializeField] private float groundDrag;
+        [SerializeField] private float additionalGravityForce;
+        public float AdditionalGravityForce { get { return additionalGravityForce; } }  
+
+        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.2f;
 
         public bool isGrounded;
         public bool isFalling;
         public bool isJumping;
         public bool canJump;
 
-        [Header("KeyBinds")]
-        [SerializeField] public KeyCode jumpKey = KeyCode.Space;
-        [SerializeField] public KeyCode sprintKey = KeyCode.LeftShift;
-
-
-        public float horizontalInput;
-        public float verticalInput;
+        private float horizontalInput;
+        private float verticalInput;
 
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
-        public Rigidbody rb;
+        public Rigidbody Rb { get; private set; }
 
         private PlayerStateMachine stateMachine;
 
         private void Start()
         {
-            rb = GetComponent<Rigidbody>();
-            rb.freezeRotation = true;
+            Rb = GetComponent<Rigidbody>();
+            Rb.freezeRotation = true;
             canJump = true;
             InitStateMachine();
+        }
+        private void Update()
+        {
+            GetInput();
+            CheckGround();
+            stateMachine?.UpdateState();
+        }
+        private void FixedUpdate()
+        {
+            CalculateMoveDirection();
+            stateMachine?.FixedUpdateState();
         }
         private void InitStateMachine()
         {
@@ -66,24 +78,11 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Sprint, playerStateSprint);
             PlayerStateJump playerStateJump = new PlayerStateJump(this);
             stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
-
-        }
-        private void Update()
-        {
-            GetInput();
-            CheckGround();
-            stateMachine?.UpdateState();
-
         }
 
-        private void FixedUpdate()
-        {
-            CalculateMoveDirection();
-            stateMachine?.FixedUpdateState();
-        }
         public void MovePlayer(float moveSpeed)
         {
-            rb.AddForce(MoveDirection.normalized * moveSpeed * 10f, ForceMode.Force);
+            Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
         }
 
         public void JumpPlayer()
@@ -94,28 +93,15 @@ namespace Assets.Scripts.Player
         private IEnumerator Jump()
         {
             canJump = false;
-            float jumpInputTime = 0;
-     
-            rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
-            rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            while (jumpInputTime < 0.5f && Input.GetKey(KeyCode.Space))
-            {
-                Debug.Log(jumpInputTime);
-                jumpInputTime += Time.deltaTime;
-                rb.AddForce(transform.up * additionalJumpForce, ForceMode.Force);
-                yield return null;
-            }
-            isFalling = true;
-            yield return new WaitForSeconds(jumpCooldown - jumpInputTime);
+
+            Rb.velocity = new Vector3(Rb.velocity.x, 0f, Rb.velocity.z);
+            Rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+
+            yield return new WaitForSeconds(jumpCooldown);
             canJump = true;
-            //착지 스테이트로 전이인데 일단 Idle로 보내자
-            //Controller.ChangeState(PlayerStateName.Idle);
         }
 
-        public void Fall()
-        {
-            rb.AddForce(-transform.up * additionalGravityForce, ForceMode.Force);
-        }
+        
         public void ChangeState(PlayerStateName nextStateName)
         {
             stateMachine.ChangeState(nextStateName);
@@ -129,14 +115,14 @@ namespace Assets.Scripts.Player
 
         private void CheckGround()
         {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, groundLayer);
+            isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
             if (isGrounded)
             {
-                rb.drag = groundDrag;
+                Rb.drag = groundDrag;
             }
             else
             {
-                rb.drag = 0;
+                Rb.drag = 0;
             }
         }
         private void CalculateMoveDirection()
@@ -146,8 +132,9 @@ namespace Assets.Scripts.Player
 
         private void OnCollisionEnter(Collision collision)
         {
-            if(isJumping && collision.gameObject.CompareTag("Ground"))
+            if (isJumping && collision.gameObject.CompareTag("Ground"))
             {
+                isFalling = false;
                 ChangeState(PlayerStateName.Idle);
             }
         }

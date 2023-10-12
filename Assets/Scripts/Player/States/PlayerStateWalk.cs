@@ -10,10 +10,10 @@ namespace Assets.Scripts.Player.States
     internal class PlayerStateWalk : PlayerBaseState
     {
         private float moveSpeed;
-        private Rigidbody rb;
+        private readonly Rigidbody rb;
         public PlayerStateWalk(PlayerController controller) : base(controller)
         {
-            rb = Controller.rb;
+            rb = Controller.Rb;
         }
 
         public override void OnEnterState()
@@ -28,19 +28,18 @@ namespace Assets.Scripts.Player.States
         public override void OnUpdateState()
         {
             ControlSpeed();
-            if (Input.GetKeyDown(KeyCode.LeftShift))
+            if (Input.GetKey(KeyCode.LeftShift))
             {
-                Debug.Log("State Changed Walk To Sprint");
-
                 Controller.ChangeState(PlayerStateName.Sprint);
             }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
-                //점프하면 점프 스테이트로 전이
                 Controller.ChangeState(PlayerStateName.Jump);
             }
             if (Controller.MoveInput.magnitude == 0)
+            {
                 Controller.ChangeState(PlayerStateName.Idle);
+            }
         }
 
         public override void OnFixedUpdateState()
