@@ -39,10 +39,10 @@ public class BehaviourTreeEditor : EditorWindow
     // ui가 선택이 변경되었을 때 실행되는 함수
     private void OnSelectionChange()
     {
-        // 트리가 활성화 되어있는지 확인하고
+        // 트리가 활성화 되어있는지, 열 수 있는지 확인하고
         // 활성화 되어 있다면 트리 내부를 채운다
-        BehaviorTree tree = Selection.activeObject as BehaviorTree;
-        if(tree)
+        BehaviourTree tree = Selection.activeObject as BehaviourTree;
+        if(tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
         {
             treeView.PopulateView(tree);
         }

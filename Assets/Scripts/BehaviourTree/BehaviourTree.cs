@@ -5,7 +5,7 @@ using UnityEditor;
 using Unity.VisualScripting;
 
 [CreateAssetMenu()]
-public class BehaviorTree : ScriptableObject
+public class BehaviourTree : ScriptableObject
 {
     public Node rootNode;   // 현재 진입 노드
     public Node.State treeState = Node.State.Running;   // 현재 노드의 상태
@@ -60,6 +60,12 @@ public class BehaviorTree : ScriptableObject
         {
             composite.children.Add(child);
         }
+
+        RootNode rootNode = parent as RootNode;
+        if (rootNode)
+        {
+            rootNode.child = child;
+        }
     }
 
     public void RemoveChild(Node parent, Node child)
@@ -74,6 +80,12 @@ public class BehaviorTree : ScriptableObject
         if (composite)
         {
             composite.children.Remove(child);
+        }
+
+        RootNode rootNode = parent as RootNode;
+        if (rootNode)
+        {
+            rootNode.child = null;
         }
     }
 
@@ -91,6 +103,12 @@ public class BehaviorTree : ScriptableObject
         if (composite)
         {
             return composite.children;
+        }
+
+        RootNode rootNode = parent as RootNode;
+        if (rootNode && rootNode.child != null)
+        {
+            children.Add(rootNode.child);
         }
 
         return children;

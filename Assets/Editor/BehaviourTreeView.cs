@@ -11,7 +11,7 @@ public class BehaviourTreeView : GraphView
 
     public new class UxmlFactory : UxmlFactory<BehaviourTreeView, GraphView.UxmlTraits> { }
 
-    private BehaviorTree tree;
+    private BehaviourTree tree;
 
     public BehaviourTreeView()
     {
@@ -27,13 +27,23 @@ public class BehaviourTreeView : GraphView
     }
 
     // 행동트리 GUI 화면의 초기화 
-    public void PopulateView(BehaviorTree tree)
+    public void PopulateView(BehaviourTree tree)
     {
         this.tree = tree;
 
         graphViewChanged -= OnGraphViewChanged;
         DeleteElements(graphElements);
         graphViewChanged += OnGraphViewChanged;
+
+        // 루트 노드가 없으면 새로 생성한다.
+        if(tree.rootNode == null)
+        {
+            tree.rootNode = tree.CreateNode(typeof(RootNode)) as RootNode;
+
+            // 편집기 유틸리티를 불러와서 파싱. 데이터 갱신
+            EditorUtility.SetDirty(tree);
+            AssetDatabase.SaveAssets();
+        }
 
         // 노드 정보들을 불러와서 생성한다
         foreach (var node in tree.nodes)

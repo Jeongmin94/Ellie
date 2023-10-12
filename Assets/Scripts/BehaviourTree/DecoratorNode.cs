@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class DecoratorNode : Node
 {
-    public Node child;
+    [HideInInspector] public Node child;
 
 
 }

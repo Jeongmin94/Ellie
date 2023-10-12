@@ -43,8 +43,13 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
         {
             input = InstantiatePort(Orientation.Horizontal, UnityEditor.Experimental.GraphView.Direction.Input, Port.Capacity.Single, typeof(bool));
         }
+        // 루트 노드는 모든 노드의 최상위 부모 노드이기 때문에, input이 존재하지 않는다.
+        else if (node is RootNode)
+        {
 
-        if(input != null)
+        }
+
+        if (input != null)
         {
             input.portName = "";
             inputContainer.Add(input);
@@ -64,6 +69,10 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
             output = InstantiatePort(Orientation.Horizontal, UnityEditor.Experimental.GraphView.Direction.Output, Port.Capacity.Multi, typeof(bool));
         }
         else if (node is DecoratorNode)
+        {
+            output = InstantiatePort(Orientation.Horizontal, UnityEditor.Experimental.GraphView.Direction.Output, Port.Capacity.Single, typeof(bool));
+        }
+        else if (node is RootNode)
         {
             output = InstantiatePort(Orientation.Horizontal, UnityEditor.Experimental.GraphView.Direction.Output, Port.Capacity.Single, typeof(bool));
         }

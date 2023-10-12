@@ -1,13 +1,13 @@
 using UnityEngine;
 
 // (테스트용) 실제로 행동트리 패턴들을 구현할 대상 오브젝트
-public class BehaviorTreeRunner : MonoBehaviour
+public class BehaviourTreeRunner : MonoBehaviour
 {
-    private BehaviorTree tree;
+    private BehaviourTree tree;
 
     private void Start()
     {
-        tree = ScriptableObject.CreateInstance<BehaviorTree>();
+        tree = ScriptableObject.CreateInstance<BehaviourTree>();
 
         var log1 = ScriptableObject.CreateInstance<DebugLogNode>();
         log1.message = "ASDFASDFSDAF~~ 111";
