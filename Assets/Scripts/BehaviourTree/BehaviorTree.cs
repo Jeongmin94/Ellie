@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
+using Unity.VisualScripting;
 
 [CreateAssetMenu()]
 public class BehaviorTree : ScriptableObject
@@ -43,5 +44,55 @@ public class BehaviorTree : ScriptableObject
         // 에셋 폴더에 데이터베이스 삭제 후 갱신
         AssetDatabase.RemoveObjectFromAsset(node);
         AssetDatabase.SaveAssets();
+    }
+
+    public void AddChild(Node parent, Node child)
+    {
+        // DecoratorNode - 자식 노드가 항상 한개, CompositeNode - 자식 노드가 여러개 가능
+        DecoratorNode decorator = parent as DecoratorNode;
+        if (decorator)
+        {
+            decorator.child = child;
+        }
+
+        CompositeNode composite = parent as CompositeNode;
+        if (composite)
+        {
+            composite.children.Add(child);
+        }
+    }
+
+    public void RemoveChild(Node parent, Node child)
+    {
+        DecoratorNode decorator = parent as DecoratorNode;
+        if (decorator)
+        {
+            decorator.child = null;
+        }
+
+        CompositeNode composite = parent as CompositeNode;
+        if (composite)
+        {
+            composite.children.Remove(child);
+        }
+    }
+
+    public List<Node> GetChildren(Node parent)
+    {
+        List<Node> children = new List<Node>();
+
+        DecoratorNode decorator = parent as DecoratorNode;
+        if (decorator && decorator.child != null)
+        {
+            children.Add(decorator.child);
+        }
+
+        CompositeNode composite = parent as CompositeNode;
+        if (composite)
+        {
+            return composite.children;
+        }
+
+        return children;
     }
 }

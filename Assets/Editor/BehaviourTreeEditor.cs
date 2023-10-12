@@ -29,6 +29,8 @@ public class BehaviourTreeEditor : EditorWindow
 
         treeView = root.Q<BehaviourTreeView>();
         inspectorView = root.Q<InspectorView>();
+
+        OnSelectionChange();
     }
 
     // ui가 선택이 변경되었을 때 실행되는 함수
