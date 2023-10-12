@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
-
+﻿
 public class RepeatNode : DecoratorNode
 {
     protected override void OnStart()

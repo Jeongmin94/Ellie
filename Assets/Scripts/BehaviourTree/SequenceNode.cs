@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 // AND 연산 -> 자식 노드를 순차적으로 실행한다
 // 자식 노드중에 하나라도 실패하면 걍 다실패

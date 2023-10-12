@@ -1,8 +1,6 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
-using Unity.VisualScripting;
 
 [CreateAssetMenu()]
 public class BehaviourTree : ScriptableObject
@@ -112,5 +110,12 @@ public class BehaviourTree : ScriptableObject
         }
 
         return children;
+    }
+
+    public BehaviourTree Clone()
+    {
+        BehaviourTree tree = Instantiate(this);
+        tree.rootNode = tree.rootNode.Clone();
+        return tree;
     }
 }

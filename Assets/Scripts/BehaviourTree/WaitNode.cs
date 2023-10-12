@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 // 주어진 시간이 지나면 성공을 반환시키는 노드
 public class WaitNode : ActionNode
