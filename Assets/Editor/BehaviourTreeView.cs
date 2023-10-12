@@ -3,9 +3,12 @@ using UnityEditor.Experimental.GraphView;
 using UnityEditor;
 using System.Collections.Generic;
 using System.Linq;
+using System;
 
 public class BehaviourTreeView : GraphView
 {
+    public Action<NodeView> nodeSelectedAction;
+
     public new class UxmlFactory : UxmlFactory<BehaviourTreeView, GraphView.UxmlTraits> { }
 
     private BehaviorTree tree;
@@ -141,6 +144,7 @@ public class BehaviourTreeView : GraphView
     private void CreateNodeView(Node node)
     {
         NodeView nodeView = new NodeView(node);
+        nodeView.nodeSelectedAction = nodeSelectedAction;
         AddElement(nodeView);
     }
 

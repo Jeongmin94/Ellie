@@ -30,6 +30,9 @@ public class BehaviourTreeEditor : EditorWindow
         treeView = root.Q<BehaviourTreeView>();
         inspectorView = root.Q<InspectorView>();
 
+        // 노드 변경 시의 이벤트 구독
+        treeView.nodeSelectedAction = OnNodeSelectionChanged;
+
         OnSelectionChange();
     }
 
@@ -43,5 +46,11 @@ public class BehaviourTreeEditor : EditorWindow
         {
             treeView.PopulateView(tree);
         }
+    }
+
+    // 노드 선택이 변경될 때 호출
+    private void OnNodeSelectionChanged(NodeView node)
+    {
+        inspectorView.UpdateView(node);
     }
 }

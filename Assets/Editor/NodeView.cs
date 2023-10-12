@@ -7,6 +7,8 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
 {
     // 모든 유형의 노드를 생성하기 위해 GraphView에 있는 Node를 직접 사용하는 것이 아니라
     // 새로 상속받아서 사용한다. (그냥은 namespace에 있는 한정적인 종류만 사용 가능)
+    public Action<NodeView> nodeSelectedAction;
+
     public Node node;
     public Port input;
     public Port output;
@@ -78,5 +80,15 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
         base.SetPosition(newPos);
         node.position.x = newPos.xMin;
         node.position.y = newPos.yMin;
+    }
+
+    public override void OnSelected()
+    {
+        base.OnSelected();
+
+        if(nodeSelectedAction != null)
+        {
+            nodeSelectedAction?.Invoke(this);
+        }
     }
 }

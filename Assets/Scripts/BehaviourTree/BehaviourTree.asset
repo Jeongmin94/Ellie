@@ -15,7 +15,7 @@ MonoBehaviour:
   state: 0
   isStarted: 0
   guid: eb01928e5c41dfc4788156a17039f56c
-  position: {x: 545, y: 514}
+  position: {x: 534, y: 514}
   duration: 1
 --- !u!114 &-6836914285973964996
 MonoBehaviour:
@@ -32,7 +32,7 @@ MonoBehaviour:
   state: 0
   isStarted: 0
   guid: 4c7fc889025491740a19931c9bcf0ffe
-  position: {x: 531, y: 260}
+  position: {x: 102, y: 264}
   duration: 1
 --- !u!114 &11400000
 MonoBehaviour:
@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: -6836914285973964996}
   - {fileID: 4317716527977960981}
   - {fileID: 5675487020939118078}
+  - {fileID: 7008542423099130772}
 --- !u!114 &4317716527977960981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87,7 +88,7 @@ MonoBehaviour:
   state: 0
   isStarted: 0
   guid: cc05d6c1fd456364d9d0d6377b89ef43
-  position: {x: 545, y: 374.04}
+  position: {x: 534, y: 374}
   message: 
 --- !u!114 &5675487020939118078
 MonoBehaviour:
@@ -104,8 +105,27 @@ MonoBehaviour:
   state: 0
   isStarted: 0
   guid: 8a3b1ca1b7dc34644b1b45bb1b940501
+  position: {x: -99, y: 363}
+  children:
+  - {fileID: 4317716527977960981}
+  - {fileID: -6836914285973964996}
+--- !u!114 &7008542423099130772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5024777b5c7284db3fb38a9110546d, type: 3}
+  m_Name: DebugLogNode
+  m_EditorClassIdentifier: 
+  state: 0
+  isStarted: 0
+  guid: 03f721677f40cf843bde27ec88bfd005
   position: {x: 0, y: 0}
-  children: []
+  message: 
 --- !u!114 &8296577908029356235
 MonoBehaviour:
   m_ObjectHideFlags: 0

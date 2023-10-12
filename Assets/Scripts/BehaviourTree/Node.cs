@@ -9,10 +9,10 @@ public abstract class Node : ScriptableObject
         Success
     }
 
-    public State state = State.Running;     // 현재 상태
-    public bool isStarted = false;          // 실행 된 적이 있는지? (초기화 함수)
-    public string guid;                     // 노드의 기능 설명(주석)
-    public Vector2 position;                // GUI에서 노드의 위치를 저장
+    [HideInInspector] public State state = State.Running;     // 현재 상태
+    [HideInInspector] public bool isStarted = false;          // 실행 된 적이 있는지? (초기화 함수)
+    [HideInInspector] public Vector2 position;                // GUI에서 노드의 위치를 저장
+    [HideInInspector] public string guid;                     // 진입 키
 
     // 세가지 상태 중 하나를 반환한다
     public State Update()
