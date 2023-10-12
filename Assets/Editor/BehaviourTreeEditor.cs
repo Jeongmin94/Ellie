@@ -5,6 +5,9 @@ using UnityEditor.UIElements;
 
 public class BehaviourTreeEditor : EditorWindow
 {
+    BehaviourTreeView treeView;
+    InspectorView inspectorView;
+
     [MenuItem("BehaviourTreeEditor/Editor ...")]
     public static void OpenWindow()
     {
@@ -14,16 +17,29 @@ public class BehaviourTreeEditor : EditorWindow
 
     public void CreateGUI()
     {
-        // Each editor window contains a root VisualElement object
         VisualElement root = rootVisualElement;
 
-        // Import UXML
+        // UXML 추가
         var visualTree = AssetDatabase.LoadAssetAtPath<VisualTreeAsset>("Assets/Editor/BehaviourTreeEditor.uxml");
         visualTree.CloneTree(root);
 
-        // A stylesheet can be added to a VisualElement.
-        // The style will be applied to the VisualElement and all of its children.
+        // UI의 구성요소들을 설정하기
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Editor/BehaviourTreeEditor.uss");
         root.styleSheets.Add(styleSheet);
+
+        treeView = root.Q<BehaviourTreeView>();
+        inspectorView = root.Q<InspectorView>();
+    }
+
+    // ui가 선택이 변경되었을 때 실행되는 함수
+    private void OnSelectionChange()
+    {
+        // 트리가 활성화 되어있는지 확인하고
+        // 활성화 되어 있다면 트리 내부를 채운다
+        BehaviorTree tree = Selection.activeObject as BehaviorTree;
+        if(tree)
+        {
+            treeView.PopulateView(tree);
+        }
     }
 }
