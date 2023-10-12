@@ -36,6 +36,13 @@ public abstract class Node : ScriptableObject
         return state;
     }
 
+    // 여러개의 오브젝트가 하나의 행동트리를 참조할 수 있으므로
+    // 같은 부분을 참조시키지 않게 개별적으로 복제해서 생성해준다
+    public virtual Node Clone()
+    {
+        return Instantiate(this);
+    }
+
     protected abstract void OnStart();
     protected abstract void OnStop();
     protected abstract State OnUpdate();
