@@ -20,15 +20,16 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Debug.Log("Jump");
             jumpInputTime = 0;
             Controller.isJumping = true;
             Controller.JumpPlayer();
+            Controller.Anim.SetTrigger("Jump");
         }
 
         public override void OnExitState()
         {
-            Controller.Anim.SetTrigger("Idle");
-            Controller.isJumping = false;
+            //Controller.isJumping = false;
         }
 
         public override void OnFixedUpdateState()
@@ -40,11 +41,12 @@ namespace Assets.Scripts.Player.States
             }
             else
             {
-                Controller.isFalling = true;
-                Controller.Anim.SetBool("IsFalling", true);
+                //점프 input이 끝나면 Airbourn 스테이트로 넘어가자
+                
+                Controller.ChangeState(PlayerStateName.Airbourn);
             }
-            if (Controller.isFalling)
-                rb.AddForce(-rb.transform.up * Controller.AdditionalGravityForce, ForceMode.Force);
+            //if (Controller.isFalling)
+            //    rb.AddForce(-rb.transform.up * Controller.AdditionalGravityForce, ForceMode.Force);
         }
 
         public override void OnUpdateState()

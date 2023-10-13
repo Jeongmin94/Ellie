@@ -239,11 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bd6043bde05a7fc4cba197d06915c1e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Damping: {x: 0.1, y: 1, z: 2}
+  Damping: {x: 0.1, y: 1, z: 4}
   ShoulderOffset: {x: 0.5, y: 0, z: 0}
   VerticalArmLength: 0.4
   CameraSide: 0.5
-  CameraDistance: 7
+  CameraDistance: 5
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 8
@@ -370,6 +370,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
       propertyPath: m_Name
       value: StylizedGirl
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
       propertyPath: m_Controller
@@ -552,7 +556,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 571146923}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.23, z: -7}
+  m_LocalPosition: {x: 0, y: 1.23, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -691,6 +695,7 @@ GameObject:
   - component: {fileID: 686027020}
   - component: {fileID: 686027021}
   - component: {fileID: 686027022}
+  - component: {fileID: 686027023}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -818,6 +823,27 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: 0
       m_LegacyVelocityFilterStrength: 0
   cameraLookAt: {fileID: 1354110805}
+--- !u!95 &686027023
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 686027018}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
+  m_Controller: {fileID: 9100000, guid: 1f0ae533b0475f140a636c62c09ad980, type: 2}
+  m_CullingMode: 1
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &934261102
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -899,7 +925,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &938847622
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -946,7 +972,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 938847620}
   m_LocalRotation: {x: 0.123005815, y: -0.035375133, z: 0.0043874756, w: 0.99176556}
-  m_LocalPosition: {x: 2, y: 1.768, z: -7}
+  m_LocalPosition: {x: 1.5, y: 1.23, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1164,7 +1190,7 @@ GameObject:
   - component: {fileID: 1200367480}
   - component: {fileID: 1200367479}
   - component: {fileID: 1200367478}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (2)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1261,7 +1287,7 @@ GameObject:
   - component: {fileID: 1215087032}
   - component: {fileID: 1215087031}
   - component: {fileID: 1215087030}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (3)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1399,7 +1425,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 30
+  field of view: 25
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -1425,7 +1451,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.23, z: -7}
+  m_LocalPosition: {x: 1.5, y: 1.23, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1526,7 +1552,7 @@ GameObject:
   - component: {fileID: 1425172399}
   - component: {fileID: 1425172398}
   - component: {fileID: 1425172397}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1753,7 +1779,7 @@ GameObject:
   - component: {fileID: 1715853950}
   - component: {fileID: 1715853949}
   - component: {fileID: 1715853948}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube (1)
   m_TagString: Ground
   m_Icon: {fileID: 0}
@@ -1954,7 +1980,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damping: {x: 0.1, y: 0.5, z: 2}
-  ShoulderOffset: {x: 2, y: 0, z: 0}
+  ShoulderOffset: {x: 1.5, y: 0, z: 2}
   VerticalArmLength: 0.4
   CameraSide: 1
   CameraDistance: 7

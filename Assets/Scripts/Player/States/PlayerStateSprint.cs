@@ -18,6 +18,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Debug.Log("Sprint");
             moveSpeed = Controller.SprintSpeed;
         }
 
@@ -30,12 +31,10 @@ namespace Assets.Scripts.Player.States
             ControlSpeed();
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
-                Controller.Anim.SetTrigger("Walk");
                 Controller.ChangeState(PlayerStateName.Walk);
             }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
-                Controller.Anim.SetTrigger("Jump");
                 Controller.ChangeState(PlayerStateName.Jump);
             }
             if (Input.GetKeyDown(KeyCode.LeftControl))

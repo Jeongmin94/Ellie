@@ -16,6 +16,8 @@ namespace Assets.Scripts.Player
         MeleeAttack,
         Zoom,
         Charging,
-        Shoot
+        Shoot,
+        Land,
+        Airbourn
     }
 }

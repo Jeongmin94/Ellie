@@ -70,7 +70,7 @@ namespace Assets.Scripts.Player
         {
             Rb = GetComponent<Rigidbody>();
             Rb.freezeRotation = true;
-            Anim = GetComponentInChildren<Animator>();
+            Anim = GetComponent<Animator>();
             canJump = true;
             InitStateMachine();
             aimCam.SetActive(false);
@@ -91,6 +91,8 @@ namespace Assets.Scripts.Player
                 mainCam.gameObject.SetActive(true);
                 aimCam.SetActive(false);
             }
+            //moving blend tree
+            Anim.SetFloat("Velocity", Rb.velocity.magnitude);
         }
         private void FixedUpdate()
         {
@@ -110,6 +112,10 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
             PlayerStateDodge playerStateDodge = new PlayerStateDodge(this);
             stateMachine.AddState(PlayerStateName.Dodge, playerStateDodge);
+            PlayerStateAirbourn playerStateAirbourn = new PlayerStateAirbourn(this);
+            stateMachine.AddState(PlayerStateName.Airbourn, playerStateAirbourn);
+            PlayerStateLand playerStateLand = new PlayerStateLand(this);
+            stateMachine.AddState(PlayerStateName.Land, playerStateLand);
         }
 
         public void MovePlayer(float moveSpeed)
@@ -166,11 +172,16 @@ namespace Assets.Scripts.Player
         {
             if (isJumping && collision.gameObject.CompareTag("Ground"))
             {
-                Anim.SetBool("IsFalling", false);
+                //Anim.SetBool("IsFalling", false);
                 isFalling = false;
-                ChangeState(PlayerStateName.Idle);
+                ChangeState(PlayerStateName.Land);
                 //Anim.SetTrigger("Idle");
             }
+        }
+
+        public void OnLandAnimEnd()
+        {
+            ChangeState(PlayerStateName.Idle);
         }
     }
 }

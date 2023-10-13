@@ -17,7 +17,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-
+            Debug.Log("Idle");
         }
 
         public override void OnExitState()
@@ -30,7 +30,6 @@ namespace Assets.Scripts.Player.States
             {
                 //입력이 들어온 것
                 //스테이트 전이
-                Controller.Anim.SetTrigger("Walk");
                 Controller.ChangeState(PlayerStateName.Walk);
             }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
