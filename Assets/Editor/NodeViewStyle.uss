@@ -88,3 +88,24 @@
     background-color: rgb(72, 72, 72);
     min-height: 1px;
 }
+
+.action #input {
+    background-color: rgb(238, 99, 82);
+}
+
+.composite #input {
+    background-color: rgb(89, 205, 144);
+}
+
+.decorator #input {
+    background-color: rgb(63, 167, 214);
+}
+
+.root #input {
+    background-color: rgb(250, 192, 94);
+    min-height: 20px;
+}
+
+.action #output {
+    min-height: 20px;
+}
