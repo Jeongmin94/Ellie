@@ -24,6 +24,15 @@ public class BehaviourTreeView : GraphView
 
         var styleSheet = AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/Editor/BehaviourTreeEditor.uss");
         styleSheets.Add(styleSheet);
+
+        Undo.undoRedoPerformed += OnUndoRedo;
+    }
+
+    private void OnUndoRedo()
+    {
+        // 행동 트리 GUI 창에서 되돌리기 시 화면 업데이트 할 수 있게 이벤트 구독
+        PopulateView(tree);
+        AssetDatabase.SaveAssets();
     }
 
     // 행동트리 GUI 화면의 초기화 
