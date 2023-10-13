@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Camera
@@ -17,7 +18,7 @@ namespace Assets.Scripts.Camera
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
-            
+
         }
 
         private void LateUpdate()
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Camera
 
             Vector3 inputDir = orientation.forward * vertical + orientation.right * horizontal;
 
-            if(inputDir !=Vector3.zero)
+            if (inputDir != Vector3.zero)
             {
                 playerObj.forward = Vector3.Slerp(playerObj.forward, inputDir.normalized, Time.deltaTime * RotationSpeed);
             }

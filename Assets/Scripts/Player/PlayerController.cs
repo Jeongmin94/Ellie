@@ -11,7 +11,11 @@ namespace Assets.Scripts.Player
     public class PlayerController : MonoBehaviour
     {
         public GameObject mainCam;
-        public GameObject aimCam;
+        public Transform playerObj;
+        public float rotationSpeed;
+
+        public GameObject cinematicMainCam;
+        public GameObject cinematicAimCam;
         [SerializeField] private float walkSpeed;
         public float WalkSpeed { get { return walkSpeed; } }
         [SerializeField] private float sprintSpeed;
@@ -68,28 +72,32 @@ namespace Assets.Scripts.Player
 
         private void Start()
         {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+
             Rb = GetComponent<Rigidbody>();
             Rb.freezeRotation = true;
             Anim = GetComponent<Animator>();
             canJump = true;
             InitStateMachine();
-            aimCam.SetActive(false);
+            cinematicAimCam.SetActive(false);
         }
         private void Update()
         {
             GetInput();
             CheckGround();
+            Turn();
             stateMachine?.UpdateState();
             //Aim Camera Test
             if (Input.GetMouseButtonDown(0))
             {
-                mainCam.gameObject.SetActive(false);
-                aimCam.SetActive(true);
+                cinematicMainCam.gameObject.SetActive(false);
+                cinematicAimCam.SetActive(true);
             }
             if (Input.GetMouseButtonUp(0))
             {
-                mainCam.gameObject.SetActive(true);
-                aimCam.SetActive(false);
+                cinematicMainCam.gameObject.SetActive(true);
+                cinematicAimCam.SetActive(false);
             }
             //moving blend tree
             Anim.SetFloat("Velocity", Rb.velocity.magnitude);
@@ -165,7 +173,18 @@ namespace Assets.Scripts.Player
         }
         private void CalculateMoveDirection()
         {
+            Vector3 viewDir = transform.position - new Vector3(mainCam.transform.position.x, transform.position.y, mainCam.transform.position.z);
+            orientation.forward = viewDir.normalized;
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+            
+        }
+
+        private void Turn()
+        {
+            if (MoveDirection != Vector3.zero)
+            {
+                playerObj.forward = Vector3.Slerp(playerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
+            }
         }
 
         private void OnCollisionEnter(Collision collision)

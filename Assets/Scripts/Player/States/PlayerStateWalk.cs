@@ -10,6 +10,10 @@ namespace Assets.Scripts.Player.States
     internal class PlayerStateWalk : PlayerBaseState
     {
         private float moveSpeed;
+        private float expectedMoveSpeed;
+        private float startMoveSpeed;
+        private float interpolateTime;
+        private float duration = 0.2f;
         private readonly Rigidbody rb;
         public PlayerStateWalk(PlayerController controller) : base(controller)
         {
@@ -19,7 +23,9 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             Debug.Log("Walk");
-            moveSpeed = Controller.WalkSpeed;
+            moveSpeed = startMoveSpeed = rb.velocity.magnitude;
+            expectedMoveSpeed = Controller.WalkSpeed;
+            interpolateTime = 0f;
         }
 
         public override void OnExitState()
@@ -28,6 +34,7 @@ namespace Assets.Scripts.Player.States
         }
         public override void OnUpdateState()
         {
+            InterpolateMoveSpeed();
             ControlSpeed();
             if (Input.GetKey(KeyCode.LeftShift))
             {
@@ -53,6 +60,14 @@ namespace Assets.Scripts.Player.States
             Controller.MovePlayer(moveSpeed);
         }
 
+        private void InterpolateMoveSpeed()
+        {
+            if (interpolateTime < duration)
+            {
+                interpolateTime += Time.deltaTime;
+                moveSpeed = Mathf.Lerp(startMoveSpeed, expectedMoveSpeed, interpolateTime / duration);
+            }
+        }
 
         private void ControlSpeed()
         {

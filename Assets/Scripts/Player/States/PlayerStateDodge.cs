@@ -24,9 +24,8 @@ namespace Assets.Scripts.Player.States
             Controller.groundDrag = 0f;
             dodgeDir = Controller.MoveDirection.normalized;
             //Controller.cam.RotationSpeed = 100f;
-            
+
             dodgeTime = 0f;
-            rb.transform.GetComponentInChildren<Renderer>().material.color = Color.red;
         }
 
         public override void OnExitState()
@@ -34,22 +33,24 @@ namespace Assets.Scripts.Player.States
             Controller.groundDrag = beforeDrag;
             //Controller.cam.RotationSpeed = 10f;
             Controller.isDodging = false;
-            rb.transform.GetComponentInChildren<Renderer>().material.color = Color.white;
+            Controller.Anim.SetBool("IsDodging", false);
+
         }
 
         public override void OnFixedUpdateState()
         {
-            if(!Controller.isDodging) 
-            { 
+            if (!Controller.isDodging)
+            {
                 Controller.isDodging = true;
+                Controller.Anim.SetBool("IsDodging", true);
                 rb.velocity = Vector3.zero;
-                rb.AddForce(dodgeDir * Controller.DodgeSpeed,ForceMode.VelocityChange);
+                rb.AddForce(dodgeDir * Controller.DodgeSpeed, ForceMode.VelocityChange);
             }
             //rb.velocity = dodgeDir * Controller.DodgeSpeed;
             dodgeTime += Time.fixedDeltaTime;
-            if(dodgeTime > Controller.DodgeInvulnerableTime)
+            if (dodgeTime > Controller.DodgeInvulnerableTime)
             {
-                Controller.ChangeState(PlayerStateName.Idle);
+                Controller.ChangeState(PlayerStateName.Land);
             }
         }
 
