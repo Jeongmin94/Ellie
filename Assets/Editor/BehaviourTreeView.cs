@@ -116,6 +116,16 @@ public class BehaviourTreeView : GraphView
             }
         }
 
+        // 노드의 움직임이 생겼다면, 자식 노드들의 리스트 순서를 정렬시킨다
+        if(graphViewChange.movedElements != null)
+        {
+            foreach(var node in nodes)
+            {
+                NodeView nodeView = node as NodeView;
+                nodeView.SortChildren();
+            }
+        }
+
         return graphViewChange;
     }
 

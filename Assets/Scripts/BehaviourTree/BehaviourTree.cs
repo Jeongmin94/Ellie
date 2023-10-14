@@ -31,7 +31,12 @@ public class BehaviourTree : ScriptableObject
         nodes.Add(node);
 
         // 에셋 폴더에 데이터베이스 추가 후 갱신
-        AssetDatabase.AddObjectToAsset(node, this);
+        // 런타임 상태라면 노드를 추가할 수 없게 설정
+        if(!Application.isPlaying)
+        {
+            AssetDatabase.AddObjectToAsset(node, this);
+        }
+
         Undo.RegisterCreatedObjectUndo(node, "Behavioure Tree (CreateNode");
 
         AssetDatabase.SaveAssets();
@@ -130,10 +135,26 @@ public class BehaviourTree : ScriptableObject
         return children;
     }
 
+    // 행동트리의 자식 노드들을 순회하면서 복제
+    public void Traverse(Node node, System.Action<Node> visiter)
+    {
+        if (node)
+        {
+            visiter.Invoke(node);
+            var children = GetChildren(node);
+            foreach(var child in children)
+            {
+                Traverse(child, visiter);
+            }
+        }
+    }
+
     public BehaviourTree Clone()
     {
         BehaviourTree tree = Instantiate(this);
         tree.rootNode = tree.rootNode.Clone();
+        tree.nodes = new List<Node>();
+        Traverse(tree.rootNode, (n) => tree.nodes.Add(n));
         return tree;
     }
 }

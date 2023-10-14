@@ -131,4 +131,20 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
             nodeSelectedAction?.Invoke(this);
         }
     }
+
+    // 노드의 순서를 정렬하는 함수
+    // 왼쪽 -> 오른쪽 순서로, GUI에서 같은 높이의 노드의 순서를 설정한다
+    public void SortChildren()
+    {
+        CompositeNode composite = node as CompositeNode;
+        if(composite != null)
+        {
+            composite.children.Sort(SortByHorizontalPosition);
+        }
+    }
+
+    private int SortByHorizontalPosition(Node left, Node right)
+    {
+        return left.position.x < right.position.x ? -1 : 1;
+    }
 }
