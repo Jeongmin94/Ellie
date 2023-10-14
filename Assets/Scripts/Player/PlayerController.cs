@@ -54,6 +54,7 @@ namespace Assets.Scripts.Player
         private RaycastHit slopeHit;
 
         public bool isGrounded;
+        public bool isSprinting;
         public bool isFalling;
         public bool isJumping;
         public bool isDodging;
@@ -64,6 +65,7 @@ namespace Assets.Scripts.Player
         private float verticalInput;
 
         public Vector2 MoveInput { get; private set; }
+        public float inputMagnitude;
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
@@ -84,7 +86,7 @@ namespace Assets.Scripts.Player
             isGrounded = true;
             InitStateMachine();
             cinematicAimCam.SetActive(false);
-            
+
         }
         private void Update()
         {
@@ -104,16 +106,22 @@ namespace Assets.Scripts.Player
                 cinematicAimCam.SetActive(false);
             }
             //moving blend tree
-            Anim.SetFloat("Velocity", Rb.velocity.magnitude);
+            //Anim.SetFloat("Velocity", Rb.velocity.magnitude);
+            inputMagnitude = Mathf.Clamp01(MoveInput.magnitude);
+            if (isSprinting)
+            {
+                inputMagnitude *= 1.5f;
+            }
+            Anim.SetFloat("Input Magnitude", inputMagnitude, 0.2f, Time.deltaTime);
 
             if (isJumping || isFalling)
                 playerCollider.height = 0f;
             else
                 playerCollider.height = 1.5f;
             //resetPlayer
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                transform.position = new Vector3(0f,1f,0f);
+                transform.position = new Vector3(0f, 1f, 0f);
                 ChangeState(PlayerStateName.Idle);
             }
         }
@@ -143,12 +151,12 @@ namespace Assets.Scripts.Player
 
         public void MovePlayer(float moveSpeed)
         {
-            if(CheckSlope())
+            if (CheckSlope())
             {
                 Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
             }
             else
-            Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
+                Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
         }
 
         public void JumpPlayer()
@@ -181,19 +189,19 @@ namespace Assets.Scripts.Player
 
         private void CheckGround()
         {
-            bool curIsGrounded = Physics.Raycast(transform.position, 
+            bool curIsGrounded = Physics.Raycast(transform.position,
                 Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
 
-            if(curIsGrounded != isGrounded)
+            if (curIsGrounded != isGrounded)
             {
-                if(curIsGrounded)
+                if (curIsGrounded)
                 {
                     //공중 -> 땅
                     ChangeState(PlayerStateName.Land);
                 }
                 else
                 {
-                    if(!Input.GetKey(KeyCode.Space))
+                    if (!Input.GetKey(KeyCode.Space))
                     {
                         //점프 중이 아닌 상태 : 땅 -> 공중
                         ChangeState(PlayerStateName.Airbourn);
@@ -213,7 +221,7 @@ namespace Assets.Scripts.Player
 
         private bool CheckSlope()
         {
-            if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 return angle < maxSlopeAngle && angle != 0;
@@ -243,12 +251,12 @@ namespace Assets.Scripts.Player
         }
 
 
-        
+
 
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
-           
+
         }
     }
 }
