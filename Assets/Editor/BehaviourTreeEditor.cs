@@ -9,6 +9,11 @@ public class BehaviourTreeEditor : EditorWindow
 {
     BehaviourTreeView treeView;
     InspectorView inspectorView;
+    IMGUIContainer blackboardView;
+
+    // 인스펙터 블랙보드 관련
+    SerializedObject treeObject;
+    SerializedProperty blackboardProperty;
 
     [MenuItem("BehaviourTreeEditor/Editor ...")]
     public static void OpenWindow()
@@ -43,6 +48,13 @@ public class BehaviourTreeEditor : EditorWindow
 
         treeView = root.Q<BehaviourTreeView>();
         inspectorView = root.Q<InspectorView>();
+        blackboardView = root.Q<IMGUIContainer>();
+        blackboardView.onGUIHandler = () => 
+        { 
+            treeObject.Update();                                // gui 렌더링 하기 전에 값 반영
+            EditorGUILayout.PropertyField(blackboardProperty);  // 속성 프로퍼티 생성
+            treeObject.ApplyModifiedProperties();               // 트리 객체를 호출할 때 값들 적용시켜서
+        };
 
         // 노드 변경 시의 이벤트 구독
         treeView.nodeSelectedAction = OnNodeSelectionChanged;
@@ -118,6 +130,13 @@ public class BehaviourTreeEditor : EditorWindow
         if(tree && AssetDatabase.CanOpenAssetInEditor(tree.GetInstanceID()))
         {
             treeView.PopulateView(tree);
+        }
+
+        // 블랙보드 값 초기화
+        if(tree != null)
+        {
+            treeObject = new SerializedObject(tree);
+            blackboardProperty = treeObject.FindProperty("blackboard");
         }
     }
 

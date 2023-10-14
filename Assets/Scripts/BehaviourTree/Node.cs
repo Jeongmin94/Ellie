@@ -13,6 +13,8 @@ public abstract class Node : ScriptableObject
     [HideInInspector] public bool isStarted = false;          // 실행 된 적이 있는지? (초기화 함수)
     [HideInInspector] public Vector2 position;                // GUI에서 노드의 위치를 저장
     [HideInInspector] public string guid;                     // 진입 키
+    [HideInInspector] public Blackboard blackboard;           // 블랙보드
+    [TextArea] public string description;                     // 노드 주석 달기
 
     // 세가지 상태 중 하나를 반환한다
     public State Update()

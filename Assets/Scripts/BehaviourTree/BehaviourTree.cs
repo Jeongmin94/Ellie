@@ -9,6 +9,8 @@ public class BehaviourTree : ScriptableObject
     public Node.State treeState = Node.State.Running;   // 현재 노드의 상태
     public List<Node> nodes = new List<Node>();
 
+    public Blackboard blackboard = new Blackboard();
+
     public Node.State Update()
     {
         // 현재 Running 상태일 때만 업데이트가 실행되게
@@ -156,5 +158,11 @@ public class BehaviourTree : ScriptableObject
         tree.nodes = new List<Node>();
         Traverse(tree.rootNode, (n) => tree.nodes.Add(n));
         return tree;
+    }
+
+    // 각 노드의 blackboard를 바인딩
+    public void Bind()
+    {
+        Traverse(rootNode, node => { node.blackboard = blackboard; });
     }
 }
