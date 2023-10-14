@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Physics
+namespace Assets.Scripts.ElliePhysics
 {
     public class CollisionTest : MonoBehaviour
     {
