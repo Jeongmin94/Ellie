@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerStateMachine
     {
         public PlayerBaseState CurrentState { get; private set; }
+        public string CurrentStateName;
         private Dictionary<PlayerStateName, PlayerBaseState> states = new();
 
         public PlayerStateMachine(PlayerStateName stateName, PlayerBaseState state)
         {
             AddState(stateName, state);
             CurrentState = GetState(stateName);
+            CurrentStateName = stateName.ToString();
         }
 
         public void AddState(PlayerStateName stateName, PlayerBaseState state)
@@ -42,7 +38,10 @@ namespace Assets.Scripts.Player
         {
             CurrentState?.OnExitState();
             if (states.TryGetValue(nextStateName, out PlayerBaseState newState))
+            {
                 CurrentState = newState;
+                CurrentStateName = nextStateName.ToString();
+            }
             CurrentState?.OnEnterState();
         }
 

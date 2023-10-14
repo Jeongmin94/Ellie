@@ -1,10 +1,6 @@
-﻿using Assets.Scripts.Camera;
-using Assets.Scripts.Player.States;
+﻿using Assets.Scripts.Player.States;
 using System.Collections;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.Playables;
 
 namespace Assets.Scripts.Player
 {
@@ -42,7 +38,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private float additionalGravityForce;
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
 
-        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.2f;
+        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
 
         [Header("Dodge")]
         [SerializeField] private float dodgeInvulnerableTime;
@@ -53,6 +49,9 @@ namespace Assets.Scripts.Player
         [Header("Attack")]
         [SerializeField] private bool hasRock;
 
+        [Header("Slope")]
+        public float maxSlopeAngle;
+        private RaycastHit slopeHit;
 
         public bool isGrounded;
         public bool isFalling;
@@ -68,6 +67,8 @@ namespace Assets.Scripts.Player
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
 
+        public CapsuleCollider playerCollider;
+
         private PlayerStateMachine stateMachine;
 
         private void Start()
@@ -79,8 +80,10 @@ namespace Assets.Scripts.Player
             Rb.freezeRotation = true;
             Anim = GetComponent<Animator>();
             canJump = true;
+            isGrounded = true;
             InitStateMachine();
             cinematicAimCam.SetActive(false);
+            
         }
         private void Update()
         {
@@ -101,6 +104,17 @@ namespace Assets.Scripts.Player
             }
             //moving blend tree
             Anim.SetFloat("Velocity", Rb.velocity.magnitude);
+
+            if (isJumping || isFalling)
+                playerCollider.height = 0f;
+            else
+                playerCollider.height = 1.5f;
+            //resetPlayer
+            if(Input.GetKeyDown(KeyCode.Escape))
+            {
+                transform.position = new Vector3(0f,1f,0f);
+                ChangeState(PlayerStateName.Idle);
+            }
         }
         private void FixedUpdate()
         {
@@ -128,6 +142,11 @@ namespace Assets.Scripts.Player
 
         public void MovePlayer(float moveSpeed)
         {
+            if(CheckSlope())
+            {
+                Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
+            }
+            else
             Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
         }
 
@@ -161,7 +180,26 @@ namespace Assets.Scripts.Player
 
         private void CheckGround()
         {
-            isGrounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
+            bool curIsGrounded = Physics.Raycast(transform.position, 
+                Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
+
+            if(curIsGrounded != isGrounded)
+            {
+                if(curIsGrounded)
+                {
+                    //공중 -> 땅
+                    ChangeState(PlayerStateName.Land);
+                }
+                else
+                {
+                    if(!Input.GetKey(KeyCode.Space))
+                    {
+                        //점프 중이 아닌 상태 : 땅 -> 공중
+                        ChangeState(PlayerStateName.Airbourn);
+                    }
+                }
+                isGrounded = curIsGrounded;
+            }
             if (isGrounded)
             {
                 Rb.drag = groundDrag;
@@ -171,12 +209,26 @@ namespace Assets.Scripts.Player
                 Rb.drag = 0;
             }
         }
+
+        private bool CheckSlope()
+        {
+            if(Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
+            {
+                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                return angle < maxSlopeAngle && angle != 0;
+            }
+            return false;
+        }
+
+        private Vector3 GetSlopeMoveDirection()
+        {
+            return Vector3.ProjectOnPlane(MoveDirection, slopeHit.normal).normalized;
+        }
         private void CalculateMoveDirection()
         {
             Vector3 viewDir = transform.position - new Vector3(mainCam.transform.position.x, transform.position.y, mainCam.transform.position.z);
             orientation.forward = viewDir.normalized;
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
-            
         }
 
         private void Turn()
@@ -187,20 +239,13 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (isJumping && collision.gameObject.CompareTag("Ground"))
-            {
-                //Anim.SetBool("IsFalling", false);
-                isFalling = false;
-                ChangeState(PlayerStateName.Land);
-                //Anim.SetTrigger("Idle");
-            }
-        }
 
-        public void OnLandAnimEnd()
+        
+
+        private void OnGUI()
         {
-            ChangeState(PlayerStateName.Idle);
+            GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
+           
         }
     }
 }

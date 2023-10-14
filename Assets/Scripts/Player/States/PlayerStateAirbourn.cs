@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateAirbourn : PlayerBaseState
     {
         Rigidbody rb;
+        private float moveSpeed = 1;
         public PlayerStateAirbourn(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
@@ -31,6 +27,7 @@ namespace Assets.Scripts.Player.States
         public override void OnFixedUpdateState()
         {
             rb.AddForce(-rb.transform.up * Controller.AdditionalGravityForce, ForceMode.Force);
+            Controller.MovePlayer(moveSpeed);
         }
 
         public override void OnUpdateState()
