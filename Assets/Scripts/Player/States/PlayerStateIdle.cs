@@ -12,6 +12,7 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             Debug.Log("Idle");
+            Controller.canTurn = true;
         }
 
         public override void OnExitState()

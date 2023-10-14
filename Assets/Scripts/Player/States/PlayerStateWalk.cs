@@ -18,6 +18,8 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             Debug.Log("Walk");
+            Controller.canTurn = true;
+
             moveSpeed = startMoveSpeed = rb.velocity.magnitude;
             expectedMoveSpeed = Controller.WalkSpeed;
             interpolateTime = 0f;

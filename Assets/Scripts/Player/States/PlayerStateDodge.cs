@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -20,11 +15,12 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Controller.canTurn = false;
             beforeDrag = Controller.groundDrag;
             Controller.groundDrag = 0f;
             dodgeDir = Controller.MoveDirection.normalized;
             //Controller.cam.RotationSpeed = 100f;
-
+            Controller.playerObj.forward = Controller.MoveDirection.normalized;
             dodgeTime = 0f;
         }
 

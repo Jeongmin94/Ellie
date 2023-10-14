@@ -58,6 +58,7 @@ namespace Assets.Scripts.Player
         public bool isJumping;
         public bool isDodging;
         public bool canJump;
+        public bool canTurn;
 
         private float horizontalInput;
         private float verticalInput;
@@ -233,9 +234,11 @@ namespace Assets.Scripts.Player
 
         private void Turn()
         {
+            if (!canTurn) return;
             if (MoveDirection != Vector3.zero)
             {
                 playerObj.forward = Vector3.Slerp(playerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
+                //playerObj.forward = MoveDirection.normalized;
             }
         }
 

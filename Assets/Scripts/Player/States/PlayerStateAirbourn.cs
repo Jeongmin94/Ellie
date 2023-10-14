@@ -14,6 +14,8 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             Debug.Log("Airbourn");
+            Controller.canTurn = false;
+
             Controller.isFalling = true;
             Controller.Anim.SetBool("IsFalling", true);
         }
