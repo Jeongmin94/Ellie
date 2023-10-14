@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileAttack : AbstractAttack
 {
-    private string ProjectilePrefabPath = "Attacks/Prefabs/";
+    private string ProjectilePrefabPath = "Prefabs/";
     private Projectile projectile;
     private Vector3 Offset;
 
