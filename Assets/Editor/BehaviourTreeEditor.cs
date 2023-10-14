@@ -126,4 +126,10 @@ public class BehaviourTreeEditor : EditorWindow
     {
         inspectorView.UpdateView(node);
     }
+
+    // 런타임에서 노드가 어떤 상태인지 표시
+    private void OnInspectorUpdate()
+    {
+        treeView?.UpdateNodeStates();
+    }
 }

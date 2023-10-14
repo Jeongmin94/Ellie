@@ -189,4 +189,13 @@ public class BehaviourTreeView : GraphView
             AddElement(edge);
         }
     }
+
+    public void UpdateNodeStates()
+    {
+        foreach(var node in nodes)
+        {
+            NodeView view = node as NodeView;
+            view.UpdateState();
+        }
+    }
 }

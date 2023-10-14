@@ -109,3 +109,41 @@
 .action #output {
     min-height: 20px;
 }
+
+#node-state {
+    left: -3px;
+    top: -3px;
+    right: -3px;
+    bottom: -3px;
+    position: absolute;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    -unity-slice-left: 0;
+    -unity-slice-top: 0;
+    -unity-slice-right: 0;
+    -unity-slice-bottom: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-top-width: 0;
+    border-bottom-width: 0;
+    align-items: stretch;
+    min-height: auto;
+    border-left-color: rgba(0, 0, 0, 255);
+    border-right-color: rgba(0, 0, 0, 255);
+    border-top-color: rgba(0, 0, 0, 255);
+    border-bottom-color: rgba(0, 0, 0, 255);
+}
+
+.running #node-state {
+    background-color: rgba(238, 255, 57, 255);
+}
+
+.success #node-state {
+    background-color: rgba(39, 253, 27, 255);
+}
+
+.failure #node-state {
+    background-color: rgba(255, 54, 54, 255);
+}

@@ -147,4 +147,29 @@ public class NodeView : UnityEditor.Experimental.GraphView.Node
     {
         return left.position.x < right.position.x ? -1 : 1;
     }
+
+    // GUI에서 런타임 디버깅 표시를 위해서 설정
+    public void UpdateState()
+    {
+        // 노드의 상태들을 설정하기 전에, 초기화를 진행해준다
+        RemoveFromClassList("running");
+        RemoveFromClassList("failure");
+        RemoveFromClassList("success");
+
+        if (Application.isPlaying)
+        {
+            switch (node.state)
+            {
+                case Node.State.Running:
+                    if(node.isStarted) AddToClassList("running");   // 최초 실행시에도 running으로 처리되니까, 제외 처리
+                    break;
+                case Node.State.Failure:
+                    AddToClassList("failure");
+                    break;
+                case Node.State.Success:
+                    AddToClassList("success");
+                    break;
+            } 
+        }
+    }
 }
