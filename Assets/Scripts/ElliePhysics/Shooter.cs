@@ -5,21 +5,22 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    [Header("Trajectory References")]
-    [SerializeField] private Transform releasePosition;
+    [Header("Trajectory References")] [SerializeField]
+    private Transform releasePosition;
+
     [SerializeField] private LineRenderer lineRenderer;
 
-    [Header("Trajectory Configurations")]
-    [Range(10, 25)]
-    [SerializeField] private int linePoints = 10;
+    [Header("Trajectory Configurations")] [Range(10, 25)] [SerializeField]
+    private int linePoints = 10;
+
     [SerializeField] private float moveTime = 1.0f;
 
-    [Header("Shooting Configurations")]
-    [SerializeField] private float maxValidDistance;
+    [Header("Shooting Configurations")] [SerializeField]
+    private float maxValidDistance;
+
     [SerializeField] private float referenceSpeed;
 
-    [Header("Objects")]
-    [SerializeField] private BaseStone stone;
+    [Header("Objects")] [SerializeField] private BaseStone stone;
     [SerializeField] private SliderData sliderData;
 
     private LayerMask trajectoryCollisionMask;
@@ -50,54 +51,26 @@ public class Shooter : MonoBehaviour
         stone.ValidateStoneMovement(moveTime, referenceSpeed, validDistance);
     }
 
-    private Vector3[] CalculateTrajectoryPoints(Vector3 direction, float strength)
-    {
-        Vector3 startPosition = releasePosition.position;
-        Vector3 startVelocity = direction * strength;
-
-        Vector3[] points = new Vector3[linePoints + 1];
-
-        float timeInterval = moveTime / (float)(linePoints + 1);
-        int i = 0;
-
-        points[0] = startPosition;
-        for (float accInterval = timeInterval; accInterval < moveTime; accInterval += timeInterval)
-        {
-            i++;
-
-            float time = accInterval;
-            Vector3 currentPosition = startPosition + startVelocity * time;
-            currentPosition.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2.0f * time * time);
-
-            points[i] = currentPosition;
-        }
-
-        return points;
-    }
-
     private void DrawTrajectory(Vector3 direction, float strength)
     {
         lineRenderer.enabled = true;
         lineRenderer.positionCount = linePoints + 1;
 
-        Vector3[] points = CalculateTrajectoryPoints(direction, strength);
+        Vector3[] points =
+            PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength, moveTime, linePoints);
         lineRenderer.SetPositions(points);
 
         float distance = 0.0f;
-        Vector3 finalVelocity = Vector3.zero;
-
         for (int i = 0; i < points.Length - 1; i++)
         {
             Vector3 current = points[i];
             Vector3 next = points[i + 1];
             Vector3 currentToNext = (next - current);
 
-            finalVelocity = currentToNext;
             distance += (currentToNext).magnitude;
         }
 
         Vector3 dist = PhysicsUtil.GetDistance(direction * strength, Physics.gravity, moveTime);
-        //Debug.Log($"¿¹»ó °Å¸®: {dist.magnitude}");
     }
 
     private void OnChangeSliderValue(float value)
@@ -120,6 +93,8 @@ public class Shooter : MonoBehaviour
             ratio = 1.0f;
         }
 
+        ratio = 1.0f;
+
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
         {
@@ -127,25 +102,28 @@ public class Shooter : MonoBehaviour
             float validDistance = ratio * maxValidDistance;
             if (Input.GetMouseButton(0))
             {
-                float angle = Vector3.Angle(launchDirection, transform.forward);
-                float strength = validDistance / moveTime * Mathf.Cos(Mathf.Deg2Rad * angle);
+                startVelocity = PhysicsUtil.CalculateInitialVelocity(launchDirection, moveTime, validDistance);
+                // Debug.Log($"direction: {launchDirection}, start: {startVelocity.normalized}");
 
-                Vector3 l = transform.forward * validDistance;
-
-                startVelocity = launchDirection * strength;
 #if UNITY_EDITOR
-                DrawTrajectory(launchDirection, strength);
+                Debug.DrawRay(releasePosition.position, launchDirection*validDistance, Color.blue, 1.0f);
+                DrawTrajectory(startVelocity.normalized, startVelocity.magnitude);
 #endif
-
                 if (!onCharge)
                     onCharge = true;
             }
             else if (Input.GetMouseButtonUp(0) && onCharge)
             {
-                Debug.Log($"¹ß»ç ¼Óµµ: {startVelocity.magnitude}, À¯È¿ »ç°Å¸®: {validDistance}");
-                Debug.Log($"°ø½Ä º¯À§: {(startVelocity * moveTime + 0.5f * moveTime * moveTime * Physics.gravity).magnitude}");
+                Debug.Log($"ì‹œìž‘ ì†ë„: {startVelocity.magnitude}, {startVelocity}");
+                // expected value
+                float distance = PhysicsUtil.GetDistance(startVelocity, Physics.gravity, moveTime).magnitude;
+                Vector3 vel = PhysicsUtil.GetVelocity(startVelocity, Physics.gravity, moveTime);
+                
+                Debug.Log($"ì˜ˆìƒ ì´ë™ ê±°ë¦¬: {distance}");
+                Debug.Log($"ì˜ˆìƒ ì†ë„ {moveTime}s : {vel.magnitude}");
+                Debug.Log($"ê¸°ëŒ€ ì†ë„: {referenceSpeed}");
 
-                ReleaseStone(launchDirection, startVelocity.magnitude, referenceSpeed, validDistance);
+                ReleaseStone(startVelocity.normalized, startVelocity.magnitude, referenceSpeed, validDistance);
 
                 onCharge = false;
                 lineRenderer.enabled = false;

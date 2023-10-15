@@ -8,7 +8,11 @@ namespace Assets.Scripts.Item
         [SerializeField] private Transform stoneBody;
 
         private new Rigidbody rigidbody;
-        public Rigidbody StoneRigidBody { get { return rigidbody; } }
+
+        public Rigidbody StoneRigidBody
+        {
+            get { return rigidbody; }
+        }
 
         private void Awake()
         {
@@ -47,7 +51,7 @@ namespace Assets.Scripts.Item
             float currentTime = 0.0f;
             Vector3 startPosition = rigidbody.position;
 
-            while (currentTime < referenceTime)
+            while (currentTime <= referenceTime)
             {
                 yield return new WaitForFixedUpdate();
                 currentTime += Time.fixedDeltaTime;
@@ -55,14 +59,18 @@ namespace Assets.Scripts.Item
 
             Vector3 currentPosition = rigidbody.position;
             Vector3 currentVelocity = rigidbody.velocity;
-
-            Debug.Log($"{currentTime}초 뒤의 속도: {currentVelocity.magnitude}");
+            
             Debug.Log($"{currentTime}초 뒤의 이동거리: {(currentPosition - startPosition).magnitude}");
-            // x, z
-
+            Debug.Log($"{currentTime}초 뒤의 속도: {currentVelocity.magnitude}");
+            
+            // var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            // go.transform.position = currentPosition;
+            // go.GetComponent<Collider>().enabled = false;
+            
             currentPosition.y = 0.0f;
             startPosition.y = 0.0f;
-            float d = Vector3.Distance(currentVelocity, startPosition);
+            float d = Vector3.Distance(startPosition, currentPosition);
+            Debug.Log($"시작: {startPosition}, 도착: {currentPosition}");
             Debug.Log($"비거리: {d}");
         }
     }
