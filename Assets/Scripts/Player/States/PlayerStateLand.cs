@@ -20,6 +20,10 @@ namespace Assets.Scripts.Player.States
             Controller.isFalling = false;
 
             time = 0f;
+            Controller.SetTimeScale(1f);
+
+            if (Controller.cinematicAimCam.activeSelf)
+                Controller.TurnOffAimCam();
         }
 
         public override void OnExitState()

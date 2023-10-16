@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -10,22 +11,40 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            throw new NotImplementedException();
+            Controller.canTurn = false;
+
         }
 
         public override void OnExitState()
         {
-            throw new NotImplementedException();
+            Controller.Anim.SetLayerWeight(1, 0);
+            Controller.debugSphere.SetActive(false);
         }
 
         public override void OnFixedUpdateState()
         {
-            throw new NotImplementedException();
         }
 
         public override void OnUpdateState()
         {
-            throw new NotImplementedException();
+            Controller.Aim();
+            Controller.LookAimTarget();
+
+            if (Input.GetMouseButtonUp(0))
+            {
+                Controller.SetTimeScale(1f);
+                Controller.TurnOffAimCam();
+                Controller.Anim.SetLayerWeight(1, 0);
+
+                if (Controller.isGrounded)
+                {
+                    Controller.ChangeState(PlayerStateName.Idle);
+                }
+                else
+                {
+                    Controller.ChangeState(PlayerStateName.Airbourn);
+                }
+            }
         }
     }
 }

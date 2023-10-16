@@ -46,7 +46,11 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }
-            
+            if (Input.GetMouseButton(0))
+            {
+                Controller.ChangeState(PlayerStateName.Zoom);
+            }
+
         }
 
         public override void OnFixedUpdateState()

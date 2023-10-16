@@ -28,12 +28,16 @@ namespace Assets.Scripts.Player.States
 
         public override void OnFixedUpdateState()
         {
-            rb.AddForce(-rb.transform.up * Controller.AdditionalGravityForce, ForceMode.Force);
+            //rb.AddForce(-rb.transform.up * Controller.AdditionalGravityForce, ForceMode.Force);
             Controller.MovePlayer(moveSpeed);
         }
 
         public override void OnUpdateState()
         {
+            if (Input.GetMouseButton(0))
+            {
+                Controller.ChangeState(PlayerStateName.Zoom);
+            }
         }
     }
 }

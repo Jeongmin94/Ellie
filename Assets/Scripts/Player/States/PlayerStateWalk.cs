@@ -23,6 +23,7 @@ namespace Assets.Scripts.Player.States
             moveSpeed = startMoveSpeed = rb.velocity.magnitude;
             expectedMoveSpeed = Controller.WalkSpeed;
             interpolateTime = 0f;
+            //Controller.Anim.lay
         }
 
         public override void OnExitState()
@@ -39,7 +40,6 @@ namespace Assets.Scripts.Player.States
             }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
-                Controller.Anim.SetTrigger("Jump");
                 Controller.ChangeState(PlayerStateName.Jump);
             }
             if (Controller.MoveInput.magnitude == 0)
@@ -49,6 +49,10 @@ namespace Assets.Scripts.Player.States
             if(Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
+            }
+            if (Input.GetMouseButton(0))
+            {
+                Controller.ChangeState(PlayerStateName.Zoom);
             }
         }
 

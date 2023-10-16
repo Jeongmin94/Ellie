@@ -9,6 +9,7 @@ namespace Assets.Scripts.Player
 
         public Transform cameraLookAt;
 
+        private float zoomingCoeff;
         void Start()
         {
 
@@ -16,8 +17,8 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            xAxis.Update(Time.deltaTime);
-            yAxis.Update(Time.deltaTime);
+            xAxis.Update(Time.deltaTime / Time.timeScale);
+            yAxis.Update(Time.deltaTime / Time.timeScale);
 
             cameraLookAt.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0);
         }
