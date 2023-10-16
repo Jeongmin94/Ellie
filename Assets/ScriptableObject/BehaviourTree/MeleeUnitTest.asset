@@ -1,0 +1,160 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: MeleeUnitTest
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 1401849103335817229
+  nodes:
+  - rid: 1401849103335817229
+  - rid: 1401849107953483783
+  - rid: 1401849107953483787
+  - rid: 1401849107953483788
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: 1401849107953483777
+    - rid: 1401849107953483778
+    - rid: 1401849107953483779
+    - rid: 1401849107953483782
+    - rid: 1401849107953483784
+    - rid: 1401849107953483785
+  viewPosition: {x: 946.2857, y: 462.2857, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 1401849103335817229
+      type: {class: RootNode, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        state: 0
+        started: 0
+        guid: ee421cb3-6b21-4c2e-b8d8-718f1cbbef3b
+        position: {x: -600, y: -345}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 1401849107953483783
+    - rid: 1401849107953483777
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: monsterMovement
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849107953483778
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: monsterAttackRange
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849107953483779
+      type: {class: IntKey, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: monsterHP
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849107953483782
+      type: {class: StringKey, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: testString
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: asdf
+    - rid: 1401849107953483783
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        state: 0
+        started: 0
+        guid: 3987c50c21c1f5649879fb151b6bc424
+        position: {x: -765, y: -120}
+        blackboard:
+          keys: []
+        description: "\uB9AC\uC2A4\uD3F0 \uBCF5\uADC0"
+        drawGizmos: 0
+        children:
+        - rid: 1401849107953483787
+    - rid: 1401849107953483784
+      type: {class: Vector3Key, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: SpawnPoint
+        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        value: {x: 0, y: 0, z: 0}
+    - rid: 1401849107953483785
+      type: {class: Vector3Key, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        name: MonsterPoint
+        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        value: {x: 0, y: 0, z: 0}
+    - rid: 1401849107953483787
+      type: {class: DistanceCheck, ns: , asm: Assembly-CSharp}
+      data:
+        state: 0
+        started: 0
+        guid: 6b575c174a187f6419ac81fcb1123bee
+        position: {x: -915, y: 90}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        startPoint:
+          reference:
+            rid: 1401849107953483784
+          defaultValue: {x: 0, y: 0, z: 0}
+        endPoint:
+          reference:
+            rid: 1401849107953483785
+          defaultValue: {x: 0, y: 0, z: 0}
+        gameObject:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        checkDistance: 35
+    - rid: 1401849107953483788
+      type: {class: MoveToPosition, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
+      data:
+        state: 0
+        started: 0
+        guid: 27be97e4a832d394f84ebf54febe3f35
+        position: {x: -615, y: 90}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        speed:
+          reference:
+            rid: 1401849107953483777
+          defaultValue: 5
+        stoppingDistance:
+          reference:
+            rid: -2
+          defaultValue: 0.1
+        updateRotation:
+          reference:
+            rid: -2
+          defaultValue: 1
+        acceleration:
+          reference:
+            rid: -2
+          defaultValue: 40
+        tolerance:
+          reference:
+            rid: -2
+          defaultValue: 1
+        targetPosition:
+          reference:
+            rid: 1401849107953483785
+          defaultValue: {x: 0, y: 0, z: 0}

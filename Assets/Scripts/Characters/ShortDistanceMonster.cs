@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TheKiwiCoder;
 
 public class ShortDistanceMonster : AbstractMonster
 {
     //For Test
     public GameObject player;
-
+  
     Structures.MonsterStat stat = new()
     {
         HP = 10.0f,

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
@@ -10,6 +7,7 @@ public class TestActionNode : ActionNode
     public NodeProperty<string> logString;
 
     protected override void OnStart() {
+
     }
 
     protected override void OnStop() {

@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using TheKiwiCoder;
 using UnityEngine;
 
 public class WeaponMonster : AbstractMonster
 {
     //For Test
     public GameObject player;
+    public BehaviourTreeInstance behaviourTreeInstance;
 
     Structures.MonsterStat stat = new()
     {
@@ -21,6 +23,7 @@ public class WeaponMonster : AbstractMonster
 
     private void OnEnable()
     {
+        
         animator = GetComponent<Animator>();
         //InitializeStat(10, 2, 10, 30, 40);
         InitializeStat(stat);

@@ -18,7 +18,7 @@ public class ProjectileMonster : AbstractMonster
     };
 
     [SerializeField] GameObject projectile;
-    private enum SkillName {ProjectileAttack, End}
+    private enum SkillName {ProjectileAttack, Melee, End}
 
     private void Start()
     {
