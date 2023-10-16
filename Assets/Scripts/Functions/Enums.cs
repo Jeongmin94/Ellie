@@ -23,4 +23,15 @@ public static class Enums
     }
 
     //Monster Skill
+
+    // ±‚≈∏
+    public enum StatusEffect
+    {
+        None,
+    }
+
+    public enum Element
+    {
+        None,
+    }
 }
