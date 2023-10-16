@@ -2,52 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//Check : 공통된 부분은 구조체 만들어서 전달하는건 어떨까마
+
 public abstract class AbstractMonster : MonoBehaviour
 {
-    //Stat
-    [SerializeField] protected float HP;
-    [SerializeField] protected float MovementSpeed;
-    [SerializeField] protected float RotationSpeed;
-    [SerializeField] protected float DetectPlayerDistance;
-    [SerializeField] protected float OvertravelDistance;
+    //Monster Stat, Type
+    protected Structures.MonsterStat monsterStat;
+    protected Structures.MonsterType monsterType;
 
     //PlayerDistance
-    protected float PlayerDistance;
+    protected float playerDistance;
 
     //Actions
     [SerializeField] protected bool isAttacking;
 
-    //Typle
-    [SerializeField] protected Enums.MonsterKind Kind;
-    [SerializeField] protected Enums.MovementType Type;
-    [SerializeField] protected Enums.AttackTurnType TurnType;
-
     //Components
     private Rigidbody RB;
+    protected AbstractAttack[] skills;
+    protected Animator animator;
 
     //Attack Dictionary
     protected Dictionary<string, AbstractAttack> Attacks = new();
 
-    protected void InitializeStat(float HP, float movementSpeed, float rotationSpeed, float detectPlayerDistance, float overtravelDistance)
-    {
-        this.HP = HP;
-        MovementSpeed = movementSpeed;
-        RotationSpeed = rotationSpeed;
-        DetectPlayerDistance = detectPlayerDistance;
-        OvertravelDistance = overtravelDistance;
-        if(RB==null)
-        {
-            RB = GetComponent<Rigidbody>();
-        }
 
-        isAttacking = false;
+    // >> : Functions
+    protected void InitializeStat(Structures.MonsterStat monsterStat)
+    {
+        this.monsterStat = monsterStat;
     }
 
-    protected void InitializeType(Enums.MonsterKind kind, Enums.MovementType type, Enums.AttackTurnType turnType)
+    protected void InitializeType(Structures.MonsterType monsterType)
     {
-        Kind = kind;
-        Type = type;
-        TurnType = turnType;
+        this.monsterType = monsterType;
     }
     protected AbstractAttack AddSkill(string skillName, Enums.AttackSkill attackSkill)
     {
@@ -73,6 +59,9 @@ public abstract class AbstractMonster : MonoBehaviour
             case Enums.AttackSkill.WeaponAttack:
                 attack = newSkill.AddComponent<WeaponAttack>();
                 break;
+            case Enums.AttackSkill.AOEAttack:
+                attack = newSkill.AddComponent<AOEPrefabAttack>();
+                break;
         }
         if (attack != null)
             Attacks.Add(skillName, attack);
@@ -87,9 +76,8 @@ public abstract class AbstractMonster : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         lookRotation.x = 0;
         lookRotation.z = 0;
-        RB.MoveRotation(Quaternion.Slerp(RB.rotation, lookRotation, RotationSpeed * Time.deltaTime));
-        transform.Translate(Vector3.forward * MovementSpeed * Time.deltaTime);
-        //RB.MovePosition(Vector3.forward * MovementSpeed * Time.deltaTime);
+        RB.MoveRotation(Quaternion.Slerp(RB.rotation, lookRotation, monsterStat.rotationSpeed * Time.deltaTime));
+        transform.Translate(Vector3.forward * monsterStat.movementSpeed * Time.deltaTime);
     }
 
 }

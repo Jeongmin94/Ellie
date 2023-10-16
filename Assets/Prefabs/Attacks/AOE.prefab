@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6473939662372027687}
   - component: {fileID: 6696784328019648377}
   - component: {fileID: 1741947572183086129}
+  - component: {fileID: -1821999952617993424}
   m_Layer: 0
   m_Name: AOE
   m_TagString: Untagged
@@ -92,8 +93,20 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3424673880814783771}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-1821999952617993424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3424673880814783771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 298f2c4201be44e31bb94fe46527fad4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

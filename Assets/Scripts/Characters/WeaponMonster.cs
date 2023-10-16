@@ -5,25 +5,33 @@ using UnityEngine;
 public class WeaponMonster : AbstractMonster
 {
     //For Test
-    public GameObject Player;
+    public GameObject player;
+
+    Structures.MonsterStat stat = new()
+    {
+        HP = 10.0f,
+        movementSpeed = 2.0f,
+        rotationSpeed = 3.0f,
+        detectPlayerDistance = 10.0f,
+        overtravelDistance = 15.0f
+    };
 
     private enum SkillName {WeaponAttack, End}
-    private AbstractAttack[] Skills;
-    private Animator animator;
-    [SerializeField] private GameObject Weapon;
+    [SerializeField] private GameObject weapon;
 
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
-        InitializeStat(10, 2, 10, 30, 40);
+        //InitializeStat(10, 2, 10, 30, 40);
+        InitializeStat(stat);
 
-        Skills = new AbstractAttack[(int)SkillName.End];
-        Skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);
-        Skills[(int)SkillName.WeaponAttack].InitializeWeapon(2.2f, 1.0f, 3.0f, 3.0f, Weapon);
-    }
+        skills = new AbstractAttack[(int)SkillName.End];
+        skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);
+        skills[(int)SkillName.WeaponAttack].InitializeWeapon(2.2f, 1.0f, 3.0f, 3.0f, weapon);
+    }   
     private void FixedUpdate()
     {
-        PlayerDistance = Vector3.Distance(Player.transform.position, transform.position);
+        playerDistance = Vector3.Distance(player.transform.position, transform.position);
         if(!isAttacking)
         {
             StartCoroutine(UpdateAttackable());
@@ -33,12 +41,12 @@ public class WeaponMonster : AbstractMonster
     {
         for(int i=0; i<(int)SkillName.End;i++)
         {
-            if (PlayerDistance < Skills[i].AttackRange && Skills[i].isAttackReady)
+            if (playerDistance < skills[i].AttackRange && skills[i].isAttackReady)
             {
                 isAttacking = true;
                 animator.SetTrigger("WeaponAttackAnimation");
                 yield return new WaitForSeconds(1.5f);
-                Skills[i].ActivateAttack();
+                skills[i].ActivateAttack();
             }
         }
         if (isAttacking)

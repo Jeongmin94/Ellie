@@ -4,21 +4,21 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    WeaponAttack Parent;
+    private WeaponAttack parent;
 
     private void Start()
     {
         GameObject highestParent = Functions.FindHighestParent(gameObject);
-        Parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
+        parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(Parent ==null)
+        if(parent ==null)
         {
             GameObject highestParent = Functions.FindHighestParent(gameObject);
-            Parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
+            parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
         }
-        Parent.OnWeaponTriggerEnter(other);
+        parent.OnWeaponTriggerEnter(other);
     }
 }

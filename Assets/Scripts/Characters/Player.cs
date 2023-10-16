@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
     private float forward;
     private float side;
-    static private Vector3 PlayerPosition;
+    static private Vector3 playerPosition;
 
     public void Damaged(float attackValue)
     {
@@ -19,10 +19,10 @@ public class Player : MonoBehaviour
 
         transform.Translate(new Vector3(side, 0, forward) * 10 * Time.deltaTime);
 
-        PlayerPosition = transform.position;
+        playerPosition = transform.position;
     }
     static public Vector3 GetPlayerPosition()
     {
-        return PlayerPosition;
+        return playerPosition;
     }
 }
