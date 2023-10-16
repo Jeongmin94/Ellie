@@ -7,13 +7,23 @@ public class ShortDistanceMonster : AbstractMonster
     //For Test
     public GameObject player;
 
+    Structures.MonsterStat stat = new()
+    {
+        HP = 10.0f,
+        movementSpeed = 2.0f,
+        rotationSpeed = 3.0f,
+        detectPlayerDistance = 10.0f,
+        overtravelDistance = 15.0f
+    };
+
     private enum SkillName {ShortDistanceAttack, End}
 
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
 
-        InitializeStat(10,2,10, 30, 50);
+        //InitializeStat(10,2,10, 30, 50);
+        InitializeStat(stat);
 
         skills = new AbstractAttack[(int)SkillName.End];
         skills[(int)SkillName.ShortDistanceAttack] =AddSkill(SkillName.ShortDistanceAttack.ToString(), Enums.AttackSkill.BoxCollider);

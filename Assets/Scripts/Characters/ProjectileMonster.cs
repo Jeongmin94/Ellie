@@ -7,13 +7,24 @@ public class ProjectileMonster : AbstractMonster
     //For Test
     public GameObject player;
 
+    //초기화 쉽게 하기 위해 구조체 새로 생
+    Structures.MonsterStat stat = new()
+    {
+        HP = 10.0f,
+        movementSpeed = 2.0f,
+        rotationSpeed = 3.0f,
+        detectPlayerDistance = 10.0f,
+        overtravelDistance = 15.0f
+    };
+
     [SerializeField] GameObject projectile;
     private enum SkillName {ProjectileAttack, End}
 
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        InitializeStat(10, 2, 10, 50, 50); //몬스터에 대한 초기화
+        //InitializeStat(10, 2, 10, 50, 50); //몬스터에 대한 초기화
+        InitializeStat(stat);
 
         skills = new AbstractAttack[(int)SkillName.End];
         skills[(int)SkillName.ProjectileAttack] = AddSkill(SkillName.ProjectileAttack.ToString(), Enums.AttackSkill.ProjectileAttack);

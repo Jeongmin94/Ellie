@@ -7,13 +7,23 @@ public class WeaponMonster : AbstractMonster
     //For Test
     public GameObject player;
 
+    Structures.MonsterStat stat = new()
+    {
+        HP = 10.0f,
+        movementSpeed = 2.0f,
+        rotationSpeed = 3.0f,
+        detectPlayerDistance = 10.0f,
+        overtravelDistance = 15.0f
+    };
+
     private enum SkillName {WeaponAttack, End}
     [SerializeField] private GameObject weapon;
 
     private void OnEnable()
     {
         animator = GetComponent<Animator>();
-        InitializeStat(10, 2, 10, 30, 40);
+        //InitializeStat(10, 2, 10, 30, 40);
+        InitializeStat(stat);
 
         skills = new AbstractAttack[(int)SkillName.End];
         skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);

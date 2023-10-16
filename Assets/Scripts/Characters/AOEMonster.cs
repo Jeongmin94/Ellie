@@ -7,6 +7,15 @@ public class AOEMonster : AbstractMonster
     //For Test
     public GameObject player;
 
+    Structures.MonsterStat stat = new()
+    {
+        HP = 10.0f,
+        movementSpeed = 2.0f,
+        rotationSpeed = 3.0f,
+        detectPlayerDistance = 10.0f,
+        overtravelDistance=15.0f
+    };
+
     private enum SkillName { AOEAttack, End}
 
     [SerializeField] private GameObject AOEPrefab;
@@ -15,7 +24,8 @@ public class AOEMonster : AbstractMonster
     private void Start()
     {
         animator = GetComponent<Animator>();
-        InitializeStat(10, 2, 1, 1, 1);
+        //InitializeStat(10, 2, 1, 1, 1);
+        InitializeStat(stat);
 
         skills = new AbstractAttack[(int)SkillName.End];
         skills[(int)SkillName.AOEAttack] = AddSkill(SkillName.AOEAttack.ToString(), Enums.AttackSkill.AOEAttack);
