@@ -9,7 +9,7 @@ public class WeaponAttack : AbstractAttack
     public override void InitializeWeapon(float attackValue, float durationTime, float attackInterval, float attackRange, GameObject weapon)
     {
         InitializedBase(attackValue, durationTime, attackInterval, attackRange);
-        Owner = Functions.FindHighestParent(gameObject).tag.ToString();
+        owner = Functions.FindHighestParent(gameObject).tag.ToString();
 
         if (collider == null)
         {
@@ -18,10 +18,6 @@ public class WeaponAttack : AbstractAttack
             collider.isTrigger = true;
         }
         collider.enabled = false;
-    }
-    private void Update()
-    {
-        //Debug.Log(Owner);
     }
 
     public override void ActivateAttack()
@@ -42,7 +38,7 @@ public class WeaponAttack : AbstractAttack
     private IEnumerator DisableCollider()
     {
         //Debug.Log("[WeaponAttack] DisableCollider()");
-        yield return new WaitForSeconds(DurationTime);
+        yield return new WaitForSeconds(durationTime);
         collider.enabled = false;
         StartCoroutine(SetAttackReady());
     }
@@ -56,11 +52,11 @@ public class WeaponAttack : AbstractAttack
 
     public void OnWeaponTriggerEnter(Collider other)
     {
-        if (Owner == "Monster")
+        if (owner == "Monster")
         {
             if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Player>().Damaged(AttackValue);
+                other.gameObject.GetComponent<Player>().Damaged(attackValue);
             }
         }
     }

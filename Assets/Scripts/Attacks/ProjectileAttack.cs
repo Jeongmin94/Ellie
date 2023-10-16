@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class ProjectileAttack : AbstractAttack
 {
-    private string ProjectilePrefabPath = "Assets/Prefabs/Attacks/";
+    
+    private string projectilePrefabPath = "Assets/Prefabs/Attacks/";
     [SerializeField] public Projectile projectile;
-    private Vector3 Offset;
+    private Vector3 offset;
+    private Vector3 direction;
+    //ToDo : Add Direction to Projectile Attack! 
 
-    public override void InitializeProjectile(float attackValue, float attackInterval,float attackRange, Vector3 offset, GameObject projectilePrefab)
+    public override void InitializeProjectile(float attackValue, float durationTime, float attackInterval, float attackRange, Vector3 offset, GameObject prefabObject)
     {
-        InitializedBase(attackValue, 0, attackInterval, attackRange);
-        Offset = offset;
-        projectile = projectilePrefab.GetComponent<Projectile>();
-        Owner = gameObject.tag.ToString();
+        InitializedBase(attackValue, durationTime, attackInterval, attackRange);
+        this.offset = offset;
+        projectile = prefabObject.GetComponent<Projectile>();
+        owner = gameObject.tag.ToString();
     }
 
     public override void ActivateAttack()
     {
-        Projectile obj = Instantiate(projectile, transform.position+Offset, transform.rotation);
-        obj.SetProjectileData(AttackValue, gameObject.tag.ToString());
+        Projectile obj = Instantiate(projectile, transform.position+offset, transform.rotation);
+        obj.SetProjectileData(attackValue,durationTime, gameObject.tag.ToString());
         StartCoroutine(StartAttackReadyCount());
     }
 

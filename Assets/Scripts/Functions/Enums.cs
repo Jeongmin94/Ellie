@@ -19,7 +19,7 @@ public static class Enums
     }
     public enum AttackSkill
     {
-        BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, End
+        BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, AOEAttack, End
     }
 
     //Monster Skill

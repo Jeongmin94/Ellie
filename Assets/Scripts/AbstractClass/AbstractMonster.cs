@@ -6,24 +6,26 @@ public abstract class AbstractMonster : MonoBehaviour
 {
     //Stat
     [SerializeField] protected float HP;
-    [SerializeField] protected float MovementSpeed;
-    [SerializeField] protected float RotationSpeed;
-    [SerializeField] protected float DetectPlayerDistance;
-    [SerializeField] protected float OvertravelDistance;
+    [SerializeField] protected float movementSpeed;
+    [SerializeField] protected float rotationSpeed;
+    [SerializeField] protected float detectPlayerDistance;
+    [SerializeField] protected float overtravelDistance;
 
     //PlayerDistance
-    protected float PlayerDistance;
+    protected float playerDistance;
 
     //Actions
     [SerializeField] protected bool isAttacking;
 
-    //Typle
-    [SerializeField] protected Enums.MonsterKind Kind;
-    [SerializeField] protected Enums.MovementType Type;
-    [SerializeField] protected Enums.AttackTurnType TurnType;
+    //Type
+    [SerializeField] protected Enums.MonsterKind kind;
+    [SerializeField] protected Enums.MovementType type;
+    [SerializeField] protected Enums.AttackTurnType turnType;
 
     //Components
     private Rigidbody RB;
+    protected AbstractAttack[] skills;
+    protected Animator animator;
 
     //Attack Dictionary
     protected Dictionary<string, AbstractAttack> Attacks = new();
@@ -31,10 +33,10 @@ public abstract class AbstractMonster : MonoBehaviour
     protected void InitializeStat(float HP, float movementSpeed, float rotationSpeed, float detectPlayerDistance, float overtravelDistance)
     {
         this.HP = HP;
-        MovementSpeed = movementSpeed;
-        RotationSpeed = rotationSpeed;
-        DetectPlayerDistance = detectPlayerDistance;
-        OvertravelDistance = overtravelDistance;
+        this.movementSpeed = movementSpeed;
+        this.rotationSpeed = rotationSpeed;
+        this.detectPlayerDistance = detectPlayerDistance;
+        this.overtravelDistance = overtravelDistance;
         if(RB==null)
         {
             RB = GetComponent<Rigidbody>();
@@ -45,9 +47,9 @@ public abstract class AbstractMonster : MonoBehaviour
 
     protected void InitializeType(Enums.MonsterKind kind, Enums.MovementType type, Enums.AttackTurnType turnType)
     {
-        Kind = kind;
-        Type = type;
-        TurnType = turnType;
+        this.kind = kind;
+        this.type = type;
+        this.turnType = turnType;
     }
     protected AbstractAttack AddSkill(string skillName, Enums.AttackSkill attackSkill)
     {
@@ -73,6 +75,9 @@ public abstract class AbstractMonster : MonoBehaviour
             case Enums.AttackSkill.WeaponAttack:
                 attack = newSkill.AddComponent<WeaponAttack>();
                 break;
+            case Enums.AttackSkill.AOEAttack:
+                attack = newSkill.AddComponent<AOEPrefabAttack>();
+                break;
         }
         if (attack != null)
             Attacks.Add(skillName, attack);
@@ -87,9 +92,8 @@ public abstract class AbstractMonster : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         lookRotation.x = 0;
         lookRotation.z = 0;
-        RB.MoveRotation(Quaternion.Slerp(RB.rotation, lookRotation, RotationSpeed * Time.deltaTime));
-        transform.Translate(Vector3.forward * MovementSpeed * Time.deltaTime);
-        //RB.MovePosition(Vector3.forward * MovementSpeed * Time.deltaTime);
+        RB.MoveRotation(Quaternion.Slerp(RB.rotation, lookRotation, rotationSpeed * Time.deltaTime));
+        transform.Translate(Vector3.forward * movementSpeed * Time.deltaTime);
     }
 
 }

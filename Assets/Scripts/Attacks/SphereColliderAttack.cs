@@ -10,7 +10,7 @@ public class SphereColliderAttack : AbstractAttack
         float attackInterval, float attackRange, float attackRadius, Vector3 offset)
     {
         InitializedBase(attackValue, duration, attackInterval, attackRange);
-        Owner = gameObject.tag.ToString();
+        owner = gameObject.tag.ToString();
 
         if (collider == null)
         {
@@ -30,28 +30,20 @@ public class SphereColliderAttack : AbstractAttack
     }
     private IEnumerator DisableCollider()
     {
-        yield return new WaitForSeconds(DurationTime);
+        yield return new WaitForSeconds(durationTime);
         collider.enabled = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(Owner=="Monster")
+        if(owner=="Monster")
         {
             if(other.tag=="Player")
             {
-                other.gameObject.GetComponent<Player>().Damaged(AttackValue);
+                other.gameObject.GetComponent<Player>().Damaged(attackValue);
                 Debug.Log("ShpereGiveDamage");
             }
         }
-    }
-
-    private void OnGUI()
-    {
-        //if(GUILayout.Button("SphereColliderAttack"))
-        //{
-        //    ActivateAttack();
-        //}
     }
 
 }

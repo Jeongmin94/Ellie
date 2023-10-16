@@ -4,32 +4,32 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    [SerializeField] private float ProjectileSpeed;
-    [SerializeField] private float DestroyTime;
+    [SerializeField] private float projectileSpeed;
+    private float durationTime;
     
-    private float AttackValue;
-    public string Owner;
+    private float attackValue;
+    private string owner;
 
     private void Start()
     {
-        Destroy(gameObject, DestroyTime);
+        Destroy(gameObject, durationTime);
     }
 
     private void FixedUpdate()
     {
-        transform.Translate(Vector3.forward * ProjectileSpeed*Time.deltaTime);
+        transform.Translate(Vector3.forward * projectileSpeed*Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Owner == "Monster")
+        if (owner == "Monster")
         {
             if (other.tag == "Player")
             {
                 FireEnemyProjectile(other);
             }
         }
-        else if (Owner == "Player")
+        else if (owner == "Player")
         {
 
         }
@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     private void FireEnemyProjectile(Collider other)
     {
    
-            other.gameObject.GetComponent<Player>().Damaged(AttackValue);
+            other.gameObject.GetComponent<Player>().Damaged(attackValue);
             Destroy(gameObject);
     }
     private void FirePlayerProjectile(Collider other)
@@ -45,9 +45,10 @@ public class Projectile : MonoBehaviour
 
     }
 
-    public void SetProjectileData(float attackValue,string owner)
+    public void SetProjectileData(float attackValue,float durationTime, string owner)
     {
-        AttackValue = attackValue;
-        Owner = owner;
+        this.durationTime = durationTime;
+        this.attackValue = attackValue;
+        this.owner = owner;
     }
 }

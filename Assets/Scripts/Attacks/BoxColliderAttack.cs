@@ -10,7 +10,7 @@ public class BoxColliderAttack : AbstractAttack
         float duration, float attackInterval, float attackRange, Vector3 size, Vector3 offset)
     {
         InitializedBase(attackValue, duration, attackInterval, attackRange);
-        Owner = gameObject.tag.ToString();
+        owner = gameObject.tag.ToString();
 
         if (collider == null)
         {
@@ -33,7 +33,7 @@ public class BoxColliderAttack : AbstractAttack
 
     private IEnumerator DisableCollider()
     {
-        yield return new WaitForSeconds(DurationTime);
+        yield return new WaitForSeconds(durationTime);
         collider.enabled = false;
         isAttackReady = false;
         StartCoroutine(SetAttakingFalse());
@@ -46,11 +46,11 @@ public class BoxColliderAttack : AbstractAttack
 
     private void OnTriggerEnter(Collider other)
     {
-        if (Owner == "Monster")
+        if (owner == "Monster")
         {
             if(other.tag=="Player")
             {
-                other.gameObject.GetComponent<Player>().Damaged(AttackValue);
+                other.gameObject.GetComponent<Player>().Damaged(attackValue);
             }
         }
     }

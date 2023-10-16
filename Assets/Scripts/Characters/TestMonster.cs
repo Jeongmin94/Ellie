@@ -16,7 +16,7 @@ public class TestMonster : AbstractMonster
         AbstractAttack attack;
         if (Attacks.TryGetValue(SkillName.ProjectileAttack.ToString(), out attack))
         {
-            attack.InitializeProjectile(10.0f,3.0f,10.0f,Vector3.zero, projectile);
+            attack.InitializeProjectile(10.0f,3.0f,10.0f,5.0f,Vector3.zero, projectile);
         }
         if (Attacks.TryGetValue(SkillName.BoxAttack.ToString(), out attack))
         {
