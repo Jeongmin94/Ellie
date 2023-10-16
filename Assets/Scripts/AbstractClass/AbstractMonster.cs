@@ -4,24 +4,6 @@ using UnityEngine;
 
 public abstract class AbstractMonster : MonoBehaviour
 {
-    //enum
-    protected enum MonsterKind
-    {
-        Human, Skeleton, Ghost, Insect, Beast, FlyingBeast, Golem, End
-    }
-    protected enum MovementType
-    {
-        Ground, Flying, GroundFlying, End
-    }
-    protected enum AttackTurnType
-    {
-        Offensive, Deffensive, End
-    }
-    protected enum AttackSkill
-    {
-        BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, End
-    }
-
     //Stat
     [SerializeField] protected float HP;
     [SerializeField] protected float MovementSpeed;
@@ -36,9 +18,9 @@ public abstract class AbstractMonster : MonoBehaviour
     [SerializeField] protected bool isAttacking;
 
     //Typle
-    [SerializeField] protected MonsterKind Kind;
-    [SerializeField] protected MovementType Type;
-    [SerializeField] protected AttackTurnType TurnType;
+    [SerializeField] protected Enums.MonsterKind Kind;
+    [SerializeField] protected Enums.MovementType Type;
+    [SerializeField] protected Enums.AttackTurnType TurnType;
 
     //Components
     private Rigidbody RB;
@@ -61,13 +43,13 @@ public abstract class AbstractMonster : MonoBehaviour
         isAttacking = false;
     }
 
-    protected void SetMonsterType(MonsterKind kind, MovementType type, AttackTurnType turnType)
+    protected void InitializeType(Enums.MonsterKind kind, Enums.MovementType type, Enums.AttackTurnType turnType)
     {
         Kind = kind;
         Type = type;
         TurnType = turnType;
     }
-    protected AbstractAttack AddSkill(string skillName, AttackSkill attackSkill)
+    protected AbstractAttack AddSkill(string skillName, Enums.AttackSkill attackSkill)
     {
         AbstractAttack attack = null;
         GameObject newSkill = new GameObject(skillName);
@@ -79,16 +61,16 @@ public abstract class AbstractMonster : MonoBehaviour
 
         switch (attackSkill)
         {
-            case AttackSkill.ProjectileAttack:
+            case Enums.AttackSkill.ProjectileAttack:
                 attack = newSkill.AddComponent<ProjectileAttack>();
                 break;
-            case AttackSkill.BoxCollider:
+            case Enums.AttackSkill.BoxCollider:
                 attack = newSkill.AddComponent<BoxColliderAttack>();
                 break;
-            case AttackSkill.SphereCollider:
+            case Enums.AttackSkill.SphereCollider:
                 attack = newSkill.AddComponent<SphereColliderAttack>();
                 break;
-            case AttackSkill.WeaponAttack:
+            case Enums.AttackSkill.WeaponAttack:
                 attack = newSkill.AddComponent<WeaponAttack>();
                 break;
         }
@@ -98,6 +80,7 @@ public abstract class AbstractMonster : MonoBehaviour
         return attack;
     }
 
+    //Temp -> will be replaced with navmesh
     protected void ChasePlayer()
     {
         Vector3 direction = Player.GetPlayerPosition() - transform.position;
@@ -107,11 +90,6 @@ public abstract class AbstractMonster : MonoBehaviour
         RB.MoveRotation(Quaternion.Slerp(RB.rotation, lookRotation, RotationSpeed * Time.deltaTime));
         transform.Translate(Vector3.forward * MovementSpeed * Time.deltaTime);
         //RB.MovePosition(Vector3.forward * MovementSpeed * Time.deltaTime);
-    }
-
-    protected void ReturnToSpawnLocation()
-    {
-
     }
 
 }

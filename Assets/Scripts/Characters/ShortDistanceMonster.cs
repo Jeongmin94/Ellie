@@ -18,7 +18,7 @@ public class ShortDistanceMonster : AbstractMonster
         InitializeStat(10,2,10, 30, 50);
 
         Skills = new AbstractAttack[(int)SkillName.End];
-        Skills[(int)SkillName.ShortDistanceAttack] =AddSkill(SkillName.ShortDistanceAttack.ToString(), AttackSkill.BoxCollider);
+        Skills[(int)SkillName.ShortDistanceAttack] =AddSkill(SkillName.ShortDistanceAttack.ToString(), Enums.AttackSkill.BoxCollider);
         Skills[(int)SkillName.ShortDistanceAttack].InitializeBoxCollider
             (2, 0.5f, 2.0f, 2.0f, Vector3.one, Vector3.forward);
        

@@ -18,9 +18,7 @@ public class Weapon : MonoBehaviour
         {
             GameObject highestParent = Functions.FindHighestParent(gameObject);
             Parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
-
         }
-        Debug.Log("Hello");
         Parent.OnWeaponTriggerEnter(other);
     }
 }

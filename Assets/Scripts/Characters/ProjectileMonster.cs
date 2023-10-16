@@ -15,11 +15,11 @@ public class ProjectileMonster : AbstractMonster
     private void Start()
     {
         animator = gameObject.GetComponent<Animator>();
-        InitializeStat(10, 2, 10, 50, 50);
+        InitializeStat(10, 2, 10, 50, 50); //몬스터에 대한 초기화
 
         Skills = new AbstractAttack[(int)SkillName.End];
-        Skills[(int)SkillName.ProjectileAttack] = AddSkill(SkillName.ProjectileAttack.ToString(), AttackSkill.ProjectileAttack);
-        Skills[(int)SkillName.ProjectileAttack].InitializeProjectile
+        Skills[(int)SkillName.ProjectileAttack] = AddSkill(SkillName.ProjectileAttack.ToString(), Enums.AttackSkill.ProjectileAttack);
+        Skills[(int)SkillName.ProjectileAttack].InitializeProjectile //공격에 대한 초기화
             (2.0f, 5.0f, 5.0f, Vector3.up * 1.0f, projectile);
     }
 

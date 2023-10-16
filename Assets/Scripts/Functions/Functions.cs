@@ -33,7 +33,6 @@ public class Functions : MonoBehaviour
         {
             if (child.name == childName)
             {
-                Debug.Log(child.name);
                 return child.gameObject;
             }
         }

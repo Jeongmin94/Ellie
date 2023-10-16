@@ -17,6 +17,7 @@ public class BoxColliderAttack : AbstractAttack
             collider = gameObject.AddComponent<BoxCollider>();
             collider.isTrigger = true;
         }
+
         collider.enabled = false;
         collider.size = size;
         gameObject.transform.localPosition = offset;
@@ -25,7 +26,7 @@ public class BoxColliderAttack : AbstractAttack
     public override void ActivateAttack()
     {
         collider.enabled = true;
-        Debug.Log("BoxCollider Attacked");
+        //Debug.Log("BoxCollider Attacked");
         StartCoroutine(DisableCollider());
         
     }

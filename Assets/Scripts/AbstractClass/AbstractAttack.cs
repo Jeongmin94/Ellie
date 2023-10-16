@@ -13,8 +13,6 @@ public abstract class AbstractAttack : MonoBehaviour
     protected string Owner;
     protected string PrefabName;
 
-
-
     public abstract void ActivateAttack();
 
     //Initializes
@@ -37,10 +35,10 @@ public abstract class AbstractAttack : MonoBehaviour
     public virtual void InitializeSphereCollider(float attackValue, float duration,
         float attackInterval, float attackRange, float attackRadius, Vector3 offset)
     { }
-    //projectile prefab에 attackvalue와 duration은 있는게 맞으니까 빼는게 맞을거 같다.
 
     public virtual void InitializeProjectile(float attackValue, float attackInterval, float attackRange, Vector3 offset, GameObject prefabName)
     { }
+    //attackvalue and duration should be in AttackObject or ProjectilePrefab?
 
     public virtual void InitializeWeapon(float attackValue, float durationTime, float attackInterval, float attackRange, GameObject weapon)
     { }

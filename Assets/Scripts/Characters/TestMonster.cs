@@ -9,9 +9,9 @@ public class TestMonster : AbstractMonster
 
     private void Start()
     {
-        AddSkill(SkillName.ProjectileAttack.ToString(), AttackSkill.ProjectileAttack);
-        AddSkill(SkillName.BoxAttack.ToString(), AttackSkill.BoxCollider);
-        AddSkill(SkillName.SphereAttack.ToString(), AttackSkill.SphereCollider);
+        AddSkill(SkillName.ProjectileAttack.ToString(), Enums.AttackSkill.ProjectileAttack);
+        AddSkill(SkillName.BoxAttack.ToString(), Enums.AttackSkill.BoxCollider);
+        AddSkill(SkillName.SphereAttack.ToString(), Enums.AttackSkill.SphereCollider);
 
         AbstractAttack attack;
         if (Attacks.TryGetValue(SkillName.ProjectileAttack.ToString(), out attack))

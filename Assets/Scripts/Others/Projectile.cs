@@ -24,7 +24,6 @@ public class Projectile : MonoBehaviour
     {
         if (Owner == "Monster")
         {
-            Debug.Log("[Projectile] Owner : " + Owner);
             if (other.tag == "Player")
             {
                 FireEnemyProjectile(other);

@@ -12,14 +12,14 @@ public class WeaponMonster : AbstractMonster
     private Animator animator;
     [SerializeField] private GameObject Weapon;
 
-    void Start()
+    private void OnEnable()
     {
         animator = GetComponent<Animator>();
         InitializeStat(10, 2, 10, 30, 40);
 
         Skills = new AbstractAttack[(int)SkillName.End];
-        Skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), AttackSkill.WeaponAttack);
-        Skills[(int)SkillName.WeaponAttack].InitializeWeapon(2.2f, 1.0f, 3.0f,3.0f, Weapon);
+        Skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);
+        Skills[(int)SkillName.WeaponAttack].InitializeWeapon(2.2f, 1.0f, 3.0f, 3.0f, Weapon);
     }
     private void FixedUpdate()
     {
