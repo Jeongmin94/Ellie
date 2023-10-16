@@ -5,6 +5,8 @@ using UnityEngine;
 public class TestMonster : AbstractMonster
 {
     private enum SkillName { BoxAttack, ProjectileAttack, SphereAttack,WeaponAttack }
+    [SerializeField] GameObject projectile;
+
     private void Start()
     {
         AddSkill(SkillName.ProjectileAttack.ToString(), AttackSkill.ProjectileAttack);
@@ -14,7 +16,7 @@ public class TestMonster : AbstractMonster
         AbstractAttack attack;
         if (Attacks.TryGetValue(SkillName.ProjectileAttack.ToString(), out attack))
         {
-            attack.InitializeProjectile(10.0f,3.0f,10.0f,Vector3.zero, "Projectile");
+            attack.InitializeProjectile(10.0f,3.0f,10.0f,Vector3.zero, projectile);
         }
         if (Attacks.TryGetValue(SkillName.BoxAttack.ToString(), out attack))
         {

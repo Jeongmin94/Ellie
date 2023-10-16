@@ -10,7 +10,7 @@ public class Player : MonoBehaviour
 
     public void Damaged(float attackValue)
     {
-        Debug.Log("Player Damaged :" + attackValue);
+        Debug.Log(gameObject.ToString()+" Damaged :" + attackValue);
     }
     private void FixedUpdate()
     {

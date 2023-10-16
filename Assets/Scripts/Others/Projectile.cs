@@ -8,7 +8,7 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float DestroyTime;
     
     private float AttackValue;
-    private string Owner;
+    public string Owner;
 
     private void Start()
     {
@@ -22,9 +22,9 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(Owner);
         if (Owner == "Monster")
         {
+            Debug.Log("[Projectile] Owner : " + Owner);
             if (other.tag == "Player")
             {
                 FireEnemyProjectile(other);
@@ -50,6 +50,5 @@ public class Projectile : MonoBehaviour
     {
         AttackValue = attackValue;
         Owner = owner;
-        Debug.Log("Set Owner : " + Owner);
     }
 }

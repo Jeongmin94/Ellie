@@ -19,7 +19,7 @@ public abstract class AbstractMonster : MonoBehaviour
     }
     protected enum AttackSkill
     {
-        BoxCollider, SphereCollider, RunToPlayer, FanwiseAttack, RectangularAttack, ProjectileAttack, End
+        BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, End
     }
 
     //Stat
@@ -33,7 +33,7 @@ public abstract class AbstractMonster : MonoBehaviour
     protected float PlayerDistance;
 
     //Actions
-    protected bool Attacking;
+    [SerializeField] protected bool isAttacking;
 
     //Typle
     [SerializeField] protected MonsterKind Kind;
@@ -43,6 +43,7 @@ public abstract class AbstractMonster : MonoBehaviour
     //Components
     private Rigidbody RB;
 
+    //Attack Dictionary
     protected Dictionary<string, AbstractAttack> Attacks = new();
 
     protected void InitializeStat(float HP, float movementSpeed, float rotationSpeed, float detectPlayerDistance, float overtravelDistance)
@@ -56,6 +57,8 @@ public abstract class AbstractMonster : MonoBehaviour
         {
             RB = GetComponent<Rigidbody>();
         }
+
+        isAttacking = false;
     }
 
     protected void SetMonsterType(MonsterKind kind, MovementType type, AttackTurnType turnType)
@@ -84,6 +87,9 @@ public abstract class AbstractMonster : MonoBehaviour
                 break;
             case AttackSkill.SphereCollider:
                 attack = newSkill.AddComponent<SphereColliderAttack>();
+                break;
+            case AttackSkill.WeaponAttack:
+                attack = newSkill.AddComponent<WeaponAttack>();
                 break;
         }
         if (attack != null)
