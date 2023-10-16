@@ -30,6 +30,9 @@ namespace Assets.Scripts.Player
         [SerializeField] private float maximumAdditionalJumpInputTime;
         public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
 
+        [SerializeField] private float landStateDuration;
+        public float LandStateDuration { get { return landStateDuration; } }
+
 
         [Header("Ground Check")]
         [SerializeField] private float playerHeight;
@@ -52,6 +55,12 @@ namespace Assets.Scripts.Player
         [Header("Slope")]
         public float maxSlopeAngle;
         private RaycastHit slopeHit;
+
+        [Header("Getting Over Step")]
+        [SerializeField] private GameObject stepRayUpper;
+        [SerializeField] private GameObject stepRayLower;
+        [SerializeField] float stepHeight;
+        [SerializeField] float stepSmooth;
 
         public bool isGrounded;
         public bool isSprinting;
@@ -87,6 +96,10 @@ namespace Assets.Scripts.Player
             InitStateMachine();
             cinematicAimCam.SetActive(false);
 
+            //getting over step
+            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
+                stepRayUpper.transform.position.z);
+
         }
         private void Update()
         {
@@ -112,7 +125,7 @@ namespace Assets.Scripts.Player
             {
                 inputMagnitude *= 1.5f;
             }
-            Anim.SetFloat("Input Magnitude", inputMagnitude, 0.2f, Time.deltaTime);
+            Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
 
             if (isJumping || isFalling)
                 playerCollider.height = 0f;
@@ -128,6 +141,7 @@ namespace Assets.Scripts.Player
         private void FixedUpdate()
         {
             CalculateMoveDirection();
+            //ClimbStep();
             stateMachine?.FixedUpdateState();
         }
         private void InitStateMachine()
@@ -148,7 +162,6 @@ namespace Assets.Scripts.Player
             PlayerStateLand playerStateLand = new PlayerStateLand(this);
             stateMachine.AddState(PlayerStateName.Land, playerStateLand);
         }
-
         public void MovePlayer(float moveSpeed)
         {
             if (CheckSlope())
@@ -156,14 +169,75 @@ namespace Assets.Scripts.Player
                 Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
             }
             else
+            {
+                ClimbStep();
                 Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
+            }
         }
 
+        private void ClimbStep()
+        {
+
+            RaycastHit lowerHit;
+            if (Physics.Raycast(stepRayLower.transform.position, playerObj.transform.forward,
+                out lowerHit, 0.1f, groundLayer))
+            {
+                Debug.Log("stair detected");
+                RaycastHit hitUpper;
+                if (!Physics.Raycast(stepRayUpper.transform.position, playerObj.transform.forward,
+                    out hitUpper, 0.2f, groundLayer))
+                {
+                    Debug.Log("Getting over Stair");
+                    Rb.position -= new Vector3(0f, -stepSmooth * Time.fixedDeltaTime, 0f);
+                }
+            }
+            Debug.DrawLine(stepRayLower.transform.position, stepRayLower.transform.position +
+                playerObj.TransformDirection(Vector3.forward) * 0.1f, Color.green);
+            Debug.DrawLine(stepRayUpper.transform.position, stepRayUpper.transform.position +
+                playerObj.TransformDirection(Vector3.forward) * 0.2f, Color.red);
+
+            //RaycastHit hitLower;
+            //if (Physics.Raycast(stepRayLower.transform.position,
+            //    playerObj.TransformDirection(Vector3.forward), out hitLower, 0.1f, groundLayer))
+            //{
+            //    RaycastHit hitUpper;
+            //    if (!Physics.Raycast(stepRayUpper.transform.position,
+            //        playerObj.TransformDirection(Vector3.forward), out hitUpper, 0.2f, groundLayer))
+            //    {
+            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+            //    }
+            //}
+
+            //RaycastHit hitLower45;
+            //if (Physics.Raycast(stepRayLower.transform.position,
+            //    playerObj.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f, groundLayer))
+            //{
+
+            //    RaycastHit hitUpper45;
+            //    if (!Physics.Raycast(stepRayUpper.transform.position,
+            //        playerObj.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f, groundLayer))
+            //    {
+            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+            //    }
+            //}
+
+            //RaycastHit hitLowerMinus45;
+            //if (Physics.Raycast(stepRayLower.transform.position,
+            //    playerObj.TransformDirection(-1.5f, 0, 1), out hitLowerMinus45, 0.1f, groundLayer))
+            //{
+
+            //    RaycastHit hitUpperMinus45;
+            //    if (!Physics.Raycast(stepRayUpper.transform.position,
+            //        playerObj.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, 0.2f, groundLayer))
+            //    {
+            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+            //    }
+            //}
+        }
         public void JumpPlayer()
         {
             StartCoroutine(Jump());
         }
-
         private IEnumerator Jump()
         {
             canJump = false;
@@ -174,8 +248,6 @@ namespace Assets.Scripts.Player
             yield return new WaitForSeconds(jumpCooldown);
             canJump = true;
         }
-
-
         public void ChangeState(PlayerStateName nextStateName)
         {
             stateMachine.ChangeState(nextStateName);
@@ -186,7 +258,6 @@ namespace Assets.Scripts.Player
             verticalInput = Input.GetAxisRaw("Vertical");
             MoveInput = new Vector2(horizontalInput, verticalInput);
         }
-
         private void CheckGround()
         {
             bool curIsGrounded = Physics.Raycast(transform.position,
@@ -246,13 +317,8 @@ namespace Assets.Scripts.Player
             if (MoveDirection != Vector3.zero)
             {
                 playerObj.forward = Vector3.Slerp(playerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
-                //playerObj.forward = MoveDirection.normalized;
             }
         }
-
-
-
-
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);

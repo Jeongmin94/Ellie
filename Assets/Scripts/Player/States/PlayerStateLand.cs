@@ -4,14 +4,15 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateLand : PlayerBaseState
     {
-        private float interval = 0.2f;
-        private float time = 0f;
+        private float interval;
+        private float time;
         public PlayerStateLand(PlayerController controller) : base(controller)
         {
         }
 
         public override void OnEnterState()
         {
+            interval = Controller.LandStateDuration;
             Debug.Log("Land");
             Controller.canTurn = false;
             Controller.Anim.SetBool("IsFalling", false);
