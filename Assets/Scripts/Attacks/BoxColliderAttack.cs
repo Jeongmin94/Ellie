@@ -35,12 +35,12 @@ public class BoxColliderAttack : AbstractAttack
     {
         yield return new WaitForSeconds(durationTime);
         collider.enabled = false;
-        isAttackReady = false;
+        IsAttackReady = false;
         StartCoroutine(SetAttakingFalse());
     }
     private IEnumerator SetAttakingFalse()
     {
-        isAttackReady = true;
+        IsAttackReady = true;
         yield return new WaitForSeconds(AttackInterval);
     }
 

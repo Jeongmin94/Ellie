@@ -28,9 +28,9 @@ public class ProjectileAttack : AbstractAttack
 
     private IEnumerator StartAttackReadyCount()
     {
-        isAttackReady = false;
+        IsAttackReady = false;
         yield return new WaitForSeconds(AttackInterval);
-        isAttackReady = true;
+        IsAttackReady = true;
     }
 
 }

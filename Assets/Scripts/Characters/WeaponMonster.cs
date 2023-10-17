@@ -28,7 +28,7 @@ public class WeaponMonster : AbstractMonster
         skills = new AbstractAttack[(int)SkillName.End];
         skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);
         skills[(int)SkillName.WeaponAttack].InitializeWeapon(2.2f, 1.0f, 3.0f, 3.0f, weapon);
-    }   
+    }    
     private void FixedUpdate()
     {
         playerDistance = Vector3.Distance(player.transform.position, transform.position);
@@ -41,7 +41,7 @@ public class WeaponMonster : AbstractMonster
     {
         for(int i=0; i<(int)SkillName.End;i++)
         {
-            if (playerDistance < skills[i].AttackRange && skills[i].isAttackReady)
+            if (playerDistance < skills[i].AttackRange && skills[i].IsAttackReady)
             {
                 isAttacking = true;
                 animator.SetTrigger("WeaponAttackAnimation");

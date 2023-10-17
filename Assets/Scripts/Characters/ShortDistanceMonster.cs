@@ -44,7 +44,7 @@ public class ShortDistanceMonster : AbstractMonster
         //Debug.Log("[ShortDistanceMonster] UpdateAttackDistance()");
         for (int i = 0; i < (int)SkillName.End; i++)
         {
-            if (playerDistance < skills[i].AttackRange && skills[i].isAttackReady)
+            if (playerDistance < skills[i].AttackRange && skills[i].IsAttackReady)
             {
                 isAttacking = true;
                 animator.SetTrigger("ShortDistanceAttackAnimation");

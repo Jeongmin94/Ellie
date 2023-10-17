@@ -5,10 +5,11 @@ using UnityEngine;
 public abstract class AbstractAttack : MonoBehaviour
 {
     [SerializeField] protected float attackValue; //공격력
-    [SerializeField] public float AttackRange { get; private set; } //공격 발동 범위
     [SerializeField] protected float durationTime; //공격 지속 시간
-    [SerializeField] public float AttackInterval { get; private set; } //공격 쿨타임(간격)
-    [SerializeField] public bool isAttackReady { get; protected set; } //공격 가능 여부 
+
+    public float AttackRange { get; private set; } //공격 발동 범위
+    public float AttackInterval { get; private set; } //공격 쿨타임(간격)
+    public bool IsAttackReady { get; protected set; } //공격 가능 여부 
 
     protected string owner;
     protected string prefabName;
@@ -24,7 +25,7 @@ public abstract class AbstractAttack : MonoBehaviour
         AttackInterval = attackInterval;
         AttackRange = attackRange;
 
-        isAttackReady = true;
+        IsAttackReady = true;
         //Debug.Log("[AbstractAttack]Initialized base");
     }
 

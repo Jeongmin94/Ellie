@@ -14,10 +14,10 @@ public abstract class AbstractMonster : MonoBehaviour
     protected float playerDistance;
 
     //Actions
-    [SerializeField] protected bool isAttacking;
+    protected bool isAttacking;
 
     //Components
-    private Rigidbody RB;
+    private Rigidbody rigidBody;
     protected AbstractAttack[] skills;
     protected Animator animator;
 
@@ -76,7 +76,7 @@ public abstract class AbstractMonster : MonoBehaviour
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         lookRotation.x = 0;
         lookRotation.z = 0;
-        RB.MoveRotation(Quaternion.Slerp(RB.rotation, lookRotation, monsterStat.rotationSpeed * Time.deltaTime));
+        rigidBody.MoveRotation(Quaternion.Slerp(rigidBody.rotation, lookRotation, monsterStat.rotationSpeed * Time.deltaTime));
         transform.Translate(Vector3.forward * monsterStat.movementSpeed * Time.deltaTime);
     }
 

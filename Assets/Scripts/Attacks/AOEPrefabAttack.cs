@@ -28,9 +28,9 @@ public class AOEPrefabAttack : AbstractAttack
     }
     private IEnumerator StartAttackReadyCount()
     {
-        isAttackReady = false;
+        IsAttackReady = false;
         yield return new WaitForSeconds(AttackInterval);
-        isAttackReady = true;
+        IsAttackReady = true;
     }
 
     public void SetPrefabPosition(Vector3 position,Vector3 offset)

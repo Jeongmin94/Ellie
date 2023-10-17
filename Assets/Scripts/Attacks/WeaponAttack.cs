@@ -23,7 +23,7 @@ public class WeaponAttack : AbstractAttack
     public override void ActivateAttack()
     {
         //Debug.Log("[WeaponAttack] ActivateAttack");
-        if (!isAttackReady) return;
+        if (!IsAttackReady) return;
         if (collider == null)
         {
             collider = gameObject.GetComponent<Collider>();
@@ -32,7 +32,7 @@ public class WeaponAttack : AbstractAttack
         }
         collider.enabled = true;
         StartCoroutine(DisableCollider());
-        isAttackReady = false;
+        IsAttackReady = false;
     }
 
     private IEnumerator DisableCollider()
@@ -46,7 +46,7 @@ public class WeaponAttack : AbstractAttack
     private IEnumerator SetAttackReady()
     {
         yield return new WaitForSeconds(AttackInterval);
-        isAttackReady = true;
+        IsAttackReady = true;
         
     }
 
