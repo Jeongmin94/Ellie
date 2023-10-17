@@ -1,7 +1,5 @@
 ﻿using Assets.Scripts.Player.States;
-using Cinemachine;
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -356,7 +354,7 @@ namespace Assets.Scripts.Player
 
         public void SetAnimLayerWeight(float weight)
         {
-            if(curAimLayerWeight < weight)
+            if (curAimLayerWeight < weight)
             {
                 curAimLayerWeight += 2.5f * Time.deltaTime / Time.timeScale;
             }
@@ -403,7 +401,7 @@ namespace Assets.Scripts.Player
         {
             Vector3 directionToTarget = debugSphere.transform.position - playerObj.position;
             directionToTarget.y = 0;
-            
+
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
             playerObj.rotation = Quaternion.Slerp(playerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
             //playerObj.LookAt(new Vector3(debugSphere.transform.position.x, playerObj.position.y, debugSphere.transform.position.z));

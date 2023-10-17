@@ -1,5 +1,4 @@
 ﻿using Cinemachine;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
@@ -41,12 +40,12 @@ namespace Assets.Scripts.Player.States
             Controller.LookAimTarget();
             Controller.SetAnimLayerWeight(1f);
             curTime += Time.deltaTime / Time.timeScale;
-            if(curTime>=zoomingTime)
+            if (curTime >= zoomingTime)
             {
                 Controller.ChangeState(PlayerStateName.Charging);
             }
 
-            if(Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0))
             {
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
