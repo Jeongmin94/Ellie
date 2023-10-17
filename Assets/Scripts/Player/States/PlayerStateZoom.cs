@@ -22,7 +22,7 @@ namespace Assets.Scripts.Player.States
             if (!Controller.isGrounded)
                 Controller.isFalling = true;
             Controller.SetTimeScale(Controller.zoomMultiplier);
-            Controller.SetAimAnimLayerWeight(1f);
+            Controller.curAimLayerWeight = 0f;
             Controller.debugSphere.SetActive(true);
         }
 
@@ -39,6 +39,7 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
+            Controller.SetAnimLayerWeight(1f);
             curTime += Time.deltaTime / Time.timeScale;
             if(curTime>=zoomingTime)
             {
@@ -51,6 +52,8 @@ namespace Assets.Scripts.Player.States
                 Controller.TurnOffAimCam();
                 Controller.Anim.SetLayerWeight(1, 0);
                 Controller.debugSphere.SetActive(false);
+                Controller.curAimLayerWeight = 0f;
+                Controller.SetAnimLayerWeight(0f);
 
 
                 if (Controller.isGrounded)

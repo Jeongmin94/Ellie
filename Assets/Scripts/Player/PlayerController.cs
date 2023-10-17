@@ -88,6 +88,7 @@ namespace Assets.Scripts.Player
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
+        public float curAimLayerWeight;
 
         public CapsuleCollider playerCollider;
 
@@ -353,22 +354,36 @@ namespace Assets.Scripts.Player
             //StartCoroutine(LerpTimeScale(expectedTimeScale));
         }
 
-        public void SetAimAnimLayerWeight(float weight)
+        public void SetAnimLayerWeight(float weight)
         {
-            //Anim.SetLayerWeight(1, weight);
-            StartCoroutine(SetLayerWeight(weight));
-        }
-
-        private IEnumerator SetLayerWeight(float weight)
-        {
-            float curWeight = 0f;
-            while (curWeight < weight)
+            if(curAimLayerWeight < weight)
             {
-                curWeight += 2f * Time.deltaTime / Time.timeScale;
-                Anim.SetLayerWeight(1, curWeight);
-                yield return null;
+                curAimLayerWeight += 2.5f * Time.deltaTime / Time.timeScale;
             }
+            Anim.SetLayerWeight(1, curAimLayerWeight);
         }
+        //public void SetAimAnimLayerWeight(float weight)
+        //{
+        //    //Anim.SetLayerWeight(1, weight);
+        //    StartCoroutine(SetLayerWeightCoroutine(weight));
+        //}
+        //public void StopSetAimAnimLayerWeight(float weight)
+        //{
+        //    Debug.Log("Stopping setting aimanimLayerWeight");
+        //    StopCoroutine(SetLayerWeightCoroutine(weight));
+        //    Anim.SetLayerWeight(1, 0);
+        //}
+
+        //private IEnumerator SetLayerWeightCoroutine(float weight)
+        //{
+        //    float curWeight = 0f;
+        //    while (curWeight < weight)
+        //    {
+        //        curWeight += 2f * Time.deltaTime / Time.timeScale;
+        //        Anim.SetLayerWeight(1, curWeight);
+        //        yield return null;
+        //    }
+        //}
 
         public void Aim()
         {
