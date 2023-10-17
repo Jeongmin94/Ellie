@@ -14,3 +14,12 @@
 
 - 업무 관리: Notion
 - 메신저: Slack
+
+# 3. UML
+
+- PlantUML 사용
+- https://plantuml.com/ko/
+- VS Code에서 `PlantUML` 익스텐션 설치하면 VS Code 에디터에서 UML 작성 가능
+    - `alt + d` 누르면 UML 화면에 표시(맥에서는 `option + d`)
+    - 샘플은 `/UML/sample/` 경로에 있음
+    
