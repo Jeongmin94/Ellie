@@ -132,6 +132,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 192294053}
+  - component: {fileID: 192294055}
   - component: {fileID: 192294054}
   m_Layer: 0
   m_Name: GameObject
@@ -174,6 +175,23 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &192294055
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192294052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ca4c8647ca69184297d4da7352f7a82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviourTreeInstance: {fileID: 192294054}
+  enemyData: {fileID: 11400000, guid: 18575facdb83e234589b53c9e8131601, type: 2}
+  hp: 0
+  movement: 0
+  attackRange: 0
 --- !u!1 &670143039
 GameObject:
   m_ObjectHideFlags: 0
