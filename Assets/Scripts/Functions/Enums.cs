@@ -4,7 +4,8 @@ using UnityEngine;
 
 public static class Enums
 {
-    //Monster Type
+    //Monster
+        //Monster Type
     public enum MonsterKind
     {
         Human, Skeleton, Ghost, Insect, Beast, FlyingBeast, Golem, End
@@ -21,6 +22,13 @@ public static class Enums
     {
         BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, AOEAttack, End
     }
+
+        //Monster State
+    public enum MonsterState
+    {
+        Wait, Patrol, Chase, Attack, Return, End
+    }
+
 
     //Monster Skill
 }
