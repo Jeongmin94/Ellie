@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BoxColliderAttack : AbstractAttack
@@ -28,7 +27,7 @@ public class BoxColliderAttack : AbstractAttack
         collider.enabled = true;
         //Debug.Log("BoxCollider Attacked");
         StartCoroutine(DisableCollider());
-        
+
     }
 
     private IEnumerator DisableCollider()
@@ -48,7 +47,7 @@ public class BoxColliderAttack : AbstractAttack
     {
         if (owner == "Monster")
         {
-            if(other.tag=="Player")
+            if (other.tag == "Player")
             {
                 other.gameObject.GetComponent<Player>().Damaged(attackValue);
             }

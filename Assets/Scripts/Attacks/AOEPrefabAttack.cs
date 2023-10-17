@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AOEPrefabAttack : AbstractAttack
@@ -10,7 +9,7 @@ public class AOEPrefabAttack : AbstractAttack
     private float damageInterval;
 
     public override void InitializeAOE
-        (float attackValue, float durationTime, float attackInterval, float attackRange, float damageInterval,GameObject prefabObject)
+        (float attackValue, float durationTime, float attackInterval, float attackRange, float damageInterval, GameObject prefabObject)
     {
         InitializedBase(attackValue, durationTime, attackInterval, attackRange);
         Debug.Log("ParameterOBJ : " + prefabObject);
@@ -33,7 +32,7 @@ public class AOEPrefabAttack : AbstractAttack
         IsAttackReady = true;
     }
 
-    public void SetPrefabPosition(Vector3 position,Vector3 offset)
+    public void SetPrefabPosition(Vector3 position, Vector3 offset)
     {
         this.position = position;
         this.offset = offset;

@@ -1059,9 +1059,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4016927572337565217}
   - component: {fileID: 4016927572337565222}
-  - component: {fileID: 4016927572337565223}
   - component: {fileID: 4016927572337565220}
   - component: {fileID: 4016927572337565221}
+  - component: {fileID: 6597778464917648782}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1106,61 +1106,6 @@ Rigidbody:
   m_Interpolate: 2
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &4016927572337565223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4016927572337565216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f13a51cc5353d924b9902d5d001f11f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCam: {fileID: 0}
-  playerObj: {fileID: 3473479438722185937}
-  rotationSpeed: 10
-  cinematicMainCam: {fileID: 4016927572231187841}
-  cinematicAimCam: {fileID: 4016927572422116014}
-  walkSpeed: 4
-  sprintSpeed: 6
-  dodgeSpeed: 10
-  orientation: {fileID: 4016927572048160162}
-  jumpForce: 9
-  additionalJumpForce: 9
-  jumpCooldown: 0.5
-  maximumAdditionalJumpInputTime: 0.3
-  landStateDuration: 0.3
-  playerHeight: 2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  layerToIgnore:
-    serializedVersion: 2
-    m_Bits: 128
-  groundDrag: 5
-  additionalGravityForce: 15
-  dodgeInvulnerableTime: 0.5
-  dodgeForce: 5
-  hasRock: 0
-  debugSphere: {fileID: 0}
-  maxSlopeAngle: 40
-  stepRayUpper: {fileID: 1668694612}
-  stepRayLower: {fileID: 1672556632}
-  stepHeight: 0.45
-  stepSmooth: 2
-  zoomMultiplier: 0
-  isGrounded: 0
-  isSprinting: 0
-  isFalling: 0
-  isJumping: 0
-  isDodging: 0
-  isZooming: 0
-  canJump: 0
-  canTurn: 0
-  inputMagnitude: 0
-  playerCollider: {fileID: 4016927572169917174}
 --- !u!114 &4016927572337565220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1220,7 +1165,7 @@ Animator:
   m_GameObject: {fileID: 4016927572337565216}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1f0ae533b0475f140a636c62c09ad980, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2d93fff9c0a427d4aa4ff6e60fae62c9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1231,6 +1176,62 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6597778464917648782
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f638288dc4d17c44bc5dd67da9465dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCam: {fileID: 4016927572231187841}
+  playerObj: {fileID: 4016927572337565217}
+  rotationSpeed: 0
+  cinematicMainCam: {fileID: 4016927572231187841}
+  cinematicAimCam: {fileID: 4016927572422116014}
+  walkSpeed: 0
+  sprintSpeed: 0
+  dodgeSpeed: 0
+  orientation: {fileID: 0}
+  jumpForce: 0
+  additionalJumpForce: 0
+  jumpCooldown: 0
+  maximumAdditionalJumpInputTime: 0
+  landStateDuration: 0
+  playerHeight: 0
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  layerToIgnore:
+    serializedVersion: 2
+    m_Bits: 0
+  groundDrag: 0
+  additionalGravityForce: 0
+  dodgeInvulnerableTime: 0
+  dodgeForce: 0
+  hasRock: 0
+  debugSphere: {fileID: 0}
+  maxSlopeAngle: 0
+  stepRayUpper: {fileID: 1668694612}
+  stepRayLower: {fileID: 1672556632}
+  stepHeight: 0
+  stepSmooth: 0
+  zoomMultiplier: 0
+  isGrounded: 0
+  isSprinting: 0
+  isFalling: 0
+  isJumping: 0
+  isDodging: 0
+  isZooming: 0
+  canJump: 0
+  canTurn: 0
+  inputMagnitude: 0
+  curAimLayerWeight: 0
+  playerCollider: {fileID: 4016927572169917174}
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0

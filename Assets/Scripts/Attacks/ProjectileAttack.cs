@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProjectileAttack : AbstractAttack
 {
-    
+
     private string projectilePrefabPath = "Assets/Prefabs/Attacks/";
     [SerializeField] public Projectile projectile;
     private Vector3 offset;
@@ -21,8 +20,8 @@ public class ProjectileAttack : AbstractAttack
 
     public override void ActivateAttack()
     {
-        Projectile obj = Instantiate(projectile, transform.position+offset, transform.rotation);
-        obj.SetProjectileData(attackValue,durationTime, gameObject.tag.ToString());
+        Projectile obj = Instantiate(projectile, transform.position + offset, transform.rotation);
+        obj.SetProjectileData(attackValue, durationTime, gameObject.tag.ToString());
         StartCoroutine(StartAttackReadyCount());
     }
 
