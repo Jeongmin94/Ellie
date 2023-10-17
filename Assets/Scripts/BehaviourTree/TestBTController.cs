@@ -6,13 +6,13 @@ public class TestBTController : MonoBehaviour
     public BehaviourTreeInstance behaviourTreeInstance;
     public EnemyData enemyData;
 
+    public int hp;
+    public float movement;
+    public float attackRange;
+
     private BlackboardKey<int> monsterHP;
     private BlackboardKey<float> monsterMovement;
     private BlackboardKey<float> monsterAttackRange;
-
-    [SerializeField] private int hp;
-    [SerializeField] private float movement;
-    [SerializeField] private float attackRange;
 
     private void Start()
     {
