@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class WeaponAttack : AbstractAttack
@@ -47,7 +46,7 @@ public class WeaponAttack : AbstractAttack
     {
         yield return new WaitForSeconds(AttackInterval);
         IsAttackReady = true;
-        
+
     }
 
     public void OnWeaponTriggerEnter(Collider other)

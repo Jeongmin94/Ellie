@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 4016927572337565222}
   - component: {fileID: 4016927572337565220}
   - component: {fileID: 4016927572337565221}
-  - component: {fileID: 6597778464917648782}
+  - component: {fileID: 6030200240847392581}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1165,7 +1165,7 @@ Animator:
   m_GameObject: {fileID: 4016927572337565216}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
-  m_Controller: {fileID: 9100000, guid: 2d93fff9c0a427d4aa4ff6e60fae62c9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 1f0ae533b0475f140a636c62c09ad980, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1176,7 +1176,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6597778464917648782
+--- !u!114 &6030200240847392581
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1188,11 +1188,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f638288dc4d17c44bc5dd67da9465dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCam: {fileID: 4016927572231187841}
-  playerObj: {fileID: 4016927572337565217}
+  mainCam: {fileID: 0}
+  playerObj: {fileID: 0}
   rotationSpeed: 0
-  cinematicMainCam: {fileID: 4016927572231187841}
-  cinematicAimCam: {fileID: 4016927572422116014}
+  cinematicMainCam: {fileID: 0}
+  cinematicAimCam: {fileID: 0}
   walkSpeed: 0
   sprintSpeed: 0
   dodgeSpeed: 0
@@ -1216,8 +1216,8 @@ MonoBehaviour:
   hasRock: 0
   debugSphere: {fileID: 0}
   maxSlopeAngle: 0
-  stepRayUpper: {fileID: 1668694612}
-  stepRayLower: {fileID: 1672556632}
+  stepRayUpper: {fileID: 0}
+  stepRayLower: {fileID: 0}
   stepHeight: 0
   stepSmooth: 0
   zoomMultiplier: 0
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   canTurn: 0
   inputMagnitude: 0
   curAimLayerWeight: 0
-  playerCollider: {fileID: 4016927572169917174}
+  playerCollider: {fileID: 0}
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
