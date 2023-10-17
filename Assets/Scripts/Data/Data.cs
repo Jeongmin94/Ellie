@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Ellie.Scripts.Data
+namespace Assets.Scripts.Data
 {
     public class Data<T>
     {
