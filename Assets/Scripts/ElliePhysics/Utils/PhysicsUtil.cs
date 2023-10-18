@@ -65,6 +65,5 @@ namespace Assets.Scripts.ElliePhysics.Utils
 
             return pointList.ToArray();
         }
-
     }
 }

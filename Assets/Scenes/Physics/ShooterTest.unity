@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -573,14 +573,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5bc0606b696834c862c9e83356bb9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  releasePosition: {fileID: 2087993189}
   lineRenderer: {fileID: 291415762}
   linePoints: 25
   calculatingTime: 1
-  shootingPower: 17.2
-  maxChargingTime: 1.5
-  stone: {fileID: 784429374}
+  releasePosition: {fileID: 2087993189}
+  shootingPower: 10
   chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
+  aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
+  stone: {fileID: 784429374}
+  withPlayer: 0
 --- !u!1 &315559234
 GameObject:
   m_ObjectHideFlags: 0

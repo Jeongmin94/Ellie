@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Player.States;
 using System.Collections;
+using Assets.Scripts.Data.ActionData.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -12,6 +13,10 @@ namespace Assets.Scripts.Player
 
         public GameObject cinematicMainCam;
         public GameObject cinematicAimCam;
+
+        [Header("ActionData")]
+        [SerializeField] private AimTargetData aimTargetData;
+        
         [SerializeField] private float walkSpeed;
         public float WalkSpeed { get { return walkSpeed; } }
         [SerializeField] private float sprintSpeed;
@@ -53,7 +58,16 @@ namespace Assets.Scripts.Player
         [Header("Attack")]
         [SerializeField] private bool hasRock;
 
-        public Vector3 AimTarget { get; set; }
+        private Vector3 aimTarget;
+        public Vector3 AimTarget
+        {
+            get { return aimTarget; }
+            set
+            {
+                aimTargetData.TargetPosition.Value = value;
+                aimTarget = value;
+            }
+        }
 
         [Header("Slope")]
         public float maxSlopeAngle;
