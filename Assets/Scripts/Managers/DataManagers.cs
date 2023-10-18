@@ -1,19 +1,32 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class DataManagers : Singleton<DataManagers>
 {
-    Dictionary<int, DataParsingInfo> datas = new Dictionary<int, DataParsingInfo>();
+    [SerializeField]
+    private List<DataParsingInfo> dataList;
 
-    public DataParsingInfo GetData(int id)
+    private Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
+
+    private void Start()
     {
-        if (datas.ContainsKey(id))
+        foreach (var data in dataList)
+
         {
-            return datas[id];
+            dataDictionary[data.GetType()] = data;
+        }
+    }
+
+    public T GetData<T>() where T : DataParsingInfo
+    {
+        if (dataDictionary.TryGetValue(typeof(T), out DataParsingInfo data))
+        {
+            return data as T;
         }
         else
         {
+            Debug.LogError($"해당 데이터 타입 : {typeof(T)} 반환 불가");
             return null;
         }
     }

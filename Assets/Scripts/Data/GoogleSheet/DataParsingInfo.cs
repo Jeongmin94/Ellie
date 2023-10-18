@@ -2,6 +2,16 @@
 using UnityEngine;
 using UnityEngine.Networking;
 
+public enum DataType
+{
+    Monster = 1000,
+    Boss = 1100,
+    Attack = 2000,
+    Effect = 3000,
+    Buff = 3500,
+    Test = 4000,
+}
+
 public abstract class DataParsingInfo : ScriptableObject
 {
     [Header("Google SpreadSheets URL")]

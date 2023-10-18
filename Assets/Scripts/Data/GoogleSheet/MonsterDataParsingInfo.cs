@@ -5,6 +5,8 @@ using UnityEngine;
 
 public enum Element
 {
+    Darkness,
+    Confuse,
     Normal,
     Earth,
 }
@@ -12,16 +14,17 @@ public enum Element
 [Serializable]
 public class MonsterData
 {
-    public int Index;
-    public string Name;
-    public Element Element;
-    public int HP;
-    public float Movement;
-    public float Range;
-    public float AttackInterval;
-    public List<Element> Immune;
-    public bool Aggressive;
-    public float WeakRatio;
+    public int index;
+    public string name;
+    public Element element;
+    public int hp;
+    public float movement;
+    public float range;
+    public float attackInterval;
+    public List<Element> immuneList;
+    public bool aggression;
+    public float weakRatio;
+    public int dropTable;
 }
 
 [CreateAssetMenu(fileName = "MonsterData", menuName = "GameData List/MonsterData")]
@@ -32,40 +35,59 @@ public class MonsterDataParsingInfo : DataParsingInfo
 
     public override void Parse()
     {
-        // Split the tsv data into lines
+        monsters.Clear();
+
         string[] lines = tsv.Split('\n');
 
-        // Starting from 1 to skip the header line
         for (int i = 0; i < lines.Length; i++)
         {
             if (string.IsNullOrEmpty(lines[i]))
-                continue; // skip empty lines
+                continue;
 
             string[] entries = lines[i].Split('\t');
 
             MonsterData data = new MonsterData();
+            data.immuneList = new List<Element>();
 
-            // Assuming the tsv format matches the given example
             try
             {
-                data.Index = int.Parse(entries[0].Trim());
-                data.Name = entries[1].Trim();
-                data.Element = (Element)Enum.Parse(typeof(Element), entries[2].Trim());
-                data.HP = int.Parse(entries[3].Trim());
-                data.Movement = float.Parse(entries[4].Trim());
-                data.Range = float.Parse(entries[5].Trim());
-                data.AttackInterval = float.Parse(entries[6].Trim());
+                // 인덱스 코드
+                data.index = int.Parse(entries[0].Trim());
 
-                // Splitting Immune elements by comma and then parsing
+                // 몬스터 이름(Kor)
+                data.name = entries[1].Trim();
+
+                // 속성
+                data.element = (Element)Enum.Parse(typeof(Element), entries[2].Trim());
+
+                // 체력
+                data.hp = int.Parse(entries[3].Trim());
+
+                // 이동 속도
+                data.movement = float.Parse(entries[4].Trim());
+
+                // 공격 감지
+                data.range = float.Parse(entries[5].Trim());
+
+                // 공격 간격(속도)
+                data.attackInterval = float.Parse(entries[6].Trim());
+
+                // 상태이상 면역 - 리스트
                 string[] immuneElements = entries[7].Split(',');
                 foreach (var element in immuneElements)
                 {
                     if (element.Trim() == "None") continue;
-                    data.Immune.Add((Element)Enum.Parse(typeof(Element), element.Trim()));
+                    data.immuneList.Add((Element)Enum.Parse(typeof(Element), element.Trim()));
                 }
 
-                data.Aggressive = bool.Parse(entries[8].Trim());
-                data.WeakRatio = float.Parse(entries[9].Trim());
+                // 선공 유무
+                data.aggression = bool.Parse(entries[8].Trim());
+
+                // 약점 계수
+                data.weakRatio = float.Parse(entries[9].Trim());
+
+                // 드랍 테이블 ID
+                data.dropTable = int.Parse(entries[10].Trim());
             }
             catch (Exception ex)
             {
