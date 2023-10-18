@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +8,7 @@ public enum Element
     Earth,
 }
 
-[System.Serializable]
+[Serializable]
 public class MonsterData
 {
     public int Index;
@@ -24,7 +24,7 @@ public class MonsterData
 }
 
 [CreateAssetMenu(fileName = "MonsterData", menuName = "GameData List/MonsterData")]
-public class MonsterDataParsing : DataParsing
+public class MonsterDataParsingInfo : DataParsingInfo
 {
 
     public List<MonsterData> monsters;

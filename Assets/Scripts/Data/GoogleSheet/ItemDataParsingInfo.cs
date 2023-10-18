@@ -1,8 +1,8 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class ItemData
 {
     public int index;
@@ -10,7 +10,7 @@ public class ItemData
 }
 
 [CreateAssetMenu(fileName = "ItemData", menuName = "GameData List/ItemData")]
-public class ItemDataParsing : DataParsing
+public class ItemDataParsingInfo : DataParsingInfo
 {
     public List<ItemData> items;
     
