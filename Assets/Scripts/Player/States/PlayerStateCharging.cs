@@ -35,6 +35,8 @@ namespace Assets.Scripts.Player.States
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
                 Controller.Anim.SetLayerWeight(1, 0);
+                Controller.ActivateShootPos(false);
+
 
                 if (Controller.isGrounded)
                 {
