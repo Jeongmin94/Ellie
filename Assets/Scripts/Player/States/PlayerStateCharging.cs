@@ -18,7 +18,7 @@ namespace Assets.Scripts.Player.States
         public override void OnExitState()
         {
             Controller.Anim.SetLayerWeight(1, 0);
-            Controller.debugSphere.SetActive(false);
+            //Controller.debugSphere.SetActive(false);
         }
 
         public override void OnFixedUpdateState()
