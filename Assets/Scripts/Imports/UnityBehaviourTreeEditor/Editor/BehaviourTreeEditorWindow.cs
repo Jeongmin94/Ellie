@@ -64,7 +64,7 @@ namespace TheKiwiCoder {
         public BehaviourTree tree;
         public SerializedBehaviourTree serializer;
 
-        [MenuItem("TheKiwiCoder/BehaviourTreeEditor ...")]
+        [MenuItem("BehaviourTree/BehaviourTreeEditor ...")]
         public static void OpenWindow() {
             BehaviourTreeEditorWindow wnd = GetWindow<BehaviourTreeEditorWindow>();
             wnd.titleContent = new GUIContent("BehaviourTreeEditor");
