@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class GoogleSheetsParser : MonoBehaviour
 {
@@ -9,11 +10,27 @@ public class GoogleSheetsParser : MonoBehaviour
 
     //private const string URL = "https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/export?format=tsv&gid=976557839&range=B4:L";
 
-    void Start()
+    private void Start()
     {
         foreach (DataParsingInfo info in dataList)
         {
             StartCoroutine(ParseData(info));
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            foreach (DataParsingInfo info in dataList)
+            {
+                StartCoroutine(ParseData(info));
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+        {
+            MonsterDataParsingInfo data = dataList[0] as MonsterDataParsingInfo;
+            data.monsters.Clear();
         }
     }
 
