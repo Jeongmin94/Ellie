@@ -15,7 +15,7 @@ namespace Assets.Scripts.Utils
             component = go.AddComponent<T>();
             return component;
         }
-        
+
         public static void BindEvent(this GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
         {
             UI_Base.BindEvent(go, action, type);
