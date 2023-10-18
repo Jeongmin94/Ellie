@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManagers : MonoBehaviour
+public class DataManagers : Singleton<DataManagers>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    Dictionary<int, DataParsingInfo> datas = new Dictionary<int, DataParsingInfo>();
 
-    // Update is called once per frame
-    void Update()
+    public DataParsingInfo GetData(int id)
     {
-        
+        if (datas.ContainsKey(id))
+        {
+            return datas[id];
+        }
+        else
+        {
+            return null;
+        }
     }
 }
