@@ -1145,7 +1145,7 @@ MonoBehaviour:
     m_InputAxisName: Mouse Y
     m_InputAxisValue: 0
     m_InvertInput: 1
-    m_MinValue: -30
+    m_MinValue: -10
     m_MaxValue: 80
     m_Wrap: 0
     m_Recentering:
@@ -1165,7 +1165,7 @@ Animator:
   m_GameObject: {fileID: 4016927572337565216}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 648f37f868c1f93489e0e1e36275ca48, type: 3}
-  m_Controller: {fileID: 9100000, guid: 1f0ae533b0475f140a636c62c09ad980, type: 2}
+  m_Controller: {fileID: 9100000, guid: 2d93fff9c0a427d4aa4ff6e60fae62c9, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1189,37 +1189,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCam: {fileID: 0}
-  playerObj: {fileID: 0}
-  rotationSpeed: 0
-  cinematicMainCam: {fileID: 0}
-  cinematicAimCam: {fileID: 0}
-  walkSpeed: 0
-  sprintSpeed: 0
-  dodgeSpeed: 0
-  orientation: {fileID: 0}
-  jumpForce: 0
-  additionalJumpForce: 0
-  jumpCooldown: 0
-  maximumAdditionalJumpInputTime: 0
-  landStateDuration: 0
-  playerHeight: 0
+  playerObj: {fileID: 3473479438722185937}
+  rotationSpeed: 10
+  cinematicMainCam: {fileID: 4016927572231187841}
+  cinematicAimCam: {fileID: 4016927572422116014}
+  walkSpeed: 4
+  sprintSpeed: 6
+  dodgeSpeed: 10
+  orientation: {fileID: 4016927572048160162}
+  jumpForce: 9
+  additionalJumpForce: 9
+  jumpCooldown: 0.5
+  maximumAdditionalJumpInputTime: 0.3
+  landStateDuration: 0.3
+  playerHeight: 2
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 8
   layerToIgnore:
     serializedVersion: 2
-    m_Bits: 0
-  groundDrag: 0
-  additionalGravityForce: 0
-  dodgeInvulnerableTime: 0
-  dodgeForce: 0
+    m_Bits: 128
+  groundDrag: 5
+  additionalGravityForce: 15
+  dodgeInvulnerableTime: 0.5
+  dodgeForce: 5
   hasRock: 0
   debugSphere: {fileID: 0}
-  maxSlopeAngle: 0
-  stepRayUpper: {fileID: 0}
-  stepRayLower: {fileID: 0}
-  stepHeight: 0
-  stepSmooth: 0
+  maxSlopeAngle: 40
+  stepRayUpper: {fileID: 1668694612}
+  stepRayLower: {fileID: 1672556632}
+  stepHeight: 0.45
+  stepSmooth: 2
   zoomMultiplier: 0
   isGrounded: 0
   isSprinting: 0
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   canTurn: 0
   inputMagnitude: 0
   curAimLayerWeight: 0
-  playerCollider: {fileID: 0}
+  playerCollider: {fileID: 4016927572169917174}
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
