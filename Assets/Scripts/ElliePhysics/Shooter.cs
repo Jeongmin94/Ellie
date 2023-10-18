@@ -1,26 +1,31 @@
 using Assets.Scripts.Data.UI;
 using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Item;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    [Header("Trajectory References")] [SerializeField]
+    [Header("Trajectory References")]
+    [SerializeField]
     private Transform releasePosition;
 
     [SerializeField] private LineRenderer lineRenderer;
 
-    [Header("Trajectory Configurations")] [Range(10, 25)] [SerializeField]
+    [Header("Trajectory Configurations")]
+    [Range(10, 25)]
+    [SerializeField]
     private int linePoints = 10;
 
     [SerializeField] private float moveTime = 1.0f;
 
-    [Header("Shooting Configurations")] [SerializeField]
+    [Header("Shooting Configurations")]
+    [SerializeField]
     private float maxValidDistance;
 
     [SerializeField] private float referenceSpeed;
 
-    [Header("Objects")] [SerializeField] private BaseStone stone;
+    [Header("Objects")][SerializeField] private BaseStone stone;
     [SerializeField] private SliderData sliderData;
 
     private LayerMask trajectoryCollisionMask;
@@ -93,20 +98,22 @@ public class Shooter : MonoBehaviour
             ratio = 1.0f;
         }
 
-        ratio = 1.0f;
 
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        Vector3 AimTarget = GetComponentInParent<PlayerController>().AimTarget;
+        Vector3 launchDirection = (AimTarget - releasePosition.position).normalized;
+
+        //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+        //if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
         {
-            Vector3 launchDirection = (hit.point - releasePosition.position).normalized;
             float validDistance = ratio * maxValidDistance;
             if (Input.GetMouseButton(0))
             {
+
                 startVelocity = PhysicsUtil.CalculateInitialVelocity(launchDirection, moveTime, validDistance);
                 // Debug.Log($"direction: {launchDirection}, start: {startVelocity.normalized}");
 
 #if UNITY_EDITOR
-                Debug.DrawRay(releasePosition.position, launchDirection*validDistance, Color.blue, 1.0f);
+                Debug.DrawRay(releasePosition.position, launchDirection * validDistance, Color.blue, 1.0f);
                 DrawTrajectory(startVelocity.normalized, startVelocity.magnitude);
 #endif
                 if (!onCharge)
@@ -118,7 +125,7 @@ public class Shooter : MonoBehaviour
                 // expected value
                 float distance = PhysicsUtil.GetDistance(startVelocity, Physics.gravity, moveTime).magnitude;
                 Vector3 vel = PhysicsUtil.GetVelocity(startVelocity, Physics.gravity, moveTime);
-                
+
                 Debug.Log($"예상 이동 거리: {distance}");
                 Debug.Log($"예상 속도 {moveTime}s : {vel.magnitude}");
                 Debug.Log($"기대 속도: {referenceSpeed}");

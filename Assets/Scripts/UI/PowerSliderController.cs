@@ -43,12 +43,12 @@ namespace Assets.Scripts.UI
             if (Input.GetMouseButtonDown(0) && !onCharge)
             {
                 onCharge = true;
-                chargingTime += Time.deltaTime;
+                chargingTime += Time.deltaTime / Time.timeScale;
                 sliderData.SliderValue.Value = chargingTime / maxChargingTime;
             }
             else if (Input.GetMouseButton(0) && onCharge)
             {
-                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime, 0.0f, maxChargingTime);
+                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / Time.timeScale, 0.0f, maxChargingTime);
                 sliderData.SliderValue.Value = chargingTime / maxChargingTime;
             }
             else if (Input.GetMouseButtonUp(0) && onCharge)
