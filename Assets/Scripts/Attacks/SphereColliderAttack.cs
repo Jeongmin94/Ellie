@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SphereColliderAttack : AbstractAttack
@@ -36,9 +35,9 @@ public class SphereColliderAttack : AbstractAttack
 
     private void OnTriggerEnter(Collider other)
     {
-        if(owner=="Monster")
+        if (owner == "Monster")
         {
-            if(other.tag=="Player")
+            if (other.tag == "Player")
             {
                 other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
                 Debug.Log("ShpereGiveDamage");
