@@ -6,6 +6,8 @@ public class BoxColliderAttack : AbstractAttack
 {
     [SerializeField] private BoxCollider collider;
 
+    protected bool Attacked { get; private set; }
+
     public override void InitializeBoxCollider(float attackValue,
         float duration, float attackInterval, float attackRange, Vector3 size, Vector3 offset)
     {
@@ -26,7 +28,6 @@ public class BoxColliderAttack : AbstractAttack
     public override void ActivateAttack()
     {
         collider.enabled = true;
-        //Debug.Log("BoxCollider Attacked");
         StartCoroutine(DisableCollider());
         
     }
@@ -34,24 +35,26 @@ public class BoxColliderAttack : AbstractAttack
     private IEnumerator DisableCollider()
     {
         yield return new WaitForSeconds(durationTime);
+        Debug.Log(durationTime);
         collider.enabled = false;
         IsAttackReady = false;
         StartCoroutine(SetAttakingFalse());
     }
     private IEnumerator SetAttakingFalse()
     {
-        IsAttackReady = true;
         yield return new WaitForSeconds(AttackInterval);
+        IsAttackReady = true;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (owner == "Monster")
         {
-            if(other.tag=="Player")
+            if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Player>().Damaged(attackValue);
+                other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
             }
         }
     }
+    
 }

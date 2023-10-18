@@ -29,7 +29,7 @@ public class AOE : MonoBehaviour
             if(other.tag=="Player")
             {
                 accumulatedTime = 0.0f;
-                other.GetComponent<Player>().Damaged(attackValue);
+                other.GetComponent<TestPlayer>().Damaged(attackValue);
             }
         }
     }
@@ -42,7 +42,7 @@ public class AOE : MonoBehaviour
                 if (other.tag == "Player")
                 {
                     accumulatedTime = 0.0f;
-                    other.GetComponent<Player>().Damaged(attackValue);
+                    other.GetComponent<TestPlayer>().Damaged(attackValue);
                 }
             }
             accumulatedTime = 0.0f;

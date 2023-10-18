@@ -56,7 +56,7 @@ public class WeaponAttack : AbstractAttack
         {
             if (other.tag == "Player")
             {
-                other.gameObject.GetComponent<Player>().Damaged(attackValue);
+                other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
             }
         }
     }

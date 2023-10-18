@@ -1,42 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
-public class ShortDistanceMonsterNavMesh : AbstractMonster
+public class TestShortDistanceMonster : AbstractMonster
 {
     //For Test
     public GameObject player;
-
-    private NavMeshAgent agent;
-    private Vector3 spawnPosition;
-    private bool isReturningToSpawnPosition;
 
     Structures.MonsterStat stat = new()
     {
         HP = 10.0f,
         movementSpeed = 2.0f,
-        rotationSpeed = 60.0f,
+        rotationSpeed = 3.0f,
         detectPlayerDistance = 10.0f,
         overtravelDistance = 15.0f
     };
 
     private enum SkillName {ShortDistanceAttack, End}
 
-    private void Awake()
+    private void Start()
     {
-        InitializeStat(stat);
-
         animator = gameObject.GetComponent<Animator>();
 
-        agent = GetComponent<NavMeshAgent>();
-        agent.speed = monsterStat.movementSpeed;
-        Debug.Log(monsterStat.movementSpeed);
-        agent.angularSpeed = monsterStat.rotationSpeed;
-        agent.stoppingDistance = 1.0f; //ToDo: 스킬마다 다른거 어떻게 적용할지 고민 필요
-        //player.transform.position = navMesh.destination;
-
         //InitializeStat(10,2,10, 30, 50);
+        InitializeStat(stat);
 
         skills = new AbstractAttack[(int)SkillName.End];
         skills[(int)SkillName.ShortDistanceAttack] =AddSkill(SkillName.ShortDistanceAttack.ToString(), Enums.AttackSkill.BoxCollider);
@@ -51,23 +38,6 @@ public class ShortDistanceMonsterNavMesh : AbstractMonster
         {
             StartCoroutine(UpdateAttackable());
         }
-
-        //movement
-        if (isReturningToSpawnPosition)
-        {
-            if (Vector3.Distance(transform.position, spawnPosition) < 2.0f)
-                isReturningToSpawnPosition = false;
-        }
-        if (playerDistance < monsterStat.detectPlayerDistance)
-        {
-            agent.destination = player.transform.position;
-        }
-        else if(playerDistance>monsterStat.overtravelDistance)
-        {
-            agent.destination = spawnPosition;
-            isReturningToSpawnPosition = true;
-        }
-        Debug.Log(player.transform.position);
     }
     private IEnumerator UpdateAttackable()
     {

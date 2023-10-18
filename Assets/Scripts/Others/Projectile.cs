@@ -37,7 +37,7 @@ public class Projectile : MonoBehaviour
     private void FireEnemyProjectile(Collider other)
     {
    
-            other.gameObject.GetComponent<Player>().Damaged(attackValue);
+            other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
             Destroy(gameObject);
     }
     private void FirePlayerProjectile(Collider other)

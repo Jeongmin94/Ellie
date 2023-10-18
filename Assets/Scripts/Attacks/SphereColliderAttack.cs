@@ -40,7 +40,7 @@ public class SphereColliderAttack : AbstractAttack
         {
             if(other.tag=="Player")
             {
-                other.gameObject.GetComponent<Player>().Damaged(attackValue);
+                other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
                 Debug.Log("ShpereGiveDamage");
             }
         }

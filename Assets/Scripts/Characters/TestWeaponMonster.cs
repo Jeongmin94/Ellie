@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WeaponMonster : AbstractMonster
+public class TestWeaponMonster : AbstractMonster
 {
     //For Test
     public GameObject player;

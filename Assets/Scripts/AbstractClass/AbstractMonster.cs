@@ -11,7 +11,8 @@ public abstract class AbstractMonster : MonoBehaviour
     protected Structures.MonsterType monsterType;
 
     //PlayerDistance
-    protected float playerDistance;
+    protected float travelDistance;
+    protected float playerDistance; //삭제 및 자식 클래스 수정 필요
 
     //Actions
     protected bool isAttacking;
@@ -72,7 +73,7 @@ public abstract class AbstractMonster : MonoBehaviour
     //Temp -> will be replaced with navmesh
     protected void ChasePlayer()
     {
-        Vector3 direction = Player.GetPlayerPosition() - transform.position;
+        Vector3 direction = TestPlayer.GetPlayerPosition() - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(direction);
         lookRotation.x = 0;
         lookRotation.z = 0;
