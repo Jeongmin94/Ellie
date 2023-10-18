@@ -36,7 +36,7 @@ namespace Assets.Scripts.UI
         // !TODO: 차징하는 주체는 Shooter로 변경
         private void Update()
         {
-            Charge();
+            //Charge();
         }
 
         private void Charge()

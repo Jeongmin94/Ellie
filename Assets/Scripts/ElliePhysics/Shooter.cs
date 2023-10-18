@@ -2,27 +2,27 @@ using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class Shooter : MonoBehaviour
 {
     [Header("Trajectory Configurations")]
-    [SerializeField]
-    private Transform releasePosition;
+    [SerializeField] private Transform releasePosition;
     [SerializeField] private LineRenderer lineRenderer;
     [Range(10, 25)]
     [SerializeField] private int linePoints = 10;
+    [Range(0.0f, 10.0f)]
+    [SerializeField] private float calculatingTime = 1.0f;
 
     [Header("Shooting Configurations")]
     [Range(10.0f, 100.0f)]
     [SerializeField] private float shootingPower = 25.0f;
-    [SerializeField] private float maxChargingTime;
+    [SerializeField] private float maxChargingTime = 1.0f;
 
-    [Header("Objects")]
     // !TODO: stone을 가져와서 사용할 수 있도록 변경해야 함
     // !TODO: 현재는 테스트 용도로 인스턴스 받아와 사용
+    [Header("Objects")]
     [SerializeField] private BaseStone stone;
     [SerializeField] private ChargingData chargingData;
 
@@ -33,18 +33,27 @@ public class Shooter : MonoBehaviour
     }
 
     private LayerMask trajectoryCollisionMask;
-    private Vector3 startVelocity = Vector3.zero;
+    private Vector3 startDirection = Vector3.zero;
     private float chargingTime = 0.0f;
+    private float chargingRatio = 0.0f;
     private bool onCharge = false;
 
     private void Start()
     {
+        if (Mathf.Equals(maxChargingTime, 0.0f))
+        {
+            maxChargingTime = 1.0f;
+        }
+
         lineRenderer.enabled = false;
 
         SetLayerMask();
 
-        chargingData.ChargingValue.OnChange.Subscribe(OnChangeChargingValue);
-        InputManager.Instance.OnMouseAction.Subscribe(OnMouseAction);
+        chargingData.ChargingValue.OnChange -= OnChangeChargingValue;
+        chargingData.ChargingValue.OnChange += OnChangeChargingValue;
+
+        InputManager.Instance.OnMouseAction -= OnMouseAction;
+        InputManager.Instance.OnMouseAction += OnMouseAction;
     }
 
     private void SetLayerMask()
@@ -68,30 +77,31 @@ public class Shooter : MonoBehaviour
     private void DrawTrajectory(Vector3 direction, float strength)
     {
         lineRenderer.enabled = true;
-        lineRenderer.positionCount = linePoints + 1;
 
-        Vector3[] points =
-            PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength, 1.0f, linePoints, trajectoryCollisionMask);
+        Vector3[] points = PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength, 1.0f, linePoints, trajectoryCollisionMask);
+
+        lineRenderer.positionCount = points.Length;
         lineRenderer.SetPositions(points);
     }
-
 
     private void OnMouseAction()
     {
         if (Input.GetMouseButton(0))
         {
-            chargingTime += Time.deltaTime / Time.timeScale;
             chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / Time.timeScale, 0.0f, maxChargingTime);
+            chargingData.ChargingValue.Value = chargingTime / maxChargingTime;
+
         }
         else if (Input.GetMouseButtonUp(0))
         {
+            //chargingTime = 0.0f;
+            //chargingData.ChargingValue.Value = 0.0f;
+            // 슈팅
         }
-        chargingData.ChargingValue.Value = chargingTime / maxChargingTime;
     }
 
     // !TODO: AimTarget을 외부에서 주입 받아 사용할 수 있도록 변경
     // !TODO: min charging value 설정(0.5)
-
     private void OnChangeChargingValue(float value)
     {
         float ratio = 0.0f;
@@ -112,31 +122,31 @@ public class Shooter : MonoBehaviour
             ratio = 1.0f;
         }
 
-
-        Vector3 AimTarget = GetComponentInParent<PlayerController>().AimTarget;
+        Vector3 AimTarget = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width / 2.0f, Screen.height / 2.0f));
         Vector3 launchDirection = (AimTarget - releasePosition.position).normalized;
 
-        //Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        //if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
         {
             if (Input.GetMouseButton(0))
             {
-
                 //startVelocity = PhysicsUtil.CalculateInitialVelocity(launchDirection, moveTime, validDistance);
                 // Debug.Log($"direction: {launchDirection}, start: {startVelocity.normalized}");
 
+                startDirection = launchDirection;
+                startDirection = (hit.point - releasePosition.position).normalized;
+
 #if UNITY_EDITOR
-                DrawTrajectory(startVelocity.normalized, startVelocity.magnitude);
+                DrawTrajectory(startDirection, shootingPower);
 #endif
                 if (!onCharge)
                     onCharge = true;
             }
             else if (Input.GetMouseButtonUp(0) && onCharge)
             {
-                Debug.Log($"시작 속도: {startVelocity.magnitude}, {startVelocity}");
-                // expected value
+                Debug.Log($"시작 속도: {startDirection}, {(startDirection * shootingPower).magnitude}");
 
-                ReleaseStone(startVelocity.normalized, startVelocity.magnitude);
+                ReleaseStone(startDirection.normalized, startDirection.magnitude);
 
                 onCharge = false;
                 lineRenderer.enabled = false;
