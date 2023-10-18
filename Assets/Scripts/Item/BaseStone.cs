@@ -5,8 +5,6 @@ namespace Assets.Scripts.Item
 {
     public class BaseStone : MonoBehaviour
     {
-        [SerializeField] private Transform stoneBody;
-
         private new Rigidbody rigidbody;
 
         public Rigidbody StoneRigidBody
@@ -16,15 +14,12 @@ namespace Assets.Scripts.Item
 
         private void Awake()
         {
-            rigidbody = stoneBody.GetComponent<Rigidbody>();
+            rigidbody = gameObject.GetComponent<Rigidbody>();
         }
 
         public void SetPosition(Vector3 position)
         {
-            transform.position = position;
             rigidbody.position = position;
-
-            transform.rotation = Quaternion.identity;
             rigidbody.rotation = Quaternion.identity;
         }
 
@@ -59,14 +54,14 @@ namespace Assets.Scripts.Item
 
             Vector3 currentPosition = rigidbody.position;
             Vector3 currentVelocity = rigidbody.velocity;
-            
+
             Debug.Log($"{currentTime}초 뒤의 이동거리: {(currentPosition - startPosition).magnitude}");
             Debug.Log($"{currentTime}초 뒤의 속도: {currentVelocity.magnitude}");
-            
+
             // var go = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             // go.transform.position = currentPosition;
             // go.GetComponent<Collider>().enabled = false;
-            
+
             currentPosition.y = 0.0f;
             startPosition.y = 0.0f;
             float d = Vector3.Distance(startPosition, currentPosition);

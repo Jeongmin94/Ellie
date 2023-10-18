@@ -1,4 +1,4 @@
-using Assets.Scripts.Data.UI;
+using Assets.Scripts.Data.ActionData.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI
 {
     public class PowerSliderController : MonoBehaviour
     {
-        [SerializeField] private SliderData sliderData;
+        [SerializeField] private ChargingData sliderData;
 
         [SerializeField] private GameObject fillArea;
 
@@ -29,10 +29,11 @@ namespace Assets.Scripts.UI
 
         private void Start()
         {
-            sliderData.SliderValue.OnChange -= OnChangeSliderValue;
-            sliderData.SliderValue.OnChange += OnChangeSliderValue;
+            sliderData.ChargingValue.OnChange -= OnChangeSliderValue;
+            sliderData.ChargingValue.OnChange += OnChangeSliderValue;
         }
 
+        // !TODO: 차징하는 주체는 Shooter로 변경
         private void Update()
         {
             Charge();
@@ -44,17 +45,17 @@ namespace Assets.Scripts.UI
             {
                 onCharge = true;
                 chargingTime += Time.deltaTime / Time.timeScale;
-                sliderData.SliderValue.Value = chargingTime / maxChargingTime;
+                sliderData.ChargingValue.Value = chargingTime / maxChargingTime;
             }
             else if (Input.GetMouseButton(0) && onCharge)
             {
                 chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / Time.timeScale, 0.0f, maxChargingTime);
-                sliderData.SliderValue.Value = chargingTime / maxChargingTime;
+                sliderData.ChargingValue.Value = chargingTime / maxChargingTime;
             }
             else if (Input.GetMouseButtonUp(0) && onCharge)
             {
                 onCharge = false;
-                sliderData.SliderValue.Value = chargingTime / maxChargingTime;
+                sliderData.ChargingValue.Value = chargingTime / maxChargingTime;
 
                 chargingTime = 0.0f;
                 slider.value = 0.0f;

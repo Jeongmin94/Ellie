@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.ElliePhysics.Utils
 {
@@ -25,17 +26,17 @@ namespace Assets.Scripts.ElliePhysics.Utils
             Vector3 direction,
             float strength,
             float moveTime,
-            int pointCount)
+            int pointCount,
+            LayerMask layerMask)
         {
             Vector3 startPosition = releasePosition;
             Vector3 startVelocity = direction * strength;
 
-            Vector3[] points = new Vector3[pointCount + 1];
-
+            List<Vector3> pointList = new List<Vector3>();
             float timeInterval = moveTime / (float)(pointCount + 1);
             int i = 0;
 
-            points[0] = startPosition;
+            pointList.Add(startPosition);
             for (float accInterval = timeInterval; accInterval < moveTime; accInterval += timeInterval)
             {
                 i++;
@@ -46,11 +47,22 @@ namespace Assets.Scripts.ElliePhysics.Utils
                 Vector3 currentPosition = startPosition + startVelocity * time;
                 currentPosition.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2.0f * time * time);
 
-                points[i] = currentPosition;
+                Vector3 prevPosition = pointList[i - 1];
+                Vector3 prevToCurrent = currentPosition - prevPosition;
+
+                if (Physics.Raycast(prevPosition, prevToCurrent.normalized, out RaycastHit hit, Mathf.Infinity, layerMask))
+                {
+                    pointList.Add(hit.point);
+                    break;
+                }
+                else
+                {
+                    pointList.Add(currentPosition);
+                }
             }
 
-            return points;
+            return pointList.ToArray();
         }
-        
+
     }
 }
