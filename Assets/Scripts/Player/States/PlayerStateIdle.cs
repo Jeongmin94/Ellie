@@ -36,6 +36,10 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Zoom);
             }
+            if(Input.GetKeyDown(KeyCode.G) && Controller.canStartMining)
+            {
+                Controller.ChangeState(PlayerStateName.Mining);
+            }
         }
 
         public override void OnFixedUpdateState()

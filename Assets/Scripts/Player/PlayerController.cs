@@ -3,6 +3,7 @@ using System.Collections;
 using Assets.Scripts.Data.ActionData.Player;
 using UnityEngine;
 using Cinemachine;
+using Assets.Scripts.InteractiveObjects;
 
 namespace Assets.Scripts.Player
 {
@@ -75,6 +76,11 @@ namespace Assets.Scripts.Player
         }
         public float zoomMultiplier;
 
+        [Header("Mining")]
+        public bool canStartMining;
+        [SerializeField] private float miningTime;
+        private Ore curOre = null;
+
         [Header("Boolean Properties")]
         public bool isGrounded;
         public bool isSprinting;
@@ -99,6 +105,8 @@ namespace Assets.Scripts.Player
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
         public float LandStateDuration { get { return landStateDuration; } }
         public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
+        public Ore CurOre { get { return curOre; } }  
+        public float MiningTime { get { return miningTime; } } 
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
@@ -209,6 +217,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Zoom, playerStateZoom);
             PlayerStateCharging playerStateCharging = new(this);
             stateMachine.AddState(PlayerStateName.Charging, playerStateCharging);
+            PlayerStateMining playerStateMining = new(this);
+            stateMachine.AddState(PlayerStateName.Mining, playerStateMining);   
         }
         public void MovePlayer(float moveSpeed)
         {
@@ -416,11 +426,17 @@ namespace Assets.Scripts.Player
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
             PlayerObj.rotation = Quaternion.Slerp(PlayerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
         }
+
+        public void SetCurOre(Ore ore)
+        {
+            curOre = ore;
+        }
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
             GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
             GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
+            GUI.Label(new Rect(10, 40, 200, 20), "Can Start Mining : " + canStartMining);
         }
     }
 }
