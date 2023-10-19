@@ -22,6 +22,7 @@ namespace Assets.Scripts.Player.States
                 Controller.isFalling = true;
             Controller.SetTimeScale(Controller.zoomMultiplier);
             Controller.CurAnimLayerWeight = 0f;
+            Controller.ActivateShootPos(true);
         }
 
         public override void OnExitState()
@@ -51,7 +52,7 @@ namespace Assets.Scripts.Player.States
                 Controller.Anim.SetLayerWeight(1, 0);
                 Controller.CurAnimLayerWeight = 0f;
                 Controller.SetAnimLayerWeight(0f);
-
+                Controller.ActivateShootPos(false);
 
                 if (Controller.isGrounded)
                 {

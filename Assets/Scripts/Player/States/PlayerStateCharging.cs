@@ -5,12 +5,14 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateCharging : PlayerBaseState
     {
+        private float moveSpeed;
         public PlayerStateCharging(PlayerController controller) : base(controller)
         {
         }
 
         public override void OnEnterState()
         {
+            moveSpeed = Controller.WalkSpeed;
             Controller.canTurn = false;
 
         }
@@ -23,6 +25,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnFixedUpdateState()
         {
+            Controller.MovePlayer(moveSpeed);
         }
 
         public override void OnUpdateState()
@@ -35,6 +38,8 @@ namespace Assets.Scripts.Player.States
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
                 Controller.Anim.SetLayerWeight(1, 0);
+                Controller.ActivateShootPos(false);
+
 
                 if (Controller.isGrounded)
                 {
