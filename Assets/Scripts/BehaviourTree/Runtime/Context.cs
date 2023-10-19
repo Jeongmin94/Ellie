@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Assets.Scripts.Data.UI;
 
 namespace TheKiwiCoder {
 
@@ -19,7 +20,9 @@ namespace TheKiwiCoder {
         public BoxCollider boxCollider;
         public CapsuleCollider capsuleCollider;
         public CharacterController characterController;
+        
         // Add other game specific systems here
+        public Shooter shooter;
 
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
