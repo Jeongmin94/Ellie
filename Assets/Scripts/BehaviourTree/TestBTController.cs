@@ -16,26 +16,22 @@ public class TestBTController : MonoBehaviour
 
     private void Start()
     {
-        // // �� ���
-        // behaviourTreeInstance.SetBlackboardValue<int>("monsterHP", enemyData.monsterHP);
-        // behaviourTreeInstance.SetBlackboardValue<float>("monsterMovement", enemyData.monsterMovement);
-        // behaviourTreeInstance.SetBlackboardValue<float>("monsterAttackRange", enemyData.monsterAttackRange);
-        //
-        // // �� ��������
-        // hp = behaviourTreeInstance.GetBlackboardValue<int>("monsterHP");
-        // movement = behaviourTreeInstance.GetBlackboardValue<float>("monsterMovement");
-        // attackRange = behaviourTreeInstance.GetBlackboardValue<float>("monsterAttackRange");
-        //
-        // // ������ ����
-        // monsterHP = behaviourTreeInstance.FindBlackboardKey<int>("monsterHP");
-        // monsterMovement = behaviourTreeInstance.FindBlackboardKey<float>("monsterMovement");
-        // monsterAttackRange = behaviourTreeInstance.FindBlackboardKey<float>("monsterAttackRange");
+        behaviourTreeInstance.SetBlackboardValue<int>("monsterHP", enemyData.monsterHP);
+        behaviourTreeInstance.SetBlackboardValue<float>("monsterMovement", enemyData.monsterMovement);
+        behaviourTreeInstance.SetBlackboardValue<float>("monsterAttackRange", enemyData.monsterAttackRange);
+
+        hp = behaviourTreeInstance.GetBlackboardValue<int>("monsterHP");
+        movement = behaviourTreeInstance.GetBlackboardValue<float>("monsterMovement");
+        attackRange = behaviourTreeInstance.GetBlackboardValue<float>("monsterAttackRange");
+
+        monsterHP = behaviourTreeInstance.FindBlackboardKey<int>("monsterHP");
+        monsterMovement = behaviourTreeInstance.FindBlackboardKey<float>("monsterMovement");
+        monsterAttackRange = behaviourTreeInstance.FindBlackboardKey<float>("monsterAttackRange");
     }
 
     private void Update()
     {
-        // // ������ �̿��ؼ� MonoBehaviour���� �� �������ų�, ���� ����
-        // monsterMovement.value = monsterAttackRange.value;
-        // monsterAttackRange.value += 0.3f;
+        monsterMovement.value = monsterAttackRange.value;
+        monsterAttackRange.value += 0.3f;
     }
 }
