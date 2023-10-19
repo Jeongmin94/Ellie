@@ -12,6 +12,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Controller.ActivateShootPos(true);
             moveSpeed = Controller.WalkSpeed;
             Controller.canTurn = false;
 
@@ -19,7 +20,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
-            Controller.Anim.SetLayerWeight(1, 0);
             //Controller.debugSphere.SetActive(false);
         }
 
@@ -37,7 +37,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
-                Controller.Anim.SetLayerWeight(1, 0);
+                Controller.SetAimingAnimLayerToDefault();
                 Controller.ActivateShootPos(false);
 
 

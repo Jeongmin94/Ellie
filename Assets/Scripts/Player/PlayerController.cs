@@ -103,7 +103,7 @@ namespace Assets.Scripts.Player
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
-        public float CurAnimLayerWeight { get; set; }
+        public float AimingAnimLayerWeight { get; set; }
 
 
         private float inputMagnitude;
@@ -364,14 +364,30 @@ namespace Assets.Scripts.Player
             Time.timeScale = expectedTimeScale;
             Time.fixedDeltaTime = initialFixedDeltaTime * Time.timeScale;
         }
-        public void SetAnimLayerWeight(float weight)
+        public void SetAimingAinmLayerWeight(float weight)
         {
-            float AnimLayerWeightChangeSpeed = 1 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
-            if (CurAnimLayerWeight < weight)
+            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            if (AimingAnimLayerWeight < weight)
             {
-                CurAnimLayerWeight += AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                AimingAnimLayerWeight += AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
             }
-            Anim.SetLayerWeight(1, CurAnimLayerWeight);
+            Anim.SetLayerWeight(1, AimingAnimLayerWeight);
+        }
+
+        public void SetAimingAnimLayerToDefault()
+        {
+            StartCoroutine(SetAnimToDefaultlayerCoroutine());
+        }
+        private IEnumerator SetAnimToDefaultlayerCoroutine()
+        {
+            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            while (AimingAnimLayerWeight > 0)
+            {
+                AimingAnimLayerWeight -= AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                Anim.SetLayerWeight(1, AimingAnimLayerWeight);
+                yield return null;
+            }
+            Anim.SetLayerWeight(1, 0);
         }
 
         public void ActivateShootPos(bool value)
