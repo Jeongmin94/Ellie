@@ -4,13 +4,11 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEditor;
 using UnityEditor.UIElements;
-using System.Runtime.Remoting.Messaging;
 
 namespace TheKiwiCoder {
 
     [CustomPropertyDrawer(typeof(NodeProperty<>))]
     public class GenericNodePropertyPropertyDrawer : PropertyDrawer {
-
         public override VisualElement CreatePropertyGUI(SerializedProperty property) {
             
             BehaviourTree tree = property.serializedObject.targetObject as BehaviourTree;
