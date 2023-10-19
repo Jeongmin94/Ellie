@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataManagers : Singleton<DataManagers>
+public class DataManager : Singleton<DataManager>
 {
     [SerializeField]
     private List<DataParsingInfo> dataList;
@@ -12,7 +12,6 @@ public class DataManagers : Singleton<DataManagers>
     private void Start()
     {
         foreach (var data in dataList)
-
         {
             dataDictionary[data.GetType()] = data;
         }
@@ -26,8 +25,21 @@ public class DataManagers : Singleton<DataManagers>
         }
         else
         {
-            Debug.LogError($"해당 데이터 타입 : {typeof(T)} 반환 불가");
+            Debug.LogError("반환 실패");
             return null;
+        }
+    }
+
+    public T GetIndexData<T, U>(int index) where U : DataParsingInfo where T : class
+    {
+        var data = GetData<U>();
+        if(data != null)
+        {
+            return data.GetIndexData<T>(index);
+        }
+        else
+        {
+            return default(T);
         }
     }
 }

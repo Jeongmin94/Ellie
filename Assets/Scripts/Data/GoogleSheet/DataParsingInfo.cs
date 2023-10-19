@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -32,4 +33,5 @@ public abstract class DataParsingInfo : ScriptableObject
     }
 
     public abstract void Parse();
+    public abstract T GetIndexData<T>(int index) where T : class;
 }

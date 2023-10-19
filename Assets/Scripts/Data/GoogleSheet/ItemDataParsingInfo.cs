@@ -16,6 +16,11 @@ public class ItemDataParsingInfo : DataParsingInfo
 {
     public List<ItemData> items;
 
+    public override T GetIndexData<T>(int index) where T : class
+    {
+        throw new NotImplementedException();
+    }
+
     public override void Parse()
     {
 

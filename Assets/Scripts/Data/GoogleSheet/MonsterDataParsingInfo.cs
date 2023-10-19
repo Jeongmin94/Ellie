@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -30,8 +31,16 @@ public class MonsterData
 [CreateAssetMenu(fileName = "MonsterData", menuName = "GameData List/MonsterData")]
 public class MonsterDataParsingInfo : DataParsingInfo
 {
-
     public List<MonsterData> monsters;
+
+    public override T GetIndexData<T>(int index) where T : class
+    {
+        if (typeof(T) == typeof(MonsterData))
+        {
+            return monsters.Find(m => m.index == index) as T;
+        }
+        return default(T);
+    }
 
     public override void Parse()
     {
