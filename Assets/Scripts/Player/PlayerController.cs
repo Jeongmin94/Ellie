@@ -113,7 +113,7 @@ namespace Assets.Scripts.Player
         private void Awake()
         {
             Rb = GetComponent<Rigidbody>();
-            Anim = GetComponent<Animator>();
+            Anim = GetComponentInChildren<Animator>();
         }
 
         private void Start()
