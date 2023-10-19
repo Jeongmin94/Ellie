@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Player;
 using NUnit.Framework;
 using UnityEngine;
 using Object = UnityEngine.Object;

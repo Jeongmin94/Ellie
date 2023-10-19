@@ -13,7 +13,7 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
-            if (EventSystem.current.IsPointerOverGameObject())
+            if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
                 return;
 
             if (Input.anyKey)
