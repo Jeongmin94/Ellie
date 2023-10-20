@@ -53,6 +53,8 @@ namespace Assets.Scripts.Player
         [Header("Attack")]
         [SerializeField] private bool hasRock;
 
+        public GameObject shootPos;
+
         public Vector3 AimTarget { get; set; }
 
         [Header("Slope")]
@@ -109,6 +111,9 @@ namespace Assets.Scripts.Player
 
             //변수 초기화
             InitVariables();
+
+            //ShootPos 꺼주기
+            ActivateShootPos(false);
         }
         private void Update()
         {
@@ -351,6 +356,12 @@ namespace Assets.Scripts.Player
             }
             Anim.SetLayerWeight(1, CurAnimLayerWeight);
         }
+
+        public void ActivateShootPos(bool value)
+        {
+            shootPos.SetActive(value);
+        }
+       
         public void Aim()
         {
             Ray shootRay = mainCam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
