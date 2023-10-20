@@ -41,7 +41,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625815570}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 10
@@ -99,7 +99,7 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1569452000}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 10
@@ -3378,7 +3378,8 @@ GameObject:
   - component: {fileID: 5656402577369894379}
   - component: {fileID: 4595804331275331422}
   - component: {fileID: 311319762832561831}
-  - component: {fileID: 1134102682}
+  - component: {fileID: 291880732314384101}
+  - component: {fileID: 615325905}
   m_Layer: 0
   m_Name: MeleeMonster
   m_TagString: Monster
@@ -3493,7 +3494,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &1134102682
+--- !u!114 &291880732314384101
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3502,10 +3503,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 6015867199869111056}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14b27db09fe814993acd5f81df869162, type: 3}
+  m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  behaviourTree: {fileID: 11400000, guid: 7bfd6714e548d48d291cb88620d856bd, type: 2}
+  validate: 1
+  blackboardOverrides: []
+  references:
+    version: 2
+    RefIds: []
+--- !u!114 &615325905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6015867199869111056}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7051128095a4d499285f748b22821d36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 0}
 --- !u!1 &6072602696003696317
 GameObject:
   m_ObjectHideFlags: 0
