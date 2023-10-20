@@ -1,24 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Monsters.Attacks;
+using Assets.Scripts.Monsters.Utility;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+namespace Assets.Scripts.Monsters.Others
 {
-    private WeaponAttack parent;
 
-    private void Start()
+    public class Weapon : MonoBehaviour
     {
-        GameObject highestParent = Functions.FindHighestParent(gameObject);
-        parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
-    }
+        private WeaponAttack parent;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(parent ==null)
+        private void Start()
         {
             GameObject highestParent = Functions.FindHighestParent(gameObject);
             parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
         }
-        parent.OnWeaponTriggerEnter(other);
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (parent == null)
+            {
+                GameObject highestParent = Functions.FindHighestParent(gameObject);
+                parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
+            }
+            parent.OnWeaponTriggerEnter(other);
+        }
     }
+
 }

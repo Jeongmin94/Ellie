@@ -2,37 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DistanceDetectedAI : MonoBehaviour
+namespace Assets.Scripts.Monsters.Others
 {
-    public bool IsDetected { get; private set; }
-    private SphereCollider collider;
 
-    private void Awake()
+    public class DistanceDetectedAI : MonoBehaviour
     {
-        collider = GetComponent<SphereCollider>();
-        if (collider == null)
-            Debug.Log("[DistanceDetectedAI] : Collider is Null");
+        public bool IsDetected { get; private set; }
+        private SphereCollider collider;
 
-    }
-    public void SetDetectDistance(float playerDetectDistance)
-    {
-        collider.isTrigger = true;
-        collider.radius = playerDetectDistance;
-    }
-
-    private void OnTriggerStay(Collider other)
-    {
-        if(other.tag=="Player")
+        private void Awake()
         {
-            IsDetected = true;
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.tag == "Player")
-        {
-            IsDetected = false;
-        }
-    }
+            collider = GetComponent<SphereCollider>();
+            if (collider == null)
+                Debug.Log("[DistanceDetectedAI] : Collider is Null");
 
+        }
+        public void SetDetectDistance(float playerDetectDistance)
+        {
+            collider.isTrigger = true;
+            collider.radius = playerDetectDistance;
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                IsDetected = true;
+            }
+        }
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.tag == "Player")
+            {
+                IsDetected = false;
+            }
+        }
+
+    }
 }

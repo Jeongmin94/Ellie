@@ -1,60 +1,66 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Monsters.AbstractClass;
 using UnityEngine;
 
-public class BoxColliderAttack : AbstractAttack
+namespace Assets.Scripts.Monsters.Attacks
 {
-    [SerializeField] private BoxCollider collider;
 
-    protected bool Attacked { get; private set; }
-
-    public override void InitializeBoxCollider(float attackValue,
-        float duration, float attackInterval, float attackRange, Vector3 size, Vector3 offset)
+    public class BoxColliderAttack : AbstractAttack
     {
-        InitializedBase(attackValue, duration, attackInterval, attackRange);
-        owner = gameObject.tag.ToString();
+        [SerializeField] private BoxCollider collider;
 
-        if (collider == null)
+        protected bool Attacked { get; private set; }
+
+        public override void InitializeBoxCollider(float attackValue,
+            float duration, float attackInterval, float attackRange, Vector3 size, Vector3 offset)
         {
-            collider = gameObject.AddComponent<BoxCollider>();
-            collider.isTrigger = true;
+            InitializedBase(attackValue, duration, attackInterval, attackRange);
+            owner = gameObject.tag.ToString();
+
+            if (collider == null)
+            {
+                collider = gameObject.AddComponent<BoxCollider>();
+                collider.isTrigger = true;
+            }
+
+            collider.enabled = false;
+            collider.size = size;
+            gameObject.transform.localPosition = offset;
         }
 
-        collider.enabled = false;
-        collider.size = size;
-        gameObject.transform.localPosition = offset;
-    }
-
-    public override void ActivateAttack()
-    {
-        collider.enabled = true;
-        StartCoroutine(DisableCollider());
-        
-    }
-
-    private IEnumerator DisableCollider()
-    {
-        yield return new WaitForSeconds(durationTime);
-        Debug.Log(durationTime);
-        collider.enabled = false;
-        IsAttackReady = false;
-        StartCoroutine(SetAttakingFalse());
-    }
-    private IEnumerator SetAttakingFalse()
-    {
-        yield return new WaitForSeconds(AttackInterval);
-        IsAttackReady = true;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (owner == "Monster")
+        public override void ActivateAttack()
         {
-            if (other.tag == "Player")
+            collider.enabled = true;
+            StartCoroutine(DisableCollider());
+
+        }
+
+        private IEnumerator DisableCollider()
+        {
+            yield return new WaitForSeconds(durationTime);
+            Debug.Log(durationTime);
+            collider.enabled = false;
+            IsAttackReady = false;
+            StartCoroutine(SetAttakingFalse());
+        }
+        private IEnumerator SetAttakingFalse()
+        {
+            yield return new WaitForSeconds(AttackInterval);
+            IsAttackReady = true;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (owner == "Monster")
             {
-                other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
+                if (other.tag == "Player")
+                {
+                    //Player Recieve Attack
+                }
             }
         }
+
     }
-    
+
 }

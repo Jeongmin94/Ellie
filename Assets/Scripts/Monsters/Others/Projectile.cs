@@ -2,53 +2,58 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+namespace Assets.Scripts.Monsters.Others
 {
-    [SerializeField] private float projectileSpeed;
-    private float durationTime;
-    
-    private float attackValue;
-    private string owner;
 
-    private void Start()
+    public class Projectile : MonoBehaviour
     {
-        Destroy(gameObject, durationTime);
-    }
+        [SerializeField] private float projectileSpeed;
+        private float durationTime;
 
-    private void FixedUpdate()
-    {
-        transform.Translate(Vector3.forward * projectileSpeed*Time.deltaTime);
-    }
+        private float attackValue;
+        private string owner;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (owner == "Monster")
+        private void Start()
         {
-            if (other.tag == "Player")
+            Destroy(gameObject, durationTime);
+        }
+
+        private void FixedUpdate()
+        {
+            transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (owner == "Monster")
             {
-                FireEnemyProjectile(other);
+                if (other.tag == "Player")
+                {
+                    FireEnemyProjectile(other);
+                }
+            }
+            else if (owner == "Player")
+            {
+
             }
         }
-        else if (owner == "Player")
+        private void FireEnemyProjectile(Collider other)
+        {
+
+            //Player Recieve Attack
+            Destroy(gameObject);
+        }
+        private void FirePlayerProjectile(Collider other)
         {
 
         }
-    }
-    private void FireEnemyProjectile(Collider other)
-    {
-   
-            other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
-            Destroy(gameObject);
-    }
-    private void FirePlayerProjectile(Collider other)
-    {
 
+        public void SetProjectileData(float attackValue, float durationTime, string owner)
+        {
+            this.durationTime = durationTime;
+            this.attackValue = attackValue;
+            this.owner = owner;
+        }
     }
 
-    public void SetProjectileData(float attackValue,float durationTime, string owner)
-    {
-        this.durationTime = durationTime;
-        this.attackValue = attackValue;
-        this.owner = owner;
-    }
 }

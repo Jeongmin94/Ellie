@@ -1,48 +1,52 @@
 using System.Collections;
+using Assets.Scripts.Monsters.AbstractClass;
 using UnityEngine;
 
-public class SphereColliderAttack : AbstractAttack
+namespace Assets.Scripts.Monsters.Attacks
 {
-    [SerializeField] private SphereCollider collider;
 
-    public override void InitializeSphereCollider(float attackValue, float duration,
-        float attackInterval, float attackRange, float attackRadius, Vector3 offset)
+    public class SphereColliderAttack : AbstractAttack
     {
-        InitializedBase(attackValue, duration, attackInterval, attackRange);
-        owner = gameObject.tag.ToString();
+        [SerializeField] private SphereCollider collider;
 
-        if (collider == null)
+        public override void InitializeSphereCollider(float attackValue, float duration,
+            float attackInterval, float attackRange, float attackRadius, Vector3 offset)
         {
-            collider = gameObject.AddComponent<SphereCollider>();
-            collider.isTrigger = true;
+            InitializedBase(attackValue, duration, attackInterval, attackRange);
+            owner = gameObject.tag.ToString();
+
+            if (collider == null)
+            {
+                collider = gameObject.AddComponent<SphereCollider>();
+                collider.isTrigger = true;
+                collider.enabled = false;
+            }
+            gameObject.transform.localPosition = offset;
+            collider.radius = attackRadius;
+        }
+
+        public override void ActivateAttack()
+        {
+            collider.enabled = true;
+            Debug.Log("SphereColliderAttacked");
+            StartCoroutine("DisableCollider");
+        }
+        private IEnumerator DisableCollider()
+        {
+            yield return new WaitForSeconds(durationTime);
             collider.enabled = false;
         }
-        gameObject.transform.localPosition = offset;
-        collider.radius = attackRadius;
-    }
 
-    public override void ActivateAttack()
-    {
-        collider.enabled = true;
-        Debug.Log("SphereColliderAttacked");
-        StartCoroutine("DisableCollider");
-    }
-    private IEnumerator DisableCollider()
-    {
-        yield return new WaitForSeconds(durationTime);
-        collider.enabled = false;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (owner == "Monster")
+        private void OnTriggerEnter(Collider other)
         {
-            if (other.tag == "Player")
+            if (owner == "Monster")
             {
-                other.gameObject.GetComponent<TestPlayer>().Damaged(attackValue);
-                Debug.Log("ShpereGiveDamage");
+                if (other.tag == "Player")
+                {
+                    //Player Recieve Attack
+                }
             }
         }
-    }
 
+    }
 }
