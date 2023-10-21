@@ -4,11 +4,11 @@ namespace Assets.Scripts.Managers
 {
     public class ResourceManager : Singleton<ResourceManager>
     {
-        private const string PrefixPrefabs = "/Prefabs";
+        private const string PrefixPrefabs = "Prefabs/";
 
         public GameObject Instantiate(string path, Transform parent = null)
         {
-            var prefab = Resources.Load($"{PrefixPrefabs}/{path}") as GameObject;
+            var prefab = Resources.Load($"{PrefixPrefabs}{path}") as GameObject;
 
             if (prefab == null)
             {
@@ -17,6 +17,7 @@ namespace Assets.Scripts.Managers
             }
 
             var go = GameObject.Instantiate(prefab, parent);
+
             return go;
         }
 
@@ -24,7 +25,7 @@ namespace Assets.Scripts.Managers
         {
             if (go == null)
                 return;
-            
+
             GameObject.Destroy(go);
         }
     }

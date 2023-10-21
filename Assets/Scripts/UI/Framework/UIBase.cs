@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -45,12 +46,13 @@ namespace Assets.Scripts.UI.Framework
                 }
 
                 if (childComponent == null)
-                    Debug.Log($"Failed to bind({enumName}");
+                    Debug.Log($"{enumName} is missing");
                 else
                     objectList.Add(childComponent);
             }
 
-            objects[typeof(T)] = objectList;
+            if (objectList.Any())
+                objects[typeof(T)] = objectList;
         }
 
         protected T Get<T>(int idx) where T : Object

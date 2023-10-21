@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.UI.Framework;
 using UnityEngine;
@@ -59,7 +58,7 @@ namespace Assets.Scripts.Utils
         /// <param name="go"></param>
         /// <param name="action"></param>
         /// <param name="type"></param>
-        private static void BindEvent(this GameObject go, Action<PointerEventData> action, UIEvent type = UIEvent.Click)
+        public static void BindEvent(this GameObject go, Action<PointerEventData> action, UIEvent type = UIEvent.Click)
         {
             var handler = go.GetOrAddComponent<UIEventHandler>();
 

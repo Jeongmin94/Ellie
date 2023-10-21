@@ -1,13 +1,18 @@
 using System.Collections.Generic;
 using Assets.Scripts.UI.Framework.Popup;
+using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.Utils;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Managers
 {
     public class UIManager : Singleton<UIManager>
     {
         private const string NameUIRoot = "@UI_Root";
+        private const string PrefixPopup = "UI/Popup/";
+        private const string PrefixStatic = "UI/Static/";
+
         private int order = 10;
 
         private readonly Stack<UIPopup> popupStack = new Stack<UIPopup>();
@@ -24,6 +29,19 @@ namespace Assets.Scripts.Managers
             }
         }
 
+        public override void Awake()
+        {
+            base.Awake();
+            if (FindObjectOfType<EventSystem>() == null)
+            {
+                var eventSystem = new GameObject("EventSystem");
+                eventSystem.AddComponent<EventSystem>();
+                eventSystem.AddComponent<StandaloneInputModule>();
+                
+                eventSystem.transform.SetParent(transform);
+            }
+        }
+
         public void SetCanvas(GameObject go, bool sort = true)
         {
             Canvas canvas = go.GetOrAddComponent<Canvas>();
@@ -31,9 +49,21 @@ namespace Assets.Scripts.Managers
             canvas.overrideSorting = true; // 각 캔버스가 서로 독립적인 sort order를 가짐
 
             if (sort)
-                canvas.sortingOrder = order;
+                canvas.sortingOrder = order++;
             else
                 canvas.sortingOrder = 0;
+        }
+
+        public T MakeStatic<T>(string uiName = null) where T : UIStatic
+        {
+            if (string.IsNullOrEmpty(uiName))
+                uiName = typeof(T).Name;
+
+            var go = ResourceManager.Instance.Instantiate($"{PrefixStatic}{uiName}");
+            var uiStatic = go.GetOrAddComponent<T>();
+            go.transform.SetParent(Root.transform);
+
+            return uiStatic;
         }
 
         public T MakePopup<T>(string uiName = null) where T : UIPopup
@@ -41,7 +71,7 @@ namespace Assets.Scripts.Managers
             if (string.IsNullOrEmpty(uiName))
                 uiName = typeof(T).Name;
 
-            var go = ResourceManager.Instance.Instantiate($"UI/Popup/{uiName}");
+            var go = ResourceManager.Instance.Instantiate($"{PrefixPopup}{uiName}");
             T popup = go.GetOrAddComponent<T>();
 
             popupStack.Push(popup);
