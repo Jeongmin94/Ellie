@@ -17,7 +17,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            Debug.Log("Sprint");
             Controller.canTurn = true;
             Controller.isSprinting = true;
             moveSpeed = startMoveSpeed = rb.velocity.magnitude;

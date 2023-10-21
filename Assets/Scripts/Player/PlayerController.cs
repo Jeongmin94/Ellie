@@ -2,74 +2,47 @@
 using System.Collections;
 using Assets.Scripts.Data.ActionData.Player;
 using UnityEngine;
+using Cinemachine;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        public GameObject mainCam;
-        public Transform playerObj;
-        public float rotationSpeed;
+        private const float MOVE_FORCE = 10f;
+        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
 
+        [Header("Player references")]
+        [SerializeField] private Transform playerObj;
+        [SerializeField] private CapsuleCollider playerCollider;
+        [SerializeField] private Transform orientation;
+
+        [Header("Camera")]
+        public GameObject mainCam;
         public GameObject cinematicMainCam;
         public GameObject cinematicAimCam;
 
-        [Header("ActionData")]
-        [SerializeField] private AimTargetData aimTargetData;
-        
+        [Header("Move")]
         [SerializeField] private float walkSpeed;
-        public float WalkSpeed { get { return walkSpeed; } }
         [SerializeField] private float sprintSpeed;
-        public float SprintSpeed { get { return sprintSpeed; } }
         [SerializeField] private float dodgeSpeed;
-        public float DodgeSpeed { get { return dodgeSpeed; } }
 
-        private const float MOVE_FORCE = 10f;
+        [Header("Rotate")]
+        [SerializeField] private float rotationSpeed;
 
-        [SerializeField] private Transform orientation;
         [Header("Jump")]
         [SerializeField] private float jumpForce;
         [SerializeField] private float additionalJumpForce;
-        public float AdditionalJumpForce { get { return additionalJumpForce; } }
         [SerializeField] private float jumpCooldown;
         [SerializeField] private float maximumAdditionalJumpInputTime;
-        public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
-
-        [SerializeField] private float landStateDuration;
-        public float LandStateDuration { get { return landStateDuration; } }
-
+        [SerializeField] private float additionalGravityForce;
 
         [Header("Ground Check")]
         [SerializeField] private float playerHeight;
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask layerToIgnore;
         [SerializeField] public float groundDrag;
-        [SerializeField] private float additionalGravityForce;
-        public float AdditionalGravityForce { get { return additionalGravityForce; } }
+        [SerializeField] private float landStateDuration;
 
-        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
-
-        [Header("Dodge")]
-        [SerializeField] private float dodgeInvulnerableTime;
-        public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
-        [SerializeField] private float dodgeForce;
-        public float DodgeForce { get { return dodgeForce; } }
-
-        [Header("Attack")]
-        [SerializeField] private bool hasRock;
-
-        private Vector3 aimTarget;
-        public Vector3 AimTarget
-        {
-            get { return aimTarget; }
-            set
-            {
-                aimTargetData.TargetPosition.Value = value;
-                aimTarget = value;
-            }
-        }
-
-        public GameObject shootPos;
 
         [Header("Slope")]
         public float maxSlopeAngle;
@@ -81,10 +54,28 @@ namespace Assets.Scripts.Player
         [SerializeField] float stepHeight;
         [SerializeField] float stepSmooth;
 
+        [Header("Dodge")]
+        [SerializeField] private float dodgeInvulnerableTime;
 
+        [Header("ActionData")]
+        [SerializeField] private AimTargetData aimTargetData;
+
+        [Header("Attack")]
+        [SerializeField] private bool hasRock;
+        public GameObject shootPos;
+        private Vector3 aimTarget;
+        public Vector3 AimTarget
+        {
+            get { return aimTarget; }
+            set
+            {
+                aimTargetData.TargetPosition.Value = value;
+                aimTarget = value;
+            }
+        }
         public float zoomMultiplier;
-        private float initialFixedDeltaTime;
 
+        [Header("Boolean Properties")]
         public bool isGrounded;
         public bool isSprinting;
         public bool isFalling;
@@ -94,24 +85,35 @@ namespace Assets.Scripts.Player
         public bool canJump;
         public bool canTurn;
 
+        private float initialFixedDeltaTime;
         private float horizontalInput;
         private float verticalInput;
 
+
+        public Transform PlayerObj { get { return playerObj; } }
+        public float WalkSpeed { get { return walkSpeed; } }
+        public float SprintSpeed { get { return sprintSpeed; } }
+        public float DodgeSpeed { get { return dodgeSpeed; } }
+        public float AdditionalJumpForce { get { return additionalJumpForce; } }
+        public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
+        public float AdditionalGravityForce { get { return additionalGravityForce; } }
+        public float LandStateDuration { get { return landStateDuration; } }
+        public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
         public Vector2 MoveInput { get; private set; }
-        public float inputMagnitude;
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
-        public float CurAnimLayerWeight { get; set; }
+        public float AimingAnimLayerWeight { get; set; }
 
-        public CapsuleCollider playerCollider;
+
+        private float inputMagnitude;
 
         private PlayerStateMachine stateMachine;
 
         private void Awake()
         {
             Rb = GetComponent<Rigidbody>();
-            Anim = GetComponent<Animator>();
+            Anim = GetComponentInChildren<Animator>();
         }
 
         private void Start()
@@ -145,7 +147,7 @@ namespace Assets.Scripts.Player
             AddAdditionalGravityForce();
             stateMachine?.FixedUpdateState();
         }
-       
+
         private void InitVariables()
         {
             Rb.freezeRotation = true;
@@ -225,11 +227,11 @@ namespace Assets.Scripts.Player
         {
             RaycastHit hitLower;
             if (Physics.Raycast(stepRayLower.transform.position,
-                playerObj.TransformDirection(Vector3.forward), out hitLower, 0.1f, groundLayer))
+                PlayerObj.TransformDirection(Vector3.forward), out hitLower, 0.1f, groundLayer))
             {
                 RaycastHit hitUpper;
                 if (!Physics.Raycast(stepRayUpper.transform.position,
-                    playerObj.TransformDirection(Vector3.forward), out hitUpper, 0.2f, groundLayer))
+                    PlayerObj.TransformDirection(Vector3.forward), out hitUpper, 0.2f, groundLayer))
                 {
                     Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
                 }
@@ -237,12 +239,12 @@ namespace Assets.Scripts.Player
 
             RaycastHit hitLower45;
             if (Physics.Raycast(stepRayLower.transform.position,
-                playerObj.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f, groundLayer))
+                PlayerObj.TransformDirection(1.5f, 0, 1), out hitLower45, 0.1f, groundLayer))
             {
 
                 RaycastHit hitUpper45;
                 if (!Physics.Raycast(stepRayUpper.transform.position,
-                    playerObj.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f, groundLayer))
+                    PlayerObj.TransformDirection(1.5f, 0, 1), out hitUpper45, 0.2f, groundLayer))
                 {
                     Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
                 }
@@ -250,12 +252,12 @@ namespace Assets.Scripts.Player
 
             RaycastHit hitLowerMinus45;
             if (Physics.Raycast(stepRayLower.transform.position,
-                playerObj.TransformDirection(-1.5f, 0, 1), out hitLowerMinus45, 0.1f, groundLayer))
+                PlayerObj.TransformDirection(-1.5f, 0, 1), out hitLowerMinus45, 0.1f, groundLayer))
             {
 
                 RaycastHit hitUpperMinus45;
                 if (!Physics.Raycast(stepRayUpper.transform.position,
-                    playerObj.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, 0.2f, groundLayer))
+                    PlayerObj.TransformDirection(-1.5f, 0, 1), out hitUpperMinus45, 0.2f, groundLayer))
                 {
                     Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
                 }
@@ -343,7 +345,7 @@ namespace Assets.Scripts.Player
             if (!canTurn) return;
             if (MoveDirection != Vector3.zero)
             {
-                playerObj.forward = Vector3.Slerp(playerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
+                PlayerObj.forward = Vector3.Slerp(PlayerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
             }
         }
         public void TurnOnAimCam()
@@ -362,20 +364,37 @@ namespace Assets.Scripts.Player
             Time.timeScale = expectedTimeScale;
             Time.fixedDeltaTime = initialFixedDeltaTime * Time.timeScale;
         }
-        public void SetAnimLayerWeight(float weight)
+        public void SetAimingAinmLayerWeight(float weight)
         {
-            if (CurAnimLayerWeight < weight)
+            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            if (AimingAnimLayerWeight < weight)
             {
-                CurAnimLayerWeight += 2.5f * Time.deltaTime / Time.timeScale;
+                AimingAnimLayerWeight += AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
             }
-            Anim.SetLayerWeight(1, CurAnimLayerWeight);
+            Anim.SetLayerWeight(1, AimingAnimLayerWeight);
+        }
+
+        public void SetAimingAnimLayerToDefault()
+        {
+            StartCoroutine(SetAnimToDefaultlayerCoroutine());
+        }
+        private IEnumerator SetAnimToDefaultlayerCoroutine()
+        {
+            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            while (AimingAnimLayerWeight > 0)
+            {
+                AimingAnimLayerWeight -= AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                Anim.SetLayerWeight(1, AimingAnimLayerWeight);
+                yield return null;
+            }
+            Anim.SetLayerWeight(1, 0);
         }
 
         public void ActivateShootPos(bool value)
         {
             shootPos.SetActive(value);
         }
-       
+
         public void Aim()
         {
             Ray shootRay = mainCam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
@@ -391,11 +410,11 @@ namespace Assets.Scripts.Player
         }
         public void LookAimTarget()
         {
-            Vector3 directionToTarget = AimTarget - playerObj.position;
+            Vector3 directionToTarget = AimTarget - PlayerObj.position;
             directionToTarget.y = 0;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-            playerObj.rotation = Quaternion.Slerp(playerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
+            PlayerObj.rotation = Quaternion.Slerp(PlayerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
         }
         private void OnGUI()
         {
