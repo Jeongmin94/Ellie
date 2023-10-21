@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using UnityEngine;
