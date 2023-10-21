@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028326, g: 0.22571333, b: 0.30692202, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1306,10 +1306,34 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: field of view
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7420001
+      objectReference: {fileID: 0}
     - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: stone
       value: 
       objectReference: {fileID: 5557161656172362216}
+    - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: withPlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: chargingData
+      value: 
+      objectReference: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
+    - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: aimTargetData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1358,6 +1382,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: mainCam
+      value: 
+      objectReference: {fileID: 1346398095}
+    - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: aimTargetData
+      value: 
+      objectReference: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
 --- !u!1 &896901620
@@ -1810,7 +1842,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5045d1fd8262df45bc2605837827d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneBody: {fileID: 5557161656172362213}
 --- !u!1 &1200367477
 GameObject:
   m_ObjectHideFlags: 0
@@ -3169,7 +3200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ec46b36e2ddbda48befe96be54531f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliderData: {fileID: 11400000, guid: 8d862b76341296c458ba8477929d8451, type: 2}
+  sliderData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
   fillArea: {fileID: 479562397}
   startColor: {r: 1, g: 1, b: 1, a: 1}
   endColor: {r: 1, g: 0, b: 0, a: 1}
@@ -3626,7 +3657,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5045d1fd8262df45bc2605837827d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stoneBody: {fileID: 5557161656172362213}
 --- !u!1 &5557161656330646184
 GameObject:
   m_ObjectHideFlags: 0

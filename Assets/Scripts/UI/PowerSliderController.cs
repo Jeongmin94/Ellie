@@ -1,4 +1,4 @@
-using Assets.Scripts.Data.UI;
+using Assets.Scripts.Data.ActionData.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI
 {
     public class PowerSliderController : MonoBehaviour
     {
-        [SerializeField] private SliderData sliderData;
+        [SerializeField] private ChargingData sliderData;
 
         [SerializeField] private GameObject fillArea;
 
@@ -16,11 +16,7 @@ namespace Assets.Scripts.UI
 
         private Slider slider;
         private Image fillAreaImage;
-
-        private readonly float maxChargingTime = 1.5f;
-        private float chargingTime = 0.0f;
-        private bool onCharge = false;
-
+        
         private void Awake()
         {
             slider = gameObject.GetComponent<Slider>();
@@ -29,42 +25,13 @@ namespace Assets.Scripts.UI
 
         private void Start()
         {
-            sliderData.SliderValue.OnChange -= OnChangeSliderValue;
-            sliderData.SliderValue.OnChange += OnChangeSliderValue;
-        }
-
-        private void Update()
-        {
-            Charge();
-        }
-
-        private void Charge()
-        {
-            if (Input.GetMouseButtonDown(0) && !onCharge)
-            {
-                onCharge = true;
-                chargingTime += Time.deltaTime / Time.timeScale;
-                sliderData.SliderValue.Value = chargingTime / maxChargingTime;
-            }
-            else if (Input.GetMouseButton(0) && onCharge)
-            {
-                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / Time.timeScale, 0.0f, maxChargingTime);
-                sliderData.SliderValue.Value = chargingTime / maxChargingTime;
-            }
-            else if (Input.GetMouseButtonUp(0) && onCharge)
-            {
-                onCharge = false;
-                sliderData.SliderValue.Value = chargingTime / maxChargingTime;
-
-                chargingTime = 0.0f;
-                slider.value = 0.0f;
-                fillAreaImage.color = startColor;
-            }
+            sliderData.ChargingValue.OnChange -= OnChangeSliderValue;
+            sliderData.ChargingValue.OnChange += OnChangeSliderValue;
         }
 
         private void OnChangeSliderValue(float value)
         {
-            slider.value = value;
+            slider.value = value / sliderData.percentages[sliderData.percentages.Length - 1];
 
             float r = startColor.r * (1.0f - value) + endColor.r * value;
             float g = startColor.g * (1.0f - value) + endColor.g * value;
