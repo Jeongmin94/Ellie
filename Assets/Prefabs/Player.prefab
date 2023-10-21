@@ -226,14 +226,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee5bc0606b696834c862c9e83356bb9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  releasePosition: {fileID: 1833054886}
   lineRenderer: {fileID: 1833054887}
   linePoints: 25
-  moveTime: 1
-  maxValidDistance: 30
-  referenceSpeed: 0
+  calculatingTime: 1
+  releasePosition: {fileID: 1833054886}
+  shootingPower: 25
+  chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
+  aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   stone: {fileID: 0}
-  sliderData: {fileID: 11400000, guid: 8d862b76341296c458ba8477929d8451, type: 2}
+  withPlayer: 1
 --- !u!120 &1833054887
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -1230,7 +1231,7 @@ GameObject:
   - component: {fileID: 4016927572231187846}
   - component: {fileID: 4016927572231187844}
   m_Layer: 0
-  m_Name: Main Cam
+  m_Name: Cinematic Main Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1329,10 +1330,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4016927572337565217}
+  - component: {fileID: 6030200240847392581}
   - component: {fileID: 4016927572337565222}
   - component: {fileID: 4016927572337565220}
   - component: {fileID: 4016927572337565221}
-  - component: {fileID: 6030200240847392581}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1362,6 +1363,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6030200240847392581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f638288dc4d17c44bc5dd67da9465dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerObj: {fileID: 3473479438722185937}
+  playerCollider: {fileID: 4016927572169917174}
+  orientation: {fileID: 4016927572048160162}
+  mainCam: {fileID: 1346398095}
+  cinematicMainCam: {fileID: 4016927572231187841}
+  cinematicAimCam: {fileID: 4016927572422116014}
+  walkSpeed: 4
+  sprintSpeed: 6
+  dodgeSpeed: 10
+  rotationSpeed: 10
+  jumpForce: 9
+  additionalJumpForce: 9
+  jumpCooldown: 0.5
+  maximumAdditionalJumpInputTime: 0.3
+  additionalGravityForce: 15
+  playerHeight: 2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  layerToIgnore:
+    serializedVersion: 2
+    m_Bits: 128
+  groundDrag: 5
+  landStateDuration: 0.3
+  maxSlopeAngle: 40
+  stepRayUpper: {fileID: 1668694612}
+  stepRayLower: {fileID: 1672556632}
+  stepHeight: 0.45
+  stepSmooth: 2
+  dodgeInvulnerableTime: 0.5
+  dodgeForce: 5
+  aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
+  hasRock: 0
+  shootPos: {fileID: 1833054885}
+  zoomMultiplier: 0.2
+  isGrounded: 0
+  isSprinting: 0
+  isFalling: 0
+  isJumping: 0
+  isDodging: 0
+  isZooming: 0
+  canJump: 0
+  canTurn: 0
 --- !u!54 &4016927572337565222
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1448,61 +1504,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6030200240847392581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4016927572337565216}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f638288dc4d17c44bc5dd67da9465dc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCam: {fileID: 1346398095}
-  playerObj: {fileID: 3473479438722185937}
-  rotationSpeed: 10
-  cinematicMainCam: {fileID: 4016927572231187841}
-  cinematicAimCam: {fileID: 4016927572422116014}
-  walkSpeed: 4
-  sprintSpeed: 6
-  dodgeSpeed: 10
-  orientation: {fileID: 4016927572048160162}
-  jumpForce: 9
-  additionalJumpForce: 9
-  jumpCooldown: 0.5
-  maximumAdditionalJumpInputTime: 0.3
-  landStateDuration: 0.3
-  playerHeight: 2
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  layerToIgnore:
-    serializedVersion: 2
-    m_Bits: 128
-  groundDrag: 5
-  additionalGravityForce: 15
-  dodgeInvulnerableTime: 0.5
-  dodgeForce: 5
-  hasRock: 0
-  shootPos: {fileID: 1833054885}
-  maxSlopeAngle: 40
-  stepRayUpper: {fileID: 1668694612}
-  stepRayLower: {fileID: 1672556632}
-  stepHeight: 0.45
-  stepSmooth: 2
-  zoomMultiplier: 0.2
-  isGrounded: 0
-  isSprinting: 0
-  isFalling: 0
-  isJumping: 0
-  isDodging: 0
-  isZooming: 0
-  canJump: 0
-  canTurn: 0
-  inputMagnitude: 0
-  playerCollider: {fileID: 4016927572169917174}
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,7 +1515,7 @@ GameObject:
   - component: {fileID: 4016927572422116013}
   - component: {fileID: 4016927572422116012}
   m_Layer: 0
-  m_Name: Aim Cam
+  m_Name: Cinematir Aim Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

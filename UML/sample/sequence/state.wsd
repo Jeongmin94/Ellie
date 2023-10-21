@@ -1,0 +1,26 @@
+@startuml
+
+hide footbox
+participant Client
+participant Context
+participant ConcreteStateA
+participant ConcreteStateB
+
+activate Client
+activate Context
+
+autonumber
+Client -> Context: setState(stateA)
+
+Client -> Context: handleRequest()
+activate ConcreteStateA
+Context -> ConcreteStateA: handle()
+
+Client -> Context: setState(stateB)
+deactivate ConcreteStateA
+activate ConcreteStateB
+
+Client -> Context: handleRequest()
+Context -> ConcreteStateB: handle()
+
+@enduml

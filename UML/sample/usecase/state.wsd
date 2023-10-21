@@ -1,0 +1,26 @@
+@startuml
+
+left to right direction
+skinparam PackageStyle rectangle
+
+actor Guest as g
+
+package Restaurant {
+    usecase "Eat Food" as UC1
+    usecase "Pay for Fodd" as UC2
+    usecase "Drink" as UC3
+    usecase "Review" as UC4
+}
+
+package Professional {
+    actor Chef as c
+    actor "Food Critic" as fc
+}
+
+g --> UC1
+g --> UC2
+g --> UC3
+fc --> UC4
+Restaurant ..> c: <<include>>
+
+@enduml
