@@ -19,8 +19,8 @@ public abstract class DataParsingInfo : ScriptableObject
     public string url;
 
     [Header("Google SpreadSheets Parsing Range")]
-    public string startRow;
-    public string endRow;
+    public string startCell;
+    public string endColumn;
 
     [Tooltip("Google SpreadSheets Parsing TSV file")]
     [HideInInspector] public string tsv;
@@ -29,7 +29,7 @@ public abstract class DataParsingInfo : ScriptableObject
     {
         string docId = url.Split('/')[5];
         string gid = url.Split('=')[1];
-        return $"https://docs.google.com/spreadsheets/d/{docId}/export?format=tsv&gid={gid}&range={startRow}:{endRow}";
+        return $"https://docs.google.com/spreadsheets/d/{docId}/export?format=tsv&gid={gid}&range={startCell}:{endColumn}";
     }
 
     public abstract void Parse();
