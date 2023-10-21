@@ -4,7 +4,7 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class DetectPlayer : ActionNode
+public class Stop : ActionNode
 {
     protected override void OnStart() {
     }
@@ -13,6 +13,7 @@ public class DetectPlayer : ActionNode
     }
 
     protected override State OnUpdate() {
+        context.agent.destination = context.transform.position;
         return State.Success;
     }
 }

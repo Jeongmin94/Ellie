@@ -39,7 +39,6 @@ namespace Assets.Scripts.Monsters.Attacks
         private IEnumerator DisableCollider()
         {
             yield return new WaitForSeconds(durationTime);
-            Debug.Log(durationTime);
             collider.enabled = false;
             IsAttackReady = false;
             StartCoroutine(SetAttakingFalse());
@@ -56,7 +55,7 @@ namespace Assets.Scripts.Monsters.Attacks
             {
                 if (other.tag == "Player")
                 {
-                    //Player Recieve Attack
+                    Debug.Log("PlayerAttacked");
                 }
             }
         }

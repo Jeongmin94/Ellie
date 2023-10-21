@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Assets.Scripts.Data.UI;
+using Assets.Scripts.Monsters.Others;
 
 namespace TheKiwiCoder {
 
@@ -24,6 +25,8 @@ namespace TheKiwiCoder {
         // Add other game specific systems here
         public Shooter shooter;
 
+        DistanceDetectedAI detectAI;
+
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
             Context context = new Context();
@@ -36,6 +39,7 @@ namespace TheKiwiCoder {
             context.boxCollider = gameObject.GetComponent<BoxCollider>();
             context.capsuleCollider = gameObject.GetComponent<CapsuleCollider>();
             context.characterController = gameObject.GetComponent<CharacterController>();
+            context.detectAI = gameObject.GetComponent<DistanceDetectedAI>();
 
             // Add whatever else you need here...
 

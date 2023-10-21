@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Assets.Scripts.Monsters.Utility;
+using Assets.Scripts.Monsters.AbstractClass;
 
 namespace Assets.Scripts.Data
 {
@@ -20,5 +21,7 @@ namespace Assets.Scripts.Data
         public Enums.MonsterKind kind;
         public Enums.MovementType type;
         public Enums.AttackTurnType turnType;
+
+        public AbstractAttack[] skills;
     }
 }

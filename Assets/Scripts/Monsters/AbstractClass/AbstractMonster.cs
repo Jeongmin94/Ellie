@@ -1,7 +1,10 @@
 using System.Collections.Generic;
+using Assets.Scripts.Data;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.Utility;
+using TheKiwiCoder;
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Assets.Scripts.Monsters.AbstractClass
 {
@@ -9,35 +12,27 @@ namespace Assets.Scripts.Monsters.AbstractClass
     public abstract class AbstractMonster : MonoBehaviour
     {
         //Monster Stat, Type
-        protected Structures.MonsterStat monsterStat;
-        protected Structures.MonsterType monsterType;
-
-        //PlayerDistance
-        protected float travelDistance;
-        protected float playerDistance; //삭제 및 자식 클래스 수정 필요
+        public SkeletonMeleeMonsterData monsterData;
 
         //Actions
         protected bool isAttacking;
 
         //Components
-        private Rigidbody rigidBody;
         protected AbstractAttack[] skills;
         protected Animator animator;
+        public BehaviourTreeInstance behaviourTreeInstance;
+        protected NavMeshAgent agent;
 
         //Attack Dictionary
         protected Dictionary<string, AbstractAttack> Attacks = new();
 
 
         // >> : Functions
-        protected void InitializeStat(Structures.MonsterStat monsterStat)
+        protected void InitializeData(SkeletonMeleeMonsterData monsterData)
         {
-            this.monsterStat = monsterStat;
+            this.monsterData = monsterData;
         }
 
-        protected void InitializeType(Structures.MonsterType monsterType)
-        {
-            this.monsterType = monsterType;
-        }
         protected AbstractAttack AddSkill(string skillName, Enums.AttackSkill attackSkill)
         {
             AbstractAttack attack = null;
