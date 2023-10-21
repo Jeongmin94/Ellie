@@ -1,0 +1,11 @@
+@startuml
+
+hide empty description
+[*] -> start
+start -> guide
+guide -> stage1
+stage1: clear or end
+stage1 -> result
+result -> start
+result -> [*]
+@enduml
