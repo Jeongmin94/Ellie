@@ -26,12 +26,15 @@ namespace Assets.Scripts.Player.States
             curTime = 0f;
             Controller.Anim.SetLayerWeight(2, 1);
             LookOre();
+            Controller.Pickaxe.SetActive(true);
+            Controller.Anim.SetBool("IsMining", true);
         }
 
         public override void OnExitState()
         {
             Controller.Anim.SetLayerWeight(2, 0);
-
+            Controller.Pickaxe.SetActive(false);
+            Controller.Anim.SetBool("IsMining", false);
         }
 
         public override void OnFixedUpdateState()

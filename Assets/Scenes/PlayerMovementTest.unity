@@ -1449,16 +1449,28 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 1f0ae533b0475f140a636c62c09ad980, type: 2}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.90000004
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572422116014, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Name
+      value: Cinematic Aim Cam
       objectReference: {fileID: 0}
     - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: CameraSide
-      value: 0.8
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: ShoulderOffset.x
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4287311989058363499, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: pickaxe
+      value: 
+      objectReference: {fileID: 2045953193}
     - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: miningTime
       value: 4
@@ -1466,6 +1478,10 @@ PrefabInstance:
     - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: zoomMultiplier
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: dodgeInvulnerableTime
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 7409665973702451371, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Enabled
@@ -3150,6 +3166,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2045953194}
     m_Modifications:
+    - target: {fileID: -5178661895559278292, guid: 3211307cdbbd080438c2f2e137cac691, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 5635324110681551037, guid: b8ccdadf2444452458e305ae2c2499c7, type: 3}
     - target: {fileID: -4216859302048453862, guid: 3211307cdbbd080438c2f2e137cac691, type: 3}
       propertyPath: m_RootOrder
       value: 0

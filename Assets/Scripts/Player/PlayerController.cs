@@ -79,6 +79,8 @@ namespace Assets.Scripts.Player
         [Header("Mining")]
         public bool canStartMining;
         [SerializeField] private float miningTime;
+        [SerializeField] private GameObject pickaxe;
+        public GameObject Pickaxe { get { return pickaxe; } }
         private Ore curOre = null;
 
         [Header("Boolean Properties")]
@@ -166,6 +168,7 @@ namespace Assets.Scripts.Player
 
             stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
                 stepRayUpper.transform.position.z);
+            Pickaxe.SetActive(false);
         }
         private void SetMovingAnim()
         {
