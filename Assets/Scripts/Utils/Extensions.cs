@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.UI.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -12,13 +13,14 @@ namespace Assets.Scripts.Utils
             if (component != null)
                 return component;
 
-            component = go.AddComponent<T>();
-            return component;
+            return go.AddComponent<T>();
         }
-        
-        public static void BindEvent(this GameObject go, Action<PointerEventData> action, Define.UIEvent type = Define.UIEvent.Click)
+
+        #region UI
+        public static void BindEvent(this GameObject go, Action<PointerEventData> action, UIEvent type = UIEvent.Click)
         {
-            UI_Base.BindEvent(go, action, type);
+            // UI_Base.BindEvent(go, action, type);
         }
+        #endregion
     }
 }

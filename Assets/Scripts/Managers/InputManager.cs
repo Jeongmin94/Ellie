@@ -4,6 +4,12 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Managers
 {
+    public enum MouseEvent
+    {
+        Click,
+        Press
+    }
+    
     public class InputManager : Singleton<InputManager>
     {
         public Action OnKeyAction;
