@@ -21,8 +21,8 @@ namespace Assets.Scripts.Player.States
             if (!Controller.isGrounded)
                 Controller.isFalling = true;
             Controller.SetTimeScale(Controller.zoomMultiplier);
-            Controller.curAimLayerWeight = 0f;
-            Controller.debugSphere.SetActive(true);
+            Controller.CurAnimLayerWeight = 0f;
+            Controller.ActivateShootPos(true);
         }
 
         public override void OnExitState()
@@ -50,10 +50,9 @@ namespace Assets.Scripts.Player.States
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
                 Controller.Anim.SetLayerWeight(1, 0);
-                Controller.debugSphere.SetActive(false);
-                Controller.curAimLayerWeight = 0f;
+                Controller.CurAnimLayerWeight = 0f;
                 Controller.SetAnimLayerWeight(0f);
-
+                Controller.ActivateShootPos(false);
 
                 if (Controller.isGrounded)
                 {

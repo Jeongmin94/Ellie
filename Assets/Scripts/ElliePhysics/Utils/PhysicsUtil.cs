@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Scripts.ElliePhysics.Utils
 {
@@ -24,33 +25,45 @@ namespace Assets.Scripts.ElliePhysics.Utils
             Vector3 releasePosition,
             Vector3 direction,
             float strength,
-            float moveTime,
-            int pointCount)
+            float time,
+            int pointCount,
+            LayerMask layerMask)
         {
+            if (Mathf.Equals(time, 0.0f))
+                return new Vector3[1] { releasePosition };
+
             Vector3 startPosition = releasePosition;
             Vector3 startVelocity = direction * strength;
 
-            Vector3[] points = new Vector3[pointCount + 1];
-
-            float timeInterval = moveTime / (float)(pointCount + 1);
+            List<Vector3> pointList = new List<Vector3>();
+            float timeInterval = time / (float)(pointCount + 1);
             int i = 0;
 
-            points[0] = startPosition;
-            for (float accInterval = timeInterval; accInterval < moveTime; accInterval += timeInterval)
+            pointList.Add(startPosition);
+            for (float accInterval = timeInterval; accInterval < time; accInterval += timeInterval)
             {
                 i++;
                 if (i >= pointCount + 1)
                     break;
 
-                float time = accInterval;
-                Vector3 currentPosition = startPosition + startVelocity * time;
-                currentPosition.y = startPosition.y + startVelocity.y * time + (Physics.gravity.y / 2.0f * time * time);
+                Vector3 currentPosition = startPosition + startVelocity * accInterval;
+                currentPosition.y = startPosition.y + startVelocity.y * accInterval + (Physics.gravity.y / 2.0f * accInterval * accInterval);
 
-                points[i] = currentPosition;
+                Vector3 prevPosition = pointList[i - 1];
+                Vector3 prevToCurrent = currentPosition - prevPosition;
+
+                if (Physics.Raycast(prevPosition, prevToCurrent.normalized, out RaycastHit hit, prevToCurrent.magnitude, layerMask))
+                {
+                    pointList.Add(hit.point);
+                    break;
+                }
+                else
+                {
+                    pointList.Add(currentPosition);
+                }
             }
 
-            return points;
+            return pointList.ToArray();
         }
-        
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Player.States;
 using System.Collections;
+using Assets.Scripts.Data.ActionData.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -12,6 +13,10 @@ namespace Assets.Scripts.Player
 
         public GameObject cinematicMainCam;
         public GameObject cinematicAimCam;
+
+        [Header("ActionData")]
+        [SerializeField] private AimTargetData aimTargetData;
+        
         [SerializeField] private float walkSpeed;
         public float WalkSpeed { get { return walkSpeed; } }
         [SerializeField] private float sprintSpeed;
@@ -52,8 +57,19 @@ namespace Assets.Scripts.Player
 
         [Header("Attack")]
         [SerializeField] private bool hasRock;
-        public GameObject debugSphere;
 
+        private Vector3 aimTarget;
+        public Vector3 AimTarget
+        {
+            get { return aimTarget; }
+            set
+            {
+                aimTargetData.TargetPosition.Value = value;
+                aimTarget = value;
+            }
+        }
+
+        public GameObject shootPos;
 
         [Header("Slope")]
         public float maxSlopeAngle;
@@ -86,90 +102,110 @@ namespace Assets.Scripts.Player
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
-        public float curAimLayerWeight;
+        public float CurAnimLayerWeight { get; set; }
 
         public CapsuleCollider playerCollider;
 
         private PlayerStateMachine stateMachine;
 
+        private void Awake()
+        {
+            Rb = GetComponent<Rigidbody>();
+            Anim = GetComponent<Animator>();
+        }
+
         private void Start()
         {
+            //커서 락
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
 
-            Rb = GetComponent<Rigidbody>();
-            Rb.freezeRotation = true;
-            Anim = GetComponent<Animator>();
-            canJump = true;
-            isGrounded = true;
+            //스테이트 머신 초기화
             InitStateMachine();
-            cinematicAimCam.SetActive(false);
 
-            //getting over step
-            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
-                stepRayUpper.transform.position.z);
-            //setting delta Time
-            initialFixedDeltaTime = Time.fixedDeltaTime;
+            //변수 초기화
+            InitVariables();
 
-            zoomMultiplier = 0.2f;
-
-            debugSphere.SetActive(false);
+            //ShootPos 꺼주기
+            ActivateShootPos(false);
         }
         private void Update()
         {
             GetInput();
             CheckGround();
             Turn();
+            SetColliderHeight();
+            ResetPlayerPos();
+            SetMovingAnim();
             stateMachine?.UpdateState();
+        }
+        private void FixedUpdate()
+        {
+            CalculateMoveDirection();
+            AddAdditionalGravityForce();
+            stateMachine?.FixedUpdateState();
+        }
+       
+        private void InitVariables()
+        {
+            Rb.freezeRotation = true;
+            canJump = true;
+            isGrounded = true;
+            initialFixedDeltaTime = Time.fixedDeltaTime;
+            cinematicAimCam.SetActive(false);
 
+            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
+                stepRayUpper.transform.position.z);
+        }
+        private void SetMovingAnim()
+        {
             inputMagnitude = Mathf.Clamp01(MoveInput.magnitude);
             if (isSprinting)
             {
                 inputMagnitude *= 1.5f;
             }
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
-
-            if (isJumping || isFalling)
-                playerCollider.height = 0f;
-            else
-                playerCollider.height = 1.5f;
-            //resetPlayer
+        }
+        private void ResetPlayerPos()
+        {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 transform.position = new Vector3(0f, 1f, 0f);
                 ChangeState(PlayerStateName.Idle);
             }
-
         }
-        private void FixedUpdate()
+        private void SetColliderHeight()
         {
-            CalculateMoveDirection();
-            //ClimbStep();
-            stateMachine?.FixedUpdateState();
+            if (isJumping || isFalling)
+                playerCollider.height = 0f;
+            else
+                playerCollider.height = 1.5f;
+        }
+        private void AddAdditionalGravityForce()
+        {
             Rb.AddForce(-Rb.transform.up * AdditionalGravityForce, ForceMode.Force);
 
         }
         private void InitStateMachine()
         {
-            PlayerStateIdle playerStateIdle = new PlayerStateIdle(this);
+            PlayerStateIdle playerStateIdle = new(this);
             stateMachine = new PlayerStateMachine(PlayerStateName.Idle, playerStateIdle);
 
-            PlayerStateWalk playerStateWalk = new PlayerStateWalk(this);
+            PlayerStateWalk playerStateWalk = new(this);
             stateMachine.AddState(PlayerStateName.Walk, playerStateWalk);
-            PlayerStateSprint playerStateSprint = new PlayerStateSprint(this);
+            PlayerStateSprint playerStateSprint = new(this);
             stateMachine.AddState(PlayerStateName.Sprint, playerStateSprint);
-            PlayerStateJump playerStateJump = new PlayerStateJump(this);
+            PlayerStateJump playerStateJump = new(this);
             stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
-            PlayerStateDodge playerStateDodge = new PlayerStateDodge(this);
+            PlayerStateDodge playerStateDodge = new(this);
             stateMachine.AddState(PlayerStateName.Dodge, playerStateDodge);
-            PlayerStateAirbourn playerStateAirbourn = new PlayerStateAirbourn(this);
+            PlayerStateAirbourn playerStateAirbourn = new(this);
             stateMachine.AddState(PlayerStateName.Airbourn, playerStateAirbourn);
-            PlayerStateLand playerStateLand = new PlayerStateLand(this);
+            PlayerStateLand playerStateLand = new(this);
             stateMachine.AddState(PlayerStateName.Land, playerStateLand);
-
-            PlayerStateZoom playerStateZoom = new PlayerStateZoom(this);
+            PlayerStateZoom playerStateZoom = new(this);
             stateMachine.AddState(PlayerStateName.Zoom, playerStateZoom);
-            PlayerStateCharging playerStateCharging = new PlayerStateCharging(this);
+            PlayerStateCharging playerStateCharging = new(this);
             stateMachine.AddState(PlayerStateName.Charging, playerStateCharging);
         }
         public void MovePlayer(float moveSpeed)
@@ -187,25 +223,6 @@ namespace Assets.Scripts.Player
 
         private void ClimbStep()
         {
-
-            //RaycastHit lowerHit;
-            //if (Physics.Raycast(stepRayLower.transform.position, playerObj.transform.forward,
-            //    out lowerHit, 0.1f, groundLayer))
-            //{
-            //    Debug.Log("stair detected");
-            //    RaycastHit hitUpper;
-            //    if (!Physics.Raycast(stepRayUpper.transform.position, playerObj.transform.forward,
-            //        out hitUpper, 0.2f, groundLayer))
-            //    {
-            //        Debug.Log("Getting over Stair");
-            //        Rb.position -= new Vector3(0f, -stepSmooth * Time.fixedDeltaTime, 0f);
-            //    }
-            //}
-            Debug.DrawLine(stepRayLower.transform.position, stepRayLower.transform.position +
-                playerObj.TransformDirection(Vector3.forward) * 0.1f, Color.green);
-            Debug.DrawLine(stepRayUpper.transform.position, stepRayUpper.transform.position +
-                playerObj.TransformDirection(Vector3.forward) * 0.2f, Color.red);
-
             RaycastHit hitLower;
             if (Physics.Raycast(stepRayLower.transform.position,
                 playerObj.TransformDirection(Vector3.forward), out hitLower, 0.1f, groundLayer))
@@ -311,7 +328,6 @@ namespace Assets.Scripts.Player
             }
             return false;
         }
-
         private Vector3 GetSlopeMoveDirection()
         {
             return Vector3.ProjectOnPlane(MoveDirection, slopeHit.normal).normalized;
@@ -322,7 +338,6 @@ namespace Assets.Scripts.Player
             orientation.forward = viewDir.normalized;
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         }
-
         private void Turn()
         {
             if (!canTurn) return;
@@ -331,88 +346,62 @@ namespace Assets.Scripts.Player
                 playerObj.forward = Vector3.Slerp(playerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
             }
         }
-
         public void TurnOnAimCam()
         {
             cinematicMainCam.SetActive(false);
             cinematicAimCam.SetActive(true);
         }
-
         public void TurnOffAimCam()
         {
             cinematicMainCam.SetActive(true);
             cinematicAimCam.SetActive(false);
         }
-
         public void SetTimeScale(float expectedTimeScale)
         {
 
             Time.timeScale = expectedTimeScale;
             Time.fixedDeltaTime = initialFixedDeltaTime * Time.timeScale;
-            //StartCoroutine(LerpTimeScale(expectedTimeScale));
         }
-
         public void SetAnimLayerWeight(float weight)
         {
-            if (curAimLayerWeight < weight)
+            if (CurAnimLayerWeight < weight)
             {
-                curAimLayerWeight += 2.5f * Time.deltaTime / Time.timeScale;
+                CurAnimLayerWeight += 2.5f * Time.deltaTime / Time.timeScale;
             }
-            Anim.SetLayerWeight(1, curAimLayerWeight);
+            Anim.SetLayerWeight(1, CurAnimLayerWeight);
         }
-        //public void SetAimAnimLayerWeight(float weight)
-        //{
-        //    //Anim.SetLayerWeight(1, weight);
-        //    StartCoroutine(SetLayerWeightCoroutine(weight));
-        //}
-        //public void StopSetAimAnimLayerWeight(float weight)
-        //{
-        //    Debug.Log("Stopping setting aimanimLayerWeight");
-        //    StopCoroutine(SetLayerWeightCoroutine(weight));
-        //    Anim.SetLayerWeight(1, 0);
-        //}
 
-        //private IEnumerator SetLayerWeightCoroutine(float weight)
-        //{
-        //    float curWeight = 0f;
-        //    while (curWeight < weight)
-        //    {
-        //        curWeight += 2f * Time.deltaTime / Time.timeScale;
-        //        Anim.SetLayerWeight(1, curWeight);
-        //        yield return null;
-        //    }
-        //}
-
+        public void ActivateShootPos(bool value)
+        {
+            shootPos.SetActive(value);
+        }
+       
         public void Aim()
         {
             Ray shootRay = mainCam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
             RaycastHit hit;
             if (Physics.Raycast(shootRay, out hit, Mathf.Infinity, ~layerToIgnore))
             {
-                debugSphere.transform.position = hit.point;
+                AimTarget = hit.point;
             }
             else
             {
-                debugSphere.transform.position = shootRay.origin + 50f * shootRay.direction.normalized;
+                AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
         }
-
         public void LookAimTarget()
         {
-            Vector3 directionToTarget = debugSphere.transform.position - playerObj.position;
+            Vector3 directionToTarget = AimTarget - playerObj.position;
             directionToTarget.y = 0;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
             playerObj.rotation = Quaternion.Slerp(playerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
-            //playerObj.LookAt(new Vector3(debugSphere.transform.position.x, playerObj.position.y, debugSphere.transform.position.z));
         }
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
             GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
             GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
-
-
         }
     }
 }

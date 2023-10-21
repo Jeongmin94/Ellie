@@ -18,7 +18,6 @@ MonoBehaviour:
   - rid: 1401849100741378049
   - rid: 1401849100741378050
   - rid: 1401849100741378051
-  - rid: 1401849100741378053
   - rid: 1401849101408534528
   - rid: 1401849101951959040
   - rid: 1401849101951959041
@@ -30,7 +29,7 @@ MonoBehaviour:
     - rid: 1401849123524313088
     - rid: 1401849123524313089
     - rid: 1401849123524313090
-  viewPosition: {x: 920.5714, y: 232, z: 0}
+  viewPosition: {x: 953.1429, y: 270.85715, z: 0}
   viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
@@ -63,7 +62,6 @@ MonoBehaviour:
         - rid: 1401849101408534528
         - rid: 1401849100741378051
         - rid: 1401849101951959041
-        - rid: 1401849100741378053
     - rid: 1401849100741378051
       type: {class: Log, ns: TheKiwiCoder, asm: thekiwicoder.behaviourtreeeditor}
       data:
@@ -76,25 +74,6 @@ MonoBehaviour:
         description: "\uB098\uB294 \uD638\uC639\uC774\uB2E4"
         drawGizmos: 0
         message:
-          reference:
-            rid: 1401849101951959045
-          defaultValue: 
-    - rid: 1401849100741378053
-      type: {class: TestActionNode, ns: , asm: Assembly-CSharp}
-      data:
-        state: 0
-        started: 0
-        guid: 74233d9a18bf4a5408d4ed679595b070
-        position: {x: -165, y: 330}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        moveSpeed:
-          reference:
-            rid: 1401849101951959044
-          defaultValue: 0
-        logString:
           reference:
             rid: 1401849101951959045
           defaultValue: 
