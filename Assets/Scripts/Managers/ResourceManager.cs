@@ -1,5 +1,3 @@
-using System;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -19,9 +17,7 @@ namespace Assets.Scripts.Managers
             }
 
             var go = GameObject.Instantiate(prefab, parent);
-
-            go.name = go.name[..go.name.IndexOf("(Clone)", StringComparison.Ordinal)];
-
+            go.name = prefab.name;
             return go;
         }
 

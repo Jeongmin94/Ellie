@@ -6,7 +6,17 @@ namespace Assets.Scripts.Data.ActionData.Player
     [CreateAssetMenu(fileName = "PlayerHealthData", menuName = "Player/PlayerHealthData")]
     public class PlayerHealthData : ScriptableObject
     {
-        public readonly Data<int> MaxHealth = new Data<int>();
+        [SerializeField] private int maxHealth;
         public readonly Data<int> CurrentHealth = new Data<int>();
+
+        public int MaxHealth
+        {
+            get { return maxHealth; }
+        }
+
+        public void InitHealth()
+        {
+            CurrentHealth.Value = maxHealth;
+        }
     }
 }

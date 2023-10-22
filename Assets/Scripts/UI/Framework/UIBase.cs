@@ -13,7 +13,7 @@ namespace Assets.Scripts.UI.Framework
     {
         // Key: Enum
         // Value: UI Object List
-        protected readonly Dictionary<Type, List<Object>> objects = new Dictionary<Type, List<Object>>();
+        private readonly Dictionary<Type, List<Object>> objects = new Dictionary<Type, List<Object>>();
 
         protected abstract void Init();
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.Utils;
@@ -12,6 +13,7 @@ namespace Assets.Scripts.Managers
         private const string NameUIRoot = "@UI_Root";
         private const string PrefixPopup = "UI/Popup/";
         private const string PrefixStatic = "UI/Static/";
+        private const string PrefixSubItem = "UI/SubItem/";
 
         private int order = 10;
 
@@ -52,6 +54,18 @@ namespace Assets.Scripts.Managers
                 canvas.sortingOrder = order++;
             else
                 canvas.sortingOrder = 0;
+        }
+
+        public T MakeSubItem<T>(Transform parent = null, string uiName = null) where T : UIBase
+        {
+            if (string.IsNullOrEmpty(uiName))
+                uiName = typeof(T).Name;
+
+            var go = ResourceManager.Instance.Instantiate($"{PrefixSubItem}{uiName}");
+            if(parent)
+                go.transform.SetParent(parent);
+
+            return go.GetOrAddComponent<T>();
         }
 
         public T MakeStatic<T>(string uiName = null) where T : UIStatic
