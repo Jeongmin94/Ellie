@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Framework.Popup
 {
-    public class UIButton : UIPopup
+    public class UIPopupButton : UIPopup
     {
         private int score = 0;
         

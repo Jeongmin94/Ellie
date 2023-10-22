@@ -10,8 +10,8 @@ namespace Assets.Scripts.UI.Framework
         
         private void Start()
         {
-            UIManager.Instance.MakePopup<UIButton>(UIButtonCanvas);
-            UIManager.Instance.MakePopup<UIButton>(UIButtonCanvas);
+            UIManager.Instance.MakePopup<UIPopupButton>(UIButtonCanvas);
+            UIManager.Instance.MakePopup<UIPopupButton>(UIButtonCanvas);
         }
     }
 }
