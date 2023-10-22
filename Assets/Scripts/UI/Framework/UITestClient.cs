@@ -10,20 +10,23 @@ namespace Assets.Scripts.UI.Framework
     public class UITestClient : MonoBehaviour
     {
         private const string UIButtonCanvas = "ButtonCanvas";
-        private const string UIPlayerHealthCanvas = "PlayerHealthCanvas";
+        private const string UIHealthAndStamina = "HealthAndStamina";
 
         [SerializeField] private PlayerHealthData healthData;
+        [SerializeField] private StaminaData staminaData;
         [SerializeField] private int damage = 1;
+        [SerializeField] private int staminaCost = 10;
 
         private void Awake()
         {
             healthData.InitHealth();
+            staminaData.InitStamina();
         }
 
         private void Start()
         {
             UIManager.Instance.MakePopup<UIPopupButton>(UIButtonCanvas);
-            UIManager.Instance.MakeStatic<UIPlayerHealth>(UIPlayerHealthCanvas);
+            UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
         }
 
         private void OnGUI()
@@ -40,6 +43,18 @@ namespace Assets.Scripts.UI.Framework
             {
                 int val = Math.Clamp(healthData.CurrentHealth.Value + damage, 0, healthData.MaxHealth);
                 healthData.CurrentHealth.Value = val;
+            }
+
+            if (GUI.Button(new Rect(10, h - 90, 100, 20), "use stamina"))
+            {
+                int val = Math.Clamp(staminaData.CurrentStamina.Value - staminaCost, 0, staminaData.MaxStamina);
+                staminaData.CurrentStamina.Value = val;
+            }
+
+            if (GUI.Button(new Rect(10, h - 120, 100, 20), "restore stamina"))
+            {
+                int val = Math.Clamp(staminaData.CurrentStamina.Value + staminaCost, 0, staminaData.MaxStamina);
+                staminaData.CurrentStamina.Value = val;
             }
         }
     }
