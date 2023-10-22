@@ -2,7 +2,9 @@ using System;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
+using Assets.Scripts.UI.Item;
 using Assets.Scripts.UI.Player;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework
@@ -11,6 +13,7 @@ namespace Assets.Scripts.UI.Framework
     {
         private const string UIButtonCanvas = "ButtonCanvas";
         private const string UIHealthAndStamina = "HealthAndStamina";
+        private const string UIStoneInven = "StoneInven";
 
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
@@ -27,6 +30,7 @@ namespace Assets.Scripts.UI.Framework
         {
             UIManager.Instance.MakePopup<UIPopupButton>(UIButtonCanvas);
             UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
+            UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
         }
 
         private void OnGUI()
@@ -55,6 +59,16 @@ namespace Assets.Scripts.UI.Framework
             {
                 int val = Math.Clamp(staminaData.CurrentStamina.Value + staminaCost, 0, staminaData.MaxStamina);
                 staminaData.CurrentStamina.Value = val;
+            }
+
+            if (GUI.Button(new Rect(10, h - 150, 150, 20), "stone move left"))
+            {
+                
+            }
+            
+            if (GUI.Button(new Rect(10, h - 180, 150, 20), "stone move right"))
+            {
+                
             }
         }
     }
