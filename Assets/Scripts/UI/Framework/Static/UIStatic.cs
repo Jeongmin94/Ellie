@@ -1,9 +1,12 @@
+using Assets.Scripts.Managers;
+
 namespace Assets.Scripts.UI.Framework.Static
 {
-    public class UIStatic: UIBase
+    public class UIStatic : UIBase
     {
-        public override void Init()
+        protected override void Init()
         {
+            UIManager.Instance.SetCanvas(gameObject, false);
         }
     }
 }

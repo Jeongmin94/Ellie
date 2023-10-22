@@ -46,8 +46,6 @@ namespace Tests.Player
             Assert.NotNull(shooter);
         }
 
-        // !TODO: 테스트 코드에서 Start, Awake 등의 event functions 사용하는 방법 리서치
-        // !TODO: or private 메서드 테스트 하는 방법 리서치
         [Test]
         public void _03_TestChargingRatio()
         {
@@ -55,8 +53,8 @@ namespace Tests.Player
 
             var go = (GameObject)Object.Instantiate(shooterPrefab);
             shooter = go.GetComponent<Shooter>();
-            shooter.SubscribeAction();
 
+            Debug.Log($"[ShooterTest] test charging ratio");
             var steps = shooter.ChargingData.timeSteps;
             var percentages = shooter.ChargingData.percentages;
 

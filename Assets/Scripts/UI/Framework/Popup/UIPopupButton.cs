@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -9,13 +10,13 @@ namespace Assets.Scripts.UI.Framework.Popup
     public class UIPopupButton : UIPopup
     {
         private int score = 0;
-        
-        private void Start()
+
+        private void Awake()
         {
             Init();
         }
 
-        public override void Init()
+        protected override void Init()
         {
             base.Init();
 

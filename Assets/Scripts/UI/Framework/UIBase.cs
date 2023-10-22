@@ -15,7 +15,7 @@ namespace Assets.Scripts.UI.Framework
         // Value: UI Object List
         protected readonly Dictionary<Type, List<Object>> objects = new Dictionary<Type, List<Object>>();
 
-        public abstract void Init();
+        protected abstract void Init();
 
         /// <summary>
         /// T에 해당하는 Object 들을 objects에 바인딩
