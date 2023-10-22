@@ -38,13 +38,13 @@ namespace Assets.Scripts.UI.Player
     {
         private struct ImageChangeInfo
         {
-            public readonly int current;
-            public readonly int prev;
+            public readonly int Current;
+            public readonly int Prev;
 
             public ImageChangeInfo(int current, int prev)
             {
-                this.current = current;
-                this.prev = prev;
+                Current = current;
+                Prev = prev;
             }
         }
 
@@ -129,8 +129,8 @@ namespace Assets.Scripts.UI.Player
             while (healthQueue.Any())
             {
                 var info = healthQueue.Peek();
-                int prev = info.prev;
-                int current = info.current;
+                int prev = info.Prev;
+                int current = info.Current;
 
                 int count = Math.Abs(prev - current);
                 if (prev > current)
@@ -180,8 +180,8 @@ namespace Assets.Scripts.UI.Player
             while (staminaQueue.Any())
             {
                 var info = staminaQueue.Dequeue();
-                int prev = info.prev;
-                int current = info.current;
+                int prev = info.Prev;
+                int current = info.Current;
 
                 if (prev > current)
                 {

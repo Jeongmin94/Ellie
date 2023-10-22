@@ -63,7 +63,7 @@ namespace Assets.Scripts.UI.Framework.Images
             image.fillAmount = target;
         }
         
-        public Image GetFillAmountTarget(FillAmountType type)
+        private Image GetFillAmountTarget(FillAmountType type)
         {
             Image image = null;
             switch (type)
