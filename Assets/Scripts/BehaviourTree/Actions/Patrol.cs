@@ -11,6 +11,7 @@ public class Patrol : ActionNode
 
     public NodeProperty<float> patrolInterval = new() { defaultValue = 3.0f };
     public NodeProperty<float> patrolRadius = new() { defaultValue = 5.0f };
+    public NodeProperty<bool> isReturning;
     public NodeProperty<Vector3> spawnPosition;
 
     public NodeProperty<GameObject> detectPlayerAI;
@@ -45,7 +46,8 @@ public class Patrol : ActionNode
         {
             context.animator.SetTrigger("SkeletonWalk");
         }
-
+        if (isReturning.Value)
+            return State.Failure;
 
         if (!detectPlayer.IsDetected)
         {

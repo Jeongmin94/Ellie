@@ -15,17 +15,20 @@ public class MeleeAttack : ActionNode
 
     protected override void OnStart() {
         skill = skillObject.Value.GetComponent<AbstractAttack>();
+        accumulatedTime = 0.0f;
+        context.animator.SetTrigger("SkeletonAttack");
     }
 
     protected override void OnStop() {
     }
 
-    protected override State OnUpdate() {
-        context.animator.SetTrigger("SkeletonMeleeAttack");
+    protected override State OnUpdate()
+    {
 
-        while(accumulatedTime<skillActivateDelay.Value)
+        while (accumulatedTime <= skillActivateDelay.Value)
         {
             accumulatedTime += Time.deltaTime;
+            return State.Running;
         }
 
         skill.ActivateAttack();

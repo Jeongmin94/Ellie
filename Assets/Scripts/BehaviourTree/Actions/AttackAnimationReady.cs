@@ -4,7 +4,7 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class SkeletonDashReady : ActionNode
+public class AttackAnimationReady : ActionNode
 {
     protected override void OnStart() {
     }
@@ -13,8 +13,7 @@ public class SkeletonDashReady : ActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log("MonsterRunAnimation");
-        context.animator.SetTrigger("SkeletonRun");
+        context.animator.SetTrigger("SkeletonAttack");
         return State.Success;
     }
 }

@@ -4,8 +4,10 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class SkeletonDashReady : ActionNode
+public class ResetSpeed : ActionNode
 {
+    public NodeProperty<float> defaultSpeed;
+
     protected override void OnStart() {
     }
 
@@ -13,8 +15,7 @@ public class SkeletonDashReady : ActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log("MonsterRunAnimation");
-        context.animator.SetTrigger("SkeletonRun");
+        context.agent.speed = defaultSpeed.Value;
         return State.Success;
     }
 }

@@ -12,7 +12,7 @@ public class DistanceAttackable : ActionNode
     public NodeProperty<float> maximumAttackableDistance;
     public NodeProperty<float> attackInterval;
 
-    private float accumulatedTime;
+    private float usedTime;
     protected override void OnStart()
     {
         playerDistance.Value = Vector3.Distance(context.transform.position, player.Value.transform.position);
@@ -24,18 +24,19 @@ public class DistanceAttackable : ActionNode
     protected override State OnUpdate()
     {
         if (playerDistance.Value < minimumAttackableDistance.Value)
-            return State.Failure;
-        if (playerDistance.Value > maximumAttackableDistance.Value)
-            return State.Failure;
-
-        if(accumulatedTime>attackInterval.Value)
         {
-            Debug.Log("Activate Dash");
-            accumulatedTime = 0.0f;
+            return State.Failure;
+        }
+        if (playerDistance.Value > maximumAttackableDistance.Value)
+        {
+            return State.Failure;
+        }
+        if(Time.time-usedTime>=attackInterval.Value)
+        {
+            usedTime = Time.time;
             return State.Success;
         }
 
-        accumulatedTime += Time.deltaTime;
         return State.Failure;
     }
 }

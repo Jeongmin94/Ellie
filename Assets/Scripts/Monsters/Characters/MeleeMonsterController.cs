@@ -11,7 +11,7 @@ using UnityEngine.AI;
 namespace Assets.Scripts.Monsters.Characters
 {
 
-    public class MonsterController : AbstractMonster
+    public class MeleeMonsterController : AbstractMonster
     {
         //Temp
         public GameObject player;
@@ -28,8 +28,6 @@ namespace Assets.Scripts.Monsters.Characters
                 detectPlayerDistance = 15.0f,
                 chasePlayerDistance = 10.0f,
                 overtravelDistance = 20.0f,
-
-                spawnPosition = new Vector3(1, 0, 1)
             };            
 
             SetNavMesh();
@@ -46,6 +44,7 @@ namespace Assets.Scripts.Monsters.Characters
             behaviourTreeInstance.SetBlackboardValue<GameObject>("Player", player);
             //<<
 
+            monsterData.spawnPosition = transform.position;
             behaviourTreeInstance.SetBlackboardValue<float>("DetectPlayerDistance", monsterData.detectPlayerDistance);
             behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", monsterData.spawnPosition);
             behaviourTreeInstance.SetBlackboardValue<float>("DetectChaseDistance", monsterData.chasePlayerDistance);
@@ -69,7 +68,7 @@ namespace Assets.Scripts.Monsters.Characters
             agent = GetComponent<NavMeshAgent>();
             agent.speed = monsterData.movementSpeed;
             agent.angularSpeed = monsterData.rotationSpeed;
-            agent.stoppingDistance = 0.5f;
+            agent.stoppingDistance = 1.0f;
             agent.baseOffset = -0.1f;
         }
 
@@ -79,7 +78,7 @@ namespace Assets.Scripts.Monsters.Characters
             monsterData.skills = new AbstractAttack[(int)SkillName.End];
             monsterData.skills[(int)SkillName.MeleeAttack] = AddSkill(SkillName.MeleeAttack.ToString(), Enums.AttackSkill.BoxCollider);
             monsterData.skills[(int)SkillName.MeleeAttack].InitializeBoxCollider
-                (2, 0.5f, 2.0f, 2.0f, Vector3.one, Vector3.forward);
+                (2.0f, 0.5f, 2.0f, 2.0f, Vector3.one, Vector3.forward);
         }
     }
 }

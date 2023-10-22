@@ -11,9 +11,7 @@ public class DashMove : ActionNode
     public NodeProperty<float> dashTime;
     public NodeProperty<float> speedMultiplier;
 
-    private float dotProduct;
     private float accumulateTime;
-    private bool startAnimation;
 
     protected override void OnStart() {
         context.agent.speed *= speedMultiplier.Value;

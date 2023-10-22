@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
-  m_Name: MeleeMonster
+  m_Name: WeaponMonster
   m_EditorClassIdentifier: 
   rootNode:
     rid: 5827609998966652928
@@ -32,7 +32,6 @@ MonoBehaviour:
   - rid: 5827610022590283776
   - rid: 5827610022590283778
   - rid: 5827610022590283779
-  - rid: 5827610022590283780
   - rid: 5827610022590283781
   - rid: 5827610041123864576
   treeState: 0
@@ -48,8 +47,8 @@ MonoBehaviour:
     - rid: 5827610016079937540
     - rid: 5827609998966652944
     - rid: 5827610016079937541
-  viewPosition: {x: 608, y: -32, z: 0}
-  viewScale: {x: 0.4971768, y: 0.4971768, z: 1}
+  viewPosition: {x: 496, y: 129, z: 0}
+  viewScale: {x: 0.43232766, y: 0.43232766, z: 1}
   references:
     version: 2
     RefIds:
@@ -136,10 +135,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 5
-        isReturning:
-          reference:
-            rid: -2
-          defaultValue: 0
         spawnPosition:
           reference:
             rid: 5827609998966652944
@@ -187,10 +182,6 @@ MonoBehaviour:
           reference:
             rid: 5827610003108265989
           defaultValue: {fileID: 0}
-        isReturning:
-          reference:
-            rid: -2
-          defaultValue: 0
         detectPlayerAI:
           reference:
             rid: 5827610003108265987
@@ -314,7 +305,6 @@ MonoBehaviour:
         children:
         - rid: 5827610003108265997
         - rid: 5827610022590283779
-        - rid: 5827610022590283780
         - rid: 5827610016079937537
         - rid: 5827610041123864576
     - rid: 5827610003108265997
@@ -323,7 +313,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f14688896a2784df3b1e1d95b531eaf1
-        position: {x: 435, y: 825}
+        position: {x: 525, y: 810}
         blackboard:
           keys: []
         description: 
@@ -347,7 +337,7 @@ MonoBehaviour:
         attackInterval:
           reference:
             rid: -2
-          defaultValue: 0.5
+          defaultValue: 2
     - rid: 5827610016079937536
       type: {class: GameObjectKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -361,7 +351,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c74f78592927f44abac8ff3d30c513a7
-        position: {x: 960, y: 825}
+        position: {x: 885, y: 810}
         blackboard:
           keys: []
         description: 
@@ -373,7 +363,7 @@ MonoBehaviour:
         skillActivateDelay:
           reference:
             rid: -2
-          defaultValue: 0.9
+          defaultValue: 1.5
     - rid: 5827610016079937538
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -460,23 +450,11 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 600c2695a17654dd2aa15757e406e8a3
-        position: {x: 630, y: 825}
+        position: {x: 720, y: 810}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
-    - rid: 5827610022590283780
-      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 389d1a970b30d4767bdc470cab85a748
-        position: {x: 795, y: 825}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        duration: 0.9
     - rid: 5827610022590283781
       type: {class: SkeletonDashReady, ns: , asm: Assembly.Ellie}
       data:
@@ -494,7 +472,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 0cb15531fdde94e04aaf075c9c4733f5
-        position: {x: 1140, y: 825}
+        position: {x: 1050, y: 810}
         blackboard:
           keys: []
         description: 

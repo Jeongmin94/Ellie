@@ -10,6 +10,7 @@ public class ChasePlayerDetect : ActionNode
 {
     public NodeProperty<GameObject> player;
 
+    public NodeProperty<bool> isReturning;
     public NodeProperty<GameObject> detectPlayerAI;
     public NodeProperty<float> detectChaseDistance;
 
@@ -24,6 +25,7 @@ public class ChasePlayerDetect : ActionNode
     }
 
     protected override State OnUpdate() {
+        if (isReturning.Value) return State.Failure;
         if(detectPlayer.IsDetected)
         {
             context.agent.destination = player.Value.transform.position;

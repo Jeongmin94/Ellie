@@ -55,11 +55,9 @@ public class MonsterAction : ActionNode
         }
         if (detectPlayer.IsDetected)
         {
-            //context.animator.SetTrigger("SkeletonWalk");
             return State.Success;
         }
 
-        //context.animator.SetTrigger("SkeletonIdle");
         return State.Failure;
 
     }

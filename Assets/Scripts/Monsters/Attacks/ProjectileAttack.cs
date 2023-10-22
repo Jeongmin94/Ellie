@@ -10,7 +10,7 @@ namespace Assets.Scripts.Monsters.Attacks
     {
 
         private string projectilePrefabPath = "Assets/Prefabs/Attacks/";
-        [SerializeField] public Projectile projectile;
+        private Projectile projectile;
         private Vector3 offset;
         private Vector3 direction;
         //ToDo : Add Direction to Projectile Attack! 

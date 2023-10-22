@@ -60,6 +60,7 @@ namespace Assets.Scripts.Monsters.Attacks
             {
                 if (other.tag == "Player")
                 {
+                    Debug.Log("Player Attacked By Weapon");
                     //Player Recieve Attack
                 }
             }
