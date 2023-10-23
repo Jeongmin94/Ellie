@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Player;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
@@ -41,6 +42,7 @@ namespace Assets.Scripts.InteractiveObjects
         }
         private void StartRailSystem()
         {
+            player.GetComponent<PlayerController>().PlayerObj.transform.rotation = playerStandingPos.rotation;
             SplineWalker walker = gameObject.AddComponent<SplineWalker>();
             walker.duration = duration;
             walker.spline = spline;
@@ -51,7 +53,6 @@ namespace Assets.Scripts.InteractiveObjects
         private void LockPlayerPos()
         {
             player.transform.position = playerStandingPos.position;
-            //player.transform.rotation = playerStandingPos.rotation;
         }
     }
 }
