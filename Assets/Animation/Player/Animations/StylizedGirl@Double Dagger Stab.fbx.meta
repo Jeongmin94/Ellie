@@ -61,7 +61,14 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events: []
+      events:
+      - time: 0.47835937
+        functionName: HandleSmithingAnimationEvent
+        data: 
+        objectReferenceParameter: {fileID: 8594729881267973079, guid: 35b7c9f0fe348de4eaa1467263cde907, type: 3}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

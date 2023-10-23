@@ -1,11 +1,7 @@
 ﻿using Assets.Scripts.InteractiveObjects;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Player.States
 {
@@ -26,14 +22,14 @@ namespace Assets.Scripts.Player.States
             curTime = 0f;
             Controller.Anim.SetLayerWeight(2, 1);
             LookOre();
-            Controller.Pickaxe.SetActive(true);
+            Controller.Pickaxe.gameObject.SetActive(true);
             Controller.Anim.SetBool("IsMining", true);
         }
 
         public override void OnExitState()
         {
             Controller.Anim.SetLayerWeight(2, 0);
-            Controller.Pickaxe.SetActive(false);
+            Controller.Pickaxe.gameObject.SetActive(false);
             Controller.Anim.SetBool("IsMining", false);
         }
 
@@ -44,20 +40,20 @@ namespace Assets.Scripts.Player.States
         public override void OnUpdateState()
         {
             //입력이 들어오면 스테이트 탈출
-            if(Controller.MoveInput.magnitude>0)
+            if (Controller.MoveInput.magnitude > 0)
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
             //점프 입력이나 공격 입력이 들어오면 스테이트 탈출
-            if(Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
                 Controller.ChangeState(PlayerStateName.Jump);
             }
-            if(Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0))
             {
                 Controller.ChangeState(PlayerStateName.Zoom);
             }
-            if(curTime>=miningTime)
+            if (curTime >= miningTime)
             {
                 curTime = 0f;
                 Mine();
@@ -78,7 +74,20 @@ namespace Assets.Scripts.Player.States
         }
         private void Mine()
         {
-            Debug.Log("Mining!");
+            Debug.Log("Mine");
+            int smithPower = UnityEngine.Random.Range(Controller.Pickaxe.MinSmithPower, Controller.Pickaxe.MaxSmithPower + 1);
+            int damage = smithPower >= Controller.CurOre.hardness ? smithPower - Controller.CurOre.hardness : 0;
+            //광석에 데미지 주기
+            if (damage > 0)
+            {
+                Controller.CurOre.Smith(damage);
+            }
+            Controller.Pickaxe.Durability--;
+            if (Controller.Pickaxe.Durability <= 0)
+            {
+                Debug.Log("Pickaxe is Broken");
+                Controller.ChangeState(PlayerStateName.Idle);
+            }
         }
     }
 }

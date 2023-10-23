@@ -6,21 +6,13 @@ namespace Assets.Scripts.InteractiveObjects
 {
     public class Ore : MonoBehaviour
     {
+        private bool minable = true;
         public int hardness;
         public int hp;
-        // Use this for initialization
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
+        
         private void OnTriggerEnter(Collider other)
         {
+            if (!minable) return;
             if(other.CompareTag("Player"))
             {
                 other.gameObject.GetComponentInParent<PlayerController>().canStartMining = true;
@@ -29,10 +21,22 @@ namespace Assets.Scripts.InteractiveObjects
         }
         private void OnTriggerExit(Collider other)
         {
+            if (!minable) return;
+
             if (other.CompareTag("Player"))
             {
                 other.gameObject.GetComponentInParent<PlayerController>().canStartMining = false;
                 other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(null);
+            }
+        }
+        public void Smith(int damage)
+        {
+            hp -= damage;
+            Debug.Log("Mine! cur hp : " +  hp.ToString());
+            if(hp<=0)
+            {
+                Debug.Log("mining complete");
+
             }
         }
     }
