@@ -1,31 +1,31 @@
 ﻿using Assets.Scripts.Player;
 using System.Collections;
+using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
 {
-    public class Ore : MonoBehaviour
+    public class Ore : MonoBehaviour, IInteractiveObject
     {
         private bool minable = true;
         public int hardness;
         public int hp;
-        
-        private void OnTriggerEnter(Collider other)
-        {
-            if (!minable) return;
-            if(other.CompareTag("Player"))
-            {
-                other.gameObject.GetComponentInParent<PlayerController>().canStartMining = true;
-                other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(this);
-            }
-        }
+
+        //private void OnTriggerEnter(Collider other)
+        //{
+        //    if (!minable) return;
+        //    if(other.CompareTag("Player"))
+        //    {
+        //        other.gameObject.GetComponentInParent<PlayerController>().canStartMining = true;
+        //        other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(this);
+        //    }
+        //}
         private void OnTriggerExit(Collider other)
         {
-            if (!minable) return;
+            //if (!minable) return;
 
             if (other.CompareTag("Player"))
             {
-                other.gameObject.GetComponentInParent<PlayerController>().canStartMining = false;
                 other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(null);
             }
         }
@@ -38,6 +38,11 @@ namespace Assets.Scripts.InteractiveObjects
                 Debug.Log("mining complete");
 
             }
+        }
+
+        public void Interact(GameObject obj)
+        {
+            obj.GetComponent<PlayerController>().SetCurOre(this);
         }
     }
 }

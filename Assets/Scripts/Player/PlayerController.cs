@@ -78,7 +78,6 @@ namespace Assets.Scripts.Player
         public float zoomMultiplier;
 
         [Header("Mining")]
-        public bool canStartMining;
         [SerializeField] private float miningTime;
         [SerializeField] private Pickaxe pickaxe;
         public Pickaxe Pickaxe { get { return pickaxe; } }
@@ -169,8 +168,8 @@ namespace Assets.Scripts.Player
 
             stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
                 stepRayUpper.transform.position.z);
-
-            //Pickaxe.SetActive(false);
+            SetCurOre(null);
+            Pickaxe.gameObject.SetActive(false);
         }
         private void SetMovingAnim()
         {
@@ -441,7 +440,6 @@ namespace Assets.Scripts.Player
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
             GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
             GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
-            GUI.Label(new Rect(10, 40, 200, 20), "Can Start Mining : " + canStartMining);
         }
     }
 }
