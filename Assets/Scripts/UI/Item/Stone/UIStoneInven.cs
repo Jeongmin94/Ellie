@@ -18,11 +18,19 @@ namespace Assets.Scripts.UI.Item
             RightButton,
         }
 
+        private enum GameObjects
+        {
+            Left,
+            Mid,
+            Right
+        }
+
         [SerializeField] private float swapTime = 0.5f;
 
         // ui components
         private readonly List<UIStoneSubItem> subItems = new List<UIStoneSubItem>();
         private readonly List<Button> buttons = new List<Button>();
+        private readonly List<GameObject> positionObjects = new List<GameObject>();
 
         // for swap
         private int equippedNumber = 1;
@@ -37,6 +45,7 @@ namespace Assets.Scripts.UI.Item
             base.Init();
 
             Bind<Button>(typeof(Buttons));
+            Bind<GameObject>(typeof(GameObjects));
 
             // !TODO: 플레이어가 돌멩이를 획득한 상황에 따라서 subItem의 상황이 달라짐
             int buttonCount = Enum.GetValues(typeof(Buttons)).Length;
@@ -47,12 +56,14 @@ namespace Assets.Scripts.UI.Item
                 var subItem = buttons[i].gameObject.GetOrAddComponent<UIStoneSubItem>();
                 subItem.ItemIdx = i;
                 subItem.ItemText = $"stone{i}";
-                subItem.PrevPosition = buttons[i].transform.position;
+                subItem.PrevPosition = buttons[i].transform.localPosition;
 
                 subItem.PrevScale = buttons[i].transform.localScale;
                 subItems.Add(subItem);
 
                 buttons[i].gameObject.BindEvent(OnEventHandlerEvent);
+
+                positionObjects.Add(GetGameObject(i));
             }
         }
 
@@ -79,12 +90,12 @@ namespace Assets.Scripts.UI.Item
             var mid = subItems[equippedNumber];
 
             // mid => button
-            Vector3 toButton = subItem.transform.position - mid.transform.position;
+            Vector3 toButton = subItem.transform.localPosition - mid.transform.localPosition;
             Vector3 toButtonPos = subItem.PrevPosition;
             Vector3 toButtonScale = subItem.PrevScale;
 
             // button => mid
-            Vector3 toMid = mid.transform.position - subItem.transform.position;
+            Vector3 toMid = mid.transform.localPosition - subItem.transform.localPosition;
             Vector3 toMidPos = mid.PrevPosition;
             Vector3 toMidScale = mid.PrevScale;
 
@@ -94,25 +105,24 @@ namespace Assets.Scripts.UI.Item
                 yield return new WaitForEndOfFrame();
                 timeAcc += Time.deltaTime;
 
-                mid.transform.position += toButton.normalized * (toButton.magnitude / swapTime * Time.deltaTime);
+                mid.transform.localPosition += toButton.normalized * (toButton.magnitude / swapTime * Time.deltaTime);
                 mid.transform.localScale = Vector3.Lerp(toMidScale, toButtonScale, timeAcc / swapTime);
 
-                subItem.transform.position += toMid.normalized * (toMid.magnitude / swapTime * Time.deltaTime);
+                subItem.transform.localPosition += toMid.normalized * (toMid.magnitude / swapTime * Time.deltaTime);
                 subItem.transform.localScale = Vector3.Lerp(toButtonScale, toMidScale, timeAcc / swapTime);
             }
 
             mid.PrevPosition = toButtonPos;
             mid.PrevScale = toButtonScale;
-            mid.transform.position = toButtonPos;
+            mid.transform.localPosition = toButtonPos;
             mid.transform.localScale = toButtonScale;
 
             subItem.PrevPosition = toMidPos;
             subItem.PrevScale = toMidScale;
-            subItem.transform.position = toMidPos;
+            subItem.transform.localPosition = toMidPos;
             subItem.transform.localScale = toMidScale;
-            
-            subItems.ForEach(i => i.ItemImage.enabled = true);
 
+            subItems.ForEach(i => i.ItemImage.enabled = true);
         }
     }
 }
