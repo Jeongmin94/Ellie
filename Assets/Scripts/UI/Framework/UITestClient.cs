@@ -14,6 +14,7 @@ namespace Assets.Scripts.UI.Framework
         private const string UIButtonCanvas = "ButtonCanvas";
         private const string UIHealthAndStamina = "HealthAndStamina";
         private const string UIStoneInven = "StoneInven";
+        private const string UIItemInven = "ItemInven";
 
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
@@ -31,6 +32,7 @@ namespace Assets.Scripts.UI.Framework
             UIManager.Instance.MakePopup<UIPopupButton>(UIButtonCanvas);
             UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
             UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
+            UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
         }
 
         private void OnGUI()

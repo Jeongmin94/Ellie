@@ -30,7 +30,6 @@ namespace Assets.Scripts.UI.Item
         // ui components
         private readonly List<UIStoneSubItem> subItems = new List<UIStoneSubItem>();
         private readonly List<Button> buttons = new List<Button>();
-        private readonly List<GameObject> positionObjects = new List<GameObject>();
 
         // for swap
         private int equippedNumber = 1;
@@ -61,13 +60,11 @@ namespace Assets.Scripts.UI.Item
                 subItem.PrevScale = buttons[i].transform.localScale;
                 subItems.Add(subItem);
 
-                buttons[i].gameObject.BindEvent(OnEventHandlerEvent);
-
-                positionObjects.Add(GetGameObject(i));
+                buttons[i].gameObject.BindEvent(OnClickStone);
             }
         }
 
-        private void OnEventHandlerEvent(PointerEventData data)
+        private void OnClickStone(PointerEventData data)
         {
             var selected = data.pointerEnter.gameObject;
             if (selected.name.Equals(buttons[equippedNumber].name))
