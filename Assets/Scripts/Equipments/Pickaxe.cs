@@ -36,7 +36,6 @@ namespace Assets.Scripts.Equipments
             //일단 이펙트 다 꺼주기
             foreach (GameObject obj in smithingEffects)
             {
-                obj.GetComponent<ParticleSystem>().Stop();
                 obj.SetActive(false);
             }
         }
@@ -77,7 +76,6 @@ namespace Assets.Scripts.Equipments
             effect.SetActive(true);
             effect.transform.position = effectPos.position;
             Debug.Log(effect.transform.position);
-            effect.GetComponent<ParticleSystem>().Play();
         }
     }
 }
