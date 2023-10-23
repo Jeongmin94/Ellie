@@ -4,6 +4,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Item;
 using Assets.Scripts.UI.Player;
+using Assets.Scripts.UI.Status;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
@@ -15,11 +16,14 @@ namespace Assets.Scripts.UI.Framework
         private const string UIHealthAndStamina = "HealthAndStamina";
         private const string UIStoneInven = "StoneInven";
         private const string UIItemInven = "ItemInven";
+        private const string UIStatusCanvas = "StatusCanvas";
 
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private int damage = 1;
         [SerializeField] private int staminaCost = 10;
+
+        private UIStatusBar statusBar;
 
         private void Awake()
         {
@@ -33,6 +37,7 @@ namespace Assets.Scripts.UI.Framework
             UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
             UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
             UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
+            statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
         }
 
         private void OnGUI()
@@ -61,6 +66,16 @@ namespace Assets.Scripts.UI.Framework
             {
                 int val = Math.Clamp(staminaData.CurrentStamina.Value + staminaCost, 0, staminaData.MaxStamina);
                 staminaData.CurrentStamina.Value = val;
+            }
+
+            if (GUI.Button(new Rect(10, h - 150, 100, 20), "add status"))
+            {
+                statusBar.AddStatus();
+            }
+
+            if (GUI.Button(new Rect(10, h - 180, 100, 20), "remove status"))
+            {
+                statusBar.RemoveStatus();
             }
         }
     }
