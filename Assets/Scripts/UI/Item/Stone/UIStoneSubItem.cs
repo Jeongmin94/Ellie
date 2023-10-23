@@ -16,6 +16,11 @@ namespace Assets.Scripts.UI.Item
         public Vector3 PrevScale { get; set; }
         public int ItemIdx { get; set; }
 
+        public Image ItemImage
+        {
+            get { return image; }
+        }
+
         public string ItemText
         {
             get { return text.text; }
