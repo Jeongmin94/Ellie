@@ -15,5 +15,7 @@ namespace Assets.Scripts.Boss.Terrapupa
 
         [Tooltip("테라푸파의 데이터 테이블")]
         [SerializeField] private TerrapupaDataInfo data;
+
+
     }
 }

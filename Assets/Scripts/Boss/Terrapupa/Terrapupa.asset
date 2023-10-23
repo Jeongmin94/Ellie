@@ -16,11 +16,18 @@ MonoBehaviour:
     rid: 1401849175978016768
   nodes:
   - rid: 1401849175978016768
+  - rid: 1401849265356013570
+  - rid: 1401849265356013572
+  - rid: 1401849265356013573
+  - rid: 1401849265356013574
   treeState: 0
   blackboard:
-    keys: []
-  viewPosition: {x: 603, y: 345, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+    keys:
+    - rid: 1401849262943502337
+    - rid: 1401849265356013568
+    - rid: 1401849265356013569
+  viewPosition: {x: 379, y: 422, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -32,10 +39,89 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -30, y: -300}
+        position: {x: 30, y: -435}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: -2
+          rid: 1401849265356013573
+    - rid: 1401849262943502337
+      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: targetPosition
+        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        value: {x: 0, y: 0, z: 0}
+    - rid: 1401849265356013568
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: currentHP
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849265356013569
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: moveSpeed
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849265356013570
+      type: {class: CheckCurrentAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f743146838ad3bb49951fb45fa5fb140
+        position: {x: -405, y: 45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        checkAnimationName:
+          reference:
+            rid: -2
+          defaultValue: Idle
+    - rid: 1401849265356013572
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d792974ffb9cea541b2c22c9bf97f83d
+        position: {x: -210, y: -120}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849265356013570
+        - rid: 1401849265356013574
+    - rid: 1401849265356013573
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 4c2fbd6c101b9da4b837dbd30787fd68
+        position: {x: -150, y: -300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 1401849265356013572
+        restartOnSuccess: 1
+        restartOnFailure: 1
+        maxRepeats: 0
+    - rid: 1401849265356013574
+      type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 90d3403d9ac76404686bb35af7d2286a
+        position: {x: -105, y: 45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        message:
+          reference:
+            rid: -2
+          defaultValue: "\uCCB4\uD06C"
