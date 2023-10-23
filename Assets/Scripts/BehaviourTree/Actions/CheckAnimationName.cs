@@ -4,9 +4,9 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class CheckCurrentAnimation : ActionNode
+public class CheckAnimationName : ActionNode
 {
-    public NodeProperty<string> checkAnimationName;
+    public NodeProperty<string> animationName;
 
     protected override void OnStart() {
     }
@@ -15,7 +15,7 @@ public class CheckCurrentAnimation : ActionNode
     }
 
     protected override State OnUpdate() {
-        string check = checkAnimationName.Value;
+        string check = animationName.Value;
 
         if(context.animator.GetCurrentAnimatorStateInfo(0).IsName(check))
         {
