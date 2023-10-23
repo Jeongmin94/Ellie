@@ -5,7 +5,6 @@ using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Item;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.UI.Status;
-using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework

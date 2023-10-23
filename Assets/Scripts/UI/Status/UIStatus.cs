@@ -1,6 +1,4 @@
-using System;
 using Assets.Scripts.UI.Framework;
-using UnityEngine;
 
 namespace Assets.Scripts.UI.Status
 {
