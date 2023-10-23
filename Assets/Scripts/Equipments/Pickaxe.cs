@@ -34,7 +34,7 @@ namespace Assets.Scripts.Equipments
         {
             pickaxeMaterials = Resources.LoadAll<Material>("Materials/PickaxeMaterials");
             //일단 이펙트 다 꺼주기
-            foreach(GameObject obj in smithingEffects)
+            foreach (GameObject obj in smithingEffects)
             {
                 obj.GetComponent<ParticleSystem>().Stop();
                 obj.SetActive(false);
@@ -69,11 +69,14 @@ namespace Assets.Scripts.Equipments
             }
         }
 
-        public void HandleSmithingAnimationEvent()
+        public void PrintSmithingEffect()
         {
+            Debug.Log("Print Effect");
             int idx = Random.Range(0, smithingEffects.Length);
             GameObject effect = smithingEffects[idx];
             effect.SetActive(true);
+            effect.transform.position = effectPos.position;
+            Debug.Log(effect.transform.position);
             effect.GetComponent<ParticleSystem>().Play();
         }
     }
