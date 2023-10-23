@@ -60,16 +60,6 @@ namespace Assets.Scripts.UI.Framework
                 int val = Math.Clamp(staminaData.CurrentStamina.Value + staminaCost, 0, staminaData.MaxStamina);
                 staminaData.CurrentStamina.Value = val;
             }
-
-            if (GUI.Button(new Rect(10, h - 150, 150, 20), "stone move left"))
-            {
-                
-            }
-            
-            if (GUI.Button(new Rect(10, h - 180, 150, 20), "stone move right"))
-            {
-                
-            }
         }
     }
 }

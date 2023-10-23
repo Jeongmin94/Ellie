@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.UI.Framework.Static;
@@ -11,6 +12,13 @@ namespace Assets.Scripts.UI.Item
 {
     public class UIStoneInven : UIStatic
     {
+        private enum GameObjects
+        {
+            Left,
+            Mid,
+            Right
+        }
+
         private enum Buttons
         {
             LeftButton,
@@ -18,41 +26,18 @@ namespace Assets.Scripts.UI.Item
             RightButton,
         }
 
-        private enum Texts
-        {
-            LeftText,
-            MidText,
-            RightText
-        }
+        [SerializeField] private float swapTime = 0.5f;
 
-        private const string NameLeftText = "LeftButton";
-        private const string NameMidText = "MidText";
-        private const string NameRightText = "RightText";
+        // ui components
+        private readonly List<UIStoneSubItem> subItems = new List<UIStoneSubItem>();
+        private readonly List<Button> buttons = new List<Button>();
 
-        private List<int> stones = new List<int>();
-        private int current = 1;
-
-        private Button leftButton;
-        private Button midButton;
-        private Button rightButton;
-
-        private TextMeshProUGUI leftText;
-        private TextMeshProUGUI midText;
-        private TextMeshProUGUI rightText;
-
-        private Vector3 leftOriginPosition;
-        private Vector3 midOriginPosition;
-        private Vector3 rightOriginPosition;
-
-        private Vector3 leftOriginScale;
-        private Vector3 midOriginScale;
-        private Vector3 rightOriginScale;
+        // for swap
+        private readonly List<GameObject> targetObjects = new List<GameObject>();
+        private int equippedNumber = 1;
 
         private void Awake()
         {
-            stones.Add(1);
-            stones.Add(2);
-            stones.Add(3);
             Init();
         }
 
@@ -61,85 +46,78 @@ namespace Assets.Scripts.UI.Item
             base.Init();
 
             Bind<Button>(typeof(Buttons));
-            Bind<TextMeshProUGUI>(typeof(Texts));
+            Bind<GameObject>(typeof(GameObjects));
 
-            leftButton = GetButton((int)Buttons.LeftButton);
-            midButton = GetButton((int)Buttons.MidButton);
-            rightButton = GetButton((int)Buttons.RightButton);
+            // !TODO: 플레이어가 돌멩이를 획득한 상황에 따라서 subItem의 상황이 달라짐
+            int buttonCount = Enum.GetValues(typeof(Buttons)).Length;
+            for (int i = 0; i < buttonCount; i++)
+            {
+                // for swap
+                targetObjects.Add(GetGameObject(i));
 
-            leftOriginPosition = leftButton.transform.position;
-            midOriginPosition = midButton.transform.position;
-            rightOriginPosition = rightButton.transform.position;
+                // for stoneSubItem
+                buttons.Add(GetButton(i));
+                var subItem = buttons[i].gameObject.GetOrAddComponent<UIStoneSubItem>();
+                subItems.Add(subItem);
+                subItem.ItemIdx = i;
+                subItem.ItemText = $"stone{i}";
+                subItem.PrevPosition = targetObjects[i].transform.position;
+                subItem.PrevScale = targetObjects[i].transform.localScale;
 
-            leftOriginScale = leftButton.transform.localScale;
-            midOriginScale = midButton.transform.localScale;
-            rightOriginScale = rightButton.transform.localScale;
-
-            leftButton.gameObject.BindEvent(OnEventHandlerEvent);
-            midButton.gameObject.BindEvent(OnEventHandlerEvent);
-            rightButton.gameObject.BindEvent(OnEventHandlerEvent);
-
-            leftText = GetText((int)Texts.LeftText);
-            midText = GetText((int)Texts.MidText);
-            rightText = GetText((int)Texts.RightText);
-
-            leftText.text = stones[0].ToString();
-            midText.text = stones[1].ToString();
-            rightText.text = stones[2].ToString();
+                buttons[i].gameObject.BindEvent(OnEventHandlerEvent);
+            }
         }
 
         private void OnEventHandlerEvent(PointerEventData data)
         {
-            Debug.Log($"{data.pointerEnter.gameObject.name}");
-            string selected = data.pointerEnter.gameObject.name;
+            var selected = data.pointerEnter.gameObject;
+            if (selected.name.Equals(buttons[equippedNumber].name))
+            {
+                return;
+            }
 
-            if (selected.Equals(NameLeftText))
-            {
-                StartCoroutine(SwapStone());
-            }
-            else if (selected.Equals(NameRightText))
-            {
-                current = 2;
-            }
-            else
-            {
-            }
+            var subItem = selected.GetComponent<UIStoneSubItem>();
+            StartCoroutine(SwapStone(subItem));
+            equippedNumber = subItem.ItemIdx;
         }
 
-        private float time = 0.2f;
-
-        private IEnumerator SwapStone()
+        // equipped button <-> idx button swap
+        private IEnumerator SwapStone(UIStoneSubItem subItem)
         {
-            // mid => left
-            Vector3 midToLeft = leftButton.transform.position - midButton.transform.position;
-            float d1 = midToLeft.magnitude;
-            Vector3 midTargetPos = leftOriginPosition;
-            Vector3 midTargetScale = leftOriginScale;
+            var mid = subItems[equippedNumber];
 
-            // left => mid
-            Vector3 leftToMid = midButton.transform.position - leftButton.transform.position;
-            float d2 = leftToMid.magnitude;
-            Vector3 leftTargetPos = midOriginPosition;
-            Vector3 leftTargetScale = midOriginScale;
+            // mid => button
+            Vector3 toButton = subItem.transform.position - mid.transform.position;
+            Vector3 toButtonPos = subItem.PrevPosition;
+            Vector3 toButtonScale = subItem.PrevScale;
+
+            // button => mid
+            Vector3 toMid = mid.transform.position - subItem.transform.position;
+            Vector3 toMidPos = mid.PrevPosition;
+            Vector3 toMidScale = mid.PrevScale;
 
             float timeAcc = 0.0f;
-            while (timeAcc <= time)
+            while (timeAcc <= swapTime)
             {
-                yield return null;
+                yield return new WaitForEndOfFrame();
                 timeAcc += Time.deltaTime;
 
-                midButton.transform.position += midToLeft.normalized * ((d1 / time) * Time.deltaTime);
-                midButton.transform.localScale = Vector3.Lerp(midOriginScale, leftOriginScale, timeAcc / time);
+                mid.transform.position += toButton.normalized * (toButton.magnitude / swapTime * Time.deltaTime);
+                mid.transform.localScale = Vector3.Lerp(toMidScale, toButtonScale, timeAcc / swapTime);
 
-                leftButton.transform.position += leftToMid.normalized * ((d2 / time) * Time.deltaTime);
-                leftButton.transform.localScale = Vector3.Lerp(leftOriginScale, midOriginScale, timeAcc / time);
+                subItem.transform.position += toMid.normalized * (toMid.magnitude / swapTime * Time.deltaTime);
+                subItem.transform.localScale = Vector3.Lerp(toButtonScale, toMidScale, timeAcc / swapTime);
             }
 
-            midButton.transform.position = midTargetPos;
-            midButton.transform.localScale = midTargetScale;
+            mid.PrevPosition = toButtonPos;
+            mid.PrevScale = toButtonScale;
+            mid.transform.position = toButtonPos;
+            mid.transform.localScale = toButtonScale;
 
-            leftButton.transform.position = leftTargetPos;
-            leftButton.transform.localScale = leftTargetScale;
+            subItem.PrevPosition = toMidPos;
+            subItem.PrevScale = toMidScale;
+            subItem.transform.position = toMidPos;
+            subItem.transform.localScale = toMidScale;
         }
     }
 }
