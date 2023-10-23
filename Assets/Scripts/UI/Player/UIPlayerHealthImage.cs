@@ -14,13 +14,13 @@ namespace Assets.Scripts.UI.Player
             bool reverse = false)
         {
             float target = ((reverse ? (float)(idx + 1) : (float)idx)) / (float)total;
-            return ChangeImageFillAmount(type, target, time, reverse);
+            return ChangeImageFillAmount(type, target, time);
         }
 
         public void ChangeImageFillAmount(FillAmountType type, int total, int idx, bool reverse = false)
         {
             float target = ((reverse ? (float)(idx + 1) : (float)idx)) / (float)total;
-            ChangeImageFillAmount(type, target, reverse);
+            ChangeImageFillAmount(type, target);
         }
     }
 }

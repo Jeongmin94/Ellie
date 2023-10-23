@@ -28,7 +28,10 @@ namespace Assets.Scripts.UI.Framework.Images
         protected Image background;
         protected Image midground;
         protected Image foreground;
-        
+
+        private Image changedImage;
+        private float changedTarget;
+
         protected override void Init()
         {
             Bind<Image>(typeof(Images));
@@ -42,7 +45,8 @@ namespace Assets.Scripts.UI.Framework.Images
             foregroundColor = foreground.color;
         }
 
-        public IEnumerator ChangeImageFillAmount(FillAmountType type, float target, float time, bool reverse = false)
+        // time 시간만큼 변경
+        public IEnumerator ChangeImageFillAmount(FillAmountType type, float target, float time)
         {
             Image image = GetFillAmountTarget(type);
 
@@ -51,18 +55,27 @@ namespace Assets.Scripts.UI.Framework.Images
 
             while (timeAcc <= time)
             {
-                yield return null;
+                if (image == changedImage)
+                {
+                    image.fillAmount = changedTarget;
+                    break;
+                }
+
+                yield return new WaitForEndOfFrame();
                 timeAcc += Time.deltaTime;
                 image.fillAmount = Mathf.Lerp(current, target, timeAcc / time);
             }
         }
-        
-        public void ChangeImageFillAmount(FillAmountType type, float target, bool reverse = false)
+
+        // 즉시 변경
+        public void ChangeImageFillAmount(FillAmountType type, float target)
         {
             Image image = GetFillAmountTarget(type);
             image.fillAmount = target;
+            changedImage = image;
+            changedTarget = target;
         }
-        
+
         private Image GetFillAmountTarget(FillAmountType type)
         {
             Image image = null;
