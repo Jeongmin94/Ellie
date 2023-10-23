@@ -38,12 +38,17 @@ namespace Assets.Scripts.UI.Player
     {
         private struct ImageChangeInfo
         {
+            public readonly int Prev;
+            public readonly int Current;
             public readonly float Target;
             public readonly float Time;
             public readonly FillAmountType Type;
 
-            public ImageChangeInfo(float target, float time, FillAmountType type)
+            public ImageChangeInfo(int prev, int current, float target, float time,
+                FillAmountType type = FillAmountType.Background)
             {
+                Prev = prev;
+                Current = current;
                 Target = target;
                 Time = time;
                 Type = type;
@@ -122,18 +127,26 @@ namespace Assets.Scripts.UI.Player
             prevHealth = healthImageInfos.Count;
             prevStamina = staminaData.CurrentStamina.Value;
         }
-        
+
         private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
                 return;
-            float target = value / (float)healthData.MaxHealth;
-            FillAmountType type = FillAmountType.Midground;
-            int count = Math.Abs(prevHealth - value);
-            if (prevHealth < value)
-                type = FillAmountType.Foreground;
 
-            healthQueue.Enqueue(new ImageChangeInfo(target, time / (division * count), type));
+            int count = Math.Abs(prevHealth - value);
+            float t = time / (division * count);
+
+            if (prevHealth > value)
+            {
+                healthQueue.Enqueue(new ImageChangeInfo(prevHealth, value, 0.0f, t));
+            }
+            else if (prevHealth < value)
+            {
+                healthQueue.Enqueue(new ImageChangeInfo(prevHealth, value, 0.0f, t));
+            }
+
+            prevHealth = value;
+            StartCoroutine(ChangeHealthImageLerp());
         }
 
         private void OnChangeStamina(int value)
@@ -147,12 +160,12 @@ namespace Assets.Scripts.UI.Player
             if (prevStamina > value)
             {
                 playerStaminaImage.ChangeImageFillAmount(FillAmountType.Foreground, target);
-                staminaQueue.Enqueue(new ImageChangeInfo(target, t, FillAmountType.Midground));
+                staminaQueue.Enqueue(new ImageChangeInfo(prevStamina, value, target, t, FillAmountType.Midground));
             }
             else if (prevStamina < value)
             {
                 playerStaminaImage.ChangeImageFillAmount(FillAmountType.Midground, target);
-                staminaQueue.Enqueue(new ImageChangeInfo(target, t, FillAmountType.Foreground));
+                staminaQueue.Enqueue(new ImageChangeInfo(prevStamina, value, target, t, FillAmountType.Foreground));
             }
 
             prevStamina = value;
@@ -163,43 +176,40 @@ namespace Assets.Scripts.UI.Player
         {
             if (healthQueue.Any())
             {
-                var info = healthQueue.Peek();
+                var info = healthQueue.Dequeue();
+                int prev = info.Prev;
+                int current = info.Current;
+                int count = Math.Abs(prev - current);
 
-                // int count = Math.Abs(prev - current);
-                // if (prev > current)
-                // {
-                //     for (int i = prev; i > current; i--)
-                //     {
-                //         healthImageInfos[i - 1].ChangeImageFillAmount(FillAmountType.Foreground);
-                //     }
-                //
-                //     yield return new WaitForSeconds(time / count);
-                //
-                //     for (int i = prev; i > current; i--)
-                //     {
-                //         yield return healthImageInfos[i - 1]
-                //             .ChangeImageFillAmount(FillAmountType.Midground, time / (division * count));
-                //     }
-                // }
-                // else if (prev < current)
-                // {
-                //     for (int i = prev; i < current; i++)
-                //     {
-                //         healthImageInfos[i]
-                //             .ChangeImageFillAmount(FillAmountType.Midground, true);
-                //     }
-                //
-                //     for (int i = prev; i < current; i++)
-                //     {
-                //         yield return healthImageInfos[i]
-                //             .ChangeImageFillAmount(FillAmountType.Foreground, time / (division * count), true);
-                //     }
-                // }
+                if (prev > current)
+                {
+                    for (int i = prev; i > current; i--)
+                    {
+                        healthImageInfos[i - 1].ChangeImageFillAmount(FillAmountType.Foreground);
+                    }
 
-                healthQueue.Dequeue();
+                    yield return new WaitForSeconds(time / count);
+
+                    for (int i = prev; i > current; i--)
+                    {
+                        yield return healthImageInfos[i - 1].ChangeImageFillAmount(FillAmountType.Midground, info.Time);
+                    }
+                }
+                else if (prev < current)
+                {
+                    for (int i = prev; i < current; i++)
+                    {
+                        healthImageInfos[i]
+                            .ChangeImageFillAmount(FillAmountType.Midground, true);
+                    }
+
+                    for (int i = prev; i < current; i++)
+                    {
+                        yield return healthImageInfos[i]
+                            .ChangeImageFillAmount(FillAmountType.Foreground, info.Time, true);
+                    }
+                }
             }
-
-            yield return new WaitForEndOfFrame();
         }
 
         private IEnumerator ChangeStaminaImageLerp()
