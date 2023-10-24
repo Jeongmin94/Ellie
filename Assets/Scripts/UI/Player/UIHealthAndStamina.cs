@@ -36,27 +36,8 @@ namespace Assets.Scripts.UI.Player
 
     public class UIHealthAndStamina : UIStatic
     {
-        private struct ImageChangeInfo
-        {
-            public readonly int Prev;
-            public readonly int Current;
-            public readonly float Target;
-            public readonly float Time;
-            public readonly FillAmountType Type;
-
-            public ImageChangeInfo(int prev, int current, float target, float time,
-                FillAmountType type = FillAmountType.Background)
-            {
-                Prev = prev;
-                Current = current;
-                Target = target;
-                Time = time;
-                Type = type;
-            }
-        }
-
         private const string UINameHealthImage = "HealthImage";
-        private const string UINameStaminaImage = "StaminaImage";
+        private const string UINameBarImage = "BarImage";
 
         [SerializeField] private float time = 1.0f;
         [SerializeField] private int division = 2;
@@ -67,7 +48,7 @@ namespace Assets.Scripts.UI.Player
         private readonly Queue<ImageChangeInfo> healthQueue = new Queue<ImageChangeInfo>();
 
         private readonly List<HealthImageInfo> healthImageInfos = new List<HealthImageInfo>();
-        private UIPlayerStaminaImage playerStaminaImage;
+        private UIBarImage barImage;
         private GameObject healthPanel;
         private GameObject staminaPanel;
         private int prevHealth;
@@ -120,9 +101,9 @@ namespace Assets.Scripts.UI.Player
                 }
             }
 
-            playerStaminaImage =
-                UIManager.Instance.MakeSubItem<UIPlayerStaminaImage>(staminaPanel.transform, UINameStaminaImage);
-            playerStaminaImage.transform.position = staminaPanel.transform.position;
+            barImage =
+                UIManager.Instance.MakeSubItem<UIBarImage>(staminaPanel.transform, UINameBarImage);
+            barImage.transform.position = staminaPanel.transform.position;
 
             prevHealth = healthImageInfos.Count;
             prevStamina = staminaData.CurrentStamina.Value;
@@ -159,12 +140,12 @@ namespace Assets.Scripts.UI.Player
 
             if (prevStamina > value)
             {
-                playerStaminaImage.ChangeImageFillAmount(FillAmountType.Foreground, target);
+                barImage.ChangeImageFillAmount(FillAmountType.Foreground, target);
                 staminaQueue.Enqueue(new ImageChangeInfo(prevStamina, value, target, t, FillAmountType.Midground));
             }
             else if (prevStamina < value)
             {
-                playerStaminaImage.ChangeImageFillAmount(FillAmountType.Midground, target);
+                barImage.ChangeImageFillAmount(FillAmountType.Midground, target);
                 staminaQueue.Enqueue(new ImageChangeInfo(prevStamina, value, target, t, FillAmountType.Foreground));
             }
 
@@ -217,7 +198,7 @@ namespace Assets.Scripts.UI.Player
             if (staminaQueue.Any())
             {
                 var info = staminaQueue.Dequeue();
-                yield return playerStaminaImage.ChangeImageFillAmount(info.Type, info.Target, info.Time);
+                yield return barImage.ChangeImageFillAmount(info.Type, info.Target, info.Time);
             }
         }
     }

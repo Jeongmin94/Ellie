@@ -5,6 +5,25 @@ using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Framework.Images
 {
+    public readonly struct ImageChangeInfo
+    {
+        public readonly int Prev;
+        public readonly int Current;
+        public readonly float Target;
+        public readonly float Time;
+        public readonly FillAmountType Type;
+
+        public ImageChangeInfo(int prev, int current, float target, float time,
+            FillAmountType type = FillAmountType.Background)
+        {
+            Prev = prev;
+            Current = current;
+            Target = target;
+            Time = time;
+            Type = type;
+        }
+    }
+
     public enum FillAmountType
     {
         Background,
@@ -21,9 +40,9 @@ namespace Assets.Scripts.UI.Framework.Images
             Foreground
         }
 
-        [SerializeField] private Color backgroundColor = Color.black;
-        [SerializeField] private Color midgroundColor = Color.black;
-        [SerializeField] private Color foregroundColor = Color.black;
+        public Color backgroundColor = Color.black;
+        public Color midgroundColor = Color.black;
+        public Color foregroundColor = Color.black;
 
         protected Image background;
         protected Image midground;
@@ -40,13 +59,13 @@ namespace Assets.Scripts.UI.Framework.Images
             midground = GetImage((int)Images.Midground);
             foreground = GetImage((int)Images.Foreground);
 
-            backgroundColor = background.color;
-            midgroundColor = midground.color;
-            foregroundColor = foreground.color;
+            background.color = backgroundColor;
+            midground.color = midgroundColor;
+            foreground.color = foregroundColor;
         }
 
         // time 시간만큼 변경
-        public IEnumerator ChangeImageFillAmount(FillAmountType type, float target, float time)
+        public virtual IEnumerator ChangeImageFillAmount(FillAmountType type, float target, float time)
         {
             Image image = GetFillAmountTarget(type);
 
@@ -68,7 +87,7 @@ namespace Assets.Scripts.UI.Framework.Images
         }
 
         // 즉시 변경
-        public void ChangeImageFillAmount(FillAmountType type, float target)
+        public virtual void ChangeImageFillAmount(FillAmountType type, float target)
         {
             Image image = GetFillAmountTarget(type);
             image.fillAmount = target;
@@ -76,7 +95,7 @@ namespace Assets.Scripts.UI.Framework.Images
             changedTarget = target;
         }
 
-        private Image GetFillAmountTarget(FillAmountType type)
+        protected Image GetFillAmountTarget(FillAmountType type)
         {
             Image image = null;
             switch (type)

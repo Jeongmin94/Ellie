@@ -39,7 +39,7 @@ namespace Assets.Scripts.Managers
                 var eventSystem = new GameObject("EventSystem");
                 eventSystem.AddComponent<EventSystem>();
                 eventSystem.AddComponent<StandaloneInputModule>();
-                
+
                 eventSystem.transform.SetParent(transform);
             }
         }
@@ -62,7 +62,7 @@ namespace Assets.Scripts.Managers
                 uiName = typeof(T).Name;
 
             var go = ResourceManager.Instance.Instantiate($"{PrefixSubItem}{uiName}");
-            if(parent)
+            if (parent)
                 go.transform.SetParent(parent);
 
             return go.GetOrAddComponent<T>();

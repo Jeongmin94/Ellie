@@ -59,9 +59,9 @@ namespace Assets.Scripts.UI.Item
             if (prevSelectedItem)
                 prevSelectedItem.transform.localScale = originScale;
 
+            // !TODO: 선택한 아이템을 사용 혹은 장착하도록 하는 단계 추가 필요
             // 아이템 선택
             var selected = data.pointerEnter.gameObject;
-            Debug.Log($"selected item: {selected.name}");
             var subItem = selected.GetComponent<UIItemSubItem>();
             subItem.transform.localScale = zoomScale;
 

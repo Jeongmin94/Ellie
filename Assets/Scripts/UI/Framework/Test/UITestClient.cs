@@ -1,8 +1,10 @@
 using System;
+using Assets.Scripts.ActionData.Monster;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Item;
+using Assets.Scripts.UI.Monster;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.UI.Status;
 using UnityEngine;
@@ -12,13 +14,15 @@ namespace Assets.Scripts.UI.Framework
     public class UITestClient : MonoBehaviour
     {
         private const string UIButtonCanvas = "ButtonCanvas";
-        private const string UIHealthAndStamina = "HealthAndStamina";
-        private const string UIStoneInven = "StoneInven";
-        private const string UIItemInven = "ItemInven";
-        private const string UIStatusCanvas = "StatusCanvas";
+        private const string UIHealthAndStamina = "Player/HealthAndStamina";
+        private const string UIStoneInven = "Item/StoneInven";
+        private const string UIItemInven = "Item/ItemInven";
+        private const string UIStatusCanvas = "Player/StatusCanvas";
+        private const string UIMonsterCanvas = "Monster/MonsterCanvas";
 
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
+        [SerializeField] private MonsterHealthData monsterHealthData;
         [SerializeField] private int damage = 1;
         [SerializeField] private int staminaCost = 10;
 
@@ -27,6 +31,7 @@ namespace Assets.Scripts.UI.Framework
         private void Awake()
         {
             healthData.InitHealth();
+            monsterHealthData.InitHealth();
             staminaData.InitStamina();
         }
 
@@ -37,6 +42,8 @@ namespace Assets.Scripts.UI.Framework
             UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
             UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
             statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
+
+            UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
         }
 
         private void OnGUI()
@@ -75,6 +82,18 @@ namespace Assets.Scripts.UI.Framework
             if (GUI.Button(new Rect(10, h - 180, 100, 20), "remove status"))
             {
                 statusBar.RemoveStatus();
+            }
+
+            if (GUI.Button(new Rect(300, h - 30, 100, 20), "attack monster"))
+            {
+                int val = Math.Clamp(monsterHealthData.CurrentHealth.Value - damage, 0, monsterHealthData.MaxHealth);
+                monsterHealthData.CurrentHealth.Value = val;
+            }
+
+            if (GUI.Button(new Rect(300, h - 60, 100, 20), "heal monster"))
+            {
+                int val = Math.Clamp(monsterHealthData.CurrentHealth.Value + damage, 0, monsterHealthData.MaxHealth);
+                monsterHealthData.CurrentHealth.Value = val;
             }
         }
     }
