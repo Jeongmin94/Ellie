@@ -7,23 +7,11 @@ namespace Assets.Scripts.InteractiveObjects
 {
     public class Ore : MonoBehaviour, IInteractiveObject
     {
-        private bool minable = true;
         public int hardness;
         public int hp;
 
-        //private void OnTriggerEnter(Collider other)
-        //{
-        //    if (!minable) return;
-        //    if(other.CompareTag("Player"))
-        //    {
-        //        other.gameObject.GetComponentInParent<PlayerController>().canStartMining = true;
-        //        other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(this);
-        //    }
-        //}
         private void OnTriggerExit(Collider other)
         {
-            //if (!minable) return;
-
             if (other.CompareTag("Player"))
             {
                 other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(null);
