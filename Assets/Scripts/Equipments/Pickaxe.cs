@@ -37,6 +37,7 @@ namespace Assets.Scripts.Equipments
             foreach (GameObject obj in smithingEffects)
             {
                 obj.SetActive(false);
+                obj.GetComponent<ParticleSystem>().Stop();
             }
         }
         private void Update()
@@ -70,12 +71,11 @@ namespace Assets.Scripts.Equipments
 
         public void PrintSmithingEffect()
         {
-            Debug.Log("Print Effect");
             int idx = Random.Range(0, smithingEffects.Length);
             GameObject effect = smithingEffects[idx];
             effect.SetActive(true);
             effect.transform.position = effectPos.position;
-            Debug.Log(effect.transform.position);
+            effect.GetComponent<ParticleSystem>().Play();
         }
     }
 }
