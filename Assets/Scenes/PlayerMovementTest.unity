@@ -1306,6 +1306,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: field of view
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.7420001
@@ -3551,6 +3559,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataList:
   - {fileID: 11400000, guid: e224b2e752136af43a4cf605ac6ae898, type: 2}
+  - {fileID: 11400000, guid: 458f46be428eaef41996a7f5a483fe97, type: 2}
 --- !u!114 &2140884675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3565,6 +3574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataList:
   - {fileID: 11400000, guid: e224b2e752136af43a4cf605ac6ae898, type: 2}
+  - {fileID: 11400000, guid: 458f46be428eaef41996a7f5a483fe97, type: 2}
 --- !u!4 &2140884676
 Transform:
   m_ObjectHideFlags: 0
