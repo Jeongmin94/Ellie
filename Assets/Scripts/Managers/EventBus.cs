@@ -1,48 +1,61 @@
 using System;
 using System.Collections.Generic;
-using UnityEngine;
+
+public enum EventBusEvents
+{
+    TestEvent,
+    ThrowStoneEvent,
+    SpawnStoneEvent,
+}
+
+public class BaseEventPayload
+{ 
+
+}
 
 public class EventBus : Singleton<EventBus>
 {
-    private Dictionary<Type, List<Delegate>> eventTable = new Dictionary<Type, List<Delegate>>();
+    private Dictionary<EventBusEvents, Delegate> eventTable = new Dictionary<EventBusEvents, Delegate>();
 
-    public void Subscribe<T>(Action<T> del) where T : class
+    public void Subscribe(EventBusEvents eventName, Action listener)
     {
-        Type type = typeof(T);
-
-        if (!eventTable.ContainsKey(type))
-        {
-            eventTable[type] = new List<Delegate>();
-        }
-
-        eventTable[type].Add(del);
+        if (!eventTable.ContainsKey(eventName))
+            eventTable[eventName] = null;
+        eventTable[eventName] = (Action)Delegate.Combine(eventTable[eventName], listener);
     }
 
-    public void Unsubscribe<T>(Action<T> del) where T : class
+    public void Unsubscribe(EventBusEvents eventName, Action listener)
     {
-        Type type = typeof(T);
+        if (eventTable.ContainsKey(eventName))
+            eventTable[eventName] = (Action)Delegate.Remove(eventTable[eventName], listener);
+    }
 
-        if (eventTable.ContainsKey(type))
+    public void Publish(EventBusEvents eventName)
+    {
+        if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null)
         {
-            eventTable[type].Remove(del);
-
-            if (eventTable[type].Count == 0)
-            {
-                eventTable.Remove(type);
-            }
+            ((Action)eventTable[eventName])();
         }
     }
 
-    public void Publish<T>(T eventToPublish) where T : class
+    public void Subscribe<T>(EventBusEvents eventName, Action<T> listener) where T : BaseEventPayload
     {
-        Type type = typeof(T);
+        if (!eventTable.ContainsKey(eventName))
+            eventTable[eventName] = null;
+        eventTable[eventName] = Delegate.Combine(eventTable[eventName], listener);
+    }
 
-        if (eventTable.ContainsKey(type))
+    public void Unsubscribe<T>(EventBusEvents eventName, Action<T> listener) where T : BaseEventPayload
+    {
+        if (eventTable.ContainsKey(eventName))
+            eventTable[eventName] = Delegate.Remove(eventTable[eventName], listener);
+    }
+
+    public void Publish<T>(EventBusEvents eventName, T newEvent) where T : BaseEventPayload
+    {
+        if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null) 
         {
-            foreach (Delegate del in eventTable[type])
-            {
-                del.DynamicInvoke(eventToPublish);
-            }
+            ((Action<T>)eventTable[eventName])(newEvent);
         }
     }
 }

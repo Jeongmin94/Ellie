@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -29,6 +31,11 @@ namespace Assets.Scripts.Boss.Terrapupa
         private void Update()
         {
             targetPosition.value = target.position;
+        }
+
+        public class TestEvent
+        {
+            public string Message { get; set; }
         }
 
         private void InitStatus()

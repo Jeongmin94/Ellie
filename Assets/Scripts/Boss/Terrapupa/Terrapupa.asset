@@ -35,7 +35,6 @@ MonoBehaviour:
   - rid: 1401849265356013617
   - rid: 1401849284866867204
   - rid: 1401849284866867209
-  - rid: 1401849284866867211
   treeState: 0
   blackboard:
     keys:
@@ -46,8 +45,8 @@ MonoBehaviour:
     - rid: 1401849284866867201
     - rid: 1401849284866867202
     - rid: 1401849284866867203
-  viewPosition: {x: 784, y: 255, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: 652, y: 124, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -232,7 +231,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a9a7e66ea87bd394e98c97494dc56363
-        position: {x: -840, y: 285}
+        position: {x: -855, y: 285}
         blackboard:
           keys: []
         description: "\uC560\uB2C8\uBA54\uC774\uC158 \uC2E4\uD589"
@@ -398,14 +397,3 @@ MonoBehaviour:
         children:
         - rid: 1401849265356013605
         - rid: 1401849265356013609
-    - rid: 1401849284866867211
-      type: {class: CheckEvent, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 17074981baee1534e95b230d71bb98e0
-        position: {x: -1189.8013, y: 107.7535}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0

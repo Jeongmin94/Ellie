@@ -23,7 +23,7 @@ public class CheckCurrentAnimationTime : ActionNode
 
         AnimatorStateInfo stateInfo = context.animator.GetCurrentAnimatorStateInfo(0);
 
-        float currentAnimationPer = stateInfo.normalizedTime % 1;
+        float currentAnimationPer = stateInfo.normalizedTime % 1.0f;
         if(currentAnimationPer >= checkTimeValue.Value)
         {
             return State.Success;
