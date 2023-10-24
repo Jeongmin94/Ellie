@@ -19,7 +19,9 @@ namespace Assets.Scripts.UI.Framework
         private const string UIItemInven = "Item/ItemInven";
         private const string UIStatusCanvas = "Player/StatusCanvas";
         private const string UIMonsterCanvas = "Monster/MonsterCanvas";
+        private const string UIMonsterBillboard = "Monster/MonsterBillboard";
 
+        [SerializeField] private Transform billBoardPosition;
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private MonsterHealthData monsterHealthData;
@@ -43,7 +45,10 @@ namespace Assets.Scripts.UI.Framework
             UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
             statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
 
-            UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
+            // UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
+
+            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(transform, UIMonsterBillboard);
+            billboard.InitBillboard(billBoardPosition);
         }
 
         private void OnGUI()

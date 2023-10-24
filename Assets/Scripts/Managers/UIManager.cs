@@ -70,12 +70,17 @@ namespace Assets.Scripts.Managers
 
         public T MakeStatic<T>(string uiName = null) where T : UIStatic
         {
+            return MakeStatic<T>(Root.transform, uiName);
+        }
+
+        public T MakeStatic<T>(Transform uiParent, string uiName = null) where T : UIStatic
+        {
             if (string.IsNullOrEmpty(uiName))
                 uiName = typeof(T).Name;
 
             var go = ResourceManager.Instance.Instantiate($"{PrefixStatic}{uiName}");
             var uiStatic = go.GetOrAddComponent<T>();
-            go.transform.SetParent(Root.transform);
+            go.transform.SetParent(uiParent);
 
             return uiStatic;
         }

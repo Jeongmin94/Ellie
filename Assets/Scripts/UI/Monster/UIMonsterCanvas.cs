@@ -15,11 +15,11 @@ namespace Assets.Scripts.UI.Monster
     {
         private enum GameObjects
         {
-            BossPanel
+            MonsterPanel
         }
 
         private const string NameBarImage = "BarImage";
-        private const string NameBossText = "BossText";
+        private const string NameMonsterText = "MonsterText";
 
         [SerializeField] protected MonsterHealthData healthData;
         [SerializeField] protected float time = 1.0f;
@@ -33,6 +33,7 @@ namespace Assets.Scripts.UI.Monster
         private void Awake()
         {
             Init();
+            healthData.InitHealth();
         }
 
         protected override void Init()
@@ -53,9 +54,9 @@ namespace Assets.Scripts.UI.Monster
             healthData.CurrentHealth.OnChange += OnChangeHealth;
         }
 
-        private void Start()
+        protected virtual void Start()
         {
-            var go = GetGameObject((int)GameObjects.BossPanel);
+            var go = GetGameObject((int)GameObjects.MonsterPanel);
 
             var image = go.FindChild(NameBarImage, true);
             barImage = image.GetOrAddComponent<UIBarImage>();
