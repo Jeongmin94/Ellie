@@ -29,19 +29,25 @@ MonoBehaviour:
   - rid: 1401849265356013605
   - rid: 1401849265356013607
   - rid: 1401849265356013609
-  - rid: 1401849265356013611
   - rid: 1401849265356013612
   - rid: 1401849265356013613
   - rid: 1401849265356013614
   - rid: 1401849265356013617
+  - rid: 1401849284866867204
+  - rid: 1401849284866867209
+  - rid: 1401849284866867211
   treeState: 0
   blackboard:
     keys:
     - rid: 1401849262943502337
     - rid: 1401849265356013568
     - rid: 1401849265356013569
-  viewPosition: {x: 535, y: 372, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+    - rid: 1401849284866867200
+    - rid: 1401849284866867201
+    - rid: 1401849284866867202
+    - rid: 1401849284866867203
+  viewPosition: {x: 784, y: 255, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -53,7 +59,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -225, y: -660}
+        position: {x: -195, y: -705}
         blackboard:
           keys: []
         description: 
@@ -103,7 +109,7 @@ MonoBehaviour:
         position: {x: -750, y: 135}
         blackboard:
           keys: []
-        description: 
+        description: "\uC560\uB2C8\uBA54\uC774\uC158 \uC2E4\uD589\uC911 \uCCB4\uD06C"
         drawGizmos: 0
         animationName:
           reference:
@@ -163,7 +169,7 @@ MonoBehaviour:
         position: {x: -1080, y: 285}
         blackboard:
           keys: []
-        description: 
+        description: "\uD50C\uB808\uC774\uC5B4\uC640\uC758 \uAC70\uB9AC \uCCB4\uD06C"
         drawGizmos: 0
         targetPosition:
           reference:
@@ -172,7 +178,7 @@ MonoBehaviour:
         checkDistanceValue:
           reference:
             rid: -2
-          defaultValue: 15
+          defaultValue: 10
     - rid: 1401849265356013596
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -217,6 +223,7 @@ MonoBehaviour:
         description: 
         drawGizmos: 0
         children:
+        - rid: 1401849284866867204
         - rid: 1401849265356013595
         - rid: 1401849265356013604
     - rid: 1401849265356013604
@@ -228,7 +235,7 @@ MonoBehaviour:
         position: {x: -840, y: 285}
         blackboard:
           keys: []
-        description: 
+        description: "\uC560\uB2C8\uBA54\uC774\uC158 \uC2E4\uD589"
         drawGizmos: 0
         animationName:
           reference:
@@ -240,7 +247,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a5f5815f9f22cb5419aad05cefc764b8
-        position: {x: -450, y: -165}
+        position: {x: -495, y: -165}
         blackboard:
           keys: []
         description: 
@@ -254,13 +261,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a8a78a1e4f0dcf14bbfc02a4706b1e2d
-        position: {x: -225, y: -495}
+        position: {x: -195, y: -540}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: 1401849265356013611
+          rid: 1401849284866867209
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
@@ -278,27 +285,13 @@ MonoBehaviour:
         children:
         - rid: 1401849265356013612
         - rid: 1401849265356013613
-    - rid: 1401849265356013611
-      type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 9b61a4284290c084a92286df2c2235f6
-        position: {x: -225, y: -345}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        children:
-        - rid: 1401849265356013605
-        - rid: 1401849265356013609
     - rid: 1401849265356013612
       type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 3f5a332b14474aa4aa80127bff58fe29
-        position: {x: -75, y: 15}
+        position: {x: -90, y: 0}
         blackboard:
           keys: []
         description: 
@@ -313,7 +306,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6531107f71650944b9952548f92bcbeb
-        position: {x: 165, y: 15}
+        position: {x: 165, y: 0}
         blackboard:
           keys: []
         description: 
@@ -348,6 +341,70 @@ MonoBehaviour:
         started: 0
         guid: 6172c072c7095544b9a8bbc47676a5c2
         position: {x: 375, y: 300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+    - rid: 1401849284866867200
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: canThrowStone
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849284866867201
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: canEarthQuake
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849284866867202
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: canRoll
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849284866867203
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: canLowAttack
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849284866867204
+      type: {class: CheckBoolean, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0d3d5166cc4660f4a9e1c99a2e5cb9a9
+        position: {x: -1245, y: 285}
+        blackboard:
+          keys: []
+        description: "\uB9C8\uB098\uC758 \uC0D8 \uCCB4\uD06C"
+        drawGizmos: 0
+        checkBoolean:
+          reference:
+            rid: 1401849284866867200
+          defaultValue: 0
+    - rid: 1401849284866867209
+      type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: dcb18be185da2f54aac6b4b25ba80f58
+        position: {x: -195, y: -360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849265356013605
+        - rid: 1401849265356013609
+    - rid: 1401849284866867211
+      type: {class: CheckEvent, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 17074981baee1534e95b230d71bb98e0
+        position: {x: -1189.8013, y: 107.7535}
         blackboard:
           keys: []
         description: 

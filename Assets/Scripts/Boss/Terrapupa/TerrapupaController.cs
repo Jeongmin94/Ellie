@@ -7,28 +7,47 @@ namespace Assets.Scripts.Boss.Terrapupa
 {
     public class TerrapupaController : MonoBehaviour
     {
-        [Tooltip("테라푸파의 AI 트리 목록 관리")]
-        public List<BehaviourTree> treeList = new List<BehaviourTree>();
-
-        [Tooltip("테라푸파의 현재 트리 상태")]
+        [SerializeField] private List<BehaviourTree> treeList = new List<BehaviourTree>();
         [SerializeField] private BehaviourTreeInstance behaviourTreeInstance;
-
-        [Tooltip("테라푸파의 데이터 테이블")]
         [SerializeField] private TerrapupaDataInfo data;
 
-        public Transform playerTemp;
+        public Transform target;
 
-        public BlackboardKey<Vector3> playerPos;
+        public BlackboardKey<Vector3> targetPosition;
+        public BlackboardKey<int> currentHP;
+        public BlackboardKey<float> moveSpeed;
+        public BlackboardKey<bool> canThrowStone;
+        public BlackboardKey<bool> canEarthQuake;
+        public BlackboardKey<bool> canRoll;
+        public BlackboardKey<bool> canLowAttack;
 
         private void Start()
         {
-            behaviourTreeInstance.SetBlackboardValue<Vector3>("targetPosition", playerTemp.position);
-            playerPos = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
+            InitStatus();
         }
 
         private void Update()
         {
-            playerPos.value = playerTemp.position;
+            targetPosition.value = target.position;
+        }
+
+        private void InitStatus()
+        {
+            behaviourTreeInstance.SetBlackboardValue<Vector3>("targetPosition", target.position);
+            behaviourTreeInstance.SetBlackboardValue<int>("currentHP", data.hp);
+            behaviourTreeInstance.SetBlackboardValue<float>("moveSpeed", data.movementSpeed);
+            behaviourTreeInstance.SetBlackboardValue<bool>("canThrowStone", true);
+            behaviourTreeInstance.SetBlackboardValue<bool>("canEarthQuake", true);
+            behaviourTreeInstance.SetBlackboardValue<bool>("canRoll", true);
+            behaviourTreeInstance.SetBlackboardValue<bool>("canLowAttack", true);
+
+            targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
+            currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
+            moveSpeed = behaviourTreeInstance.FindBlackboardKey<float>("moveSpeed");
+            canThrowStone = behaviourTreeInstance.FindBlackboardKey<bool>("canThrowStone");
+            canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
+            canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
+            canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
         }
     }
 }
