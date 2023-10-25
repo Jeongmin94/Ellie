@@ -8,11 +8,14 @@ namespace Assets.Scripts.InteractiveObjects
     {
         [SerializeField] private Transform playerStandingPos;
         [SerializeField] private BezierSpline spline;
+        [SerializeField] private BezierSpline successSpline;
         [SerializeField] private GameObject player;
         [SerializeField] private Transform playerEndPos;
         [SerializeField] private bool isActivated;
         [SerializeField] private float duration;
         private SplineWalker walker = null;
+
+        private bool canJump = false;
         // Use this for initialization
         private void Start()
         {
@@ -29,6 +32,10 @@ namespace Assets.Scripts.InteractiveObjects
             if (walker && isActivated && walker.Progress == 1f)
             {
                 EndRailSystem();
+            }
+            if(canJump && Input.GetKeyDown(KeyCode.Space))
+            {
+                JumpToSuccessRail();
             }
         }
         //TODO : 특정 구간에서 Space를 입력해서 구간 넘어가기
@@ -62,6 +69,37 @@ namespace Assets.Scripts.InteractiveObjects
         private void LockPlayerPos()
         {
             player.transform.position = playerStandingPos.position;
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if(other.gameObject.name == "SuccessInterval")
+            {
+                Debug.Log("enter interval");
+                canJump = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.name == "SuccessInterval")
+            {
+                Debug.Log("exit interval");
+                canJump = false;
+            }
+        }
+        
+
+        private void JumpToSuccessRail()
+        {
+            Destroy(walker);
+            walker = gameObject.AddComponent<SplineWalker>();
+            walker.duration = duration;
+            walker.spline = successSpline;
+            walker.lookForward = true;
+            walker.mode = SplineWalkerMode.Once;
+            canJump = false;
+
         }
     }
 }
