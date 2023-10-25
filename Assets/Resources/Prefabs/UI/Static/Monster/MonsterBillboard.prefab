@@ -35,10 +35,10 @@ RectTransform:
   m_Father: {fileID: 8002634481264126593}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.10380383, y: 0.025518522}
-  m_AnchorMax: {x: 0.9023959, y: 0.185}
-  m_AnchoredPosition: {x: 0, y: 154}
-  m_SizeDelta: {x: 0, y: -2}
+  m_AnchorMin: {x: 0.105000004, y: 0.4473488}
+  m_AnchorMax: {x: 0.9025326, y: 0.76110095}
+  m_AnchoredPosition: {x: -0.5, y: 0.460701}
+  m_SizeDelta: {x: 1, y: 0.92139816}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8002634480523903734
 CanvasRenderer:
@@ -211,7 +211,7 @@ RectTransform:
   m_GameObject: {fileID: 8002634481264126597}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.005, y: 0.005, z: 0.005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8002634480523903720}
@@ -220,7 +220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 326.25, y: 183.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 652.5, y: 367}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8002634481264126594
@@ -266,7 +266,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8002634481264126596
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +298,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthData: {fileID: 11400000, guid: 4ed299d7072d6419b97f9b96040895dd, type: 2}
   time: 1
+  scaleFactor: 0.001
 --- !u!1 &8002634482383717548
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,8 +374,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -391,11 +392,11 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 21.7
+  m_fontSize: 44.75
   m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 1
-  m_fontSizeMin: 1
+  m_fontSizeMin: 10
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
@@ -575,6 +576,10 @@ PrefabInstance:
     - target: {fileID: 439038821748558215, guid: 3b95521d96d1a49a695ce1d90881440c, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6564641908611674160, guid: 3b95521d96d1a49a695ce1d90881440c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.4999981
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b95521d96d1a49a695ce1d90881440c, type: 3}

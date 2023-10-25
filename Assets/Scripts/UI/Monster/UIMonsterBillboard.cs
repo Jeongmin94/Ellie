@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.UI.Framework.Billboard;
 using UnityEngine;
 
@@ -6,6 +5,8 @@ namespace Assets.Scripts.UI.Monster
 {
     public class UIMonsterBillboard : UIMonsterCanvas, IBillboard
     {
+        public float scaleFactor = 0.001f;
+
         private void Awake()
         {
             Init();
@@ -20,14 +21,19 @@ namespace Assets.Scripts.UI.Monster
 
         public void InitBillboard(Transform target)
         {
-            transform.localScale = new Vector3(0.001f, 0.001f, 0.001f);
-            transform.position = target.position;
+            transform.localScale *= scaleFactor;
             transform.SetParent(target);
+            transform.localPosition = Vector3.zero;
+        }
+
+        public void UpdateBillboard()
+        {
+            transform.rotation = Camera.main.transform.rotation;
         }
 
         private void Update()
         {
-            transform.LookAt(transform.position + Camera.main.transform.forward);
+            UpdateBillboard();
         }
     }
 }

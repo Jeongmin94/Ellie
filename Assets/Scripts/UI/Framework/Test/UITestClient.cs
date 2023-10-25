@@ -48,6 +48,7 @@ namespace Assets.Scripts.UI.Framework
             // UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
 
             var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(transform, UIMonsterBillboard);
+            billboard.scaleFactor = 0.003f;
             billboard.InitBillboard(billBoardPosition);
         }
 
