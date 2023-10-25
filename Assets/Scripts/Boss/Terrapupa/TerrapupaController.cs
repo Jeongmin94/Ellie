@@ -8,7 +8,7 @@ using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Boss.Terrapupa
 {
-    public class PositionEventPayload : BaseEventPayload
+    public class PositionEventPayload : IBaseEventPayload
     {
         private Vector3 position;
 
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Boss.Terrapupa
         public BlackboardKey<bool> canEarthQuake;
         public BlackboardKey<bool> canRoll;
         public BlackboardKey<bool> canLowAttack;
-        public BlackboardKey<BaseEventPayload> throwStonePayload;
+        public BlackboardKey<IBaseEventPayload> throwStonePayload;
 
         private void Start()
         {
@@ -71,7 +71,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             behaviourTreeInstance.SetBlackboardValue<bool>("canEarthQuake", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canRoll", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canLowAttack", true);
-            behaviourTreeInstance.SetBlackboardValue<BaseEventPayload>("throwStonePayload", payload);
+            behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("throwStonePayload", payload);
 
             targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
             currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
@@ -80,7 +80,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
             canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
-            throwStonePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("throwStonePayload");
+            throwStonePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("throwStonePayload");
         }
     }
 }

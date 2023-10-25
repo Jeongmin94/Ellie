@@ -7,7 +7,7 @@ using TheKiwiCoder;
 public class PublishEventBusPayload : ActionNode
 {
     public NodeProperty<EventBusEvents> eventBusEvent;
-    public NodeProperty<BaseEventPayload> baseEventPayload;
+    public NodeProperty<IBaseEventPayload> baseEventPayload;
 
     protected override void OnStart()
     {
