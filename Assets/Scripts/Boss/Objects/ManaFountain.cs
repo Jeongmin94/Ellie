@@ -1,10 +1,13 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Boss.Terrapupa;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Boss.Objects
-{
-    public class FountainOfMana : MonoBehaviour
+{ 
+    public class ManaFountain : MonoBehaviour
     {
+        public TerrapupaAttackType banBossAttackType;
+
         public float cooldownValue = 3.0f;
         public float respawnValue = 3.0f;
 
@@ -33,6 +36,8 @@ namespace Assets.Scripts.Boss.Objects
 
                     isCooldown = true;
                     StartCoroutine(StartCooldown());
+                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
+                        new BossEventPayload { TransformValue = transform, AttackTypeValue = banBossAttackType });
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {

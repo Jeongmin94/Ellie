@@ -3,9 +3,11 @@ using System.Collections.Generic;
 
 public enum EventBusEvents
 {
-    TestEvent,
-    ThrowStoneEvent,
-    SpawnStoneEvent,
+    None,
+    ThrowStoneByBoss1,
+    GripStoneByBoss1,
+    HitManaByPlayerStone,
+    DestroyedManaByBoss1,
 }
 
 public class BaseEventPayload

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
+using Assets.Scripts.Boss;
 
 [System.Serializable]
 public class PublishEventBusPayload : ActionNode

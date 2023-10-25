@@ -247,17 +247,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1548837047316033901, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 35126759}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &35126763 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1909282702, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
+--- !u!1 &35126761 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2176720462095903703, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 35126759}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &35126762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 35126761}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banBossAttackType: 3
+  cooldownValue: 3
+  respawnValue: 3
+  isCooldown: 0
+  isBroken: 0
 --- !u!1 &135479972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100078, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
@@ -1735,17 +1746,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1548837047316033901, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 986147021}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &986147025 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1909282702, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
+--- !u!1 &986147023 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2176720462095903703, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 986147021}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &986147024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986147023}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banBossAttackType: 2
+  cooldownValue: 3
+  respawnValue: 3
+  isCooldown: 0
+  isBroken: 0
 --- !u!1001 &1123979364
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1755,19 +1777,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
-      value: 35
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.000000044703487
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.8724451
+      value: 0.442
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.9551296
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: stone
@@ -2619,17 +2641,28 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1548837047316033901, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 1318614989}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1318614993 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1909282702, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
+--- !u!1 &1318614991 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2176720462095903703, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 1318614989}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &1318614992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318614991}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banBossAttackType: 4
+  cooldownValue: 3
+  respawnValue: 3
+  isCooldown: 0
+  isBroken: 0
 --- !u!1 &1461935716 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100084, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
@@ -2732,7 +2765,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36706
+  m_Name: pb_Mesh25230
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2970,7 +3003,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
       propertyPath: m_TagString
-      value: SWTconnection
+      value: Stone
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33825c72b58b00942a935503a37415e6, type: 3}
@@ -3099,10 +3132,10 @@ MonoBehaviour:
   boss: {fileID: 375716984}
   player: {fileID: 1123979365}
   manaObjects:
-  - {fileID: 1909282702}
-  - {fileID: 986147025}
-  - {fileID: 35126763}
-  - {fileID: 1318614993}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1 &1837923674 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100066, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
@@ -4024,24 +4057,35 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1548837047316033901, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 1909282699}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1909282702 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1909282702, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
+--- !u!1 &1909282701 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2176720462095903703, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
   m_PrefabInstance: {fileID: 1909282699}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+--- !u!114 &1909282702
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1909282701}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  banBossAttackType: 1
+  cooldownValue: 3
+  respawnValue: 3
+  isCooldown: 0
+  isBroken: 0
 --- !u!43 &1962810709
 Mesh:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh36608
+  m_Name: pb_Mesh25134
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
