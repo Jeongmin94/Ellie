@@ -1755,19 +1755,19 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
-      value: 25
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 0.000000044703487
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.442
+      value: 0.8724451
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -4.9551296
       objectReference: {fileID: 0}
     - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: stone
@@ -1788,6 +1788,10 @@ PrefabInstance:
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_TagString
+      value: Stone
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565217, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_RootOrder
@@ -2964,6 +2968,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
+      propertyPath: m_TagString
+      value: SWTconnection
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 33825c72b58b00942a935503a37415e6, type: 3}
 --- !u!1 &1752846397
@@ -4003,7 +4011,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2176720462095903703, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
       propertyPath: m_TagString
-      value: InteractionObject
+      value: Undefined
       objectReference: {fileID: 0}
     - target: {fileID: 5728031681116435938, guid: ad22f56e0d27e9043a9987ae927861a6, type: 3}
       propertyPath: m_Enabled
