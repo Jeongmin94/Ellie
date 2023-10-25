@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa5d90afd078b4f418944747c6afb9e3, type: 3}
+  m_Name: MonsterData
+  m_EditorClassIdentifier: 
+  url: https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/edit#gid=976557839
+  startRow: B6
+  endRow: L
+  tsv: "int\tstring\tenum\tint\tfloat\tfloat\tfloat\tlist<enum>\tbool\tfloat\r\n1000\t\uD3C9\uBC94\uD55C
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t5\t4\t11\t9\tDarkness\tTRUE\t1.5\r\n1001\t\uBAA8\uD5D8\uAC00
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t4\t5\t22\t8\tDarkness\tTRUE\t1.5\r\n1002\t\uB9C8\uBC95\uC0AC
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t3\t6\t33\t7\tDarkness, Confuse\tTRUE\t1.5\r\n1003\t\uAD11\uC11D
+    \uBC8C\uB808 (\uADFC\uAC70\uB9AC)\tEarth\t2\t7\t44\t6\tNone\tFALSE\t1.5\r\n1004\t\uAD11\uC11D
+    \uBC8C\uB808 (\uC6D0\uAC70\uB9AC)\tEarth\t1\t8\t55\t5\tNone\tFALSE\t1.5\r\n1005\t\uB3D9\uAD74
+    \uBC15\uC950\tNormal\t9\t9\t66\t4\tNone\tTRUE\t1.5"
+  monsters: []
