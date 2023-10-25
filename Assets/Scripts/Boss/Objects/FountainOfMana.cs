@@ -34,7 +34,7 @@ namespace Assets.Scripts.Boss.Objects
                     isCooldown = true;
                     StartCoroutine(StartCooldown());
                 }
-                else if (other.transform.CompareTag("Player"))
+                else if (other.transform.CompareTag("Boss"))
                 {
                     Debug.Log("보스와 충돌");
 

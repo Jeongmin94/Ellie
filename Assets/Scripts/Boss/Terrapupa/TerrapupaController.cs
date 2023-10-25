@@ -4,16 +4,41 @@ using System.Collections.Generic;
 using System.Reflection;
 using TheKiwiCoder;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Boss.Terrapupa
 {
+    public class PositionEventPayload : BaseEventPayload
+    {
+        private Vector3 position;
+
+        public Vector3 Position
+        {
+            get { return position; }
+            set { position = value; }
+        }
+    }
+
     public class TerrapupaController : MonoBehaviour
     {
         [SerializeField] private List<BehaviourTree> treeList = new List<BehaviourTree>();
         [SerializeField] private BehaviourTreeInstance behaviourTreeInstance;
         [SerializeField] private TerrapupaDataInfo data;
 
-        public Transform target;
+        [SerializeField] private Transform target;
+        [SerializeField] private Transform rightHand;
+
+        public Transform Target
+        {
+            get { return target; }
+            set { target = value; }
+        }
+
+        public Transform RightHand
+        {
+            get { return rightHand; }
+            set { rightHand = value; }
+        }
 
         public BlackboardKey<Vector3> targetPosition;
         public BlackboardKey<int> currentHP;
@@ -22,6 +47,7 @@ namespace Assets.Scripts.Boss.Terrapupa
         public BlackboardKey<bool> canEarthQuake;
         public BlackboardKey<bool> canRoll;
         public BlackboardKey<bool> canLowAttack;
+        public BlackboardKey<BaseEventPayload> throwStonePayload;
 
         private void Start()
         {
@@ -33,13 +59,11 @@ namespace Assets.Scripts.Boss.Terrapupa
             targetPosition.value = target.position;
         }
 
-        public class TestEvent
-        {
-            public string Message { get; set; }
-        }
-
         private void InitStatus()
         {
+            PositionEventPayload payload = new PositionEventPayload();
+            payload.Position = rightHand.position;
+
             behaviourTreeInstance.SetBlackboardValue<Vector3>("targetPosition", target.position);
             behaviourTreeInstance.SetBlackboardValue<int>("currentHP", data.hp);
             behaviourTreeInstance.SetBlackboardValue<float>("moveSpeed", data.movementSpeed);
@@ -47,6 +71,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             behaviourTreeInstance.SetBlackboardValue<bool>("canEarthQuake", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canRoll", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canLowAttack", true);
+            behaviourTreeInstance.SetBlackboardValue<BaseEventPayload>("throwStonePayload", payload);
 
             targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
             currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
@@ -55,6 +80,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
             canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
+            throwStonePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("throwStonePayload");
         }
     }
 }
