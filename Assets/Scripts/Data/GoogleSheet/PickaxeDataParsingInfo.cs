@@ -35,7 +35,7 @@ public class PickaxeDataParsingInfo : DataParsingInfo
 
         string[] lines = tsv.Split('\n');
 
-        for(int i = 0; i<lines.Length;i++)
+        for (int i = 0; i < lines.Length; i++)
         {
             if (string.IsNullOrEmpty(lines[i])) continue;
 
@@ -61,7 +61,7 @@ public class PickaxeDataParsingInfo : DataParsingInfo
                 //강화 확률
                 data.upgradeChance = float.Parse(entries[7].Trim());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Debug.LogError($"Error parsing line {i + 1}: {entries[i]}");
                 Debug.LogError(e);

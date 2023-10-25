@@ -62,6 +62,10 @@ namespace Assets.Scripts.Player.States
             {
                 curTime += Time.deltaTime;
             }
+            if(!Controller.CurOre.canMine)
+            {
+                Controller.ChangeState(PlayerStateName.Idle);
+            }
         }
 
         private void LookOre()
