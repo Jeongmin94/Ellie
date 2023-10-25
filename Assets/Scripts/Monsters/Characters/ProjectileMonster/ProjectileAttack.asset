@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19a823549fd1648dcb66bf68db61e975, type: 3}
+  m_Name: ProjectileAttack
+  m_EditorClassIdentifier: 
+  attackValue: 2
+  attackableDistance: 15
+  attackInterval: 8
+  attackDuration: 4
+  offset: {x: 0, y: 1, z: 0}
+  projectilePrefab: {fileID: 3063311810654892203, guid: a9dcc98a0406440ca8cd400ef945e2dd, type: 3}
+  animationHold: 0.5
