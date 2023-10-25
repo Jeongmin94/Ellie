@@ -13,7 +13,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            Debug.Log("Jump");
             Controller.canTurn = true;
             jumpInputTime = 0;
             Controller.isJumping = true;
