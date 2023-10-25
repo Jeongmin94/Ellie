@@ -17,6 +17,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private Transform playerObj;
         [SerializeField] private CapsuleCollider playerCollider;
         [SerializeField] private Transform orientation;
+        [SerializeField] private PlayerStatus playerStatus;
 
         [Header("Camera")]
         public GameObject mainCam;
