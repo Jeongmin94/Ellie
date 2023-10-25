@@ -7,6 +7,7 @@ using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.Monsters.Others;
 using Assets.Scripts.Monsters.AbstractClass;
 using UnityEngine.AI;
+using Assets.Scripts.Data;
 
 namespace Assets.Scripts.Monsters.Characters
 {
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Monsters.Characters
         public GameObject player;
 
         [SerializeField] GameObject weapon;
+        [SerializeField] public SkeletonMonsterData monsterData;
         private enum SkillName { WeaponAttack, End }
            
         private void Start()
@@ -62,7 +64,7 @@ namespace Assets.Scripts.Monsters.Characters
 
             obj = Functions.FindChildByName(gameObject, SkillName.WeaponAttack.ToString());
             behaviourTreeInstance.SetBlackboardValue<GameObject>("MeleeAttack", obj);
-            obj.GetComponent<AbstractAttack>().InitializeBoxCollider(2.0f, 0.5f, 3.0f, 1.0f, new Vector3(1, 1, 1), Vector3.forward * 1.0f);
+            //obj.GetComponent<AbstractAttack>().InitializeBoxCollider(2.0f, 0.5f, 3.0f, 1.0f, new Vector3(1, 1, 1), Vector3.forward * 1.0f);
         }
 
         private void SetNavMesh()
@@ -77,10 +79,10 @@ namespace Assets.Scripts.Monsters.Characters
         private void AddSkills()
         {
             //monsterData랑 Abstract클래스랑 분류할것
-            monsterData.skills = new AbstractAttack[(int)SkillName.End];
-            monsterData.skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);
-            monsterData.skills[(int)SkillName.WeaponAttack].InitializeWeapon
-                (3.0f, 0.5f, 1.0f, 2.0f, weapon);
+            //monsterData.skills = new AbstractAttack[(int)SkillName.End];
+            //monsterData.skills[(int)SkillName.WeaponAttack] = AddSkill(SkillName.WeaponAttack.ToString(), Enums.AttackSkill.WeaponAttack);
+            //monsterData.skills[(int)SkillName.WeaponAttack].InitializeWeapon
+            //    (3.0f, 0.5f, 1.0f, 2.0f, weapon);
         }
     }
 }

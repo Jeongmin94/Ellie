@@ -37,8 +37,7 @@ public class MonsterFlee : ActionNode
             fleeVector = context.transform.position + runAwayVector;
 
             //monster look at player
-            Quaternion targetRotation = Quaternion.LookRotation(directionVector);
-            context.transform.rotation=Quaternion.Slerp(context.transform.rotation, targetRotation, 180.0f* Time.deltaTime);
+            
 
             if (Vector3.Distance(player.Value.transform.position, context.transform.position) > 10.0f)
             {

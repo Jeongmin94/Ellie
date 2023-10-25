@@ -1,3 +1,4 @@
+using Assets.Scripts.Monsters.Utility;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.AbstractClass
@@ -27,24 +28,24 @@ namespace Assets.Scripts.Monsters.AbstractClass
             AttackRange = attackRange;
 
             IsAttackReady = true;
+            owner = Functions.FindHighestParent(gameObject).tag.ToString();
             //Debug.Log("[AbstractAttack]Initialized base");
         }
 
-        public virtual void InitializeBoxCollider
-            (float attackValue, float duration, float attackInterval, float attackRange, Vector3 size, Vector3 offset)
+        public virtual void InitializeBoxCollider(BoxColliderAttackData data)
         { }
 
         public virtual void InitializeSphereCollider
             (float attackValue, float duration, float attackInterval, float attackRange, float attackRadius, Vector3 offset)
         { }
 
-        public virtual void InitializeProjectile
-            (float attackValue, float durationTime, float attackInterval, float attackRange, Vector3 offset, GameObject prefabObject)
+        public virtual void InitializeProjectile(ProjectileAttackData data)
         { }
-        //attackvalue and duration should be in AttackObject or ProjectilePrefab?
+        //public virtual void InitializeProjectile
+        //    (float attackValue, float durationTime, float attackInterval, float attackRange, Vector3 offset, GameObject prefabObject)
+        //{ }
 
-        public virtual void InitializeWeapon
-            (float attackValue, float durationTime, float attackInterval, float attackRange, GameObject weapon)
+        public virtual void InitializeWeapon(WeaponAttackData data)
         { }
 
         public virtual void InitializeAOE

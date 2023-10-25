@@ -12,7 +12,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
     public abstract class AbstractMonster : MonoBehaviour
     {
         //Monster Stat, Type
-        public SkeletonMeleeMonsterData monsterData;
+        
 
         //Actions
         protected bool isAttacking;
@@ -24,16 +24,16 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected NavMeshAgent agent;
 
         //Attack Dictionary
-        protected Dictionary<string, AbstractAttack> Attacks = new();
+        public Dictionary<string, AbstractAttack> Attacks = new();
 
 
         // >> : Functions
-        protected void InitializeData(SkeletonMeleeMonsterData monsterData)
-        {
-            this.monsterData = monsterData;
-        }
+        //protected void InitializeData(SkeletonMonsterData monsterData)
+        //{
+        //    this.monsterData = monsterData;
+        //}
 
-        protected AbstractAttack AddSkill(string skillName, Enums.AttackSkill attackSkill)
+        public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {
             AbstractAttack attack = null;
             GameObject newSkill = new GameObject(skillName);
@@ -61,8 +61,11 @@ namespace Assets.Scripts.Monsters.AbstractClass
                     attack = newSkill.AddComponent<AOEPrefabAttack>();
                     break;
             }
+
             if (attack != null)
+            {
                 Attacks.Add(skillName, attack);
+            }
 
             return attack;
         }

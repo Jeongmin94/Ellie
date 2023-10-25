@@ -40,7 +40,6 @@ namespace Assets.Scripts.Monsters.Others
         private void FireEnemyProjectile(Collider other)
         {
             Debug.Log("Player Hit");
-            //Player Recieve Attack
             Destroy(gameObject);
         }
         private void FirePlayerProjectile(Collider other)

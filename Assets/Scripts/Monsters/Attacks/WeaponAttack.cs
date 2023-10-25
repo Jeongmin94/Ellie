@@ -10,19 +10,31 @@ namespace Assets.Scripts.Monsters.Attacks
     {
         [SerializeField] private Collider collider;
 
-        public override void InitializeWeapon(float attackValue, float durationTime, float attackInterval, float attackRange, GameObject weapon)
+        public override void InitializeWeapon(WeaponAttackData data)
         {
-            InitializedBase(attackValue, durationTime, attackInterval, attackRange);
-            owner = Functions.FindHighestParent(gameObject).tag.ToString();
+            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
 
-            if (collider == null)
+            if(collider==null)
             {
-                collider = weapon.GetComponent<Collider>();
+                collider = data.weapon.GetComponent<Collider>();
                 if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
                 collider.isTrigger = true;
             }
             collider.enabled = false;
         }
+        //public override void InitializeWeapon(float attackValue, float durationTime, float attackInterval, float attackRange, GameObject weapon)
+        //{
+        //    InitializedBase(attackValue, durationTime, attackInterval, attackRange);
+        //    owner = Functions.FindHighestParent(gameObject).tag.ToString();
+
+        //    if (collider == null)
+        //    {
+        //        collider = weapon.GetComponent<Collider>();
+        //        if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
+        //        collider.isTrigger = true;
+        //    }
+        //    collider.enabled = false;
+        //}
 
         public override void ActivateAttack()
         {

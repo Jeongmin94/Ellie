@@ -13,6 +13,7 @@ public class MonsterAction : ActionNode
     public NodeProperty<float> detectPlayerDistance;
     public NodeProperty<float> overtavelDistance;
     public NodeProperty<bool> isReturning;
+    public NodeProperty<bool> isDashing;
 
     private DistanceDetectedAI detectPlayer;
 
@@ -28,6 +29,7 @@ public class MonsterAction : ActionNode
     protected override State OnUpdate()
     {
         //Animator
+        if (isDashing.Value) return State.Failure;
         if(context.agent.velocity.magnitude<0.01f)
         {
             context.animator.SetTrigger("SkeletonIdle");
@@ -39,7 +41,7 @@ public class MonsterAction : ActionNode
 
         if(isReturning.Value)
         {
-            if (Vector3.Distance(context.transform.position, spawnPosition.Value) < 1.0f)
+            if (Vector3.Distance(context.transform.position, spawnPosition.Value) < 3.0f)
             {
                 isReturning.Value = false;
                 return State.Failure;

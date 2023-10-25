@@ -38,6 +38,8 @@ namespace Assets.Scripts.Monsters.Utility
                 {
                     return child.gameObject;
                 }
+                GameObject result = FindChildByName(child.gameObject, childName);
+                if (result != null) return result;
             }
             return null;
         }

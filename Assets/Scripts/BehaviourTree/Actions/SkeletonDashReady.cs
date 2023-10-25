@@ -13,7 +13,6 @@ public class SkeletonDashReady : ActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log("MonsterRunAnimation");
         context.animator.SetTrigger("SkeletonRun");
         return State.Success;
     }

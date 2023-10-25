@@ -11,13 +11,13 @@ public class ChasePlayerDetect : ActionNode
     public NodeProperty<GameObject> player;
 
     public NodeProperty<bool> isReturning;
-    public NodeProperty<GameObject> detectPlayerAI;
+    public NodeProperty<GameObject> detectChaseAI;
     public NodeProperty<float> detectChaseDistance;
 
     private DistanceDetectedAI detectPlayer;
 
     protected override void OnStart() {
-        detectPlayer = detectPlayerAI.Value.GetComponent<DistanceDetectedAI>();
+        detectPlayer = detectChaseAI.Value.GetComponent<DistanceDetectedAI>();
         detectPlayer.SetDetectDistance(detectChaseDistance.Value);
     }
 

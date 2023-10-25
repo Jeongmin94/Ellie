@@ -7,6 +7,7 @@ using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.Monsters.Others;
 using Assets.Scripts.Monsters.AbstractClass;
 using UnityEngine.AI;
+using Assets.Scripts.Data;
 
 namespace Assets.Scripts.Monsters.Characters
 {
@@ -16,7 +17,7 @@ namespace Assets.Scripts.Monsters.Characters
         //Temp
         public GameObject player;
 
-
+        [SerializeField] public SkeletonMonsterData monsterData;
         [SerializeField] GameObject projectile;
         private enum SkillName { Projectile, End }
            
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Monsters.Characters
         private void SetBehaviourTreeInstance()
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+            Debug.Log("BehaviourTree : " + behaviourTreeInstance);
 
             //Temp
             behaviourTreeInstance.SetBlackboardValue<GameObject>("Player", player);
@@ -63,7 +65,7 @@ namespace Assets.Scripts.Monsters.Characters
 
             obj = Functions.FindChildByName(gameObject, SkillName.Projectile.ToString());
             behaviourTreeInstance.SetBlackboardValue<GameObject>("MeleeAttack", obj);
-            obj.GetComponent<AbstractAttack>().InitializeBoxCollider(2.0f, 0.5f, 3.0f, 1.0f, new Vector3(1, 1, 1), Vector3.forward * 1.0f);
+            //obj.GetComponent<AbstractAttack>().InitializeBoxCollider(2.0f, 0.5f, 3.0f, 1.0f, new Vector3(1, 1, 1), Vector3.forward * 1.0f);
         }
 
         private void SetNavMesh()
@@ -78,10 +80,10 @@ namespace Assets.Scripts.Monsters.Characters
         private void AddSkills()
         {
             //monsterData랑 Abstract클래스랑 분류할것
-            monsterData.skills = new AbstractAttack[(int)SkillName.End];
-            monsterData.skills[(int)SkillName.Projectile] = AddSkill(SkillName.Projectile.ToString(), Enums.AttackSkill.ProjectileAttack);
-            monsterData.skills[(int)SkillName.Projectile].InitializeProjectile
-                (2.0f, 4.0f, 3.0f, 5.0f, Vector3.up * 1.0f, projectile);
+            //monsterData.skills = new AbstractAttack[(int)SkillName.End];
+            //monsterData.skills[(int)SkillName.Projectile] = AddSkill(SkillName.Projectile.ToString(), Enums.AttackSkill.ProjectileAttack);
+            //monsterData.skills[(int)SkillName.Projectile].InitializeProjectile
+            //    (2.0f, 4.0f, 3.0f, 5.0f, Vector3.up * 1.0f, projectile);
         }
     }
 }

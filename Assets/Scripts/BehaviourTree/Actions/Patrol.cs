@@ -38,14 +38,6 @@ public class Patrol : ActionNode
     }
 
     protected override State OnUpdate() {
-        if (context.agent.velocity.magnitude < 0.01f)
-        {
-            context.animator.SetTrigger("SkeletonIdle");
-        }
-        else if (context.agent.velocity.magnitude > 0.01f)
-        {
-            context.animator.SetTrigger("SkeletonWalk");
-        }
         if (isReturning.Value)
             return State.Failure;
 

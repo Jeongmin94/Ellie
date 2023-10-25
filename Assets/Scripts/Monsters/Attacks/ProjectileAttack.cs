@@ -15,12 +15,18 @@ namespace Assets.Scripts.Monsters.Attacks
         private Vector3 direction;
         //ToDo : Add Direction to Projectile Attack! 
 
-        public override void InitializeProjectile(float attackValue, float durationTime, float attackInterval, float attackRange, Vector3 offset, GameObject prefabObject)
+        //public override void InitializeProjectile(float attackValue, float durationTime, float attackInterval, float attackRange, Vector3 offset, GameObject prefabObject)
+        //{
+        //    InitializedBase(attackValue, durationTime, attackInterval, attackRange);
+        //    this.offset = offset;
+        //    projectile = prefabObject.GetComponent<Projectile>();
+        //    owner = gameObject.tag.ToString();
+        //}
+        public override void InitializeProjectile(ProjectileAttackData data)
         {
-            InitializedBase(attackValue, durationTime, attackInterval, attackRange);
-            this.offset = offset;
-            projectile = prefabObject.GetComponent<Projectile>();
-            owner = gameObject.tag.ToString();
+            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            this.offset = data.offset;
+            projectile = data.projectilePrefab.GetComponent<Projectile>();
         }
 
         public override void ActivateAttack()
