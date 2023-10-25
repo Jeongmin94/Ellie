@@ -47,7 +47,6 @@ public class asdfTest : MonoBehaviour
     private void OnTestObj(BaseEventPayload obj)
     {
         TestEventPayload a = obj as TestEventPayload;
-        typeof(obj).IsSubclassOf(typeof(BaseEventPayload))
         Type type = obj.GetType();
         Debug.Log(type);
         Debug.Log(type.FullName);
