@@ -8,7 +8,7 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateExhaust : PlayerBaseState
     {
-        
+        private float moveSpeed;
         public PlayerStateExhaust(PlayerController controller) : base(controller)
         {
 
@@ -16,7 +16,9 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            Controller.canTurn = false;
+            Controller.canTurn = true;
+
+            moveSpeed = Controller.WalkSpeed * 0.5f;
             Controller.PlayerStatus.isRecoveringStamina = true;
             Controller.Anim.SetBool("IsExhausted", true);
         }
@@ -30,6 +32,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnFixedUpdateState()
         {
+            Controller.MovePlayer(moveSpeed);
         }
 
         public override void OnUpdateState()
