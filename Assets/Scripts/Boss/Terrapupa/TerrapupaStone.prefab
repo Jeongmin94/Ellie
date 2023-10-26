@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 3441268208278773415}
   - component: {fileID: 6031315564474996048}
   - component: {fileID: 288476327}
-  m_Layer: 9
+  m_Layer: 8
   m_Name: TerrapupaStone
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -30,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 3441268208278773414}
   m_LocalRotation: {x: 0.98118347, y: -0.0579353, z: 0.18012545, w: 0.03843638}
   m_LocalPosition: {x: 1.14, y: 0.67, z: 0.11}
-  m_LocalScale: {x: 2.377223, y: 2.3772225, z: 2.3772233}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,7 +111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5d1fc731edddfd45aa07402159e1b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 0
+  movementSpeed: 10
 --- !u!54 &288476327
 Rigidbody:
   m_ObjectHideFlags: 0

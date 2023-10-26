@@ -22,6 +22,7 @@ namespace Assets.Scripts.Boss
 
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.RespawnMana, OnRespawnMana);
         }
 
         private void OnSpawnStone()
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Boss
             BossEventPayload posPayload = payload as BossEventPayload;
 
             GameObject bossStone = Instantiate(boss.RightHand.gameObject, boss.RightHand.position, Quaternion.identity);
+            bossStone.GetComponent<Rigidbody>().isKinematic = false;
             bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue2);
 
             boss.RightHand.gameObject.SetActive(false);
@@ -68,6 +70,31 @@ namespace Assets.Scripts.Boss
                     break;
                 case TerrapupaAttackType.LowAttack:
                     boss.canLowAttack.value = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void OnRespawnMana(BossEventPayload manaPayload)
+        {
+            // 다시 공격 타입 봉인 해제
+            Debug.Log("OnRespawnMana");
+            Debug.Log($"{manaPayload.AttackTypeValue} 공격 타입 봉인 해제");
+
+            switch (manaPayload.AttackTypeValue)
+            {
+                case TerrapupaAttackType.ThrowStone:
+                    boss.canThrowStone.value = true;
+                    break;
+                case TerrapupaAttackType.EarthQuake:
+                    boss.canEarthQuake.value = true;
+                    break;
+                case TerrapupaAttackType.Roll:
+                    boss.canRoll.value = true;
+                    break;
+                case TerrapupaAttackType.LowAttack:
+                    boss.canLowAttack.value = true;
                     break;
                 default:
                     break;

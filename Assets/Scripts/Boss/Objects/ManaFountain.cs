@@ -40,7 +40,7 @@ namespace Assets.Scripts.Boss.Objects
                         new BossEventPayload { TransformValue1 = transform });
                 }
                 // 임시로 플레이어
-                else if (other.transform.CompareTag("Player"))
+                else if (other.transform.CompareTag("Boss"))
                 {
                     Debug.Log("보스와 충돌");
 

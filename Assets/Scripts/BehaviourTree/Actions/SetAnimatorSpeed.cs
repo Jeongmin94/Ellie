@@ -4,24 +4,19 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class Wait1Frame : ActionNode
+public class SetAnimatorSpeed : ActionNode
 {
-    bool isBreak;
+    public NodeProperty<float> animationSpeed;
 
     protected override void OnStart() {
-        isBreak = true;
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        if(isBreak)
-        {
-            isBreak = false;
-            return State.Running;
-        }
 
+        context.animator.speed = animationSpeed.Value;
         return State.Success;
     }
 }
