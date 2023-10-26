@@ -128,7 +128,7 @@ namespace TheKiwiCoder {
     }
 
     [System.Serializable]
-    public class EventPayloadKey : BlackboardKey<BaseEventPayload>
+    public class EventPayloadKey : BlackboardKey<IBaseEventPayload>
     {
 
     }
