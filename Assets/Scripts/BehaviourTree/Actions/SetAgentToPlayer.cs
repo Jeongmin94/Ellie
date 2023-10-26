@@ -10,6 +10,7 @@ public class SetAgentToPlayer : ActionNode
 
     protected override void OnStart() {
         context.agent.destination = player.Value;
+        Debug.Log("Chase Player");
     }
 
     protected override void OnStop() {

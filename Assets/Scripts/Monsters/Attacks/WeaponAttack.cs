@@ -22,19 +22,6 @@ namespace Assets.Scripts.Monsters.Attacks
             }
             collider.enabled = false;
         }
-        //public override void InitializeWeapon(float attackValue, float durationTime, float attackInterval, float attackRange, GameObject weapon)
-        //{
-        //    InitializedBase(attackValue, durationTime, attackInterval, attackRange);
-        //    owner = Functions.FindHighestParent(gameObject).tag.ToString();
-
-        //    if (collider == null)
-        //    {
-        //        collider = weapon.GetComponent<Collider>();
-        //        if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
-        //        collider.isTrigger = true;
-        //    }
-        //    collider.enabled = false;
-        //}
 
         public override void ActivateAttack()
         {

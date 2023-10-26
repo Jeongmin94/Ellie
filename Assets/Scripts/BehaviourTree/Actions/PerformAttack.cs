@@ -17,10 +17,10 @@ public class PerformAttack : ActionNode
 
     protected override State OnUpdate()
     {
-
         if(context.controller.Attacks.TryGetValue(skillName.Value, out AbstractAttack atk))
         {
             atk.ActivateAttack();
+            Debug.Log(skillName.Value+ "  Attack");
             return State.Success;
         }
 

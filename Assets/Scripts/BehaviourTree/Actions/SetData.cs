@@ -17,9 +17,6 @@ public class SetData : ActionNode
         playerDistance.Value = Vector3.Distance(player.Value.transform.position, context.transform.position);
         DistanceDetectedAI detectAI = detectChaseAI.Value.GetComponent<DistanceDetectedAI>();
         playerPosition.Value = player.Value.transform.position;
-        if (detectAI.IsDetected)
-            context.agent.stoppingDistance = 5.0f;
-        else context.agent.stoppingDistance = 0.5f;
     }
 
     protected override void OnStop() {

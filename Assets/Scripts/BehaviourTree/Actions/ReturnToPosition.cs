@@ -7,21 +7,25 @@ using TheKiwiCoder;
 public class ReturnToPosition : ActionNode
 {
     public NodeProperty<Vector3> spawnPosition;
+    public NodeProperty<bool> isOnSapwnPosition;
 
     protected override void OnStart() {
         context.agent.stoppingDistance = 0.0f;
+        context.agent.destination = spawnPosition.Value;
     }
 
     protected override void OnStop() {
     }
 
-    protected override State OnUpdate() {
-        if (Vector3.Distance(context.transform.position, spawnPosition.Value) > 0.1f)
+    protected override State OnUpdate()
+    {
+        if (Vector3.Distance(context.transform.position, spawnPosition.Value) > 0.5f)
         {
-            context.agent.destination = spawnPosition.Value;
+            isOnSapwnPosition.Value = false;
             return State.Running;
         }
         context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
-            return State.Success;
+        isOnSapwnPosition.Value = true;
+        return State.Success;
     }
 }
