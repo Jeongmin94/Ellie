@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Channels.UI
 {
     public enum UIType
@@ -7,10 +9,13 @@ namespace Channels.UI
 
     public class UIPayload : IBaseEventPayload
     {
-        public UIType Type { get; set; }
     }
 
     public class UIChannel : BaseEventChannel
     {
+        public override void ReceiveMessage<T>(T payload)
+        {
+            Debug.Log($"I'm UIChannel");
+        }
     }
 }

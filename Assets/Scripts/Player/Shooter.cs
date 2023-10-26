@@ -71,14 +71,14 @@ namespace Assets.Scripts.Player
 
         private void SubscribeAction()
         {
-            chargingData.ChargingValue.OnChange -= OnChangeChargingValue;
-            chargingData.ChargingValue.OnChange += OnChangeChargingValue;
+            chargingData.ChargingValue.ValueChangeAction -= OnChangeChargingValue;
+            chargingData.ChargingValue.ValueChangeAction += OnChangeChargingValue;
 
             InputManager.Instance.OnMouseAction -= OnMouseAction;
             InputManager.Instance.OnMouseAction += OnMouseAction;
 
-            aimTargetData.TargetPosition.OnChange -= OnChangeAimTarget;
-            aimTargetData.TargetPosition.OnChange += OnChangeAimTarget;
+            aimTargetData.TargetPosition.ValueChangeAction -= OnChangeAimTarget;
+            aimTargetData.TargetPosition.ValueChangeAction += OnChangeAimTarget;
         }
 
         private void SetLineRendererLayerMask()

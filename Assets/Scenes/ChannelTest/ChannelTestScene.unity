@@ -235,7 +235,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e73cbd842196460a94d6cc718a590d0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  maxHealth: 20
+  damage: 2
+  billboardPosition: {fileID: 1679837900}
 --- !u!1 &463971987
 GameObject:
   m_ObjectHideFlags: 0
@@ -313,7 +315,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 463971987}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalPosition: {x: 0, y: 1, z: -3.74}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -459,9 +461,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1582261055}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff02fb7f62ba45f3a35f5eabc62a33f6, type: 3}
+  m_Script: {fileID: 11500000, guid: 9dfa7dcd8283442ba419a7addbb2b423, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  baseChannelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
+  client: {fileID: 432082562}
 --- !u!1 &1679837899
 GameObject:
   m_ObjectHideFlags: 0

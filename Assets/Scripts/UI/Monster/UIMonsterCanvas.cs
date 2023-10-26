@@ -6,9 +6,7 @@ using Assets.Scripts.UI.Framework.Images;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.Utils;
-using Channels.Components;
-using Channels.Type;
-using Codice.Client.BaseCommands;
+using Channels.UI;
 using TMPro;
 using UnityEngine;
 
@@ -25,28 +23,18 @@ namespace Assets.Scripts.UI.Monster
         private const string NameBarImage = "BarImage";
         private const string NameMonsterText = "MonsterText";
 
-        [SerializeField] protected MonsterHealthData healthData;
         [SerializeField] protected float time = 1.0f;
+        
+        private TextMeshProUGUI monsterText;
+        private UIBarImage barImage;
 
-        public int MaxHealth { get; set; } = 20;
-        public int Health { get; set; } = 20;
-
-        protected TextMeshProUGUI monsterText;
-        protected UIBarImage barImage;
-
-        private TicketMachine<IBaseEventPayload> ticketMachine;
         private readonly Queue<ImageChangeInfo> healthQueue = new Queue<ImageChangeInfo>();
         private int prevHealth;
+        private int maxHealth;
 
         private void Awake()
         {
             Init();
-            if (healthData)
-                healthData.InitHealth();
-            
-            // ui
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine<IBaseEventPayload>>();
-            ticketMachine.SetTicketType(ChannelType.Combat);
         }
 
         protected override void Init()
@@ -54,23 +42,20 @@ namespace Assets.Scripts.UI.Monster
             base.Init();
 
             Bind<GameObject>(typeof(GameObjects));
+            var go = GetGameObject((int)GameObjects.MonsterPanel);
+            monsterText = go.FindChild<TextMeshProUGUI>();
         }
-
-        private void OnEnable()
+        
+        public void InitData(MonsterDataContainer container)
         {
-            SubscribeAction();
+            prevHealth = container.PrevHp;
+            maxHealth = container.MaxHp;
+            container.CurrentHp.Subscribe(OnChangeHealth);
+            
+            SetName(container.Name);
         }
-
-        private void SubscribeAction()
-        {
-            if (healthData)
-            {
-                healthData.CurrentHealth.OnChange -= OnChangeHealth;
-                healthData.CurrentHealth.OnChange += OnChangeHealth;
-            }
-        }
-
-        public void SetName(string monsterName)
+        
+        private void SetName(string monsterName)
         {
             monsterText.text = monsterName;
         }
@@ -81,20 +66,14 @@ namespace Assets.Scripts.UI.Monster
 
             var image = go.FindChild(NameBarImage, true);
             barImage = image.GetOrAddComponent<UIBarImage>();
-
-            if (healthData)
-            {
-                prevHealth = healthData.CurrentHealth.Value;
-                Health = MaxHealth = prevHealth;
-            }
         }
-
-        private void OnChangeHealth(int value)
+        
+        public void OnChangeHealth(int value)
         {
             if (prevHealth == value)
                 return;
 
-            float target = value / (float)MaxHealth;
+            float target = value / (float)maxHealth;
             float t = time;
 
             if (prevHealth > value)
