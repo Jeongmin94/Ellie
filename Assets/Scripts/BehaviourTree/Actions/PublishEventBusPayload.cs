@@ -21,6 +21,7 @@ public class PublishEventBusPayload : ActionNode
     protected override State OnUpdate()
     {
         EventBus.Instance.Publish(eventBusEvent.Value, baseEventPayload.Value);
+        Debug.Log("Å×½ºÆ®");
         return State.Success;
     }
 }

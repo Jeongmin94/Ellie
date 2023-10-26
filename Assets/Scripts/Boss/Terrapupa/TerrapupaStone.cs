@@ -6,27 +6,30 @@ public class TerrapupaStone : MonoBehaviour
 {
 	public float movementSpeed = 7.0f;
 
+	private Rigidbody rb;
+	private Transform target;
+
+    private void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Boss"))
+        if(other.gameObject.CompareTag("Ground"))
 		{
-			Debug.Log("플레이어와 충돌");
+			Debug.Log("벽과 충돌");
 
 			Destroy(gameObject);
 		}
     }
 
-    public void MoveToTarget(Vector3 target)
+    public void MoveToTarget(Transform target)
 	{
+		Vector3 direction = target.position - transform.position;
 
-	}
+		direction.Normalize();
 
-	private IEnumerator Move(Vector3 target)
-	{
-		while (true)
-		{
-
-			yield return null;
-		}
+		//rb.velocity = direction * movementSpeed;
 	}
 }

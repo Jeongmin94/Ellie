@@ -8,14 +8,16 @@ namespace Assets.Scripts.Boss
     {
         private int intValue;
         private Vector3 vector3Value;
-        private Transform transformValue;
+        private Transform transformValue1;
+        private Transform transformValue2;
         private TerrapupaAttackType attackTypeValue;
 
         public BossEventPayload()
         {
             intValue = 0;
             vector3Value = Vector3.zero;
-            transformValue = null;
+            transformValue1 = null;
+            transformValue2 = null;
             attackTypeValue = TerrapupaAttackType.None;
         }
 
@@ -31,15 +33,22 @@ namespace Assets.Scripts.Boss
             set { vector3Value = value; }
         }
 
-        public Transform TransformValue
+        public Transform TransformValue1
         {
-            get { return transformValue; }
-            set { transformValue = value; }
+            get { return transformValue1; }
+            set { transformValue1 = value; }
         }
+
+        public Transform TransformValue2
+        {
+            get { return transformValue2; }
+            set { transformValue2 = value; }
+        }
+
         public TerrapupaAttackType AttackTypeValue
         {
             get { return attackTypeValue; }
-            set { attackTypeValue = value; }
+            set { attackTypeValue = value; Debug.Log(attackTypeValue); }
         }
     }
 }

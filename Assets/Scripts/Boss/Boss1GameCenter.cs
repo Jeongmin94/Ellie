@@ -4,6 +4,7 @@ using Assets.Scripts.Player;
 
 using System.Collections;
 using System.Collections.Generic;
+using TheKiwiCoder;
 using UnityEngine;
 
 namespace Assets.Scripts.Boss
@@ -18,28 +19,59 @@ namespace Assets.Scripts.Boss
         {
             EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
             EventBus.Instance.Subscribe<BaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
-            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnManaFountain);
+
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         }
 
         private void OnSpawnStone()
         {
+            Debug.Log("OnSpawnStone");
+
             boss.RightHand.gameObject.SetActive(true);
-            Debug.Log("테스트");
         }
 
         private void OnThrowStone(BaseEventPayload payload)
         {
-            BossEventPayload posPayload = payload as BossEventPayload;
-            Debug.Log(posPayload.Vector3Value);
-            Debug.Log("던지기");
+            Debug.Log("OnThrowStone");
 
-            Instantiate(boss.RightHand.gameObject, boss.RightHand.position, Quaternion.identity);
+            BossEventPayload posPayload = payload as BossEventPayload;
+
+            GameObject bossStone = Instantiate(boss.RightHand.gameObject, boss.RightHand.position, Quaternion.identity);
+            bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue2);
+
             boss.RightHand.gameObject.SetActive(false);
         }
 
-        private void OnManaFountain(BossEventPayload manaPayload)
+        private void OnHitMana(BossEventPayload manaPayload)
         {
+            // 마나의 샘 마법 돌맹이 루팅 이벤트
+            Debug.Log("OnHitMana");
+        }
 
+        private void OnDestroyedMana(BossEventPayload manaPayload)
+        {
+            // 마나의 샘 부서졌을 때, 보스 공격 타입 봉인
+            Debug.Log("OnDestroyedMana");
+            Debug.Log($"{manaPayload.AttackTypeValue} 공격 타입 봉인");
+
+            switch (manaPayload.AttackTypeValue)
+            {
+                case TerrapupaAttackType.ThrowStone:
+                    boss.canThrowStone.value = false;
+                    break;
+                case TerrapupaAttackType.EarthQuake:
+                    boss.canEarthQuake.value = false;
+                    break;
+                case TerrapupaAttackType.Roll:
+                    boss.canRoll.value = false;
+                    break;
+                case TerrapupaAttackType.LowAttack:
+                    boss.canLowAttack.value = false;
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

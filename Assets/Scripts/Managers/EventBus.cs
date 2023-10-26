@@ -8,6 +8,8 @@ public enum EventBusEvents
     GripStoneByBoss1,
     HitManaByPlayerStone,
     DestroyedManaByBoss1,
+    RespawnMana,
+
 }
 
 public class BaseEventPayload

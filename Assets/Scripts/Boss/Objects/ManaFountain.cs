@@ -36,15 +36,18 @@ namespace Assets.Scripts.Boss.Objects
 
                     isCooldown = true;
                     StartCoroutine(StartCooldown());
-                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
-                        new BossEventPayload { TransformValue = transform, AttackTypeValue = banBossAttackType });
+                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
+                        new BossEventPayload { TransformValue1 = transform });
                 }
-                else if (other.transform.CompareTag("Boss"))
+                // 임시로 플레이어
+                else if (other.transform.CompareTag("Player"))
                 {
                     Debug.Log("보스와 충돌");
 
                     isBroken = true;
                     StartCoroutine(StartRespawn());
+                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
+                        new BossEventPayload { TransformValue1 = transform, AttackTypeValue = banBossAttackType });
                 }
             }
         }
@@ -63,6 +66,9 @@ namespace Assets.Scripts.Boss.Objects
 
             isBroken = false;
             Debug.Log($"{name} 리스폰 완료");
+
+            EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.RespawnMana,
+                new BossEventPayload { AttackTypeValue = banBossAttackType });
         }
     }
 }
