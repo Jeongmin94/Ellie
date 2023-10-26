@@ -21,7 +21,7 @@ namespace Assets.Scripts.Data.ActionData.Player
 
         public float GetPercentage()
         {
-            return (float)CurrentStamina.Value / (float)maxStamina;
+            return CurrentStamina.Value / maxStamina;
         }
     }
 }

@@ -12,7 +12,8 @@
         Charging,
         Shoot,
         Land,
-        Airbourn,
-        Mining
+        Airborne,
+        Mining,
+        Exhaust
     }
 }

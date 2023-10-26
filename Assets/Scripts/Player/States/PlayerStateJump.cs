@@ -18,6 +18,8 @@ namespace Assets.Scripts.Player.States
             Controller.isJumping = true;
             Controller.JumpPlayer();
             Controller.Anim.SetBool("IsJumping",true);
+            Controller.PlayerStatus.isRecoveringStamina = false;
+            Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.JumpStaminaConsumption);
         }
 
         public override void OnExitState()
@@ -37,7 +39,7 @@ namespace Assets.Scripts.Player.States
             {
                 //점프 input이 끝나면 Airbourn 스테이트로 넘어가자
                 
-                Controller.ChangeState(PlayerStateName.Airbourn);
+                Controller.ChangeState(PlayerStateName.Airborne);
             }
             //if (Input.GetMouseButtonDown(0))
             //{

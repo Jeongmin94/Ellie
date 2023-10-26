@@ -22,6 +22,8 @@ namespace Assets.Scripts.Player.States
             //Controller.cam.RotationSpeed = 100f;
             Controller.PlayerObj.forward = Controller.MoveDirection.normalized;
             dodgeTime = 0f;
+            Controller.PlayerStatus.isRecoveringStamina = false;
+            Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.DodgeStaminaConsumption);
         }
 
         public override void OnExitState()

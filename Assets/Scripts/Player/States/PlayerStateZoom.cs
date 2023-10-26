@@ -56,7 +56,7 @@ namespace Assets.Scripts.Player.States
                 }
                 else
                 {
-                    Controller.ChangeState(PlayerStateName.Airbourn);
+                    Controller.ChangeState(PlayerStateName.Airborne);
                 }
             }
         }
