@@ -1,12 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.ActionData.Monster;
 using Assets.Scripts.UI.Framework.Images;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.Utils;
-using Channels.UI;
 using TMPro;
 using UnityEngine;
 
