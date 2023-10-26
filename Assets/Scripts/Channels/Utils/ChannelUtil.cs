@@ -7,16 +7,16 @@ namespace Channels.Utils
 {
     public static class ChannelUtil
     {
-        public static BaseEventChannel<IBaseEventPayload> MakeChannel(ChannelType type)
+        public static BaseEventChannel MakeChannel(ChannelType type)
         {
-            BaseEventChannel<IBaseEventPayload> channel = null;
+            BaseEventChannel channel = null;
             switch (type)
             {
                 case ChannelType.Combat:
-                    channel = new CombatChannel<IBaseEventPayload>();
+                    channel = new CombatChannel();
                     break;
                 case ChannelType.UI:
-                    channel = new UIChannel<IBaseEventPayload>();
+                    channel = new UIChannel();
                     break;
             }
 

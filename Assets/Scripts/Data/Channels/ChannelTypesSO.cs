@@ -1,7 +1,7 @@
 using Channels.Type;
 using UnityEngine;
 
-namespace Data.Channels
+namespace Assets.Scripts.Data.Channels
 {
     [CreateAssetMenu(fileName = "ChannelTypes", menuName = "Channel/ChannelTypes")]
     public class ChannelTypesSo : ScriptableObject

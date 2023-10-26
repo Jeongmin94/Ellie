@@ -1,25 +1,13 @@
 using System;
+using UnityEngine;
 
 namespace Channels
 {
-    public enum BaseEventType
+    public class BaseEventChannel
     {
-        BaseEvent
-    }
-
-    public class BaseEventChannel<T> where T : IBaseEventPayload
-    {
-        private Action<T> onExecute;
-
-        public virtual void Subscribe(Action<T> listener)
+        public virtual void ReceiveMessage<T>(T payload) where T : IBaseEventPayload
         {
-            onExecute -= listener;
-            onExecute += listener;
-        }
-
-        public virtual void Publish(T payload)
-        {
-            onExecute?.Invoke(payload);
+            Debug.Log($"BaseEventChannel ReceiveMessage() - {payload}");
         }
     }
 }

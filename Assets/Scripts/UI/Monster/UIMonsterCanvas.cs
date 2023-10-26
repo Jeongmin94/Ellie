@@ -6,9 +6,13 @@ using Assets.Scripts.UI.Framework.Images;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Codice.Client.BaseCommands;
 using TMPro;
 using UnityEngine;
 
+// !TODO: HealthData 사용하지 않도록 변경
 namespace Assets.Scripts.UI.Monster
 {
     public class UIMonsterCanvas : UIStatic
@@ -24,16 +28,25 @@ namespace Assets.Scripts.UI.Monster
         [SerializeField] protected MonsterHealthData healthData;
         [SerializeField] protected float time = 1.0f;
 
+        public int MaxHealth { get; set; } = 20;
+        public int Health { get; set; } = 20;
+
         protected TextMeshProUGUI monsterText;
         protected UIBarImage barImage;
 
+        private TicketMachine<IBaseEventPayload> ticketMachine;
         private readonly Queue<ImageChangeInfo> healthQueue = new Queue<ImageChangeInfo>();
         private int prevHealth;
 
         private void Awake()
         {
             Init();
-            healthData.InitHealth();
+            if (healthData)
+                healthData.InitHealth();
+            
+            // ui
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine<IBaseEventPayload>>();
+            ticketMachine.SetTicketType(ChannelType.Combat);
         }
 
         protected override void Init()
@@ -50,8 +63,16 @@ namespace Assets.Scripts.UI.Monster
 
         private void SubscribeAction()
         {
-            healthData.CurrentHealth.OnChange -= OnChangeHealth;
-            healthData.CurrentHealth.OnChange += OnChangeHealth;
+            if (healthData)
+            {
+                healthData.CurrentHealth.OnChange -= OnChangeHealth;
+                healthData.CurrentHealth.OnChange += OnChangeHealth;
+            }
+        }
+
+        public void SetName(string monsterName)
+        {
+            monsterText.text = monsterName;
         }
 
         protected virtual void Start()
@@ -61,7 +82,11 @@ namespace Assets.Scripts.UI.Monster
             var image = go.FindChild(NameBarImage, true);
             barImage = image.GetOrAddComponent<UIBarImage>();
 
-            prevHealth = healthData.CurrentHealth.Value;
+            if (healthData)
+            {
+                prevHealth = healthData.CurrentHealth.Value;
+                Health = MaxHealth = prevHealth;
+            }
         }
 
         private void OnChangeHealth(int value)
@@ -69,7 +94,7 @@ namespace Assets.Scripts.UI.Monster
             if (prevHealth == value)
                 return;
 
-            float target = value / (float)healthData.MaxHealth;
+            float target = value / (float)MaxHealth;
             float t = time;
 
             if (prevHealth > value)

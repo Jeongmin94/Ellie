@@ -9,7 +9,7 @@ namespace Channels.Combat
         public CombatType Type { get; set; }
     }
 
-    public class CombatChannel<T> : BaseEventChannel<T> where T : IBaseEventPayload
+    public class CombatChannel : BaseEventChannel
     {
     }
 }

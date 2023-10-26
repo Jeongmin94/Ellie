@@ -2,6 +2,7 @@ namespace Channels.UI
 {
     public enum UIType
     {
+        BarImage
     }
 
     public class UIPayload : IBaseEventPayload
@@ -9,7 +10,7 @@ namespace Channels.UI
         public UIType Type { get; set; }
     }
 
-    public class UIChannel<T> : BaseEventChannel<T> where T : IBaseEventPayload
+    public class UIChannel : BaseEventChannel
     {
     }
 }
