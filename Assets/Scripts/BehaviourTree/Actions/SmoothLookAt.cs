@@ -19,6 +19,11 @@ public class SmoothLookAt : ActionNode
         Vector3 direction = targetPosition.Value - context.transform.position;
         direction.y = 0;
 
+        if (direction.sqrMagnitude < 0.001f)
+        {
+            return State.Success;
+        }
+
         Quaternion rotation = Quaternion.LookRotation(direction);
 
         context.transform.rotation = Quaternion.Slerp(context.transform.rotation, rotation, rotationSpeed.Value * Time.deltaTime);
