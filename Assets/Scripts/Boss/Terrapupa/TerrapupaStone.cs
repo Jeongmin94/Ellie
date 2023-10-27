@@ -7,19 +7,19 @@ public class TerrapupaStone : MonoBehaviour
 {
 	public float movementSpeed = 7.0f;
 
-	private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("InteractionObject") || other.gameObject.CompareTag("Ground"))
-		{
-			Debug.Log($"{other.name} 충돌");
+	private void OnCollisionEnter(Collision collision)
+	{
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log($"{collision.collider.name} 충돌");
 
-			Destroy(gameObject);
-		}
+            Destroy(gameObject);
+        }
     }
 
-    public void MoveToTarget(Transform target)
+	public void MoveToTarget(Transform target)
 	{
-		Vector3 direction = target.position - transform.position;
+		Vector3 direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
 		direction.Normalize();
 
         Rigidbody rb = GetComponent<Rigidbody>();
@@ -27,8 +27,9 @@ public class TerrapupaStone : MonoBehaviour
 
         if (rb != null && sphereCollider != null)
 		{
-			rb.isKinematic = false;
 			sphereCollider.enabled = true;
+			rb.useGravity = true;
+			rb.isKinematic = false;
 
             rb.velocity = direction * movementSpeed;
 		}

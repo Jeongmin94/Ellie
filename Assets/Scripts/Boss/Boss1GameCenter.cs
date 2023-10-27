@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Boss.Objects;
 using Assets.Scripts.Boss.Terrapupa;
 using Assets.Scripts.Player;
-
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using TheKiwiCoder;
@@ -11,6 +11,8 @@ namespace Assets.Scripts.Boss
 {
     public class Boss1GameCenter : MonoBehaviour
     {
+        public GameObject playerStoneTemp;
+
         [SerializeField] private TerrapupaController boss;
         [SerializeField] private PlayerController player;
         [SerializeField] private List<ManaFountain> manaObjects = new List<ManaFountain>();
@@ -22,23 +24,23 @@ namespace Assets.Scripts.Boss
 
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
-            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.RespawnMana, OnRespawnMana);
         }
 
         private void OnSpawnStone()
         {
-            Debug.Log("OnSpawnStone");
+            Debug.Log("OnSpawnStone :: 보스의 돌맹이 줍기");
 
             boss.RightHand.gameObject.SetActive(true);
         }
 
         private void OnThrowStone(BaseEventPayload payload)
         {
-            Debug.Log("OnThrowStone");
+            Debug.Log("OnThrowStone :: 보스의 돌맹이 던지기");
 
             BossEventPayload posPayload = payload as BossEventPayload;
 
-            GameObject bossStone = Instantiate(boss.RightHand.gameObject, boss.RightHand.position, Quaternion.identity);
+            GameObject bossStone = Instantiate(
+                boss.RightHand.gameObject, boss.RightHand.position, Quaternion.identity);
             bossStone.GetComponent<Rigidbody>().isKinematic = false;
             bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue2);
 
@@ -47,15 +49,39 @@ namespace Assets.Scripts.Boss
 
         private void OnHitMana(BossEventPayload manaPayload)
         {
-            // 마나의 샘 마법 돌맹이 루팅 이벤트
-            Debug.Log("OnHitMana");
+            Debug.Log("OnHitMana :: 돌맹이 루팅");
+
+            for (int i = 0; i < 5; i++)
+            {
+                GameObject playerStone = Instantiate(
+                    playerStoneTemp, manaPayload.TransformValue1.position, Quaternion.identity);
+
+                Vector3 randomDirection = new Vector3(
+                Random.Range(-1f, 1f), Random.Range(0.5f, 1f), Random.Range(-1f, 1f)).normalized;
+
+                playerStone.GetComponent<Rigidbody>().AddForce(
+                    randomDirection * 10.0f, ForceMode.Impulse);
+            }
+
+            StartCoroutine(ManaCooldown(manaPayload));
+        }
+
+        private IEnumerator ManaCooldown(BossEventPayload manaPayload)
+        {
+            ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+            mana.IsCooldown = true;
+
+            yield return new WaitForSeconds(mana.coolDownValue);
+
+            Debug.Log($"{mana.name} 쿨타임 완료");
+            mana.IsCooldown = false;
         }
 
         private void OnDestroyedMana(BossEventPayload manaPayload)
         {
-            // 마나의 샘 부서졌을 때, 보스 공격 타입 봉인
-            Debug.Log("OnDestroyedMana");
-            Debug.Log($"{manaPayload.AttackTypeValue} 공격 타입 봉인");
+            Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} 공격 타입 봉인");
+
+            Destroy(manaPayload.TransformValue2.gameObject);
 
             switch (manaPayload.AttackTypeValue)
             {
@@ -74,13 +100,22 @@ namespace Assets.Scripts.Boss
                 default:
                     break;
             }
+
+            StartCoroutine(ManaRespawn(manaPayload));
         }
 
-        private void OnRespawnMana(BossEventPayload manaPayload)
+        private IEnumerator ManaRespawn(BossEventPayload manaPayload)
         {
-            // 다시 공격 타입 봉인 해제
-            Debug.Log("OnRespawnMana");
-            Debug.Log($"{manaPayload.AttackTypeValue} 공격 타입 봉인 해제");
+            ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+            mana.IsBroken = true;
+            mana.gameObject.SetActive(false);
+
+            yield return new WaitForSeconds(mana.respawnValue);
+
+            Debug.Log($"{mana.name} 리스폰 완료");
+            mana.gameObject.SetActive(true);
+            mana.IsBroken = false;
+            mana.IsCooldown = false;
 
             switch (manaPayload.AttackTypeValue)
             {
@@ -99,6 +134,30 @@ namespace Assets.Scripts.Boss
                 default:
                     break;
             }
+        }
+
+        private void OnGUI()
+        {
+            float distance = Vector3.Distance(player.transform.position, boss.transform.position);
+            string distanceText = "Distance: " + distance.ToString("F2");
+
+            int boxWidth = 200;
+            int boxHeight = 30;
+            int offsetX = 10;
+            int offsetY = 10;
+
+            Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
+            GUI.Box(boxRect, "");
+            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
+        }
+
+        private void OnDrawGizmos()
+        {
+            float rayLength = 7.0f;
+            Color rayColor = Color.red;
+
+            Gizmos.color = rayColor;
+            Gizmos.DrawRay(boss.transform.position, boss.transform.forward * rayLength);
         }
     }
 }

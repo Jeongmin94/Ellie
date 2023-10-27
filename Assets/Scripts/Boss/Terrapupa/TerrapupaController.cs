@@ -77,5 +77,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
             throwStonePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("throwStonePayload");
         }
+
+
     }
 }

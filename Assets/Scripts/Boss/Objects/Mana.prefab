@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5517687726922987398}
   m_Layer: 0
   m_Name: StylRocksMagic_3_LOD0
-  m_TagString: Untagged
+  m_TagString: InteractionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,6 +107,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6561002492242775536}
+  - component: {fileID: 2176720462376189021}
+  - component: {fileID: 2176720462376189022}
   m_Layer: 0
   m_Name: Mana
   m_TagString: InteractionObject
@@ -134,6 +136,37 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 235, z: 0}
+--- !u!136 &2176720462376189021
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5784466549098485578}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.58521605
+  m_Height: 2.2530956
+  m_Direction: 1
+  m_Center: {x: 0.033260822, y: 1.2955065, z: -7.911971e-11}
+--- !u!114 &2176720462376189022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5784466549098485578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  banBossAttackType: 3
+  cooldownValue: 10
+  respawnValue: 10
+  isCooldown: 0
+  isBroken: 0
 --- !u!1 &6132928441833097749
 GameObject:
   m_ObjectHideFlags: 0
@@ -148,7 +181,7 @@ GameObject:
   - component: {fileID: 6498160361805814547}
   m_Layer: 0
   m_Name: StylRocksMagic_2_LOD0
-  m_TagString: Untagged
+  m_TagString: InteractionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -246,7 +279,7 @@ GameObject:
   - component: {fileID: 6168444681122405723}
   m_Layer: 0
   m_Name: StylRocksMagic_1_LOD0
-  m_TagString: Untagged
+  m_TagString: InteractionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -344,7 +377,7 @@ GameObject:
   - component: {fileID: 312054791518917260}
   m_Layer: 0
   m_Name: StylRocksMagic_4_LOD0
-  m_TagString: Untagged
+  m_TagString: InteractionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -442,7 +475,7 @@ GameObject:
   - component: {fileID: 4794636297973123111}
   m_Layer: 0
   m_Name: StylRocksMagic_5_LOD0
-  m_TagString: Untagged
+  m_TagString: InteractionObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
