@@ -8,18 +8,17 @@ namespace Assets.Scripts.Monsters.Attacks
 
     public class AOEPrefabAttack : AbstractAttack
     {
-        [SerializeField] private AOE prefabObject;
+        private AOE prefabObject;
         private Vector3 position;
         private Vector3 offset;
         private float damageInterval;
 
-        public override void InitializeAOE
-            (float attackValue, float durationTime, float attackInterval, float attackRange, float damageInterval, GameObject prefabObject)
+        public override void InitializeAOE(AOEAttackData data)
         {
-            InitializedBase(attackValue, durationTime, attackInterval, attackRange);
+            InitializedBase(data.attackValue, data.durationTime, data.attackInterval, data.attackableDistance);
             Debug.Log("ParameterOBJ : " + prefabObject);
-            this.damageInterval = damageInterval;
-            this.prefabObject = prefabObject.GetComponent<AOE>();
+            damageInterval = data.damageInterval;
+            prefabObject = data.prefabObject.GetComponent<AOE>();
             if (prefabObject == null)
                 Debug.Log("[AOEPrefabAttack] PrefabObject is Null");
         }

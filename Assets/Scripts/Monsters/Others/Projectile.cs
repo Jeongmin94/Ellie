@@ -9,8 +9,8 @@ namespace Assets.Scripts.Monsters.Others
     {
         [SerializeField] private float projectileSpeed;
         private float durationTime;
-
         private float attackValue;
+
         private string owner;
 
         private void Start()
@@ -21,6 +21,13 @@ namespace Assets.Scripts.Monsters.Others
         private void FixedUpdate()
         {
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+        }
+
+        public void SetProjectileData(float attackValue, float durationTime, string owner)
+        {
+            this.durationTime = durationTime;
+            this.attackValue = attackValue;
+            this.owner = owner;
         }
 
         private void OnTriggerEnter(Collider other)
@@ -39,20 +46,13 @@ namespace Assets.Scripts.Monsters.Others
         }
         private void FireEnemyProjectile(Collider other)
         {
-            Debug.Log("Player Hit");
             Destroy(gameObject);
+            //Send Message To GameCenter
         }
         private void FirePlayerProjectile(Collider other)
         {
 
         }
 
-        public void SetProjectileData(float attackValue, float durationTime, string owner)
-        {
-            this.durationTime = durationTime;
-            this.attackValue = attackValue;
-            this.owner = owner;
-        }
     }
-
 }

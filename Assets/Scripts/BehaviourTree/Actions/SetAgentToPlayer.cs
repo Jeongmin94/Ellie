@@ -10,7 +10,7 @@ public class SetAgentToPlayer : ActionNode
 
     protected override void OnStart() {
         context.agent.destination = player.Value;
-        Debug.Log("Chase Player");
+        context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
     }
 
     protected override void OnStop() {

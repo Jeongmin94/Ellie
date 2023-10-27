@@ -30,6 +30,7 @@ namespace Assets.Scripts.Monsters.Others
             {
                 if (other.tag == "Player")
                 {
+                    accumulatedTime = 0.0f;
                     //Player Recieve Attack
                 }
             }

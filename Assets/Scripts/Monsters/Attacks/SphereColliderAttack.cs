@@ -7,12 +7,11 @@ namespace Assets.Scripts.Monsters.Attacks
 
     public class SphereColliderAttack : AbstractAttack
     {
-        [SerializeField] private SphereCollider collider;
+        private SphereCollider collider;
 
-        public override void InitializeSphereCollider(float attackValue, float duration,
-            float attackInterval, float attackRange, float attackRadius, Vector3 offset)
+        public override void InitializeSphereCollider(SphereColliderAttackData data)
         {
-            InitializedBase(attackValue, duration, attackInterval, attackRange);
+            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
             owner = gameObject.tag.ToString();
 
             if (collider == null)
@@ -21,14 +20,13 @@ namespace Assets.Scripts.Monsters.Attacks
                 collider.isTrigger = true;
                 collider.enabled = false;
             }
-            gameObject.transform.localPosition = offset;
-            collider.radius = attackRadius;
+            gameObject.transform.localPosition = data.offset;
+            collider.radius = data.radius;
         }
 
         public override void ActivateAttack()
         {
             collider.enabled = true;
-            Debug.Log("SphereColliderAttacked");
             StartCoroutine("DisableCollider");
         }
         private IEnumerator DisableCollider()

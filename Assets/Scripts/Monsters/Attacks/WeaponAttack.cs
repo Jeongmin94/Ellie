@@ -8,12 +8,11 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class WeaponAttack : AbstractAttack
     {
-        [SerializeField] private Collider collider;
+        private Collider collider;
 
         public override void InitializeWeapon(WeaponAttackData data)
         {
             InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
-
             if(collider==null)
             {
                 collider = data.weapon.GetComponent<Collider>();
@@ -25,7 +24,6 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public override void ActivateAttack()
         {
-            //Debug.Log("[WeaponAttack] ActivateAttack");
             if (!IsAttackReady) return;
             if (collider == null)
             {
@@ -40,7 +38,6 @@ namespace Assets.Scripts.Monsters.Attacks
 
         private IEnumerator DisableCollider()
         {
-            //Debug.Log("[WeaponAttack] DisableCollider()");
             yield return new WaitForSeconds(durationTime);
             collider.enabled = false;
             StartCoroutine(SetAttackReady());
@@ -50,7 +47,6 @@ namespace Assets.Scripts.Monsters.Attacks
         {
             yield return new WaitForSeconds(AttackInterval);
             IsAttackReady = true;
-
         }
 
         public void OnWeaponTriggerEnter(Collider other)
@@ -66,5 +62,4 @@ namespace Assets.Scripts.Monsters.Attacks
         }
 
     }
-
 }

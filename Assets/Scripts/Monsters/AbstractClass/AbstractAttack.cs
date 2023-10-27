@@ -6,12 +6,13 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractAttack : MonoBehaviour
     {
-        [SerializeField] protected float attackValue; //공격력
-        [SerializeField] protected float durationTime; //공격 지속 시간
+        protected float attackValue;
+        protected float durationTime; 
 
-        public float AttackRange { get; private set; } //공격 발동 범위
-        public float AttackInterval { get; private set; } //공격 쿨타임(간격)
-        public bool IsAttackReady { get; protected set; } //공격 가능 여부 
+        public float AttackableDistance { get; private set; }
+        public float AttackInterval { get; private set; }
+
+        public bool IsAttackReady { get; protected set; }
 
         protected string owner;
         protected string prefabName;
@@ -25,18 +26,16 @@ namespace Assets.Scripts.Monsters.AbstractClass
             this.attackValue = attackValue;
             this.durationTime = durationTime;
             AttackInterval = attackInterval;
-            AttackRange = attackRange;
+            AttackableDistance = attackRange;
 
             IsAttackReady = true;
             owner = Functions.FindHighestParent(gameObject).tag.ToString();
-            //Debug.Log("[AbstractAttack]Initialized base");
         }
 
         public virtual void InitializeBoxCollider(BoxColliderAttackData data)
         { }
 
-        public virtual void InitializeSphereCollider
-            (float attackValue, float duration, float attackInterval, float attackRange, float attackRadius, Vector3 offset)
+        public virtual void InitializeSphereCollider(SphereColliderAttackData data)
         { }
 
         public virtual void InitializeProjectile(ProjectileAttackData data)
@@ -45,8 +44,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public virtual void InitializeWeapon(WeaponAttackData data)
         { }
 
-        public virtual void InitializeAOE
-            (float attackValue, float durationTime, float attackInterval, float attackRange, float damageInterval, GameObject prefabObject)
+        public virtual void InitializeAOE(AOEAttackData data)
         { }
     }
 

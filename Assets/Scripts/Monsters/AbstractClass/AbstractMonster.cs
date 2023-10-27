@@ -12,7 +12,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
     public abstract class AbstractMonster : MonoBehaviour
     {
         protected bool isAttacking;
-
         protected AbstractAttack[] skills;
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
@@ -56,7 +55,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
             return attack;
         }
-
     }
 
 }
