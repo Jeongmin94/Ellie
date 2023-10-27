@@ -81,7 +81,10 @@ namespace Assets.Scripts.Boss
         {
             Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} 공격 타입 봉인");
 
-            Destroy(manaPayload.TransformValue2.gameObject);
+            if(manaPayload.TransformValue2 != null)
+            {
+                Destroy(manaPayload.TransformValue2.gameObject);
+            }
 
             switch (manaPayload.AttackTypeValue)
             {

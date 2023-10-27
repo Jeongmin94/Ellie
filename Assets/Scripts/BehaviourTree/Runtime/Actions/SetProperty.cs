@@ -17,7 +17,6 @@ namespace TheKiwiCoder {
         }
 
         protected override State OnUpdate() {
-            
             pair.WriteValue();
             
             return State.Success;

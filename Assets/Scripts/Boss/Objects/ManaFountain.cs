@@ -48,8 +48,22 @@ namespace Assets.Scripts.Boss.Objects
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
                         new BossEventPayload { 
                             TransformValue1 = transform, 
-                            TransformValue2 = other.transform, 
                             AttackTypeValue = banBossAttackType });
+                }
+                else if (other.transform.CompareTag("BattleObject"))
+                {
+                    // 임시 바위
+                    Debug.Log($"{other.name} 충돌");
+
+                    isBroken = true;
+
+                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
+                        new BossEventPayload
+                        {
+                            TransformValue1 = transform,
+                            TransformValue2 = other.transform,
+                            AttackTypeValue = banBossAttackType
+                        });
                 }
             }
         }
