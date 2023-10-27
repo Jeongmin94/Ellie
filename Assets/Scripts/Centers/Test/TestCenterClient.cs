@@ -1,4 +1,3 @@
-using Assets.Scripts.ActionData;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
@@ -54,7 +53,7 @@ namespace Centers.Test
             dataContainer.MaxHp = maxHealth;
             dataContainer.CurrentHp.Value = maxHealth;
             dataContainer.Name = "I'm monster";
-            
+
             billboard.InitData(dataContainer);
         }
 
