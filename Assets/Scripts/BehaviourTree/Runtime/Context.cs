@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-using Assets.Scripts.Data.UI;
-using Assets.Scripts.Monsters.Others;
-using Assets.Scripts.Data;
-using Assets.Scripts.Monsters.Characters;
+using Assets.Scripts.Monsters;
 
-//temp
-using Assets.Scripts.Monsters.Characters.MeleeMonster;
 
 namespace TheKiwiCoder {
-
     // The context is a shared object every node has access to.
     // Commonly used components and subsytems should be stored here
     // It will be somewhat specfic to your game exactly what to add here.

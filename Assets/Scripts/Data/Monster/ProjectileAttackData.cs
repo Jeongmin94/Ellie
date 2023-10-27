@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "RunToPlayer", menuName = "GameData List/Monsters/ProjectileAttack", order = int.MaxValue)]
+[CreateAssetMenu(fileName = "ProjectileAttack", menuName = "GameData List/Monsters/ProjectileAttack", order = int.MaxValue)]
 public class ProjectileAttackData : ScriptableObject
 {
     public float attackValue;

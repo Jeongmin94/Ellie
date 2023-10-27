@@ -8,7 +8,7 @@ using Assets.Scripts.Monsters.AbstractClass;
 namespace Assets.Scripts.Data
 {
 
-    [CreateAssetMenu(fileName = "TestSkeletonMonsterData",menuName = "GameData List/Monsters/SkeletonMonsterData", order =int.MaxValue)]
+    [CreateAssetMenu(fileName = "TestSkeletonMonster",menuName = "GameData List/Monsters/SkeletonMonsterData", order =int.MaxValue)]
     public class SkeletonMonsterData : ScriptableObject
     {
         [SerializeField] public int monsterID;

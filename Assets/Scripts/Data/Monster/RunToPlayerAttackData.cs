@@ -9,6 +9,5 @@ public class RunToPlayerAttackData : ScriptableObject
     public float attackInterval;
     public float attackDuration;
     public float stopDistance;
-    public float readyHold;
     public float activateMinimumDistance;
 }

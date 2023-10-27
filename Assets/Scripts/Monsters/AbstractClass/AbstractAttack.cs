@@ -41,9 +41,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public virtual void InitializeProjectile(ProjectileAttackData data)
         { }
-        //public virtual void InitializeProjectile
-        //    (float attackValue, float durationTime, float attackInterval, float attackRange, Vector3 offset, GameObject prefabObject)
-        //{ }
 
         public virtual void InitializeWeapon(WeaponAttackData data)
         { }

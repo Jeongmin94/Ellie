@@ -739,7 +739,6 @@ GameObject:
   - component: {fileID: 3323000193963563893}
   - component: {fileID: 3323000193963563850}
   - component: {fileID: 3323000193963563851}
-  - component: {fileID: 3323000193963563892}
   m_Layer: 0
   m_Name: Point1
   m_TagString: Untagged
@@ -812,19 +811,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3323000193963563892
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3323000193963563894}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3323000194464078411
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +880,6 @@ GameObject:
   - component: {fileID: 3323000194634897113}
   - component: {fileID: 3323000194634897118}
   - component: {fileID: 3323000194634897119}
-  - component: {fileID: 3323000194634897112}
   m_Layer: 0
   m_Name: Point1 (2)
   m_TagString: Untagged
@@ -967,19 +952,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3323000194634897112
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3323000194634897114}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3323000195332923962
 GameObject:
   m_ObjectHideFlags: 0
@@ -991,7 +963,6 @@ GameObject:
   - component: {fileID: 3323000195332923961}
   - component: {fileID: 3323000195332923966}
   - component: {fileID: 3323000195332923967}
-  - component: {fileID: 3323000195332923960}
   m_Layer: 0
   m_Name: Point1 (1)
   m_TagString: Untagged
@@ -1064,19 +1035,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3323000195332923960
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3323000195332923962}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3323000195399222713
 GameObject:
   m_ObjectHideFlags: 0
@@ -2963,8 +2921,8 @@ GameObject:
   - component: {fileID: 6945183113641375808}
   - component: {fileID: 1286402916042674933}
   - component: {fileID: 3323000195311136147}
-  - component: {fileID: 9024424381210669694}
   - component: {fileID: 3323000195417403496}
+  - component: {fileID: 2594655644297438153}
   m_Layer: 0
   m_Name: NormalSkeleton
   m_TagString: Monster
@@ -3065,26 +3023,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &9024424381210669694
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9034515840355106491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09e221c00de08483fa617c274b0a27bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviourTreeInstance: {fileID: 0}
-  player: {fileID: 0}
-  monsterData: {fileID: 11400000, guid: 9e394a83e2a704ce5a0f24e5770ae66b, type: 2}
-  runToPlayerData: {fileID: 11400000, guid: c25d22fb7bcc644859d5d5bc8bd6c977, type: 2}
-  meleeAttackData: {fileID: 11400000, guid: 9f325a7f1673440a4bbba72652d485d6, type: 2}
-  weaponAttackData: {fileID: 0}
-  projectileAttackData: {fileID: 0}
-  patrolPoints: {fileID: 3323000195537032575}
 --- !u!114 &3323000195417403496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3103,6 +3041,26 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
+--- !u!114 &2594655644297438153
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034515840355106491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ea758fc79144779ad000b17ece2c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviourTreeInstance: {fileID: 0}
+  player: {fileID: 0}
+  monsterData: {fileID: 11400000, guid: 9e394a83e2a704ce5a0f24e5770ae66b, type: 2}
+  runToPlayerData: {fileID: 11400000, guid: c25d22fb7bcc644859d5d5bc8bd6c977, type: 2}
+  meleeAttackData: {fileID: 11400000, guid: 9f325a7f1673440a4bbba72652d485d6, type: 2}
+  weaponAttackData: {fileID: 0}
+  projectileAttackData: {fileID: 0}
+  patrolPoints: {fileID: 0}
 --- !u!1 &9178374280581418941
 GameObject:
   m_ObjectHideFlags: 0

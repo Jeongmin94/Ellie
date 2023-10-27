@@ -11,27 +11,14 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractMonster : MonoBehaviour
     {
-        //Monster Stat, Type
-        
-
-        //Actions
         protected bool isAttacking;
 
-        //Components
         protected AbstractAttack[] skills;
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
 
-        //Attack Dictionary
         public Dictionary<string, AbstractAttack> Attacks = new();
-
-
-        // >> : Functions
-        //protected void InitializeData(SkeletonMonsterData monsterData)
-        //{
-        //    this.monsterData = monsterData;
-        //}
 
         public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {
