@@ -66,7 +66,7 @@ namespace Assets.Scripts.UI.Monster
             barImage = image.GetOrAddComponent<UIBarImage>();
         }
         
-        public void OnChangeHealth(int value)
+        private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
                 return;

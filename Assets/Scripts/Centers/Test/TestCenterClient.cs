@@ -53,6 +53,7 @@ namespace Centers.Test
         {
             dataContainer.MaxHp = maxHealth;
             dataContainer.CurrentHp.Value = maxHealth;
+            dataContainer.Name = "I'm monster";
             
             billboard.InitData(dataContainer);
         }
