@@ -51,7 +51,7 @@ namespace Assets.Scripts.Boss
         {
             Debug.Log("OnHitMana :: 돌맹이 루팅");
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 GameObject playerStone = Instantiate(
                     playerStoneTemp, manaPayload.TransformValue1.position, Quaternion.identity);

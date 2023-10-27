@@ -9,7 +9,7 @@ public enum EventBusEvents
     HitManaByPlayerStone,
     DestroyedManaByBoss1,
     RespawnMana,
-
+    OccurEarthQuake,
 }
 
 public class BaseEventPayload
