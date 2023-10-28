@@ -13,7 +13,6 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             interval = Controller.LandStateDuration;
-            Debug.Log("Land");
             Controller.canTurn = false;
             Controller.Anim.SetBool("IsFalling", false);
             Controller.isJumping = false;

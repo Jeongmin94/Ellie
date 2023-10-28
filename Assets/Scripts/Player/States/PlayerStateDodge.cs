@@ -20,7 +20,7 @@ namespace Assets.Scripts.Player.States
             Controller.groundDrag = 0f;
             dodgeDir = Controller.MoveDirection.normalized;
             //Controller.cam.RotationSpeed = 100f;
-            Controller.playerObj.forward = Controller.MoveDirection.normalized;
+            Controller.PlayerObj.forward = Controller.MoveDirection.normalized;
             dodgeTime = 0f;
         }
 

@@ -16,11 +16,17 @@ MonoBehaviour:
     rid: 1026712297042345985
   nodes:
   - rid: 1026712297042345985
+  - rid: 1401849173575729152
+  - rid: 1401849173575729153
+  - rid: 1401849173575729154
+  - rid: 1401849173575729155
+  - rid: 1401849173575729156
+  - rid: 1401849173575729157
   treeState: 0
   blackboard:
     keys: []
-  viewPosition: {x: 456, y: 256, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+  viewPosition: {x: 389, y: 197, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
@@ -32,10 +38,96 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: dc13f68f-8813-4271-afdd-4309e0372002
-        position: {x: 0, y: 0}
+        position: {x: -165, y: -195}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: -2
+          rid: 1401849173575729155
+    - rid: 1401849173575729152
+      type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d9f153070fb849c4a9c77f0bf4dfd4cb
+        position: {x: -195, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        message:
+          reference:
+            rid: -2
+          defaultValue: 
+    - rid: 1401849173575729153
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d3fb9d13fb30f604193576e3627fbed6
+        position: {x: -495, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        duration: 1
+    - rid: 1401849173575729154
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a1b8bc71835679e4cac35fc7f7be05b5
+        position: {x: -345, y: 165}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 1401849173575729156
+        restartOnSuccess: 1
+        restartOnFailure: 0
+        maxRepeats: 3
+    - rid: 1401849173575729155
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 4d5939949f4b38447993ca0327ba5317
+        position: {x: -165, y: -45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849173575729154
+        - rid: 1401849173575729157
+    - rid: 1401849173575729156
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b3cf8d1acb220ca43a65e3973cc420a5
+        position: {x: -345, y: 315}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849173575729153
+        - rid: 1401849173575729152
+    - rid: 1401849173575729157
+      type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c06f7c410295cc94c836d4c3f9375286
+        position: {x: 0, y: 165}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        message:
+          reference:
+            rid: -2
+          defaultValue: 
