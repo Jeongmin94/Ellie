@@ -146,10 +146,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.58521605
-  m_Height: 2.2530956
+  m_Radius: 0.73001534
+  m_Height: 1.9498012
   m_Direction: 1
-  m_Center: {x: 0.033260822, y: 1.2955065, z: -7.911971e-11}
+  m_Center: {x: 0.1361743, y: 1.4471537, z: 0.22495958}
 --- !u!114 &2176720462376189022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,10 +163,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   banBossAttackType: 3
-  cooldownValue: 10
+  coolDownValue: 3
   respawnValue: 10
-  isCooldown: 0
-  isBroken: 0
 --- !u!1 &6132928441833097749
 GameObject:
   m_ObjectHideFlags: 0
