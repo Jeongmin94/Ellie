@@ -2,19 +2,19 @@ using System;
 
 namespace Channels.Components
 {
-    public class Ticket<T> where T: IBaseEventPayload
+    public class Ticket<T> where T : IBaseEventPayload
     {
-        public Action<T> SendMessageAction;
+        private Action<T> sendMessageAction;
 
-        public void Subscribe(Action<T> listener)
+        public virtual void Subscribe(Action<T> listener)
         {
-            SendMessageAction -= listener;
-            SendMessageAction += listener;
+            sendMessageAction -= listener;
+            sendMessageAction += listener;
         }
 
-        public void SendMessage(T payload)
+        public virtual void Publish(T payload)
         {
-            SendMessageAction?.Invoke(payload);
+            sendMessageAction?.Invoke(payload);
         }
     }
 }

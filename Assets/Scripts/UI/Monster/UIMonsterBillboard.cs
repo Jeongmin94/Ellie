@@ -19,10 +19,10 @@ namespace Assets.Scripts.UI.Monster
             canvas.renderMode = RenderMode.WorldSpace;
         }
 
-        public void InitBillboard(Transform target)
+        public void InitBillboard(Transform parent)
         {
             transform.localScale *= scaleFactor;
-            transform.SetParent(target);
+            transform.SetParent(parent);
             transform.localPosition = Vector3.zero;
         }
 

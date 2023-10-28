@@ -1,23 +1,21 @@
-using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Monster;
-using Assets.Scripts.Utils;
-using Channels.Components;
-using Channels.Type;
+using UnityEngine;
 
 namespace Centers.Test
 {
     public class TestCenter : BaseCenter
     {
-        public CenterTestClient TestClient;
+        public TestCenterClient client;
 
         private void Awake()
         {
-            CheckTicket(TestClient.gameObject);
+            Init();
 
-            var ui = UIManager.Instance.MakeStatic<UIMonsterBillboard>(transform, UIManager.UIMonsterBillboard);
+            Debug.Log($"TestCenter Awake");
+        }
 
-            var tm = ui.gameObject.GetOrAddComponent<TicketMachine<IBaseEventPayload>>();
-            tm.SetTicketType(ChannelType.Combat, ChannelType.UI);
+        protected override void Start()
+        {
+            CheckTicket(client.gameObject);
         }
     }
 }

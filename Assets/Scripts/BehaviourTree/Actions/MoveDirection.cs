@@ -7,7 +7,6 @@ using TheKiwiCoder;
 public class MoveDirection : ActionNode
 {
     public NodeProperty<float> moveSpeed;
-    public NodeProperty<Vector3> moveTarget;
 
     protected override void OnStart() {
     }
@@ -16,7 +15,6 @@ public class MoveDirection : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.transform.LookAt(moveTarget.Value);
         context.transform.Translate(Vector3.forward * moveSpeed.Value * Time.deltaTime);
 
         return State.Success;
