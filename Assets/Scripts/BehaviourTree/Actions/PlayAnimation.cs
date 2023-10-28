@@ -6,24 +6,17 @@ using TheKiwiCoder;
 [System.Serializable]
 public class PlayAnimation : ActionNode
 {
-    public NodeProperty<string> animationTrigger;
-    public NodeProperty<float> wait;
+    public NodeProperty<string> animationName;
 
-    private float accumTime;
     protected override void OnStart() {
-        context.animator.SetTrigger(animationTrigger.Value);
-        accumTime = 0.0f;
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        if(accumTime<wait.Value)
-        {
-            accumTime += Time.deltaTime;
-            return State.Running;
-        }
+        context.animator.Play(animationName.Value);
+
         return State.Success;
     }
 }

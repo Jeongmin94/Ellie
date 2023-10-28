@@ -21,9 +21,6 @@ namespace TheKiwiCoder {
         public BoxCollider boxCollider;
         public CapsuleCollider capsuleCollider;
         public CharacterController characterController;
-        
-        // Add other game specific systems here
-        public Shooter shooter;
 
         public MonsterController controller;
 

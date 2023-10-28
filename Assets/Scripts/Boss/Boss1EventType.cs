@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Boss
 {
-    public class BossEventPayload : BaseEventPayload
+    public class BossEventPayload : IBaseEventPayload
     {
         private int intValue;
         private Vector3 vector3Value;

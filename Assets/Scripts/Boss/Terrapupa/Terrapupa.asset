@@ -26,7 +26,6 @@ MonoBehaviour:
   - rid: 1401849265356013613
   - rid: 1401849265356013617
   - rid: 1401849306078248962
-  - rid: 1401849306078248963
   - rid: 1401849327350972429
   - rid: 8619125029124177924
   - rid: 8619125029124177926
@@ -97,7 +96,6 @@ MonoBehaviour:
   - rid: 8619125046743924771
   - rid: 8619125046743924772
   - rid: 8619125046743924777
-  - rid: 8619125046743924778
   - rid: 8619125046743924782
   - rid: 8619125046743924785
   - rid: 8619125046743924786
@@ -127,6 +125,8 @@ MonoBehaviour:
   - rid: 8619125051680882783
   - rid: 8619125051680882784
   - rid: 8619125051680882786
+  - rid: 1401849379394682880
+  - rid: 1401849379394682883
   treeState: 0
   blackboard:
     keys:
@@ -138,13 +138,13 @@ MonoBehaviour:
     - rid: 1401849284866867201
     - rid: 1401849284866867202
     - rid: 1401849284866867203
-    - rid: 1401849327350972416
-    - rid: 8619125046743924779
     - rid: 8619125029124177949
     - rid: 8619125051680882707
     - rid: 8619125051680882708
-  viewPosition: {x: -50.5, y: 312.5, z: 0}
-  viewScale: {x: 0.25, y: 0.25, z: 1}
+    - rid: 1401849379394682881
+    - rid: 1401849379394682882
+  viewPosition: {x: 382.2857, y: -117.71429, z: 0}
+  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
   references:
     version: 2
     RefIds:
@@ -156,7 +156,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: 30, y: -825}
+        position: {x: 45, y: -825}
         blackboard:
           keys: []
         description: 
@@ -225,7 +225,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 8619125029124177929
-        - rid: 1401849306078248963
+        - rid: 1401849379394682880
         - rid: 1401849265356013617
         - rid: 8619125051680882732
     - rid: 1401849265356013605
@@ -234,7 +234,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a5f5815f9f22cb5419aad05cefc764b8
-        position: {x: -1845, y: 780}
+        position: {x: -1860, y: 750}
         blackboard:
           keys: []
         description: "\uB3CC \uB358\uC9C0\uAE30"
@@ -250,7 +250,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a8a78a1e4f0dcf14bbfc02a4706b1e2d
-        position: {x: 30, y: -660}
+        position: {x: 45, y: -660}
         blackboard:
           keys: []
         description: 
@@ -356,30 +356,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 2
-    - rid: 1401849306078248963
-      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 3f7cc1b83cca6f34cab9a6443104b117
-        position: {x: -1245, y: 1095}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 1
-        eventBusEvent:
-          reference:
-            rid: -2
-          defaultValue: 1
-        baseEventPayload:
-          reference:
-            rid: 1401849327350972416
-    - rid: 1401849327350972416
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: throwStonePayload
-        typeName: BaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 1401849327350972429
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -396,6 +372,54 @@ MonoBehaviour:
         - rid: 8619125046743924751
         - rid: 1401849265356013609
         - rid: 8619125051680882737
+    - rid: 1401849379394682880
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: cef6e428db9b26543a863525d45d2ad9
+        position: {x: -1275, y: 1095}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 1
+        baseEventPayload:
+          reference:
+            rid: 1401849379394682881
+    - rid: 1401849379394682881
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: throwStonePayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 1401849379394682882
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: occurEarthQuakePayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 1401849379394682883
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: df99a5c1bff44a04791230643cf9627a
+        position: {x: 1050, y: 1035}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 6
+        baseEventPayload:
+          reference:
+            rid: 1401849379394682882
     - rid: 8619125029124177924
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -884,7 +908,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e382d2ea4d68a5c4e8ec5af2321cf1e4
-        position: {x: -2970, y: 15}
+        position: {x: -3000, y: 15}
         blackboard:
           keys: []
         description: 
@@ -1465,7 +1489,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 8619125046743924771
-        - rid: 8619125046743924778
+        - rid: 1401849379394682883
         - rid: 8619125046743924777
         - rid: 8619125046743924786
     - rid: 8619125046743924773
@@ -1491,30 +1515,6 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-    - rid: 8619125046743924778
-      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: eb723becf5e2a6944966d5e1bad54146
-        position: {x: 1050, y: 1035}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        eventBusEvent:
-          reference:
-            rid: -2
-          defaultValue: 6
-        baseEventPayload:
-          reference:
-            rid: 8619125046743924779
-    - rid: 8619125046743924779
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: occurEarthQuakePayload
-        typeName: BaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 8619125046743924782
       type: {class: LookAtPosition, ns: , asm: Assembly.Ellie}
       data:

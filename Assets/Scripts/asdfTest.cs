@@ -25,11 +25,11 @@ public class asdfTest : MonoBehaviour
         TestEventPayload temp = new TestEventPayload(100, "�׽�Ʈ");
         object obj = temp;
 
-        EventBus.Instance.Subscribe<BaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnTestObj);
+        EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnTestObj);
         EventBus.Instance.Subscribe(EventBusEvents.None, OnTest);
         EventBus.Instance.Subscribe<TestEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnTestInfo);
 
-        EventBus.Instance.Publish<BaseEventPayload>(EventBusEvents.GripStoneByBoss1, temp);
+        EventBus.Instance.Publish<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, temp);
         EventBus.Instance.Publish(EventBusEvents.None);
         EventBus.Instance.Publish<TestEventPayload>(EventBusEvents.ThrowStoneByBoss1, new TestEventPayload(5, "ȣ����"));
     }

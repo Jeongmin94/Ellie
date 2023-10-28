@@ -20,7 +20,7 @@ namespace Assets.Scripts.Boss
         private void Start()
         {
             EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
-            EventBus.Instance.Subscribe<BaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
 
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
