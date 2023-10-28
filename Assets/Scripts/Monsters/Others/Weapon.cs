@@ -6,7 +6,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Others
 {
-
     public class Weapon : MonoBehaviour
     {
         private WeaponAttack parent;

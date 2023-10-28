@@ -26,11 +26,16 @@ public class DistanceAttackable : ActionNode
             Debug.Log("Fail Because minimumDist");
             return State.Failure;
         }
+        if (maximumAttackableDistance.Value == 0)
+        {
+            maximumAttackableDistance.Value = context.controller.monsterData.chasePlayerDistance;
+        }
         if (playerDistance.Value > maximumAttackableDistance.Value)
         {
             Debug.Log("Fail Because maximumDist");
             return State.Failure;
         }
+
         if (Time.time - usedTime < attackInterval.Value)
         {
             Debug.Log("Fail Because Interval");
@@ -38,6 +43,7 @@ public class DistanceAttackable : ActionNode
         }
         usedTime = Time.time;
 
+        Debug.Log("Successed");
         return State.Success;
     }
 }

@@ -45,12 +45,10 @@ public class PatrolToPoint : ActionNode
                 count = 0;
             }
             context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
-            Debug.Log("Succeed because distance");
             return State.Success;
         }
         if (playerDetect.IsDetected)
         {
-            Debug.Log("Succeed because chase detect");
             return State.Success;
         }
 

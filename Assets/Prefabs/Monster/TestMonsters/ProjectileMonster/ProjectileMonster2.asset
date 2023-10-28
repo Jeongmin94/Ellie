@@ -95,8 +95,8 @@ MonoBehaviour:
     - rid: 5827610105833848835
     - rid: 5827610105833848836
     - rid: 5827610152718303234
-  viewPosition: {x: -307, y: -590, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+  viewPosition: {x: 1414, y: 8, z: 0}
+  viewScale: {x: 0.4971768, y: 0.4971768, z: 1}
   references:
     version: 2
     RefIds:
@@ -236,12 +236,12 @@ MonoBehaviour:
           defaultValue: 0
         minimumAttackableDistance:
           reference:
-            rid: -2
+            rid: 5827610086317228075
           defaultValue: 0
         maximumAttackableDistance:
           reference:
-            rid: 5827610086317228075
-          defaultValue: 5
+            rid: -2
+          defaultValue: 0
         attackInterval:
           reference:
             rid: 5827610086317228076
@@ -300,12 +300,12 @@ MonoBehaviour:
           defaultValue: 0
         minimumAttackableDistance:
           reference:
-            rid: -2
+            rid: 5827610105833848835
           defaultValue: 0
         maximumAttackableDistance:
           reference:
-            rid: 5827610105833848835
-          defaultValue: 0
+            rid: -2
+          defaultValue: 20
         attackInterval:
           reference:
             rid: 5827610105833848836
@@ -1081,7 +1081,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ce683a3647ed643bb9f54e00549ffcf5
-        position: {x: -1410, y: 930}
+        position: {x: -1425, y: 930}
         blackboard:
           keys: []
         description: 
