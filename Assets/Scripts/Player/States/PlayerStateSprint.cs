@@ -58,12 +58,14 @@ namespace Assets.Scripts.Player.States
         }
         private void ConsumeStamina()
         {
-            temp += Time.deltaTime;
-            if (temp >= 0.1f)
-            {
-                Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.SprintStaminaConsumptionPerSec / 10);
-                temp = 0;
-            }
+            //temp += Time.deltaTime;
+            //if (temp >= 0.1f)
+            //{
+            //    Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.SprintStaminaConsumptionPerSec / 10);
+            //    temp = 0;
+            //}
+            //Controller.PlayerStatus.Stamina -= Time.deltaTime * Controller.PlayerStatus.SprintStaminaConsumptionPerSec;
+            Controller.PlayerStatus.ConsumeStamina(Time.deltaTime * Controller.PlayerStatus.SprintStaminaConsumptionPerSec);
             if (Controller.PlayerStatus.Stamina <= 10.0f)
             {
                 Controller.ChangeState(PlayerStateName.Exhaust);

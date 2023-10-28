@@ -68,17 +68,17 @@ namespace Assets.Scripts.UI.Framework
                 healthData.CurrentHealth.Value = val;
             }
 
-            if (GUI.Button(new Rect(10, h - 90, 100, 20), "use stamina"))
-            {
-                int val = Math.Clamp(staminaData.CurrentStamina.Value - staminaCost, 0, staminaData.MaxStamina);
-                staminaData.CurrentStamina.Value = val;
-            }
+            //if (GUI.Button(new Rect(10, h - 90, 100, 20), "use stamina"))
+            //{
+            //    int val = Math.Clamp(staminaData.CurrentStamina.Value - staminaCost, 0, staminaData.MaxStamina);
+            //    staminaData.CurrentStamina.Value = val;
+            //}
 
-            if (GUI.Button(new Rect(10, h - 120, 100, 20), "restore stamina"))
-            {
-                int val = Math.Clamp(staminaData.CurrentStamina.Value + staminaCost, 0, staminaData.MaxStamina);
-                staminaData.CurrentStamina.Value = val;
-            }
+            //if (GUI.Button(new Rect(10, h - 120, 100, 20), "restore stamina"))
+            //{
+            //    int val = Math.Clamp(staminaData.CurrentStamina.Value + staminaCost, 0, staminaData.MaxStamina);
+            //    staminaData.CurrentStamina.Value = val;
+            //}
 
             if (GUI.Button(new Rect(10, h - 150, 100, 20), "add status"))
             {

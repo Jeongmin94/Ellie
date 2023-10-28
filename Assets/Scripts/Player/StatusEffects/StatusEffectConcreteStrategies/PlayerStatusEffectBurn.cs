@@ -18,12 +18,12 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
             // !TODO : 플레이어 화상 이펙트 적용
             controller.effects.Add(this);
             float startTime = Time.time;
+            //화상 로직
             while (Time.time - startTime < DURATION)
             {
                 
                 yield return null;
             }
-            //화상 로직
         }
     }
 }

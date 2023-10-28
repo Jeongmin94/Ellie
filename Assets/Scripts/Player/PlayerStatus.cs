@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.StatusEffects;
+using Assets.Scripts.UI.Framework.Images;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Player
 
         float temp;
 
+        private PlayerUI playerUI;
 
         // !TODO : ICombatant를 붙이고, StatusEffectController를 참조하여 ApplyStatusEffect를 해주기
         // !TODO : Battle 채널에 구독될 수 있는 티켓 포함
@@ -53,7 +55,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public int Stamina
+        public float Stamina
         {
             get { return staminaData.CurrentStamina.Value; }
             set
@@ -66,7 +68,7 @@ namespace Assets.Scripts.Player
             playerStatusEffectController = GetComponent<PlayerStatusEffectController>();
             playerStatusEffects = new();
             healthData.InitHealth();
-            
+            playerUI = GetComponent<PlayerUI>();
 
             InitStatusEffects();
         }
@@ -100,8 +102,21 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public void ConsumeStamina(int consumedStamina)
+        public void ConsumeStamina(float consumedStamina)
         {
+            if (consumedStamina > 10.0f)
+            {
+                Color color = Color.white;
+                color.a = 1f;
+                playerUI.StaminaBarImage.MidgroundColor = color;
+                StartCoroutine(playerUI.StaminaBarImage.CheckSliderValue(FillAmountType.Midground, FillAmountType.Foreground));
+            }
+            else
+            {
+                Color color = Color.white;
+                color.a = 0f;
+                playerUI.StaminaBarImage.MidgroundColor = color;
+            }
             if (Stamina - consumedStamina < 0)
                 Stamina = 0;
             else

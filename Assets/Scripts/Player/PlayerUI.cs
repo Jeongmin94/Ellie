@@ -21,15 +21,20 @@ namespace Assets.Scripts.Player
         [SerializeField] private StaminaData staminaData;
 
         private UIStatusBar statusBar;
+        private UIBarImage staminaBarImage;
+        public UIBarImage StaminaBarImage
+        {
+            get { return staminaBarImage; }
+        }
 
         private void Awake()
         {
             healthData.InitHealth();
             staminaData.InitStamina();
         }
-        void Start()
+        private void Start()
         {
-            UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
+            staminaBarImage = UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina).BarImage;
             UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
             UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
             statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
