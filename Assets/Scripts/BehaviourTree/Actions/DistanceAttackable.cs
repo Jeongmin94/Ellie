@@ -23,7 +23,6 @@ public class DistanceAttackable : ActionNode
     {
         if (playerDistance.Value < minimumAttackableDistance.Value)
         {
-            Debug.Log("Fail Because minimumDist");
             return State.Failure;
         }
         if (maximumAttackableDistance.Value == 0)
@@ -32,18 +31,15 @@ public class DistanceAttackable : ActionNode
         }
         if (playerDistance.Value > maximumAttackableDistance.Value)
         {
-            Debug.Log("Fail Because maximumDist");
             return State.Failure;
         }
 
         if (Time.time - usedTime < attackInterval.Value)
         {
-            Debug.Log("Fail Because Interval");
             return State.Failure;
         }
         usedTime = Time.time;
 
-        Debug.Log("Successed");
         return State.Success;
     }
 }
