@@ -1,3 +1,4 @@
+using Assets.Scripts.Item;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,27 +7,35 @@ public class TerrapupaStone : MonoBehaviour
 {
 	public float movementSpeed = 7.0f;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.gameObject.CompareTag("Boss"))
-		{
-			Debug.Log("플레이어와 충돌");
+	private void OnCollisionEnter(Collision collision)
+	{
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log($"{collision.collider.name} 충돌");
 
-			Destroy(gameObject);
-		}
+            Destroy(gameObject);
+        }
     }
 
-    public void MoveToTarget(Vector3 target)
+	public void MoveToTarget(Transform target)
 	{
+		Vector3 direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
+		direction.Normalize();
 
-	}
+        Rigidbody rb = GetComponent<Rigidbody>();
+        SphereCollider sphereCollider = GetComponent<SphereCollider>();
 
-	private IEnumerator Move(Vector3 target)
-	{
-		while (true)
+        if (rb != null && sphereCollider != null)
 		{
+			sphereCollider.enabled = true;
+			rb.useGravity = true;
+			rb.isKinematic = false;
 
-			yield return null;
+            rb.velocity = direction * movementSpeed;
 		}
-	}
+		else
+		{
+			Debug.LogError("GetComponent Error");
+		}
+    }
 }

@@ -2,13 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
-using Assets.Scripts.Boss;
 
 [System.Serializable]
-public class PublishEventBusPayload : ActionNode
+public class TriggerAnimation : ActionNode
 {
-    public NodeProperty<EventBusEvents> eventBusEvent;
-    public NodeProperty<IBaseEventPayload> baseEventPayload;
+    public NodeProperty<string> animationName;
 
     protected override void OnStart()
     {
@@ -20,7 +18,8 @@ public class PublishEventBusPayload : ActionNode
 
     protected override State OnUpdate()
     {
-        EventBus.Instance.Publish(eventBusEvent.Value, baseEventPayload.Value);
+        context.animator.SetTrigger(animationName.Value);
+
         return State.Success;
     }
 }

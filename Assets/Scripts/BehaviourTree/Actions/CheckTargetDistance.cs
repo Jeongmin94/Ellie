@@ -16,7 +16,6 @@ public class CheckTargetDistance : ActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log(Vector3.Distance(context.transform.position, targetPosition.Value));
         if(Vector3.Distance(context.transform.position, targetPosition.Value) <= checkDistanceValue.Value)
         {
             return State.Success;

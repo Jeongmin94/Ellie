@@ -4,9 +4,9 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class MoveDirection : ActionNode
+public class SetAnimatorSpeed : ActionNode
 {
-    public NodeProperty<float> moveSpeed;
+    public NodeProperty<float> animationSpeed;
 
     protected override void OnStart() {
     }
@@ -15,8 +15,8 @@ public class MoveDirection : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.transform.Translate(Vector3.forward * moveSpeed.Value * Time.deltaTime);
 
+        context.animator.speed = animationSpeed.Value;
         return State.Success;
     }
 }

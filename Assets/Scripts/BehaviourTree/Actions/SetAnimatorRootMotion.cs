@@ -4,10 +4,9 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class MoveDirection : ActionNode
+public class SetAnimatorRootMotion : ActionNode
 {
-    public NodeProperty<float> moveSpeed;
-
+    public NodeProperty<bool> checkRootMotion;
     protected override void OnStart() {
     }
 
@@ -15,8 +14,7 @@ public class MoveDirection : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.transform.Translate(Vector3.forward * moveSpeed.Value * Time.deltaTime);
-
+        context.animator.applyRootMotion = checkRootMotion.Value;
         return State.Success;
     }
 }

@@ -1,22 +1,16 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Reflection;
+﻿using System.Collections.Generic;
 using TheKiwiCoder;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Boss.Terrapupa
 {
-    public class PositionEventPayload : IBaseEventPayload
+    public enum TerrapupaAttackType
     {
-        private Vector3 position;
-
-        public Vector3 Position
-        {
-            get { return position; }
-            set { position = value; }
-        }
+        None,
+        ThrowStone,
+        EarthQuake,
+        Roll,
+        LowAttack,
     }
 
     public class TerrapupaController : MonoBehaviour
@@ -47,7 +41,8 @@ namespace Assets.Scripts.Boss.Terrapupa
         public BlackboardKey<bool> canEarthQuake;
         public BlackboardKey<bool> canRoll;
         public BlackboardKey<bool> canLowAttack;
-        public BlackboardKey<IBaseEventPayload> throwStonePayload;
+        public BlackboardKey<BaseEventPayload> throwStonePayload;
+        public BlackboardKey<BaseEventPayload> occurEarthQuakePayload;
 
         private void Start()
         {
@@ -61,9 +56,6 @@ namespace Assets.Scripts.Boss.Terrapupa
 
         private void InitStatus()
         {
-            PositionEventPayload payload = new PositionEventPayload();
-            payload.Position = rightHand.position;
-
             behaviourTreeInstance.SetBlackboardValue<Vector3>("targetPosition", target.position);
             behaviourTreeInstance.SetBlackboardValue<int>("currentHP", data.hp);
             behaviourTreeInstance.SetBlackboardValue<float>("moveSpeed", data.movementSpeed);
@@ -71,7 +63,10 @@ namespace Assets.Scripts.Boss.Terrapupa
             behaviourTreeInstance.SetBlackboardValue<bool>("canEarthQuake", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canRoll", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canLowAttack", true);
-            behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("throwStonePayload", payload);
+            behaviourTreeInstance.SetBlackboardValue<BaseEventPayload>("throwStonePayload",
+                new BossEventPayload { TransformValue1 = rightHand, TransformValue2 = target }); ;
+            behaviourTreeInstance.SetBlackboardValue<BaseEventPayload>("occurEarthQuakePayload",
+                new BossEventPayload { TransformValue1 = rightHand, TransformValue2 = target }); ;
 
             targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
             currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
@@ -80,7 +75,11 @@ namespace Assets.Scripts.Boss.Terrapupa
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
             canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
-            throwStonePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("throwStonePayload");
+            
+            throwStonePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("throwStonePayload");
+            occurEarthQuakePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("occurEarthQuakePayload");
         }
+
+
     }
 }
