@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Framework.Images;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -104,23 +105,26 @@ namespace Assets.Scripts.Player
 
         public void ConsumeStamina(float consumedStamina)
         {
-            if (consumedStamina > 10.0f)
-            {
-                Color color = Color.white;
-                color.a = 1f;
-                playerUI.StaminaBarImage.MidgroundColor = color;
-                StartCoroutine(playerUI.StaminaBarImage.CheckSliderValue(FillAmountType.Midground, FillAmountType.Foreground));
-            }
-            else
-            {
-                Color color = Color.white;
-                color.a = 0f;
-                playerUI.StaminaBarImage.MidgroundColor = color;
-            }
+            Color startColor = playerUI.StaminaBarImage.MidgroundStartColor;
             if (Stamina - consumedStamina < 0)
                 Stamina = 0;
             else
                 Stamina -= consumedStamina;
+
+
+            if (consumedStamina > 10.0f)
+            {
+                playerUI.StaminaBarImage.MidgroundColor = startColor;
+                StartCoroutine(CheckMidAndForegroundSliderValue());
+            }
+        }
+        private IEnumerator CheckMidAndForegroundSliderValue()
+        {
+            yield return playerUI.StaminaBarImage.CheckSliderValue(FillAmountType.Midground, FillAmountType.Foreground);
+            Color color = Color.white;
+            color.a = 0f;
+            playerUI.StaminaBarImage.MidgroundColor = color;
         }
     }
+    
 }

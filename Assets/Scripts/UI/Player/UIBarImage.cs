@@ -104,7 +104,6 @@ namespace Assets.Scripts.UI.Player
 
             while (!Mathf.Equals(midSlider.value, foreSlider.value))
             {
-
                 yield return new WaitForEndOfFrame();
             }
         }

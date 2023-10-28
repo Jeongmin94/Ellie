@@ -55,7 +55,8 @@ namespace Assets.Scripts.UI.Framework.Images
                 midground.color = value;
             }
         }
-
+        private Color midgroundStartColor;
+        public Color MidgroundStartColor { get { return midgroundStartColor; } }
         protected Image background;
         protected Image midground;
         protected Image foreground;
@@ -72,7 +73,7 @@ namespace Assets.Scripts.UI.Framework.Images
             foreground = GetImage((int)Images.Foreground);
 
             background.color = backgroundColor;
-            midground.color = midgroundColor;
+            midgroundStartColor = midground.color = midgroundColor;
             foreground.color = foregroundColor;
         }
 
