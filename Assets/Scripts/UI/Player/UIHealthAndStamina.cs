@@ -81,11 +81,11 @@ namespace Assets.Scripts.UI.Player
 
         private void SubscribeAction()
         {
-            healthData.CurrentHealth.OnChange -= OnChangeHealth;
-            healthData.CurrentHealth.OnChange += OnChangeHealth;
+            healthData.CurrentHealth.ValueChangeAction -= OnChangeHealth;
+            healthData.CurrentHealth.ValueChangeAction += OnChangeHealth;
 
-            staminaData.CurrentStamina.OnChange -= OnChangeStamina;
-            staminaData.CurrentStamina.OnChange += OnChangeStamina;
+            staminaData.CurrentStamina.ValueChangeAction -= OnChangeStamina;
+            staminaData.CurrentStamina.ValueChangeAction += OnChangeStamina;
         }
 
         private void Start()

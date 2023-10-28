@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class TestEventPayload : BaseEventPayload
+public class TestEventPayload : IBaseEventPayload
 {
     public int health;
     public string name;
@@ -22,16 +22,16 @@ public class asdfTest : MonoBehaviour
 
     private void Start()
     {
-        TestEventPayload temp = new TestEventPayload(100, "Å×½ºÆ®");
+        TestEventPayload temp = new TestEventPayload(100, "ï¿½×½ï¿½Æ®");
         object obj = temp;
 
-        EventBus.Instance.Subscribe<BaseEventPayload>(EventBusEvents.SpawnStoneEvent, OnTestObj);
+        EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.SpawnStoneEvent, OnTestObj);
         EventBus.Instance.Subscribe(EventBusEvents.TestEvent, OnTest);
         EventBus.Instance.Subscribe<TestEventPayload>(EventBusEvents.ThrowStoneEvent, OnTestInfo);
 
-        EventBus.Instance.Publish<BaseEventPayload>(EventBusEvents.SpawnStoneEvent, temp);
+        EventBus.Instance.Publish<IBaseEventPayload>(EventBusEvents.SpawnStoneEvent, temp);
         EventBus.Instance.Publish(EventBusEvents.TestEvent);
-        EventBus.Instance.Publish<TestEventPayload>(EventBusEvents.ThrowStoneEvent, new TestEventPayload(5, "È£¿ËÀÌ"));
+        EventBus.Instance.Publish<TestEventPayload>(EventBusEvents.ThrowStoneEvent, new TestEventPayload(5, "È£ï¿½ï¿½ï¿½ï¿½"));
     }
 
     private void OnTestInfo(TestEventPayload info)
@@ -41,10 +41,10 @@ public class asdfTest : MonoBehaviour
 
     private void OnTest()
     {
-        Debug.Log("Å×½ºÆ®¿¡¿ë");
+        Debug.Log("ï¿½×½ï¿½Æ®ï¿½ï¿½ï¿½ï¿½");
     }
 
-    private void OnTestObj(BaseEventPayload obj)
+    private void OnTestObj(IBaseEventPayload obj)
     {
         TestEventPayload a = obj as TestEventPayload;
         Type type = obj.GetType();
@@ -54,7 +54,7 @@ public class asdfTest : MonoBehaviour
         if (type == Type.GetType("TestEventPayload"))
         {
             TestEventPayload test = (TestEventPayload)obj;
-            Debug.Log("¤·¤·");
+            Debug.Log("ï¿½ï¿½ï¿½ï¿½");
             Debug.Log($"{test.health} , {test.name}");
         }
     }

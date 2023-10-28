@@ -17,7 +17,7 @@ namespace Assets.Scripts.Boss
         private void Start()
         {
             EventBus.Instance.Subscribe(EventBusEvents.SpawnStoneEvent, OnSpawnStone);
-            EventBus.Instance.Subscribe<BaseEventPayload>(EventBusEvents.ThrowStoneEvent, OnThrowStone);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneEvent, OnThrowStone);
         }
 
         private void OnSpawnStone()
@@ -26,7 +26,7 @@ namespace Assets.Scripts.Boss
             Debug.Log("테스트");
         }
 
-        private void OnThrowStone(BaseEventPayload payload)
+        private void OnThrowStone(IBaseEventPayload payload)
         {
             PositionEventPayload posPayload = payload as PositionEventPayload;
             Debug.Log(posPayload.Position);
