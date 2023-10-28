@@ -16,6 +16,7 @@ public class PublishEventBusPayload : ActionNode
 
     protected override void OnStop()
     {
+        
     }
 
     protected override State OnUpdate()
