@@ -12,9 +12,8 @@ public enum EventBusEvents
     OccurEarthQuake,
 }
 
-public class BaseEventPayload
-{ 
-
+public interface IBaseEventPayload
+{
 }
 
 public class EventBus : Singleton<EventBus>
@@ -42,20 +41,20 @@ public class EventBus : Singleton<EventBus>
         }
     }
 
-    public void Subscribe<T>(EventBusEvents eventName, Action<T> listener) where T : BaseEventPayload
+    public void Subscribe<T>(EventBusEvents eventName, Action<T> listener) where T : IBaseEventPayload
     {
         if (!eventTable.ContainsKey(eventName))
             eventTable[eventName] = null;
         eventTable[eventName] = Delegate.Combine(eventTable[eventName], listener);
     }
 
-    public void Unsubscribe<T>(EventBusEvents eventName, Action<T> listener) where T : BaseEventPayload
+    public void Unsubscribe<T>(EventBusEvents eventName, Action<T> listener) where T : IBaseEventPayload
     {
         if (eventTable.ContainsKey(eventName))
             eventTable[eventName] = Delegate.Remove(eventTable[eventName], listener);
     }
 
-    public void Publish<T>(EventBusEvents eventName, T newEvent) where T : BaseEventPayload
+    public void Publish<T>(EventBusEvents eventName, T newEvent) where T : IBaseEventPayload
     {
         if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null) 
         {

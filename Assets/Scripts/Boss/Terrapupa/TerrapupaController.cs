@@ -75,6 +75,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
             canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
+            
             throwStonePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("throwStonePayload");
             occurEarthQuakePayload = behaviourTreeInstance.FindBlackboardKey<BaseEventPayload>("occurEarthQuakePayload");
         }

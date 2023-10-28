@@ -33,7 +33,7 @@ namespace Assets.Scripts.Boss
             boss.RightHand.gameObject.SetActive(true);
         }
 
-        private void OnThrowStone(BaseEventPayload payload)
+        private void OnThrowStone(IBaseEventPayload payload)
         {
             Debug.Log("OnThrowStone :: 보스의 돌맹이 던지기");
 
