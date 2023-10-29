@@ -76,6 +76,7 @@ MonoBehaviour:
   - rid: 5827610152718303241
   - rid: 5827610152718303242
   - rid: 5827610152718303244
+  - rid: 5827610181934514176
   treeState: 0
   blackboard:
     keys:
@@ -95,8 +96,8 @@ MonoBehaviour:
     - rid: 5827610105833848835
     - rid: 5827610105833848836
     - rid: 5827610152718303234
-  viewPosition: {x: 1414, y: 8, z: 0}
-  viewScale: {x: 0.4971768, y: 0.4971768, z: 1}
+  viewPosition: {x: 2603.5, y: -644, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -257,14 +258,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonRunReady
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228043
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -336,14 +333,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonIdle
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 1
+          defaultValue: 
     - rid: 5827610086317228048
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -403,14 +396,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonWalk
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228052
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
@@ -441,14 +430,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonIdle
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228054
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -491,14 +476,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonWalk
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228057
       type: {class: SetAgentToPlayer, ns: , asm: Assembly.Ellie}
       data:
@@ -558,14 +539,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonWalk
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228061
       type: {class: PatrolToPoint, ns: , asm: Assembly.Ellie}
       data:
@@ -647,14 +624,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonIdle
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228067
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -775,14 +748,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonDead
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610086317228084
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -833,14 +802,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
           defaultValue: 
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
     - rid: 5827610086317228089
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -898,14 +863,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonIdle
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610105833848832
       type: {class: AddProjectileAttack, ns: , asm: Assembly.Ellie}
       data:
@@ -983,14 +944,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonAttack
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610105833848848
       type: {class: Stop, ns: , asm: Assembly.Ellie}
       data:
@@ -1208,14 +1165,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        animationTrigger:
+        animationName:
           reference:
             rid: -2
-          defaultValue: SkeletonIdleAttack
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 0
+          defaultValue: 
     - rid: 5827610152718303242
       type: {class: WaitAndDetect, ns: , asm: Assembly.Ellie}
       data:
@@ -1248,3 +1201,22 @@ MonoBehaviour:
         drawGizmos: 0
         child:
           rid: 5827610152718303232
+    - rid: 5827610181934514176
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 76151b369162342299b794ad33580289
+        position: {x: -2374.5, y: 1106}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: 
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0

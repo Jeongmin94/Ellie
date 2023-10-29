@@ -23,48 +23,34 @@ MonoBehaviour:
   - rid: 5827610086317228034
   - rid: 5827610086317228035
   - rid: 5827610086317228036
-  - rid: 5827610086317228039
-  - rid: 5827610086317228040
   - rid: 5827610086317228041
   - rid: 5827610086317228043
   - rid: 5827610086317228044
-  - rid: 5827610086317228045
   - rid: 5827610086317228046
   - rid: 5827610086317228048
   - rid: 5827610086317228049
   - rid: 5827610086317228050
-  - rid: 5827610086317228051
   - rid: 5827610086317228052
-  - rid: 5827610086317228053
   - rid: 5827610086317228054
   - rid: 5827610086317228055
-  - rid: 5827610086317228056
   - rid: 5827610086317228057
   - rid: 5827610086317228058
   - rid: 5827610086317228059
-  - rid: 5827610086317228060
   - rid: 5827610086317228061
   - rid: 5827610086317228062
   - rid: 5827610086317228067
   - rid: 5827610086317228081
   - rid: 5827610086317228082
-  - rid: 5827610086317228083
   - rid: 5827610086317228084
   - rid: 5827610086317228085
   - rid: 5827610086317228086
-  - rid: 5827610086317228087
   - rid: 5827610086317228089
   - rid: 5827610088829878273
   - rid: 5827610088829878275
   - rid: 5827610088829878276
-  - rid: 5827610088829878277
   - rid: 5827610127647113216
-  - rid: 5827610127647113217
   - rid: 5827610127647113218
-  - rid: 5827610127647113219
-  - rid: 5827610127647113220
   - rid: 5827610127647113226
-  - rid: 5827610129303863297
   - rid: 5827610129303863299
   - rid: 5827610129303863300
   - rid: 5827610129303863301
@@ -73,6 +59,19 @@ MonoBehaviour:
   - rid: 5827610129303863305
   - rid: 5827610152718303245
   - rid: 1401849380458725376
+  - rid: 5827610181934514177
+  - rid: 5827610181934514178
+  - rid: 5827610181934514179
+  - rid: 5827610181934514180
+  - rid: 5827610181934514181
+  - rid: 5827610181934514182
+  - rid: 5827610181934514183
+  - rid: 5827610181934514184
+  - rid: 5827610181934514185
+  - rid: 5827610181934514186
+  - rid: 5827610181934514187
+  - rid: 5827610181934514188
+  - rid: 5827610181934514200
   treeState: 0
   blackboard:
     keys:
@@ -91,8 +90,8 @@ MonoBehaviour:
     - rid: 5827610086317228080
     - rid: 5827610127647113221
     - rid: 5827610127647113223
-  viewPosition: {x: 1879.4286, y: -277.7143, z: 0}
-  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  viewPosition: {x: 2283, y: -336, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -104,7 +103,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4a3b416b1b5e9d04fa756550cc8e6d97
-        position: {x: -1747.4288, y: 886.2002}
+        position: {x: -1500, y: 705}
         blackboard:
           keys: []
         description: 
@@ -112,7 +111,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: SkeletonIdleAttack
         wait:
           reference:
             rid: -2
@@ -123,7 +122,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2ad0cac6-856c-42bc-a9c2-1766e6b46cd3
-        position: {x: -180, y: -240}
+        position: {x: 165, y: -240}
         blackboard:
           keys: []
         description: 
@@ -136,7 +135,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 99a1d707d695045cca27d1c76bc47dac
-        position: {x: -180, y: 15}
+        position: {x: 165, y: 15}
         blackboard:
           keys: []
         description: 
@@ -152,7 +151,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 628b12288661642d29cc32ed604eab61
-        position: {x: -180, y: 165}
+        position: {x: 165, y: 165}
         blackboard:
           keys: []
         description: 
@@ -166,7 +165,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 8939fbf2c5a0c4344b8eb11d056df6c0
-        position: {x: -330, y: 300}
+        position: {x: 15, y: 300}
         blackboard:
           keys: []
         description: 
@@ -193,7 +192,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 37586778615144610a329310b2864dfb
-        position: {x: -180, y: 300}
+        position: {x: 165, y: 300}
         blackboard:
           keys: []
         description: 
@@ -209,7 +208,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fdc5cff4db3a84fa48f982b76a45a3c7
-        position: {x: -795, y: 435}
+        position: {x: -1335, y: 435}
         blackboard:
           keys: []
         description: Attacks
@@ -223,23 +222,22 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e52811ae9daed4e1eb83d1290970ec3d
-        position: {x: -1155, y: 570}
+        position: {x: -1830, y: 570}
         blackboard:
           keys: []
         description: RunToPlayer
         drawGizmos: 0
         children:
         - rid: 5827610086317228036
-        - rid: 5827610086317228039
+        - rid: 5827610181934514182
         - rid: 5827610086317228041
-        - rid: 5827610086317228040
     - rid: 5827610086317228036
       type: {class: DistanceAttackable, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 66312dc16c5ab4f63ac0cbda231190be
-        position: {x: -1380, y: 705}
+        position: {x: -2040, y: 705}
         blackboard:
           keys: []
         description: 
@@ -260,43 +258,13 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228079
           defaultValue: 0
-    - rid: 5827610086317228039
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: c08e98161fc2e4afa80425625756591b
-        position: {x: -1200, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
-    - rid: 5827610086317228040
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 221ea1aebc3544526a2c6db4c46eb01a
-        position: {x: -900, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228041
       type: {class: RunToPlayer, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 5eb7fdc77efdb4848a31a0da9f39c3ac
-        position: {x: -1050, y: 705}
+        position: {x: -1650, y: 705}
         blackboard:
           keys: []
         description: 
@@ -315,7 +283,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d4fbf4534dcd34430ad214f2879e66cf
-        position: {x: -420, y: 570}
+        position: {x: -915, y: 570}
         blackboard:
           keys: []
         description: MeleeAttack
@@ -323,7 +291,7 @@ MonoBehaviour:
         children:
         - rid: 5827610086317228044
         - rid: 5827610129303863303
-        - rid: 5827610086317228045
+        - rid: 5827610181934514183
         - rid: 5827610086317228046
         - rid: 5827610129303863305
     - rid: 5827610086317228044
@@ -332,7 +300,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e97593efb4bd34a9288b132a303fc66d
-        position: {x: -750, y: 705}
+        position: {x: -1275, y: 705}
         blackboard:
           keys: []
         description: 
@@ -353,28 +321,13 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228077
           defaultValue: 0
-    - rid: 5827610086317228045
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 9efec6afafc6f479ca39f42064c2ede9
-        position: {x: -420, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228046
       type: {class: PerformAttack, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 5cc5555f37fb94b67baf5caa4c84622d
-        position: {x: -270, y: 705}
+        position: {x: -735, y: 705}
         blackboard:
           keys: []
         description: 
@@ -389,7 +342,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a1d30f5b90c6e48888718b5fca429fac
-        position: {x: 1230, y: 435}
+        position: {x: 1080, y: 435}
         blackboard:
           keys: []
         description: Movement
@@ -406,23 +359,23 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d1990df555ada475fa1fd11b382e4e54
-        position: {x: 270, y: 570}
+        position: {x: -150, y: 570}
         blackboard:
           keys: []
         description: Overtravel
         drawGizmos: 0
         children:
         - rid: 5827610086317228050
-        - rid: 5827610086317228051
+        - rid: 5827610181934514184
         - rid: 5827610086317228052
-        - rid: 5827610086317228053
+        - rid: 5827610181934514185
     - rid: 5827610086317228050
       type: {class: OvertravelBool, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: ef0451705f79d4dae816a50c63109a29
-        position: {x: 30, y: 705}
+        position: {x: -420, y: 705}
         blackboard:
           keys: []
         description: 
@@ -431,28 +384,13 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228074
           defaultValue: {x: 0, y: 0, z: 0}
-    - rid: 5827610086317228051
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 620a1536f432f447db61fb47bcccf5b9
-        position: {x: 180, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228052
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 4bd518e3f91b84ddf9e9364aa1398886
-        position: {x: 330, y: 705}
+        position: {x: -60, y: 705}
         blackboard:
           keys: []
         description: 
@@ -465,35 +403,20 @@ MonoBehaviour:
           reference:
             rid: 5827610127647113223
           defaultValue: 0
-    - rid: 5827610086317228053
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 0c7e180e06e934b9ba567f2f8dce0efd
-        position: {x: 495, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228054
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 921d8f9ba8b3c4305ab7b1a1820c5e0f
-        position: {x: 1140, y: 570}
+        position: {x: 915, y: 570}
         blackboard:
           keys: []
         description: chase player
         drawGizmos: 0
         children:
         - rid: 5827610086317228055
-        - rid: 5827610086317228056
+        - rid: 5827610181934514187
         - rid: 5827610086317228057
     - rid: 5827610086317228055
       type: {class: CheckDetection, ns: , asm: Assembly.Ellie}
@@ -501,7 +424,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 23c30829cbfea47aba5243f9fba549d1
-        position: {x: 990, y: 705}
+        position: {x: 735, y: 705}
         blackboard:
           keys: []
         description: 
@@ -510,28 +433,13 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228071
           defaultValue: {fileID: 0}
-    - rid: 5827610086317228056
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 12808482319344984b07e5bada90f0c0
-        position: {x: 1140, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228057
       type: {class: SetAgentToPlayer, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 33b471d8aa8df47afbd23fabade598cc
-        position: {x: 1290, y: 705}
+        position: {x: 1095, y: 705}
         blackboard:
           keys: []
         description: 
@@ -546,16 +454,16 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 1dc16f4cfb33d48c8b531ba0efd1d23f
-        position: {x: 2385, y: 570}
+        position: {x: 2310, y: 570}
         blackboard:
           keys: []
         description: patrol
         drawGizmos: 0
         children:
         - rid: 5827610129303863302
-        - rid: 5827610086317228060
+        - rid: 5827610181934514178
         - rid: 5827610086317228061
-        - rid: 5827610129303863297
+        - rid: 5827610181934514179
         - rid: 5827610152718303245
     - rid: 5827610086317228059
       type: {class: CheckDetection, ns: , asm: Assembly.Ellie}
@@ -563,7 +471,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 50f1e0d06548c4f47a6ac30c72fa5405
-        position: {x: 1620, y: 705}
+        position: {x: 1425, y: 705}
         blackboard:
           keys: []
         description: 
@@ -572,28 +480,13 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228072
           defaultValue: {fileID: 0}
-    - rid: 5827610086317228060
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: eb361b8ef89c046059fe848b18c1198a
-        position: {x: 2235, y: 705}
-        blackboard:
-          keys: []
-        description: Walk
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228061
       type: {class: PatrolToPoint, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: d1eadb522bfd34422985f99b72ce2831
-        position: {x: 2385, y: 705}
+        position: {x: 2310, y: 705}
         blackboard:
           keys: []
         description: 
@@ -616,7 +509,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 02a3eb526be53414490038d0f9110dfa
-        position: {x: 3300, y: 435}
+        position: {x: 3315, y: 435}
         blackboard:
           keys: []
         description: no detection
@@ -630,7 +523,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 83a9e3a0856ed4851b7a5b69a4bd044c
-        position: {x: 3495, y: 570}
+        position: {x: 3555, y: 570}
         blackboard:
           keys: []
         description: 
@@ -726,47 +619,32 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6d53a2b5f6847479686fd335f3a035f5
-        position: {x: -1920, y: 570}
+        position: {x: -2655, y: 570}
         blackboard:
           keys: []
         description: Dead
         drawGizmos: 0
         children:
         - rid: 5827610086317228082
-        - rid: 5827610086317228083
+        - rid: 5827610181934514180
     - rid: 5827610086317228082
       type: {class: IsDead, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: beaf73d8e3b9845319276fcebb12a7bc
-        position: {x: -1995, y: 705}
+        position: {x: -2775, y: 705}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
-    - rid: 5827610086317228083
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: bb5e84745a3604e4c8406c25585ad4a3
-        position: {x: -1845, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228084
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 44e648142259f4d6bbf3cfc65081fce1
-        position: {x: -1770, y: 435}
+        position: {x: -2490, y: 435}
         blackboard:
           keys: []
         description: Damaged
@@ -780,47 +658,32 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cd8a44dffd41a46a78751dab4703ff99
-        position: {x: -1605, y: 570}
+        position: {x: -2325, y: 570}
         blackboard:
           keys: []
         description: Damaged
         drawGizmos: 0
         children:
         - rid: 5827610086317228086
-        - rid: 5827610086317228087
+        - rid: 5827610181934514181
     - rid: 5827610086317228086
       type: {class: Damaged, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 40ac1c4cf8fdc4738b3d07ece31610e4
-        position: {x: -1680, y: 705}
+        position: {x: -2400, y: 705}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
-    - rid: 5827610086317228087
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: c923ace6cbcf641cea87dc37288a4464
-        position: {x: -1530, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610086317228089
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: a8d843737c6ff492e8420152a85bde2e
-        position: {x: -180, y: -120}
+        position: {x: 165, y: -120}
         blackboard:
           keys: []
         description: 
@@ -834,7 +697,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ae2c53c6c5db341eaa2b30567c3417aa
-        position: {x: -390, y: 15}
+        position: {x: -45, y: 15}
         blackboard:
           keys: []
         description: 
@@ -849,21 +712,21 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ece34730a17164befb361341de1f28b0
-        position: {x: 765, y: 570}
+        position: {x: 435, y: 570}
         blackboard:
           keys: []
         description: NearPlayer
         drawGizmos: 0
         children:
         - rid: 5827610088829878276
-        - rid: 5827610088829878277
+        - rid: 5827610181934514186
     - rid: 5827610088829878276
       type: {class: CheckPlayerIsNear, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: fc175fc180b33408e8f9da7cd96c66dc
-        position: {x: 660, y: 705}
+        position: {x: 330, y: 705}
         blackboard:
           keys: []
         description: 
@@ -872,59 +735,29 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228069
           defaultValue: 0
-    - rid: 5827610088829878277
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 578889f2c20714753875c9ba454379a4
-        position: {x: 840, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610127647113216
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 6f63282c7932247338647b5b3c4cac9a
-        position: {x: 3105, y: 570}
+        position: {x: 3075, y: 570}
         blackboard:
           keys: []
         description: return spawn position
         drawGizmos: 0
         children:
         - rid: 5827610127647113226
-        - rid: 5827610127647113217
+        - rid: 5827610181934514188
         - rid: 5827610127647113218
-        - rid: 5827610127647113219
-    - rid: 5827610127647113217
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: e58e321224b9348babe86b7dd462f16d
-        position: {x: 3000, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
+        - rid: 5827610181934514200
     - rid: 5827610127647113218
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 58f2ff95ca3c847e397a98d751e23407
-        position: {x: 3150, y: 705}
+        position: {x: 3195, y: 705}
         blackboard:
           keys: []
         description: 
@@ -937,36 +770,6 @@ MonoBehaviour:
           reference:
             rid: 5827610127647113223
           defaultValue: 0
-    - rid: 5827610127647113219
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: df3629360f45b41a2b1dffac3775e10e
-        position: {x: 3315, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
-    - rid: 5827610127647113220
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 852cde81b876e4738a72b6a992572dd8
-        position: {x: 1770, y: 705}
-        blackboard:
-          keys: []
-        description: Standup
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610127647113221
       type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -985,7 +788,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 006e4839221c04387b0b888a91909e5e
-        position: {x: 2850, y: 705}
+        position: {x: 2835, y: 705}
         blackboard:
           keys: []
         description: 
@@ -998,28 +801,13 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
-    - rid: 5827610129303863297
-      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: a422eed313cc84580afe81624171a53c
-        position: {x: 2535, y: 705}
-        blackboard:
-          keys: []
-        description: Idle
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: 
     - rid: 5827610129303863299
       type: {class: BooleanAction, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: c7e4235e1602147eab1d62e9f6c35823
-        position: {x: 1470, y: 705}
+        position: {x: 1275, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1038,7 +826,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6ed73aa8c2b1246c09fe7a6c3627542f
-        position: {x: 1920, y: 705}
+        position: {x: 1785, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1053,7 +841,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 36a983ff729024fb6aa7bdd6baafbb6c
-        position: {x: 1695, y: 570}
+        position: {x: 1500, y: 570}
         blackboard:
           keys: []
         description: FirstTimeDetectPlayer
@@ -1061,7 +849,7 @@ MonoBehaviour:
         children:
         - rid: 5827610129303863299
         - rid: 5827610086317228059
-        - rid: 5827610127647113220
+        - rid: 5827610181934514177
         - rid: 5827610129303863300
     - rid: 5827610129303863302
       type: {class: CheckDetection, ns: , asm: Assembly.Ellie}
@@ -1069,7 +857,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: b95d580304da0403891399fb7b898cd9
-        position: {x: 2085, y: 705}
+        position: {x: 1950, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1084,7 +872,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9e8421b9478ee498db3e0eb23307d68e
-        position: {x: -570, y: 705}
+        position: {x: -1095, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1095,7 +883,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bb46c627243974245a81ab56605ea555
-        position: {x: -120, y: 705}
+        position: {x: -585, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1107,7 +895,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3e20a257023894e1d8d1ac9c83912d71
-        position: {x: 2685, y: 705}
+        position: {x: 2670, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1120,3 +908,250 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228071
           defaultValue: {fileID: 0}
+    - rid: 5827610181934514177
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d2f8cf9e247d843e4920402585e389c1
+        position: {x: 1575, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonStandUp
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 4.5
+    - rid: 5827610181934514178
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a188f445c5a5741ceb5455615e2a1700
+        position: {x: 2100, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonWalk
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514179
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: cabbd7bc5ad1f467b90c21e3a82d4b00
+        position: {x: 2460, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonIdleAttack
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514180
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e679240182d274e13b582049e1d37b9d
+        position: {x: -2625, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: 
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514181
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: ff7d47d8412484365b1f41edf52157ad
+        position: {x: -2250, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: 
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514182
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: ee1f8efe03e1e4a87ac3621d23602a66
+        position: {x: -1860, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonRun
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514183
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 2275fe530bfa24d4891536e5e85c4660
+        position: {x: -945, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonAttack
+        wait:
+          reference:
+            rid: 5827610086317228075
+          defaultValue: 0
+    - rid: 5827610181934514184
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e44b3164c97794a7a90181806df38c03
+        position: {x: -270, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonWalk
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514185
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d18302b5ea5104af1a3d5d5da266cf47
+        position: {x: 105, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonIdleSitting
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514186
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b78c7fedff78040f98a25fdb4fdbe77a
+        position: {x: 510, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonIdleAttack
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514187
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 52f88a058a097448f920b1424cdd2b53
+        position: {x: 885, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonWalk
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514188
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: bc94176cd32184789988e0b50e978c2d
+        position: {x: 2985, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonWalk
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 5827610181934514200
+      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 9bf5f664937d54e77a8e9b224b594abc
+        position: {x: 3360, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationTrigger:
+          reference:
+            rid: -2
+          defaultValue: SkeletonIdleSitting
+        wait:
+          reference:
+            rid: -2
+          defaultValue: 0
