@@ -5,16 +5,15 @@ namespace Assets.Scripts.Player
     public class PlayerStateMachine
     {
         public PlayerBaseState CurrentState { get; private set; }
-        public string CurrentStateName;
+        public PlayerStateName CurrentStateName { get; private set; }   
         private Dictionary<PlayerStateName, PlayerBaseState> states = new();
 
         public PlayerStateMachine(PlayerStateName stateName, PlayerBaseState state)
         {
             AddState(stateName, state);
             CurrentState = GetState(stateName);
-            CurrentStateName = stateName.ToString();
+            CurrentStateName = stateName;
         }
-
         public void AddState(PlayerStateName stateName, PlayerBaseState state)
         {
             if (!states.ContainsKey(stateName))
@@ -40,7 +39,7 @@ namespace Assets.Scripts.Player
             if (states.TryGetValue(nextStateName, out PlayerBaseState newState))
             {
                 CurrentState = newState;
-                CurrentStateName = nextStateName.ToString();
+                CurrentStateName = nextStateName;
             }
             CurrentState?.OnEnterState();
         }

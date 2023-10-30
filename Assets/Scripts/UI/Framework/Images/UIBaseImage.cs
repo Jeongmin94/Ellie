@@ -7,13 +7,13 @@ namespace Assets.Scripts.UI.Framework.Images
 {
     public readonly struct ImageChangeInfo
     {
-        public readonly int Prev;
-        public readonly int Current;
+        public readonly float Prev;
+        public readonly float Current;
         public readonly float Target;
         public readonly float Time;
         public readonly FillAmountType Type;
 
-        public ImageChangeInfo(int prev, int current, float target, float time,
+        public ImageChangeInfo(float prev, float current, float target, float time,
             FillAmountType type = FillAmountType.Background)
         {
             Prev = prev;
@@ -43,7 +43,20 @@ namespace Assets.Scripts.UI.Framework.Images
         public Color backgroundColor = Color.black;
         public Color midgroundColor = Color.black;
         public Color foregroundColor = Color.black;
-
+        public Color MidgroundColor
+        {
+            get
+            {
+                return midgroundColor;
+            }
+            set
+            {
+                midgroundColor = value;
+                midground.color = value;
+            }
+        }
+        private Color midgroundStartColor;
+        public Color MidgroundStartColor { get { return midgroundStartColor; } }
         protected Image background;
         protected Image midground;
         protected Image foreground;
@@ -60,7 +73,7 @@ namespace Assets.Scripts.UI.Framework.Images
             foreground = GetImage((int)Images.Foreground);
 
             background.color = backgroundColor;
-            midground.color = midgroundColor;
+            midgroundStartColor = midground.color = midgroundColor;
             foreground.color = foregroundColor;
         }
 

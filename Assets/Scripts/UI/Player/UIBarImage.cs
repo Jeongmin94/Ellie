@@ -21,7 +21,7 @@ namespace Assets.Scripts.UI.Player
 
         private GameObject fillObjects;
         private readonly IDictionary<FillAmountType, Slider> sliders = new Dictionary<FillAmountType, Slider>();
-        
+
         private Slider changedSlider;
         private float changedSliderTarget;
 
@@ -90,6 +90,22 @@ namespace Assets.Scripts.UI.Player
             slider.value = target;
             changedSlider = slider;
             changedSliderTarget = target;
+        }
+
+        public IEnumerator CheckSliderValue(FillAmountType midType, FillAmountType foreType)
+        {
+            Slider midSlider = null;
+            Slider foreSlider = null;
+
+            if (!sliders.TryGetValue(midType, out midSlider))
+                yield break;
+            if (!sliders.TryGetValue(foreType, out foreSlider))
+                yield break;
+
+            while (!Mathf.Equals(midSlider.value, foreSlider.value))
+            {
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
