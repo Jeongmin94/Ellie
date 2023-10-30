@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Popup;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Managers
         public const string PrefixPopup = "UI/Popup/";
         public const string PrefixStatic = "UI/Static/";
         public const string PrefixSubItem = "UI/SubItem/";
-        
+
         public const string UIButtonCanvas = "ButtonCanvas";
         public const string UIHealthAndStamina = "Player/HealthAndStamina";
         public const string UIStoneInven = "Item/StoneInven";
@@ -22,11 +23,17 @@ namespace Assets.Scripts.Managers
         public const string UIStatusCanvas = "Player/StatusCanvas";
         public const string UIMonsterCanvas = "Monster/MonsterCanvas";
         public const string UIMonsterBillboard = "Monster/MonsterBillboard";
+        
+        // Inven
+        public const string UIPopupInvenCanvas = "Inven/PopupInvenCanvas";
+        public const string UISlot = "Slot/Slot";
+        public const string UISlotItem = "Slot/SlotItem";
+        public const string UISlotArea = "Slot/SlotArea";
 
         private int order = 10;
 
         private readonly Stack<UIPopup> popupStack = new Stack<UIPopup>();
-
+        
         public GameObject Root
         {
             get

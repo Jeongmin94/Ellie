@@ -47,7 +47,7 @@ namespace Assets.Scripts.Utils
 
             return null;
         }
-
+        
         #endregion
 
         #region UI
@@ -79,6 +79,14 @@ namespace Assets.Scripts.Utils
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+        }
+
+        public static void SetAllPadding(this RectOffset offset, int value)
+        {
+            offset.bottom = value;
+            offset.top = value;
+            offset.left = value;
+            offset.right = value;
         }
 
         #endregion

@@ -4,6 +4,7 @@ using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Item;
+using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.UI.Status;
@@ -64,6 +65,9 @@ namespace Assets.Scripts.UI.Framework
             billboard.scaleFactor = 0.003f;
             billboard.InitBillboard(billBoardPosition);
             billboard.InitData(billboardContainer);
+            
+            // popup inven
+            UIManager.Instance.MakePopup<UIPopupInvenCanvas>(UIManager.UIPopupInvenCanvas);
         }
 
         private void OnGUI()

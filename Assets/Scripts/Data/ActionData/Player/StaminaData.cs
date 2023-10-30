@@ -8,7 +8,7 @@ namespace Assets.Scripts.Data.ActionData.Player
     {
         [SerializeField] private int maxStamina;
         public readonly Data<int> CurrentStamina = new Data<int>();
-        
+
         public int MaxStamina
         {
             get { return maxStamina; }
