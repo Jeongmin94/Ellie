@@ -21,8 +21,8 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
             //화상 로직
             while (Time.time - startTime < DURATION)
             {
-                
-                yield return null;
+                Debug.Log("Burn!");
+                yield return new WaitForSeconds(1.0f);
             }
         }
     }

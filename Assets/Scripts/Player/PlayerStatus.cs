@@ -1,6 +1,11 @@
 ﻿using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.StatusEffects;
+using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.UI.Framework.Images;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -41,9 +46,11 @@ namespace Assets.Scripts.Player
         private Dictionary<PlayerStatusEffectName, IPlayerStatusEffect> playerStatusEffects;
         private PlayerStatusEffectController playerStatusEffectController;
 
-        float temp;
+        float tempStamina;
 
         private PlayerUI playerUI;
+        private TicketMachine ticketMachine;
+
 
         // !TODO : ICombatant를 붙이고, StatusEffectController를 참조하여 ApplyStatusEffect를 해주기
         // !TODO : Battle 채널에 구독될 수 있는 티켓 포함
@@ -66,12 +73,19 @@ namespace Assets.Scripts.Player
         }
         private void Awake()
         {
+            SetTicketMachine();
             playerStatusEffectController = GetComponent<PlayerStatusEffectController>();
             playerStatusEffects = new();
             healthData.InitHealth();
             playerUI = GetComponent<PlayerUI>();
 
             InitStatusEffects();
+        }
+        private void SetTicketMachine()
+        {
+            Debug.Log("Player SetTicketMachine()");
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat);
         }
         private void Start()
         {
@@ -84,6 +98,8 @@ namespace Assets.Scripts.Player
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
+            PlayerStatusEffectBurn playerStatusEffectBurn = new();
+            playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectBurn);
         }
 
         private void ApplyStatusEffect(PlayerStatusEffectName name)
@@ -95,11 +111,11 @@ namespace Assets.Scripts.Player
         private void RecoverStamina()
         {
             if (!isRecoveringStamina || Stamina >= MaxStamina) return;
-            temp += staminaRecoveryPerSec * Time.deltaTime;
-            if (temp >= 1f)
+            tempStamina += staminaRecoveryPerSec * Time.deltaTime;
+            if (tempStamina >= 1f)
             {
                 Stamina++;
-                temp = 0;
+                tempStamina = 0;
             }
         }
 
