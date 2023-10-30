@@ -13,7 +13,7 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public override void InitializeProjectile(ProjectileAttackData data)
         {
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableMinimumDistance);
             offset = data.offset;
             projectile = data.projectilePrefab.GetComponent<Projectile>();
         }

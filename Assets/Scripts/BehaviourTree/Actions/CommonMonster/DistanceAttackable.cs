@@ -16,12 +16,14 @@ public class DistanceAttackable : ActionNode
     {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
     protected override State OnUpdate()
     {
-        if (playerDistance.Value < minimumAttackableDistance.Value)
+        //if (playerDistance.Value < minimumAttackableDistance.Value)
+        if (playerDistance.Value < minimumAttackableDistance.Value * minimumAttackableDistance.Value)
         {
             return State.Failure;
         }
@@ -29,7 +31,8 @@ public class DistanceAttackable : ActionNode
         {
             maximumAttackableDistance.Value = context.controller.monsterData.chasePlayerDistance;
         }
-        if (playerDistance.Value > maximumAttackableDistance.Value)
+        //if (playerDistance.Value > maximumAttackableDistance.Value)
+        if (playerDistance.Value > maximumAttackableDistance.Value * maximumAttackableDistance.Value)
         {
             return State.Failure;
         }
@@ -43,3 +46,4 @@ public class DistanceAttackable : ActionNode
         return State.Success;
     }
 }
+

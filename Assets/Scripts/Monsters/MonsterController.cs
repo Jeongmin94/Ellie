@@ -83,7 +83,7 @@ namespace Assets.Scripts.Monsters
             if (projectileAttackData != null)
             {
                 behaviourTreeInstance.SetBlackboardValue<float>("ProjectimeAnimationHold", projectileAttackData.animationHold);
-                behaviourTreeInstance.SetBlackboardValue<float>("projectileAttackableDistance", projectileAttackData.attackableDistance);
+                behaviourTreeInstance.SetBlackboardValue<float>("projectileAttackableDistance", projectileAttackData.attackableMinimumDistance);
                 behaviourTreeInstance.SetBlackboardValue<float>("ProjectileAttackInterval", projectileAttackData.attackInterval);
             }
             if (runToPlayerData != null)

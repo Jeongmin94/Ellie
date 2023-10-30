@@ -6,7 +6,7 @@ using UnityEngine;
 public class ProjectileAttackData : ScriptableObject
 {
     public float attackValue;
-    public float attackableDistance;
+    public float attackableMinimumDistance;
     public float attackInterval;
     public float attackDuration;
 
