@@ -21,6 +21,7 @@ namespace Assets.Scripts.Boss
         {
             EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
 
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
@@ -137,6 +138,25 @@ namespace Assets.Scripts.Boss
                 default:
                     break;
             }
+        }
+
+        private void OnStartEarthQuake(IBaseEventPayload earthQuakePayload)
+        {
+            Debug.Log($"OnStartEarthQuake");
+            BossEventPayload payload = earthQuakePayload as BossEventPayload;
+
+            Transform player = payload.TransformValue1;
+            int attack = payload.IntValue;
+
+            float jumpCheckValue = 1.0f;
+            
+            // 점프 체크
+            if(player != null)
+            {
+
+            }
+
+            
         }
 
         private void OnGUI()

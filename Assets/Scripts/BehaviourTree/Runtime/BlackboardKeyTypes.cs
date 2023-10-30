@@ -132,4 +132,10 @@ namespace TheKiwiCoder {
     {
 
     }
+
+    [System.Serializable]
+    public class TransformKey : BlackboardKey<Transform>
+    {
+
+    }
 }

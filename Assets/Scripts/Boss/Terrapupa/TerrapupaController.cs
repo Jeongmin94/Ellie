@@ -34,6 +34,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             set { rightHand = value; }
         }
 
+        public BlackboardKey<Transform> targetTransform;
         public BlackboardKey<Vector3> targetPosition;
         public BlackboardKey<int> currentHP;
         public BlackboardKey<float> moveSpeed;
@@ -56,6 +57,7 @@ namespace Assets.Scripts.Boss.Terrapupa
 
         private void InitStatus()
         {
+            behaviourTreeInstance.SetBlackboardValue<Transform>("targetTransform", target);
             behaviourTreeInstance.SetBlackboardValue<Vector3>("targetPosition", target.position);
             behaviourTreeInstance.SetBlackboardValue<int>("currentHP", data.hp);
             behaviourTreeInstance.SetBlackboardValue<float>("moveSpeed", data.movementSpeed);
@@ -66,8 +68,9 @@ namespace Assets.Scripts.Boss.Terrapupa
             behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("throwStonePayload",
                 new BossEventPayload { TransformValue1 = rightHand, TransformValue2 = target }); ;
             behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("occurEarthQuakePayload",
-                new BossEventPayload { TransformValue1 = rightHand, TransformValue2 = target }); ;
+                new BossEventPayload { }); ;
 
+            targetTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("targetTransform");
             targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
             currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
             moveSpeed = behaviourTreeInstance.FindBlackboardKey<float>("moveSpeed");
