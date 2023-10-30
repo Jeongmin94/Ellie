@@ -2,11 +2,11 @@
 
 namespace Assets.Scripts.Player.States
 {
-    internal class PlayerStateAirbourn : PlayerBaseState
+    internal class PlayerStatusAirborne : PlayerBaseState
     {
         Rigidbody rb;
         private float moveSpeed = 1;
-        public PlayerStateAirbourn(PlayerController controller) : base(controller)
+        public PlayerStatusAirborne(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
         }
