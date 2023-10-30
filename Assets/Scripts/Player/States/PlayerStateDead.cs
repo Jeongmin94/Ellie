@@ -14,7 +14,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            Controller.Anim.SetBool("IsDead", true);
+            Controller.Anim.SetTrigger("Dead");
         }
 
         public override void OnExitState()

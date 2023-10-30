@@ -310,6 +310,7 @@ namespace Assets.Scripts.Player
         }
         public void ChangeState(PlayerStateName nextStateName)
         {
+            if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
             stateMachine.ChangeState(nextStateName);
         }
         private void GetInput()

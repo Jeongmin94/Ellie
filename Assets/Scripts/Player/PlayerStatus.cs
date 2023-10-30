@@ -44,6 +44,7 @@ namespace Assets.Scripts.Player
 
         public int SprintStaminaThreshold { get { return sprintStanimaThreshold; } }
 
+        public bool isDead;
         public bool isRecoveringStamina;
 
         private Dictionary<PlayerStatusEffectName, IPlayerStatusEffect> playerStatusEffects;
@@ -89,6 +90,7 @@ namespace Assets.Scripts.Player
             Debug.Log("Player SetTicketMachine()");
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat);
+            isDead = false;
         }
         private void Start()
         {
@@ -133,9 +135,10 @@ namespace Assets.Scripts.Player
         }
         public void ReduceHP(int damage)
         {
-            if (HP <= damage)
+            if (HP <= damage && !isDead)
             {
                 HP = 0;
+                isDead = true;
                 //HP -= damage;
                 gameObject.GetComponent<PlayerController>().ChangeState(PlayerStateName.Dead);
             }
