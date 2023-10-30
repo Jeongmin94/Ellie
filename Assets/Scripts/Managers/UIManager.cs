@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -23,17 +22,17 @@ namespace Assets.Scripts.Managers
         public const string UIStatusCanvas = "Player/StatusCanvas";
         public const string UIMonsterCanvas = "Monster/MonsterCanvas";
         public const string UIMonsterBillboard = "Monster/MonsterBillboard";
-        
+
         // Inven
         public const string UIPopupInvenCanvas = "Inven/PopupInvenCanvas";
         public const string UISlot = "Slot/Slot";
         public const string UISlotItem = "Slot/SlotItem";
-        public const string UISlotArea = "Slot/SlotArea";
+        public const string UIGridArea = "Slot/GridArea";
 
         private int order = 10;
 
         private readonly Stack<UIPopup> popupStack = new Stack<UIPopup>();
-        
+
         public GameObject Root
         {
             get
@@ -80,6 +79,7 @@ namespace Assets.Scripts.Managers
             if (parent)
                 go.transform.SetParent(parent);
 
+            go.transform.localScale = Vector3.one;
             return go.GetOrAddComponent<T>();
         }
 

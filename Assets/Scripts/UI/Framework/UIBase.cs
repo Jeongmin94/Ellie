@@ -1,7 +1,7 @@
+using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;

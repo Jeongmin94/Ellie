@@ -21,7 +21,6 @@ namespace Assets.Scripts.UI.Item.PopupInven
         protected override void Init()
         {
             // !TODO
-
             Bind<GameObject>(typeof(GameObjects));
 
             itemPosition = GetGameObject((int)GameObjects.ItemPosition);

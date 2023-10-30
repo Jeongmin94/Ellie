@@ -1,6 +1,6 @@
+using Assets.Scripts.UI.Framework;
 using System;
 using System.Linq;
-using Assets.Scripts.UI.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Utils
 
             return null;
         }
-        
+
         #endregion
 
         #region UI
@@ -65,16 +65,16 @@ namespace Assets.Scripts.Utils
             switch (type)
             {
                 case UIEvent.Click:
-                {
-                    handler.OnClickHandler -= action;
-                    handler.OnClickHandler += action;
-                }
+                    {
+                        handler.OnClickHandler -= action;
+                        handler.OnClickHandler += action;
+                    }
                     break;
                 case UIEvent.Drag:
-                {
-                    handler.OnDragHandler -= action;
-                    handler.OnDragHandler += action;
-                }
+                    {
+                        handler.OnDragHandler -= action;
+                        handler.OnDragHandler += action;
+                    }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

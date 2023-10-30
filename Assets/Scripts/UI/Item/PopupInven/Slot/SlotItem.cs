@@ -1,4 +1,6 @@
 using Assets.Scripts.UI.Framework;
+using Assets.Scripts.UI.Framework.Presets;
+using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -17,6 +19,7 @@ namespace Assets.Scripts.UI.Item.PopupInven
             ItemText
         }
 
+        private RectTransform rectTransform;
         private Image itemImage;
         private TextMeshProUGUI itemText;
 
@@ -33,8 +36,11 @@ namespace Assets.Scripts.UI.Item.PopupInven
             Bind<Image>(typeof(Images));
             Bind<TextMeshProUGUI>(typeof(Texts));
 
+            rectTransform = gameObject.GetOrAddComponent<RectTransform>();
             itemImage = GetImage((int)Images.ItemImage);
             itemText = GetText((int)Texts.ItemText);
+
+            AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.MiddleCenter);
         }
     }
 }

@@ -1,22 +1,49 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.UI.Framework.Presets;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Item.PopupInven
 {
+    public enum SlotType
+    {
+        Consumption,
+        Stone,
+        Etc
+    }
+
     public class UIPopupInvenCanvas : UIPopup
     {
         private enum GameObjects
         {
-            DescPanel,
-            SlotPanel,
-            SlotAreaPosition
+            // ItemMenu
+            ButtonPanel,
+            GridPanel,
+
+            // DescMenu
         }
 
-        private GameObject slotPanelObject;
-        private GameObject slotAreaPosition;
-        private GameObject descPanelObject;
+        #region ItemMenu
+
+        [SerializeField] private int padding = 5;
+        [SerializeField] private int spacing = 5;
+        [SerializeField] private int row = 3;
+        [SerializeField] private int col = 8;
+
+        public int Padding => padding;
+        public int Spacing => spacing;
+        public int Row => row;
+        public int Col => col;
+
+        private GameObject buttonPanel;
+        private GameObject gridPanel;
+
+        private GridArea gridArea;
+
+        #endregion
+
+        #region DescMenu
+
+        #endregion
 
         private void Awake()
         {
@@ -29,31 +56,22 @@ namespace Assets.Scripts.UI.Item.PopupInven
 
             Bind<GameObject>(typeof(GameObjects));
 
-            slotPanelObject = GetGameObject((int)GameObjects.SlotPanel);
-            slotAreaPosition = GetGameObject((int)GameObjects.SlotAreaPosition);
-            descPanelObject = GetGameObject((int)GameObjects.DescPanel);
+            buttonPanel = GetGameObject((int)GameObjects.ButtonPanel);
+            gridPanel = GetGameObject((int)GameObjects.GridPanel);
 
-            InitSlotPanel();
+            InitGridArea();
         }
 
-        private void InitSlotPanel()
+        private void InitGridArea()
         {
-            var slotPanel = UIManager.Instance.MakeSubItem<SlotArea>(slotAreaPosition.transform, UIManager.UISlotArea);
+            gridArea = UIManager.Instance.MakeSubItem<GridArea>(gridPanel.transform, UIManager.UIGridArea);
 
-            slotPanel.SetAnchorPreset(AnchorPresets.StretchAll);
-            slotPanel.Reset();
-
-            slotPanel.padding = 5;
-            slotPanel.spacing = 5;
-            slotPanel.row = 3;
-            slotPanel.col = 8;
-
-            slotPanel.InitSlotPanel();
+            gridArea.SetGrid(padding, spacing, row, col);
+            gridArea.InitSlotPanel();
         }
 
         private void InitDescPanel()
         {
-
         }
     }
 }

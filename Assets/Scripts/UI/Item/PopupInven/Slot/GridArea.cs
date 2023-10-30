@@ -4,7 +4,6 @@ using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
-using Resolution = Assets.Scripts.Managers.Resolution;
 
 namespace Assets.Scripts.UI.Item.PopupInven
 {
@@ -28,18 +27,23 @@ namespace Assets.Scripts.UI.Item.PopupInven
         {
             rectTransform = gameObject.GetOrAddComponent<RectTransform>();
             gridLayoutGroup = gameObject.GetOrAddComponent<GridLayoutGroup>();
+        }
 
-            rectTransform.localScale = Vector3.one;
+        public void SetGrid(int padding, int spacing, int row, int col)
+        {
+            this.padding = padding;
+            this.spacing = spacing;
+            this.row = row;
+            this.col = col;
         }
 
         public void InitSlotPanel()
         {
-            rectTransform.anchorMin = AnchorPresets.StretchAll.AnchorMin;
-            rectTransform.anchorMax = AnchorPresets.StretchAll.AnchorMax;
+            AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.StretchAll);
             rectTransform.sizeDelta = Vector2.zero;
             rectTransform.localPosition = Vector2.zero;
 
-            OnChangeResolution(GameManager.Instance.resolution);
+            InitGridLayout();
             CreateSlot(row * col);
         }
 
@@ -47,11 +51,13 @@ namespace Assets.Scripts.UI.Item.PopupInven
         {
             for (int i = 0; i < count; i++)
             {
-                UIManager.Instance.MakeSubItem<Slot>(rectTransform, UIManager.UISlot);
+                var slot = UIManager.Instance.MakeSubItem<Slot>(rectTransform, UIManager.UISlot);
+
+                UIManager.Instance.MakeSubItem<SlotItem>(slot.ItemPosition, UIManager.UISlotItem);
             }
         }
 
-        private void OnChangeResolution(Resolution resolution)
+        private void InitGridLayout()
         {
             var paddingOffset = new RectOffset();
             paddingOffset.SetAllPadding(padding);

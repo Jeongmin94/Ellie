@@ -21,6 +21,14 @@ namespace Assets.Scripts.UI.Framework.Presets
 
     public class AnchorPresets
     {
+        public static void SetAnchorPreset(RectTransform transform, AnchorPreset preset)
+        {
+            transform.anchorMin = preset.AnchorMin;
+            transform.anchorMax = preset.AnchorMax;
+        }
+        
         public static readonly AnchorPreset StretchAll = AnchorPreset.Of(new Vector2(0.0f, 0.0f), new Vector2(1.0f, 1.0f));
+        
+        public static readonly AnchorPreset MiddleCenter = AnchorPreset.Of(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
     }
 }
