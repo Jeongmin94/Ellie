@@ -39,13 +39,15 @@ namespace Assets.Scripts.Player.States
             }
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
+
                 Controller.ChangeState(PlayerStateName.Jump);
             }
             if (Controller.MoveInput.magnitude == 0)
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
-            if(Input.GetKeyDown(KeyCode.LeftControl))
+            if (Input.GetKeyDown(KeyCode.LeftControl)
+                )
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }

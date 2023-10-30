@@ -27,7 +27,8 @@ namespace Assets.Scripts.Player.States
                 //스테이트 전이
                 Controller.ChangeState(PlayerStateName.Walk);
             }
-            if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
+            if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump
+                && Controller.PlayerStatus.Stamina >= Controller.PlayerStatus.JumpStaminaConsumption)
             {
                 //점프하면 점프 스테이트로 전이
                 Controller.ChangeState(PlayerStateName.Jump);
