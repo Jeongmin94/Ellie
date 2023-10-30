@@ -7,4 +7,10 @@ public class MagicStone : MonoBehaviour
 {
     public float attractionRadiusRange;
     public float intakeRadiusRange;
+
+    private void Update()
+    {
+
+    }
+
 }

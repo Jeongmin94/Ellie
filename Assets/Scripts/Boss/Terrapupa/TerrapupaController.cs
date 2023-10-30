@@ -42,7 +42,7 @@ namespace Assets.Scripts.Boss.Terrapupa
         public BlackboardKey<bool> canEarthQuake;
         public BlackboardKey<bool> canRoll;
         public BlackboardKey<bool> canLowAttack;
-        public BlackboardKey<bool> isIntake;
+        public BlackboardKey<bool> isTempted;
         public BlackboardKey<IBaseEventPayload> throwStonePayload;
         public BlackboardKey<IBaseEventPayload> occurEarthQuakePayload;
 
@@ -66,7 +66,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             behaviourTreeInstance.SetBlackboardValue<bool>("canEarthQuake", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canRoll", true);
             behaviourTreeInstance.SetBlackboardValue<bool>("canLowAttack", true);
-            behaviourTreeInstance.SetBlackboardValue<bool>("isIntake", false);
+            behaviourTreeInstance.SetBlackboardValue<bool>("isTempted", false);
 
             behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("throwStonePayload",
                 new BossEventPayload { TransformValue1 = rightHand, TransformValue2 = target });
@@ -81,7 +81,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
             canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
-            isIntake = behaviourTreeInstance.FindBlackboardKey<bool>("isIntake");
+            isTempted = behaviourTreeInstance.FindBlackboardKey<bool>("isTempted");
             
             throwStonePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("throwStonePayload");
             occurEarthQuakePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("occurEarthQuakePayload");
