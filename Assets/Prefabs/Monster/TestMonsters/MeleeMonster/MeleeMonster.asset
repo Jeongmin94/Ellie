@@ -72,6 +72,7 @@ MonoBehaviour:
   - rid: 5827610181934514187
   - rid: 5827610181934514188
   - rid: 5827610181934514200
+  - rid: 5827610220521848858
   treeState: 0
   blackboard:
     keys:
@@ -90,8 +91,8 @@ MonoBehaviour:
     - rid: 5827610086317228080
     - rid: 5827610127647113221
     - rid: 5827610127647113223
-  viewPosition: {x: 952, y: 400, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+  viewPosition: {x: -1663, y: -141, z: 0}
+  viewScale: {x: 0.6575163, y: 0.6575163, z: 1}
   references:
     version: 2
     RefIds:
@@ -510,7 +511,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 02a3eb526be53414490038d0f9110dfa
-        position: {x: 3315, y: 435}
+        position: {x: 3510, y: 435}
         blackboard:
           keys: []
         description: no detection
@@ -524,7 +525,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 83a9e3a0856ed4851b7a5b69a4bd044c
-        position: {x: 3555, y: 570}
+        position: {x: 3750, y: 570}
         blackboard:
           keys: []
         description: 
@@ -742,7 +743,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6f63282c7932247338647b5b3c4cac9a
-        position: {x: 3075, y: 570}
+        position: {x: 3210, y: 570}
         blackboard:
           keys: []
         description: return spawn position
@@ -752,6 +753,7 @@ MonoBehaviour:
         - rid: 5827610181934514188
         - rid: 5827610127647113218
         - rid: 5827610181934514200
+        - rid: 5827610220521848858
     - rid: 5827610127647113218
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
@@ -1029,7 +1031,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2275fe530bfa24d4891536e5e85c4660
-        position: {x: -960, y: 705}
+        position: {x: -945, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1155,4 +1157,19 @@ MonoBehaviour:
         wait:
           reference:
             rid: -2
+          defaultValue: 0
+    - rid: 5827610220521848858
+      type: {class: BooleanToTrue, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b8f8514cf1ef642f29984caa80cb9942
+        position: {x: 3570, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        boolean:
+          reference:
+            rid: 5827610127647113223
           defaultValue: 0

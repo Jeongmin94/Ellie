@@ -10,8 +10,10 @@ using Assets.Scripts.Monsters.AbstractClass;
 
 using UnityEngine.AI;
 using System.Collections.Generic;
-
+using Channels.UI;
 using Assets.Scripts.Data;
+using Assets.Scripts.UI.Monster;
+using Assets.Scripts.Managers;
 
 namespace Assets.Scripts.Monsters
 {
@@ -23,6 +25,8 @@ namespace Assets.Scripts.Monsters
         public GameObject player;
 
 
+        public enum SkillName { MeleeAttack, End }
+
         [SerializeField] public SkeletonMonsterData monsterData;
         [SerializeField] public RunToPlayerAttackData runToPlayerData;
 
@@ -31,13 +35,16 @@ namespace Assets.Scripts.Monsters
         [SerializeField] public ProjectileAttackData projectileAttackData;
         [SerializeField] public FleeSkillData fleeSkilldata;
 
-        public PatrolPoints patrolPoints;
+        private UIMonsterBillboard billboard;
 
-        public enum SkillName { MeleeAttack, End }
+        private readonly MonsterDataContainer dataContainer = new();
 
         private void Awake()
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+
+            InitUI();
+            InitData();
         }
 
         private void Start()
@@ -47,6 +54,26 @@ namespace Assets.Scripts.Monsters
 
             SetBehaviourTreeInstance();
         }
+
+        private void InitUI()
+        {
+            Transform billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
+
+            billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardPos, UIManager.UIMonsterBillboard);
+            billboard.scaleFactor = 0.003f;
+            billboard.InitBillboard(billboardPos);
+        }
+
+        private void InitData()
+        {
+            dataContainer.MaxHp = (int)monsterData.HP;
+            dataContainer.CurrentHp.Value = (int)Mathf.Ceil(monsterData.HP);
+            dataContainer.Name = monsterData.monsterName;
+
+            billboard.InitData(dataContainer);
+
+        }
+
 
         private void SetBehaviourTreeInstance()
         {
@@ -64,6 +91,7 @@ namespace Assets.Scripts.Monsters
 
             obj = Functions.FindChildByName(gameObject, "PatrolPoints");
             behaviourTreeInstance.SetBlackboardValue<GameObject>("PatrolPoints", obj);
+            obj.SetActive(false);
 
             behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", transform.position);
             behaviourTreeInstance.SetBlackboardValue<float>("MovementSpeed", monsterData.movementSpeed);

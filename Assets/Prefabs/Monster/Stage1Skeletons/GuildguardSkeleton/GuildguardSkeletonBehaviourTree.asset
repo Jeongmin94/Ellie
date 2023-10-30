@@ -79,6 +79,7 @@ MonoBehaviour:
   - rid: 5827610220521848854
   - rid: 5827610220521848855
   - rid: 5827610220521848856
+  - rid: 5827610220521848860
   treeState: 0
   blackboard:
     keys:
@@ -100,8 +101,8 @@ MonoBehaviour:
     - rid: 5827610129303863315
     - rid: 5827610129303863316
     - rid: 5827610129303863317
-  viewPosition: {x: 1613, y: -195, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+  viewPosition: {x: 546, y: 66, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -502,7 +503,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 02a3eb526be53414490038d0f9110dfa
-        position: {x: 3960, y: 435}
+        position: {x: 4170, y: 435}
         blackboard:
           keys: []
         description: no detection
@@ -516,7 +517,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 83a9e3a0856ed4851b7a5b69a4bd044c
-        position: {x: 4140, y: 570}
+        position: {x: 4455, y: 570}
         blackboard:
           keys: []
         description: 
@@ -720,7 +721,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6f63282c7932247338647b5b3c4cac9a
-        position: {x: 3765, y: 570}
+        position: {x: 3900, y: 570}
         blackboard:
           keys: []
         description: return spawn position
@@ -730,6 +731,7 @@ MonoBehaviour:
         - rid: 5827610220521848855
         - rid: 5827610127647113218
         - rid: 5827610220521848856
+        - rid: 5827610220521848860
     - rid: 5827610127647113218
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
@@ -926,7 +928,7 @@ MonoBehaviour:
         skillName:
           reference:
             rid: -2
-          defaultValue: SwordAttack
+          defaultValue: WeaponAttack
     - rid: 5827610129303863313
       type: {class: Stop, ns: , asm: Assembly.Ellie}
       data:
@@ -1305,4 +1307,19 @@ MonoBehaviour:
         wait:
           reference:
             rid: -2
+          defaultValue: 0
+    - rid: 5827610220521848860
+      type: {class: BooleanToTrue, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 220638f2509ee486db4d2d2a2abd4070
+        position: {x: 4245, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        boolean:
+          reference:
+            rid: 5827610127647113223
           defaultValue: 0

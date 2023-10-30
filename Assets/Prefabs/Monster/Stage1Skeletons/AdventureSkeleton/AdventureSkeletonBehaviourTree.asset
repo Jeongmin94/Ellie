@@ -79,6 +79,7 @@ MonoBehaviour:
   - rid: 5827610181934514205
   - rid: 5827610181934514206
   - rid: 5827610181934514209
+  - rid: 5827610220521848859
   treeState: 0
   blackboard:
     keys:
@@ -100,8 +101,8 @@ MonoBehaviour:
     - rid: 5827610129303863315
     - rid: 5827610129303863316
     - rid: 5827610129303863317
-  viewPosition: {x: 1686, y: -250, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+  viewPosition: {x: -3045, y: -268, z: 0}
+  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
   references:
     version: 2
     RefIds:
@@ -199,7 +200,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fdc5cff4db3a84fa48f982b76a45a3c7
-        position: {x: -795, y: 435}
+        position: {x: -1140, y: 435}
         blackboard:
           keys: []
         description: Attacks
@@ -335,7 +336,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a1d30f5b90c6e48888718b5fca429fac
-        position: {x: 1365, y: 435}
+        position: {x: 1500, y: 435}
         blackboard:
           keys: []
         description: Movement
@@ -502,7 +503,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 02a3eb526be53414490038d0f9110dfa
-        position: {x: 3930, y: 435}
+        position: {x: 4095, y: 435}
         blackboard:
           keys: []
         description: no detection
@@ -516,7 +517,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 83a9e3a0856ed4851b7a5b69a4bd044c
-        position: {x: 4125, y: 570}
+        position: {x: 4335, y: 570}
         blackboard:
           keys: []
         description: 
@@ -720,7 +721,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6f63282c7932247338647b5b3c4cac9a
-        position: {x: 3660, y: 570}
+        position: {x: 3795, y: 570}
         blackboard:
           keys: []
         description: return spawn position
@@ -730,6 +731,7 @@ MonoBehaviour:
         - rid: 5827610181934514206
         - rid: 5827610127647113218
         - rid: 5827610181934514209
+        - rid: 5827610220521848859
     - rid: 5827610127647113218
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
@@ -1305,4 +1307,19 @@ MonoBehaviour:
         wait:
           reference:
             rid: -2
+          defaultValue: 0
+    - rid: 5827610220521848859
+      type: {class: BooleanToTrue, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f4a1e396ad2c241b69dbdd36c7a1b615
+        position: {x: 4155, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        boolean:
+          reference:
+            rid: 5827610127647113223
           defaultValue: 0
