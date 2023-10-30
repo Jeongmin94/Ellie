@@ -15,6 +15,7 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             Controller.Anim.SetTrigger("Dead");
+            Controller.canTurn = false;
         }
 
         public override void OnExitState()
