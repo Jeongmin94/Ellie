@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Combat;
 using Assets.Scripts.Data.ActionData.Player;
+using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.UI.Framework.Images;
@@ -101,6 +102,7 @@ namespace Assets.Scripts.Player
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
             playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
+            playerStatusEffects.Add(PlayerStatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
         }
 
         private void RecoverStamina()
@@ -129,6 +131,19 @@ namespace Assets.Scripts.Player
                 StartCoroutine(CheckMidAndForegroundSliderValue());
             }
         }
+        public void ReduceHP(int damage)
+        {
+            if (HP <= damage)
+            {
+                HP = 0;
+                //HP -= damage;
+                gameObject.GetComponent<PlayerController>().ChangeState(PlayerStateName.Dead);
+            }
+            else
+            {
+                HP -= damage;
+            }
+        }
         private IEnumerator CheckMidAndForegroundSliderValue()
         {
             yield return playerUI.StaminaBarImage.CheckSliderValue(FillAmountType.Midground, FillAmountType.Foreground);
@@ -152,8 +167,9 @@ namespace Assets.Scripts.Player
                 playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out effect);
                 playerStatusEffectController.ApplyStatusEffect(effect);
             }
-            HP -= combatPayload.Damage;
+            //hp처리 로직
+            ReduceHP(combatPayload.Damage);
         }
     }
-    
+
 }

@@ -19,7 +19,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private CapsuleCollider playerCollider;
         [SerializeField] private Transform orientation;
         private PlayerStatus playerStatus;
-       
+
 
         [Header("Camera")]
         public GameObject mainCam;
@@ -104,7 +104,7 @@ namespace Assets.Scripts.Player
 
         public Transform PlayerObj { get { return playerObj; } }
         public PlayerStatus PlayerStatus
-        {  
+        {
             get { return playerStatus; }
             set { playerStatus = value; }
         }
@@ -116,8 +116,8 @@ namespace Assets.Scripts.Player
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
         public float LandStateDuration { get { return landStateDuration; } }
         public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
-        public Ore CurOre { get { return curOre; } }  
-        public float MiningTime { get { return miningTime; } } 
+        public Ore CurOre { get { return curOre; } }
+        public float MiningTime { get { return miningTime; } }
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
@@ -134,6 +134,7 @@ namespace Assets.Scripts.Player
             Rb = GetComponent<Rigidbody>();
             Anim = GetComponent<Animator>();
             playerStatus = GetComponent<PlayerStatus>();
+            //stateMachine.CurrentState.
         }
 
         private void Start()
@@ -232,15 +233,19 @@ namespace Assets.Scripts.Player
             PlayerStateCharging playerStateCharging = new(this);
             stateMachine.AddState(PlayerStateName.Charging, playerStateCharging);
             PlayerStateMining playerStateMining = new(this);
-            stateMachine.AddState(PlayerStateName.Mining, playerStateMining);   
+            stateMachine.AddState(PlayerStateName.Mining, playerStateMining);
             PlayerStateExhaust playerStateExhaust = new(this);
             stateMachine.AddState(PlayerStateName.Exhaust, playerStateExhaust);
+            PlayerStateRigidity playerStateRigidity = new(this);
+            stateMachine.AddState(PlayerStateName.Rigidity, playerStateRigidity);
+            PlayerStateDead playerStateDead = new(this);
+            stateMachine.AddState(PlayerStateName.Dead, playerStateDead);
         }
         public void MovePlayer(float moveSpeed)
         {
             if (CheckSlope())
             {
-                Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
+                //Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
             }
             else
             {
@@ -352,7 +357,8 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                return angle < maxSlopeAngle && angle != 0;
+                Debug.Log("Angle : " + angle.ToString());
+                return angle > maxSlopeAngle && angle != 0;
             }
             return false;
         }
@@ -448,7 +454,11 @@ namespace Assets.Scripts.Player
             curOre = ore;
         }
 
-        
+        public PlayerStateName GetCurState()
+        {
+            return stateMachine.CurrentStateName;
+        }
+
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);

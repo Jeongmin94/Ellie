@@ -16,16 +16,16 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
         private IEnumerator Burn(PlayerStatusEffectController controller)
         {
             // !TODO : 플레이어 화상 이펙트 적용
-            controller.effects.Add(this);
+            controller.AddStatusEffect(this);
             float startTime = Time.time;
             //화상 로직
             while (Time.time - startTime < DURATION)
             {
                 yield return new WaitForSeconds(1.0f);
                 Debug.Log("Burn!");
-                status.HP--;
+                status.ReduceHP(1);
             }
-            controller.effects.Remove(this);
+            controller.RemoveStatusEffect(this);
         }
     }
 }

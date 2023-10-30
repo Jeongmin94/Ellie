@@ -1,5 +1,6 @@
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
+using Codice.CM.SEIDInfo;
 using UnityEngine;
 
 namespace Channels.Combat
@@ -9,7 +10,7 @@ namespace Channels.Combat
         Melee,
     }
 
-    
+
     public class CombatPayload : IBaseEventPayload
     {
         //공격 타입
@@ -36,8 +37,17 @@ namespace Channels.Combat
         public override void ReceiveMessage<T>(T payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
-            Debug.Log($"payload test{combatPayload.PlayerStatusEffectName}");
-            combatPayload.Defender.GetComponent<ICombatant>().ReceiveDamage(combatPayload);
+            ICombatant combatant = combatPayload.Defender.GetComponent(typeof(ICombatant)) as ICombatant;
+            combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
+
+        }
+
+        private CombatPayload CalculateCombatLogic(CombatPayload payload)
+        {
+            CombatPayload newPayload = payload;
+            // !TODO : 공격자와 방어자의 transform을 따와서 전투 로직을 실행한 후, Payload를 다시 만들기
+
+            return payload;
         }
     }
 }

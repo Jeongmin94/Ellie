@@ -14,6 +14,8 @@
         Land,
         Airborne,
         Mining,
-        Exhaust
+        Exhaust,
+        Rigidity,
+        Dead
     }
 }

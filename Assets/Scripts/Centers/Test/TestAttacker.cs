@@ -50,7 +50,7 @@ namespace Assets.Scripts.Centers.Test
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = playerStatus.transform.position;
-            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.Burn;
+            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity;
             payload.Damage = 5;
             Attack(payload);
         }
