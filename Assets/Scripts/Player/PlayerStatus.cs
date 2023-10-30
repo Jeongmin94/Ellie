@@ -1,8 +1,10 @@
-﻿using Assets.Scripts.Data.ActionData.Player;
+﻿using Assets.Scripts.Combat;
+using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.UI.Framework.Images;
 using Assets.Scripts.Utils;
+using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
@@ -12,7 +14,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerStatus : MonoBehaviour
+    public class PlayerStatus : MonoBehaviour, ICombatant
     {
         [Header("Player Properties")]
         [SerializeField] private int maxHP;
@@ -98,14 +100,7 @@ namespace Assets.Scripts.Player
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
-            PlayerStatusEffectBurn playerStatusEffectBurn = new();
-            playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectBurn);
-        }
-
-        private void ApplyStatusEffect(PlayerStatusEffectName name)
-        {
-            if (playerStatusEffects.TryGetValue(name, out IPlayerStatusEffect effect))
-                playerStatusEffectController.ApplyStatusEffect(effect);
+            playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
         }
 
         private void RecoverStamina()
@@ -140,6 +135,24 @@ namespace Assets.Scripts.Player
             Color color = Color.white;
             color.a = 0f;
             playerUI.StaminaBarImage.MidgroundColor = color;
+        }
+
+        public void Attack(IBaseEventPayload payload)
+        {
+
+        }
+
+        public void ReceiveDamage(IBaseEventPayload payload)
+        {
+            CombatPayload combatPayload = payload as CombatPayload;
+            if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
+            {
+                Debug.Log("Player : RecieveDamage");
+                IPlayerStatusEffect effect;
+                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out effect);
+                playerStatusEffectController.ApplyStatusEffect(effect);
+            }
+            HP -= combatPayload.Damage;
         }
     }
     

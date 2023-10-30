@@ -2,6 +2,7 @@ namespace Assets.Scripts.StatusEffects
 {
     public enum PlayerStatusEffectName
     {
+        None,
         WeakStiff,
         StrongStiff,
         Down,

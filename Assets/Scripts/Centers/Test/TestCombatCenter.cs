@@ -6,6 +6,9 @@ namespace Assets.Scripts.Centers.Test
     public class TestCombatCenter : BaseCenter
     {
         public PlayerStatus player;
+        public TestAttacker attacker;
+        
+       
         private void Awake()
         {
             Init();
@@ -14,6 +17,7 @@ namespace Assets.Scripts.Centers.Test
         protected override void Start()
         {
             CheckTicket(player.gameObject);
+            CheckTicket(attacker.gameObject);
         }
     }
 }
