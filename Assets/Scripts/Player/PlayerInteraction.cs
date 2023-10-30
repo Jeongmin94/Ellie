@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.InteractiveObjects;
-using Microsoft.Cci;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player

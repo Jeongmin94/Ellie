@@ -6,10 +6,10 @@ namespace Assets.Scripts.Data.ActionData.Player
     [CreateAssetMenu(fileName = "StaminaData", menuName = "Player/StaminaData")]
     public class StaminaData : ScriptableObject
     {
-        [SerializeField] private int maxStamina;
-        public readonly Data<int> CurrentStamina = new Data<int>();
+        [SerializeField] private float maxStamina;
+        public readonly Data<float> CurrentStamina = new Data<float>();
         
-        public int MaxStamina
+        public float MaxStamina
         {
             get { return maxStamina; }
         }
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Data.ActionData.Player
 
         public float GetPercentage()
         {
-            return (float)CurrentStamina.Value / (float)maxStamina;
+            return CurrentStamina.Value / maxStamina;
         }
     }
 }
