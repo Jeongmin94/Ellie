@@ -6,25 +6,81 @@ using System.Collections;
 using System.Collections.Generic;
 using TheKiwiCoder;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Boss
 {
     public class Boss1GameCenter : MonoBehaviour
     {
         public GameObject playerStoneTemp;
+        public GameObject magicStalactiteTemp;
+        public GameObject magicStoneTemp;
+        private MagicStone magicStone;
+
+        public int numberOfSector = 3;
+        public int stalactitePerSector = 3;
+        public float fieldRadius = 25.0f;
+        public float fieldHeight = 8.0f;
 
         [SerializeField] private TerrapupaController boss;
         [SerializeField] private PlayerController player;
         [SerializeField] private List<ManaFountain> manaObjects = new List<ManaFountain>();
+        [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
         private void Start()
+        {
+            SubscribeEvents();
+            SpawnStalactites();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                GameObject temp = Instantiate(magicStoneTemp, Vector3.zero, Quaternion.identity);
+                magicStone = temp.GetComponent<MagicStone>();
+            }
+        }
+
+        private void SubscribeEvents()
         {
             EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
-
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
+        }
+
+        private void SpawnStalactites()
+        {
+            for (int i = 0; i < numberOfSector; i++)
+            {
+                List<MagicStalactite> sectorList = new List<MagicStalactite>();
+                for (int j = 0; j < stalactitePerSector; j++)
+                {
+                    Vector3 position = GenerateRandomPositionInSector(i);
+                    GameObject stalactite = Instantiate(magicStalactiteTemp, position, Quaternion.identity);
+                    sectorList.Add(stalactite.GetComponent<MagicStalactite>());
+                }
+                stalactites.Add(sectorList);
+            }
+        }
+
+        private Vector3 GenerateRandomPositionInSector(int sectorIndex)
+        {
+            float sectorAngleSize = 360f / numberOfSector;
+            float minAngle = sectorAngleSize * sectorIndex;
+            float maxAngle = minAngle + sectorAngleSize;
+
+            float angle = Random.Range(minAngle, maxAngle) * Mathf.Deg2Rad;
+            float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * fieldRadius;
+
+            return new Vector3(
+                Mathf.Cos(angle) * distance,
+                fieldHeight,
+                Mathf.Sin(angle) * distance
+            );
         }
 
         private void OnSpawnStone()
@@ -145,19 +201,51 @@ namespace Assets.Scripts.Boss
             Debug.Log($"OnStartEarthQuake");
             BossEventPayload payload = earthQuakePayload as BossEventPayload;
 
-            Transform player = payload.TransformValue1;
+            Transform playerTransform = payload.TransformValue1;
+            Transform manaTransform = payload.TransformValue2;
             int attack = payload.IntValue;
 
-            float jumpCheckValue = 1.0f;
-            
-            // 점프 체크
-            if(player != null)
-            {
+            Debug.Log(playerTransform);
+            Debug.Log(manaTransform);
 
+            float jumpCheckValue = 1.0f;
+
+            if (playerTransform != null)
+            {
+                // 플레이어 아래 광선을 쏴서 점프 체크
+                RaycastHit hit;
+                bool isJumping = !Physics.Raycast(playerTransform.position, -Vector3.up, out hit, jumpCheckValue);
+
+                LayerMask groundLayer = LayerMask.GetMask("Ground");
+                isJumping = !Physics.Raycast(playerTransform.position, -Vector3.up, out hit, jumpCheckValue, groundLayer);
+
+                if (!isJumping)
+                {
+                    Debug.Log($"플레이어 피해 {attack} 입음");
+                }
             }
+            if (manaTransform != null)
+            {
+                // 해당 마나의 샘 쿨타임 적용, 삭제
+                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
+                manaFountain.IsBroken = true;
+
+                OnDestroyedMana(new BossEventPayload
+                {
+                    TransformValue1 = manaTransform,
+                    AttackTypeValue = manaFountain.banBossAttackType,
+                });
+            }
+        }
+
+        private void OnDropMagicStalactite(BossEventPayload manaPayload)
+        {
+            Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
 
             
         }
+
+        
 
         private void OnGUI()
         {

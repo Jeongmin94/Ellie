@@ -17,7 +17,5 @@ namespace Assets.Scripts.Boss.Terrapupa
         [Tooltip("돌의 공격력")] public int stoneAttackValue;
         [Tooltip("돌의 속도")] public float stoneSpeed;
         [Tooltip("돌의 크기")] public float stoneScale;
-
-
     }
 }

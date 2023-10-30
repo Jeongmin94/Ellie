@@ -6,7 +6,8 @@ using TheKiwiCoder;
 [System.Serializable]
 public class CheckTargetOverlapSphere : ActionNode
 {
-    public NodeProperty<Transform> target;
+    public NodeProperty<Transform> returnObject;
+
     public NodeProperty<LayerMask> layer;
     public NodeProperty<float> radius;
     public NodeProperty<float> angle;
@@ -33,7 +34,7 @@ public class CheckTargetOverlapSphere : ActionNode
                     !Physics.Linecast(context.transform.position, collider.transform.position, out RaycastHit hit, layer.Value) ||
                     hit.transform == collider.transform)
                 {
-                    Debug.Log(collider.name);
+                    returnObject.Value = collider.transform;
                     return State.Success;
                 }
             }

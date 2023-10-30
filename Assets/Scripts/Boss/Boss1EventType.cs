@@ -7,6 +7,7 @@ namespace Assets.Scripts.Boss
     public class BossEventPayload : IBaseEventPayload
     {
         private int intValue;
+        private float floatValue;
         private Vector3 vector3Value;
         private Transform transformValue1;
         private Transform transformValue2;
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Boss
         public BossEventPayload()
         {
             intValue = 0;
+            floatValue = 0.0f;
             vector3Value = Vector3.zero;
             transformValue1 = null;
             transformValue2 = null;
@@ -25,6 +27,12 @@ namespace Assets.Scripts.Boss
         {
             get { return intValue; }
             set { intValue = value; }
+        }
+
+        public float FloatValue
+        {
+            get { return floatValue; }
+            set { floatValue = value; }
         }
 
         public Vector3 Vector3Value
@@ -48,7 +56,7 @@ namespace Assets.Scripts.Boss
         public TerrapupaAttackType AttackTypeValue
         {
             get { return attackTypeValue; }
-            set { attackTypeValue = value; Debug.Log(attackTypeValue); }
+            set { attackTypeValue = value; }
         }
     }
 }

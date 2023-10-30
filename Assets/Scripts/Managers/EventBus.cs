@@ -9,6 +9,8 @@ public enum EventBusEvents
     HitManaByPlayerStone,
     DestroyedManaByBoss1,
     OccurEarthQuake,
+    DropMagicStalactite,
+
 }
 
 public interface IBaseEventPayload
