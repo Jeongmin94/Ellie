@@ -90,7 +90,7 @@ MonoBehaviour:
     - rid: 5827610086317228080
     - rid: 5827610127647113221
     - rid: 5827610127647113223
-  viewPosition: {x: 2283, y: -336, z: 0}
+  viewPosition: {x: 649, y: -337, z: 0}
   viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
@@ -222,7 +222,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e52811ae9daed4e1eb83d1290970ec3d
-        position: {x: -1830, y: 570}
+        position: {x: -1725, y: 570}
         blackboard:
           keys: []
         description: RunToPlayer
@@ -231,6 +231,7 @@ MonoBehaviour:
         - rid: 5827610086317228036
         - rid: 5827610181934514182
         - rid: 5827610086317228041
+        - rid: 1401849380458725376
     - rid: 5827610086317228036
       type: {class: DistanceAttackable, ns: , asm: Assembly.Ellie}
       data:
@@ -979,7 +980,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: SkeletonDeadz
         wait:
           reference:
             rid: -2
@@ -1028,7 +1029,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2275fe530bfa24d4891536e5e85c4660
-        position: {x: -945, y: 705}
+        position: {x: -960, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1074,7 +1075,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: SkeletonIdleSitting
+          defaultValue: SkeletonIdleAttack
         wait:
           reference:
             rid: -2

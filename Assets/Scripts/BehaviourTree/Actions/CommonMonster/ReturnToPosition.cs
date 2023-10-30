@@ -25,7 +25,7 @@ public class ReturnToPosition : ActionNode
             return State.Running;
         }
         context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
-        isOnSapwnPosition.Value = true;
+        //isOnSapwnPosition.Value = true;
         return State.Success;
     }
 }

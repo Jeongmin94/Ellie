@@ -100,7 +100,7 @@ MonoBehaviour:
     - rid: 5827610129303863315
     - rid: 5827610129303863316
     - rid: 5827610129303863317
-  viewPosition: {x: 2403, y: -277, z: 0}
+  viewPosition: {x: -2980, y: -339, z: 0}
   viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
@@ -214,7 +214,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e52811ae9daed4e1eb83d1290970ec3d
-        position: {x: -2040, y: 570}
+        position: {x: -1980, y: 570}
         blackboard:
           keys: []
         description: RunToPlayer
@@ -223,6 +223,7 @@ MonoBehaviour:
         - rid: 5827610086317228036
         - rid: 5827610181934514194
         - rid: 5827610086317228041
+        - rid: 5827610181934514195
     - rid: 5827610086317228036
       type: {class: DistanceAttackable, ns: , asm: Assembly.Ellie}
       data:
@@ -611,7 +612,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6d53a2b5f6847479686fd335f3a035f5
-        position: {x: -2850, y: 570}
+        position: {x: -2895, y: 570}
         blackboard:
           keys: []
         description: Dead
@@ -625,7 +626,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: beaf73d8e3b9845319276fcebb12a7bc
-        position: {x: -3045, y: 705}
+        position: {x: -2985, y: 705}
         blackboard:
           keys: []
         description: 
@@ -650,7 +651,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cd8a44dffd41a46a78751dab4703ff99
-        position: {x: -2535, y: 570}
+        position: {x: -2520, y: 570}
         blackboard:
           keys: []
         description: Damaged
@@ -925,7 +926,7 @@ MonoBehaviour:
         skillName:
           reference:
             rid: -2
-          defaultValue: MaceAttack
+          defaultValue: WeaponAttack
     - rid: 5827610129303863313
       type: {class: Stop, ns: , asm: Assembly.Ellie}
       data:
@@ -1026,7 +1027,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 525158284265d438497b39baeba31496
-        position: {x: -2895, y: 705}
+        position: {x: -2835, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1034,7 +1035,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: SkeletonDead
         wait:
           reference:
             rid: -2
@@ -1053,7 +1054,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: SkeletonHit
         wait:
           reference:
             rid: -2
@@ -1091,7 +1092,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: SkeletonIdleAttack
         wait:
           reference:
             rid: -2
@@ -1167,7 +1168,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: SkeletonIdleSitting
+          defaultValue: SkeletonIdleAttack
         wait:
           reference:
             rid: -2
@@ -1254,7 +1255,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4993f90d264664b7e811b09df6b3fa5b
-        position: {x: 3030, y: 705}
+        position: {x: 3045, y: 705}
         blackboard:
           keys: []
         description: 
