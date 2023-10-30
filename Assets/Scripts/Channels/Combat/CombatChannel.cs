@@ -10,7 +10,6 @@ namespace Channels.Combat
         Melee,
     }
 
-
     public class CombatPayload : IBaseEventPayload
     {
         //공격 타입
