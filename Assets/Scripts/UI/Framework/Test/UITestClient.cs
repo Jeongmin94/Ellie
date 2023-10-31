@@ -8,6 +8,10 @@ using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.UI.Status;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework
@@ -33,6 +37,8 @@ namespace Assets.Scripts.UI.Framework
         private readonly MonsterDataContainer canvasContainer = new MonsterDataContainer();
         private readonly MonsterDataContainer billboardContainer = new MonsterDataContainer();
 
+        private TicketMachine ticketMachine;
+
         private void Awake()
         {
             healthData.InitHealth();
@@ -48,6 +54,38 @@ namespace Assets.Scripts.UI.Framework
             billboardContainer.PrevHp = 45;
             billboardContainer.CurrentHp.Value = 45;
             billboardContainer.Name = "I'm billboard";
+
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            var uiTicket = new UITicket<IBaseEventPayload>();
+            ticketMachine.AddTicket(ChannelType.UI, uiTicket);
+        }
+
+        private void OnEnable()
+        {
+            Debug.Log($"키보드 액션 구독");
+            InputManager.Instance.OnKeyAction -= OnKeyAction;
+            InputManager.Instance.OnKeyAction += OnKeyAction;
+        }
+
+        private void OnKeyAction()
+        {
+            // 아이템 습득 테스트
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log($"아이템 생성");
+                UIPayload payload = new UIPayload();
+                payload.uiType = UIType.ChannelAction;
+                ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
+
+            // 아이템 버리기 테스트
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Debug.Log($"아이템 삭제");
+                UIPayload payload = new UIPayload();
+                payload.uiType = UIType.ChannelAction;
+                ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
         }
 
         private void Start()
@@ -65,9 +103,6 @@ namespace Assets.Scripts.UI.Framework
             billboard.scaleFactor = 0.003f;
             billboard.InitBillboard(billBoardPosition);
             billboard.InitData(billboardContainer);
-            
-            // popup inven
-            UIManager.Instance.MakePopup<UIPopupInvenCanvas>(UIManager.UIPopupInvenCanvas);
         }
 
         private void OnGUI()

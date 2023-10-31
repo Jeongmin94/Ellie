@@ -65,16 +65,35 @@ namespace Assets.Scripts.Utils
             switch (type)
             {
                 case UIEvent.Click:
-                    {
-                        handler.OnClickHandler -= action;
-                        handler.OnClickHandler += action;
-                    }
+                {
+                    handler.clickHandlerAction -= action;
+                    handler.clickHandlerAction += action;
+                }
                     break;
                 case UIEvent.Drag:
-                    {
-                        handler.OnDragHandler -= action;
-                        handler.OnDragHandler += action;
-                    }
+                {
+                    handler.dragHandlerAction -= action;
+                    handler.dragHandlerAction += action;
+                }
+                    break;
+                case UIEvent.BeginDrag:
+                {
+                    handler.beginDragHandlerAction -= action;
+                    handler.beginDragHandlerAction += action;
+                }
+                    break;
+                case UIEvent.EndDrag:
+                {
+                    handler.endDragHandlerAction -= action;
+                    handler.endDragHandlerAction += action;
+                }
+                    break;
+
+                case UIEvent.Drop:
+                {
+                    handler.dropHandlerAction -= action;
+                    handler.dropHandlerAction += action;
+                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

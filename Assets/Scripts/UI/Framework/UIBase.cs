@@ -86,5 +86,15 @@ namespace Assets.Scripts.UI.Framework
         {
             return Get<TextMeshProUGUI>(idx);
         }
+
+        public static void SetSprite(Image image, Sprite sprite)
+        {
+            image.sprite = sprite;
+        }
+
+        public static void SetText(TextMeshProUGUI textMeshPro, string text)
+        {
+            textMeshPro.text = text;
+        }
     }
 }

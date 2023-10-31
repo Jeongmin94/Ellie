@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.Channels;
 using Channels;
@@ -45,6 +44,9 @@ namespace Centers
 
         private void InitChannels()
         {
+            if (baseChannelTypeSo == null)
+                return;
+
             int length = baseChannelTypeSo.channelTypes.Length;
             for (int i = 0; i < length; i++)
             {
@@ -60,7 +62,7 @@ namespace Centers
 
         protected void CheckTicket(GameObject go)
         {
-            var machines =  go.GetComponentsInChildren<TicketMachine>();
+            var machines = go.GetComponentsInChildren<TicketMachine>();
             if (machines.Length == 0)
                 return;
 

@@ -62,7 +62,7 @@ namespace Channels.Components
             {
                 foreach (var channelType in tickets.Keys)
                 {
-                    tickets[channelType].Subscribe(channels[channelType].ReceiveMessage);
+                    tickets[channelType].Subscribe(channels[channelType]);
                 }
             }
             else

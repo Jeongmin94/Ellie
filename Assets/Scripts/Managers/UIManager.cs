@@ -28,6 +28,8 @@ namespace Assets.Scripts.Managers
         public const string UISlot = "Slot/Slot";
         public const string UISlotItem = "Slot/SlotItem";
         public const string UIGridArea = "Slot/GridArea";
+        public const string UIHorizontalGridArea = "Slot/HorizontalGridArea";
+        public const string UIItemMenuButton = "Slot/ItemMenuButton";
 
         private int order = 10;
 

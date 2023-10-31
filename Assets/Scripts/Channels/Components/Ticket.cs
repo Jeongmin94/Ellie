@@ -12,6 +12,12 @@ namespace Channels.Components
             sendMessageAction += listener;
         }
 
+        public virtual void Subscribe(BaseEventChannel channel)
+        {
+            sendMessageAction -= channel.ReceiveMessage;
+            sendMessageAction += channel.ReceiveMessage;
+        }
+
         public virtual void Publish(T payload)
         {
             sendMessageAction?.Invoke(payload);

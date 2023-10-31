@@ -1,13 +1,15 @@
+using Assets.Scripts.ActionData;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Item.PopupInven
 {
-    public class SlotItem : UIBase
+    public class SlotItem : UIBase, IDraggable
     {
         private enum Images
         {
@@ -20,27 +22,98 @@ namespace Assets.Scripts.UI.Item.PopupInven
         }
 
         private RectTransform rectTransform;
+        private Image raycastImage;
+
         private Image itemImage;
         private TextMeshProUGUI itemText;
+        private string itemName;
+        private int itemCount;
+
+        public Image ItemImage => itemImage;
+        public TextMeshProUGUI ItemText => itemText;
+        public string ItemName => itemName;
+        public int ItemCount => itemCount;
+
+
+        private readonly Data<SlotInfo> slotInfo = new Data<SlotInfo>();
 
         private void Awake()
         {
             Init();
         }
 
+        private void OnEnable()
+        {
+            slotInfo.Subscribe(OnSlotInfoChanged);
+        }
+
         protected override void Init()
         {
-            // !TODO: 슬롯 아이템 구현
-            // 드래그 앤 드롭으로 슬롯 이동가능
+            BindObjects();
+            InitObjects();
+            BindEvents();
+        }
 
+        private void BindObjects()
+        {
             Bind<Image>(typeof(Images));
             Bind<TextMeshProUGUI>(typeof(Texts));
+        }
 
+        private void InitObjects()
+        {
+            raycastImage = gameObject.GetComponent<Image>();
             rectTransform = gameObject.GetOrAddComponent<RectTransform>();
             itemImage = GetImage((int)Images.ItemImage);
             itemText = GetText((int)Texts.ItemText);
+        }
 
-            AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.MiddleCenter);
+        private void BindEvents()
+        {
+            gameObject.BindEvent(OnBeginDragHandler, UIEvent.BeginDrag);
+            gameObject.BindEvent(OnDragHandler, UIEvent.Drag);
+            gameObject.BindEvent(OnEndDragHandler, UIEvent.EndDrag);
+        }
+
+        // !TODO: 드래그 할 때 색, 크기, 알파 변환
+        // Slot에서 OnDrop을 받기 위해서는 Raycast를 받을 수 있게 해줘야 하기 때문에 SlotItem의 raycastTarget을 비활성화 처리
+        private void OnBeginDragHandler(PointerEventData data)
+        {
+            raycastImage.raycastTarget = false;
+        }
+
+        private void OnDragHandler(PointerEventData data)
+        {
+            transform.position = data.position;
+        }
+
+        private void OnEndDragHandler(PointerEventData data)
+        {
+            raycastImage.raycastTarget = true;
+        }
+
+        public SlotInfo GetSlotInfo()
+        {
+            return slotInfo.Value;
+        }
+
+        public void SetSlotInfo(SlotInfo info)
+        {
+            slotInfo.Value = info;
+        }
+
+        private void OnSlotInfoChanged(SlotInfo info)
+        {
+            ResetSlotItem(info);
+        }
+
+        private void ResetSlotItem(SlotInfo info)
+        {
+            rectTransform.SetParent(info.slot.ItemPosition);
+
+            AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.StretchAll);
+            rectTransform.sizeDelta = Vector2.zero;
+            rectTransform.localPosition = Vector2.zero;
         }
     }
 }
