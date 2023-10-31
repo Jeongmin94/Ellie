@@ -4,6 +4,10 @@ using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Item;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
+using Channels.Combat;
+using Channels.Components;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -36,6 +40,7 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private bool withPlayer = false;
 
+
         //public BaseStone Stone
         //{
         //    get { return stone; }
@@ -57,7 +62,8 @@ namespace Assets.Scripts.Player
         private Vector3 launchDirection;
         private float chargingTime = 0.0f;
         private float chargingRatio = 0.0f;
-        
+
+       
         private void OnEnable()
         {
             SubscribeAction();
@@ -69,6 +75,7 @@ namespace Assets.Scripts.Player
 
             SetLineRendererLayerMask();
         }
+        
 
         private void SubscribeAction()
         {
@@ -93,13 +100,27 @@ namespace Assets.Scripts.Player
                 }
             }
         }
-
-        private void ReleaseStone(BaseStone stone, Vector3 direction, float strength)
+        public void Shoot(TicketMachine ticketMachine)
         {
-            stone.SetPosition(releasePosition.position);
-            stone.MoveStone(direction, strength);
-
+            Debug.Log("Shoot");
+            CombatPayload payload = new()
+            {
+                Type = CombatType.RequestStone,
+                StoneSpawnPos = releasePosition.position,
+                StoneDirection = launchDirection,
+                StoneStrength = shootingPower * chargingRatio
+            };
+            ticketMachine.SendMessage(Channels.Type.ChannelType.Combat, payload);
+            lineRenderer.enabled = false;
+            chargingTime = 0.0f;
+            chargingData.ChargingValue.Value = 0.0f;
         }
+        //private void ReleaseStone(BaseStone stone, Vector3 direction, float strength)
+        //{
+        //    stone.SetPosition(releasePosition.position);
+        //    stone.MoveStone(direction, strength);
+
+        //}
 
         private void OnMouseAction()
         {
@@ -123,15 +144,15 @@ namespace Assets.Scripts.Player
             //    chargingData.ChargingValue.Value = 0.0f;
             //}
         }
-        public void Shoot(Poolable obj)
-        {
-            //Called by PlayerController
-            BaseStone stone = obj as BaseStone;
-            ReleaseStone(stone, launchDirection, shootingPower * chargingRatio);
-            lineRenderer.enabled = false;
-            chargingTime = 0.0f;
-            chargingData.ChargingValue.Value = 0.0f;
-        }
+        //public void Shoot(Poolable obj)
+        //{
+        //    // !TODO : SendMessage를 통해 StoneHatchery가 지정된 위치에서 돌 생성, 돌 발사 로직 실행
+        //    BaseStone stone = obj as BaseStone;
+        //    ReleaseStone(stone, launchDirection, shootingPower * chargingRatio);
+        //    lineRenderer.enabled = false;
+        //    chargingTime = 0.0f;
+        //    chargingData.ChargingValue.Value = 0.0f;
+        //}
         private Vector3 CalculateDirection()
         {
             Vector3 direction = Vector3.zero;

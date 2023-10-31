@@ -23,6 +23,8 @@ namespace Assets.Scripts.Centers.Test
             Debug.Log("TestAttacker SetTicketMachine()");
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat);
+
+            //ticketMachine.AddTicket(ChannelType.UI, new Ticket<IBaseEventPayload>());
         }
         public void Attack(IBaseEventPayload payload)
         {
@@ -43,15 +45,17 @@ namespace Assets.Scripts.Centers.Test
         }
         private void TestAttack()
         {
-            CombatPayload payload = new();
-            payload.Type = CombatType.Melee;
-            payload.Attacker = transform;
-            payload.Defender = playerStatus.transform;
-            payload.AttackDirection = Vector3.zero;
-            payload.AttackStartPosition = transform.position;
-            payload.AttackPosition = playerStatus.transform.position;
-            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity;
-            payload.Damage = 5;
+            CombatPayload payload = new()
+            {
+                Type = CombatType.Melee,
+                Attacker = transform,
+                Defender = playerStatus.transform,
+                AttackDirection = Vector3.zero,
+                AttackStartPosition = transform.position,
+                AttackPosition = playerStatus.transform.position,
+                PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity,
+                Damage = 5
+            };
             Attack(payload);
         }
     }

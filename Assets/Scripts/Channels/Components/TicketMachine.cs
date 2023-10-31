@@ -62,7 +62,7 @@ namespace Channels.Components
             {
                 foreach (var channelType in tickets.Keys)
                 {
-                    tickets[channelType].Subscribe(channels[channelType].ReceiveMessage);
+                    tickets[channelType].Subscribe(channels[channelType]);
                 }
             }
             else
@@ -86,6 +86,19 @@ namespace Channels.Components
             {
                 tickets[type] = ticket;
                 addTicketAction?.Invoke(TicketBox.Of(type, tickets[type]));
+            }
+        }
+
+        /// <summary>
+        /// 다른 오브젝트의 티켓 머신 이니셜라이징하기
+        /// </summary>
+        /// <param name="machine">이 친구는 돌멩이의 티켓머신</param>
+        public void AddTicket(TicketMachine machine)
+        {
+            var keys = machine.tickets.Keys;
+            foreach (var key in keys)
+            {
+                addTicketAction?.Invoke(TicketBox.Of(key, machine.tickets[key]));
             }
         }
     }

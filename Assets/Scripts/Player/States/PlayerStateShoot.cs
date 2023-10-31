@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Managers;
+using Channels.Combat;
+using Channels.Components;
 using System;
 using UnityEngine;
 
@@ -11,6 +13,7 @@ namespace Assets.Scripts.Player.States
         private float recoilTime;
         private float curTime;
         private GameObject stone;
+        
         public PlayerStateShoot(PlayerController controller) : base(controller)
         {
             recoilTime = controller.RecoilTime;
@@ -22,9 +25,9 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsShooting", true);
             Controller.SetTimeScale(1f);
             curTime = 0;
-            // !TODO : 풀에서 돌맹이 가져와서 Shooter에 전달
-            Controller.shooter.GetComponent<Shooter>().Shoot(PoolManager.Instance.Pop(stone));
+            Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine);
         }
+        
 
         public override void OnExitState()
         {

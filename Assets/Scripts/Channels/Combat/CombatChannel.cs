@@ -10,7 +10,8 @@ namespace Channels.Combat
         Melee,
         Weapon,
         Projectile,
-        Movement
+        Movement,
+        RequestStone
     }
 
 
@@ -24,6 +25,9 @@ namespace Channels.Combat
         public Transform Defender { get; set; }
         //�������� ������
         public int Damage { get; set; }
+        public Vector3 StoneSpawnPos { get; set; }
+        public Vector3 StoneDirection { get; set; }
+        public float StoneStrength { get; set; }
         //���� �̺�Ʈ ������� ���� ����
         public Vector3 AttackDirection { get; set; }
         //���� �̺�Ʈ ������� ������ ��ġ
@@ -40,6 +44,12 @@ namespace Channels.Combat
         public override void ReceiveMessage<T>(T payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
+            //돌달라는 페이로드임?->
+            if(combatPayload.Type == CombatType.RequestStone)
+            {
+                notifyAction?.Invoke(combatPayload);
+                return;
+            }
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
 

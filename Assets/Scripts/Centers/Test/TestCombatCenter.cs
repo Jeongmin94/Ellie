@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Player;
 using Centers;
 
 namespace Assets.Scripts.Centers.Test
@@ -7,6 +8,7 @@ namespace Assets.Scripts.Centers.Test
     {
         public PlayerStatus player;
         public TestAttacker attacker;
+        public StoneHatchery hatchery;
         
        
         private void Awake()
@@ -18,6 +20,7 @@ namespace Assets.Scripts.Centers.Test
         {
             CheckTicket(player.gameObject);
             CheckTicket(attacker.gameObject);
+            CheckTicket(hatchery.gameObject);
         }
     }
 }

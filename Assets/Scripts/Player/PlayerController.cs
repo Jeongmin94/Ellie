@@ -6,6 +6,8 @@ using Cinemachine;
 using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Equipments;
 using Assets.Scripts.StatusEffects;
+using Channels.Components;
+using Assets.Scripts.Utils;
 
 namespace Assets.Scripts.Player
 {
@@ -138,12 +140,21 @@ namespace Assets.Scripts.Player
 
         private PlayerStateMachine stateMachine;
 
+        private TicketMachine ticketMachine;
+        public TicketMachine TicketMachine { get { return ticketMachine; } }
+
         private void Awake()
         {
             Rb = GetComponent<Rigidbody>();
             Anim = GetComponent<Animator>();
             playerStatus = GetComponent<PlayerStatus>();
+            InitTicketMachine();
             //stateMachine.CurrentState.
+        }
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(Channels.Type.ChannelType.Combat);
         }
 
         private void Start()
