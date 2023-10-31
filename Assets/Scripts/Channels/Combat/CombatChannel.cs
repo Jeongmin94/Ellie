@@ -1,6 +1,5 @@
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
-using Codice.CM.SEIDInfo;
 using UnityEngine;
 
 namespace Channels.Combat
@@ -17,31 +16,39 @@ namespace Channels.Combat
 
     public class CombatPayload : IBaseEventPayload
     {
-        //���� Ÿ��
+        //페이로드 타입
         public CombatType Type { get; set; }
-        //�������� transform
+
+
+        //공격자의 transform
         public Transform Attacker { get; set; }
-        //�ǰ����� transform
+
+        //피격자의 transform
         public Transform Defender { get; set; }
-        //�������� ������
+
+        //공격자의 데미지
         public int Damage { get; set; }
+
         public Vector3 StoneSpawnPos { get; set; }
         public Vector3 StoneDirection { get; set; }
         public float StoneStrength { get; set; }
-        //���� �̺�Ʈ ������� ���� ����
+        //공격 이벤트 발행시의 공격 방향
         public Vector3 AttackDirection { get; set; }
-        //���� �̺�Ʈ ������� ������ ��ġ
+
+        //공격 이벤트 발행시의 공격의 위치
         public Vector3 AttackPosition { get; set; }
-        //�������� ���� ���� ��ġ
+
+        //공격자의 공격 시작 위치
         public Vector3 AttackStartPosition { get; set; }
-        //������ �÷��̾�� �ǰݵ��� �� �÷��̾�� ���ߵǴ� �����̻�
+
+        //공격이 플레이어에게 피격됐을 때 플레이어에게 유발되는 상태이상
         public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
         //!TODO : ������ enemy�� �ǰݵ��� �� ���ߵǴ� �����̻��� enum�� �ʿ��մϴ�
     }
 
     public class CombatChannel : BaseEventChannel
     {
-        public override void ReceiveMessage<T>(T payload)
+        public override void ReceiveMessage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
             //돌달라는 페이로드임?->
@@ -52,7 +59,6 @@ namespace Channels.Combat
             }
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
-
         }
 
         private CombatPayload CalculateCombatLogic(CombatPayload payload)
