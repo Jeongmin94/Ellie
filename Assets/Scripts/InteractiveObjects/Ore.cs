@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Item;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -124,8 +126,7 @@ namespace Assets.Scripts.InteractiveObjects
                         for (int i = 0; i < dropData.Item2; i++)
                         {
                             //TODO : 돌맹이 데이터테이블에서 해당하는 티어의 돌맹이 랜덤하게 뽑아내기
-                            GameObject obj = Instantiate(stonePrefabTest, stoneSpawnPos);
-                            obj.GetComponent<Rigidbody>().AddForce(GetRandVector() * 4f, ForceMode.Impulse);
+                            SetStonePosAndMomentum(PoolManager.Instance.Pop(stonePrefabTest));
                             //Debug.Log("Stone Tier : " + dropData.Item1.ToString());
                         }
                     }
@@ -134,6 +135,11 @@ namespace Assets.Scripts.InteractiveObjects
             }
         }
 
+        private void SetStonePosAndMomentum(Poolable obj)
+        {
+            obj.transform.position = stoneSpawnPos.position;
+            obj.GetComponent<Rigidbody>().AddForce(GetRandVector() * 4f, ForceMode.Impulse);
+        }
         private Vector3 GetRandVector()
         {
             Vector3 vec = new Vector3(Random.Range(-1.0f, 1.0f), 0.5f,0);
