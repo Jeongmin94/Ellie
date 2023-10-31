@@ -1,12 +1,9 @@
 ﻿using Assets.Scripts.Boss.Objects;
 using Assets.Scripts.Boss.Terrapupa;
 using Assets.Scripts.Player;
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
-using TheKiwiCoder;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Assets.Scripts.Boss
 {
@@ -73,7 +70,9 @@ namespace Assets.Scripts.Boss
                 {
                     Vector3 position = GenerateRandomPositionInSector(i);
                     GameObject stalactite = Instantiate(magicStalactiteTemp, position, Quaternion.identity);
-                    sectorList.Add(stalactite.GetComponent<MagicStalactite>());
+                    MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
+                    instantStalactite.MyIndex = i;
+                    sectorList.Add(instantStalactite);
                 }
                 stalactites.Add(sectorList);
             }
@@ -123,13 +122,13 @@ namespace Assets.Scripts.Boss
             for (int i = 0; i < 3; i++)
             {
                 GameObject playerStone = Instantiate(
-                    playerStoneTemp, manaPayload.TransformValue1.position, Quaternion.identity);
+                    playerStoneTemp, manaPayload.TransformValue2.position, Quaternion.identity);
 
                 Vector3 randomDirection = new Vector3(
                 Random.Range(-1f, 1f), Random.Range(0.5f, 1f), Random.Range(-1f, 1f)).normalized;
 
                 playerStone.GetComponent<Rigidbody>().AddForce(
-                    randomDirection * 10.0f, ForceMode.Impulse);
+                    randomDirection * 5.0f, ForceMode.Impulse);
             }
 
             StartCoroutine(ManaCooldown(manaPayload));
@@ -250,11 +249,37 @@ namespace Assets.Scripts.Boss
             }
         }
 
-        private void OnDropMagicStalactite(BossEventPayload manaPayload)
+        private void OnDropMagicStalactite(BossEventPayload stalactitePayload)
         {
             Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
 
+            if(stalactitePayload.TransformValue2 != null)
+            {
+                Debug.Log("보스 타격");
 
+                if(boss.isIntake.value)
+                {
+                    Debug.Log("섭취 -> 기절");
+
+                    boss.isStuned.value = true;
+                    boss.isTempted.value = false;
+                    boss.isIntake.value = false;
+                }
+            }
+
+            StartCoroutine(RespawnMagicStalactite(stalactitePayload));
+        }
+
+        private IEnumerator RespawnMagicStalactite(BossEventPayload payload)
+        {
+            float respawnTime = payload.FloatValue;
+            Debug.Log($"{respawnTime}초 이후 재생성");
+
+            yield return new WaitForSeconds(respawnTime);
+
+            Vector3 position = GenerateRandomPositionInSector(payload.IntValue);
+            payload.TransformValue1.position = position;
+            payload.TransformValue1.gameObject.SetActive(true);
         }
 
         private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)

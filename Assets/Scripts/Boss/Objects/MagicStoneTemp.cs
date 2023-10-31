@@ -6,13 +6,13 @@ public class MagicStoneTemp : MonoBehaviour
     public float attractionRadiusRange;
     public LayerMask bossLayer;
 
-    private bool isTempted = false;
+    private bool isTrigger = false;
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isTempted && ((1 << other.gameObject.layer) & bossLayer) != 0)
+        if (!isTrigger && ((1 << other.gameObject.layer) & bossLayer) != 0)
         {
-            isTempted = true;
+            isTrigger = true;
 
             EventBus.Instance.Publish(EventBusEvents.BossAttractedByMagicStone,
                 new BossEventPayload { TransformValue1 = transform, TransformValue2 = other.transform.root });
@@ -23,7 +23,7 @@ public class MagicStoneTemp : MonoBehaviour
     {
         if (((1 << other.gameObject.layer) & bossLayer) != 0)
         {
-            isTempted = false;
+            isTrigger = false;
 
             EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone,
                 new BossEventPayload { TransformValue1 = transform, TransformValue2 = other.transform.root });

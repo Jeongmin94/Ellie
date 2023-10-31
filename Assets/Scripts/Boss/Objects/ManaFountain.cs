@@ -9,6 +9,7 @@ namespace Assets.Scripts.Boss.Objects
         public TerrapupaAttackType banBossAttackType;
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
+        public Transform spawnPosition;
 
         private bool isCooldown;
         private bool isBroken;
@@ -36,7 +37,7 @@ namespace Assets.Scripts.Boss.Objects
                     isCooldown = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
-                        new BossEventPayload { TransformValue1 = transform });
+                        new BossEventPayload { TransformValue1 = transform, TransformValue2 = spawnPosition });
                     
                 }
                 else if (other.transform.CompareTag("Boss"))

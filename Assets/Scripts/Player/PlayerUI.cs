@@ -35,9 +35,9 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             staminaBarImage = UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina).BarImage;
-            UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
-            UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
-            statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
+            //UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
+            //UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
+            //statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
         }
     }
 }
