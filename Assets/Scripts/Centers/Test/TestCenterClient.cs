@@ -3,7 +3,6 @@ using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using UnityEngine;
 
 namespace Centers.Test
@@ -34,10 +33,6 @@ namespace Centers.Test
 
             // 기본 Ticket 추가
             ticketMachine.AddTickets(ChannelType.Combat);
-
-            // 파생 Ticket 추가
-            // 런타임에 Ticket 추가 가능
-            ticketMachine.AddTicket(ChannelType.UI, new UITicket<IBaseEventPayload>());
         }
 
         private void InitUI()

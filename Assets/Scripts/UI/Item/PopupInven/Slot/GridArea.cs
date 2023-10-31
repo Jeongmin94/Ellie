@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
+using Assets.Scripts.UI.Item.PopupInven.Structure;
 using Assets.Scripts.Utils;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Item.PopupInven
@@ -65,13 +64,33 @@ namespace Assets.Scripts.UI.Item.PopupInven
             }
         }
 
-        public void AddItem(SlotItem item)
+        public void AddItem(ItemInfo itemInfo)
         {
+            // 1. 슬롯에 있는 아이템이면 해당 아이템의 카운트 증가
+            Debug.Log($"AddItem - {itemInfo.ItemName}");
+            var existItem = slots.Find(s => s.slotItem && s.slotItem.ItemName.Equals(itemInfo.ItemName));
+            if (existItem)
+            {
+                Debug.Log($"존재하는 아이템임");
+                existItem.slotItem.AddCount(itemInfo.ItemCount);
+                return;
+            }
+
+            // 2. 슬롯에 없는 아이템이면 비어있는 슬롯을 찾아서 추가
             var unusedSlot = slots.Find(s => !s.IsUsed);
             if (unusedSlot == null)
                 return;
 
+            // item 추가 테스트
+            var item = UIManager.Instance.MakeSubItem<SlotItem>(null, UIManager.UISlotItem);
+
+            item.ItemImage.sprite = itemInfo.ItemSprite;
+            item.ItemCount = itemInfo.ItemCount;
+            item.ItemName = itemInfo.ItemName;
+            item.ItemText.text = itemInfo.ItemCount.ToString();
+
             unusedSlot.IsUsed = true;
+            unusedSlot.slotItem = item;
             item.SetSlotInfo(SlotInfo.Of(unusedSlot));
         }
 

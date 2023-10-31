@@ -1,3 +1,4 @@
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -30,8 +31,9 @@ namespace Assets.Scripts.UI.Item.PopupInven
         public Transform ItemPosition => itemPosition.transform;
         private GameObject itemPosition;
         public bool IsUsed { get; set; }
-
         public int Index { get; set; }
+        public SlotItem slotItem;
+
 
         private void Awake()
         {
@@ -58,9 +60,24 @@ namespace Assets.Scripts.UI.Item.PopupInven
                 return;
             }
 
-            // 슬롯이 위치 이동인지 아니면 핫스왑 등록인지 여부에 따라서 등록 설정
-            IsUsed = true;
-            draggable.SetSlotInfo(SlotInfo.Of(this));
+            // 슬롯에 똑같은 이름의 아이템이 있으면 수량 추가
+            var si = droppedItem.GetComponent<SlotItem>();
+            if (IsUsed)
+            {
+                if (slotItem.name.Equals(droppedItem.name))
+                {
+                    // !TODO: 카운트를 더한 아이템은 추후에 Destroy 처리해야 함
+                    slotItem.AddCount(si.ItemCount);
+                    ResourceManager.Instance.Destroy(si.gameObject);
+                }
+            }
+            else
+            {
+                IsUsed = true;
+                // 슬롯이 위치 이동인지 아니면 핫스왑 등록인지 여부에 따라서 등록 설정
+                slotItem = si;
+                draggable.SetSlotInfo(SlotInfo.Of(this));
+            }
         }
     }
 }

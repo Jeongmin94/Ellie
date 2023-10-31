@@ -1,7 +1,5 @@
-using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Item.PopupInven.Structure;
 using Assets.Scripts.Utils;
@@ -64,10 +62,8 @@ namespace Assets.Scripts.UI.Item.PopupInven
             Init();
 
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            var uiTicket = new UITicket<IBaseEventPayload>();
-            uiTicket.uiTicketAction -= OnUITicketAction;
-            uiTicket.uiTicketAction += OnUITicketAction;
-            ticketMachine.AddTicket(ChannelType.UI, uiTicket);
+            ticketMachine.AddTickets(ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
         }
 
         protected override void Init()
@@ -83,11 +79,6 @@ namespace Assets.Scripts.UI.Item.PopupInven
             InitGridArea();
             InitButton();
             InitSwitchingArea();
-
-            // item 추가 테스트
-            // 아이템 이미지, 아이템 이름, 아이템 텍스트
-            var item = UIManager.Instance.MakeSubItem<SlotItem>(null, UIManager.UISlotItem);
-            gridArea.AddItem(item);
         }
 
         private void InitGridArea()
@@ -122,18 +113,22 @@ namespace Assets.Scripts.UI.Item.PopupInven
             switchingArea.CreateSlot(3);
         }
 
-        public void OnUITicketAction()
+        private void OnNotifyAction(IBaseEventPayload payload)
         {
-            Debug.Log($"{gameObject.name} OnUITicketAction");
+            UIPayload uiPayload = payload as UIPayload;
+            if (uiPayload.actionType == ActionType.AddSlotItem)
+            {
+                AddItem(new ItemInfo(uiPayload.sprite, uiPayload.name, uiPayload.text, uiPayload.count));
+            }
+            else if (uiPayload.actionType == ActionType.RemoveSlotItem)
+            {
+            }
         }
 
-        public void AddItem(ItemInfo itemInfo)
+        private void AddItem(ItemInfo itemInfo)
         {
-            // item 추가 테스트
-            // 아이템 이미지, 아이템 이름, 아이템 텍스트, 수량
-            var item = UIManager.Instance.MakeSubItem<SlotItem>(null, UIManager.UISlotItem);
-
-            gridArea.AddItem(item);
+            // !TODO gridArea 분류별로 아이템 생성 요청
+            gridArea.AddItem(itemInfo);
         }
 
         public void RemoveItem(ItemInfo itemInfo)

@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace Channels.UI
@@ -7,25 +6,34 @@ namespace Channels.UI
     {
         BarImage,
         SlotItem,
-        ChannelAction
+        Notify
+    }
+
+    public enum ActionType
+    {
+        AddSlotItem,
+        RemoveSlotItem,
     }
 
     public class UIPayload : IBaseEventPayload
     {
         public UIType uiType;
+        public ActionType actionType;
+        public Sprite sprite;
+        public string name;
+        public string text;
+        public int count;
     }
 
     public class UIChannel : BaseEventChannel
     {
-        public Action uiChannelAction;
-
-        public override void ReceiveMessage<T>(T payload)
+        public override void ReceiveMessage(IBaseEventPayload payload)
         {
             Debug.Log($"I'm UIChannel");
 
             var uiPayload = payload as UIPayload;
-            if (uiPayload.uiType == UIType.ChannelAction)
-                uiChannelAction?.Invoke();
+            if (uiPayload.uiType == UIType.Notify)
+                Publish(payload);
         }
     }
 }

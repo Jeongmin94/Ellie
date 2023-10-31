@@ -4,7 +4,6 @@ using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Item;
-using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.UI.Status;
@@ -56,16 +55,18 @@ namespace Assets.Scripts.UI.Framework
             billboardContainer.Name = "I'm billboard";
 
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            var uiTicket = new UITicket<IBaseEventPayload>();
-            ticketMachine.AddTicket(ChannelType.UI, uiTicket);
+            ticketMachine.AddTickets(ChannelType.UI);
         }
 
         private void OnEnable()
         {
-            Debug.Log($"키보드 액션 구독");
             InputManager.Instance.OnKeyAction -= OnKeyAction;
             InputManager.Instance.OnKeyAction += OnKeyAction;
         }
+
+        private const string PrefixExclamationPath = "UI/Inven/Exclamation/";
+        private const string ExclamationGray = "Exclamation_Gray";
+        private const string ExclamationRed = "Exclamation_Red";
 
         private void OnKeyAction()
         {
@@ -74,7 +75,12 @@ namespace Assets.Scripts.UI.Framework
             {
                 Debug.Log($"아이템 생성");
                 UIPayload payload = new UIPayload();
-                payload.uiType = UIType.ChannelAction;
+                payload.uiType = UIType.Notify;
+                payload.sprite = ResourceManager.Instance.LoadExternResource<Sprite>($"{PrefixExclamationPath}{ExclamationGray}");
+                payload.name = "TestItem";
+                payload.count = 1;
+                payload.actionType = ActionType.AddSlotItem;
+
                 ticketMachine.SendMessage(ChannelType.UI, payload);
             }
 
@@ -83,7 +89,7 @@ namespace Assets.Scripts.UI.Framework
             {
                 Debug.Log($"아이템 삭제");
                 UIPayload payload = new UIPayload();
-                payload.uiType = UIType.ChannelAction;
+                payload.uiType = UIType.Notify;
                 ticketMachine.SendMessage(ChannelType.UI, payload);
             }
         }
