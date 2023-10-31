@@ -9,8 +9,6 @@ namespace Assets.Scripts.Boss.Terrapupa
     {
         [Header("테라푸파 속성")]
         [Tooltip("보스의 체력")] public int hp;
-        [Tooltip("보스의 이동 속도")] public float movementSpeed;
-        [Tooltip("보스의 회전 속도")] public float rotationSpeed;
 
         [Header("1. 돌 던지기 패턴")]
         [Tooltip("돌 던지기 패턴 감지 범위")] public float stoneDetectionDistance;

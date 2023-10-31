@@ -358,7 +358,7 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                Debug.Log("Angle : " + angle.ToString());
+                //Debug.Log("Angle : " + angle.ToString());
                 return angle > maxSlopeAngle && angle != 0;
             }
             return false;

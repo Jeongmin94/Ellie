@@ -10,6 +10,9 @@ public enum EventBusEvents
     DestroyedManaByBoss1,
     OccurEarthQuake,
     DropMagicStalactite,
+    BossAttractedByMagicStone,
+    BossUnattractedByMagicStone,
+    IntakeMagicStoneByBoss1,
 
 }
 

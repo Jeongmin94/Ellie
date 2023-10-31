@@ -7,6 +7,7 @@ using TheKiwiCoder;
 public class LookAtPosition : ActionNode
 {
     public NodeProperty<Vector3> targetPosition;
+    public NodeProperty<Transform> targetTransform;
 
     protected override void OnStart() {
     }
@@ -15,8 +16,15 @@ public class LookAtPosition : ActionNode
     }
 
     protected override State OnUpdate() {
-        context.transform.LookAt(targetPosition.Value);
-        
+        if(targetTransform.Value == null)
+        {
+            context.transform.LookAt(targetPosition.Value);
+        }
+        else
+        {
+            context.transform.LookAt(targetTransform.Value.position);
+        }
+
         return State.Success;
     }
 }

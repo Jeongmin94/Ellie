@@ -11,7 +11,9 @@ public class CheckTargetOverlapSphere : ActionNode
     public NodeProperty<LayerMask> layer;
     public NodeProperty<float> radius;
     public NodeProperty<float> angle;
+
     public NodeProperty<bool> isCheckWall;
+    public NodeProperty<bool> isCheckRootTransform;
 
     protected override void OnStart() {
     }
@@ -34,7 +36,15 @@ public class CheckTargetOverlapSphere : ActionNode
                     !Physics.Linecast(context.transform.position, collider.transform.position, out RaycastHit hit, layer.Value) ||
                     hit.transform == collider.transform)
                 {
-                    returnObject.Value = collider.transform;
+                    // 체크 시 루트 오브젝트 반환
+                    if(isCheckRootTransform.Value)
+                    {
+                        returnObject.Value = collider.transform.root;
+                    }
+                    else
+                    {
+                        returnObject.Value = collider.transform;
+                    }
                     return State.Success;
                 }
             }

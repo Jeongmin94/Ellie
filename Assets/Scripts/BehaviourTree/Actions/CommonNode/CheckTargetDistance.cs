@@ -7,6 +7,7 @@ using TheKiwiCoder;
 public class CheckTargetDistance : ActionNode
 {
     public NodeProperty<Vector3> targetPosition;
+    public NodeProperty<Transform> targetTransform;
     public NodeProperty<float> checkDistanceValue;
 
     protected override void OnStart() {
@@ -16,13 +17,22 @@ public class CheckTargetDistance : ActionNode
     }
 
     protected override State OnUpdate() {
-        if(Vector3.Distance(context.transform.position, targetPosition.Value) <= checkDistanceValue.Value)
+        // Vector3으로 비교
+        if (targetTransform.Value == null)
         {
-            return State.Success;
+            if (Vector3.Distance(context.transform.position, targetPosition.Value) <= checkDistanceValue.Value)
+            {
+                return State.Success;
+            } 
         }
+        // Transform으로 비교
         else
         {
-            return State.Failure;
+            if (Vector3.Distance(context.transform.position, targetTransform.Value.position) <= checkDistanceValue.Value)
+            {
+                return State.Success;
+            }
         }
+        return State.Failure;
     }
 }

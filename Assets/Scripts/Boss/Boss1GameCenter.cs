@@ -15,7 +15,8 @@ namespace Assets.Scripts.Boss
         public GameObject playerStoneTemp;
         public GameObject magicStalactiteTemp;
         public GameObject magicStoneTemp;
-        private MagicStone magicStone;
+
+        private MagicStoneTemp magicStone;
 
         public int numberOfSector = 3;
         public int stalactitePerSector = 3;
@@ -24,7 +25,6 @@ namespace Assets.Scripts.Boss
 
         [SerializeField] private TerrapupaController boss;
         [SerializeField] private PlayerController player;
-        [SerializeField] private List<ManaFountain> manaObjects = new List<ManaFountain>();
         [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
         private void Start()
@@ -37,8 +37,17 @@ namespace Assets.Scripts.Boss
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                GameObject temp = Instantiate(magicStoneTemp, Vector3.zero, Quaternion.identity);
-                magicStone = temp.GetComponent<MagicStone>();
+                GameObject temp = Instantiate(magicStoneTemp, player.transform.position, Quaternion.identity);
+                magicStone = temp.GetComponent<MagicStoneTemp>();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                boss.isTempted.value = false;
+                boss.isIntake.value = false;
+                boss.objectTransform.value = null;
+                Destroy(magicStone.gameObject);
+
+                magicStone = null;
             }
         }
 
@@ -50,6 +59,9 @@ namespace Assets.Scripts.Boss
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.BossAttractedByMagicStone, OnBossAtrractedByMagicStone);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, OnBossUnattractedByMagicStone);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
         }
 
         private void SpawnStalactites()
@@ -208,7 +220,7 @@ namespace Assets.Scripts.Boss
             Debug.Log(playerTransform);
             Debug.Log(manaTransform);
 
-            float jumpCheckValue = 1.0f;
+            float jumpCheckValue = 0.5f;
 
             if (playerTransform != null)
             {
@@ -242,24 +254,83 @@ namespace Assets.Scripts.Boss
         {
             Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
 
-            
+
         }
 
-        
+        private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)
+        {
+            Debug.Log($"OnBossAtrractedByMagicStone :: 보스 마법 돌맹이를 추적 시작");
+
+            boss.isTempted.value = true;
+            boss.isIntake.value = false;
+            boss.objectTransform.value = magicStonePayload.TransformValue1;
+        }
+
+        private void OnBossUnattractedByMagicStone(BossEventPayload magicStonePayload)
+        {
+            Debug.Log($"OnBossUnattractedByMagicStone :: 보스 마법 돌맹이를 추적 종료");
+
+            boss.isTempted.value = false;
+            boss.isIntake.value = false;
+            boss.objectTransform.value = null;
+        }
+
+        private void OnIntakeMagicStoneByBoss1(IBaseEventPayload bossPayload)
+        {
+            Debug.Log($"OnIntakeMagicStoneByBoss1 :: 보스가 마법 돌맹이를 섭취중");
+
+            BossEventPayload payload = bossPayload as BossEventPayload;
+
+            StartCoroutine(IntakeMagicStone(payload));
+        }
+
+        private IEnumerator IntakeMagicStone(BossEventPayload payload)
+        {
+            float intakeTime = payload.FloatValue;
+            Debug.Log($"{intakeTime}초 이후 섭취 완료");
+
+            yield return new WaitForSeconds(intakeTime);
+
+            Transform _magicStone = payload.TransformValue1;
+
+            boss.isTempted.value = false;
+            boss.isIntake.value = false;
+            boss.objectTransform.value = null;
+            Destroy(_magicStone.gameObject);
+            magicStone = null;
+        }
 
         private void OnGUI()
         {
-            float distance = Vector3.Distance(player.transform.position, boss.transform.position);
-            string distanceText = "Distance: " + distance.ToString("F2");
+            {
+                float distance = Vector3.Distance(player.transform.position, boss.transform.position);
+                string distanceText = "Distance: " + distance.ToString("F2");
 
-            int boxWidth = 200;
-            int boxHeight = 30;
-            int offsetX = 10;
-            int offsetY = 10;
+                int boxWidth = 200;
+                int boxHeight = 30;
+                int offsetX = 10;
+                int offsetY = 10;
 
-            Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-            GUI.Box(boxRect, "");
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
+                Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
+                GUI.Box(boxRect, "");
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
+            }
+            {
+                if (magicStone != null)
+                {
+                    float distance = Vector3.Distance(boss.transform.position, magicStone.transform.position);
+                    string distanceText = "Distance: " + distance.ToString("F2");
+
+                    int boxWidth = 200;
+                    int boxHeight = 30;
+                    int offsetX = 10;
+                    int offsetY = 50;
+
+                    Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
+                    GUI.Box(boxRect, "");
+                    GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText); 
+                }
+            }
         }
 
         private void OnDrawGizmos()
