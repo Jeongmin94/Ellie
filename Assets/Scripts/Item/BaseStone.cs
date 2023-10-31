@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class BaseStone : MonoBehaviour
+    public class BaseStone : Poolable
     {
         private new Rigidbody rigidbody;
 

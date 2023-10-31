@@ -68,7 +68,7 @@ namespace Assets.Scripts.Player
 
         [Header("Attack")]
         [SerializeField] private bool hasRock;
-        public GameObject shootPos;
+        public GameObject shooter;
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -80,6 +80,9 @@ namespace Assets.Scripts.Player
             }
         }
         public float zoomMultiplier;
+
+        [SerializeField] private float recoilTime;
+        [SerializeField] private GameObject stone;
 
         [Header("Mining")]
         [SerializeField] private float miningTime;
@@ -123,6 +126,12 @@ namespace Assets.Scripts.Player
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
+        public float RecoilTime { get { return recoilTime; } }
+        public GameObject Stone
+        {
+            get { return stone; }
+            set { stone = value; }
+        }
 
 
         private float inputMagnitude;
@@ -232,6 +241,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Zoom, playerStateZoom);
             PlayerStateCharging playerStateCharging = new(this);
             stateMachine.AddState(PlayerStateName.Charging, playerStateCharging);
+            PlayerStateShoot playerStateShoot = new(this);
+            stateMachine.AddState(PlayerStateName.Shoot, playerStateShoot);
             PlayerStateMining playerStateMining = new(this);
             stateMachine.AddState(PlayerStateName.Mining, playerStateMining);
             PlayerStateExhaust playerStateExhaust = new(this);
@@ -425,7 +436,7 @@ namespace Assets.Scripts.Player
 
         public void ActivateShootPos(bool value)
         {
-            shootPos.SetActive(value);
+            shooter.SetActive(value);
         }
 
         public void Aim()

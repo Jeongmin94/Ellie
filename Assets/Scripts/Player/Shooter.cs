@@ -2,6 +2,7 @@ using System;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Item;
+using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using UnityEngine;
 
@@ -31,15 +32,15 @@ namespace Assets.Scripts.Player
 
         // !TODO: stone을 가져와서 사용할 수 있도록 변경해야 함(인벤토리 시스템 추가 후 변경)
         // !TODO: 현재는 테스트 용도로 인스턴스 받아와 사용
-        [Header("Objects")] [SerializeField] private BaseStone stone;
+        //[Header("Objects")] [SerializeField] private BaseStone stone;
 
         [SerializeField] private bool withPlayer = false;
 
-        public BaseStone Stone
-        {
-            get { return stone; }
-            set { stone = value; }
-        }
+        //public BaseStone Stone
+        //{
+        //    get { return stone; }
+        //    set { stone = value; }
+        //}
 
         public float ChargingRatio
         {
@@ -93,10 +94,11 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void ReleaseStone(Vector3 direction, float strength)
+        private void ReleaseStone(BaseStone stone, Vector3 direction, float strength)
         {
             stone.SetPosition(releasePosition.position);
             stone.MoveStone(direction, strength);
+
         }
 
         private void OnMouseAction()
@@ -110,18 +112,26 @@ namespace Assets.Scripts.Player
                 launchDirection = CalculateDirection();
                 DrawTrajectory(launchDirection, shootingPower * chargingRatio);
             }
-            else if (Input.GetMouseButtonUp(0))
-            {
-                // shooting
-                Shoot(launchDirection, shootingPower * chargingRatio);
+            //else if (Input.GetMouseButtonUp(0))
+            //{
+            //    // shooting
+            //    Shoot(launchDirection, shootingPower * chargingRatio);
 
-                // after shooting
-                lineRenderer.enabled = false;
-                chargingTime = 0.0f;
-                chargingData.ChargingValue.Value = 0.0f;
-            }
+            //    // after shooting
+            //    lineRenderer.enabled = false;
+            //    chargingTime = 0.0f;
+            //    chargingData.ChargingValue.Value = 0.0f;
+            //}
         }
-
+        public void Shoot(Poolable obj)
+        {
+            //Called by PlayerController
+            BaseStone stone = obj as BaseStone;
+            ReleaseStone(stone, launchDirection, shootingPower * chargingRatio);
+            lineRenderer.enabled = false;
+            chargingTime = 0.0f;
+            chargingData.ChargingValue.Value = 0.0f;
+        }
         private Vector3 CalculateDirection()
         {
             Vector3 direction = Vector3.zero;
@@ -170,11 +180,6 @@ namespace Assets.Scripts.Player
 
             lineRenderer.positionCount = points.Length;
             lineRenderer.SetPositions(points);
-        }
-
-        private void Shoot(Vector3 direction, float strength)
-        {
-            ReleaseStone(direction, strength);
         }
     }
 }
