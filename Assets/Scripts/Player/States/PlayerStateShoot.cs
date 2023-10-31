@@ -23,7 +23,6 @@ namespace Assets.Scripts.Player.States
             Controller.SetTimeScale(1f);
             curTime = 0;
             // !TODO : 풀에서 돌맹이 가져와서 Shooter에 전달
-            PoolManager.Instance.Pop(stone);
             Controller.shooter.GetComponent<Shooter>().Shoot(PoolManager.Instance.Pop(stone));
         }
 

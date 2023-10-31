@@ -6,14 +6,16 @@ namespace Assets.Scripts.Player
 {
     public class PlayerLooting : MonoBehaviour
     {
-        private void OnCollisionEnter(Collision collision)
+        private void OnTriggerEnter(Collider other)
         {
-            ILootable lootable = collision.gameObject.GetComponent<ILootable>();
+            ILootable lootable = other.gameObject.GetComponent<ILootable>();
             if (lootable != null)
             {
                 Accept(lootable);
             }
         }
+       
+        
         private void Accept(ILootable item)
         {
             item.Visit(this);

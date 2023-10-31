@@ -9,6 +9,7 @@ namespace Assets.Scripts.Item.Stone
         {
             Debug.Log("Player Loot : " + this.name);
             PoolManager.Instance.Push(this);
+
         }
     }
 }
