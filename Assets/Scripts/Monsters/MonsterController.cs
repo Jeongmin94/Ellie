@@ -14,11 +14,13 @@ using Channels.UI;
 using Assets.Scripts.Data;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Managers;
+using Channels.Components;
+using Assets.Scripts.Utils;
+using Channels.Type;
+using Channels.Combat;
 
 namespace Assets.Scripts.Monsters
 {
-
-
     public class MonsterController : AbstractMonster
     {
         //Temp
@@ -36,13 +38,16 @@ namespace Assets.Scripts.Monsters
         [SerializeField] public FleeSkillData fleeSkilldata;
 
         private UIMonsterBillboard billboard;
-
         private readonly MonsterDataContainer dataContainer = new();
+
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+            player = GameObject.Find("Player");
 
+            SetTicketMachine();
             InitUI();
             InitData();
         }
@@ -50,9 +55,14 @@ namespace Assets.Scripts.Monsters
         private void Start()
         {
             SetNavMesh();
-            AddSkills();
-
             SetBehaviourTreeInstance();
+            
+        }
+
+        private void SetTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat);
         }
 
         private void InitUI()
@@ -71,9 +81,7 @@ namespace Assets.Scripts.Monsters
             dataContainer.Name = monsterData.monsterName;
 
             billboard.InitData(dataContainer);
-
         }
-
 
         private void SetBehaviourTreeInstance()
         {
@@ -137,9 +145,19 @@ namespace Assets.Scripts.Monsters
             agent.baseOffset = -0.1f;
         }
 
-        private void AddSkills()
+        public void ReceiveDamage(IBaseEventPayload payload)
         {
-
+            CombatPayload combatPayload = payload as CombatPayload;
+            Damaged(combatPayload.Damage);
+        }
+        private void Damaged(float damage)
+        {
+            monsterData.HP -= damage;
+        }
+        private void Attack()
+        {
+            CombatPayload payload = new();
+            //payload.Type = 
         }
     }
 }

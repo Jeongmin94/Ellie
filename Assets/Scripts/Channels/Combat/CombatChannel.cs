@@ -8,28 +8,31 @@ namespace Channels.Combat
     public enum CombatType
     {
         Melee,
+        Weapon,
+        Projectile,
+        Movement
     }
 
 
     public class CombatPayload : IBaseEventPayload
     {
-        //°ø°Ý Å¸ÀÔ
+        //ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½
         public CombatType Type { get; set; }
-        //°ø°ÝÀÚÀÇ transform
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ transform
         public Transform Attacker { get; set; }
-        //ÇÇ°ÝÀÚÀÇ transform
+        //ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ transform
         public Transform Defender { get; set; }
-        //°ø°ÝÀÚÀÇ µ¥¹ÌÁö
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         public int Damage { get; set; }
-        //°ø°Ý ÀÌº¥Æ® ¹ßÇà½ÃÀÇ °ø°Ý ¹æÇâ
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         public Vector3 AttackDirection { get; set; }
-        //°ø°Ý ÀÌº¥Æ® ¹ßÇà½ÃÀÇ °ø°ÝÀÇ À§Ä¡
+        //ï¿½ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
         public Vector3 AttackPosition { get; set; }
-        //°ø°ÝÀÚÀÇ °ø°Ý ½ÃÀÛ À§Ä¡
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡
         public Vector3 AttackStartPosition { get; set; }
-        //°ø°ÝÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ÇÇ°ÝµÆÀ» ¶§ ÇÃ·¹ÀÌ¾î¿¡°Ô À¯¹ßµÇ´Â »óÅÂÀÌ»ó
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½Ç°Ýµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ßµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½
         public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
-        //!TODO : °ø°ÝÀÌ enemy¿¡ ÇÇ°ÝµÆÀ» ½Ã À¯¹ßµÇ´Â »óÅÂÀÌ»óÀÇ enumÀÌ ÇÊ¿äÇÕ´Ï´Ù
+        //!TODO : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ enemyï¿½ï¿½ ï¿½Ç°Ýµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ßµÇ´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½ enumï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Õ´Ï´ï¿½
     }
 
     public class CombatChannel : BaseEventChannel
@@ -45,7 +48,7 @@ namespace Channels.Combat
         private CombatPayload CalculateCombatLogic(CombatPayload payload)
         {
             CombatPayload newPayload = payload;
-            // !TODO : °ø°ÝÀÚ¿Í ¹æ¾îÀÚÀÇ transformÀ» µû¿Í¼­ ÀüÅõ ·ÎÁ÷À» ½ÇÇàÇÑ ÈÄ, Payload¸¦ ´Ù½Ã ¸¸µé±â
+            // !TODO : ï¿½ï¿½ï¿½ï¿½ï¿½Ú¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ transformï¿½ï¿½ ï¿½ï¿½ï¿½Í¼ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½, Payloadï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
 
             return newPayload;
         }

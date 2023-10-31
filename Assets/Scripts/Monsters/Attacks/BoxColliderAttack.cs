@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Monsters.AbstractClass;
+using Channels.Combat;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Attacks
@@ -8,6 +9,7 @@ namespace Assets.Scripts.Monsters.Attacks
     public class BoxColliderAttack : AbstractAttack
     {
         private BoxCollider collider;
+        private CombatPayload payload;
 
         public override void InitializeBoxCollider(BoxColliderAttackData data)
         {
@@ -46,6 +48,20 @@ namespace Assets.Scripts.Monsters.Attacks
                     Debug.Log("PlayerAttacked");
                 }
             }
+        }
+        private void SetPayloadAttack(BoxColliderAttackData data)
+        {
+            payload = new();
+            payload.Type = data.combatType;
+            payload.Damage = (int)data.attackValue;
+            payload.Attacker = transform;
+            payload.AttackDirection = Vector3.zero;
+            payload.AttackStartPosition = transform.position;
+            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity;
+        }
+        private void Attack()
+        {
+            
         }
 
     }
