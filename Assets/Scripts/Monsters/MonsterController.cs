@@ -56,7 +56,7 @@ namespace Assets.Scripts.Monsters
         {
             SetNavMesh();
             SetBehaviourTreeInstance();
-            
+
         }
 
         private void SetTicketMachine()
@@ -127,7 +127,7 @@ namespace Assets.Scripts.Monsters
                 behaviourTreeInstance.SetBlackboardValue<float>("RunAttackMinimumDistance", runToPlayerData.activateMinimumDistance);
                 behaviourTreeInstance.SetBlackboardValue<float>("RunAttackInterval", runToPlayerData.attackInterval);
             }
-            if(fleeSkilldata!=null)
+            if (fleeSkilldata != null)
             {
                 behaviourTreeInstance.SetBlackboardValue<float>("ActivatableFleeDistance", fleeSkilldata.activatableDistance);
                 behaviourTreeInstance.SetBlackboardValue<float>("ActivateFleeInterval", fleeSkilldata.activateInterval);
@@ -145,19 +145,15 @@ namespace Assets.Scripts.Monsters
             agent.baseOffset = -0.1f;
         }
 
-        public void ReceiveDamage(IBaseEventPayload payload)
+        public override void ReceiveDamage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
             Damaged(combatPayload.Damage);
         }
+
         private void Damaged(float damage)
         {
             monsterData.HP -= damage;
-        }
-        private void Attack()
-        {
-            CombatPayload payload = new();
-            //payload.Type = 
         }
     }
 }

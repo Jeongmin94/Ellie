@@ -1,10 +1,11 @@
+using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.Utility;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.AbstractClass
 {
 
-    public abstract class AbstractAttack : MonoBehaviour
+    public abstract class AbstractAttack : MonoBehaviour, ICombatant
     {
         protected float attackValue;
         protected float durationTime; 
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
             AttackableDistance = attackRange;
 
             IsAttackReady = true;
-            owner = Functions.FindHighestParent(gameObject).tag.ToString();
+            owner = transform.parent.gameObject.tag;
         }
 
         public virtual void InitializeBoxCollider(BoxColliderAttackData data)
@@ -45,6 +46,12 @@ namespace Assets.Scripts.Monsters.AbstractClass
         { }
 
         public virtual void InitializeAOE(AOEAttackData data)
+        { }
+
+        public virtual void Attack(IBaseEventPayload payload) { }
+        //change it to abstract method after done all attack type
+
+        public virtual void ReceiveDamage(IBaseEventPayload payload)
         { }
     }
 
