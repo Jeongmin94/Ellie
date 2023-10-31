@@ -37,7 +37,10 @@ public class PatrolToPoint : ActionNode
 
     protected override State OnUpdate()
     {
-        if (Vector3.Distance(context.transform.position, patrolPointList[count]) < 0.1f)
+        //if (Vector3.Distance(context.transform.position, patrolPointList[count]) < 0.1f)
+        float distance = Vector3.SqrMagnitude(context.transform.position - patrolPointList[count]);
+
+        if (distance < 0.1f)
         {
             count++;
             if (count >= patrolPointList.Length)
@@ -54,6 +57,6 @@ public class PatrolToPoint : ActionNode
 
         return State.Running;
     }
-    
+
 
 }
