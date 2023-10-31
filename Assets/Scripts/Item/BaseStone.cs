@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class BaseStone : Poolable
+    public class BaseStone : Poolable, ILootable
     {
         private new Rigidbody rigidbody;
 
@@ -33,7 +33,11 @@ namespace Assets.Scripts.Item
 
             rigidbody.velocity = direction * strength;
         }
-
-        
+        public void Visit(PlayerLooting player)
+        {
+            Debug.Log("Player Loot : " + this.name);
+            PoolManager.Instance.Push(this);
+        }
     }
+
 }
