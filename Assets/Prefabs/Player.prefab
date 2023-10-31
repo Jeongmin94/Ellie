@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 1833054888}
   - component: {fileID: 1833054887}
   m_Layer: 2
-  m_Name: ShootPos
+  m_Name: Shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -300,7 +300,6 @@ MonoBehaviour:
   shootingPower: 25
   chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
-  stone: {fileID: 0}
   withPlayer: 1
 --- !u!120 &1833054887
 LineRenderer:
@@ -1408,6 +1407,7 @@ GameObject:
   - component: {fileID: 4016927572337565222}
   - component: {fileID: 1552748586}
   - component: {fileID: 728780517}
+  - component: {fileID: 1593203604}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -1519,8 +1519,10 @@ MonoBehaviour:
   dodgeInvulnerableTime: 0.5
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   hasRock: 0
-  shootPos: {fileID: 1833054885}
+  shooter: {fileID: 1833054885}
   zoomMultiplier: 0.2
+  recoilTime: 0.3
+  stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
   miningTime: 4
   pickaxe: {fileID: 2136787205}
   isGrounded: 0
@@ -1652,7 +1654,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &728780517
 MonoBehaviour:
@@ -1664,6 +1666,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ea1257c15496c345bb03195de494479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1593203604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f225cfc3a1b75a743872d07bf740e399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4016927572422116014
