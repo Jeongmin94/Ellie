@@ -17,6 +17,7 @@ namespace Assets.Scripts.Data.ActionData.Player
 
         public void InitHealth()
         {
+            CurrentHealth.ClearAction();
             CurrentHealth.Value = maxHealth;
         }
     }

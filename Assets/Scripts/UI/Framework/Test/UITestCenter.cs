@@ -20,8 +20,7 @@ namespace UI.Framework.Test
 
         protected override void Start()
         {
-            var uiChannel = new UIChannel();
-            AddChannel(ChannelType.UI, uiChannel);
+            AddChannel(ChannelType.UI, new UIChannel());
 
             popupInvenCanvas = UIManager.Instance.MakePopup<UIPopupInvenCanvas>(UIManager.UIPopupInvenCanvas);
 
