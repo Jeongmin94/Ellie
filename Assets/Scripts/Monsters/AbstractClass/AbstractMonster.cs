@@ -3,6 +3,7 @@ using Assets.Scripts.Combat;
 using Assets.Scripts.Data;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.Utility;
+using Channels.Combat;
 using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.AI;
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
+        protected bool isDamaged;
 
         public Dictionary<string, AbstractAttack> Attacks = new();
 
@@ -60,7 +62,11 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public virtual void Attack(IBaseEventPayload payload)
         { }
 
-        public abstract void ReceiveDamage(IBaseEventPayload payload);
+        public void ReceiveDamage(IBaseEventPayload payload)
+        {
+            CombatPayload combatPayload = payload as CombatPayload;
+            if(combatPayload.)
+        }
     }
 
 }
