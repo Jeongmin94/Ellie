@@ -88,6 +88,12 @@ namespace Assets.Scripts.UI.Player
         {
             SubscribeAction();
         }
+        private void OnDisable()
+        {
+            healthData.CurrentHealth.Unsubscribe(OnChangeHealth);
+            staminaData.CurrentStamina.Unsubscribe(OnChangeStamina);
+
+        }
 
         private void SubscribeAction()
         {

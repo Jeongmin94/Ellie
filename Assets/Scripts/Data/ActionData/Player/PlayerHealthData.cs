@@ -20,5 +20,6 @@ namespace Assets.Scripts.Data.ActionData.Player
             CurrentHealth.ClearAction();
             CurrentHealth.Value = maxHealth;
         }
+
     }
 }

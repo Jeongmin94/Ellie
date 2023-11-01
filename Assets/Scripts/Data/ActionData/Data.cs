@@ -25,5 +25,10 @@ namespace Assets.Scripts.ActionData
             valueChangeAction -= listener;
             valueChangeAction += listener;
         }
+
+        public void Unsubscribe(Action<T> listener)
+        {
+            valueChangeAction -= listener;
+        }
     }
 }
