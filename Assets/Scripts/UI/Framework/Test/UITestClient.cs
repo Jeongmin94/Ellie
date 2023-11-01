@@ -7,6 +7,10 @@ using Assets.Scripts.UI.Item;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.UI.Player;
 using Assets.Scripts.UI.Status;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework
@@ -32,6 +36,8 @@ namespace Assets.Scripts.UI.Framework
         private readonly MonsterDataContainer canvasContainer = new MonsterDataContainer();
         private readonly MonsterDataContainer billboardContainer = new MonsterDataContainer();
 
+        private TicketMachine ticketMachine;
+
         private void Awake()
         {
             healthData.InitHealth();
@@ -47,6 +53,45 @@ namespace Assets.Scripts.UI.Framework
             billboardContainer.PrevHp = 45;
             billboardContainer.CurrentHp.Value = 45;
             billboardContainer.Name = "I'm billboard";
+
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.UI);
+        }
+
+        private void OnEnable()
+        {
+            InputManager.Instance.OnKeyAction -= OnKeyAction;
+            InputManager.Instance.OnKeyAction += OnKeyAction;
+        }
+
+        private const string PrefixExclamationPath = "UI/Inven/Exclamation/";
+        private const string ExclamationGray = "Exclamation_Gray";
+        private const string ExclamationRed = "Exclamation_Red";
+
+        private void OnKeyAction()
+        {
+            // 아이템 습득 테스트
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                Debug.Log($"아이템 생성");
+                UIPayload payload = new UIPayload();
+                payload.uiType = UIType.Notify;
+                payload.sprite = ResourceManager.Instance.LoadExternResource<Sprite>($"{PrefixExclamationPath}{ExclamationGray}");
+                payload.name = "TestItem";
+                payload.count = 1;
+                payload.actionType = ActionType.AddSlotItem;
+
+                ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
+
+            // 아이템 버리기 테스트
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                Debug.Log($"아이템 삭제");
+                UIPayload payload = new UIPayload();
+                payload.uiType = UIType.Notify;
+                ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
         }
 
         private void Start()

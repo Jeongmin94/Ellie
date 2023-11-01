@@ -1,20 +1,23 @@
 using System;
-using UnityEngine;
 
 namespace Channels
 {
-    public class BaseEventChannel
+    public abstract class BaseEventChannel
     {
-        protected Action<IBaseEventPayload> notifyAction;
-        public virtual void ReceiveMessage<T>(T payload) where T : IBaseEventPayload
+
+        private Action<IBaseEventPayload> sendMessageAction;
+
+        public abstract void ReceiveMessage(IBaseEventPayload payload);
+
+        protected void Publish(IBaseEventPayload payload)
         {
-            Debug.Log($"BaseEventChannel ReceiveMessage() - {payload}");
+            sendMessageAction?.Invoke(payload);
         }
 
-        public void SubscribeNotifyAction(Action<IBaseEventPayload> observer)
+        public void Subscribe(Action<IBaseEventPayload> listener)
         {
-            notifyAction -= observer;
-            notifyAction += observer;
+            sendMessageAction -= listener;
+            sendMessageAction += listener;
         }
     }
 }
