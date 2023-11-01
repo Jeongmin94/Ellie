@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Item.Stone;
+﻿using Assets.Scripts.InteractiveObjects;
+using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Player;
 using Centers;
 using UnityEngine;
@@ -10,6 +11,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject player;
         public TestAttacker attacker;
         public StoneHatchery hatchery;
+        public Ore[] ores;
         
        
         private void Awake()
@@ -22,6 +24,11 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(player);
             CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
+            foreach(Ore ore in ores)
+            {
+                Debug.Log($"{ore.name} checked");
+                CheckTicket(ore.gameObject);
+            }
         }
     }
 }

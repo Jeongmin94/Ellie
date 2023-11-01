@@ -27,7 +27,7 @@ namespace Assets.Scripts.Item.Stone
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
             //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
-            ticketMachine.RegisterObserver(ChannelType.Item, ReleaseStoneEvent);
+            ticketMachine.RegisterObserver(ChannelType.Item, ItemEvent);
         }
 
         private void InitStonePool()
@@ -36,7 +36,7 @@ namespace Assets.Scripts.Item.Stone
             stonePool = PoolManager.Instance.CreatePool(stone, initialPoolSize);
         }
 
-        private void Attack(CombatPayload payload)
+        public void Attack(CombatPayload payload)
         {
             ticketMachine.SendMessage(ChannelType.Combat, payload);
         }
@@ -44,26 +44,42 @@ namespace Assets.Scripts.Item.Stone
         public Poolable GetStone()
         {
             Poolable obj = stonePool.Pop();
-
-            obj.GetComponent<BaseStone>().Subscribe(Attack);
+            obj.GetComponent<BaseStone>().hatchery = this;
             return obj;
         }
 
         public void CollectStone(BaseStone stone)
         {
-            stone.UnSubscribe(Attack);
             stonePool.Push(stone);
         }
 
-        public void ReleaseStoneEvent(IBaseEventPayload payload)
+        public void ItemEvent(IBaseEventPayload payload)
         {
             Debug.Log("hatchery : make stone");
             ItemPayload itemPayload = payload as ItemPayload;
             BaseStone stone = GetStone() as BaseStone;
             Vector3 startPos = itemPayload.StoneSpawnPos;
             Vector3 direction = itemPayload.StoneDirection;
+            Vector3 force = itemPayload.StoneForce;
             float strength = itemPayload.StoneStrength;
-            ReleaseStone(stone, startPos, direction, strength);
+            if (itemPayload.Type == ItemType.RequestStone)
+            {
+                Debug.Log("Release Stone at hatchery");
+
+                ReleaseStone(stone, startPos, direction, strength);
+            }
+            else if (itemPayload.Type == ItemType.MineStone)
+            {
+                Debug.Log("Mine Stone at hatchery");
+                MineStone(stone, startPos, force);
+            }
+
+        }
+        
+        private void MineStone(BaseStone stone, Vector3 position, Vector3 force)
+        {
+            stone.transform.position = position;
+            stone.GetComponent<Rigidbody>().AddForce(force * 4f, ForceMode.Impulse);
         }
 
         private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)

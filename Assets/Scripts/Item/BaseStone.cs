@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Channels.Combat;
 using System;
@@ -6,9 +7,10 @@ using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class BaseStone : Poolable, ILootable 
+    public class BaseStone : Poolable, ILootable
     {
-        private Action<CombatPayload> attackAction;
+        public StoneHatchery hatchery { get; set; }
+        
         private new Rigidbody rigidbody;
 
         public Rigidbody StoneRigidBody
@@ -39,22 +41,8 @@ namespace Assets.Scripts.Item
         public void Visit(PlayerLooting player)
         {
             Debug.Log("Player Loot : " + this.name);
-            PoolManager.Instance.Push(this);
+            hatchery.CollectStone(this);
         }
-
-        public void Subscribe(Action<CombatPayload> listener)
-        {
-            attackAction -= listener;
-            attackAction += listener;
-        }
-
-        public void UnSubscribe(Action<CombatPayload> listener)
-        {
-            attackAction -= listener;
-        }
-        public virtual void Publish(CombatPayload payload)
-        {
-            attackAction?.Invoke(payload);
-        }
+       
     }
 }

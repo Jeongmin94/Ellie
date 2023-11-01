@@ -19,10 +19,11 @@ namespace Assets.Scripts.Item.Stone
         {
             Debug.Log("Collision");
             ICombatant enemy = collision.gameObject.GetComponent<ICombatant>();
-            if (enemy != null)
+            if (enemy != null && !collision.gameObject.CompareTag("Player"))
             {
                 Debug.Log("돌 발사");
-                Publish(GenerateStonePayload(collision.transform));
+                //Publish(GenerateStonePayload(collision.transform));
+                hatchery.Attack(GenerateStonePayload(collision.transform));
             }
         }
 
@@ -32,7 +33,7 @@ namespace Assets.Scripts.Item.Stone
             // !TODO : 돌맹이 데이터 읽어와서 현재 돌맹이에 맞는 값으로 페이로드 초기화
 
             //=> test
-            payload.Type = CombatType.Melee;
+            payload.Type = CombatType.Projectile;
             payload.Attacker = transform;
             payload.Defender = defender;
             payload.AttackDirection = Vector3.zero;
@@ -42,7 +43,6 @@ namespace Assets.Scripts.Item.Stone
             //<=
             return payload;
         }
-
         
     }
 }

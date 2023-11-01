@@ -1,6 +1,10 @@
-﻿using Assets.Scripts.Item;
+﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
@@ -26,12 +30,18 @@ namespace Assets.Scripts.InteractiveObjects
         public int hardness;
         public int maxHp;
         public int hp;
+
+        private TicketMachine ticketMachine;
         //체력 4분할
         public List<int> quateredHP;
         private int curHpInterval;
 
         public float regenerationTime = 4f;
         public bool canMine;
+        private void Awake()
+        {
+            InitTicketMachine();
+        }
         private void Start()
         {
             StartCoroutine(InitOre());
@@ -40,7 +50,11 @@ namespace Assets.Scripts.InteractiveObjects
             canMine = true;
 
         }
-
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Item);
+        }
         private IEnumerator InitOre()
         {
             yield return new WaitForSeconds(1.0f);
@@ -126,8 +140,8 @@ namespace Assets.Scripts.InteractiveObjects
                         for (int i = 0; i < dropData.Item2; i++)
                         {
                             //TODO : 돌맹이 데이터테이블에서 해당하는 티어의 돌맹이 랜덤하게 뽑아내기
-                            SetStonePosAndMomentum(PoolManager.Instance.Pop(stonePrefabTest));
-                            //Debug.Log("Stone Tier : " + dropData.Item1.ToString());
+                            MineStone();
+                            //필요한 것 : 돌맹이 위치, 돌맹이에 AddForce해 줄 벡터
                         }
                     }
                     break;
@@ -135,10 +149,16 @@ namespace Assets.Scripts.InteractiveObjects
             }
         }
 
-        private void SetStonePosAndMomentum(Poolable obj)
+        private void MineStone()
         {
-            obj.transform.position = stoneSpawnPos.position;
-            obj.GetComponent<Rigidbody>().AddForce(GetRandVector() * 4f, ForceMode.Impulse);
+            ItemPayload payload = new()
+            {
+                Type = ItemType.MineStone,
+                StoneSpawnPos = stoneSpawnPos.position,
+                StoneForce = GetRandVector()
+            };
+            Debug.Log("Mine Stone");
+            ticketMachine.SendMessage(ChannelType.Item, payload);
         }
         private Vector3 GetRandVector()
         {
