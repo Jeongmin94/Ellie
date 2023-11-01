@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -24,8 +25,9 @@ namespace Assets.Scripts.Item.Stone
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-            ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
+            //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
+            ticketMachine.RegisterObserver(ChannelType.Item, ReleaseStoneEvent);
         }
 
         private void InitStonePool()
@@ -56,11 +58,11 @@ namespace Assets.Scripts.Item.Stone
         public void ReleaseStoneEvent(IBaseEventPayload payload)
         {
             Debug.Log("hatchery : make stone");
-            CombatPayload combatPayload = payload as CombatPayload;
+            ItemPayload itemPayload = payload as ItemPayload;
             BaseStone stone = GetStone() as BaseStone;
-            Vector3 startPos = combatPayload.StoneSpawnPos;
-            Vector3 direction = combatPayload.StoneDirection;
-            float strength = combatPayload.StoneStrength;
+            Vector3 startPos = itemPayload.StoneSpawnPos;
+            Vector3 direction = itemPayload.StoneDirection;
+            float strength = itemPayload.StoneStrength;
             ReleaseStone(stone, startPos, direction, strength);
         }
 

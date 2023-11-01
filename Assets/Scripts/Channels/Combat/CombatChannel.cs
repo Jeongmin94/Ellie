@@ -51,7 +51,7 @@ namespace Channels.Combat
             //돌달라는 페이로드임?->
             if(combatPayload.Type == CombatType.RequestStone)
             {
-                //notifyAction?.Invoke(combatPayload);
+                Publish(combatPayload);
                 return;
             }
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();

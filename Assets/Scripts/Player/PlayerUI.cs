@@ -31,10 +31,10 @@ namespace Assets.Scripts.Player
         {
             healthData.InitHealth();
             staminaData.InitStamina();
+            staminaBarImage = UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina).BarImage;
         }
         private void Start()
         {
-            staminaBarImage = UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina).BarImage;
             //UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
             //UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
             //statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);

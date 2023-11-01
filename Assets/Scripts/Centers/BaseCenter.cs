@@ -26,7 +26,7 @@ namespace Centers
 
         public void Ticket(IDictionary<ChannelType, BaseEventChannel> channels)
         {
-            ticket.Subscribe(channels[type].ReceiveMessage);
+            ticket.Subscribe(channels[type]);
         }
     }
 

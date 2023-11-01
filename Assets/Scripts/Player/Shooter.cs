@@ -1,13 +1,10 @@
-using System;
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.ElliePhysics.Utils;
-using Assets.Scripts.Item;
-using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
-using Channels.Combat;
 using Channels.Components;
-using UnityEditor.Experimental.GraphView;
+using Channels.Type;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -103,14 +100,14 @@ namespace Assets.Scripts.Player
         public void Shoot(TicketMachine ticketMachine)
         {
             Debug.Log("Shoot");
-            CombatPayload payload = new()
+            ItemPayload payload = new()
             {
-                Type = CombatType.RequestStone,
+                Type = ItemType.RequestStone,
                 StoneSpawnPos = releasePosition.position,
                 StoneDirection = launchDirection,
                 StoneStrength = shootingPower * chargingRatio
             };
-            ticketMachine.SendMessage(Channels.Type.ChannelType.Combat, payload);
+            ticketMachine.SendMessage(ChannelType.Item, payload);
             lineRenderer.enabled = false;
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;

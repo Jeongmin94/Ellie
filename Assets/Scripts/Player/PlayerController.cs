@@ -8,6 +8,7 @@ using Assets.Scripts.Equipments;
 using Assets.Scripts.StatusEffects;
 using Channels.Components;
 using Assets.Scripts.Utils;
+using Channels.Type;
 
 namespace Assets.Scripts.Player
 {
@@ -154,7 +155,7 @@ namespace Assets.Scripts.Player
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(Channels.Type.ChannelType.Combat);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
         }
 
         private void Start()

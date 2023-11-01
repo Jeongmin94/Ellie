@@ -14,12 +14,11 @@ namespace Channels.Components
             ticket.channelNotifyAction += observer;
         }
 
-        public void Subscribe(Action<IBaseEventPayload> listener)
+        private void Subscribe(Action<IBaseEventPayload> listener)
         {
             sendMessageAction -= listener;
             sendMessageAction += listener;
         }
-
 
         public void Subscribe(BaseEventChannel channel)
         {

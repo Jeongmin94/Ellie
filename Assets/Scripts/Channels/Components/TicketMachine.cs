@@ -61,7 +61,6 @@ namespace Channels.Components
             {
                 foreach (var channelType in tickets.Keys)
                 {
-
                     tickets[channelType].Subscribe(center.GetChannel(channelType));
                     Subscribe(center.OnAddTicket);
                 }
