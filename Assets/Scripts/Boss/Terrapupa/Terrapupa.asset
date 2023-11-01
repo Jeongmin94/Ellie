@@ -68,7 +68,6 @@ MonoBehaviour:
   - rid: 8619125030485229610
   - rid: 8619125044285014017
   - rid: 8619125046743924740
-  - rid: 8619125046743924742
   - rid: 8619125046743924748
   - rid: 8619125046743924749
   - rid: 8619125046743924750
@@ -210,6 +209,7 @@ MonoBehaviour:
   - rid: 283011018610442306
   - rid: 283011018610442307
   - rid: 283011018610442309
+  - rid: 283011018610442310
   treeState: 0
   blackboard:
     keys:
@@ -231,8 +231,8 @@ MonoBehaviour:
     - rid: 1401849379394682881
     - rid: 1401849379394682882
     - rid: 1401849442858696713
-  viewPosition: {x: 3066, y: 134, z: 0}
-  viewScale: {x: 0.32690176, y: 0.32690176, z: 1}
+  viewPosition: {x: 2263, y: 250, z: 0}
+  viewScale: {x: 0.25, y: 0.25, z: 1}
   references:
     version: 2
     RefIds:
@@ -328,7 +328,7 @@ MonoBehaviour:
         position: {x: 2715, y: -75}
         blackboard:
           keys: []
-        description: 
+        description: "\uD558\uB2E8 \uACF5\uACA9"
         drawGizmos: 0
         children:
         - rid: 283011018610442291
@@ -737,6 +737,18 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 8
+    - rid: 283011018610442310
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 640b6461cac041b40984cdc8ea811ad4
+        position: {x: -2070, y: 225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        duration: 1
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1321,7 +1333,7 @@ MonoBehaviour:
         position: {x: -6375, y: 75}
         blackboard:
           keys: []
-        description: "\uC720\uD639"
+        description: "\uC720\uC778"
         drawGizmos: 0
         children:
         - rid: 1401849440881606667
@@ -2796,7 +2808,7 @@ MonoBehaviour:
         - rid: 8619125030485229590
         - rid: 8619125030485229609
         - rid: 8619125030485229610
-        - rid: 8619125046743924742
+        - rid: 283011018610442310
     - rid: 8619125030485229594
       type: {class: Parallel, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2994,18 +3006,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: Wall
-    - rid: 8619125046743924742
-      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 0a0111fa551733f4c9a98b8d48a55c41
-        position: {x: -2070, y: 225}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        duration: 1
     - rid: 8619125046743924748
       type: {class: CheckTargetDistance, ns: , asm: Assembly.Ellie}
       data:
@@ -3113,7 +3113,7 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        duration: 2
+        duration: 1
     - rid: 8619125046743924757
       type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
       data:
@@ -3166,7 +3166,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 643053a973e02494bb98a2e0af5599f0
-        position: {x: 375, y: 1050}
+        position: {x: 375, y: 1035}
         blackboard:
           keys: []
         description: 

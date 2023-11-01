@@ -13,9 +13,32 @@ MonoBehaviour:
   m_Name: TerrapupaData
   m_EditorClassIdentifier: 
   hp: 45
-  movementSpeed: 0
-  rotationSpeed: 0
-  stoneDetectionDistance: 0
-  stoneAttackValue: 0
-  stoneSpeed: 0
-  stoneScale: 0
+  intakeDuration: 10
+  intakeHealValue: 10
+  stunDuration: 5
+  temptMovementSpeed: 2
+  temptStateChangeDetectionDistance: 1
+  rollUsable: 1
+  rollDetectionDistance: 25
+  rollRayCastLength: 7
+  rollMovementSpeed: 20
+  rollAttackValue: 5
+  MidRangeDetectionDistance: 15
+  stoneUsable: 1
+  stoneRotationSpeed: 1
+  stoneMovementSpeed: 7
+  stoneScale: 2.72
+  stoneAttackValue: 5
+  earthQuakeUsable: 1
+  earthQuakeRotationSpeed: 4
+  earthQuakeMoveDistance: 10
+  earthQuakeMovementSpeed: 8
+  earthQuakeAttackValue: 5
+  ShortRangeDetectionDistance: 5
+  lowAttackQuakeUsable: 1
+  lowAttackRotationSpeed: 4
+  lowAttackAttackValue: 5
+  spinningAttackUsable: 1
+  spinningAttackRotationSpeed: 2
+  spinningAttackMovementSpeed: 1
+  spinningAttackAttackValue: 5
