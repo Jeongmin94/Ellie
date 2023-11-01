@@ -128,7 +128,6 @@ MonoBehaviour:
   - rid: 1401849419498258453
   - rid: 1401849419498258454
   - rid: 1401849419498258455
-  - rid: 1401849419498258460
   - rid: 1401849419498258463
   - rid: 1401849419498258474
   - rid: 1401849440881606656
@@ -153,10 +152,6 @@ MonoBehaviour:
   - rid: 1401849440881606696
   - rid: 1401849440881606697
   - rid: 1401849440881606698
-  - rid: 1401849440881606699
-  - rid: 1401849440881606700
-  - rid: 1401849440881606701
-  - rid: 1401849440881606702
   - rid: 1401849440881606703
   - rid: 1401849442858696704
   - rid: 1401849442858696705
@@ -188,11 +183,16 @@ MonoBehaviour:
   - rid: 1401849447854899235
   - rid: 1401849447854899236
   - rid: 1401849447854899237
+  - rid: 283011018610442240
+  - rid: 283011018610442242
+  - rid: 283011018610442244
+  - rid: 283011018610442245
   treeState: 0
   blackboard:
     keys:
     - rid: 1401849418967941121
     - rid: 1401849419498258449
+    - rid: 283011018610442241
     - rid: 1401849262943502337
     - rid: 8619125046743924789
     - rid: 1401849265356013568
@@ -208,20 +208,87 @@ MonoBehaviour:
     - rid: 1401849379394682881
     - rid: 1401849379394682882
     - rid: 1401849442858696713
-  viewPosition: {x: 3421, y: -6, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 4393, y: 322, z: 0}
+  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 283011018610442240
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d660f1a012e948c4fac95f88eb786b1c
+        position: {x: -7020, y: 630}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 283011018610442241
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: magicStoneTransform
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011018610442242
+      type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e23e95af549f81742b884655be0753ff
+        position: {x: -6375, y: 645}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: -2
+          defaultValue: Walking
+    - rid: 283011018610442244
+      type: {class: Parallel, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a575c65a2fb2d4f40a8e8b41ddb4e528
+        position: {x: -6135, y: 345}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011018610442245
+        - rid: 1401849440881606690
+    - rid: 283011018610442245
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 824df0db88ff2bc46869f5ff74a7a484
+        position: {x: -6375, y: 495}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011018610442242
+        restartOnSuccess: 1
+        restartOnFailure: 1
+        maxRepeats: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -6210, y: -975}
+        position: {x: -4245, y: -960}
         blackboard:
           keys: []
         description: 
@@ -315,7 +382,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a8a78a1e4f0dcf14bbfc02a4706b1e2d
-        position: {x: -6210, y: -825}
+        position: {x: -4245, y: -810}
         blackboard:
           keys: []
         description: 
@@ -427,7 +494,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: dd0ff01669863ca40b3a0ec827f8b218
-        position: {x: -6210, y: -675}
+        position: {x: -4245, y: -660}
         blackboard:
           keys: []
         description: 
@@ -813,21 +880,6 @@ MonoBehaviour:
         name: isTempted
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
-    - rid: 1401849419498258460
-      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: ed010ca3534fcf84c8209a4cacbbeffe
-        position: {x: -6390, y: 810}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: Walking
     - rid: 1401849419498258463
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1118,7 +1170,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 156f9f150f209e843b1a28eea3c1b2c2
-        position: {x: 3705, y: 825}
+        position: {x: 3690, y: 825}
         blackboard:
           keys: []
         description: 
@@ -1151,7 +1203,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: 1401849419498258449
+            rid: 283011018610442241
           defaultValue: {fileID: 0}
         moveSpeed:
           reference:
@@ -1163,7 +1215,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 18b3afc12620bfb44a2592ba919a5195
-        position: {x: -5910, y: 405}
+        position: {x: -5910, y: 510}
         blackboard:
           keys: []
         description: 
@@ -1171,7 +1223,7 @@ MonoBehaviour:
         child:
           rid: 1401849440881606691
         restartOnSuccess: 1
-        restartOnFailure: 0
+        restartOnFailure: 1
         maxRepeats: 0
     - rid: 1401849440881606691
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -1179,7 +1231,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bb85064474de8e041a33ad256cbb05dc
-        position: {x: -5910, y: 555}
+        position: {x: -5910, y: 660}
         blackboard:
           keys: []
         description: 
@@ -1205,7 +1257,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: 1401849419498258449
+            rid: 283011018610442241
           defaultValue: {fileID: 0}
         checkDistanceValue:
           reference:
@@ -1291,63 +1343,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 1401849442858696704
-        - rid: 1401849440881606702
-        - rid: 1401849440881606690
-    - rid: 1401849440881606699
-      type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 34e8796c3bf682f4098900911a387927
-        position: {x: -6765, y: 825}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationName:
-          reference:
-            rid: -2
-          defaultValue: Walking
-    - rid: 1401849440881606700
-      type: {class: Inverter, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 6177c9de2ece3d54aa88fe13c01a0776
-        position: {x: -6735, y: 705}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        child:
-          rid: 1401849440881606699
-    - rid: 1401849440881606701
-      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: e463defe517b43c4a872c68b435acb02
-        position: {x: -6375, y: 555}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        children:
-        - rid: 1401849440881606700
-        - rid: 1401849419498258460
-    - rid: 1401849440881606702
-      type: {class: Succeed, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: c94ea0c65d276f84cac12706427f4daa
-        position: {x: -6375, y: 420}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        child:
-          rid: 1401849440881606701
+        - rid: 283011018610442244
     - rid: 1401849440881606703
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1380,7 +1376,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: 1401849419498258449
+            rid: 283011018610442241
           defaultValue: {fileID: 0}
     - rid: 1401849442858696705
       type: {class: LookAtPosition, ns: , asm: Assembly.Ellie}
@@ -1607,7 +1603,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         transformValue1:
           reference:
-            rid: 1401849419498258449
+            rid: 283011018610442241
           defaultValue: {fileID: 0}
         transformValue2:
           reference:
@@ -1631,13 +1627,14 @@ MonoBehaviour:
         children:
         - rid: 1401849447854899211
         - rid: 1401849442858696715
+        - rid: 283011018610442240
     - rid: 1401849447854899213
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 99c3c1a98a58b504fa9cc41b17918f0b
-        position: {x: -9375, y: 45}
+        position: {x: -9375, y: 30}
         blackboard:
           keys: []
         description: "\uAE30\uC808"
@@ -1694,7 +1691,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 19545d9b66834a54f9e60e51ed3c451c
-        position: {x: -9750, y: 465}
+        position: {x: -9735, y: 465}
         blackboard:
           keys: []
         description: 
@@ -1864,7 +1861,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         transformValue1:
           reference:
-            rid: 1401849419498258449
+            rid: 283011018610442241
           defaultValue: {fileID: 0}
         transformValue2:
           reference:

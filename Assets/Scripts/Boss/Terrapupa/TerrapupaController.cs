@@ -36,6 +36,7 @@ namespace Assets.Scripts.Boss.Terrapupa
 
         public BlackboardKey<Transform> targetTransform;
         public BlackboardKey<Transform> objectTransform;
+        public BlackboardKey<Transform> magicStoneTransform;
         public BlackboardKey<Vector3> targetPosition;
         public BlackboardKey<int> currentHP;
         public BlackboardKey<float> moveSpeed;
@@ -79,6 +80,7 @@ namespace Assets.Scripts.Boss.Terrapupa
 
             targetTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("targetTransform");
             objectTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("objectTransform");
+            magicStoneTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("magicStoneTransform");
             targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
             currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
             canThrowStone = behaviourTreeInstance.FindBlackboardKey<bool>("canThrowStone");

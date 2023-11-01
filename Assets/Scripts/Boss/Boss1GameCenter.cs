@@ -41,7 +41,7 @@ namespace Assets.Scripts.Boss
             {
                 boss.isTempted.value = false;
                 boss.isIntake.value = false;
-                boss.objectTransform.value = null;
+                boss.magicStoneTransform.value = null;
                 Destroy(magicStone.gameObject);
 
                 magicStone = null;
@@ -288,7 +288,7 @@ namespace Assets.Scripts.Boss
 
             boss.isTempted.value = true;
             boss.isIntake.value = false;
-            boss.objectTransform.value = magicStonePayload.TransformValue1;
+            boss.magicStoneTransform.value = magicStonePayload.TransformValue1;
         }
 
         private void OnBossUnattractedByMagicStone(BossEventPayload magicStonePayload)
@@ -297,7 +297,7 @@ namespace Assets.Scripts.Boss
 
             boss.isTempted.value = false;
             boss.isIntake.value = false;
-            boss.objectTransform.value = null;
+            boss.magicStoneTransform.value = null;
         }
 
         private void OnIntakeMagicStoneByBoss1(IBaseEventPayload bossPayload)
@@ -320,7 +320,7 @@ namespace Assets.Scripts.Boss
 
             boss.isTempted.value = false;
             boss.isIntake.value = false;
-            boss.objectTransform.value = null;
+            boss.magicStoneTransform.value = null;
             Destroy(_magicStone.gameObject);
             magicStone = null;
         }
