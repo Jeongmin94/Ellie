@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
-using Codice.CM.Common;
-using log4net.Util;
 
 [System.Serializable]
 public class MoveTowards : ActionNode

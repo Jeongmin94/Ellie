@@ -1,8 +1,6 @@
 ﻿using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
-using Channels.Combat;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
