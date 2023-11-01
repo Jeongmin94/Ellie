@@ -49,10 +49,12 @@ namespace Assets.Scripts.UI.Player
 
         private readonly List<HealthImageInfo> healthImageInfos = new List<HealthImageInfo>();
         private UIBarImage barImage;
-        public UIBarImage BarImage 
-        { 
+
+        public UIBarImage BarImage
+        {
             get { return barImage; }
         }
+
         private GameObject healthPanel;
         private GameObject staminaPanel;
         private int prevHealth;
@@ -67,7 +69,6 @@ namespace Assets.Scripts.UI.Player
         private void Awake()
         {
             Init();
-
         }
 
         protected override void Init()
@@ -80,6 +81,7 @@ namespace Assets.Scripts.UI.Player
             barImage =
                 UIManager.Instance.MakeSubItem<UIBarImage>(staminaPanel.transform, UINameBarImage);
             barImage.transform.position = staminaPanel.transform.position;
+            
         }
 
         private void OnEnable()
@@ -89,11 +91,8 @@ namespace Assets.Scripts.UI.Player
 
         private void SubscribeAction()
         {
-            healthData.CurrentHealth.ValueChangeAction -= OnChangeHealth;
-            healthData.CurrentHealth.ValueChangeAction += OnChangeHealth;
-
-            staminaData.CurrentStamina.ValueChangeAction -= OnChangeStamina;
-            staminaData.CurrentStamina.ValueChangeAction += OnChangeStamina;
+            healthData.CurrentHealth.Subscribe(OnChangeHealth);
+            staminaData.CurrentStamina.Subscribe(OnChangeStamina);
         }
 
         private void Start()
@@ -109,7 +108,6 @@ namespace Assets.Scripts.UI.Player
                 }
             }
 
-            
 
             prevHealth = healthImageInfos.Count;
             prevStamina = staminaData.CurrentStamina.Value;

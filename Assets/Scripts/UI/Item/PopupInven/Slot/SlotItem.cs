@@ -106,7 +106,7 @@ namespace Assets.Scripts.UI.Item.PopupInven
                 slotInfo.Value.slot.IsUsed = false;
                 slotInfo.Value.slot.slotItem = null;
             }
-            
+
             slotInfo.Value = info;
         }
 
@@ -122,6 +122,7 @@ namespace Assets.Scripts.UI.Item.PopupInven
             AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.StretchAll);
             rectTransform.sizeDelta = Vector2.zero;
             rectTransform.localPosition = Vector2.zero;
+            rectTransform.localScale = Vector3.one;
         }
 
         public void AddCount(int count)
