@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8cd4ba7c1a3941febf67c60463a5aa2, type: 3}
   m_Name: AdventureWeaponAttackData
   m_EditorClassIdentifier: 
+  combatType: 1
   attackValue: 1
   attackableDistance: 2
   attackInterval: 3
-  attackDuration: 0.7
+  attackDuration: 1
   weapon: {fileID: 0}
-  animationHold: 0
+  animationHold: 0.5

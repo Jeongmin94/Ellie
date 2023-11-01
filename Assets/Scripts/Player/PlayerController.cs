@@ -6,6 +6,9 @@ using Cinemachine;
 using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Equipments;
 using Assets.Scripts.StatusEffects;
+using Channels.Components;
+using Assets.Scripts.Utils;
+using Channels.Type;
 
 namespace Assets.Scripts.Player
 {
@@ -68,7 +71,7 @@ namespace Assets.Scripts.Player
 
         [Header("Attack")]
         [SerializeField] private bool hasRock;
-        public GameObject shootPos;
+        public GameObject shooter;
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -80,6 +83,9 @@ namespace Assets.Scripts.Player
             }
         }
         public float zoomMultiplier;
+
+        [SerializeField] private float recoilTime;
+        [SerializeField] private GameObject stone;
 
         [Header("Mining")]
         [SerializeField] private float miningTime;
@@ -123,18 +129,33 @@ namespace Assets.Scripts.Player
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
+        public float RecoilTime { get { return recoilTime; } }
+        public GameObject Stone
+        {
+            get { return stone; }
+            set { stone = value; }
+        }
 
 
         private float inputMagnitude;
 
         private PlayerStateMachine stateMachine;
 
+        private TicketMachine ticketMachine;
+        public TicketMachine TicketMachine { get { return ticketMachine; } }
+
         private void Awake()
         {
             Rb = GetComponent<Rigidbody>();
             Anim = GetComponent<Animator>();
             playerStatus = GetComponent<PlayerStatus>();
+            InitTicketMachine();
             //stateMachine.CurrentState.
+        }
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
         }
 
         private void Start()
@@ -232,6 +253,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Zoom, playerStateZoom);
             PlayerStateCharging playerStateCharging = new(this);
             stateMachine.AddState(PlayerStateName.Charging, playerStateCharging);
+            PlayerStateShoot playerStateShoot = new(this);
+            stateMachine.AddState(PlayerStateName.Shoot, playerStateShoot);
             PlayerStateMining playerStateMining = new(this);
             stateMachine.AddState(PlayerStateName.Mining, playerStateMining);
             PlayerStateExhaust playerStateExhaust = new(this);
@@ -358,7 +381,6 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                Debug.Log("Angle : " + angle.ToString());
                 return angle > maxSlopeAngle && angle != 0;
             }
             return false;
@@ -425,7 +447,7 @@ namespace Assets.Scripts.Player
 
         public void ActivateShootPos(bool value)
         {
-            shootPos.SetActive(value);
+            shooter.SetActive(value);
         }
 
         public void Aim()

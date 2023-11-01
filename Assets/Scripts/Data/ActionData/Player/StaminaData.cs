@@ -8,7 +8,7 @@ namespace Assets.Scripts.Data.ActionData.Player
     {
         [SerializeField] private float maxStamina;
         public readonly Data<float> CurrentStamina = new Data<float>();
-        
+
         public float MaxStamina
         {
             get { return maxStamina; }
@@ -16,6 +16,7 @@ namespace Assets.Scripts.Data.ActionData.Player
 
         public void InitStamina()
         {
+            CurrentStamina.ClearAction();
             CurrentStamina.Value = maxStamina;
         }
 

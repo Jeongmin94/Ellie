@@ -12,16 +12,23 @@ namespace Assets.Scripts.ActionData
             set
             {
                 this.v = value;
-                this.ValueChangeAction?.Invoke(value);
+                this.valueChangeAction?.Invoke(value);
             }
         }
 
-        public Action<T> ValueChangeAction;
+        private Action<T> valueChangeAction;
+
+        public void ClearAction() => valueChangeAction = null;
 
         public void Subscribe(Action<T> listener)
         {
-            ValueChangeAction -= listener;
-            ValueChangeAction += listener;
+            valueChangeAction -= listener;
+            valueChangeAction += listener;
+        }
+
+        public void Unsubscribe(Action<T> listener)
+        {
+            valueChangeAction -= listener;
         }
     }
 }

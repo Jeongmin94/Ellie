@@ -40,13 +40,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5557161655972076160}
-  - component: {fileID: 784429374}
   - component: {fileID: 8834590345174965193}
   - component: {fileID: 2795238054223840226}
   - component: {fileID: 1087265509129993356}
   - component: {fileID: 2552781755657443656}
+  - component: {fileID: -3968176375274465142}
   m_Layer: 0
-  m_Name: BaseStone
+  m_Name: TestStoneLootable
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -68,19 +68,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &784429374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5557161655972076161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b5045d1fd8262df45bc2605837827d4c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  stoneBody: {fileID: 5557161655972076160}
 --- !u!33 &8834590345174965193
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -160,3 +147,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-3968176375274465142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557161655972076161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f0af75f0c73194fb13604569f8e75f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUsing: 0

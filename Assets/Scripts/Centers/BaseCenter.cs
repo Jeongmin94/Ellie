@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.Channels;
 using Channels;
@@ -9,31 +8,31 @@ using UnityEngine;
 
 namespace Centers
 {
-    public struct TicketBox
+    public readonly struct TicketBox
     {
-        private ChannelType type;
-        private Ticket<IBaseEventPayload> ticket;
+        private readonly ChannelType type;
+        private readonly Ticket ticket;
 
-        private TicketBox(ChannelType type, Ticket<IBaseEventPayload> ticket)
+        private TicketBox(ChannelType type, Ticket ticket)
         {
             this.type = type;
             this.ticket = ticket;
         }
 
-        public static TicketBox Of(ChannelType type, Ticket<IBaseEventPayload> ticket)
+        public static TicketBox Of(ChannelType type, Ticket ticket)
         {
             return new TicketBox(type, ticket);
         }
 
         public void Ticket(IDictionary<ChannelType, BaseEventChannel> channels)
         {
-            ticket.Subscribe(channels[type].ReceiveMessage);
+            ticket.Subscribe(channels[type]);
         }
     }
 
     public class BaseCenter : MonoBehaviour
     {
-        [SerializeField] private BaseChannelTypeSo baseChannelTypeSo;
+        [SerializeField] private BaseChannelTypeSo channelTypeSo;
 
         private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
@@ -45,10 +44,13 @@ namespace Centers
 
         private void InitChannels()
         {
-            int length = baseChannelTypeSo.channelTypes.Length;
+            if (channelTypeSo == null)
+                return;
+
+            int length = channelTypeSo.channelTypes.Length;
             for (int i = 0; i < length; i++)
             {
-                ChannelType type = baseChannelTypeSo.channelTypes[i];
+                ChannelType type = channelTypeSo.channelTypes[i];
                 channels[type] = ChannelUtil.MakeChannel(type);
             }
         }
@@ -60,23 +62,22 @@ namespace Centers
 
         protected void CheckTicket(GameObject go)
         {
-            var machines =  go.GetComponentsInChildren<TicketMachine>();
+            var machines = go.GetComponentsInChildren<TicketMachine>();
             if (machines.Length == 0)
                 return;
 
             foreach (var machine in machines)
             {
-                machine.Ticket(channels);
-                machine.Subscribe(OnAddTicket);
+                machine.Ticket(this);
             }
         }
 
-        private void OnAddTicket(TicketBox box)
+        public void OnAddTicket(TicketBox box)
         {
             box.Ticket(channels);
         }
 
-        public void AddChannel(ChannelType type, BaseEventChannel channel)
+        protected void AddChannel(ChannelType type, BaseEventChannel channel)
         {
             if (channels.ContainsKey(type))
             {
@@ -86,6 +87,16 @@ namespace Centers
             {
                 channels[type] = channel;
             }
+        }
+
+        public BaseEventChannel GetChannel(ChannelType type)
+        {
+            if (channels.TryGetValue(type, out var channel))
+            {
+                return channel;
+            }
+
+            return null;
         }
     }
 }

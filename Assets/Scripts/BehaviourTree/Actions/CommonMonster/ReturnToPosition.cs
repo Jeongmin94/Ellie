@@ -19,13 +19,14 @@ public class ReturnToPosition : ActionNode
 
     protected override State OnUpdate()
     {
-        if (Vector3.Distance(context.transform.position, spawnPosition.Value) > 0.5f)
+        float distance = Vector3.SqrMagnitude(context.transform.position - spawnPosition.Value);
+        //if (Vector3.Distance(context.transform.position, spawnPosition.Value) > 0.5f)
+        if (distance > 0.5f)
         {
-            isOnSapwnPosition.Value = false;
             return State.Running;
         }
+
         context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
-        isOnSapwnPosition.Value = true;
         return State.Success;
     }
 }
