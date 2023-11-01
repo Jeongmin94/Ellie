@@ -162,6 +162,7 @@ namespace Assets.Scripts.Player
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
+            Debug.Log("Player recieve Damage");
             CombatPayload combatPayload = payload as CombatPayload;
             if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
             {

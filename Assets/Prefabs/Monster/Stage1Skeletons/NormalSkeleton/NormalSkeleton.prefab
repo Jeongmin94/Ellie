@@ -853,7 +853,7 @@ GameObject:
   - component: {fileID: 3323000194464078410}
   - component: {fileID: 3323000194464078409}
   - component: {fileID: 3323000194464078408}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerDetect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 3323000195399222712}
   - component: {fileID: 3323000195399222718}
   - component: {fileID: 3323000195399222719}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ChasePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3015,7 +3015,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0

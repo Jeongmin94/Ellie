@@ -1,5 +1,8 @@
 using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.Utility;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.AbstractClass
@@ -17,6 +20,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected string owner;
         protected string prefabName;
+
+        private TicketMachine ticketMachine;
 
         public abstract void ActivateAttack();
 
@@ -48,11 +53,19 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public virtual void InitializeAOE(AOEAttackData data)
         { }
 
-        public virtual void Attack(IBaseEventPayload payload) { }
-        //change it to abstract method after done all attack type
-
         public virtual void ReceiveDamage(IBaseEventPayload payload)
         { }
+
+        protected void SetTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat);
+        }
+
+        public void Attack(IBaseEventPayload payload)
+        {
+            ticketMachine.SendMessage(ChannelType.Combat, payload);
+        }
     }
 
 }

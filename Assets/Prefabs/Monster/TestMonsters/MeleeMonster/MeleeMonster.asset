@@ -44,8 +44,6 @@ MonoBehaviour:
   - rid: 5827610086317228084
   - rid: 5827610086317228085
   - rid: 5827610086317228086
-  - rid: 5827610086317228089
-  - rid: 5827610088829878273
   - rid: 5827610088829878275
   - rid: 5827610088829878276
   - rid: 5827610127647113216
@@ -91,8 +89,8 @@ MonoBehaviour:
     - rid: 5827610086317228080
     - rid: 5827610127647113221
     - rid: 5827610127647113223
-  viewPosition: {x: 234, y: -59, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: 1365, y: -242, z: 0}
+  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
   references:
     version: 2
     RefIds:
@@ -123,13 +121,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2ad0cac6-856c-42bc-a9c2-1766e6b46cd3
-        position: {x: 165, y: -240}
+        position: {x: 165, y: -135}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: 5827610086317228089
+          rid: 5827609998966652929
     - rid: 5827609998966652929
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -679,35 +677,6 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-    - rid: 5827610086317228089
-      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: a8d843737c6ff492e8420152a85bde2e
-        position: {x: 165, y: -120}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        children:
-        - rid: 5827610088829878273
-        - rid: 5827609998966652929
-    - rid: 5827610088829878273
-      type: {class: AddBoxColliderAttack, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: ae2c53c6c5db341eaa2b30567c3417aa
-        position: {x: -45, y: 15}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        attackName:
-          reference:
-            rid: -2
-          defaultValue: MeleeAttack
     - rid: 5827610088829878275
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

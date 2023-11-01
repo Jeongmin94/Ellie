@@ -39,6 +39,7 @@ namespace Channels.Combat
     {
         public override void ReceiveMessage<T>(T payload)
         {
+            Debug.Log("Recieve activate");
             CombatPayload combatPayload = payload as CombatPayload;
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));

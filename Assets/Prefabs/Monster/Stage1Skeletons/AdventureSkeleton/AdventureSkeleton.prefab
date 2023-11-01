@@ -1537,7 +1537,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 0
+  m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
@@ -2653,7 +2653,7 @@ GameObject:
   - component: {fileID: 7946567599515136974}
   - component: {fileID: 7946567599515136968}
   - component: {fileID: 7946567599515136969}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: ChasePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2711,7 +2711,7 @@ GameObject:
   - component: {fileID: 7946567601255918652}
   - component: {fileID: 7946567601255918655}
   - component: {fileID: 7946567601255918654}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: PlayerDetect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3304,3 +3304,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
   m_PrefabInstance: {fileID: 4769522555397794866}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &9004463016664917051 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4523575664477374473, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
+  m_PrefabInstance: {fileID: 4769522555397794866}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1891291963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004463016664917051}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f230fb5326cc6447bad9d1533a03effa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster: {fileID: 8131742662541749375}

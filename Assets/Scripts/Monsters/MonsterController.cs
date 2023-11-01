@@ -18,6 +18,7 @@ using Channels.Components;
 using Assets.Scripts.Utils;
 using Channels.Type;
 using Channels.Combat;
+using Assets.Scripts.Monsters.EffectStatus;
 
 namespace Assets.Scripts.Monsters
 {
@@ -47,6 +48,7 @@ namespace Assets.Scripts.Monsters
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             player = GameObject.Find("Player");
 
+            SetSkills();
             SetTicketMachine();
             InitUI();
             InitData();
@@ -57,6 +59,28 @@ namespace Assets.Scripts.Monsters
             SetNavMesh();
             SetBehaviourTreeInstance();
 
+        }
+
+        private void SetSkills()
+        {
+            if(meleeAttackData!=null)
+            {
+                AddSkills(meleeAttackData.attackName, Enums.AttackSkill.BoxCollider);
+                Attacks[meleeAttackData.attackName].InitializeBoxCollider(meleeAttackData);
+            }
+            if(weaponAttackData!=null)
+            {
+                GameObject obj = Functions.FindChildByName(gameObject, weaponAttackData.weaponName);
+                weaponAttackData.weapon = obj;
+                AddSkills(weaponAttackData.attackName, Enums.AttackSkill.WeaponAttack);
+                Attacks[weaponAttackData.attackName].InitializeWeapon(weaponAttackData);
+            }
+            if(projectileAttackData!=null)
+            {
+                Debug.Log("WHY NO SET?? : "+projectileAttackData);
+                AddSkills(projectileAttackData.attackName, Enums.AttackSkill.ProjectileAttack);
+                Attacks[projectileAttackData.attackName].InitializeProjectile(projectileAttackData);
+            }
         }
 
         private void SetTicketMachine()
@@ -142,7 +166,7 @@ namespace Assets.Scripts.Monsters
             agent.speed = monsterData.movementSpeed;
             agent.angularSpeed = monsterData.rotationSpeed;
             agent.stoppingDistance = monsterData.stopDistance;
-            agent.baseOffset = -0.1f;
+            agent.baseOffset = -0.01f;
         }
 
         public override void ReceiveDamage(IBaseEventPayload payload)
@@ -154,6 +178,11 @@ namespace Assets.Scripts.Monsters
         private void Damaged(float damage)
         {
             monsterData.HP -= damage;
+        }
+
+        public void ChangeEffectState(MonsterDamageEffectType effect)
+        {
+
         }
     }
 }

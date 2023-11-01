@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "ProjectileAttack", menuName = "GameData List/Monsters/ProjectileAttack", order = int.MaxValue)]
 public class ProjectileAttackData : ScriptableObject
 {
+    public string attackName;
     public CombatType combatType;
     public float attackValue;
     public float attackableMinimumDistance;

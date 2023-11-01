@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.Utility;
 using UnityEngine;
@@ -8,22 +9,17 @@ namespace Assets.Scripts.Monsters.Others
 {
     public class Weapon : MonoBehaviour
     {
-        private WeaponAttack parent;
+        public MonsterController monster;
+        private WeaponAttack weaponAttack;
 
         private void Start()
         {
-            GameObject highestParent = Functions.FindHighestParent(gameObject);
-            parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
+            weaponAttack = Functions.FindChildByName(monster.gameObject, monster.weaponAttackData.attackName).GetComponent<WeaponAttack>();
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (parent == null)
-            {
-                GameObject highestParent = Functions.FindHighestParent(gameObject);
-                parent = Functions.FindChildByName(highestParent, "WeaponAttack").GetComponent<WeaponAttack>();
-            }
-            parent.OnWeaponTriggerEnter(other);
+            weaponAttack.OnWeaponTriggerEnter(other);
         }
     }
 

@@ -2,17 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MonsterEffectStatusController : MonoBehaviour
+namespace Assets.Scripts.Monsters.EffectStatus
 {
-    // Start is called before the first frame update
-    void Start()
+    public class MonsterEffectStatusController : MonoBehaviour
     {
-        
-    }
+        private List<IMonsterStatusEffect> effects;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        private void Awake()
+        {
+            effects = new();
+        }
+        public void ApplyStatusEffect(IMonsterStatusEffect effect)
+        {
+            effect.ApplyStatusEffect(this);
+        }
+        public void AddStatusEffect(IMonsterStatusEffect effect)
+        {
+            effects.Add(effect);
+        }
+        public void RemoveStatusEffect(IMonsterStatusEffect effect)
+        {
+            effects.Remove(effect);
+        }
     }
 }
