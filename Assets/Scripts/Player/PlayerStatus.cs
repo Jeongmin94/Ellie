@@ -52,7 +52,6 @@ namespace Assets.Scripts.Player
         float tempStamina;
 
         private PlayerUI playerUI;
-        private TicketMachine ticketMachine;
 
         public int HP
         {
@@ -84,13 +83,12 @@ namespace Assets.Scripts.Player
         private void SetTicketMachine()
         {
             Debug.Log("Player SetTicketMachine()");
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-            isDead = false;
         }
         private void Start()
         {
             isRecoveringStamina = true;
+            isDead = false;
+
         }
         private void Update()
         {

@@ -72,7 +72,6 @@ namespace Assets.Scripts.Player
 
             SetLineRendererLayerMask();
         }
-        
 
         private void SubscribeAction()
         {
@@ -98,14 +97,14 @@ namespace Assets.Scripts.Player
         public void Shoot(TicketMachine ticketMachine)
         {
             Debug.Log("Shoot");
-            ItemPayload payload = new()
+            StoneEventPayload payload = new()
             {
-                Type = ItemType.RequestStone,
+                Type = StoneEventType.RequestStone,
                 StoneSpawnPos = releasePosition.position,
                 StoneDirection = launchDirection,
                 StoneStrength = shootingPower * chargingRatio
             };
-            ticketMachine.SendMessage(ChannelType.Item, payload);
+            ticketMachine.SendMessage(ChannelType.Stone, payload);
             lineRenderer.enabled = false;
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;

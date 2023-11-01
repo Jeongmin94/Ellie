@@ -53,7 +53,7 @@ namespace Assets.Scripts.InteractiveObjects
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Item);
+            ticketMachine.AddTickets(ChannelType.Stone);
         }
         private IEnumerator InitOre()
         {
@@ -151,14 +151,14 @@ namespace Assets.Scripts.InteractiveObjects
 
         private void MineStone()
         {
-            ItemPayload payload = new()
+            StoneEventPayload payload = new()
             {
-                Type = ItemType.MineStone,
+                Type = StoneEventType.MineStone,
                 StoneSpawnPos = stoneSpawnPos.position,
                 StoneForce = GetRandVector()
             };
             Debug.Log("Mine Stone");
-            ticketMachine.SendMessage(ChannelType.Item, payload);
+            ticketMachine.SendMessage(ChannelType.Stone, payload);
         }
         private Vector3 GetRandVector()
         {

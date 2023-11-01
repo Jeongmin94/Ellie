@@ -4,6 +4,6 @@ namespace Channels.Type
     {
         Combat,
         UI,
-        Item
+        Stone
     }
 }
