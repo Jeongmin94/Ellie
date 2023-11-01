@@ -11,16 +11,16 @@ namespace Channels.Components
     {
         private Action<TicketBox> addTicketAction;
 
-        private readonly IDictionary<ChannelType, Ticket> tickets =
-            new Dictionary<ChannelType, Ticket>();
+        private readonly IDictionary<ChannelType, Ticket<IBaseEventPayload>> tickets =
+            new Dictionary<ChannelType, Ticket<IBaseEventPayload>>();
 
-        private void Subscribe(Action<TicketBox> listener)
+        public void Subscribe(Action<TicketBox> listener)
         {
             addTicketAction -= listener;
             addTicketAction += listener;
         }
 
-        public Ticket GetTicket(ChannelType type)
+        public Ticket<IBaseEventPayload> GetTicket(ChannelType type)
         {
             return tickets[type];
         }
@@ -46,7 +46,7 @@ namespace Channels.Components
                 }
                 else
                 {
-                    tickets[type] = new Ticket();
+                    tickets[type] = new Ticket<IBaseEventPayload>();
                 }
             }
         }
@@ -55,14 +55,14 @@ namespace Channels.Components
         /// 각 Channel이 ChannelType에 맞는 Ticket의 이벤트를 구독합니다.
         /// GameCenter에서 호출됩니다.
         /// </summary>
-        public void Ticket(BaseCenter center)
+        /// <param name="channels"></param>
+        public void Ticket(IDictionary<ChannelType, BaseEventChannel> channels)
         {
             if (tickets.Any())
             {
                 foreach (var channelType in tickets.Keys)
                 {
-                    tickets[channelType].Subscribe(center.GetChannel(channelType));
-                    Subscribe(center.OnAddTicket);
+                    tickets[channelType].Subscribe(channels[channelType]);
                 }
             }
             else
@@ -75,7 +75,8 @@ namespace Channels.Components
         /// 런타임에 Ticket을 추가합니다.
         /// </summary>
         /// <param name="type"></param>
-        public void AddTicket(ChannelType type)
+        /// <param name="ticket"></param>
+        public void AddTicket(ChannelType type, Ticket<IBaseEventPayload> ticket)
         {
             if (tickets.ContainsKey(type))
             {
@@ -83,31 +84,22 @@ namespace Channels.Components
             }
             else
             {
-                tickets[type] = new Ticket();
+                tickets[type] = ticket;
                 addTicketAction?.Invoke(TicketBox.Of(type, tickets[type]));
             }
         }
 
-
+        /// <summary>
+        /// 다른 오브젝트의 티켓 머신 이니셜라이징하기
+        /// </summary>
+        /// <param name="machine">이 친구는 돌멩이의 티켓머신</param>
         public void AddTicket(TicketMachine machine)
         {
-            if (addTicketAction == null)
+            var keys = machine.tickets.Keys;
+            foreach (var key in keys)
             {
-                Debug.LogWarning($"{name} is invalid ticket machine");
+                addTicketAction?.Invoke(TicketBox.Of(key, machine.tickets[key]));
             }
-            else
-            {
-                var keys = machine.tickets.Keys;
-                foreach (ChannelType type in keys)
-                {
-                    addTicketAction?.Invoke(TicketBox.Of(type, machine.tickets[type]));
-                }
-            }
-        }
-
-        public void RegisterObserver(ChannelType type, Action<IBaseEventPayload> observer)
-        {
-            Components.Ticket.RegisterObserver(tickets[type], observer);
         }
     }
 }

@@ -2,39 +2,35 @@ using System;
 
 namespace Channels.Components
 {
-    public sealed class Ticket
+    public class Ticket<T> where T : IBaseEventPayload
     {
+        private Action<T> sendMessageAction;
+        private Action<IBaseEventPayload> notifyAction;
 
-        private Action<IBaseEventPayload> sendMessageAction;
-        private Action<IBaseEventPayload> channelNotifyAction;
-
-        public static void RegisterObserver(Ticket ticket, Action<IBaseEventPayload> observer)
-        {
-            ticket.channelNotifyAction -= observer;
-            ticket.channelNotifyAction += observer;
-        }
-
-        public void Subscribe(Action<IBaseEventPayload> listener)
+        public virtual void Subscribe(Action<T> listener)
         {
             sendMessageAction -= listener;
             sendMessageAction += listener;
         }
-        public void Subscribe(BaseEventChannel channel)
+        public virtual void Subscribe(BaseEventChannel channel)
         {
+            channel.SubscribeNotifyAction(OnNotifyAction);
             Subscribe(channel.ReceiveMessage);
-            channel.Subscribe(channelNotifyAction);
         }
-
-        // Ticket -> Channel
-        public void Publish(IBaseEventPayload payload)
+        public virtual void Publish(T payload)
         {
             sendMessageAction?.Invoke(payload);
         }
 
-        // Channel -> Ticket
-        public void Notify(IBaseEventPayload payload)
+        public virtual void OnNotifyAction(IBaseEventPayload payload)
         {
-            channelNotifyAction?.Invoke(payload);
+            notifyAction?.Invoke(payload);
+        }
+
+        public void SubscribeNotifyAction(Action<IBaseEventPayload> listener)
+        {
+            notifyAction -= listener;
+            notifyAction += listener;
         }
     }
 }

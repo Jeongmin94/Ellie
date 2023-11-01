@@ -9,18 +9,18 @@ using UnityEngine;
 
 namespace Centers
 {
-    public readonly struct TicketBox
+    public struct TicketBox
     {
-        private readonly ChannelType type;
-        private readonly Ticket ticket;
+        private ChannelType type;
+        private Ticket<IBaseEventPayload> ticket;
 
-        private TicketBox(ChannelType type, Ticket ticket)
+        private TicketBox(ChannelType type, Ticket<IBaseEventPayload> ticket)
         {
             this.type = type;
             this.ticket = ticket;
         }
 
-        public static TicketBox Of(ChannelType type, Ticket ticket)
+        public static TicketBox Of(ChannelType type, Ticket<IBaseEventPayload> ticket)
         {
             return new TicketBox(type, ticket);
         }
@@ -33,7 +33,7 @@ namespace Centers
 
     public class BaseCenter : MonoBehaviour
     {
-        [SerializeField] private BaseChannelTypeSo channelTypeSo;
+        [SerializeField] private BaseChannelTypeSo baseChannelTypeSo;
 
         private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
@@ -45,14 +45,10 @@ namespace Centers
 
         private void InitChannels()
         {
-
-            if (channelTypeSo == null)
-                return;
-
-            int length = channelTypeSo.channelTypes.Length;
+            int length = baseChannelTypeSo.channelTypes.Length;
             for (int i = 0; i < length; i++)
             {
-                ChannelType type = channelTypeSo.channelTypes[i];
+                ChannelType type = baseChannelTypeSo.channelTypes[i];
                 channels[type] = ChannelUtil.MakeChannel(type);
             }
         }
@@ -70,16 +66,17 @@ namespace Centers
 
             foreach (var machine in machines)
             {
-                machine.Ticket(this);
+                machine.Ticket(channels);
+                machine.Subscribe(OnAddTicket);
             }
         }
 
-        public void OnAddTicket(TicketBox box)
+        private void OnAddTicket(TicketBox box)
         {
             box.Ticket(channels);
         }
 
-        protected void AddChannel(ChannelType type, BaseEventChannel channel)
+        public void AddChannel(ChannelType type, BaseEventChannel channel)
         {
             if (channels.ContainsKey(type))
             {
@@ -89,16 +86,6 @@ namespace Centers
             {
                 channels[type] = channel;
             }
-        }
-
-        public BaseEventChannel GetChannel(ChannelType type)
-        {
-            if (channels.TryGetValue(type, out var channel))
-            {
-                return channel;
-            }
-
-            return null;
         }
     }
 }
