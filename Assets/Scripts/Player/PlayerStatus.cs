@@ -8,7 +8,6 @@ using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -55,9 +54,6 @@ namespace Assets.Scripts.Player
         private PlayerUI playerUI;
         private TicketMachine ticketMachine;
 
-
-        // !TODO : ICombatant를 붙이고, StatusEffectController를 참조하여 ApplyStatusEffect를 해주기
-        // !TODO : Battle 채널에 구독될 수 있는 티켓 포함
         public int HP
         {
             get { return healthData.CurrentHealth.Value; }
@@ -80,8 +76,8 @@ namespace Assets.Scripts.Player
             SetTicketMachine();
             playerStatusEffectController = GetComponent<PlayerStatusEffectController>();
             playerStatusEffects = new();
-            healthData.InitHealth();
             playerUI = GetComponent<PlayerUI>();
+
 
             InitStatusEffects();
         }
@@ -126,7 +122,6 @@ namespace Assets.Scripts.Player
             else
                 Stamina -= consumedStamina;
 
-
             if (consumedStamina > 10.0f)
             {
                 playerUI.StaminaBarImage.MidgroundColor = startColor;
@@ -167,13 +162,11 @@ namespace Assets.Scripts.Player
             if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
             {
                 Debug.Log("Player : RecieveDamage");
-                IPlayerStatusEffect effect;
-                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out effect);
+                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
                 playerStatusEffectController.ApplyStatusEffect(effect);
             }
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
         }
     }
-
 }

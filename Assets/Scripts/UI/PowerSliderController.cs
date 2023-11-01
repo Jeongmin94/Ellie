@@ -25,8 +25,7 @@ namespace Assets.Scripts.UI
 
         private void Start()
         {
-            sliderData.ChargingValue.ValueChangeAction -= OnChangeSliderValue;
-            sliderData.ChargingValue.ValueChangeAction += OnChangeSliderValue;
+            sliderData.ChargingValue.Subscribe(OnChangeSliderValue);
         }
 
         private void OnChangeSliderValue(float value)

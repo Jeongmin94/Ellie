@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7420001, z: -5}
+  m_LocalPosition: {x: 1.5, y: 0.44200003, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -59,7 +59,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 35
+  field of view: 25
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -260,7 +260,7 @@ GameObject:
   - component: {fileID: 1833054888}
   - component: {fileID: 1833054887}
   m_Layer: 2
-  m_Name: ShootPos
+  m_Name: Shooter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -274,7 +274,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1833054885}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.899, z: 1.177}
+  m_LocalPosition: {x: 0, y: 0, z: 1.177}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -300,7 +300,6 @@ MonoBehaviour:
   shootingPower: 25
   chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
-  stone: {fileID: 0}
   withPlayer: 1
 --- !u!120 &1833054887
 LineRenderer:
@@ -1408,6 +1407,7 @@ GameObject:
   - component: {fileID: 4016927572337565222}
   - component: {fileID: 1552748586}
   - component: {fileID: 728780517}
+  - component: {fileID: 1593203604}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -1473,6 +1473,7 @@ MonoBehaviour:
   sprintStanimaThreshold: 20
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
+  isDead: 0
   isRecoveringStamina: 0
 --- !u!114 &6030200240847392581
 MonoBehaviour:
@@ -1518,8 +1519,10 @@ MonoBehaviour:
   dodgeInvulnerableTime: 0.5
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   hasRock: 0
-  shootPos: {fileID: 1833054885}
+  shooter: {fileID: 1833054885}
   zoomMultiplier: 0.2
+  recoilTime: 0.3
+  stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
   miningTime: 4
   pickaxe: {fileID: 2136787205}
   isGrounded: 0
@@ -1651,7 +1654,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &728780517
 MonoBehaviour:
@@ -1663,6 +1666,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ea1257c15496c345bb03195de494479, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1593203604
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f225cfc3a1b75a743872d07bf740e399, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &4016927572422116014
@@ -1847,7 +1862,7 @@ GameObject:
   - component: {fileID: 3473479438722185937}
   - component: {fileID: 4016927572169917174}
   m_Layer: 2
-  m_Name: StylizedGirl
+  m_Name: PlayerObj
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
