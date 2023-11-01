@@ -98,7 +98,7 @@ namespace Assets.Scripts.Boss
         {
             Debug.Log("OnSpawnStone :: 보스의 돌맹이 줍기");
 
-            boss.RightHand.gameObject.SetActive(true);
+            boss.Stone.gameObject.SetActive(true);
         }
 
         private void OnThrowStone(IBaseEventPayload payload)
@@ -108,11 +108,11 @@ namespace Assets.Scripts.Boss
             BossEventPayload posPayload = payload as BossEventPayload;
 
             GameObject bossStone = Instantiate(
-                boss.RightHand.gameObject, boss.RightHand.position, Quaternion.identity);
+                boss.Stone.gameObject, boss.Stone.position, Quaternion.identity);
             bossStone.GetComponent<Rigidbody>().isKinematic = false;
             bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue2);
 
-            boss.RightHand.gameObject.SetActive(false);
+            boss.Stone.gameObject.SetActive(false);
         }
 
         private void OnHitMana(BossEventPayload manaPayload)

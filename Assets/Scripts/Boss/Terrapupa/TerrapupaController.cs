@@ -15,12 +15,13 @@ namespace Assets.Scripts.Boss.Terrapupa
 
     public class TerrapupaController : MonoBehaviour
     {
-        [SerializeField] private List<BehaviourTree> treeList = new List<BehaviourTree>();
         [SerializeField] private BehaviourTreeInstance behaviourTreeInstance;
         [SerializeField] private TerrapupaDataInfo data;
 
         [SerializeField] private Transform target;
-        [SerializeField] private Transform rightHand;
+        [SerializeField] private Transform stone;
+
+        [SerializeField] private TerrapupaWeakPoint weakPoint;
 
         public Transform Target
         {
@@ -28,10 +29,10 @@ namespace Assets.Scripts.Boss.Terrapupa
             set { target = value; }
         }
 
-        public Transform RightHand
+        public Transform Stone
         {
-            get { return rightHand; }
-            set { rightHand = value; }
+            get { return stone; }
+            set { stone = value; }
         }
 
         public BlackboardKey<Transform> targetTransform;
@@ -53,6 +54,8 @@ namespace Assets.Scripts.Boss.Terrapupa
         private void Start()
         {
             InitStatus();
+
+            weakPoint.collisionAction += OnCollidedCoreByPlayerStone;
         }
 
         private void Update()
@@ -74,7 +77,7 @@ namespace Assets.Scripts.Boss.Terrapupa
             behaviourTreeInstance.SetBlackboardValue<bool>("isStuned", false);
 
             behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("throwStonePayload",
-                new BossEventPayload { TransformValue1 = rightHand, TransformValue2 = target });
+                new BossEventPayload { TransformValue1 = stone, TransformValue2 = target });
             behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("occurEarthQuakePayload",
                 new BossEventPayload { });
 
@@ -95,6 +98,13 @@ namespace Assets.Scripts.Boss.Terrapupa
             occurEarthQuakePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("occurEarthQuakePayload");
         }
 
-
+        private void OnCollidedCoreByPlayerStone()
+        {
+            Debug.Log("충돌 확인");
+            if(isStuned.value)
+            {
+                Debug.Log("기절 상태, 데미지 입음");
+            }
+        }
     }
 }
