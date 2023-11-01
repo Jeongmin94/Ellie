@@ -23,6 +23,9 @@ namespace Assets.Scripts.Player.States
 
             if (Controller.cinematicAimCam.activeSelf)
                 Controller.TurnOffAimCam();
+
+            Controller.PlayerStatus.isRecoveringStamina = true;
+
         }
 
         public override void OnExitState()
@@ -36,12 +39,17 @@ namespace Assets.Scripts.Player.States
         public override void OnUpdateState()
         {
             time += Time.deltaTime;
-            if(time > interval)
+            if (time > interval)
             {
-                Controller.Anim.SetTrigger("Idle");
-                Controller.ChangeState(PlayerStateName.Idle);
+                if (Controller.PlayerStatus.Stamina < 10f)
+                    Controller.ChangeState(PlayerStateName.Exhaust);
+                else
+                {
+                    Controller.Anim.SetTrigger("Idle");
+                    Controller.ChangeState(PlayerStateName.Idle);
+                }
             }
         }
-        
+
     }
 }

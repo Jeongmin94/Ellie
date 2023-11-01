@@ -49,10 +49,16 @@ namespace Assets.Scripts.UI.Player
 
         private readonly List<HealthImageInfo> healthImageInfos = new List<HealthImageInfo>();
         private UIBarImage barImage;
+
+        public UIBarImage BarImage
+        {
+            get { return barImage; }
+        }
+
         private GameObject healthPanel;
         private GameObject staminaPanel;
         private int prevHealth;
-        private int prevStamina;
+        private float prevStamina;
 
         private enum GameObjects
         {
@@ -72,20 +78,27 @@ namespace Assets.Scripts.UI.Player
             Bind<GameObject>(typeof(GameObjects));
             healthPanel = GetGameObject((int)GameObjects.HealthPanel);
             staminaPanel = GetGameObject((int)GameObjects.StaminaPanel);
+            barImage =
+                UIManager.Instance.MakeSubItem<UIBarImage>(staminaPanel.transform, UINameBarImage);
+            barImage.transform.position = staminaPanel.transform.position;
+            
         }
 
         private void OnEnable()
         {
             SubscribeAction();
         }
+        private void OnDisable()
+        {
+            healthData.CurrentHealth.Unsubscribe(OnChangeHealth);
+            staminaData.CurrentStamina.Unsubscribe(OnChangeStamina);
+
+        }
 
         private void SubscribeAction()
         {
-            healthData.CurrentHealth.OnChange -= OnChangeHealth;
-            healthData.CurrentHealth.OnChange += OnChangeHealth;
-
-            staminaData.CurrentStamina.OnChange -= OnChangeStamina;
-            staminaData.CurrentStamina.OnChange += OnChangeStamina;
+            healthData.CurrentHealth.Subscribe(OnChangeHealth);
+            staminaData.CurrentStamina.Subscribe(OnChangeStamina);
         }
 
         private void Start()
@@ -101,12 +114,14 @@ namespace Assets.Scripts.UI.Player
                 }
             }
 
-            barImage =
-                UIManager.Instance.MakeSubItem<UIBarImage>(staminaPanel.transform, UINameBarImage);
-            barImage.transform.position = staminaPanel.transform.position;
 
             prevHealth = healthImageInfos.Count;
             prevStamina = staminaData.CurrentStamina.Value;
+
+            //barImage.midgroundColor.a = 0;
+            Color color = Color.white;
+            color.a = 0;
+            barImage.MidgroundColor = color;
         }
 
         private void OnChangeHealth(int value)
@@ -130,9 +145,9 @@ namespace Assets.Scripts.UI.Player
             StartCoroutine(ChangeHealthImageLerp());
         }
 
-        private void OnChangeStamina(int value)
+        private void OnChangeStamina(float value)
         {
-            if (prevStamina == value)
+            if (MathF.Equals(prevStamina, value))
                 return;
 
             float target = value / (float)staminaData.MaxStamina;
@@ -158,8 +173,8 @@ namespace Assets.Scripts.UI.Player
             if (healthQueue.Any())
             {
                 var info = healthQueue.Dequeue();
-                int prev = info.Prev;
-                int current = info.Current;
+                int prev = (int)info.Prev;
+                int current = (int)info.Current;
                 int count = Math.Abs(prev - current);
 
                 if (prev > current)

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 namespace TheKiwiCoder {
 
@@ -111,6 +112,24 @@ namespace TheKiwiCoder {
 
     [System.Serializable]
     public class ColliderKey : BlackboardKey<Collider> {
+
+    }
+
+    [System.Serializable]
+    public class ObjectKey : BlackboardKey<object>
+    {
+
+    }
+
+    [System.Serializable]
+    public class EventKey : BlackboardKey<EventBusEvents>
+    {
+
+    }
+
+    [System.Serializable]
+    public class EventPayloadKey : BlackboardKey<IBaseEventPayload>
+    {
 
     }
 }

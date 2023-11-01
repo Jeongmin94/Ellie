@@ -35,20 +35,7 @@ namespace Assets.Scripts.Player.States
 
             if (Input.GetMouseButtonUp(0))
             {
-                Controller.SetTimeScale(1f);
-                Controller.TurnOffAimCam();
-                Controller.SetAimingAnimLayerToDefault();
-                Controller.ActivateShootPos(false);
-
-
-                if (Controller.isGrounded)
-                {
-                    Controller.ChangeState(PlayerStateName.Idle);
-                }
-                else
-                {
-                    Controller.ChangeState(PlayerStateName.Airbourn);
-                }
+                Controller.ChangeState(PlayerStateName.Shoot);
             }
         }
     }

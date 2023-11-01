@@ -7,10 +7,6 @@ public class TestUnitData : MonoBehaviour
     [SerializeField] private MonsterDataParsingInfo parsingInfo;
     [SerializeField] private MonsterData currentData;
 
-    private void Start()
-    {
-    }
-
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))

@@ -9,7 +9,7 @@ namespace Assets.Scripts.Managers
         Click,
         Press
     }
-    
+
     public class InputManager : Singleton<InputManager>
     {
         public Action OnKeyAction;

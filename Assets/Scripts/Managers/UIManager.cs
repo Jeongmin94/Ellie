@@ -1,8 +1,8 @@
-using System.Collections.Generic;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.Utils;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -10,10 +10,26 @@ namespace Assets.Scripts.Managers
 {
     public class UIManager : Singleton<UIManager>
     {
-        private const string NameUIRoot = "@UI_Root";
-        private const string PrefixPopup = "UI/Popup/";
-        private const string PrefixStatic = "UI/Static/";
-        private const string PrefixSubItem = "UI/SubItem/";
+        public const string NameUIRoot = "@UI_Root";
+        public const string PrefixPopup = "UI/Popup/";
+        public const string PrefixStatic = "UI/Static/";
+        public const string PrefixSubItem = "UI/SubItem/";
+
+        public const string UIButtonCanvas = "ButtonCanvas";
+        public const string UIHealthAndStamina = "Player/HealthAndStamina";
+        public const string UIStoneInven = "Item/StoneInven";
+        public const string UIItemInven = "Item/ItemInven";
+        public const string UIStatusCanvas = "Player/StatusCanvas";
+        public const string UIMonsterCanvas = "Monster/MonsterCanvas";
+        public const string UIMonsterBillboard = "Monster/MonsterBillboard";
+
+        // Inven
+        public const string UIPopupInvenCanvas = "Inven/PopupInvenCanvas";
+        public const string UISlot = "Slot/Slot";
+        public const string UISlotItem = "Slot/SlotItem";
+        public const string UIGridArea = "Slot/GridArea";
+        public const string UIHorizontalGridArea = "Slot/HorizontalGridArea";
+        public const string UIItemMenuButton = "Slot/ItemMenuButton";
 
         private int order = 10;
 
@@ -65,6 +81,7 @@ namespace Assets.Scripts.Managers
             if (parent)
                 go.transform.SetParent(parent);
 
+            go.transform.localScale = Vector3.one;
             return go.GetOrAddComponent<T>();
         }
 

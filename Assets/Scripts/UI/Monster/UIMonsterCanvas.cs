@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.ActionData.Monster;
 using Assets.Scripts.UI.Framework.Images;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Player;
@@ -9,6 +8,7 @@ using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 
+// !TODO: HealthData 사용하지 않도록 변경
 namespace Assets.Scripts.UI.Monster
 {
     public class UIMonsterCanvas : UIStatic
@@ -21,19 +21,18 @@ namespace Assets.Scripts.UI.Monster
         private const string NameBarImage = "BarImage";
         private const string NameMonsterText = "MonsterText";
 
-        [SerializeField] protected MonsterHealthData healthData;
         [SerializeField] protected float time = 1.0f;
-
-        protected TextMeshProUGUI monsterText;
-        protected UIBarImage barImage;
+        
+        private TextMeshProUGUI monsterText;
+        private UIBarImage barImage;
 
         private readonly Queue<ImageChangeInfo> healthQueue = new Queue<ImageChangeInfo>();
         private int prevHealth;
+        private int maxHealth;
 
         private void Awake()
         {
             Init();
-            healthData.InitHealth();
         }
 
         protected override void Init()
@@ -41,17 +40,22 @@ namespace Assets.Scripts.UI.Monster
             base.Init();
 
             Bind<GameObject>(typeof(GameObjects));
+            var go = GetGameObject((int)GameObjects.MonsterPanel);
+            monsterText = go.FindChild<TextMeshProUGUI>();
         }
-
-        private void OnEnable()
+        
+        public void InitData(MonsterDataContainer container)
         {
-            SubscribeAction();
+            prevHealth = container.PrevHp;
+            maxHealth = container.MaxHp;
+            container.CurrentHp.Subscribe(OnChangeHealth);
+            
+            SetName(container.Name);
         }
-
-        private void SubscribeAction()
+        
+        private void SetName(string monsterName)
         {
-            healthData.CurrentHealth.OnChange -= OnChangeHealth;
-            healthData.CurrentHealth.OnChange += OnChangeHealth;
+            monsterText.text = monsterName;
         }
 
         protected virtual void Start()
@@ -60,16 +64,14 @@ namespace Assets.Scripts.UI.Monster
 
             var image = go.FindChild(NameBarImage, true);
             barImage = image.GetOrAddComponent<UIBarImage>();
-
-            prevHealth = healthData.CurrentHealth.Value;
         }
-
+        
         private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
                 return;
 
-            float target = value / (float)healthData.MaxHealth;
+            float target = value / (float)maxHealth;
             float t = time;
 
             if (prevHealth > value)
