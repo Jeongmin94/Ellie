@@ -1,6 +1,7 @@
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
 using UnityEngine;
+using Assets.Scripts.Monsters.EffectStatus;
 
 namespace Channels.Combat
 {
@@ -41,6 +42,8 @@ namespace Channels.Combat
         //공격이 플레이어에게 피격됐을 때 플레이어에게 유발되는 상태이상
         public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
         //!TODO : 공격이 enemy에 피격됐을 시 유발되는 상태이상의 enum이 필요합니다
+
+        public MonsterDamageEffectType MonsterDamageEffectName { get; set; }
     }
 
     public class CombatChannel : BaseEventChannel

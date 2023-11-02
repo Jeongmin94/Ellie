@@ -11,22 +11,22 @@ namespace Assets.Scripts.Data
     [CreateAssetMenu(fileName = "TestSkeletonMonster",menuName = "GameData List/Monsters/SkeletonMonsterData", order =int.MaxValue)]
     public class SkeletonMonsterData : ScriptableObject
     {
-        [SerializeField] public int monsterID;
-        [SerializeField] public string monsterName;
+        public int monsterID;
+        public string monsterName;
 
-        [SerializeField] public float HP;
-        [SerializeField] public float movementSpeed;
-        [SerializeField] public float rotationSpeed;
-        [SerializeField] public float detectPlayerDistance;
-        [SerializeField] public float chasePlayerDistance;
-        [SerializeField] public float overtravelDistance;
-        [SerializeField] public float stopDistance;
-        [SerializeField] public Vector3 spawnPosition;
+        public float maxHP;
+        public float movementSpeed;
+        public float rotationSpeed;
+        public float detectPlayerDistance;
+        public float chasePlayerDistance;
+        public float overtravelDistance;
+        public float stopDistance;
+        public Vector3 spawnPosition;
 
-        [SerializeField] public Enums.MonsterKind kind;
-        [SerializeField] public Enums.MovementType type;
-        [SerializeField] public Enums.AttackTurnType turnType;
+        public Enums.MonsterKind kind;
+        public Enums.MovementType type;
+        public Enums.AttackTurnType turnType;
 
-        [SerializeField] public Dictionary<string, AbstractAttack> skills;
+        public Dictionary<string, AbstractAttack> skills;
     }
 }

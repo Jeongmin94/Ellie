@@ -19,10 +19,11 @@ using Assets.Scripts.Utils;
 using Channels.Type;
 using Channels.Combat;
 using Assets.Scripts.Monsters.EffectStatus;
+using Assets.Scripts.Combat;
 
 namespace Assets.Scripts.Monsters
 {
-    public class MonsterController : AbstractMonster
+    public class MonsterController : AbstractMonster, ICombatant
     {
         //Temp
         public GameObject player;
@@ -37,11 +38,13 @@ namespace Assets.Scripts.Monsters
         [SerializeField] public WeaponAttackData weaponAttackData;
         [SerializeField] public ProjectileAttackData projectileAttackData;
         [SerializeField] public FleeSkillData fleeSkilldata;
-
-        private UIMonsterBillboard billboard;
-        private readonly MonsterDataContainer dataContainer = new();
+        [SerializeField] public FanShapeAttackData fanshapeAttackData;
 
         private TicketMachine ticketMachine;
+
+        public BlackboardKey<bool> isDamaged;
+        public BlackboardKey<bool> isDead;
+        public BlackboardKey<bool> isReturning;
 
         private void Awake()
         {
@@ -77,9 +80,13 @@ namespace Assets.Scripts.Monsters
             }
             if(projectileAttackData!=null)
             {
-                Debug.Log("WHY NO SET?? : "+projectileAttackData);
                 AddSkills(projectileAttackData.attackName, Enums.AttackSkill.ProjectileAttack);
                 Attacks[projectileAttackData.attackName].InitializeProjectile(projectileAttackData);
+            }
+            if(fanshapeAttackData!=null)
+            {
+                AddSkills(fanshapeAttackData.attackName, Enums.AttackSkill.FanshapeAttack);
+                Attacks[fanshapeAttackData.attackName].InitializeFanShpae(fanshapeAttackData);
             }
         }
 
@@ -100,8 +107,9 @@ namespace Assets.Scripts.Monsters
 
         private void InitData()
         {
-            dataContainer.MaxHp = (int)monsterData.HP;
-            dataContainer.CurrentHp.Value = (int)Mathf.Ceil(monsterData.HP);
+            dataContainer.MaxHp = (int)monsterData.maxHP;
+            currentHP = monsterData.maxHP;
+            dataContainer.CurrentHp.Value = (int)currentHP;
             dataContainer.Name = monsterData.monsterName;
 
             billboard.InitData(dataContainer);
@@ -127,6 +135,11 @@ namespace Assets.Scripts.Monsters
 
             behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", transform.position);
             behaviourTreeInstance.SetBlackboardValue<float>("MovementSpeed", monsterData.movementSpeed);
+            isDead = behaviourTreeInstance.FindBlackboardKey<bool>("IsDead");
+            isDamaged = behaviourTreeInstance.FindBlackboardKey<bool>("IsDamaged");
+            isReturning = behaviourTreeInstance.FindBlackboardKey<bool>("IsReturning");
+            isDead.value = false;
+            isDamaged.value = false;
 
             if (meleeAttackData != null)
             {
@@ -158,6 +171,12 @@ namespace Assets.Scripts.Monsters
                 behaviourTreeInstance.SetBlackboardValue<float>("FleeDistance", fleeSkilldata.fleeDistance);
                 behaviourTreeInstance.SetBlackboardValue<float>("FleeSpeed", fleeSkilldata.fleeSpeed);
             }
+            if(fanshapeAttackData!=null)
+            {
+                behaviourTreeInstance.SetBlackboardValue<float>("FanshapeAnimationHold", fanshapeAttackData.animationHold);
+                behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackableDistance", fanshapeAttackData.attackableDistance);
+                behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackInterval", fanshapeAttackData.attackInterval);
+            }
         }
 
         private void SetNavMesh()
@@ -169,15 +188,18 @@ namespace Assets.Scripts.Monsters
             agent.baseOffset = -0.01f;
         }
 
-        public override void ReceiveDamage(IBaseEventPayload payload)
-        {
-            CombatPayload combatPayload = payload as CombatPayload;
-            Damaged(combatPayload.Damage);
-        }
 
-        private void Damaged(float damage)
+
+        public override void UpdateHP(float damage)
         {
-            monsterData.HP -= damage;
+            if (isReturning.value) return;
+            currentHP -= damage;
+            dataContainer.CurrentHp.Value = (int)currentHP;
+            isDamaged.value = true;
+            if (currentHP <= 0)
+            {
+                isDead.value = true;
+            }
         }
 
         public void ChangeEffectState(MonsterDamageEffectType effect)

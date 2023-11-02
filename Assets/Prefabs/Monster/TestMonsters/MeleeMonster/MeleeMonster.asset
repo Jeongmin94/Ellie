@@ -89,8 +89,8 @@ MonoBehaviour:
     - rid: 5827610086317228080
     - rid: 5827610127647113221
     - rid: 5827610127647113223
-  viewPosition: {x: 2083, y: -37, z: 0}
-  viewScale: {x: 0.6575163, y: 0.6575163, z: 1}
+  viewPosition: {x: 856.5, y: -113.5, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -185,6 +185,10 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228071
           defaultValue: {fileID: 0}
+        isDamaged:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827610086317228033
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

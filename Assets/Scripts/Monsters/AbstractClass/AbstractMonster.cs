@@ -2,7 +2,10 @@ using System.Collections.Generic;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Data;
 using Assets.Scripts.Monsters.Attacks;
+using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Monsters.Utility;
+using Assets.Scripts.UI.Framework.Billboard;
+using Assets.Scripts.UI.Monster;
 using Channels.Combat;
 using TheKiwiCoder;
 using UnityEngine;
@@ -18,9 +21,16 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
-        protected bool isDamaged;
 
-        public Dictionary<string, AbstractAttack> Attacks = new();
+        public Dictionary<string, AbstractAttack> Attacks=new();
+
+        protected Dictionary<MonsterDamageEffectType, IMonsterStatusEffect> statusEffects;
+        protected MonsterEffectStatusController statusController;
+
+        protected UIMonsterBillboard billboard;
+        protected readonly MonsterDataContainer dataContainer = new();
+
+        protected float currentHP;
 
         public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {
@@ -49,6 +59,9 @@ namespace Assets.Scripts.Monsters.AbstractClass
                 case Enums.AttackSkill.AOEAttack:
                     attack = newSkill.AddComponent<AOEPrefabAttack>();
                     break;
+                case Enums.AttackSkill.FanshapeAttack:
+                    attack = newSkill.AddComponent<FanShapeAttack>();
+                    break;
             }
 
             if (attack != null)
@@ -65,8 +78,17 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void ReceiveDamage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
-            if(combatPayload.)
+            //if(combatPayload.MonsterDamageEffectName!=MonsterDamageEffectType.None)
+            //{
+            //    statusEffects.TryGetValue(combatPayload.MonsterDamageEffectName, out IMonsterStatusEffect effect);
+            //    statusController.ApplyStatusEffect(effect);
+            //}
+                UpdateHP(combatPayload.Damage);
+ 
         }
+
+        public abstract void UpdateHP(float damage);
+
     }
 
 }

@@ -12,10 +12,10 @@ public class SetData : ActionNode
     public NodeProperty<float> playerDistance;
     public NodeProperty<Vector3> playerPosition;
     public NodeProperty<GameObject> detectChaseAI;
+    public NodeProperty<bool> isDamaged;
 
     protected override void OnStart() {
         playerDistance.Value = Vector3.SqrMagnitude(player.Value.transform.position - context.transform.position);
-        //playerDistance.Value = Vector3.Distance(player.Value.transform.position, context.transform.position);
         DistanceDetectedAI detectAI = detectChaseAI.Value.GetComponent<DistanceDetectedAI>();
         playerPosition.Value = player.Value.transform.position;
     }

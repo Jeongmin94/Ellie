@@ -1615,6 +1615,7 @@ MonoBehaviour:
   weaponAttackData: {fileID: 11400000, guid: 51f539c3d93f04a7394970fe02f0f23a, type: 2}
   projectileAttackData: {fileID: 0}
   fleeSkilldata: {fileID: 0}
+  fanshapeAttackData: {fileID: 0}
 --- !u!1 &4556069370795293131
 GameObject:
   m_ObjectHideFlags: 0
@@ -3233,6 +3234,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9118803690157764510}
     m_Modifications:
+    - target: {fileID: 4477475617922157613, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -3263,19 +3268,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071076
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.70710605
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.0000003725289
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.0000005587933
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4523575664477137517, guid: 33b0d3ce32c9f4a4584b279e1800d135, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -3322,3 +3327,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster: {fileID: 8131742662541749375}
+--- !u!65 &1355467397383814244
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9004463016664917051}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40134013, y: 0.74068797, z: 1.5597285}
+  m_Center: {x: 0.0000015367475, y: 0.9704604, z: 0.3921423}

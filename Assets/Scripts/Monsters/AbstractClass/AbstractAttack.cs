@@ -11,7 +11,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
     public abstract class AbstractAttack : MonoBehaviour, ICombatant
     {
         protected float attackValue;
-        protected float durationTime; 
+        protected float durationTime;
 
         public float AttackableDistance { get; private set; }
         public float AttackInterval { get; private set; }
@@ -25,7 +25,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public abstract void ActivateAttack();
 
-        //Initializes
         protected void InitializedBase(float attackValue, float durationTime
             , float attackInterval, float attackRange)
         {
@@ -53,6 +52,9 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public virtual void InitializeAOE(AOEAttackData data)
         { }
 
+        public virtual void InitializeFanShpae(FanShapeAttackData data)
+        { }
+
         public virtual void ReceiveDamage(IBaseEventPayload payload)
         { }
 
@@ -64,6 +66,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void Attack(IBaseEventPayload payload)
         {
+            Debug.Log(ticketMachine);
             ticketMachine.SendMessage(ChannelType.Combat, payload);
         }
     }

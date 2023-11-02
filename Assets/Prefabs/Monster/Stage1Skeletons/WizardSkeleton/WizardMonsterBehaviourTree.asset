@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
-  m_Name: ProjectileMonster2
+  m_Name: WizardMonsterBehaviourTree
   m_EditorClassIdentifier: 
   rootNode:
     rid: 5827609998966652928
@@ -48,10 +48,8 @@ MonoBehaviour:
   - rid: 5827610086317228086
   - rid: 5827610088829878275
   - rid: 5827610088829878276
-  - rid: 5827610105833848846
   - rid: 5827610105833848848
   - rid: 5827610105833848849
-  - rid: 5827610105833848850
   - rid: 5827610105833848851
   - rid: 5827610105833848852
   - rid: 5827610105833848854
@@ -73,7 +71,9 @@ MonoBehaviour:
   - rid: 5827610220521848839
   - rid: 5827610220521848840
   - rid: 5827610220521848841
-  - rid: 5827610220521848862
+  - rid: 6937830456686542865
+  - rid: 6937830456686542866
+  - rid: 6937830456686542868
   treeState: 0
   blackboard:
     keys:
@@ -93,8 +93,10 @@ MonoBehaviour:
     - rid: 5827610105833848835
     - rid: 5827610105833848836
     - rid: 5827610152718303234
-  viewPosition: {x: 2064, y: 109, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 6937830456686542869
+    - rid: 6937830456686542870
+  viewPosition: {x: 2884.5, y: -677.5, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -142,7 +144,6 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 5827610086317228032
-        - rid: 5827610152718303244
         - rid: 5827610086317228033
     - rid: 5827610086317228032
       type: {class: SetData, ns: , asm: Assembly.Ellie}
@@ -171,6 +172,10 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228071
           defaultValue: {fileID: 0}
+        isDamaged:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827610086317228033
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -208,7 +213,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e52811ae9daed4e1eb83d1290970ec3d
-        position: {x: -2100, y: 825}
+        position: {x: -2280, y: 825}
         blackboard:
           keys: []
         description: FleeSkill
@@ -216,7 +221,7 @@ MonoBehaviour:
         children:
         - rid: 5827610086317228036
         - rid: 5827610105833848852
-        - rid: 5827610220521848862
+        - rid: 6937830456686542868
         - rid: 5827610105833848854
     - rid: 5827610086317228036
       type: {class: DistanceAttackable, ns: , asm: Assembly.Ellie}
@@ -224,7 +229,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 66312dc16c5ab4f63ac0cbda231190be
-        position: {x: -2340, y: 960}
+        position: {x: -2550, y: 960}
         blackboard:
           keys: []
         description: 
@@ -260,7 +265,7 @@ MonoBehaviour:
         - rid: 5827610086317228044
         - rid: 5827610105833848848
         - rid: 5827610220521848834
-        - rid: 5827610105833848846
+        - rid: 6937830456686542866
         - rid: 5827610086317228046
         - rid: 5827610220521848841
     - rid: 5827610086317228044
@@ -352,6 +357,10 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228074
           defaultValue: {x: 0, y: 0, z: 0}
+        isReturning:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827610086317228052
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
       data:
@@ -368,6 +377,10 @@ MonoBehaviour:
             rid: 5827610086317228074
           defaultValue: {x: 0, y: 0, z: 0}
         isOnSapwnPosition:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isReturning:
           reference:
             rid: -2
           defaultValue: 0
@@ -506,6 +519,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isReturning:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827610086317228065
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -625,7 +642,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6d53a2b5f6847479686fd335f3a035f5
-        position: {x: -3000, y: 825}
+        position: {x: -3450, y: 825}
         blackboard:
           keys: []
         description: Dead
@@ -639,7 +656,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: beaf73d8e3b9845319276fcebb12a7bc
-        position: {x: -3090, y: 960}
+        position: {x: -3540, y: 960}
         blackboard:
           keys: []
         description: 
@@ -650,7 +667,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 44e648142259f4d6bbf3cfc65081fce1
-        position: {x: -2805, y: 690}
+        position: {x: -3255, y: 690}
         blackboard:
           keys: []
         description: Damaged
@@ -664,7 +681,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cd8a44dffd41a46a78751dab4703ff99
-        position: {x: -2625, y: 825}
+        position: {x: -3075, y: 825}
         blackboard:
           keys: []
         description: Damaged
@@ -678,7 +695,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 40ac1c4cf8fdc4738b3d07ece31610e4
-        position: {x: -2715, y: 960}
+        position: {x: -3165, y: 960}
         blackboard:
           keys: []
         description: 
@@ -698,7 +715,7 @@ MonoBehaviour:
         - rid: 5827610088829878276
         - rid: 5827610220521848837
         - rid: 5827610105833848849
-        - rid: 5827610105833848850
+        - rid: 6937830456686542865
         - rid: 5827610105833848851
     - rid: 5827610088829878276
       type: {class: CheckPlayerIsNear, ns: , asm: Assembly.Ellie}
@@ -706,7 +723,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fc175fc180b33408e8f9da7cd96c66dc
-        position: {x: -1695, y: 960}
+        position: {x: -1725, y: 960}
         blackboard:
           keys: []
         description: 
@@ -739,29 +756,6 @@ MonoBehaviour:
         name: MovementSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
-    - rid: 5827610105833848846
-      type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 0a4376774f27e4a27b2ac51b925f3061
-        position: {x: -300, y: 960}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        player:
-          reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
-          reference:
-            rid: -2
-          defaultValue: 2.5
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 60
     - rid: 5827610105833848848
       type: {class: Stop, ns: , asm: Assembly.Ellie}
       data:
@@ -779,7 +773,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 808084394d75f4ea3860a334d423b935
-        position: {x: -1305, y: 960}
+        position: {x: -1335, y: 960}
         blackboard:
           keys: []
         description: 
@@ -796,18 +790,6 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228070
           defaultValue: {x: 0, y: 0, z: 0}
-    - rid: 5827610105833848850
-      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: e98996892d66b47ae86a1d7f780a005f
-        position: {x: -1155, y: 960}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        duration: 2
     - rid: 5827610105833848851
       type: {class: ResetSpeed, ns: , asm: Assembly.Ellie}
       data:
@@ -829,7 +811,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 49138417f950a4847ae26983db6d0ddc
-        position: {x: -2160, y: 960}
+        position: {x: -2370, y: 960}
         blackboard:
           keys: []
         description: 
@@ -852,7 +834,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ce683a3647ed643bb9f54e00549ffcf5
-        position: {x: -1860, y: 960}
+        position: {x: -2040, y: 960}
         blackboard:
           keys: []
         description: 
@@ -1006,7 +988,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 76151b369162342299b794ad33580289
-        position: {x: -2940, y: 960}
+        position: {x: -3390, y: 960}
         blackboard:
           keys: []
         description: 
@@ -1025,7 +1007,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 322859261bf4040eea4d2cb6ab4bc686
-        position: {x: -2565, y: 960}
+        position: {x: -3015, y: 960}
         blackboard:
           keys: []
         description: 
@@ -1101,7 +1083,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 62c2524e3d55744a0a20ba7a5045972b
-        position: {x: -1515, y: 960}
+        position: {x: -1545, y: 960}
         blackboard:
           keys: []
         description: 
@@ -1190,15 +1172,84 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
-    - rid: 5827610220521848862
-      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+    - rid: 6937830456686542865
+      type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
-        guid: 8fa3acd5befb746edb903017a77ed7cd
-        position: {x: -2010, y: 960}
+        guid: e180825863fa0406a9edc55495b08519
+        position: {x: -1185, y: 960}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
-        duration: 2
+        player:
+          reference:
+            rid: 5827610086317228068
+          defaultValue: {fileID: 0}
+        duration:
+          reference:
+            rid: -2
+          defaultValue: 2
+        rotationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 180
+    - rid: 6937830456686542866
+      type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 6c97e00a519814ba7ae1ab814645bbc5
+        position: {x: -300, y: 960}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        player:
+          reference:
+            rid: 5827610086317228068
+          defaultValue: {fileID: 0}
+        duration:
+          reference:
+            rid: -2
+          defaultValue: 2.5
+        rotationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 180
+    - rid: 6937830456686542868
+      type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d5a7617f644c24a82996346ed7e320aa
+        position: {x: -2220, y: 960}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        player:
+          reference:
+            rid: 5827610086317228068
+          defaultValue: {fileID: 0}
+        duration:
+          reference:
+            rid: -2
+          defaultValue: 2
+        rotationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 180
+    - rid: 6937830456686542869
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: IsDead
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 6937830456686542870
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: IsDamaged
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0

@@ -6,6 +6,7 @@ using TheKiwiCoder;
 [System.Serializable]
 public class IsDead : ActionNode
 {
+    //delete
     protected override void OnStart() {
     }
 
@@ -13,9 +14,6 @@ public class IsDead : ActionNode
     }
 
     protected override State OnUpdate() {
-        if (context.controller.monsterData.HP <= 0)
-            return State.Success;
-        else
             return State.Failure;
     }
 }

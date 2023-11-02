@@ -15,5 +15,7 @@ namespace Assets.Scripts.Monsters.EffectStatus
         Static,
         Adhesive,
         PowerUp,
+
+        None,
     }
 }
