@@ -53,8 +53,8 @@ namespace Assets.Scripts.Centers.Test
                 AttackDirection = Vector3.zero,
                 AttackStartPosition = transform.position,
                 AttackPosition = playerStatus.transform.position,
-                PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity,
-                Damage = 5
+                PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.StrongRigidity,
+                Damage = 0
             };
             Attack(payload);
         }

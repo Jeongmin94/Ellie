@@ -101,9 +101,10 @@ namespace Assets.Scripts.Player
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
             playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
             playerStatusEffects.Add(PlayerStatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
+            playerStatusEffects.Add(PlayerStatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
         }
 
-        private void RecoverStamina()
+            private void RecoverStamina()
         {
             if (!isRecoveringStamina || Stamina >= MaxStamina) return;
             tempStamina += staminaRecoveryPerSec * Time.deltaTime;
