@@ -26,8 +26,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private int jumpStaminaConsumption;
         [SerializeField] private int dodgeStaminaConsumption;
         [SerializeField] private int hangStaminaConsumptionPerSec;
-
-        [SerializeField] private int sprintStanimaThreshold;
+        [SerializeField] private float chargeStaminaConsumptionPerSec;
 
         [Header("Combat")]
         [SerializeField] private PlayerHealthData healthData;
@@ -40,8 +39,8 @@ namespace Assets.Scripts.Player
         public int JumpStaminaConsumption { get { return jumpStaminaConsumption; } }
         public int DodgeStaminaConsumption { get { return dodgeStaminaConsumption; } }
         public int HangStaminaConsumption { get { return HangStaminaConsumption; } }
+        public float ChargeStaminaComsumptionPerSec { get { return chargeStaminaConsumptionPerSec; } }
 
-        public int SprintStaminaThreshold { get { return sprintStanimaThreshold; } }
 
         public bool isDead;
         public bool isRecoveringStamina;
@@ -52,7 +51,7 @@ namespace Assets.Scripts.Player
         float tempStamina;
 
         private PlayerUI playerUI;
-        private TicketMachine ticketMachine;
+        //private TicketMachine ticketMachine;
 
         public int HP
         {
@@ -73,7 +72,7 @@ namespace Assets.Scripts.Player
         }
         private void Awake()
         {
-            SetTicketMachine();
+            //SetTicketMachine();
             playerStatusEffectController = GetComponent<PlayerStatusEffectController>();
             playerStatusEffects = new();
             playerUI = GetComponent<PlayerUI>();
@@ -81,13 +80,13 @@ namespace Assets.Scripts.Player
 
             InitStatusEffects();
         }
-        private void SetTicketMachine()
-        {
-            Debug.Log("Player SetTicketMachine()");
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-            isDead = false;
-        }
+        //private void SetTicketMachine()
+        //{
+        //    Debug.Log("Player SetTicketMachine()");
+        //    ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+        //    ticketMachine.AddTickets(ChannelType.Combat);
+        //    isDead = false;
+        //}
         private void Start()
         {
             isRecoveringStamina = true;

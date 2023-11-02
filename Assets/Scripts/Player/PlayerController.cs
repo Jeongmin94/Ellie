@@ -91,6 +91,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private float miningTime;
         [SerializeField] private Pickaxe pickaxe;
         public Pickaxe Pickaxe { get { return pickaxe; } }
+        // !TODO : Interaction 채널을 통해 플레이어와 Interactive 오브젝트들이 상호작용할 수 있게 수정
         private Ore curOre = null;
 
         [Header("Boolean Properties")]
@@ -102,6 +103,7 @@ namespace Assets.Scripts.Player
         public bool isZooming;
         public bool canJump;
         public bool canTurn;
+        public bool isRigid;
 
         private float initialFixedDeltaTime;
         private float horizontalInput;
@@ -195,6 +197,7 @@ namespace Assets.Scripts.Player
             Rb.freezeRotation = true;
             canJump = true;
             isGrounded = true;
+            isRigid = false;
             initialFixedDeltaTime = Time.fixedDeltaTime;
             cinematicAimCam.SetActive(false);
 
@@ -214,6 +217,7 @@ namespace Assets.Scripts.Player
         }
         private void ResetPlayerPos()
         {
+            //Test용
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 transform.position = new Vector3(0f, 1f, 0f);
@@ -222,15 +226,15 @@ namespace Assets.Scripts.Player
         }
         private void SetColliderHeight()
         {
+            //점프 중일 때 콜라이더 크기를 줄여 계단에 끼는 현상을 방지 -> Jump, Airborne에서 해주고, Landing에서 풀어주자
             if (isJumping || isFalling)
-                playerCollider.height = 0f;
+                playerCollider.height = 1f;
             else
                 playerCollider.height = 1.5f;
         }
         private void AddAdditionalGravityForce()
         {
             Rb.AddForce(-Rb.transform.up * AdditionalGravityForce, ForceMode.Force);
-
         }
         private void InitStateMachine()
         {
@@ -266,6 +270,7 @@ namespace Assets.Scripts.Player
         }
         public void MovePlayer(float moveSpeed)
         {
+            // !TODO : 일정 각도 이상으로 못 올라가게 하는 로직 추가, 경사로에 있을 때의 이동 속도 로직 추가
             if (CheckSlope())
             {
                 //Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
@@ -279,6 +284,7 @@ namespace Assets.Scripts.Player
 
         private void ClimbStep()
         {
+            // !TODO : Lerp로 부드럽게 올라가도록 수정
             RaycastHit hitLower;
             if (Physics.Raycast(stepRayLower.transform.position,
                 PlayerObj.TransformDirection(Vector3.forward), out hitLower, 0.1f, groundLayer))
@@ -317,11 +323,11 @@ namespace Assets.Scripts.Player
                 }
             }
         }
-        public void JumpPlayer()
+        public void Jump()
         {
-            StartCoroutine(Jump());
+            StartCoroutine(JumpCoroutine());
         }
-        private IEnumerator Jump()
+        private IEnumerator JumpCoroutine()
         {
             canJump = false;
 
@@ -340,12 +346,11 @@ namespace Assets.Scripts.Player
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
-            Anim.SetFloat("Vertical Input", verticalInput);
-            Anim.SetFloat("Horizontal Input", horizontalInput);
             MoveInput = new Vector2(horizontalInput, verticalInput);
         }
         private void CheckGround()
         {
+            // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
             bool curIsGrounded = Physics.Raycast(transform.position,
                 Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
 
@@ -354,7 +359,14 @@ namespace Assets.Scripts.Player
                 if (curIsGrounded)
                 {
                     //공중 -> 땅
-                    ChangeState(PlayerStateName.Land);
+                    if(isRigid)
+                    {
+                        isJumping = false;
+                        isFalling = false;
+                        PlayerStatus.isRecoveringStamina = true;
+                    }
+                    else 
+                        ChangeState(PlayerStateName.Land);
                 }
                 else
                 {
@@ -378,6 +390,7 @@ namespace Assets.Scripts.Player
 
         private bool CheckSlope()
         {
+            //올라갈 수 없는 각도의 Slope에 있을 때 True를 반환합니다
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
@@ -391,6 +404,7 @@ namespace Assets.Scripts.Player
         }
         private void CalculateMoveDirection()
         {
+            //orientation의 forward를 플레이어가 카메라를 향하는 방향으로 갱신합니다
             Vector3 viewDir = transform.position - new Vector3(mainCam.transform.position.x, transform.position.y, mainCam.transform.position.z);
             orientation.forward = viewDir.normalized;
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
@@ -415,12 +429,14 @@ namespace Assets.Scripts.Player
         }
         public void SetTimeScale(float expectedTimeScale)
         {
-
+            //현재 timeScale과 fixedDeltatime을 파라미터의 값에 맞게 변경합니다
             Time.timeScale = expectedTimeScale;
             Time.fixedDeltaTime = initialFixedDeltaTime * Time.timeScale;
         }
-        public void SetAimingAinmLayerWeight(float weight)
+        public void SetAimingAnimLayerWeight(float weight)
         {
+            //조준 애니메이션의 레이어의 Weight를 변경합니다
+            // !TODO : 추가될 수 있는 모든 애니메이션 레이어에 대해 작용할 수 있도록 수정, Lerp 이용하도록 변경
             float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             if (AimingAnimLayerWeight < weight)
             {

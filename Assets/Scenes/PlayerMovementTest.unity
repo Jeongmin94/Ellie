@@ -396,6 +396,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerStatus: {fileID: 1523587298}
+  testDamage: 0
+  statusEffect: 2
 --- !u!4 &133582873
 Transform:
   m_ObjectHideFlags: 0
@@ -1467,6 +1469,10 @@ PrefabInstance:
     - target: {fileID: 1833054886, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
       value: 1.177
+      objectReference: {fileID: 0}
+    - target: {fileID: 3433591422980594333, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: chargeStaminaConsumptionPerSec
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name

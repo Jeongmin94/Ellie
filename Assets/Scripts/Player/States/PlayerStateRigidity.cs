@@ -20,13 +20,14 @@ namespace Assets.Scripts.Player.States
             Controller.TurnOffAimCam();
             Controller.SetAimingAnimLayerToDefault();
             Controller.ActivateShootPos(false);
-
+            Controller.isRigid = true;
         }
 
         public override void OnExitState()
         {
             Controller.Anim.SetTrigger("ExitRigidity");
             Controller.canTurn = true;
+            Controller.isRigid = false;
         }
 
         public override void OnFixedUpdateState()
