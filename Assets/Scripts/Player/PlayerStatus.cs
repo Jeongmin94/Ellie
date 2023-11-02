@@ -101,9 +101,13 @@ namespace Assets.Scripts.Player
             playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
             playerStatusEffects.Add(PlayerStatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
             playerStatusEffects.Add(PlayerStatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
+            playerStatusEffects.Add(PlayerStatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
+            playerStatusEffects.Add(PlayerStatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
+
+
         }
 
-            private void RecoverStamina()
+        private void RecoverStamina()
         {
             if (!isRecoveringStamina || Stamina >= MaxStamina) return;
             tempStamina += staminaRecoveryPerSec * Time.deltaTime;
@@ -158,14 +162,24 @@ namespace Assets.Scripts.Player
         public void ReceiveDamage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
+            //상태이상 공격 처리 로직
             if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
             {
                 Debug.Log("Player : RecieveDamage");
                 playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
-                playerStatusEffectController.ApplyStatusEffect(effect);
+                playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
             }
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
+        }
+
+        private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)
+        {
+            StatusEffectInfo info = new StatusEffectInfo();
+
+            info.effectDuration = payload.statusEffectduration;
+            info.effectForce = payload.force;
+            return info; 
         }
     }
 }

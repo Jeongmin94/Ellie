@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace Assets.Scripts.Player.States
 {
-    internal class PlayerStateHit : PlayerBaseState
+    public class PlayerStateKnockedAirborne : PlayerBaseState
     {
-        public PlayerStateHit(PlayerController controller) : base(controller)
+        public PlayerStateKnockedAirborne(PlayerController controller) : base(controller)
         {
         }
 

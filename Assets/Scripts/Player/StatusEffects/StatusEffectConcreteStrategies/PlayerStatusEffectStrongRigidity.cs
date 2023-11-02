@@ -6,12 +6,12 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
 {
     public class PlayerStatusEffectStrongRigidity : MonoBehaviour, IPlayerStatusEffect
     {
-
-        private const float RIGIDITY_DURATION = 2.0f;
+        private float duration;
         private PlayerController playerController;
-        public void ApplyStatusEffect(PlayerStatusEffectController controller)
+        public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)
         {
             playerController = controller.gameObject.GetComponent<PlayerController>();
+            duration = info.effectDuration;
             StartCoroutine(ImposeRigidity(controller));
         }
 
@@ -24,9 +24,12 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
                 yield break;
 
             controller.AddStatusEffect(this);
-            playerController.ChangeState(PlayerStateName.Rigidity);
-            yield return new WaitForSeconds(RIGIDITY_DURATION);
-            playerController.ChangeState(PlayerStateName.Idle);
+            StateInfo info = new()
+            {
+                stateDuration = duration
+            };
+            playerController.ChangeState(PlayerStateName.Rigidity, info);
+            yield return new WaitForSeconds(duration);
             controller.RemoveStatusEffect(this);
         }
 

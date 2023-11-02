@@ -1,55 +1,58 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
-    public class PlayerStateRigidity : PlayerBaseState
+    public class PlayerStateDown : PlayerBaseState
     {
         private float duration;
         private float curTime;
-        public PlayerStateRigidity(PlayerController controller) : base(controller)
+        private bool temp;
+        private float force;
+        public PlayerStateDown(PlayerController controller) : base(controller)
         {
         }
+
         public override void OnEnterState()
         {
-
         }
-
         public override void OnEnterState(StateInfo info)
         {
-            Controller.Anim.SetTrigger("EnterRigidity");
+            temp = false;
+            duration = info.stateDuration;
+            force = info.magnitude;
+            curTime = 0;
+
+            Controller.Anim.SetTrigger("Down");
             Controller.canTurn = false;
             Controller.SetTimeScale(1f);
             Controller.TurnOffAimCam();
             Controller.SetAimingAnimLayerToDefault();
             Controller.ActivateShootPos(false);
             Controller.isRigid = true;
-            duration = info.stateDuration;
-            curTime = 0;
+
         }
-
-
         public override void OnExitState()
         {
-            Controller.Anim.SetTrigger("ExitRigidity");
-            Controller.canTurn = true;
-            Controller.isRigid = false;
+
         }
 
         public override void OnFixedUpdateState()
         {
+            if (!temp && 0 != force)
+            {
+                Controller.Rb.velocity = Vector3.zero;
+                Controller.Rb.AddForce(Controller.PlayerObj.up * force, ForceMode.Impulse);
+                temp = true;
+            }
         }
 
         public override void OnUpdateState()
         {
             curTime += Time.deltaTime;
-            if(curTime >= duration)
+            if (curTime >= duration)
             {
-                Controller.ChangeState(PlayerStateName.Idle);
+                Controller.ChangeState(PlayerStateName.GetUp);
             }
         }
     }

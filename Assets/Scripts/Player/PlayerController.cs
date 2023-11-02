@@ -177,6 +177,11 @@ namespace Assets.Scripts.Player
         }
         private void Update()
         {
+            //if (Input.GetKeyDown(KeyCode.O))
+            //{
+            //    Anim.SetTrigger("FallTest");
+            //    //Rb.AddForce(PlayerObj.up * 10f, ForceMode.Impulse);
+            //}
             GetInput();
             CheckGround();
             Turn();
@@ -267,6 +272,12 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Rigidity, playerStateRigidity);
             PlayerStateDead playerStateDead = new(this);
             stateMachine.AddState(PlayerStateName.Dead, playerStateDead);
+            PlayerStateDown playerStateDown = new(this);
+            stateMachine.AddState(PlayerStateName.Down, playerStateDown);
+            PlayerStateKnockedAirborne playerStateKnockedAirborne = new(this);
+            stateMachine.AddState(PlayerStateName.KnockedAirborne, playerStateKnockedAirborne);
+            PlayerStateGetUp playerStateGetUp = new(this);
+            stateMachine.AddState(PlayerStateName.GetUp, playerStateGetUp);
         }
         public void MovePlayer(float moveSpeed)
         {
@@ -342,6 +353,12 @@ namespace Assets.Scripts.Player
             if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
             stateMachine.ChangeState(nextStateName);
         }
+
+        public void ChangeState(PlayerStateName nextStateName, StateInfo info)
+        {
+            if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
+            stateMachine.ChangeState(nextStateName, info);
+        }
         private void GetInput()
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
@@ -350,6 +367,7 @@ namespace Assets.Scripts.Player
         }
         private void CheckGround()
         {
+            if (isRigid) return;
             // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
             bool curIsGrounded = Physics.Raycast(transform.position,
                 Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
@@ -359,14 +377,14 @@ namespace Assets.Scripts.Player
                 if (curIsGrounded)
                 {
                     //공중 -> 땅
-                    if(isRigid)
-                    {
-                        isJumping = false;
-                        isFalling = false;
-                        PlayerStatus.isRecoveringStamina = true;
-                    }
-                    else 
-                        ChangeState(PlayerStateName.Land);
+                    //if (isRigid)
+                    //{
+                    //    isJumping = false;
+                    //    isFalling = false;
+                    //    PlayerStatus.isRecoveringStamina = true;
+                    //}
+                    //else
+                    ChangeState(PlayerStateName.Land);
                 }
                 else
                 {
