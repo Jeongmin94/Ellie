@@ -53,8 +53,9 @@ MonoBehaviour:
     - rid: 1401849379394682881
     - rid: 1401849379394682882
     - rid: 1401849442858696713
-  viewPosition: {x: 1847, y: 439, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 283011023650684947
+  viewPosition: {x: 1142, y: 315, z: 0}
+  viewScale: {x: 0.375937, y: 0.375937, z: 1}
   references:
     version: 2
     RefIds:
@@ -80,7 +81,7 @@ MonoBehaviour:
         drawGizmos: 0
         animationName:
           reference:
-            rid: -2
+            rid: 283011023650684947
           defaultValue: Stuned
     - rid: 283011018610442304
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
@@ -95,7 +96,7 @@ MonoBehaviour:
         drawGizmos: 0
         animationName:
           reference:
-            rid: -2
+            rid: 283011023650684947
           defaultValue: Stuned
     - rid: 283011018610442305
       type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
@@ -110,8 +111,14 @@ MonoBehaviour:
         drawGizmos: 0
         animationName:
           reference:
-            rid: -2
+            rid: 283011023650684947
           defaultValue: Stuned
+    - rid: 283011023650684947
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: animationName
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: Stuned
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

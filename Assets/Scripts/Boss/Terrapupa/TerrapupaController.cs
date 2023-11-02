@@ -15,7 +15,7 @@ namespace Assets.Scripts.Boss.Terrapupa
 
     public class TerrapupaController : MonoBehaviour
     {
-        [SerializeField] private List<BehaviourTree> behaviourTreeList = new List<BehaviourTree>();
+        [SerializeField] private List<BehaviourTree> treeList = new List<BehaviourTree>();
         [SerializeField] private BehaviourTreeInstance behaviourTreeInstance;
         [SerializeField] private TerrapupaDataInfo data;
 

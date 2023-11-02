@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
-  m_Name: Terrapupa
+  m_Name: TerrapupaRoot
   m_EditorClassIdentifier: 
   rootNode:
     rid: 1401849175978016768
@@ -53,41 +53,29 @@ MonoBehaviour:
   - rid: 283011023650684937
   - rid: 283011023650684938
   - rid: 283011023650684939
+  - rid: 283011023650684943
+  - rid: 283011023650684946
+  - rid: 283011023650684948
   treeState: 0
   blackboard:
     keys:
-    - rid: 1401849418967941121
-    - rid: 1401849419498258449
-    - rid: 283011018610442241
-    - rid: 1401849262943502337
-    - rid: 8619125046743924789
+    - rid: 283011023650684940
+    - rid: 283011023650684941
     - rid: 1401849265356013568
-    - rid: 1401849265356013569
     - rid: 1401849284866867200
     - rid: 1401849284866867201
     - rid: 1401849284866867202
     - rid: 1401849284866867203
-    - rid: 8619125029124177949
     - rid: 1401849419498258458
     - rid: 1401849440881606659
     - rid: 1401849447854899215
-    - rid: 1401849379394682881
-    - rid: 1401849379394682882
-    - rid: 1401849442858696713
-  viewPosition: {x: 1617, y: 395, z: 0}
-  viewScale: {x: 0.32690176, y: 0.32690176, z: 1}
+  viewPosition: {x: 2160, y: 624, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 283011018610442241
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: magicStoneTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
     - rid: 283011018610442276
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -130,12 +118,12 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 039997a6ee30f2b44b9e1e368f0a9114
-        position: {x: -3900, y: 150}
+        position: {x: -3900, y: 450}
         blackboard:
           keys: []
         description: "\uAE30\uC808"
         drawGizmos: 0
-        treeAsset: {fileID: 11400000, guid: 6f0db2f391056524f94bcfc8398e34cc, type: 2}
+        treeAsset: {fileID: 11400000, guid: 07131f06a200a47f1858a946ff978ea6, type: 2}
         treeInstance: {fileID: 0}
     - rid: 283011023650684930
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -143,7 +131,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f639304cfa8c9f647905c45b0e65366d
-        position: {x: -3450, y: 150}
+        position: {x: -3450, y: 450}
         blackboard:
           keys: []
         description: "\uC12D\uCDE8"
@@ -156,7 +144,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 602fd1b18fd4dd948b7ff6aeef8693c5
-        position: {x: -3000, y: 150}
+        position: {x: -3000, y: 450}
         blackboard:
           keys: []
         description: "\uC720\uC778"
@@ -269,37 +257,80 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 952682f4a29569a43a27e97d9887706d, type: 2}
         treeInstance: {fileID: 0}
+    - rid: 283011023650684940
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: player
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011023650684941
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: target
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011023650684943
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0f662db183a2b1748a508cbdc3220fe6
+        position: {x: -3450, y: -300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011023650684946
+        - rid: 1401849419498258474
+    - rid: 283011023650684946
+      type: {class: CheckTransformNull, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c55a99404c81ba94a8e51d64d710fb44
+        position: {x: -3645, y: -150}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        checkTransform:
+          reference:
+            rid: 283011023650684941
+          defaultValue: {fileID: 0}
+    - rid: 283011023650684948
+      type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: bf7eeb1abb632944883e20d1442afa53
+        position: {x: -3030, y: -570}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        treeAsset: {fileID: 11400000, guid: 334287d80252d4a46bbda761bfc65e9b, type: 2}
+        treeInstance: {fileID: 0}
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -2400, y: -900}
+        position: {x: -2100, y: -900}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
           rid: 1401849265356013607
-    - rid: 1401849262943502337
-      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: targetPosition
-        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        value: {x: 0, y: 0, z: 0}
     - rid: 1401849265356013568
       type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         name: currentHP
         typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849265356013569
-      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: moveSpeed
-        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
     - rid: 1401849265356013607
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -307,7 +338,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a8a78a1e4f0dcf14bbfc02a4706b1e2d
-        position: {x: -2400, y: -750}
+        position: {x: -2100, y: -750}
         blackboard:
           keys: []
         description: 
@@ -361,43 +392,17 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: dd0ff01669863ca40b3a0ec827f8b218
-        position: {x: -2400, y: -600}
+        position: {x: -2100, y: -600}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
-        - rid: 1401849419498258474
+        - rid: 283011023650684943
         - rid: 8619125030485229572
         - rid: 8619125046743924751
         - rid: 1401849265356013609
         - rid: 283011023650684938
-    - rid: 1401849379394682881
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: throwStonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 1401849379394682882
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: occurEarthQuakePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 1401849418967941121
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: targetTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
-    - rid: 1401849419498258449
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: objectTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
     - rid: 1401849419498258458
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -410,7 +415,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 87ca6943dc9a1e14f8e998e99a9f8b99
-        position: {x: -3000, y: -150}
+        position: {x: -3000, y: 150}
         blackboard:
           keys: []
         description: 
@@ -424,7 +429,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 07a632ec8b001b549a52b3f4105d8fd4
-        position: {x: -3450, y: -300}
+        position: {x: -3450, y: 0}
         blackboard:
           keys: []
         description: "\uAE30\uC808, \uC12D\uCDE8, \uC720\uC778"
@@ -445,7 +450,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ecd92ac0ed0289e49848418655c2bd0b
-        position: {x: -3450, y: -150}
+        position: {x: -3450, y: 150}
         blackboard:
           keys: []
         description: 
@@ -459,7 +464,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: eac515751252fbc4caeb4959ac24a4a9
-        position: {x: -3150, y: 0}
+        position: {x: -3150, y: 300}
         blackboard:
           keys: []
         description: 
@@ -481,7 +486,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f8765fd7884c49e4280b1739a52bcbe7
-        position: {x: -3600, y: 0}
+        position: {x: -3600, y: 300}
         blackboard:
           keys: []
         description: 
@@ -563,19 +568,13 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 1
-    - rid: 1401849442858696713
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: IntakeDonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 1401849447854899213
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 99c3c1a98a58b504fa9cc41b17918f0b
-        position: {x: -3900, y: -150}
+        position: {x: -3900, y: 150}
         blackboard:
           keys: []
         description: 
@@ -589,7 +588,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: b4fcf28ed21ec6140a1656295d03303f
-        position: {x: -4050, y: 0}
+        position: {x: -4050, y: 300}
         blackboard:
           keys: []
         description: 
@@ -611,12 +610,6 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 1
-    - rid: 8619125029124177949
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: conditionCheck
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
     - rid: 8619125030485229572
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -658,11 +651,11 @@ MonoBehaviour:
         drawGizmos: 0
         targetPosition:
           reference:
-            rid: 1401849262943502337
+            rid: -2
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: -2
+            rid: 283011023650684940
           defaultValue: {fileID: 0}
         checkDistanceValue:
           reference:
@@ -694,11 +687,11 @@ MonoBehaviour:
         drawGizmos: 0
         targetPosition:
           reference:
-            rid: 1401849262943502337
+            rid: -2
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: -2
+            rid: 283011023650684940
           defaultValue: {fileID: 0}
         checkDistanceValue:
           reference:
@@ -745,13 +738,6 @@ MonoBehaviour:
         children:
         - rid: 1401849440881606679
         - rid: 283011023650684935
-    - rid: 8619125046743924789
-      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: startPosition
-        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        value: {x: 0, y: 0, z: 0}
     - rid: 8619125051680882722
       type: {class: RandomSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -779,11 +765,11 @@ MonoBehaviour:
         drawGizmos: 0
         targetPosition:
           reference:
-            rid: 1401849262943502337
+            rid: -2
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: -2
+            rid: 283011023650684940
           defaultValue: {fileID: 0}
         checkDistanceValue:
           reference:
