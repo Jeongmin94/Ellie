@@ -2,6 +2,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory.DesctiptionPanel;
+using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
@@ -40,6 +41,14 @@ namespace Assets.Scripts.UI.Inventory
         private Image inventorySlotArea;
         private Image equipSlotArea;
 
+        // Category Grid
+        private GridLayoutGroup slotGrid;
+
+        [SerializeField] private int row = 3;
+        [SerializeField] private int col = 8;
+        [SerializeField] private int padding = 1;
+        [SerializeField] private int spacing = 1;
+
         protected override void Init()
         {
             base.Init();
@@ -60,6 +69,8 @@ namespace Assets.Scripts.UI.Inventory
             descImageArea = GetImage((int)Images.DescriptionImageArea);
             inventorySlotArea = GetImage((int)Images.InventorySlotArea);
             equipSlotArea = GetImage((int)Images.EquipSlotArea);
+
+            slotGrid = inventorySlotArea.gameObject.GetOrAddComponent<GridLayoutGroup>();
         }
 
         private void InitObjects()
@@ -79,11 +90,7 @@ namespace Assets.Scripts.UI.Inventory
             descImageRect.localPosition = InventoryConst.DescImageRect.ToCanvasPos();
             descImageRect.SetParent(descriptionPanel.transform);
 
-            var slotAreaRect = inventorySlotArea.GetComponent<RectTransform>();
-            AnchorPresets.SetAnchorPreset(slotAreaRect, AnchorPresets.MiddleCenter);
-            slotAreaRect.sizeDelta = InventoryConst.SlotAreaRect.GetSize();
-            slotAreaRect.localPosition = InventoryConst.SlotAreaRect.ToCanvasPos();
-            slotAreaRect.SetParent(categoryPanel.transform);
+            InitSlotArea();
 
             var equipAreaRect = equipSlotArea.GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(equipAreaRect, AnchorPresets.MiddleCenter);
@@ -126,6 +133,41 @@ namespace Assets.Scripts.UI.Inventory
 
             var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
             slot.transform.SetParent(descriptionPanel.transform);
+        }
+
+        private void InitSlotArea()
+        {
+            var slotAreaRect = inventorySlotArea.GetComponent<RectTransform>();
+            AnchorPresets.SetAnchorPreset(slotAreaRect, AnchorPresets.MiddleCenter);
+            slotAreaRect.sizeDelta = InventoryConst.SlotAreaRect.GetSize();
+            slotAreaRect.localPosition = InventoryConst.SlotAreaRect.ToCanvasPos();
+            slotAreaRect.SetParent(categoryPanel.transform);
+
+            float width = slotAreaRect.rect.width;
+            float height = slotAreaRect.rect.height;
+
+            var paddingOffset = new RectOffset();
+            paddingOffset.SetAllPadding(padding);
+            var spacingOffset = new Vector2(spacing, spacing);
+
+            var w = width - paddingOffset.left * 2 - (col - 1) * spacingOffset.x;
+            var slotW = w / col;
+            var h = height - paddingOffset.top * 2 - (row - 1) * spacingOffset.y;
+            var slotH = h / row;
+
+            float len = Mathf.Min(slotH, slotW);
+            slotGrid = inventorySlotArea.gameObject.GetOrAddComponent<GridLayoutGroup>();
+            slotGrid.spacing = spacingOffset;
+            slotGrid.padding = paddingOffset;
+            slotGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
+            slotGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
+            slotGrid.childAlignment = TextAnchor.MiddleCenter;
+            slotGrid.cellSize = new Vector2(len, len);
+
+            for (int i = 0; i < row * col; i++)
+            {
+                var slot = UIManager.Instance.MakeSubItem<InventorySlot>(slotAreaRect, UIManager.InventorySlot);
+            }
         }
     }
 }
