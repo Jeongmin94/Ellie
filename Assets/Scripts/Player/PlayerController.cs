@@ -157,7 +157,7 @@ namespace Assets.Scripts.Player
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
         }
 
         private void Start()

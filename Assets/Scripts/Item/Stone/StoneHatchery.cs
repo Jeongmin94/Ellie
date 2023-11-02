@@ -25,9 +25,9 @@ namespace Assets.Scripts.Item.Stone
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
             //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
-            ticketMachine.RegisterObserver(ChannelType.Item, ItemEvent);
+            ticketMachine.RegisterObserver(ChannelType.Stone, ItemEvent);
         }
 
         private void InitStonePool()
@@ -56,19 +56,19 @@ namespace Assets.Scripts.Item.Stone
         public void ItemEvent(IBaseEventPayload payload)
         {
             Debug.Log("hatchery : make stone");
-            ItemPayload itemPayload = payload as ItemPayload;
+            StoneEventPayload itemPayload = payload as StoneEventPayload;
             BaseStone stone = GetStone() as BaseStone;
             Vector3 startPos = itemPayload.StoneSpawnPos;
             Vector3 direction = itemPayload.StoneDirection;
             Vector3 force = itemPayload.StoneForce;
             float strength = itemPayload.StoneStrength;
-            if (itemPayload.Type == ItemType.RequestStone)
+            if (itemPayload.Type == StoneEventType.RequestStone)
             {
                 Debug.Log("Release Stone at hatchery");
 
                 ReleaseStone(stone, startPos, direction, strength);
             }
-            else if (itemPayload.Type == ItemType.MineStone)
+            else if (itemPayload.Type == StoneEventType.MineStone)
             {
                 Debug.Log("Mine Stone at hatchery");
                 MineStone(stone, startPos, force);

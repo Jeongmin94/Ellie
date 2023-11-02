@@ -26,9 +26,7 @@ namespace Channels.Combat
 
         //공격자의 데미지
         public int Damage { get; set; }
-        public Vector3 StoneSpawnPos { get; set; }
-        public Vector3 StoneDirection { get; set; }
-        public float StoneStrength { get; set; }
+        
         //공격 이벤트 발행시의 공격 방향
         public Vector3 AttackDirection { get; set; }
 
@@ -48,12 +46,6 @@ namespace Channels.Combat
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
-            //돌달라는 페이로드임?->
-            if(combatPayload.Type == CombatType.RequestStone)
-            {
-                Publish(combatPayload);
-                return;
-            }
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
         }

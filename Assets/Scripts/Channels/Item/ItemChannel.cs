@@ -3,14 +3,14 @@ using UnityEngine;
 
 namespace Assets.Scripts.Channels.Item
 {
-    public enum ItemType
+    public enum StoneEventType
     {
         RequestStone,
         MineStone,
     }
-    public class ItemPayload : IBaseEventPayload
+    public class StoneEventPayload : IBaseEventPayload
     {
-        public ItemType Type { get; set; }
+        public StoneEventType Type { get; set; }
         public Vector3 StoneSpawnPos { get; set; }
         public Vector3 StoneDirection { get; set; }
         public Vector3 StoneForce { get; set; }
@@ -20,7 +20,7 @@ namespace Assets.Scripts.Channels.Item
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            ItemPayload itemPayload = payload as ItemPayload;
+            StoneEventPayload itemPayload = payload as StoneEventPayload;
             Publish(itemPayload);
         }
     }
