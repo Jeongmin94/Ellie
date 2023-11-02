@@ -17,14 +17,22 @@ MonoBehaviour:
   nodes:
   - rid: 283011045824135171
   - rid: 283011045824135174
+  - rid: 283011045824135321
+  - rid: 283011045824135322
+  - rid: 283011045824135323
+  - rid: 283011045824135326
   treeState: 0
   blackboard:
     keys:
     - rid: 283011045824135172
     - rid: 283011045824135319
     - rid: 283011045824135312
-  viewPosition: {x: 497, y: 233, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+    - rid: 283011045824135334
+    - rid: 283011045824135335
+    - rid: 283011045824135336
+    - rid: 283011045824135337
+  viewPosition: {x: 215, y: 157, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
@@ -36,13 +44,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 7570f8ae-6fcf-447a-939f-cb953457a5f8
-        position: {x: -15, y: -15}
+        position: {x: 195, y: -90}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: 283011045824135174
+          rid: 283011045824135326
     - rid: 283011045824135172
       type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -55,7 +63,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: af201d15504401740a805663ea4e0782
-        position: {x: -15, y: 195}
+        position: {x: -15, y: 330}
         blackboard:
           keys: []
         description: 
@@ -74,5 +82,94 @@ MonoBehaviour:
       type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         name: hihi
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011045824135321
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 70722f72980baa64499ee2c2d97954a2
+        position: {x: 195, y: 330}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        duration: 1
+    - rid: 283011045824135322
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 758361f5684bd564ca7502e77a956d9f
+        position: {x: 195, y: 180}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011045824135174
+        - rid: 283011045824135321
+        - rid: 283011045824135323
+    - rid: 283011045824135323
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b74349271962b4144936f43e6d182ff5
+        position: {x: 390, y: 330}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011045824135172
+          value:
+            rid: 283011045824135324
+    - rid: 283011045824135324
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 22
+    - rid: 283011045824135326
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 660a7a7456519e649ae4d7e93f3d347e
+        position: {x: 195, y: 45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011045824135322
+        restartOnSuccess: 1
+        restartOnFailure: 1
+        maxRepeats: 0
+    - rid: 283011045824135334
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: detectionDistance
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011045824135335
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: rayCastLength
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011045824135336
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: movementSpeed
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011045824135337
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: attackValue
         typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0

@@ -23,6 +23,7 @@ namespace TheKiwiCoder {
         public CharacterController characterController;
 
         public MonsterController controller;
+        public BehaviourTreeController btController;
 
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
@@ -39,6 +40,11 @@ namespace TheKiwiCoder {
 
             // Add whatever else you need here...
             context.controller = gameObject.GetComponent<MonsterController>();
+            context.btController = gameObject.GetComponent<BehaviourTreeController>();
+            if(context.btController != null)
+            {
+                Debug.Log(context.btController);
+            }
 
             return context;
         }
