@@ -37,6 +37,8 @@ namespace Assets.Scripts.Managers
         // Inventory
         public const string Inventory = "Inventory/Inventory";
         public const string InventorySlot = "Slot/InventorySlot";
+        public const string DescriptionTextPanel = "Slot/Description/DescriptionTextPanel";
+        public const string DescriptionNamePanel = "Slot/Description/DescriptionNamePanel";
 
         private int order = 10;
 

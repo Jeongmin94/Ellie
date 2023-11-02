@@ -7,7 +7,7 @@ namespace Assets.Scripts.UI.Inventory
     public class InventorySlot : UIBase
     {
         private RectTransform rect;
-        
+
         // !TODO: 스크립터블 오브젝트 아이템으로 현재 슬롯에 위치한 아이템 확인하기
 
         private void Awake()
@@ -23,7 +23,6 @@ namespace Assets.Scripts.UI.Inventory
 
         private void Bind()
         {
-            
         }
 
         private void InitObjects()
@@ -33,7 +32,7 @@ namespace Assets.Scripts.UI.Inventory
             rect.sizeDelta = InventoryConst.SlotRect.GetSize();
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
         }
-        
+
         // !TODO: 스위칭 전용 슬롯 추가 필요
         //      - 스위칭 슬롯 -> 아이템 슬롯: 이동됨, 스위칭 슬롯에서 빠짐
         //      - 아이템 슬롯 -> 스위칭 슬롯: 복사됨, 아이템 슬롯에는 그대로 있음

@@ -5,7 +5,6 @@ namespace Assets.Scripts.Managers
     public class ResourceManager : Singleton<ResourceManager>
     {
         private const string PrefixExtern = "Extern/";
-
         private const string PrefixPrefabs = "Prefabs/";
 
         public GameObject Instantiate(string path, Transform parent = null)
@@ -26,8 +25,13 @@ namespace Assets.Scripts.Managers
         public T LoadExternResource<T>(string path) where T : Object
         {
             T resource = Resources.Load<T>($"{PrefixExtern}{path}");
-            
+
             return resource;
+        }
+
+        public Sprite LoadSprite(string path)
+        {
+            return Resources.Load<Sprite>($"{PrefixExtern}{path}");
         }
 
         public void Destroy(GameObject go)
