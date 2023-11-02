@@ -14,12 +14,20 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            Controller.Anim.SetBool("IsRigid", true);
+            Controller.Anim.SetTrigger("EnterRigidity");
+            Controller.canTurn = false;
+            Controller.SetTimeScale(1f);
+            Controller.TurnOffAimCam();
+            Controller.SetAimingAnimLayerToDefault();
+            Controller.ActivateShootPos(false);
+            Controller.isRigid = true;
         }
 
         public override void OnExitState()
         {
-            Controller.Anim.SetBool("IsRigid", false);
+            Controller.Anim.SetTrigger("ExitRigidity");
+            Controller.canTurn = true;
+            Controller.isRigid = false;
         }
 
         public override void OnFixedUpdateState()

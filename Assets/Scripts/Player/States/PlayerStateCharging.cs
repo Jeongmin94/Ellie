@@ -15,12 +15,13 @@ namespace Assets.Scripts.Player.States
             Controller.ActivateShootPos(true);
             moveSpeed = Controller.WalkSpeed;
             Controller.canTurn = false;
+            Controller.PlayerStatus.isRecoveringStamina = false;
 
         }
 
         public override void OnExitState()
         {
-            //Controller.debugSphere.SetActive(false);
+            Controller.PlayerStatus.isRecoveringStamina = true;
         }
 
         public override void OnFixedUpdateState()
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
+            Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.ChargeStaminaComsumptionPerSec * Time.deltaTime / Time.timeScale);
 
             if (Input.GetMouseButtonUp(0))
             {

@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using UnityEngine.UI;
 
 public class GoogleSheetsParser : MonoBehaviour
 {
-    public List<DataParsingInfo> dataList = new List<DataParsingInfo>();
-
-    private void Start()
+    public IEnumerator Parse(List<DataParsingInfo> dataList)
     {
         foreach (DataParsingInfo info in dataList)
         {
-            StartCoroutine(ParseData(info));
+            yield return ParseData(info);
         }
     }
 

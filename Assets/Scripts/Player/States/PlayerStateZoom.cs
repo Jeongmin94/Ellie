@@ -37,7 +37,7 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
-            Controller.SetAimingAinmLayerWeight(1f);
+            Controller.SetAimingAnimLayerWeight(1f);
             curTime += Time.deltaTime / Time.timeScale;
             if (curTime >= zoomingTime)
             {

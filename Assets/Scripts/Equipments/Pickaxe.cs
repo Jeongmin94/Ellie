@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Equipments
