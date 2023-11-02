@@ -117,7 +117,8 @@ MonoBehaviour:
     - rid: 6937830456686542856
     - rid: 6937830456686542857
     - rid: 6937830456686542858
-  viewPosition: {x: 2318, y: -292, z: 0}
+    - rid: 6937830456686542871
+  viewPosition: {x: 395, y: -274, z: 0}
   viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
   references:
     version: 2
@@ -400,7 +401,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         isReturning:
           reference:
-            rid: -2
+            rid: 6937830456686542871
           defaultValue: 0
     - rid: 5827610086317228052
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}
@@ -423,7 +424,7 @@ MonoBehaviour:
           defaultValue: 0
         isReturning:
           reference:
-            rid: -2
+            rid: 6937830456686542871
           defaultValue: 0
     - rid: 5827610086317228054
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -1560,3 +1561,9 @@ MonoBehaviour:
         children:
         - rid: 5827610086317228081
         - rid: 5827609998966652930
+    - rid: 6937830456686542871
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: IsReturning
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
