@@ -55,12 +55,12 @@ MonoBehaviour:
   - rid: 283011023650684939
   - rid: 283011023650684943
   - rid: 283011023650684946
-  - rid: 283011023650684948
   treeState: 0
   blackboard:
     keys:
     - rid: 283011023650684940
     - rid: 283011023650684941
+    - rid: 283011045824135203
     - rid: 1401849265356013568
     - rid: 1401849284866867200
     - rid: 1401849284866867201
@@ -69,7 +69,7 @@ MonoBehaviour:
     - rid: 1401849419498258458
     - rid: 1401849440881606659
     - rid: 1401849447854899215
-  viewPosition: {x: 2160, y: 624, z: 0}
+  viewPosition: {x: 2599, y: 159, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -123,8 +123,17 @@ MonoBehaviour:
           keys: []
         description: "\uAE30\uC808"
         drawGizmos: 0
-        treeAsset: {fileID: 11400000, guid: 07131f06a200a47f1858a946ff978ea6, type: 2}
+        treeAsset: {fileID: 11400000, guid: 6f0db2f391056524f94bcfc8398e34cc, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 1
     - rid: 283011023650684930
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -138,6 +147,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 52baf2fe51fda4349a618b05ef66e4ec, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 1
     - rid: 283011023650684931
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -151,6 +169,19 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 4cfdbd718ed19f048b8e4e511c31c659, type: 2}
         treeInstance: {fileID: 0}
+        nodes:
+        - reference:
+            rid: 283011045824135203
+        - reference:
+            rid: 1401849265356013568
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684932
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -164,6 +195,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 8357946cf0ab80e4a88f016d8d6b1e2c, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684933
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -191,6 +231,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 8ee970d572159cb44ab41e1350df468d, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684935
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -204,6 +253,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 4e156ac693641234e9ee6fbb2c3ae3c1, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684936
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -217,6 +275,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 334287d80252d4a46bbda761bfc65e9b, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684937
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -230,6 +297,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: c715ebe4f6ba022469fc95ca4e944cb0, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684938
       type: {class: RandomSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -257,6 +333,15 @@ MonoBehaviour:
         drawGizmos: 0
         treeAsset: {fileID: 11400000, guid: 952682f4a29569a43a27e97d9887706d, type: 2}
         treeInstance: {fileID: 0}
+        nodes: []
+        test:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011023650684940
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -300,19 +385,13 @@ MonoBehaviour:
           reference:
             rid: 283011023650684941
           defaultValue: {fileID: 0}
-    - rid: 283011023650684948
-      type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
+    - rid: 283011045824135203
+      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
-        state: 0
-        started: 0
-        guid: bf7eeb1abb632944883e20d1442afa53
-        position: {x: -3030, y: -570}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        treeAsset: {fileID: 11400000, guid: 334287d80252d4a46bbda761bfc65e9b, type: 2}
-        treeInstance: {fileID: 0}
+        name: targetPosition
+        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        value: {x: 0, y: 0, z: 0}
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -331,7 +410,7 @@ MonoBehaviour:
       data:
         name: currentHP
         typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
+        value: 45
     - rid: 1401849265356013607
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

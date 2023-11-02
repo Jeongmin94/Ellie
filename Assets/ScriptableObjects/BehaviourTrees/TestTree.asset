@@ -22,16 +22,49 @@ MonoBehaviour:
   - rid: 1401849173575729155
   - rid: 1401849173575729156
   - rid: 1401849173575729157
+  - rid: 283011045824135168
   treeState: 0
   blackboard:
-    keys: []
-  viewPosition: {x: 610, y: 262, z: 0}
+    keys:
+    - rid: 283011045824135169
+    - rid: 283011045824135170
+  viewPosition: {x: 479, y: 232, z: 0}
   viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 283011045824135168
+      type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 349531248749ca94db38bc054c48c2ab
+        position: {x: 150, y: 180}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        treeAsset: {fileID: 11400000, guid: 629cd42315964bb48bd471c6e71cf8d2, type: 2}
+        treeInstance: {fileID: 0}
+        blackboardKeys: []
+        isCopyRootTreeBlackboard:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 283011045824135169
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: test
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 5
+    - rid: 283011045824135170
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: hihi
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0.5
     - rid: 1026712297042345985
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -102,6 +135,7 @@ MonoBehaviour:
         children:
         - rid: 1401849173575729154
         - rid: 1401849173575729157
+        - rid: 283011045824135168
     - rid: 1401849173575729156
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -122,7 +156,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c06f7c410295cc94c836d4c3f9375286
-        position: {x: 0, y: 165}
+        position: {x: -45, y: 180}
         blackboard:
           keys: []
         description: 

@@ -52,6 +52,19 @@ namespace TheKiwiCoder {
             });
         }
 
+        public void ReplaceKey(string keyName, BlackboardKey newKey)
+        {
+            int index = keys.FindIndex(k => k.name == keyName);
+            if (index != -1)
+            {
+                if (keys[index].typeName == newKey.typeName)
+                {
+                    keys[index] = newKey;
+                }
+            }
+        }
+
+
         // Finds a key that matches keyName with the type specified
         public BlackboardKey<T> Find<T>(string keyName) {
             var foundKey = Find(keyName);
