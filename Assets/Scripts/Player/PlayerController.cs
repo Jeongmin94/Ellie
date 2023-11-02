@@ -274,8 +274,6 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Dead, playerStateDead);
             PlayerStateDown playerStateDown = new(this);
             stateMachine.AddState(PlayerStateName.Down, playerStateDown);
-            PlayerStateKnockedAirborne playerStateKnockedAirborne = new(this);
-            stateMachine.AddState(PlayerStateName.KnockedAirborne, playerStateKnockedAirborne);
             PlayerStateGetUp playerStateGetUp = new(this);
             stateMachine.AddState(PlayerStateName.GetUp, playerStateGetUp);
         }
