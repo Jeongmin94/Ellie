@@ -1,10 +1,9 @@
-using System;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Inventory.DesctiptionPanel
+namespace Assets.Scripts.UI.Inventory
 {
     public class DescriptionNamePanel : UIBase
     {
@@ -16,9 +15,9 @@ namespace Assets.Scripts.UI.Inventory.DesctiptionPanel
         private RectTransform rect;
         private TextMeshProUGUI descNameText;
 
-        private Color fontColor = new Color(217, 209, 209);
-        private int fontSize = 31;
-        private float lineHeight = 79.95f;
+        private readonly Color fontColor = new Color(217, 209, 209);
+        private readonly int fontSize = 31;
+        private readonly float lineHeight = 79.95f;
 
         private void Awake()
         {

@@ -1,7 +1,7 @@
 using Assets.Scripts.UI.Framework;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Inventory.CategoryPanel
+namespace Assets.Scripts.UI.Inventory
 {
     // !TODO: 버튼 패널에 있는 버튼을 누를 때마다 카테고리 슬롯 항목들이 변경되어야 함
     public class CategoryButtonPanel : UIBase

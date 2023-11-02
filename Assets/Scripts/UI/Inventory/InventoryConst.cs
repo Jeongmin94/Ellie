@@ -24,8 +24,9 @@ namespace Assets.Scripts.UI.Inventory
 
     public class InventoryConst
     {
-        // x, y는 각각 figma layout의 left, top으로 사용
+        #region Rect
 
+        // x, y는 각각 figma layout의 left, top으로 사용
         // 카테고리 패널
         public static Rect CtgyRect { get; } = new Rect(694, 144, 955, 667);
         public static Rect SlotAreaRect { get; } = new Rect(759, 256, 824, 315);
@@ -44,5 +45,16 @@ namespace Assets.Scripts.UI.Inventory
         public static Rect GoldAreaCountRect { get; } = new Rect(1392, 720, 56, 25);
         public static Rect StonePieceAreaRect { get; } = new Rect(1460, 714, 35, 35);
         public static Rect StonePieceAreaCountRect { get; } = new Rect(1498, 720, 56, 25);
+
+        #endregion
+
+        #region Toggle
+
+        public static readonly int ToggleOnFontSize = 45;
+        public static readonly int ToggleOffFontSize = 31;
+        public static Color ToggleOnFontColor { get; } = new Color32(229, 168, 61, 255);
+        public static Color ToggleOffFontColor { get; } = new Color32(152, 135, 106, 255);
+
+        #endregion
     }
 }

@@ -3,7 +3,7 @@ using Assets.Scripts.UI.Framework.Presets;
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Inventory.DesctiptionPanel
+namespace Assets.Scripts.UI.Inventory
 {
     public class DescriptionTextPanel : UIBase
     {
@@ -15,9 +15,9 @@ namespace Assets.Scripts.UI.Inventory.DesctiptionPanel
         private RectTransform rect;
         private TextMeshProUGUI descText;
 
-        private Color fontColor = Color.black;
-        private int fontSize = 18;
-        private float lineHeight = 25;
+        private readonly Color fontColor = Color.black;
+        private readonly int fontSize = 18;
+        private readonly float lineHeight = 25;
 
         private void Awake()
         {
