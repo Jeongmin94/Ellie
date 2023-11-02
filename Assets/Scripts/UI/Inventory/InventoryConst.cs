@@ -25,13 +25,24 @@ namespace Assets.Scripts.UI.Inventory
     public class InventoryConst
     {
         // x, y는 각각 figma layout의 left, top으로 사용
+
+        // 카테고리 패널
         public static Rect CtgyRect { get; } = new Rect(694, 144, 955, 667);
         public static Rect SlotAreaRect { get; } = new Rect(759, 256, 824, 315);
         public static Rect EquipSlotAreaRect { get; } = new Rect(914, 596, 515, 103);
         public static Rect SlotRect { get; } = new Rect(400, 245, 160, 160);
+
+        // 설명 패널
         public static Rect DescRect { get; } = new Rect(255, 131, 470, 685);
         public static Rect DescTextRect { get; } = new Rect(314, 467, 359, 159);
         public static Rect DescNameRect { get; } = new Rect(302, 131, 375, 102);
         public static Rect DescImageRect { get; } = new Rect(273, 200, 428, 396);
+
+        // 금 및 돌멩이 패널
+        public static Rect GoldRect { get; } = new Rect(1355, 714, 199, 35);
+        public static Rect GoldAreaRect { get; } = new Rect(1355, 714, 35, 35);
+        public static Rect GoldAreaCountRect { get; } = new Rect(1392, 720, 56, 25);
+        public static Rect StonePieceAreaRect { get; } = new Rect(1460, 714, 35, 35);
+        public static Rect StonePieceAreaCountRect { get; } = new Rect(1498, 720, 56, 25);
     }
 }

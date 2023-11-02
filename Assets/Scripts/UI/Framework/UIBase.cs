@@ -2,6 +2,8 @@ using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.UI.Framework.Presets;
+using Assets.Scripts.UI.Inventory;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -95,6 +97,34 @@ namespace Assets.Scripts.UI.Framework
         public static void SetText(TextMeshProUGUI textMeshPro, string text)
         {
             textMeshPro.text = text;
+        }
+
+        public static void SetAnchor(Transform transform, AnchorPreset preset)
+        {
+            SetAnchor(transform.GetComponent<RectTransform>(), preset);
+        }
+
+        public static void SetAnchor(RectTransform transform, AnchorPreset preset)
+        {
+            AnchorPresets.SetAnchorPreset(transform, preset);
+        }
+
+        public static void SetPosition(Transform transform, Rect rect)
+        {
+            SetPosition(transform.GetComponent<RectTransform>(), rect);
+        }
+
+        public static void SetPosition(RectTransform transform, Rect rect)
+        {
+            transform.sizeDelta = rect.GetSize();
+            transform.localPosition = rect.ToCanvasPos();
+        }
+
+        public static void SetValues(Transform target, Transform parent, AnchorPreset preset, Rect pos)
+        {
+            SetAnchor(target, preset);
+            SetPosition(target, pos);
+            target.SetParent(parent);
         }
     }
 }

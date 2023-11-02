@@ -4,6 +4,8 @@ using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory.DesctiptionPanel;
 using UnityEngine;
 using UnityEngine.UI;
+using Vector2 = UnityEngine.Vector2;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -13,6 +15,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             DescriptionPanel,
             CategoryPanel,
+            GoldAndStonePiecePanel,
         }
 
         private enum Images
@@ -30,6 +33,7 @@ namespace Assets.Scripts.UI.Inventory
         // GameObject
         private GameObject descriptionPanel;
         private GameObject categoryPanel;
+        private GameObject goldAndStonePiecePanel;
 
         // Image
         private Image descImageArea;
@@ -51,6 +55,7 @@ namespace Assets.Scripts.UI.Inventory
 
             descriptionPanel = GetGameObject((int)GameObjects.DescriptionPanel);
             categoryPanel = GetGameObject((int)GameObjects.CategoryPanel);
+            goldAndStonePiecePanel = GetGameObject((int)GameObjects.GoldAndStonePiecePanel);
 
             descImageArea = GetImage((int)Images.DescriptionImageArea);
             inventorySlotArea = GetImage((int)Images.InventorySlotArea);
@@ -61,12 +66,10 @@ namespace Assets.Scripts.UI.Inventory
         {
             var descRect = descriptionPanel.GetComponent<RectTransform>();
             var ctgyRect = categoryPanel.GetComponent<RectTransform>();
-
             AnchorPresets.SetAnchorPreset(descRect, AnchorPresets.MiddleCenter);
             AnchorPresets.SetAnchorPreset(ctgyRect, AnchorPresets.MiddleCenter);
             descRect.sizeDelta = InventoryConst.DescRect.GetSize();
             ctgyRect.sizeDelta = InventoryConst.CtgyRect.GetSize();
-
             descRect.localPosition = InventoryConst.DescRect.ToCanvasPos();
             ctgyRect.localPosition = InventoryConst.CtgyRect.ToCanvasPos();
 
@@ -87,6 +90,30 @@ namespace Assets.Scripts.UI.Inventory
             equipAreaRect.sizeDelta = InventoryConst.EquipSlotAreaRect.GetSize();
             equipAreaRect.localPosition = InventoryConst.EquipSlotAreaRect.ToCanvasPos();
             equipAreaRect.SetParent(categoryPanel.transform);
+
+            var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
+            AnchorPresets.SetAnchorPreset(goldRect, AnchorPresets.MiddleCenter);
+            goldRect.sizeDelta = InventoryConst.GoldRect.GetSize();
+            goldRect.localPosition = InventoryConst.GoldRect.ToCanvasPos();
+            goldRect.SetParent(categoryPanel.transform);
+
+            var goldArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            goldArea.Rect.sizeDelta = Vector2.zero;
+            goldArea.Rect.localPosition = Vector3.zero;
+
+            SetValues(goldArea.Image.GetComponent<RectTransform>(), goldArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
+            SetValues(goldArea.Text.GetComponent<RectTransform>(), goldArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
+
+            goldArea.transform.SetParent(goldRect.transform);
+
+            var stoneArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            stoneArea.Rect.sizeDelta = Vector2.zero;
+            stoneArea.Rect.localPosition = Vector3.zero;
+
+            SetValues(stoneArea.Image.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
+            SetValues(stoneArea.Text.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
+
+            stoneArea.transform.SetParent(goldRect.transform);
         }
 
         private void Start()
