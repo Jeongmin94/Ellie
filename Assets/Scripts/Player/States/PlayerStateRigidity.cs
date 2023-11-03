@@ -25,7 +25,7 @@ namespace Assets.Scripts.Player.States
             Controller.canTurn = false;
             Controller.SetTimeScale(1f);
             Controller.TurnOffAimCam();
-            Controller.SetAimingAnimLayerToDefault();
+            Controller.SetAnimLayerToDefault(1);
             Controller.ActivateShootPos(false);
             Controller.isRigid = true;
             duration = info.stateDuration;

@@ -22,6 +22,7 @@ namespace Assets.Scripts.Player.States
                 Controller.isFalling = true;
             Controller.SetTimeScale(Controller.zoomMultiplier);
             Controller.AimingAnimLayerWeight = 0f;
+
         }
 
         public override void OnExitState()
@@ -37,7 +38,8 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
-            Controller.SetAimingAnimLayerWeight(1f);
+            Controller.IncreaseAnimLayerWeight(1, 1f);
+
             curTime += Time.deltaTime / Time.timeScale;
             if (curTime >= zoomingTime)
             {
@@ -48,7 +50,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
-                Controller.SetAimingAnimLayerToDefault();
+                Controller.SetAnimLayerToDefault(1);
 
                 if (Controller.isGrounded)
                 {
