@@ -11,6 +11,12 @@ namespace Assets.Scripts.Channels.Item
     public class StoneEventPayload : IBaseEventPayload
     {
         public StoneEventType Type { get; set; }
+        private int stoneIdx = 4000;
+        public int StoneIdx
+        {
+            get { return stoneIdx; }
+            set { stoneIdx = value; }
+        }
         public Vector3 StoneSpawnPos { get; set; }
         public Vector3 StoneDirection { get; set; }
         public Vector3 StoneForce { get; set; }
@@ -20,8 +26,8 @@ namespace Assets.Scripts.Channels.Item
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            StoneEventPayload itemPayload = payload as StoneEventPayload;
-            Publish(itemPayload);
+            StoneEventPayload stonePayload = payload as StoneEventPayload;
+            Publish(stonePayload);
         }
     }
 }

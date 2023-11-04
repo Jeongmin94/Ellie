@@ -9,6 +9,10 @@ public enum Element
     Confuse,
     Normal,
     Earth,
+    Fire,
+    Water,
+    Grass,
+    Light,
 }
 
 [Serializable]

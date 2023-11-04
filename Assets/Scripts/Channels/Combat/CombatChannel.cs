@@ -37,7 +37,7 @@ namespace Channels.Combat
         public Vector3 AttackStartPosition { get; set; }
 
         //공격에 피격됐을 때 유발되는 상태이상
-        public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
+        public StatusEffectName PlayerStatusEffectName { get; set; }
         //상태이상의 지속시간
         public float statusEffectduration { get; set; }
         //공격이 유발하는 힘

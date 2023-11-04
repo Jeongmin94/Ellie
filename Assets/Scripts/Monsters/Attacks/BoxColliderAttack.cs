@@ -80,7 +80,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = playerStatus.transform.position;
-            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity;
+            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
             payload.Damage = (int)data.attackValue;
         }
         public override void Attack(IBaseEventPayload payload)
