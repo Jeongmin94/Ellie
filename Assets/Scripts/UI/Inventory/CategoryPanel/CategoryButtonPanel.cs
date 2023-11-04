@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -35,6 +37,8 @@ namespace Assets.Scripts.UI.Inventory
         private RectTransform rect;
         private ToggleGroup toggleGroup;
         private CategoryToggleController[] toggles;
+        private readonly List<InventorySlotArea> itemSlots = new List<InventorySlotArea>();
+        private readonly List<InventorySlotArea> equipSlots = new List<InventorySlotArea>();
 
         private GroupType type = GroupType.Consumption;
 
@@ -81,7 +85,41 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (changeInfo.IsOn)
             {
-                // Debug.Log($"{changeInfo.Type} 슬롯 활성화됨");
+                type = changeInfo.Type; // 현재 활성화된 슬롯 타입
+                ActivateSlotArea(changeInfo.Type);
+            }
+        }
+
+        private void DeactivateAllSlotAreas()
+        {
+            itemSlots.ForEach(area => area.gameObject.SetActive(false));
+            equipSlots.ForEach(area => area.gameObject.SetActive(false));
+        }
+
+        private void ActivateSlotArea(GroupType groupType)
+        {
+            DeactivateAllSlotAreas();
+            if (itemSlots.Any() && equipSlots.Any())
+            {
+                itemSlots[(int)groupType].gameObject.SetActive(true);
+                equipSlots[(int)groupType].gameObject.SetActive(true);
+            }
+        }
+
+        public void AddSlot(SlotAreaType slotAreaType, InventorySlotArea area)
+        {
+            switch (slotAreaType)
+            {
+                case SlotAreaType.Item:
+                    itemSlots.Add(area);
+                    area.gameObject.SetActive(false);
+                    break;
+                case SlotAreaType.Equipment:
+                    equipSlots.Add(area);
+                    area.gameObject.SetActive(false);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(slotAreaType), slotAreaType, null);
             }
         }
     }

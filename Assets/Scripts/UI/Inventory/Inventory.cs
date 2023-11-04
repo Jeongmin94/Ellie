@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
@@ -18,14 +19,15 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionPanel,
             CategoryPanel,
             GoldAndStonePiecePanel,
-            CategoryButtonPanel // toggle group
+            CategoryButtonPanel, // toggle group
+
+            ItemSlots,
+            EquipmentSlots
         }
 
         private enum Images
         {
             DescriptionImageArea,
-            InventorySlotArea,
-            EquipSlotArea,
         }
 
         private void Awake()
@@ -39,14 +41,11 @@ namespace Assets.Scripts.UI.Inventory
         private GameObject goldAndStonePiecePanel;
         private GameObject categoryButtonPanel;
 
+        private GameObject itemSlots;
+        private GameObject equipmentSlots;
+
         // Image
         private Image descImageArea;
-        private Image inventorySlotArea;
-        private Image equipSlotArea;
-
-        // Category Grid
-        private GridLayoutGroup slotGrid;
-        private GridLayoutGroup equipGrid;
 
         // Category Toggle Button
         private CategoryButtonPanel buttonPanel;
@@ -77,12 +76,10 @@ namespace Assets.Scripts.UI.Inventory
             goldAndStonePiecePanel = GetGameObject((int)GameObjects.GoldAndStonePiecePanel);
             categoryButtonPanel = GetGameObject((int)GameObjects.CategoryButtonPanel);
 
-            descImageArea = GetImage((int)Images.DescriptionImageArea);
-            inventorySlotArea = GetImage((int)Images.InventorySlotArea);
-            equipSlotArea = GetImage((int)Images.EquipSlotArea);
+            itemSlots = GetGameObject((int)GameObjects.ItemSlots);
+            equipmentSlots = GetGameObject((int)GameObjects.EquipmentSlots);
 
-            slotGrid = inventorySlotArea.gameObject.GetOrAddComponent<GridLayoutGroup>();
-            equipGrid = equipSlotArea.gameObject.GetOrAddComponent<GridLayoutGroup>();
+            descImageArea = GetImage((int)Images.DescriptionImageArea);
 
             buttonPanel = categoryButtonPanel.GetOrAddComponent<CategoryButtonPanel>();
         }
@@ -104,9 +101,7 @@ namespace Assets.Scripts.UI.Inventory
             descImageRect.localPosition = InventoryConst.DescImageRect.ToCanvasPos();
             descImageRect.SetParent(descriptionPanel.transform);
 
-            InitSlotArea();
-
-            InitEquipArea();
+            InitButtonPanel();
 
             var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(goldRect, AnchorPresets.MiddleCenter);
@@ -146,69 +141,43 @@ namespace Assets.Scripts.UI.Inventory
             slot.transform.SetParent(descriptionPanel.transform);
         }
 
-        private void InitSlotArea()
+        private void InitButtonPanel()
         {
-            var slotAreaRect = inventorySlotArea.GetComponent<RectTransform>();
-            AnchorPresets.SetAnchorPreset(slotAreaRect, AnchorPresets.MiddleCenter);
-            slotAreaRect.sizeDelta = InventoryConst.SlotAreaRect.GetSize();
-            slotAreaRect.localPosition = InventoryConst.SlotAreaRect.ToCanvasPos();
-            slotAreaRect.SetParent(categoryPanel.transform);
+            InitItemArea();
+            InitEquipmentArea();
+        }
 
-            float width = slotAreaRect.rect.width;
-            float height = slotAreaRect.rect.height;
-
-            var paddingOffset = new RectOffset();
-            paddingOffset.SetAllPadding(padding);
-            var spacingOffset = new Vector2(spacing, spacing);
-
-            var w = width - paddingOffset.left * 2 - (col - 1) * spacingOffset.x;
-            var slotW = w / col;
-            var h = height - paddingOffset.top * 2 - (row - 1) * spacingOffset.y;
-            var slotH = h / row;
-
-            float len = Mathf.Min(slotH, slotW);
-            slotGrid.spacing = spacingOffset;
-            slotGrid.padding = paddingOffset;
-            slotGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
-            slotGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
-            slotGrid.childAlignment = TextAnchor.MiddleCenter;
-            slotGrid.cellSize = new Vector2(len, len);
-
-            for (int i = 0; i < row * col; i++)
+        private void InitItemArea()
+        {
+            var groupTypes = Enum.GetValues(typeof(GroupType));
+            for (int i = 0; i < groupTypes.Length; i++)
             {
-                var slot = UIManager.Instance.MakeSubItem<InventorySlot>(slotAreaRect, UIManager.InventorySlot);
+                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(transform, InventorySlotArea.Path);
+
+                slotArea.InitSlotRect(itemSlots.transform, InventoryConst.SlotAreaRect);
+                slotArea.InitGridLayoutGroup(row, col, padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
+                slotArea.SlotAreaType = SlotAreaType.Item;
+                slotArea.MakeSlots();
+
+                buttonPanel.AddSlot(SlotAreaType.Item, slotArea);
             }
         }
 
-        private void InitEquipArea()
+        private readonly int equipmentRow = 1;
+        private readonly int[] equipmentCols = new[] { 4, 5, 2 };
+
+        private void InitEquipmentArea()
         {
-            var equipAreaRect = equipSlotArea.GetComponent<RectTransform>();
-            AnchorPresets.SetAnchorPreset(equipAreaRect, AnchorPresets.MiddleCenter);
-            equipAreaRect.sizeDelta = InventoryConst.EquipSlotAreaRect.GetSize();
-            equipAreaRect.localPosition = InventoryConst.EquipSlotAreaRect.ToCanvasPos();
-            equipAreaRect.SetParent(categoryPanel.transform);
-
-            float width = equipAreaRect.rect.width;
-            float height = equipAreaRect.rect.height;
-
-            var paddingOffset = new RectOffset();
-            paddingOffset.SetAllPadding(padding);
-            var spacingOffset = new Vector2(spacing, spacing);
-
-            int column = 5;
-            var w = width - paddingOffset.left * 2 - (column - 1) * spacingOffset.x;
-            var slotW = w / column;
-
-            equipGrid.spacing = spacingOffset;
-            equipGrid.padding = paddingOffset;
-            equipGrid.startCorner = GridLayoutGroup.Corner.UpperLeft;
-            equipGrid.startAxis = GridLayoutGroup.Axis.Horizontal;
-            equipGrid.childAlignment = TextAnchor.MiddleCenter;
-            equipGrid.cellSize = new Vector2(slotW, slotW);
-
-            for (int i = 0; i < column; i++)
+            var groupTypes = Enum.GetValues(typeof(GroupType));
+            for (int i = 0; i < groupTypes.Length; i++)
             {
-                var slot = UIManager.Instance.MakeSubItem<InventorySlot>(equipAreaRect, UIManager.InventorySlot);
+                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(transform, InventorySlotArea.Path);
+                slotArea.InitSlotRect(equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
+                slotArea.InitGridLayoutGroup(equipmentRow, equipmentCols[i], padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
+                slotArea.SlotAreaType = SlotAreaType.Equipment;
+                slotArea.MakeSlots();
+
+                buttonPanel.AddSlot(SlotAreaType.Equipment, slotArea);
             }
         }
     }
