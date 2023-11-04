@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using UnityEngine;
@@ -37,14 +36,19 @@ namespace Assets.Scripts.UI.Inventory
         private RectTransform rect;
         private ToggleGroup toggleGroup;
         private CategoryToggleController[] toggles;
-        private readonly List<InventorySlotArea> itemSlots = new List<InventorySlotArea>();
-        private readonly List<InventorySlotArea> equipSlots = new List<InventorySlotArea>();
-
         private GroupType type = GroupType.Consumption;
+        private ToggleChangeHandler toggleChangeCallback;
+
+        private readonly IDictionary<SlotAreaType, List<InventorySlotArea>> slotAreas = new Dictionary<SlotAreaType, List<InventorySlotArea>>();
 
         private void Awake()
         {
             Init();
+        }
+
+        private void OnDisable()
+        {
+            toggleChangeCallback = null;
         }
 
         protected override void Init()
@@ -77,8 +81,11 @@ namespace Assets.Scripts.UI.Inventory
                 toggles[i].Subscribe(ToggleChangeCallback);
             }
 
-            type = GroupType.Consumption;
-            toggles[(int)type].IsOn = true;
+            var slotTypes = Enum.GetValues(typeof(SlotAreaType));
+            for (int i = 0; i < slotTypes.Length; i++)
+            {
+                slotAreas.TryAdd((SlotAreaType)slotTypes.GetValue(i), new List<InventorySlotArea>());
+            }
         }
 
         private void ToggleChangeCallback(ToggleChangeInfo changeInfo)
@@ -86,41 +93,36 @@ namespace Assets.Scripts.UI.Inventory
             if (changeInfo.IsOn)
             {
                 type = changeInfo.Type; // 현재 활성화된 슬롯 타입
-                ActivateSlotArea(changeInfo.Type);
             }
+
+            toggleChangeCallback?.Invoke(changeInfo);
         }
 
-        private void DeactivateAllSlotAreas()
+        public void MoveSlotArea(SlotAreaType areaType, GroupType groupType, Transform target, Transform parent, Rect size)
         {
-            itemSlots.ForEach(area => area.gameObject.SetActive(false));
-            equipSlots.ForEach(area => area.gameObject.SetActive(false));
-        }
-
-        private void ActivateSlotArea(GroupType groupType)
-        {
-            DeactivateAllSlotAreas();
-            if (itemSlots.Any() && equipSlots.Any())
+            if (slotAreas.TryGetValue(areaType, out var slots))
             {
-                itemSlots[(int)groupType].gameObject.SetActive(true);
-                equipSlots[(int)groupType].gameObject.SetActive(true);
+                slots[(int)groupType].MoveSlotArea(target, parent, size);
             }
         }
 
         public void AddSlot(SlotAreaType slotAreaType, InventorySlotArea area)
         {
-            switch (slotAreaType)
+            if (slotAreas.TryGetValue(slotAreaType, out var slots))
             {
-                case SlotAreaType.Item:
-                    itemSlots.Add(area);
-                    area.gameObject.SetActive(false);
-                    break;
-                case SlotAreaType.Equipment:
-                    equipSlots.Add(area);
-                    area.gameObject.SetActive(false);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(slotAreaType), slotAreaType, null);
+                slots.Add(area);
             }
+        }
+
+        public void Subscribe(ToggleChangeHandler listener)
+        {
+            toggleChangeCallback -= listener;
+            toggleChangeCallback += listener;
+        }
+
+        public void ActivateToggle(GroupType groupType, bool isOn)
+        {
+           toggles[(int)groupType].ActivateToggle(isOn);
         }
     }
 }

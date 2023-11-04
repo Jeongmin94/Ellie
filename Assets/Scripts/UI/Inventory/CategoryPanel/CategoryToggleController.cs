@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using TMPro;
@@ -9,6 +10,8 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class CategoryToggleController : ToggleController
     {
+        [SerializeField] private GroupType Type => type;
+
         private ToggleChangeHandler toggleChangeCallback;
 
         public string toggleTitle;
@@ -18,6 +21,11 @@ namespace Assets.Scripts.UI.Inventory
         private TextMeshProUGUI text;
         private Color pressedColor;
         private Color normalColor;
+
+        private void OnDisable()
+        {
+            toggleChangeCallback = null;
+        }
 
         public void Init(GroupType groupType)
         {
@@ -64,7 +72,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             text.fontSize = GetToggledSize(isOn);
             text.color = GetToggledColor(isOn);
-
+            Interactable = !isOn;
             toggleChangeCallback?.Invoke(ToggleChangeInfo.Of(type, isOn));
         }
 
@@ -76,6 +84,11 @@ namespace Assets.Scripts.UI.Inventory
         private int GetToggledSize(bool isOn)
         {
             return isOn ? InventoryConst.ToggleOnFontSize : InventoryConst.ToggleOffFontSize;
+        }
+
+        public void ActivateToggle(bool isOn)
+        {
+            toggle.onValueChanged?.Invoke(isOn);
         }
     }
 }

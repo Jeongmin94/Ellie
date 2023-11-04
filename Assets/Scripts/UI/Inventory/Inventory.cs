@@ -22,7 +22,8 @@ namespace Assets.Scripts.UI.Inventory
             CategoryButtonPanel, // toggle group
 
             ItemSlots,
-            EquipmentSlots
+            EquipmentSlots,
+            OuterRim
         }
 
         private enum Images
@@ -43,6 +44,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private GameObject itemSlots;
         private GameObject equipmentSlots;
+        private GameObject outerRim;
 
         // Image
         private Image descImageArea;
@@ -57,6 +59,7 @@ namespace Assets.Scripts.UI.Inventory
         [SerializeField] private int col = 8;
         [SerializeField] private int padding = 1;
         [SerializeField] private int spacing = 2;
+
 
         protected override void Init()
         {
@@ -78,6 +81,7 @@ namespace Assets.Scripts.UI.Inventory
 
             itemSlots = GetGameObject((int)GameObjects.ItemSlots);
             equipmentSlots = GetGameObject((int)GameObjects.EquipmentSlots);
+            outerRim = GetGameObject((int)GameObjects.OuterRim);
 
             descImageArea = GetImage((int)Images.DescriptionImageArea);
 
@@ -145,6 +149,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             InitItemArea();
             InitEquipmentArea();
+            buttonPanel.Subscribe(ToggleChangeCallback);
         }
 
         private void InitItemArea()
@@ -152,7 +157,7 @@ namespace Assets.Scripts.UI.Inventory
             var groupTypes = Enum.GetValues(typeof(GroupType));
             for (int i = 0; i < groupTypes.Length; i++)
             {
-                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(transform, InventorySlotArea.Path);
+                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
 
                 slotArea.InitSlotRect(itemSlots.transform, InventoryConst.SlotAreaRect);
                 slotArea.InitGridLayoutGroup(row, col, padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
@@ -164,14 +169,14 @@ namespace Assets.Scripts.UI.Inventory
         }
 
         private readonly int equipmentRow = 1;
-        private readonly int[] equipmentCols = new[] { 4, 5, 2 };
+        private readonly int[] equipmentCols = new[] { 4, 5, 1 };
 
         private void InitEquipmentArea()
         {
             var groupTypes = Enum.GetValues(typeof(GroupType));
             for (int i = 0; i < groupTypes.Length; i++)
             {
-                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(transform, InventorySlotArea.Path);
+                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
                 slotArea.InitSlotRect(equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
                 slotArea.InitGridLayoutGroup(equipmentRow, equipmentCols[i], padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
                 slotArea.SlotAreaType = SlotAreaType.Equipment;
@@ -179,6 +184,13 @@ namespace Assets.Scripts.UI.Inventory
 
                 buttonPanel.AddSlot(SlotAreaType.Equipment, slotArea);
             }
+        }
+
+        private void ToggleChangeCallback(ToggleChangeInfo changeInfo)
+        {
+            var target = changeInfo.IsOn ? transform : outerRim.transform;
+            buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
+            buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, itemSlots.transform, InventoryConst.EquipSlotAreaRect);
         }
     }
 }

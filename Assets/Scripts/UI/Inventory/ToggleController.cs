@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.Events;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.UI.Inventory
             toggle.onValueChanged.AddListener(listener);
         }
 
-        protected void OnDestroy()
+        private void OnDisable()
         {
             toggle.onValueChanged.RemoveAllListeners();
         }

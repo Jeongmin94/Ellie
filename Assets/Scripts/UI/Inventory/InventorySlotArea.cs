@@ -48,12 +48,24 @@ namespace Assets.Scripts.UI.Inventory
         {
         }
 
+        public void MoveSlotArea(Transform target, Transform parent, Rect size)
+        {
+            transform.SetParent(target);
+            SetRect(size);
+            rect.SetParent(parent);
+        }
+
         public void InitSlotRect(Transform parent, Rect size)
         {
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
-            rect.sizeDelta = size.GetSize();
-            rect.localPosition = size.ToCanvasPos();
+            SetRect(size);
             rect.SetParent(parent);
+        }
+
+        private void SetRect(Rect position)
+        {
+            rect.sizeDelta = position.GetSize();
+            rect.localPosition = position.ToCanvasPos();
         }
 
         public void InitGridLayoutGroup(int row, int col, int padding, int spacing, GridLayoutGroup.Corner corner, GridLayoutGroup.Axis axis, TextAnchor anchor)
