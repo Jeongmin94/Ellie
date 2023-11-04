@@ -1,6 +1,9 @@
+using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -10,12 +13,18 @@ namespace Assets.Scripts.UI.Inventory
 
         public string toggleTitle;
         public GroupType type;
+
+        private Graphic checkMark;
         private TextMeshProUGUI text;
+        private Color pressedColor;
+        private Color normalColor;
 
         public void Init(GroupType groupType)
         {
             InitToggle();
             SubscribeToggleEvent(OnValueChanged);
+
+            checkMark = toggle.graphic;
 
             text = gameObject.FindChild<TextMeshProUGUI>(null, true);
             text.alignment = TextAlignmentOptions.Midline;
@@ -26,6 +35,23 @@ namespace Assets.Scripts.UI.Inventory
             text.color = GetToggledColor(IsOn);
 
             type = groupType;
+            pressedColor = toggle.colors.pressedColor;
+            normalColor = toggle.colors.normalColor;
+
+            gameObject.BindEvent(OnDownHandler, UIEvent.Down);
+            gameObject.BindEvent(OnUpHandler, UIEvent.Up);
+        }
+
+        private void OnDownHandler(PointerEventData data)
+        {
+            checkMark.color = pressedColor;
+            text.color = InventoryConst.ToggleOffFontColor;
+        }
+
+        private void OnUpHandler(PointerEventData data)
+        {
+            checkMark.color = normalColor;
+            text.color = InventoryConst.ToggleOnFontColor;
         }
 
         public void Subscribe(ToggleChangeHandler listener)

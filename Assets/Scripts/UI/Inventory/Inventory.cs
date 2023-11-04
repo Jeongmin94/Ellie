@@ -9,6 +9,8 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.Scripts.UI.Inventory
 {
+    public delegate void ToggleChangeHandler(ToggleChangeInfo changeInfo);
+
     public class Inventory : UIPopup
     {
         private enum GameObjects
@@ -143,7 +145,7 @@ namespace Assets.Scripts.UI.Inventory
             var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
             slot.transform.SetParent(descriptionPanel.transform);
         }
-        
+
         private void InitSlotArea()
         {
             var slotAreaRect = inventorySlotArea.GetComponent<RectTransform>();

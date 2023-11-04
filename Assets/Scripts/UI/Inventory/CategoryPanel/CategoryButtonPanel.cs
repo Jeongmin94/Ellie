@@ -30,9 +30,6 @@ namespace Assets.Scripts.UI.Inventory
         }
     }
 
-    public delegate void ToggleChangeHandler(ToggleChangeInfo changeInfo);
-
-    // !TODO: 버튼 패널에 있는 버튼을 누를 때마다 카테고리 슬롯 항목들이 변경되어야 함
     public class CategoryButtonPanel : UIBase
     {
         private RectTransform rect;
@@ -60,6 +57,8 @@ namespace Assets.Scripts.UI.Inventory
 
         private void InitObjects()
         {
+            toggleGroup.SetAllTogglesOff();
+
             var groupTypes = Enum.GetValues(typeof(GroupType));
             toggles = new CategoryToggleController[groupTypes.Length];
             for (int i = 0; i < groupTypes.Length; i++)
@@ -82,7 +81,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (changeInfo.IsOn)
             {
-                Debug.Log($"{changeInfo.Type} 슬롯 활성화됨");
+                // Debug.Log($"{changeInfo.Type} 슬롯 활성화됨");
             }
         }
     }

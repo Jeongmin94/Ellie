@@ -95,6 +95,20 @@ namespace Assets.Scripts.Utils
                     handler.dropHandlerAction += action;
                 }
                     break;
+
+                case UIEvent.Down:
+                {
+                    handler.downHandlerAction -= action;
+                    handler.downHandlerAction += action;
+                }
+                    break;
+
+                case UIEvent.Up:
+                {
+                    handler.upHandlerAction -= action;
+                    handler.upHandlerAction += action;
+                }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
