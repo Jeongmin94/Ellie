@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using Channels.Combat;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ProjectileAttack", menuName = "GameData List/Monsters/ProjectileAttack", order = int.MaxValue)]
 public class ProjectileAttackData : ScriptableObject
 {
+    public CombatType combatType;
     public float attackValue;
-    public float attackableDistance;
+    public float attackableMinimumDistance;
     public float attackInterval;
     public float attackDuration;
 

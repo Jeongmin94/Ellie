@@ -1,6 +1,5 @@
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
-using Codice.CM.SEIDInfo;
 using UnityEngine;
 
 namespace Channels.Combat
@@ -8,44 +7,59 @@ namespace Channels.Combat
     public enum CombatType
     {
         Melee,
+        Weapon,
+        Projectile,
+        Movement,
+        RequestStone
     }
-
 
     public class CombatPayload : IBaseEventPayload
     {
-        //°ø°İ Å¸ÀÔ
+        //ê³µê²© íƒ€ì…
         public CombatType Type { get; set; }
-        //°ø°İÀÚÀÇ transform
+
+        //ê³µê²©ìì˜ transform
         public Transform Attacker { get; set; }
-        //ÇÇ°İÀÚÀÇ transform
+
+        //í”¼ê²©ìì˜ transform
         public Transform Defender { get; set; }
-        //°ø°İÀÚÀÇ µ¥¹ÌÁö
+
+        //ê³µê²©ìì˜ ë°ë¯¸ì§€
         public int Damage { get; set; }
-        //°ø°İ ÀÌº¥Æ® ¹ßÇà½ÃÀÇ °ø°İ ¹æÇâ
+        
+        //ê³µê²© ì´ë²¤íŠ¸ ë°œí–‰ì‹œì˜ ê³µê²© ë°©í–¥
         public Vector3 AttackDirection { get; set; }
-        //°ø°İ ÀÌº¥Æ® ¹ßÇà½ÃÀÇ °ø°İÀÇ À§Ä¡
+
+        //ê³µê²© ì´ë²¤íŠ¸ ë°œí–‰ì‹œì˜ ê³µê²©ì˜ ìœ„ì¹˜
         public Vector3 AttackPosition { get; set; }
-        //°ø°İÀÚÀÇ °ø°İ ½ÃÀÛ À§Ä¡
+
+        //ê³µê²©ìì˜ ê³µê²© ì‹œì‘ ìœ„ì¹˜
         public Vector3 AttackStartPosition { get; set; }
-        //°ø°İÀÌ ÇÃ·¹ÀÌ¾î¿¡°Ô ÇÇ°İµÆÀ» ¶§ ÇÃ·¹ÀÌ¾î¿¡°Ô À¯¹ßµÇ´Â »óÅÂÀÌ»ó
+
+        //ê³µê²©ì— í”¼ê²©ëì„ ë•Œ ìœ ë°œë˜ëŠ” ìƒíƒœì´ìƒ
         public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
-        //!TODO : °ø°İÀÌ enemy¿¡ ÇÇ°İµÆÀ» ½Ã À¯¹ßµÇ´Â »óÅÂÀÌ»óÀÇ enumÀÌ ÇÊ¿äÇÕ´Ï´Ù
+        //ìƒíƒœì´ìƒì˜ ì§€ì†ì‹œê°„
+        public float statusEffectduration { get; set; }
+        //ê³µê²©ì´ ìœ ë°œí•˜ëŠ” í˜
+        public float force { get; set; }
+
+        //!TODO : ê³µê²©ì´ enemyì— í”¼ê²©ëì„ ì‹œ ìœ ë°œë˜ëŠ” ìƒíƒœì´ìƒì˜ enumì´ í•„ìš”í•©ë‹ˆë‹¤
     }
 
     public class CombatChannel : BaseEventChannel
     {
-        public override void ReceiveMessage<T>(T payload)
+        public override void ReceiveMessage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
-
         }
 
         private CombatPayload CalculateCombatLogic(CombatPayload payload)
         {
             CombatPayload newPayload = payload;
-            // !TODO : °ø°İÀÚ¿Í ¹æ¾îÀÚÀÇ transformÀ» µû¿Í¼­ ÀüÅõ ·ÎÁ÷À» ½ÇÇàÇÑ ÈÄ, Payload¸¦ ´Ù½Ã ¸¸µé±â
+
+            // !TODO : ê³µê²©ìì™€ ë°©ì–´ìì˜ transformì„ ë”°ì™€ì„œ ì „íˆ¬ ë¡œì§ì„ ì‹¤í–‰í•œ í›„, Payloadë¥¼ ë‹¤ì‹œ ë§Œë“¤ê¸°
 
             return newPayload;
         }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Combat;
 using Assets.Scripts.Data;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.Utility;
@@ -9,7 +10,7 @@ using UnityEngine.AI;
 namespace Assets.Scripts.Monsters.AbstractClass
 {
 
-    public abstract class AbstractMonster : MonoBehaviour
+    public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
         protected bool isAttacking;
         protected AbstractAttack[] skills;
@@ -55,6 +56,11 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
             return attack;
         }
+
+        public virtual void Attack(IBaseEventPayload payload)
+        { }
+
+        public abstract void ReceiveDamage(IBaseEventPayload payload);
     }
 
 }

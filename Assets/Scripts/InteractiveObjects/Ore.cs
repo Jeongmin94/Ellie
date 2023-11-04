@@ -1,7 +1,11 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
@@ -24,24 +28,38 @@ namespace Assets.Scripts.InteractiveObjects
         public int hardness;
         public int maxHp;
         public int hp;
+
+        private TicketMachine ticketMachine;
+
         //체력 4분할
-        public List<int> quateredHP;
+        private List<int> quateredHP;
         private int curHpInterval;
 
         public float regenerationTime = 4f;
         public bool canMine;
+
+        private void Awake()
+        {
+            InitTicketMachine();
+        }
+
         private void Start()
         {
             StartCoroutine(InitOre());
             oreBody = transform.GetChild(0);
             stoneSpawnPos = transform.GetChild(1);
             canMine = true;
-
         }
 
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Stone);
+        }
         private IEnumerator InitOre()
         {
-            yield return new WaitForSeconds(1.0f);
+            yield return DataManager.Instance.CheckIsParseDone();
+            
             data = DataManager.Instance.GetIndexData<OreData, OreDataParsingInfo>((int)tier);
             hardness = data.hardness;
             maxHp = data.HP;
@@ -49,6 +67,7 @@ namespace Assets.Scripts.InteractiveObjects
             curHpInterval = 3;
             SetQuateredHP();
         }
+
         private void OnTriggerExit(Collider other)
         {
             if (other.CompareTag("Player"))
@@ -56,6 +75,7 @@ namespace Assets.Scripts.InteractiveObjects
                 other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(null);
             }
         }
+
         public void Smith(int damage)
         {
             hp -= damage;
@@ -70,12 +90,14 @@ namespace Assets.Scripts.InteractiveObjects
                     curHpInterval = i;
                 }
             }
+
             while (idx > 0)
             {
                 Debug.Log("during mining");
                 DropStone(data.whileMiningDropItemList);
                 idx--;
             }
+
             if (hp <= 0)
             {
                 canMine = false;
@@ -94,6 +116,7 @@ namespace Assets.Scripts.InteractiveObjects
             {
                 temp++;
             }
+
             int segment = temp / 4;
             quateredHP = new();
             //4분할된 구간을 만들기
@@ -101,9 +124,11 @@ namespace Assets.Scripts.InteractiveObjects
             {
                 quateredHP.Add(maxHp - segment * i);
             }
+
             quateredHP.Add(0);
             quateredHP.Reverse();
         }
+
         private void DropStone(List<(int, float)> dropItemList)
         {
             float rand = Random.Range(0f, 1.0f);
@@ -124,21 +149,34 @@ namespace Assets.Scripts.InteractiveObjects
                         for (int i = 0; i < dropData.Item2; i++)
                         {
                             //TODO : 돌맹이 데이터테이블에서 해당하는 티어의 돌맹이 랜덤하게 뽑아내기
-                            GameObject obj = Instantiate(stonePrefabTest, stoneSpawnPos);
-                            obj.GetComponent<Rigidbody>().AddForce(GetRandVector() * 4f, ForceMode.Impulse);
-                            //Debug.Log("Stone Tier : " + dropData.Item1.ToString());
+                            MineStone();
+                            //필요한 것 : 돌맹이 위치, 돌맹이에 AddForce해 줄 벡터
                         }
                     }
+
                     break;
                 }
             }
         }
 
+        private void MineStone()
+        {
+            StoneEventPayload payload = new()
+            {
+                Type = StoneEventType.MineStone,
+                StoneSpawnPos = stoneSpawnPos.position,
+                StoneForce = GetRandVector()
+            };
+            Debug.Log("Mine Stone");
+            ticketMachine.SendMessage(ChannelType.Stone, payload);
+        }
+
         private Vector3 GetRandVector()
         {
-            Vector3 vec = new Vector3(Random.Range(-1.0f, 1.0f), 0.5f,0);
+            Vector3 vec = new Vector3(Random.Range(-1.0f, 1.0f), 0.5f, 0);
             return vec.normalized;
         }
+
         private IEnumerator Regenerate()
         {
             oreBody.gameObject.SetActive(false);

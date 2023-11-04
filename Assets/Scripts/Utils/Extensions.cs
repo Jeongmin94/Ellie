@@ -1,6 +1,6 @@
+using Assets.Scripts.UI.Framework;
 using System;
 using System.Linq;
-using Assets.Scripts.UI.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
@@ -66,19 +66,46 @@ namespace Assets.Scripts.Utils
             {
                 case UIEvent.Click:
                 {
-                    handler.OnClickHandler -= action;
-                    handler.OnClickHandler += action;
+                    handler.clickHandlerAction -= action;
+                    handler.clickHandlerAction += action;
                 }
                     break;
                 case UIEvent.Drag:
                 {
-                    handler.OnDragHandler -= action;
-                    handler.OnDragHandler += action;
+                    handler.dragHandlerAction -= action;
+                    handler.dragHandlerAction += action;
+                }
+                    break;
+                case UIEvent.BeginDrag:
+                {
+                    handler.beginDragHandlerAction -= action;
+                    handler.beginDragHandlerAction += action;
+                }
+                    break;
+                case UIEvent.EndDrag:
+                {
+                    handler.endDragHandlerAction -= action;
+                    handler.endDragHandlerAction += action;
+                }
+                    break;
+
+                case UIEvent.Drop:
+                {
+                    handler.dropHandlerAction -= action;
+                    handler.dropHandlerAction += action;
                 }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+        }
+
+        public static void SetAllPadding(this RectOffset offset, int value)
+        {
+            offset.bottom = value;
+            offset.top = value;
+            offset.left = value;
+            offset.right = value;
         }
 
         #endregion

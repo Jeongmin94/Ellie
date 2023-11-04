@@ -26,7 +26,8 @@ public class RunToPlayer : ActionNode
         context.agent.destination = player.Value.transform.position;
         if (accumTime < context.controller.runToPlayerData.attackDuration)
         {
-            if (Vector3.Distance(context.transform.position, context.agent.destination) < context.agent.stoppingDistance)
+            //if (Vector3.Distance(context.transform.position, context.agent.destination) < context.agent.stoppingDistance)
+            if (context.agent.remainingDistance < context.agent.stoppingDistance)
             {
                 Debug.Log("FinishRun");
                 return State.Success;

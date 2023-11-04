@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Channels.Item;
 using Channels.Combat;
 using Channels.Type;
 using Channels.UI;
@@ -17,6 +18,9 @@ namespace Channels.Utils
                     break;
                 case ChannelType.UI:
                     channel = new UIChannel();
+                    break;
+                case ChannelType.Stone:
+                    channel = new ItemChannel();
                     break;
             }
 

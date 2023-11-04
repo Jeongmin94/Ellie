@@ -43,7 +43,16 @@ namespace Assets.Scripts.Player
             }
             CurrentState?.OnEnterState();
         }
-
+        public void ChangeState(PlayerStateName nextStateName, StateInfo info)
+        {
+            CurrentState?.OnExitState();
+            if (states.TryGetValue(nextStateName, out PlayerBaseState newState))
+            {
+                CurrentState = newState;
+                CurrentStateName = nextStateName;
+            }
+            CurrentState?.OnEnterState(info);
+        }
         public void UpdateState()
         {
             CurrentState?.OnUpdateState();

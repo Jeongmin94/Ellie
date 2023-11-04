@@ -16,7 +16,7 @@ namespace Assets.Scripts.Player.States
             Controller.canTurn = true;
             jumpInputTime = 0;
             Controller.isJumping = true;
-            Controller.JumpPlayer();
+            Controller.Jump();
             Controller.Anim.SetBool("IsJumping",true);
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.JumpStaminaConsumption);

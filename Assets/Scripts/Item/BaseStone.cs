@@ -1,9 +1,14 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
+using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class BaseStone : MonoBehaviour
+    public class BaseStone : Poolable, ILootable
     {
+        public StoneHatchery hatchery { get; set; }
+        
         private new Rigidbody rigidbody;
 
         public Rigidbody StoneRigidBody
@@ -31,5 +36,11 @@ namespace Assets.Scripts.Item
 
             rigidbody.velocity = direction * strength;
         }
+        public void Visit(PlayerLooting player)
+        {
+            Debug.Log("Player Loot : " + this.name);
+            hatchery.CollectStone(this);
+        }
+       
     }
 }

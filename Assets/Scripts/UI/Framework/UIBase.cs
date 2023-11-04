@@ -1,7 +1,7 @@
+using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -85,6 +85,16 @@ namespace Assets.Scripts.UI.Framework
         protected TextMeshProUGUI GetText(int idx)
         {
             return Get<TextMeshProUGUI>(idx);
+        }
+
+        public static void SetSprite(Image image, Sprite sprite)
+        {
+            image.sprite = sprite;
+        }
+
+        public static void SetText(TextMeshProUGUI textMeshPro, string text)
+        {
+            textMeshPro.text = text;
         }
     }
 }

@@ -1,0 +1,24 @@
+@startuml
+
+note "플레이어와 같이 아이템을 습득하는 주체에 사용" as n1
+interface IVisitor {
+    + void Visit(visitable: ConcreteVisitable1)
+    + void Visit(visitable: ConcreteVisitable2)
+}
+
+n1 .. IVisitor
+
+note "소비 아이템, 돌멩이 등에 사용" as n2
+interface IVisitable {
+    + void Accept(visitor: IVisitor)
+}
+
+n2 .. IVisitable
+
+class ConcreteVisitable1
+class ConcreteVisitable2
+
+IVisitable <|.. ConcreteVisitable1
+IVisitable <|.. ConcreteVisitable2
+
+@enduml

@@ -8,7 +8,6 @@ using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,8 +26,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private int jumpStaminaConsumption;
         [SerializeField] private int dodgeStaminaConsumption;
         [SerializeField] private int hangStaminaConsumptionPerSec;
-
-        [SerializeField] private int sprintStanimaThreshold;
+        [SerializeField] private float chargeStaminaConsumptionPerSec;
 
         [Header("Combat")]
         [SerializeField] private PlayerHealthData healthData;
@@ -41,8 +39,8 @@ namespace Assets.Scripts.Player
         public int JumpStaminaConsumption { get { return jumpStaminaConsumption; } }
         public int DodgeStaminaConsumption { get { return dodgeStaminaConsumption; } }
         public int HangStaminaConsumption { get { return HangStaminaConsumption; } }
+        public float ChargeStaminaComsumptionPerSec { get { return chargeStaminaConsumptionPerSec; } }
 
-        public int SprintStaminaThreshold { get { return sprintStanimaThreshold; } }
 
         public bool isDead;
         public bool isRecoveringStamina;
@@ -53,11 +51,8 @@ namespace Assets.Scripts.Player
         float tempStamina;
 
         private PlayerUI playerUI;
-        private TicketMachine ticketMachine;
 
 
-        // !TODO : ICombatant를 붙이고, StatusEffectController를 참조하여 ApplyStatusEffect를 해주기
-        // !TODO : Battle 채널에 구독될 수 있는 티켓 포함
         public int HP
         {
             get { return healthData.CurrentHealth.Value; }
@@ -77,24 +72,24 @@ namespace Assets.Scripts.Player
         }
         private void Awake()
         {
-            SetTicketMachine();
+            //SetTicketMachine();
             playerStatusEffectController = GetComponent<PlayerStatusEffectController>();
             playerStatusEffects = new();
-            healthData.InitHealth();
             playerUI = GetComponent<PlayerUI>();
+
 
             InitStatusEffects();
         }
+
         private void SetTicketMachine()
         {
             Debug.Log("Player SetTicketMachine()");
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-            isDead = false;
         }
         private void Start()
         {
             isRecoveringStamina = true;
+            isDead = false;
+
         }
         private void Update()
         {
@@ -105,6 +100,11 @@ namespace Assets.Scripts.Player
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
             playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
             playerStatusEffects.Add(PlayerStatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
+            playerStatusEffects.Add(PlayerStatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
+            playerStatusEffects.Add(PlayerStatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
+            playerStatusEffects.Add(PlayerStatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
+
+
         }
 
         private void RecoverStamina()
@@ -125,7 +125,6 @@ namespace Assets.Scripts.Player
                 Stamina = 0;
             else
                 Stamina -= consumedStamina;
-
 
             if (consumedStamina > 10.0f)
             {
@@ -163,16 +162,24 @@ namespace Assets.Scripts.Player
         public void ReceiveDamage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
+            //상태이상 공격 처리 로직
             if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
             {
                 Debug.Log("Player : RecieveDamage");
-                IPlayerStatusEffect effect;
-                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out effect);
-                playerStatusEffectController.ApplyStatusEffect(effect);
+                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
+                playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
             }
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
         }
-    }
 
+        private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)
+        {
+            StatusEffectInfo info = new StatusEffectInfo();
+
+            info.effectDuration = payload.statusEffectduration;
+            info.effectForce = payload.force;
+            return info; 
+        }
+    }
 }
