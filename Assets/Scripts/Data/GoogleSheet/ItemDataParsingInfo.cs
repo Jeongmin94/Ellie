@@ -1,14 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 
 [Serializable]
 public class ItemData
 {
     public int index;
     public string name;
+    public string spriteName;
 }
 
 [CreateAssetMenu(fileName = "ItemData", menuName = "GameData List/ItemData")]

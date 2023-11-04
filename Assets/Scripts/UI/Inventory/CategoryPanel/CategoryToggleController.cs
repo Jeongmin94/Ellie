@@ -6,11 +6,13 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class CategoryToggleController : ToggleController
     {
-        public string toggleTitle;
+        private ToggleChangeHandler toggleChangeCallback;
 
+        public string toggleTitle;
+        public GroupType type;
         private TextMeshProUGUI text;
 
-        private void Awake()
+        public void Init(GroupType groupType)
         {
             InitToggle();
             SubscribeToggleEvent(OnValueChanged);
@@ -20,14 +22,24 @@ namespace Assets.Scripts.UI.Inventory
             text.text = toggleTitle;
             text.lineSpacing = 25.0f;
 
-            text.fontSize = GetToggledSize(toggle.isOn);
-            text.color = GetToggledColor(toggle.isOn);
+            text.fontSize = GetToggledSize(IsOn);
+            text.color = GetToggledColor(IsOn);
+
+            type = groupType;
+        }
+
+        public void Subscribe(ToggleChangeHandler listener)
+        {
+            toggleChangeCallback -= listener;
+            toggleChangeCallback += listener;
         }
 
         private void OnValueChanged(bool isOn)
         {
             text.fontSize = GetToggledSize(isOn);
             text.color = GetToggledColor(isOn);
+
+            toggleChangeCallback?.Invoke(ToggleChangeInfo.Of(type, isOn));
         }
 
         private Color GetToggledColor(bool isOn)

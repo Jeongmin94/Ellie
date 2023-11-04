@@ -8,7 +8,13 @@ namespace Assets.Scripts.UI.Inventory
     [RequireComponent(typeof(Toggle))]
     public class ToggleController : MonoBehaviour
     {
-        protected Toggle toggle;
+        private Toggle toggle;
+
+        public bool IsOn
+        {
+            get => toggle.isOn;
+            set => toggle.isOn = value;
+        }
 
         protected void InitToggle()
         {

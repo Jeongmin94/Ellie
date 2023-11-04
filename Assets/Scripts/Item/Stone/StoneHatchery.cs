@@ -4,8 +4,6 @@ using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Item.Stone

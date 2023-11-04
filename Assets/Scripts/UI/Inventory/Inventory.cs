@@ -16,6 +16,7 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionPanel,
             CategoryPanel,
             GoldAndStonePiecePanel,
+            CategoryButtonPanel // toggle group
         }
 
         private enum Images
@@ -34,6 +35,7 @@ namespace Assets.Scripts.UI.Inventory
         private GameObject descriptionPanel;
         private GameObject categoryPanel;
         private GameObject goldAndStonePiecePanel;
+        private GameObject categoryButtonPanel;
 
         // Image
         private Image descImageArea;
@@ -44,13 +46,16 @@ namespace Assets.Scripts.UI.Inventory
         private GridLayoutGroup slotGrid;
         private GridLayoutGroup equipGrid;
 
+        // Category Toggle Button
+        private CategoryButtonPanel buttonPanel;
+
         [Tooltip("Slot Area Grid")]
         [SerializeField]
         private int row = 3;
 
         [SerializeField] private int col = 8;
         [SerializeField] private int padding = 1;
-        [SerializeField] private int spacing = 1;
+        [SerializeField] private int spacing = 2;
 
         protected override void Init()
         {
@@ -68,6 +73,7 @@ namespace Assets.Scripts.UI.Inventory
             descriptionPanel = GetGameObject((int)GameObjects.DescriptionPanel);
             categoryPanel = GetGameObject((int)GameObjects.CategoryPanel);
             goldAndStonePiecePanel = GetGameObject((int)GameObjects.GoldAndStonePiecePanel);
+            categoryButtonPanel = GetGameObject((int)GameObjects.CategoryButtonPanel);
 
             descImageArea = GetImage((int)Images.DescriptionImageArea);
             inventorySlotArea = GetImage((int)Images.InventorySlotArea);
@@ -75,6 +81,8 @@ namespace Assets.Scripts.UI.Inventory
 
             slotGrid = inventorySlotArea.gameObject.GetOrAddComponent<GridLayoutGroup>();
             equipGrid = equipSlotArea.gameObject.GetOrAddComponent<GridLayoutGroup>();
+
+            buttonPanel = categoryButtonPanel.GetOrAddComponent<CategoryButtonPanel>();
         }
 
         private void InitObjects()
@@ -135,7 +143,7 @@ namespace Assets.Scripts.UI.Inventory
             var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
             slot.transform.SetParent(descriptionPanel.transform);
         }
-
+        
         private void InitSlotArea()
         {
             var slotAreaRect = inventorySlotArea.GetComponent<RectTransform>();
