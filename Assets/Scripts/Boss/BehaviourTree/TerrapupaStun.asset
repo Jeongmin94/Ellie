@@ -28,34 +28,18 @@ MonoBehaviour:
   - rid: 1401849447854899234
   - rid: 1401849447854899235
   - rid: 1401849447854899236
-  - rid: 1401849447854899237
   - rid: 283011018610442303
   - rid: 283011018610442304
   - rid: 283011018610442305
   treeState: 0
   blackboard:
     keys:
-    - rid: 1401849418967941121
-    - rid: 1401849419498258449
-    - rid: 283011018610442241
-    - rid: 1401849262943502337
-    - rid: 8619125046743924789
-    - rid: 1401849265356013568
-    - rid: 1401849265356013569
-    - rid: 1401849284866867200
-    - rid: 1401849284866867201
-    - rid: 1401849284866867202
-    - rid: 1401849284866867203
-    - rid: 8619125029124177949
-    - rid: 1401849419498258458
-    - rid: 1401849440881606659
     - rid: 1401849447854899215
-    - rid: 1401849379394682881
-    - rid: 1401849379394682882
-    - rid: 1401849442858696713
+    - rid: 283011087430582291
+    - rid: 283011090204065827
     - rid: 283011023650684947
-  viewPosition: {x: 1142, y: 315, z: 0}
-  viewScale: {x: 0.375937, y: 0.375937, z: 1}
+  viewPosition: {x: 1708, y: 271, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -119,6 +103,18 @@ MonoBehaviour:
         name: animationName
         typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: Stuned
+    - rid: 283011087430582291
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: IntakeDonePayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 283011090204065827
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: duration
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -132,93 +128,6 @@ MonoBehaviour:
         drawGizmos: 0
         child:
           rid: 1401849447854899217
-    - rid: 1401849262943502337
-      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: targetPosition
-        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        value: {x: 0, y: 0, z: 0}
-    - rid: 1401849265356013568
-      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: currentHP
-        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849265356013569
-      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: moveSpeed
-        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867200
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canThrowStone
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867201
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canEarthQuake
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867202
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canRoll
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867203
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canLowAttack
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849379394682881
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: throwStonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 1401849379394682882
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: occurEarthQuakePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 1401849418967941121
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: targetTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
-    - rid: 1401849419498258449
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: objectTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
-    - rid: 1401849419498258458
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: isTempted
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849440881606659
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: isIntake
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849442858696713
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: IntakeDonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 1401849447854899215
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -314,7 +223,11 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        duration: 10
+        timeValue:
+          reference:
+            rid: 283011090204065827
+          defaultValue: 0
+        duration: 5
     - rid: 1401849447854899225
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -377,7 +290,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 754a985c019eaaf4ab4434cdd8bd9955
-        position: {x: -1875, y: -15}
+        position: {x: -1860, y: -15}
         blackboard:
           keys: []
         description: 
@@ -388,7 +301,7 @@ MonoBehaviour:
           defaultValue: 1
         bossPayload:
           reference:
-            rid: 1401849442858696713
+            rid: 283011087430582291
         intValue:
           reference:
             rid: -2
@@ -419,7 +332,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: aabe291d51028984f91b288e0231cd9f
-        position: {x: -1635, y: -195}
+        position: {x: -1740, y: -195}
         blackboard:
           keys: []
         description: 
@@ -427,7 +340,6 @@ MonoBehaviour:
         children:
         - rid: 1401849447854899234
         - rid: 1401849447854899236
-        - rid: 1401849447854899237
     - rid: 1401849447854899236
       type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
       data:
@@ -445,39 +357,4 @@ MonoBehaviour:
           defaultValue: 9
         baseEventPayload:
           reference:
-            rid: 1401849442858696713
-    - rid: 1401849447854899237
-      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 456914c71bfa8ac46804edb9045195b8
-        position: {x: -1425, y: -15}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        pair:
-          key:
-            rid: 1401849447854899215
-          value:
-            rid: 1401849447854899238
-    - rid: 1401849447854899238
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: 
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 8619125029124177949
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: conditionCheck
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 8619125046743924789
-      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: startPosition
-        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        value: {x: 0, y: 0, z: 0}
+            rid: 283011087430582291

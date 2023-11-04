@@ -41,10 +41,6 @@ namespace TheKiwiCoder {
             // Add whatever else you need here...
             context.controller = gameObject.GetComponent<MonsterController>();
             context.btController = gameObject.GetComponent<BehaviourTreeController>();
-            if(context.btController != null)
-            {
-                Debug.Log(context.btController);
-            }
 
             return context;
         }

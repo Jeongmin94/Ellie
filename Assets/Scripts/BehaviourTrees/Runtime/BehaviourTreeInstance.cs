@@ -38,6 +38,7 @@ namespace TheKiwiCoder {
             if (isValid) {
                 context = CreateBehaviourTreeContext();
                 runtimeTree = behaviourTree.Clone();
+                context.btController.InitRootTree(runtimeTree);
                 runtimeTree.Bind(context);
 
                 ApplyKeyOverrides();

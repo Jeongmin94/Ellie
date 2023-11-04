@@ -6,6 +6,7 @@ using TheKiwiCoder;
 [System.Serializable]
 public class SmoothLookAt : ActionNode
 {
+    public NodeProperty<Transform> targetTransform;
     public NodeProperty<Vector3> targetPosition;
     public NodeProperty<float> rotationSpeed;
 
@@ -16,7 +17,17 @@ public class SmoothLookAt : ActionNode
     }
 
     protected override State OnUpdate() {
-        Vector3 direction = targetPosition.Value - context.transform.position;
+        Vector3 direction;
+
+        if (targetTransform.Value == null)
+        {
+            direction = targetPosition.Value - context.transform.position;
+        }
+        else
+        {
+            direction = targetTransform.Value.position - context.transform.position;
+        }
+
         direction.y = 0;
 
         if (direction.sqrMagnitude < 0.001f)

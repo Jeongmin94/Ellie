@@ -33,7 +33,7 @@ namespace TheKiwiCoder {
             }
             get {
                 if (typedKey != null) {
-                    return typedKey.value;
+                    return typedKey.Value;
                 } else {
                     return defaultValue;
                 }

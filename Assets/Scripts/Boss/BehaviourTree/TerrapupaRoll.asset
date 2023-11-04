@@ -48,37 +48,18 @@ MonoBehaviour:
   blackboard:
     keys:
     - rid: 1401849418967941121
-    - rid: 1401849419498258449
-    - rid: 283011018610442241
-    - rid: 1401849262943502337
-    - rid: 8619125046743924789
-    - rid: 1401849265356013568
-    - rid: 1401849265356013569
-    - rid: 1401849284866867200
-    - rid: 1401849284866867201
-    - rid: 1401849284866867202
-    - rid: 1401849284866867203
     - rid: 8619125029124177949
-    - rid: 1401849419498258458
-    - rid: 1401849440881606659
-    - rid: 1401849447854899215
-    - rid: 1401849379394682881
-    - rid: 1401849379394682882
-    - rid: 1401849442858696713
-  viewPosition: {x: 974, y: 426, z: 0}
+    - rid: 283011090204065833
+    - rid: 1401849265356013569
+    - rid: 283011090204065834
+    - rid: 283011090204065905
+  viewPosition: {x: 822, y: 412, z: 0}
   viewScale: {x: 0.25, y: 0.25, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 283011018610442241
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: magicStoneTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
     - rid: 283011018610442310
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -90,7 +71,36 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
         duration: 1
+    - rid: 283011090204065832
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: animationName
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: RollStart
+    - rid: 283011090204065833
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: rayCastLength
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011090204065834
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: attackValue
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011090204065905
+      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: pos
+        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+        value: {x: 0, y: 0, z: 0}
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -104,87 +114,19 @@ MonoBehaviour:
         drawGizmos: 0
         child:
           rid: 8619125030485229572
-    - rid: 1401849262943502337
-      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: targetPosition
-        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        value: {x: 0, y: 0, z: 0}
-    - rid: 1401849265356013568
-      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: currentHP
-        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
     - rid: 1401849265356013569
       type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
-        name: moveSpeed
+        name: movementSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
-    - rid: 1401849284866867200
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canThrowStone
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867201
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canEarthQuake
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867202
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canRoll
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849284866867203
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: canLowAttack
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849379394682881
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: throwStonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 1401849379394682882
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: occurEarthQuakePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 1401849418967941121
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
-        name: targetTransform
+        name: player
         typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
-    - rid: 1401849419498258449
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: objectTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
-    - rid: 1401849419498258458
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: isTempted
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
-    - rid: 1401849440881606659
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: isIntake
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
     - rid: 1401849440881606673
       type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -223,18 +165,6 @@ MonoBehaviour:
         - rid: 8619125030485229576
         - rid: 8619125030485229575
         - rid: 8619125030485229582
-    - rid: 1401849442858696713
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: IntakeDonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-    - rid: 1401849447854899215
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: isStuned
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
     - rid: 8619125029124177949
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -270,7 +200,7 @@ MonoBehaviour:
         drawGizmos: 0
         animationName:
           reference:
-            rid: -2
+            rid: 283011090204065832
           defaultValue: RollStart
     - rid: 8619125030485229576
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -283,6 +213,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
         duration: 1
     - rid: 8619125030485229577
       type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -328,7 +262,7 @@ MonoBehaviour:
         drawGizmos: 0
         animationName:
           reference:
-            rid: -2
+            rid: 283011090204065832
           defaultValue: RollStart
     - rid: 8619125030485229585
       type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
@@ -518,7 +452,7 @@ MonoBehaviour:
         drawGizmos: 0
         moveSpeed:
           reference:
-            rid: -2
+            rid: 1401849265356013569
           defaultValue: 20
     - rid: 8619125030485229603
       type: {class: LookAtPosition, ns: , asm: Assembly.Ellie}
@@ -533,11 +467,11 @@ MonoBehaviour:
         drawGizmos: 0
         targetPosition:
           reference:
-            rid: 1401849262943502337
+            rid: -2
           defaultValue: {x: 0, y: 0, z: 0}
         targetTransform:
           reference:
-            rid: -2
+            rid: 1401849418967941121
           defaultValue: {fileID: 0}
     - rid: 8619125030485229605
       type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -630,16 +564,9 @@ MonoBehaviour:
         drawGizmos: 0
         rayCastLength:
           reference:
-            rid: -2
+            rid: 283011090204065833
           defaultValue: 7
         targetTag:
           reference:
             rid: -2
           defaultValue: Wall
-    - rid: 8619125046743924789
-      type: {class: Vector3Key, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: startPosition
-        typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
-        value: {x: 0, y: 0, z: 0}

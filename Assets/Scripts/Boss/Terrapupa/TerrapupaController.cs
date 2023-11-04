@@ -13,15 +13,10 @@ namespace Assets.Scripts.Boss.Terrapupa
         LowAttack,
     }
 
-    public class TerrapupaController : MonoBehaviour
+    public class TerrapupaController : BehaviourTreeController
     {
-        [SerializeField] private List<BehaviourTree> treeList = new List<BehaviourTree>();
-        [SerializeField] private BehaviourTreeInstance behaviourTreeInstance;
-        [SerializeField] private TerrapupaDataInfo data;
-
         [SerializeField] private Transform target;
         [SerializeField] private Transform stone;
-
         [SerializeField] private TerrapupaWeakPoint weakPoint;
 
         public Transform Target
@@ -36,12 +31,9 @@ namespace Assets.Scripts.Boss.Terrapupa
             set { stone = value; }
         }
 
-        public BlackboardKey<Transform> targetTransform;
+        public BlackboardKey<Transform> player;
         public BlackboardKey<Transform> objectTransform;
         public BlackboardKey<Transform> magicStoneTransform;
-        public BlackboardKey<Vector3> targetPosition;
-        public BlackboardKey<int> currentHP;
-        public BlackboardKey<float> moveSpeed;
         public BlackboardKey<bool> canThrowStone;
         public BlackboardKey<bool> canEarthQuake;
         public BlackboardKey<bool> canRoll;
@@ -49,44 +41,28 @@ namespace Assets.Scripts.Boss.Terrapupa
         public BlackboardKey<bool> isTempted;
         public BlackboardKey<bool> isIntake;
         public BlackboardKey<bool> isStuned;
-        public BlackboardKey<IBaseEventPayload> throwStonePayload;
-        public BlackboardKey<IBaseEventPayload> occurEarthQuakePayload;
+
+        public BlackboardKey<Vector3> pos;
 
         private void Start()
         {
             InitStatus();
-
             weakPoint.collisionAction += OnCollidedCoreByPlayerStone;
         }
 
         private void Update()
         {
-            targetPosition.value = target.position;
+            player.Value = target;
+            pos.Value = player.Value.position;
         }
 
         private void InitStatus()
         {
-            behaviourTreeInstance.SetBlackboardValue<Transform>("targetTransform", target);
-            behaviourTreeInstance.SetBlackboardValue<Vector3>("targetPosition", target.position);
-            behaviourTreeInstance.SetBlackboardValue<int>("currentHP", data.hp);
-            behaviourTreeInstance.SetBlackboardValue<bool>("canThrowStone", true);
-            behaviourTreeInstance.SetBlackboardValue<bool>("canEarthQuake", true);
-            behaviourTreeInstance.SetBlackboardValue<bool>("canRoll", true);
-            behaviourTreeInstance.SetBlackboardValue<bool>("canLowAttack", true);
-            behaviourTreeInstance.SetBlackboardValue<bool>("isTempted", false);
-            behaviourTreeInstance.SetBlackboardValue<bool>("isIntake", false);
-            behaviourTreeInstance.SetBlackboardValue<bool>("isStuned", false);
+            behaviourTreeInstance.SetBlackboardValue<Transform>("player", target);
 
-            behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("throwStonePayload",
-                new BossEventPayload { TransformValue1 = stone, TransformValue2 = target });
-            behaviourTreeInstance.SetBlackboardValue<IBaseEventPayload>("occurEarthQuakePayload",
-                new BossEventPayload { });
-
-            targetTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("targetTransform");
+            player = behaviourTreeInstance.FindBlackboardKey<Transform>("player");
             objectTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("objectTransform");
             magicStoneTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("magicStoneTransform");
-            targetPosition = behaviourTreeInstance.FindBlackboardKey<Vector3>("targetPosition");
-            currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
             canThrowStone = behaviourTreeInstance.FindBlackboardKey<bool>("canThrowStone");
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
@@ -94,9 +70,8 @@ namespace Assets.Scripts.Boss.Terrapupa
             isTempted = behaviourTreeInstance.FindBlackboardKey<bool>("isTempted");
             isIntake = behaviourTreeInstance.FindBlackboardKey<bool>("isIntake");
             isStuned = behaviourTreeInstance.FindBlackboardKey<bool>("isStuned");
-            
-            throwStonePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("throwStonePayload");
-            occurEarthQuakePayload = behaviourTreeInstance.FindBlackboardKey<IBaseEventPayload>("occurEarthQuakePayload");
+
+            pos = behaviourTreeInstance.FindBlackboardKey<Vector3>("pos");
         }
 
         private void OnCollidedCoreByPlayerStone()

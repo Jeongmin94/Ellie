@@ -39,9 +39,9 @@ namespace Assets.Scripts.Boss
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                boss.isTempted.value = false;
-                boss.isIntake.value = false;
-                boss.magicStoneTransform.value = null;
+                boss.isTempted.Value = false;
+                boss.isIntake.Value = false;
+                boss.magicStoneTransform.Value = null;
                 Destroy(magicStone.gameObject);
 
                 magicStone = null;
@@ -110,7 +110,7 @@ namespace Assets.Scripts.Boss
             GameObject bossStone = Instantiate(
                 boss.Stone.gameObject, boss.Stone.position, Quaternion.identity);
             bossStone.GetComponent<Rigidbody>().isKinematic = false;
-            bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue2);
+            bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue1);
 
             boss.Stone.gameObject.SetActive(false);
         }
@@ -157,16 +157,16 @@ namespace Assets.Scripts.Boss
             switch (manaPayload.AttackTypeValue)
             {
                 case TerrapupaAttackType.ThrowStone:
-                    boss.canThrowStone.value = false;
+                    boss.canThrowStone.Value = false;
                     break;
                 case TerrapupaAttackType.EarthQuake:
-                    boss.canEarthQuake.value = false;
+                    boss.canEarthQuake.Value = false;
                     break;
                 case TerrapupaAttackType.Roll:
-                    boss.canRoll.value = false;
+                    boss.canRoll.Value = false;
                     break;
                 case TerrapupaAttackType.LowAttack:
-                    boss.canLowAttack.value = false;
+                    boss.canLowAttack.Value = false;
                     break;
                 default:
                     break;
@@ -191,16 +191,16 @@ namespace Assets.Scripts.Boss
             switch (manaPayload.AttackTypeValue)
             {
                 case TerrapupaAttackType.ThrowStone:
-                    boss.canThrowStone.value = true;
+                    boss.canThrowStone.Value = true;
                     break;
                 case TerrapupaAttackType.EarthQuake:
-                    boss.canEarthQuake.value = true;
+                    boss.canEarthQuake.Value = true;
                     break;
                 case TerrapupaAttackType.Roll:
-                    boss.canRoll.value = true;
+                    boss.canRoll.Value = true;
                     break;
                 case TerrapupaAttackType.LowAttack:
-                    boss.canLowAttack.value = true;
+                    boss.canLowAttack.Value = true;
                     break;
                 default:
                     break;
@@ -257,13 +257,13 @@ namespace Assets.Scripts.Boss
             {
                 Debug.Log("보스 타격");
 
-                if(boss.isIntake.value)
+                if(boss.isIntake.Value)
                 {
                     Debug.Log("섭취 -> 기절");
 
-                    boss.isStuned.value = true;
-                    boss.isTempted.value = false;
-                    boss.isIntake.value = false;
+                    boss.isStuned.Value = true;
+                    boss.isTempted.Value = false;
+                    boss.isIntake.Value = false;
                 }
             }
 
@@ -286,18 +286,18 @@ namespace Assets.Scripts.Boss
         {
             Debug.Log($"OnBossAtrractedByMagicStone :: 보스 마법 돌맹이를 추적 시작");
 
-            boss.isTempted.value = true;
-            boss.isIntake.value = false;
-            boss.magicStoneTransform.value = magicStonePayload.TransformValue1;
+            boss.isTempted.Value = true;
+            boss.isIntake.Value = false;
+            boss.magicStoneTransform.Value = magicStonePayload.TransformValue2;
         }
 
         private void OnBossUnattractedByMagicStone(BossEventPayload magicStonePayload)
         {
             Debug.Log($"OnBossUnattractedByMagicStone :: 보스 마법 돌맹이를 추적 종료");
 
-            boss.isTempted.value = false;
-            boss.isIntake.value = false;
-            boss.magicStoneTransform.value = null;
+            boss.isTempted.Value = false;
+            boss.isIntake.Value = false;
+            boss.magicStoneTransform.Value = null;
         }
 
         private void OnIntakeMagicStoneByBoss1(IBaseEventPayload bossPayload)
@@ -318,9 +318,9 @@ namespace Assets.Scripts.Boss
 
             Transform _magicStone = payload.TransformValue1;
 
-            boss.isTempted.value = false;
-            boss.isIntake.value = false;
-            boss.magicStoneTransform.value = null;
+            boss.isTempted.Value = false;
+            boss.isIntake.Value = false;
+            boss.magicStoneTransform.Value = null;
             Destroy(_magicStone.gameObject);
             magicStone = null;
         }
