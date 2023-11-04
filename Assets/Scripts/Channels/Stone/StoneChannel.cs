@@ -16,7 +16,7 @@ namespace Assets.Scripts.Channels.Item
         public Vector3 StoneForce { get; set; }
         public float StoneStrength { get; set; }
     }
-    public class ItemChannel : BaseEventChannel
+    public class StoneChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
