@@ -14,6 +14,8 @@ public class TestBTController : MonoBehaviour
     private BlackboardKey<float> monsterMovement;
     private BlackboardKey<float> monsterAttackRange;
 
+
+
     private void Start()
     {
         behaviourTreeInstance.SetBlackboardValue<int>("monsterHP", enemyData.monsterHP);
@@ -33,5 +35,6 @@ public class TestBTController : MonoBehaviour
     {
         monsterMovement.value = monsterAttackRange.value;
         monsterAttackRange.value += 0.3f;
+
     }
 }

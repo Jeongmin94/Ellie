@@ -23,6 +23,7 @@ MonoBehaviour:
   - rid: 1401849173575729156
   - rid: 1401849173575729157
   - rid: 283011045824135168
+  - rid: 283011086713618445
   treeState: 0
   blackboard:
     keys:
@@ -32,8 +33,8 @@ MonoBehaviour:
     - rid: 283011045824135330
     - rid: 283011045824135331
     - rid: 283011045824135332
-  viewPosition: {x: 519, y: 179, z: 0}
-  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  viewPosition: {x: 436, y: 144, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -53,7 +54,7 @@ MonoBehaviour:
         treeAsset: {fileID: 11400000, guid: 629cd42315964bb48bd471c6e71cf8d2, type: 2}
         treeInstance: {fileID: 0}
         controllerNames:
-        - reference:
+          reference:
             rid: -2
           defaultValue: TerrapupaRollData
     - rid: 283011045824135169
@@ -92,6 +93,28 @@ MonoBehaviour:
         name: attackValue
         typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
+    - rid: 283011086713618445
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c0c21a72c06c37d4e831185d0ff2f690
+        position: {x: 360, y: 180}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011045824135169
+          value:
+            rid: 283011086713618446
+    - rid: 283011086713618446
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
     - rid: 1026712297042345985
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -163,6 +186,7 @@ MonoBehaviour:
         - rid: 1401849173575729154
         - rid: 1401849173575729157
         - rid: 283011045824135168
+        - rid: 283011086713618445
     - rid: 1401849173575729156
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

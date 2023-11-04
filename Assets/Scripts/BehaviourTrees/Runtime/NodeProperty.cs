@@ -26,7 +26,7 @@ namespace TheKiwiCoder {
         public T Value {
             set {
                 if (typedKey != null) {
-                    typedKey.value = value;
+                    typedKey.Value = value;
                 } else {
                     defaultValue = value;
                 }

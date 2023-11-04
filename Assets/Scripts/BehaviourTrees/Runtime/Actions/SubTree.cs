@@ -4,66 +4,55 @@ using UnityEngine;
 using TheKiwiCoder;
 using System;
 
-namespace TheKiwiCoder {
+namespace TheKiwiCoder
+{
 
     [System.Serializable]
-    public class SubTree : ActionNode {
-        
+    public class SubTree : ActionNode
+    {
         [Tooltip("Behaviour tree asset to run as a subtree")] public BehaviourTree treeAsset;
         [HideInInspector] public BehaviourTree treeInstance;
 
-        //public List<NodeProperty> blackboardKeys;
-        //public NodeProperty<bool> isCopyRootTreeBlackboard;
+        public NodeProperty<string> controllerNames;
 
-        public List<NodeProperty<string>> controllerNames;
-
-        public override void OnInit() {
-            if (treeAsset) {
+        public override void OnInit()
+        {
+            if (treeAsset)
+            {
                 treeInstance = treeAsset.Clone();
 
-                //if(isCopyRootTreeBlackboard.Value)
-                //{
-                //    foreach (var key in blackboard.keys)
-                //    {
-                //        var keyInstance = treeInstance.blackboard.Find(key.name);
-                //        if (keyInstance != null)
-                //        {
-                //            treeInstance.blackboard.ReplaceKey(key.name, key);
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    foreach (var key in blackboardKeys)
-                //    {
-                //        var keyInstance = treeInstance.blackboard.Find(key.reference.name);
-                //        if (keyInstance != null)
-                //        {
-                //            treeInstance.blackboard.ReplaceKey(key.reference.name, key.reference);
-                //        }
-                //    }
-                //}
+                foreach (var key in blackboard.keys)
+                {
+                    var keyInstance = treeInstance.blackboard.Find(key.name);
+                    if (keyInstance != null)
+                    {
+                        treeInstance.blackboard.ReplaceKey(key.name, key);
+                        key.Subscribe(keyInstance);
+                    }
+                }
 
                 treeInstance.Bind(context);
 
-                foreach (var key in controllerNames)
-                {
-                    context.btController.RegisterBlackboardData(key.Value, treeInstance);
-                }
+                context.btController.RegisterBlackboardData(controllerNames.Value, treeInstance);
             }
         }
 
-        protected override void OnStart() {
-            if (treeInstance) {
+        protected override void OnStart()
+        {
+            if (treeInstance)
+            {
                 treeInstance.treeState = Node.State.Running;
             }
         }
 
-        protected override void OnStop() {
+        protected override void OnStop()
+        {
         }
 
-        protected override State OnUpdate() {
-            if (treeInstance) {
+        protected override State OnUpdate()
+        {
+            if (treeInstance)
+            {
                 return treeInstance.Update();
             }
             return State.Failure;

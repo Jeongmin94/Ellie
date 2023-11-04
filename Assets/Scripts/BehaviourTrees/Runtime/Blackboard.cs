@@ -92,7 +92,7 @@ namespace TheKiwiCoder {
         public void SetValue<T>(string keyName, T value) {
             BlackboardKey<T> key = Find<T>(keyName);
             if (key != null) {
-                key.value = value;
+                key.Value = value;
             }
         }
 

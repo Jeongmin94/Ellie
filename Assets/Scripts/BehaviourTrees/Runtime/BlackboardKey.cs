@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TheKiwiCoder {
@@ -24,6 +25,7 @@ namespace TheKiwiCoder {
 
         public abstract void CopyFrom(BlackboardKey key);
         public abstract bool Equals(BlackboardKey key);
+        public abstract void Subscribe(BlackboardKey key);
 
         public static BlackboardKey CreateKey(System.Type type) {
             return System.Activator.CreateInstance(type) as BlackboardKey;
@@ -36,6 +38,21 @@ namespace TheKiwiCoder {
 
         public T value;
 
+        public Action<T> ValueChangeAction;
+
+        public T Value
+        {
+            get 
+            {
+                return value;
+            }
+            set 
+            { 
+                this.value = value;
+                this.ValueChangeAction?.Invoke(value);
+            }
+        }
+
         public BlackboardKey() : base(typeof(T)) {
         }
 
@@ -46,7 +63,7 @@ namespace TheKiwiCoder {
         public override void CopyFrom(BlackboardKey key) {
             if (key.underlyingType == underlyingType) {
                 BlackboardKey<T> other = key as BlackboardKey<T>;
-                this.value = other.value;
+                this.Value = other.Value;
             }
         }
 
@@ -58,5 +75,20 @@ namespace TheKiwiCoder {
             return false;
         }
 
+        public override void Subscribe(BlackboardKey key)
+        {
+            if (key.underlyingType == underlyingType)
+            {
+                BlackboardKey<T> other = key as BlackboardKey<T>;
+                other.ValueChangeAction -= OnSetValue;
+                other.ValueChangeAction += OnSetValue;
+                ValueChangeAction -= this.OnSetValue;
+                ValueChangeAction += this.OnSetValue;
+            }
+        }
+        public void OnSetValue(T value)
+        {
+            this.value = value;
+        }
     }
 }
