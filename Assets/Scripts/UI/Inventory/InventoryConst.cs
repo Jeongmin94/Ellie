@@ -46,6 +46,9 @@ namespace Assets.Scripts.UI.Inventory
         public static Rect StonePieceAreaRect { get; } = new Rect(1460, 714, 35, 35);
         public static Rect StonePieceAreaCountRect { get; } = new Rect(1498, 720, 56, 25);
 
+        // 닫기 버튼
+        public static Rect CloseButtonRect { get; } = new Rect(1632, 194, 64, 62);
+
         #endregion
 
         #region Toggle

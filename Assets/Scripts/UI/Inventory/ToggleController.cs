@@ -33,7 +33,7 @@ namespace Assets.Scripts.UI.Inventory
             toggle.onValueChanged.AddListener(listener);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             toggle.onValueChanged.RemoveAllListeners();
         }

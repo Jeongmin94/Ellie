@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using TMPro;
@@ -10,8 +9,6 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class CategoryToggleController : ToggleController
     {
-        [SerializeField] private GroupType Type => type;
-
         private ToggleChangeHandler toggleChangeCallback;
 
         public string toggleTitle;
@@ -22,7 +19,7 @@ namespace Assets.Scripts.UI.Inventory
         private Color pressedColor;
         private Color normalColor;
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             toggleChangeCallback = null;
         }
@@ -88,6 +85,7 @@ namespace Assets.Scripts.UI.Inventory
 
         public void ActivateToggle(bool isOn)
         {
+            toggle.isOn = isOn;
             toggle.onValueChanged?.Invoke(isOn);
         }
     }

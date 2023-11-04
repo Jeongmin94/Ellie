@@ -52,6 +52,9 @@ namespace Assets.Scripts.UI.Inventory
         // Category Toggle Button
         private CategoryButtonPanel buttonPanel;
 
+        // Close Button
+        private CloseButton closeButton;
+
         [Tooltip("Slot Area Grid")]
         [SerializeField]
         private int row = 3;
@@ -143,6 +146,12 @@ namespace Assets.Scripts.UI.Inventory
 
             var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
             slot.transform.SetParent(descriptionPanel.transform);
+
+            closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
+            SetValues(closeButton.transform, transform, AnchorPresets.MiddleCenter, InventoryConst.CloseButtonRect);
+            closeButton.Subscribe(OnCloseButtonClickAction);
+
+            buttonPanel.ActivateToggle(GroupType.Stone, true);
         }
 
         private void InitButtonPanel()
@@ -191,6 +200,12 @@ namespace Assets.Scripts.UI.Inventory
             var target = changeInfo.IsOn ? transform : outerRim.transform;
             buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
             buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, itemSlots.transform, InventoryConst.EquipSlotAreaRect);
+        }
+
+        private void OnCloseButtonClickAction()
+        {
+            Debug.Log($"OnCloseButtonClickAction");
+            gameObject.SetActive(false);
         }
     }
 }

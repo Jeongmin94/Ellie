@@ -46,7 +46,7 @@ namespace Assets.Scripts.UI.Inventory
             Init();
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             toggleChangeCallback = null;
         }
@@ -122,7 +122,7 @@ namespace Assets.Scripts.UI.Inventory
 
         public void ActivateToggle(GroupType groupType, bool isOn)
         {
-           toggles[(int)groupType].ActivateToggle(isOn);
+            toggles[(int)groupType].ActivateToggle(isOn);
         }
     }
 }
