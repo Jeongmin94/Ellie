@@ -7,7 +7,6 @@ namespace Assets.Scripts.StatusEffects
         StrongRigidity,
         Down,
         Knockback,
-        Airborne,
         KnockedAirborne,
         Stun,
         Confusion,

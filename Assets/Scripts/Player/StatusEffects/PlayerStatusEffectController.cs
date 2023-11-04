@@ -24,15 +24,15 @@ namespace Assets.Scripts.StatusEffects
         }
         public void ApplyStatusEffect(IPlayerStatusEffect effect, StatusEffectInfo info)
         {
-            effect.ApplyStatusEffect(this, info);
+            effect?.ApplyStatusEffect(this, info);
         }
         public void AddStatusEffect(IPlayerStatusEffect effect)
         {
-            effects.Add(effect);
+            effects?.Add(effect);
         }
         public void RemoveStatusEffect(IPlayerStatusEffect effect)
         {
-            effects.Remove(effect);
+            effects?.Remove(effect);
         }
     }
 }

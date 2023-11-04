@@ -38,7 +38,7 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
-            Controller.IncreaseAnimLayerWeight(1, 1f);
+            Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Aiming, 1f);
 
             curTime += Time.deltaTime / Time.timeScale;
             if (curTime >= zoomingTime)
@@ -50,7 +50,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
-                Controller.SetAnimLayerToDefault(1);
+                Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
 
                 if (Controller.isGrounded)
                 {

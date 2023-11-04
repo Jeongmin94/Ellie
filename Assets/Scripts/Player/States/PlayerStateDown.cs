@@ -7,7 +7,7 @@ namespace Assets.Scripts.Player.States
     {
         private float duration;
         private float curTime;
-        private bool temp;
+        private bool isForceAdded;
         private float force;
         public PlayerStateDown(PlayerController controller) : base(controller)
         {
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Player.States
         }
         public override void OnEnterState(StateInfo info)
         {
-            temp = false;
+            isForceAdded = false;
             duration = info.stateDuration;
             force = info.magnitude;
             curTime = 0;
@@ -27,7 +27,7 @@ namespace Assets.Scripts.Player.States
             Controller.canTurn = false;
             Controller.SetTimeScale(1f);
             Controller.TurnOffAimCam();
-            Controller.SetAnimLayerToDefault(1);
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
             Controller.ActivateShootPos(false);
             Controller.isRigid = true;
 
@@ -39,11 +39,11 @@ namespace Assets.Scripts.Player.States
 
         public override void OnFixedUpdateState()
         {
-            if (!temp && 0 != force)
+            if (!isForceAdded && 0 != force)
             {
                 Controller.Rb.velocity = Vector3.zero;
-                Controller.Rb.AddForce(Controller.PlayerObj.up * force, ForceMode.Impulse);
-                temp = true;
+                Controller.Rb.velocity = Controller.PlayerObj.up * force;
+                isForceAdded = true;
             }
         }
 

@@ -1,14 +1,13 @@
-﻿using Assets.Scripts.Player.States;
-using System.Collections;
-using Assets.Scripts.Data.ActionData.Player;
-using UnityEngine;
-using Cinemachine;
-using Assets.Scripts.InteractiveObjects;
+﻿using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Equipments;
-using Assets.Scripts.StatusEffects;
-using Channels.Components;
+using Assets.Scripts.InteractiveObjects;
+using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
+using Channels.Components;
 using Channels.Type;
+using Cinemachine;
+using System.Collections;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -16,7 +15,18 @@ namespace Assets.Scripts.Player
     {
         private const float MOVE_FORCE = 10f;
         private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
-
+        public enum SlopeStat
+        {
+            Flat,
+            Climable,
+            CantClimb
+        }
+        public enum AnimLayer
+        {
+            Base,
+            Aiming,
+            Mining
+        }
         [Header("Player references")]
         [SerializeField] private Transform playerObj;
         [SerializeField] private CapsuleCollider playerCollider;
@@ -273,27 +283,17 @@ namespace Assets.Scripts.Player
         }
         public void MovePlayer(float moveSpeed)
         {
-            // !TODO : 일정 각도 이상으로 못 올라가게 하는 로직 추가, 경사로에 있을 때의 이동 속도 로직 추가
-            //if (CheckSlope()==-1)
-            //{
-            //    //Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
-            //}
-            //else
-            //{
-                
-            //    ClimbStep();
-            //    Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
-            //}
             switch(CheckSlope())
             {
-                case 0:
+                // !TODO : 경사로에서 흘러내리는 문제 수정
+                case SlopeStat.Flat:
                     ClimbStep();
                     Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
                     break;
-                case 1:
+                case SlopeStat.Climable:
                     Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
                     break;
-                case -1:
+                case SlopeStat.CantClimb:
                     break;
             }
         }
@@ -397,18 +397,18 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private int CheckSlope()
+        private SlopeStat CheckSlope()
         {
             // 평지 : 0, 경사로 : 1, 올라갈 수 없는 경사로 : -1
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 if (Mathf.Equals(angle, 0f))
-                    return 0;
+                    return SlopeStat.Flat;
                 if (angle > maxSlopeAngle)
-                    return -1;
+                    return SlopeStat.CantClimb;
                 else
-                    return 1;
+                    return SlopeStat.Climable;
             }
             return 0;
         }
@@ -447,10 +447,10 @@ namespace Assets.Scripts.Player
             Time.timeScale = expectedTimeScale;
             Time.fixedDeltaTime = initialFixedDeltaTime * Time.timeScale;
         }
-        public void IncreaseAnimLayerWeight(int layer, float weight)
+        public void IncreaseAnimLayerWeight(AnimLayer layer, float weight)
         {
             // 애니메이션의 레이어의 Weight를 증가시킵니다. State의 Update에서 호출합니다
-            float curWeight = Anim.GetLayerWeight(layer);
+            float curWeight = Anim.GetLayerWeight((int)layer);
             if (Mathf.Equals(curWeight, weight)) return;
            
             float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
@@ -458,14 +458,14 @@ namespace Assets.Scripts.Player
             {
                 curWeight += AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
             }
-            Anim.SetLayerWeight(layer, curWeight);
+            Anim.SetLayerWeight((int)layer, curWeight);
         }
 
         
 
-        public void SetAnimLayerToDefault(int layer)
+        public void SetAnimLayerToDefault(AnimLayer layer)
         {
-            StartCoroutine(SetAnimToDefaultlayerCoroutine(layer));
+            StartCoroutine(SetAnimToDefaultlayerCoroutine((int)layer));
         }
         private IEnumerator SetAnimToDefaultlayerCoroutine(int layer)
         {
