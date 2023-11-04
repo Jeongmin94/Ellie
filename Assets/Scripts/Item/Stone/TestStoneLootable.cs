@@ -22,7 +22,6 @@ namespace Assets.Scripts.Item.Stone
             if (enemy != null && !collision.gameObject.CompareTag("Player"))
             {
                 Debug.Log("돌 발사");
-                //Publish(GenerateStonePayload(collision.transform));
                 hatchery.Attack(GenerateStonePayload(collision.transform));
             }
         }

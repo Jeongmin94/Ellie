@@ -14,6 +14,8 @@ namespace Assets.Scripts.Centers.Test
     {
         public PlayerStatus playerStatus;
         public int testDamage;
+        public float testEffectDuration;
+        public float testForce;
         public PlayerStatusEffectName statusEffect;
         private TicketMachine ticketMachine;
 
@@ -57,6 +59,8 @@ namespace Assets.Scripts.Centers.Test
                 AttackStartPosition = transform.position,
                 AttackPosition = playerStatus.transform.position,
                 PlayerStatusEffectName = statusEffect,
+                statusEffectduration = testEffectDuration,
+                force = testForce,
                 Damage = testDamage
             };
             Attack(payload);

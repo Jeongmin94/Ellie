@@ -32,7 +32,7 @@ namespace Assets.Scripts.InteractiveObjects
         private TicketMachine ticketMachine;
 
         //체력 4분할
-        public List<int> quateredHP;
+        private List<int> quateredHP;
         private int curHpInterval;
 
         public float regenerationTime = 4f;
