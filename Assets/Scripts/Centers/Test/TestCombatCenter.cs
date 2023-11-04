@@ -22,13 +22,13 @@ namespace Assets.Scripts.Centers.Test
         protected override void Start()
         {
             CheckTicket(player);
-            CheckTicket(attacker.gameObject);
+            //CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
-            foreach(Ore ore in ores)
-            {
-                Debug.Log($"{ore.name} checked");
-                CheckTicket(ore.gameObject);
-            }
+            //foreach(Ore ore in ores)
+            //{
+            //    Debug.Log($"{ore.name} checked");
+            //    CheckTicket(ore.gameObject);
+            //}
         }
     }
 }
