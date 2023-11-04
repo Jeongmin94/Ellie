@@ -50,12 +50,6 @@ namespace Assets.Scripts.Boss.Terrapupa
             weakPoint.collisionAction += OnCollidedCoreByPlayerStone;
         }
 
-        private void Update()
-        {
-            player.Value = target;
-            pos.Value = player.Value.position;
-        }
-
         private void InitStatus()
         {
             behaviourTreeInstance.SetBlackboardValue<Transform>("player", target);

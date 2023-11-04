@@ -16,7 +16,6 @@ public class ConvertTransformToPosition : ActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log(startTransform.Value);
         resultPosition.Value = startTransform.Value.position;
         Debug.Log(resultPosition.Value);
 

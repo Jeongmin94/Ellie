@@ -288,7 +288,7 @@ namespace Assets.Scripts.Boss
 
             boss.isTempted.Value = true;
             boss.isIntake.Value = false;
-            boss.magicStoneTransform.Value = magicStonePayload.TransformValue2;
+            boss.magicStoneTransform.Value = magicStonePayload.TransformValue1;
         }
 
         private void OnBossUnattractedByMagicStone(BossEventPayload magicStonePayload)

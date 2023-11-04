@@ -27,7 +27,7 @@ public class MoveToPosLerp : ActionNode
 
     protected override State OnUpdate()
     {
-        Vector2 targetPos;
+        Vector3 targetPos;
         if(targetTransform.Value == null)
         {
             targetPos = targetPosition.Value;

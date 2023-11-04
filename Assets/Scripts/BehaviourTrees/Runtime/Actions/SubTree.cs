@@ -28,13 +28,17 @@ namespace TheKiwiCoder
                     {
                         //treeInstance.blackboard.ReplaceKey(key.name, key);
                         keyInstance.Subscribe(key);
+                        key.Subscribe(keyInstance);
                         keyInstance.CopyFrom(key);
                     }
                 }
 
                 treeInstance.Bind(context);
 
-                context.btController.RegisterBlackboardData(controllerNames.Value, treeInstance);
+                if(context.btController != null)
+                {
+                    context.btController.RegisterBlackboardData(controllerNames.Value, treeInstance);
+                }
             }
         }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TheKiwiCoder {
@@ -82,13 +83,15 @@ namespace TheKiwiCoder {
                 BlackboardKey<T> other = key as BlackboardKey<T>;
                 other.ValueChangeAction -= OnSetValue;
                 other.ValueChangeAction += OnSetValue;
-                ValueChangeAction -= this.OnSetValue;
-                ValueChangeAction += this.OnSetValue;
             }
         }
-        public void OnSetValue(T value)
+        public void OnSetValue(T newValue)
         {
-            this.value = value;
+            if (!EqualityComparer<T>.Default.Equals(value, newValue))
+            {
+                this.value = newValue;
+                this.ValueChangeAction?.Invoke(newValue);
+            }
         }
     }
 }

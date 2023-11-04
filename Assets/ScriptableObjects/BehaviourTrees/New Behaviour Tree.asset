@@ -31,8 +31,8 @@ MonoBehaviour:
     - rid: 283011045824135335
     - rid: 283011045824135336
     - rid: 283011045824135337
-  viewPosition: {x: 435, y: 170, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: 451, y: 211, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -95,6 +95,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
         duration: 1
     - rid: 283011045824135322
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}

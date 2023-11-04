@@ -35,13 +35,14 @@ MonoBehaviour:
   treeState: 0
   blackboard:
     keys:
+    - rid: 283011090204065915
     - rid: 1401849440881606659
     - rid: 283011090204065825
     - rid: 283011090204065829
     - rid: 283011090204065879
     - rid: 1401849442858696713
-  viewPosition: {x: 1458, y: 422, z: 0}
-  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
+  viewPosition: {x: 1645, y: 465, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -62,13 +63,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
-    - rid: 283011018610442241
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: magicStoneTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
     - rid: 283011018610442306
       type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
       data:
@@ -90,7 +84,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9307183a5de6a904b863e24f6ad555ec
-        position: {x: -2700, y: -45}
+        position: {x: -2700, y: 45}
         blackboard:
           keys: []
         description: 
@@ -117,6 +111,19 @@ MonoBehaviour:
         name: healValue
         typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
+    - rid: 283011090204065915
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: magicStoneTransform
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011090204065918
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -142,7 +149,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f5cbab8ab6d025c44af4cc3c045e2991
-        position: {x: -2460, y: -45}
+        position: {x: -2460, y: 45}
         blackboard:
           keys: []
         description: 
@@ -204,7 +211,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2683ed51ef487bd4c95500ab7d98277e
-        position: {x: -2280, y: -45}
+        position: {x: -2265, y: 45}
         blackboard:
           keys: []
         description: 
@@ -213,13 +220,7 @@ MonoBehaviour:
           key:
             rid: 1401849440881606659
           value:
-            rid: 1401849442858696711
-    - rid: 1401849442858696711
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: 
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 0
+            rid: 283011090204065918
     - rid: 1401849442858696713
       type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -357,7 +358,7 @@ MonoBehaviour:
           defaultValue: {x: 0, y: 0, z: 0}
         transformValue1:
           reference:
-            rid: 283011018610442241
+            rid: 283011090204065915
           defaultValue: {fileID: 0}
         transformValue2:
           reference:
