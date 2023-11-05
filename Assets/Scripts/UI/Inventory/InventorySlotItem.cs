@@ -1,26 +1,12 @@
 using Assets.Scripts.Item;
-using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Item.PopupInven;
-using Assets.Scripts.Utils;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Inventory
 {
-    public class InventorySlotItem : UIBase, IDraggable
+    public class InventorySlotItem : BaseSlotItem
     {
         public static readonly string Path = "Slot/InventorySlotItem";
-
-        public BaseItem SlotItem { get; set; }
-
-        private RectTransform rect;
-        private Image raycastImage;
-
-        private Transform onDragParent;
-        private Transform currentParent;
 
         private void Awake()
         {
@@ -29,7 +15,17 @@ namespace Assets.Scripts.UI.Inventory
 
         protected override void Init()
         {
+            base.Init();
+
+            InitObjects();
+        }
+
+        private void InitObjects()
+        {
             // test
+            // !TODO
+            // 1. 아이템 파싱해서 아이템 클래스 생성
+            // 2. 아이템 추가할 때, 아이템 클래스 정보 받고, inventory를 onDragParent로 등록
             ItemData data = new ItemData();
             data.spriteName = "UI/Item/ItemDefaultRed";
             data.name = "TestItem";
@@ -38,59 +34,26 @@ namespace Assets.Scripts.UI.Inventory
             baseItem.itemData = data;
             baseItem.InitResources();
 
+            itemImage.sprite = baseItem.ItemSprite;
+            itemText.text = $"origin: {baseItem.ItemCount}";
             SlotItem = baseItem;
+
+            // 아이템 슬롯이 추가될 때, inventory를 onDragParent에 추가시켜야 함
             onDragParent = transform.parent;
-
-            Bind();
-            InitObjects();
-            BindEvents();
         }
 
-        private void Bind()
+        public override void SetSlot(Transform parent)
         {
-            rect = GetComponent<RectTransform>();
-            raycastImage = GetComponent<Image>();
-        }
+            isDropped = true;
 
-        private void InitObjects()
-        {
-        }
-
-        private void BindEvents()
-        {
-            gameObject.BindEvent(OnBeginDragHandler, UIEvent.BeginDrag);
-            gameObject.BindEvent(OnDragHandler, UIEvent.Drag);
-            gameObject.BindEvent(OnEndDragHandler, UIEvent.EndDrag);
-        }
-
-        private void OnBeginDragHandler(PointerEventData data)
-        {
-            raycastImage.raycastTarget = false;
-            transform.SetParent(onDragParent);
-        }
-
-        private void OnDragHandler(PointerEventData data)
-        {
-            transform.position = data.position;
-        }
-
-        private void OnEndDragHandler(PointerEventData data)
-        {
-            raycastImage.raycastTarget = true;
-        }
-
-        public void SetSlot(Transform parent)
-        {
-            transform.SetParent(parent);
-
+            slotParent = parent;
+            transform.SetParent(slotParent);
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.StretchAll);
-            rect.sizeDelta = Vector2.one;
-            rect.localPosition = Vector3.zero;
+            ResetRect(rect);
         }
 
-        public BaseItem GetBaseItem()
-        {
-            return SlotItem;
-        }
+        public override BaseItem GetBaseItem() => SlotItem;
+
+        public override bool IsOrigin() => true;
     }
 }

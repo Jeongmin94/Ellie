@@ -19,7 +19,7 @@ namespace Assets.Scripts.UI.Inventory
 
     public struct InventoryEventPayload
     {
-        public InventorySlotItem slotItem;
+        public BaseSlotItem baseItem;
         public int slotIndex;
         public SlotAreaType slotAreaType;
         public GroupType groupType;
@@ -44,10 +44,6 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionImageArea,
         }
 
-        private void Awake()
-        {
-            Init();
-        }
 
         [SerializeField] private InventoryChannel inventoryChannel;
 
@@ -81,6 +77,15 @@ namespace Assets.Scripts.UI.Inventory
         private TicketMachine ticketMachine;
 
         private bool isOpened = false;
+
+        private void Awake()
+        {
+            // !TODO: 페이로드 이벤트로 drag parent 설정해주기
+            // !TODO: 추후에 제거해야 함
+            // drag parent 전달 임시용
+            UIManager.Instance.OnDragParent = transform;
+            Init();
+        }
 
         protected override void Init()
         {
@@ -173,6 +178,8 @@ namespace Assets.Scripts.UI.Inventory
             descText.transform.SetParent(descriptionPanel.transform);
 
             var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
+            // !TODO: description 영역에서 발생하는 이벤트 관리 주체 필요
+            slot.SlotType = SlotAreaType.Description;
             slot.transform.SetParent(descriptionPanel.transform);
 
             closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
@@ -198,8 +205,7 @@ namespace Assets.Scripts.UI.Inventory
 
                 slotArea.InitSlotRect(itemSlots.transform, InventoryConst.SlotAreaRect);
                 slotArea.InitGridLayoutGroup(row, col, padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
-                slotArea.SlotAreaType = SlotAreaType.Item;
-                slotArea.MakeSlots();
+                slotArea.MakeSlots(SlotAreaType.Item);
 
                 buttonPanel.AddSlotArea(SlotAreaType.Item, slotArea);
             }
@@ -216,8 +222,7 @@ namespace Assets.Scripts.UI.Inventory
                 var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
                 slotArea.InitSlotRect(equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
                 slotArea.InitGridLayoutGroup(equipmentRow, equipmentCols[i], padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
-                slotArea.SlotAreaType = SlotAreaType.Equipment;
-                slotArea.MakeSlots();
+                slotArea.MakeSlots(SlotAreaType.Equipment);
 
                 buttonPanel.AddSlotArea(SlotAreaType.Equipment, slotArea);
             }

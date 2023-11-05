@@ -13,7 +13,8 @@ namespace Assets.Scripts.UI.Inventory
     public enum SlotAreaType
     {
         Item,
-        Equipment
+        Equipment,
+        Description
     }
 
     public class InventorySlotArea : UIBase
@@ -99,12 +100,14 @@ namespace Assets.Scripts.UI.Inventory
             this.col = col;
         }
 
-        public void MakeSlots()
+        public void MakeSlots(SlotAreaType type)
         {
+            SlotAreaType = type;
             for (int i = 0; i < row * col; i++)
             {
                 var slot = UIManager.Instance.MakeSubItem<InventorySlot>(rect, UIManager.InventorySlot);
                 slot.Subscribe(OnSlotInventoryAction);
+                slot.SlotType = SlotAreaType;
                 slots.Add(slot);
             }
         }
@@ -125,6 +128,9 @@ namespace Assets.Scripts.UI.Inventory
         private void OnSlotInventoryAction(InventoryEventPayload payload)
         {
             payload.slotAreaType = SlotAreaType;
+            
+            // !TODO: 카피 슬롯에 이미 아이템이 등록되어 있는데, 다시 요청이 오면 위치를 해당 위치로 변경
+            
             slotAreaInventoryAction?.Invoke(payload);
         }
 

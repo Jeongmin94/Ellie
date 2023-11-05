@@ -45,6 +45,8 @@ namespace Assets.Scripts.Managers
 
         private readonly Stack<UIPopup> popupStack = new Stack<UIPopup>();
 
+        public Transform OnDragParent { get; set; }
+
         public GameObject Root
         {
             get
