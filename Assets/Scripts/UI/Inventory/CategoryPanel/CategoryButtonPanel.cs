@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using Assets.Scripts.UI.Framework;
+using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
+using Channels.Type;
+using Data.UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,14 +45,11 @@ namespace Assets.Scripts.UI.Inventory
 
         private readonly IDictionary<SlotAreaType, List<InventorySlotArea>> slotAreas = new Dictionary<SlotAreaType, List<InventorySlotArea>>();
 
+        private Action<InventoryEventPayload> panelInventoryAction;
+
         private void Awake()
         {
             Init();
-        }
-
-        private void OnDestroy()
-        {
-            toggleChangeCallback = null;
         }
 
         protected override void Init()
@@ -106,10 +107,11 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
-        public void AddSlot(SlotAreaType slotAreaType, InventorySlotArea area)
+        public void AddSlotArea(SlotAreaType slotAreaType, InventorySlotArea area)
         {
             if (slotAreas.TryGetValue(slotAreaType, out var slots))
             {
+                area.Subscribe(OnSlotAreaInventoryAction);
                 slots.Add(area);
             }
         }
@@ -124,5 +126,38 @@ namespace Assets.Scripts.UI.Inventory
         {
             toggles[(int)groupType].ActivateToggle(isOn);
         }
+
+        #region InventoryChannel
+
+        public void Subscribe(Action<InventoryEventPayload> listener)
+        {
+            panelInventoryAction -= listener;
+            panelInventoryAction += listener;
+        }
+
+        private void OnDestroy()
+        {
+            toggleChangeCallback = null;
+            panelInventoryAction = null;
+        }
+
+        private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
+        {
+            payload.groupType = type;
+            panelInventoryAction?.Invoke(payload);
+        }
+
+        private void AddItem(SlotAreaType slotAreaType, ChannelType groupType, BaseItem item)
+        {
+            // 아이템을 추가함
+            // 추가할 때에는 아이템 이름, 스프라이트, 수량만 있으면 됨
+            // InventorySlot에 아이템 정보를 추가해야 함
+            if (slotAreas.TryGetValue(slotAreaType, out var area))
+            {
+                area[(int)groupType].AddItem(item);
+            }
+        }
+
+        #endregion
     }
 }

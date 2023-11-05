@@ -4,10 +4,9 @@ using UnityEngine;
 
 namespace Assets.Scripts.Item
 {
-    public class BaseItem : MonoBehaviour
+    public class BaseItem
     {
         public ItemData itemData;
-        public string ItemName => itemData.name;
 
         public int ItemCount
         {
@@ -15,13 +14,14 @@ namespace Assets.Scripts.Item
             set => itemCount = value;
         }
 
-        private Sprite itemSprite;
-        private string spriteName;
+        public Sprite ItemSprite { get; private set; }
+        public string ItemName => itemData.name;
+
         private int itemCount = 0;
 
-        protected virtual void InitResources()
+        public virtual void InitResources()
         {
-            itemSprite = ResourceManager.Instance.LoadSprite(itemData.spriteName);
+            ItemSprite = ResourceManager.Instance.LoadSprite(itemData.spriteName);
         }
     }
 }

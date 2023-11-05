@@ -13,6 +13,7 @@ namespace Channels.UI
     {
         AddSlotItem,
         RemoveSlotItem,
+        ToggleInventory,
     }
 
     public class UIPayload : IBaseEventPayload
@@ -29,11 +30,16 @@ namespace Channels.UI
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            Debug.Log($"I'm UIChannel");
+            if (payload is not UIPayload uiPayload)
+                return;
 
-            var uiPayload = payload as UIPayload;
             if (uiPayload.uiType == UIType.Notify)
+            {
                 Publish(payload);
+                return;
+            }
+
+            // do something
         }
     }
 }

@@ -466,7 +466,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4105089720850009322}
   m_Layer: 5
-  m_Name: ExternPoint
+  m_Name: OuterRim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1120,6 +1120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0b8cde979ec74240862048972af12d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inventoryChannel: {fileID: 0}
   row: 3
   col: 8
   padding: 1

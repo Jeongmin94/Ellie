@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
@@ -23,9 +25,12 @@ namespace Assets.Scripts.UI.Inventory
 
         private RectTransform rect;
         private GridLayoutGroup grid;
-
         private int row;
         private int col;
+
+        private Action<InventoryEventPayload> slotAreaInventoryAction;
+
+        private readonly List<InventorySlot> slots = new List<InventorySlot>();
 
         private void Awake()
         {
@@ -99,7 +104,34 @@ namespace Assets.Scripts.UI.Inventory
             for (int i = 0; i < row * col; i++)
             {
                 var slot = UIManager.Instance.MakeSubItem<InventorySlot>(rect, UIManager.InventorySlot);
+                slot.Subscribe(OnSlotInventoryAction);
+                slots.Add(slot);
             }
         }
+
+        private void OnDestroy()
+        {
+            slotAreaInventoryAction = null;
+        }
+
+        #region InventoryChannel
+
+        public void Subscribe(Action<InventoryEventPayload> listener)
+        {
+            slotAreaInventoryAction -= listener;
+            slotAreaInventoryAction += listener;
+        }
+
+        private void OnSlotInventoryAction(InventoryEventPayload payload)
+        {
+            payload.slotAreaType = SlotAreaType;
+            slotAreaInventoryAction?.Invoke(payload);
+        }
+
+        public void AddItem(BaseItem item)
+        {
+        }
+
+        #endregion
     }
 }

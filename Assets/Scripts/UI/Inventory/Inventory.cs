@@ -1,8 +1,13 @@
 using System;
+using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
+using Data.UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
@@ -11,6 +16,14 @@ using Vector3 = UnityEngine.Vector3;
 namespace Assets.Scripts.UI.Inventory
 {
     public delegate void ToggleChangeHandler(ToggleChangeInfo changeInfo);
+
+    public struct InventoryEventPayload
+    {
+        public InventorySlotItem slotItem;
+        public int slotIndex;
+        public SlotAreaType slotAreaType;
+        public GroupType groupType;
+    }
 
     public class Inventory : UIPopup
     {
@@ -35,6 +48,8 @@ namespace Assets.Scripts.UI.Inventory
         {
             Init();
         }
+
+        [SerializeField] private InventoryChannel inventoryChannel;
 
         // GameObject
         private GameObject descriptionPanel;
@@ -63,6 +78,9 @@ namespace Assets.Scripts.UI.Inventory
         [SerializeField] private int padding = 1;
         [SerializeField] private int spacing = 2;
 
+        private TicketMachine ticketMachine;
+
+        private bool isOpened = false;
 
         protected override void Init()
         {
@@ -70,6 +88,7 @@ namespace Assets.Scripts.UI.Inventory
 
             Bind();
             InitObjects();
+            InitTicketMachine();
         }
 
         private void Bind()
@@ -89,6 +108,7 @@ namespace Assets.Scripts.UI.Inventory
             descImageArea = GetImage((int)Images.DescriptionImageArea);
 
             buttonPanel = categoryButtonPanel.GetOrAddComponent<CategoryButtonPanel>();
+            buttonPanel.Subscribe(OnPanelInventoryAction);
         }
 
         private void InitObjects()
@@ -135,6 +155,14 @@ namespace Assets.Scripts.UI.Inventory
             stoneArea.transform.SetParent(goldRect.transform);
         }
 
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
+
+            TicketManager.Instance.Ticket(ticketMachine);
+        }
 
         private void Start()
         {
@@ -173,7 +201,7 @@ namespace Assets.Scripts.UI.Inventory
                 slotArea.SlotAreaType = SlotAreaType.Item;
                 slotArea.MakeSlots();
 
-                buttonPanel.AddSlot(SlotAreaType.Item, slotArea);
+                buttonPanel.AddSlotArea(SlotAreaType.Item, slotArea);
             }
         }
 
@@ -191,21 +219,49 @@ namespace Assets.Scripts.UI.Inventory
                 slotArea.SlotAreaType = SlotAreaType.Equipment;
                 slotArea.MakeSlots();
 
-                buttonPanel.AddSlot(SlotAreaType.Equipment, slotArea);
+                buttonPanel.AddSlotArea(SlotAreaType.Equipment, slotArea);
             }
         }
 
         private void ToggleChangeCallback(ToggleChangeInfo changeInfo)
         {
             var target = changeInfo.IsOn ? transform : outerRim.transform;
-            buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
-            buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, itemSlots.transform, InventoryConst.EquipSlotAreaRect);
+            if (changeInfo.IsOn)
+            {
+                buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
+                buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
+            }
+            else
+            {
+                buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
+                buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
+            }
         }
 
         private void OnCloseButtonClickAction()
         {
-            Debug.Log($"OnCloseButtonClickAction");
+            isOpened = false;
             gameObject.SetActive(false);
+        }
+
+        private void OnNotifyAction(IBaseEventPayload payload)
+        {
+            if (payload is not UIPayload uiPayload)
+                return;
+
+            if (isOpened)
+            {
+                OnCloseButtonClickAction();
+            }
+            else
+            {
+                isOpened = true;
+                gameObject.SetActive(true);
+            }
+        }
+
+        private void OnPanelInventoryAction(InventoryEventPayload payload)
+        {
         }
     }
 }
