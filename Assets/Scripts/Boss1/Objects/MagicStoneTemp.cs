@@ -1,7 +1,7 @@
-using Assets.Scripts.Boss;
+using Channels.Boss;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss.Objects
+namespace Boss.Objects
 {
     public class MagicStoneTemp : MonoBehaviour
     {

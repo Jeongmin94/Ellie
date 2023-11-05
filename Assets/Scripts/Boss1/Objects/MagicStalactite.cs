@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using Channels.Boss;
+using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss.Objects
+namespace Boss.Objects
 {
     public class MagicStalactite : MonoBehaviour
     {

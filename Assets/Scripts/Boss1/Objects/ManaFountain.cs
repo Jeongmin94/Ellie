@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Boss.Terrapupa;
-using System.Collections;
+﻿using Channels.Boss;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss.Objects
-{ 
+namespace Boss.Objects
+{
     public class ManaFountain : MonoBehaviour
     {
         public TerrapupaAttackType banBossAttackType;

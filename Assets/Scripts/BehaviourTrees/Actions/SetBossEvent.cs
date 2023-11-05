@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
-using Assets.Scripts.Boss;
-using Assets.Scripts.Boss.Terrapupa;
+using Channels.Boss;
 
 [System.Serializable]
 public class SetBossEvent : ActionNode

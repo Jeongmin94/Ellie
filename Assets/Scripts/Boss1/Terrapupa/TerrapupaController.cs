@@ -2,17 +2,8 @@
 using TheKiwiCoder;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss.Terrapupa
+namespace Boss.Terrapupa
 {
-    public enum TerrapupaAttackType
-    {
-        None,
-        ThrowStone,
-        EarthQuake,
-        Roll,
-        LowAttack,
-    }
-
     public class TerrapupaController : BehaviourTreeController
     {
         [SerializeField] private Transform target;

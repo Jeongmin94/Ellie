@@ -1,13 +1,14 @@
-﻿using Assets.Scripts.Boss.Objects;
-using Assets.Scripts.Boss.Terrapupa;
+﻿using Boss.Objects;
+using Boss.Terrapupa;
 using Assets.Scripts.Player;
+using Channels.Boss;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss
+namespace Centers.Boss
 {
-    public class Boss1GameCenter : MonoBehaviour
+    public class TerrapupaCenter : BaseCenter
     {
         public GameObject playerStoneTemp;
         public GameObject magicStalactiteTemp;
@@ -24,8 +25,10 @@ namespace Assets.Scripts.Boss
         [SerializeField] private PlayerController player;
         [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
-        private void Start()
+        protected override void Start()
         {
+            base.Start();
+
             SubscribeEvents();
             SpawnStalactites();
         }
