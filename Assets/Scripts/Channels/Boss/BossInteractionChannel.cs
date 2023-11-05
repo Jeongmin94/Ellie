@@ -47,7 +47,9 @@ namespace Channels.Boss
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            
+            BossInteractionPayload bossPayload = payload as BossInteractionPayload;
+
+            Publish(bossPayload);
         }
     }
 }

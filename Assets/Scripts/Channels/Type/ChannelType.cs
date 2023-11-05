@@ -5,6 +5,7 @@ namespace Channels.Type
         Combat,
         UI,
         Stone,
-        
+        BossInteraction,
+        Terrapupa,
     }
 }

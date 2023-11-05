@@ -70,11 +70,12 @@ MonoBehaviour:
     - rid: 1401849419498258458
     - rid: 1401849440881606659
     - rid: 1401849447854899215
+    - rid: 1683426094593605666
     - rid: 283011090204065792
     - rid: 283011090204065793
     - rid: 283011090204065794
-  viewPosition: {x: 2734.4, y: 320, z: 0}
-  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  viewPosition: {x: 1255.2, y: 188.8, z: 0}
+  viewScale: {x: 0.25, y: 0.25, z: 1}
   references:
     version: 2
     RefIds:
@@ -669,6 +670,12 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 1
+    - rid: 1683426094593605666
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: checkInit
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
     - rid: 8619125030485229572
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

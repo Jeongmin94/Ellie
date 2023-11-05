@@ -1,21 +1,37 @@
 using Assets.Scripts.Item;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace Boss.Terrapupa
 {
-	public class TerrapupaStone : MonoBehaviour
+	public class TerrapupaStone : Poolable
 	{
+		private TicketMachine ticketMachine;
+
 		public float movementSpeed = 7.0f;
 
-		private void OnCollisionEnter(Collision collision)
+        private void Awake()
+        {
+			SetTicketMachine();
+        }
+        private void SetTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Terrapupa, ChannelType.BossInteraction, ChannelType.Combat);
+        }
+
+        private void OnCollisionEnter(Collision collision)
 		{
 			if (collision.gameObject.CompareTag("Wall"))
 			{
 				Debug.Log($"{collision.collider.name} Ãæµ¹");
 
-				Destroy(gameObject);
+				PoolManager.Instance.Push(this);
 			}
 		}
 

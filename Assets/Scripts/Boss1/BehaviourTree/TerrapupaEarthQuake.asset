@@ -70,8 +70,8 @@ MonoBehaviour:
     - rid: 283011090204065855
     - rid: 283011090204065856
     - rid: 283011090204065847
-  viewPosition: {x: 1562, y: 100, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 1554.4, y: 547.2, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -267,6 +267,10 @@ MonoBehaviour:
           defaultValue:
             serializedVersion: 2
             m_Bits: 4
+        tag:
+          reference:
+            rid: -2
+          defaultValue: Player
         radius:
           reference:
             rid: 283011090204065856
@@ -282,7 +286,7 @@ MonoBehaviour:
         isCheckRootTransform:
           reference:
             rid: -2
-          defaultValue: 1
+          defaultValue: 0
     - rid: 1401849418967941121
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -479,6 +483,10 @@ MonoBehaviour:
           defaultValue:
             serializedVersion: 2
             m_Bits: 512
+        tag:
+          reference:
+            rid: -2
+          defaultValue: 
         radius:
           reference:
             rid: 283011090204065856
@@ -806,7 +814,7 @@ MonoBehaviour:
         checkTimeValue:
           reference:
             rid: -2
-          defaultValue: 0.44
+          defaultValue: 0.4
     - rid: 8619125046743924770
       type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

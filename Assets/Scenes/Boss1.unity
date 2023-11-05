@@ -1643,7 +1643,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh89840
+  m_Name: pb_Mesh44014
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1832,6 +1832,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
   player: {fileID: 2027803452}
+  tempCenter: {fileID: 1778781754}
   attacker: {fileID: 0}
   hatchery: {fileID: 670877507}
   ores:
@@ -1967,6 +1968,10 @@ PrefabInstance:
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
       value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4287311989058363499, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
@@ -2104,7 +2109,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh89738
+  m_Name: pb_Mesh43936
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2613,6 +2618,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a5598f75812ff4f8ae92fa69fc2b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  channelTypeSo: {fileID: 11400000, guid: 72f1872bf84f41c40be44ab799f0fe4d, type: 2}
   playerStoneTemp: {fileID: 2083331079}
   magicStalactiteTemp: {fileID: 9091874407811079102, guid: b611ffeca4c38744d998284b8be3f5e6, type: 3}
   magicStoneTemp: {fileID: 3306211085163586957, guid: 362e3a72be507ce45b18890a63fb971b, type: 3}

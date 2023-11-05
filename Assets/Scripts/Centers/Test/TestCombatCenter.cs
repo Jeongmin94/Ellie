@@ -9,6 +9,7 @@ namespace Assets.Scripts.Centers.Test
     public class TestCombatCenter : BaseCenter
     {
         public GameObject player;
+        public GameObject tempCenter;
         public TestAttacker attacker;
         public StoneHatchery hatchery;
         public Ore[] ores;
@@ -22,6 +23,7 @@ namespace Assets.Scripts.Centers.Test
         protected override void Start()
         {
             CheckTicket(player);
+            CheckTicket(tempCenter);
             //CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
             //foreach(Ore ore in ores)

@@ -100,15 +100,13 @@ namespace Channels.Boss
         }
     }
 
-
-
     public class TerrapupaChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            BossEventPayload bossPayload = payload as BossEventPayload;
+            TerrapupaPayload terrapupaPayload = payload as TerrapupaPayload;
 
-            Publish(bossPayload);
+            Publish(terrapupaPayload);
         }
     }
 }

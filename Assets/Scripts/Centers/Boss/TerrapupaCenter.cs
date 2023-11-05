@@ -5,6 +5,10 @@ using Channels.Boss;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.Managers;
+using Channels.Components;
+using Assets.Scripts.Utils;
+using Channels.Type;
 
 namespace Centers.Boss
 {
@@ -13,6 +17,8 @@ namespace Centers.Boss
         public GameObject playerStoneTemp;
         public GameObject magicStalactiteTemp;
         public GameObject magicStoneTemp;
+
+        private TicketMachine ticketMachine;
 
         private MagicStoneTemp magicStone;
 
@@ -25,10 +31,9 @@ namespace Centers.Boss
         [SerializeField] private PlayerController player;
         [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
-        protected override void Start()
+        private void Awake()
         {
-            base.Start();
-
+            SetTicketMachine();
             SubscribeEvents();
             SpawnStalactites();
         }
@@ -49,6 +54,15 @@ namespace Centers.Boss
 
                 magicStone = null;
             }
+        }
+
+        private void SetTicketMachine()
+        {
+            // ticket 설정
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+
+            // 기본 Ticket 추가
+            ticketMachine.AddTickets(ChannelType.Combat);
         }
 
         private void SubscribeEvents()
@@ -110,10 +124,10 @@ namespace Centers.Boss
 
             BossEventPayload posPayload = payload as BossEventPayload;
 
-            GameObject bossStone = Instantiate(
-                boss.Stone.gameObject, boss.Stone.position, Quaternion.identity);
-            bossStone.GetComponent<Rigidbody>().isKinematic = false;
-            bossStone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue1);
+            Poolable stone = PoolManager.Instance.Pop(boss.Stone.gameObject, transform);
+            stone.transform.position = boss.Stone.position;
+            stone.GetComponent<Rigidbody>().isKinematic = false;
+            stone.GetComponent<TerrapupaStone>().MoveToTarget(posPayload.TransformValue1);
 
             boss.Stone.gameObject.SetActive(false);
         }
@@ -222,20 +236,23 @@ namespace Centers.Boss
             Debug.Log(playerTransform);
             Debug.Log(manaTransform);
 
-            float jumpCheckValue = 0.5f;
+            float jumpCheckValue = 0.3f;
 
             if (playerTransform != null)
             {
                 // 플레이어 아래 광선을 쏴서 점프 체크
                 RaycastHit hit;
-                bool isJumping = !Physics.Raycast(playerTransform.position, -Vector3.up, out hit, jumpCheckValue);
 
                 LayerMask groundLayer = LayerMask.GetMask("Ground");
-                isJumping = !Physics.Raycast(playerTransform.position, -Vector3.up, out hit, jumpCheckValue, groundLayer);
-
-                if (!isJumping)
+                bool isJumping = !Physics.Raycast(playerTransform.position, -Vector3.up, out hit, jumpCheckValue, groundLayer);
+                
+                Debug.Log($"Raycast distance: {hit.distance}");
+                if (isJumping)
                 {
                     Debug.Log($"플레이어 피해 {attack} 입음");
+                    float upPower = 10.0f;
+                    Vector3 forceDirection = (Vector3.up * upPower);
+                    playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.Impulse);
                 }
             }
             if (manaTransform != null)
