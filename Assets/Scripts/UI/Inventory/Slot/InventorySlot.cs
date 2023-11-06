@@ -76,6 +76,9 @@ namespace Assets.Scripts.UI.Inventory
             if (SlotType == SlotAreaType.Description)
                 return;
 
+            if (SlotItemData != null)
+                return;
+
             var droppedItem = data.pointerDrag;
             var baseSlotItem = droppedItem.GetComponent<BaseSlotItem>();
             if (baseSlotItem == null)
