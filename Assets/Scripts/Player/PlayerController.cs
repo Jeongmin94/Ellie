@@ -164,10 +164,12 @@ namespace Assets.Scripts.Player
             InitTicketMachine();
             //stateMachine.CurrentState.
         }
+
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
+
         }
 
         private void Start()

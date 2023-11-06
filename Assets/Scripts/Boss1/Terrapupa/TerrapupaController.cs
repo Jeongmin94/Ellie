@@ -14,6 +14,10 @@ namespace Boss.Terrapupa
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
 
+        private TicketMachine ticketMachine;
+
+        public TerrapupaRootData terrapupaData;
+
         public Transform Target
         {
             get { return target; }
@@ -46,10 +50,17 @@ namespace Boss.Terrapupa
 
         public BlackboardKey<Vector3> pos;
 
-        private void Start()
+        private void Awake()
         {
+            InitTicketMachine();
             InitStatus();
-            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+            SubscribeEvent();
+        }
+
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
         }
 
         private void InitStatus()
@@ -67,8 +78,11 @@ namespace Boss.Terrapupa
             isTempted = behaviourTreeInstance.FindBlackboardKey<bool>("isTempted");
             isIntake = behaviourTreeInstance.FindBlackboardKey<bool>("isIntake");
             isStuned = behaviourTreeInstance.FindBlackboardKey<bool>("isStuned");
+        }
 
-            pos = behaviourTreeInstance.FindBlackboardKey<Vector3>("pos");
+        private void SubscribeEvent()
+        {
+            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
 
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
