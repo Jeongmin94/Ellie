@@ -46,7 +46,7 @@ public class MoveToPosLerp : ActionNode
 
         context.transform.position = nextPosition;
 
-        return State.Running;
+        return State.Success;
     }
 
 }
