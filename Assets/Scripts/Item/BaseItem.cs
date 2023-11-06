@@ -21,7 +21,7 @@ namespace Assets.Scripts.Item
 
         public virtual void InitResources()
         {
-            ItemSprite = ResourceManager.Instance.LoadSprite(itemData.spriteName);
+            ItemSprite = ResourceManager.Instance.LoadSprite(itemData.imageName);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace Assets.Scripts.UI.Inventory
             // 1. 아이템 파싱해서 아이템 클래스 생성
             // 2. 아이템 추가할 때, 아이템 클래스 정보 받고, inventory를 onDragParent로 등록
             ItemData data = new ItemData();
-            data.spriteName = "UI/Item/ItemDefaultRed";
+            data.imageName = "UI/Item/ItemDefaultRed";
             data.name = "TestItem";
 
             BaseItem baseItem = new BaseItem();
