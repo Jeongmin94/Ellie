@@ -23,7 +23,11 @@ namespace Assets.Scripts.UI.Inventory
         public override void SetItem(BaseItem baseItem)
         {
             SlotItem = baseItem;
-            slotItemPosition.SetItem(SlotItem);
+            if (slotItemPosition)
+            {
+                slotItemPosition.SetItem(SlotItem);
+            }
+
             itemImage.sprite = SlotItem.ItemSprite;
             itemText.text = $"copy: {SlotItem.ItemCount}";
         }

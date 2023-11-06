@@ -57,6 +57,7 @@ namespace Assets.Scripts.UI.Inventory
         private void InitObjects()
         {
             SlotItemPosition.slot = this;
+            SlotItem = null;
 
             rect = GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);

@@ -294,6 +294,7 @@ namespace Assets.Scripts.UI.Inventory
                 case InventoryEventType.MoveItem:
                 {
                     payload.baseItem.SetSlot(payload.slot.SlotItemPosition);
+                    payload.baseItem.SetItem(payload.baseItem.SlotItem);
                 }
                     break;
                 case InventoryEventType.CopyItem:
