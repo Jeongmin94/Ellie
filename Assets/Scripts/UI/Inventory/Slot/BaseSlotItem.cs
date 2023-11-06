@@ -1,6 +1,6 @@
-using System.Collections.Generic;
 using Assets.Scripts.Item;
 using Assets.Scripts.UI.Framework;
+using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
 using TMPro;
@@ -22,23 +22,25 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
-        public BaseItem SlotItem { get; set; }
+        public BaseItem SlotItem { get; protected set; }
 
         private Image raycastImage;
-        protected RectTransform rect;
+        private RectTransform rect;
 
         // Item
         protected Image itemImage;
         protected TextMeshProUGUI itemText;
 
         protected Transform onDragParent;
-        protected Transform slotParent;
-        protected bool isDropped;
+        protected SlotItemPosition slotItemPosition;
+        private bool isDropped;
 
-        public void InitResource(BaseItem baseItem)
+        public virtual void SetItem(BaseItem baseItem)
         {
             SlotItem = baseItem;
-            SlotItem.InitResources();
+            slotItemPosition.SetItem(SlotItem);
+            itemImage.sprite = SlotItem.ItemSprite;
+            itemText.text = SlotItem.ItemCount.ToString();
         }
 
         protected override void Init()
@@ -64,6 +66,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private void InitObjects()
         {
+            slotItemPosition = null;
         }
 
         private void BindEvents()
@@ -76,6 +79,7 @@ namespace Assets.Scripts.UI.Inventory
         private void OnBeginDragHandler(PointerEventData data)
         {
             raycastImage.raycastTarget = false;
+
             transform.SetParent(onDragParent);
             isDropped = false;
         }
@@ -91,22 +95,35 @@ namespace Assets.Scripts.UI.Inventory
 
             if (!isDropped)
             {
-                transform.SetParent(slotParent);
+                transform.SetParent(slotItemPosition.transform);
                 ResetRect(rect);
             }
 
             isDropped = false;
         }
 
-        protected void ResetRect(RectTransform rectTransform)
+        private void ResetRect(RectTransform rectTransform)
         {
             rectTransform.sizeDelta = Vector2.one;
             rectTransform.localPosition = Vector3.zero;
         }
 
-        public abstract BaseItem GetBaseItem();
+        public BaseItem GetBaseItem() => SlotItem;
 
-        public abstract void SetSlot(Transform parent);
+        public void SetSlot(SlotItemPosition parent)
+        {
+            isDropped = true;
+
+            if (slotItemPosition != null)
+            {
+                slotItemPosition.ClearItem();
+            }
+
+            slotItemPosition = parent;
+            transform.SetParent(slotItemPosition.transform);
+            AnchorPresets.SetAnchorPreset(rect, AnchorPresets.StretchAll);
+            ResetRect(rect);
+        }
 
         public abstract bool IsOrigin();
 

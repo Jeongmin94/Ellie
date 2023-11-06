@@ -14,6 +14,8 @@ namespace Assets.Scripts.Item
             set => itemCount = value;
         }
 
+        public int ItemIndex => itemData.index;
+
         public Sprite ItemSprite { get; private set; }
         public string ItemName => itemData.name;
 

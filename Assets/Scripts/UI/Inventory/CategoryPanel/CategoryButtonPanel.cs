@@ -127,8 +127,6 @@ namespace Assets.Scripts.UI.Inventory
             toggles[(int)groupType].ActivateToggle(isOn);
         }
 
-        #region InventoryChannel
-
         public void Subscribe(Action<InventoryEventPayload> listener)
         {
             panelInventoryAction -= listener;
@@ -140,6 +138,8 @@ namespace Assets.Scripts.UI.Inventory
             toggleChangeCallback = null;
             panelInventoryAction = null;
         }
+
+        #region InventoryEvent
 
         private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
         {

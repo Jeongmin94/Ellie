@@ -42,18 +42,6 @@ namespace Assets.Scripts.UI.Inventory
             onDragParent = transform.parent;
         }
 
-        public override void SetSlot(Transform parent)
-        {
-            isDropped = true;
-
-            slotParent = parent;
-            transform.SetParent(slotParent);
-            AnchorPresets.SetAnchorPreset(rect, AnchorPresets.StretchAll);
-            ResetRect(rect);
-        }
-
-        public override BaseItem GetBaseItem() => SlotItem;
-
         public override bool IsOrigin() => true;
     }
 }

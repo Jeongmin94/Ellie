@@ -1,6 +1,5 @@
 using System;
 using Assets.Scripts.Item;
-using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
@@ -19,31 +18,20 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
-        private enum Texts
-        {
-            ItemCount
-        }
-
         private readonly int fontSize = 28;
         private readonly float lineHeight = 25.0f;
 
-        // !TODO: 스크립터블 오브젝트 아이템으로 현재 슬롯에 위치한 아이템 확인하기
-        // 슬롯에 필요한 것들
-        //  - 아이템 개수
-        //  - 아이템 이미지
-        //  - 이동하는 것은 InventorySlotItem
-        public InventorySlotItem SlotItem { get; set; }
         public int Index { get; set; }
+        public BaseItem SlotItem { get; set; }
         public SlotAreaType SlotType { get; set; }
+        public SlotItemPosition SlotItemPosition { get; private set; }
 
         private RectTransform rect;
+
+        // !TODO: 필요 없음. 삭제해도 됨(인벤토리 기본 구현 완료 후 삭제하기)
         private Image itemImage;
-        private TextMeshProUGUI itemCount;
-        private Sprite defaultSprite;
-        private RectTransform itemPosition;
 
         private Action<InventoryEventPayload> slotInventoryAction;
-
 
         private void Awake()
         {
@@ -59,29 +47,29 @@ namespace Assets.Scripts.UI.Inventory
         private void Bind()
         {
             Bind<Image>(typeof(Images));
-            Bind<TextMeshProUGUI>(typeof(Texts));
 
             itemImage = GetImage((int)Images.ItemImage);
-            itemCount = GetText((int)Texts.ItemCount);
-            itemPosition = itemImage.GetComponent<RectTransform>();
+            SlotItemPosition = itemImage.gameObject.GetOrAddComponent<SlotItemPosition>();
 
             gameObject.BindEvent(OnDropHandler, UIEvent.Drop);
         }
 
         private void InitObjects()
         {
+            SlotItemPosition.slot = this;
+
             rect = GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
             rect.sizeDelta = InventoryConst.SlotRect.GetSize();
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
 
-            itemCount.lineSpacing = lineHeight;
-            itemCount.fontSize = fontSize;
-            itemCount.color = Color.white;
-            itemCount.alignment = TextAlignmentOptions.MidlineRight;
-            itemCount.text = string.Empty;
-
-            defaultSprite = itemImage.sprite;
+            // itemCount.lineSpacing = lineHeight;
+            // itemCount.fontSize = fontSize;
+            // itemCount.color = Color.white;
+            // itemCount.alignment = TextAlignmentOptions.MidlineRight;
+            // itemCount.text = string.Empty;
+            //
+            // defaultSprite = itemImage.sprite;
         }
 
         // !TODO: 스위칭 전용 슬롯 추가 필요
@@ -93,6 +81,7 @@ namespace Assets.Scripts.UI.Inventory
         // 아이템 정보, 슬롯 인덱스
         private void OnDropHandler(PointerEventData data)
         {
+            // Description은 읽기 전용
             if (SlotType == SlotAreaType.Description)
                 return;
 
@@ -104,44 +93,35 @@ namespace Assets.Scripts.UI.Inventory
             var payload = new InventoryEventPayload
             {
                 baseItem = baseSlotItem,
-                slotIndex = Index
+                slot = this,
             };
 
-            Debug.Log($"{baseSlotItem.name} - isOrigin: {baseSlotItem.IsOrigin()}");
-
-            // 장착 슬롯, 아이템 슬롯 구분 필요
-            // origin item
+            // origin items
             if (baseSlotItem.IsOrigin())
             {
+                // copy
                 if (SlotType == SlotAreaType.Equipment)
                 {
-                    // copy
-                    // !TODO: 카피본 만들 때 inventory를 drag parent 등록
-                    // !TODO: 카피본 만드는 이벤트를 Inventory로 전달해서 생성할 때 dragParent 등록시켜주기
-                    // !TODO: 카피본 만들 때, 다른 슬롯에 등록되어 있는 아이템의 경우 위치만 옮겨줘야 함
-                    Debug.Log($"copy 발생");
-                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(transform, InventorySlotCopyItem.Path);
-                    copy.SetCopyItem(baseSlotItem.SlotItem);
-                    copy.SetOnDragParent(UIManager.Instance.OnDragParent);
-                    copy.SetSlot(itemPosition);
+                    payload.eventType = InventoryEventType.CopyItem;
                 }
                 else
                 {
                     // move
-                    baseSlotItem.SetSlot(itemPosition);
+                    payload.eventType = InventoryEventType.MoveItem;
                 }
             }
-            // copy item
+            // copy items
             else
             {
                 if (SlotType == SlotAreaType.Equipment)
                 {
                     // move
-                    baseSlotItem.SetSlot(itemPosition);
+                    payload.eventType = InventoryEventType.MoveItem;
                 }
                 else
                 {
                     // do nothing
+                    return;
                 }
             }
 

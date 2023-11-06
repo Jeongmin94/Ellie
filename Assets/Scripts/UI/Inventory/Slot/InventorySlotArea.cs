@@ -21,8 +21,7 @@ namespace Assets.Scripts.UI.Inventory
     {
         public static readonly string Path = "Slot/InventorySlotArea";
 
-        public RectTransform SlotRect => rect;
-        public SlotAreaType SlotAreaType { get; set; } = SlotAreaType.Item;
+        private SlotAreaType SlotAreaType { get; set; } = SlotAreaType.Item;
 
         private RectTransform rect;
         private GridLayoutGroup grid;
@@ -127,10 +126,26 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotInventoryAction(InventoryEventPayload payload)
         {
-            payload.slotAreaType = SlotAreaType;
-            
             // !TODO: 카피 슬롯에 이미 아이템이 등록되어 있는데, 다시 요청이 오면 위치를 해당 위치로 변경
-            
+            if (payload.eventType == InventoryEventType.CopyItem && SlotAreaType == SlotAreaType.Equipment)
+            {
+                var dup = slots.Find(s =>
+                {
+                    if (s.SlotItem != null && s.SlotItem.ItemIndex == payload.baseItem.SlotItem.ItemIndex)
+                        return true;
+                    return false;
+                });
+
+                if (dup != null)
+                {
+                    Debug.Log($"이미 카피됨: {dup.name}, {dup.SlotItem.ItemName} - payload: {payload.baseItem.SlotItem.ItemName}");
+                    return;
+                }
+
+                Debug.Log($"카피 가능: {payload.baseItem.SlotItem.ItemName}");
+            }
+
+            payload.slotAreaType = SlotAreaType;
             slotAreaInventoryAction?.Invoke(payload);
         }
 

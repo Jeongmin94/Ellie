@@ -17,12 +17,19 @@ namespace Assets.Scripts.UI.Inventory
 {
     public delegate void ToggleChangeHandler(ToggleChangeInfo changeInfo);
 
+    public enum InventoryEventType
+    {
+        MoveItem,
+        CopyItem
+    }
+
     public struct InventoryEventPayload
     {
-        public BaseSlotItem baseItem;
-        public int slotIndex;
-        public SlotAreaType slotAreaType;
-        public GroupType groupType;
+        public InventoryEventType eventType;
+        public SlotAreaType slotAreaType; // 슬롯 타입: Item, Equipment
+        public GroupType groupType;       // 아이템 타입: Consumption, Stone, Etc
+        public BaseSlotItem baseItem;     // 슬롯 아이템 정보
+        public InventorySlot slot;        // 슬롯 위치
     }
 
     public class Inventory : UIPopup
@@ -228,6 +235,8 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
+        #region ToggleEvent
+
         private void ToggleChangeCallback(ToggleChangeInfo changeInfo)
         {
             var target = changeInfo.IsOn ? transform : outerRim.transform;
@@ -243,11 +252,20 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
+        #endregion
+
+        #region CloseButtonEvent
+
         private void OnCloseButtonClickAction()
         {
             isOpened = false;
             gameObject.SetActive(false);
         }
+
+        #endregion
+
+
+        #region UIChannelEvent
 
         private void OnNotifyAction(IBaseEventPayload payload)
         {
@@ -265,8 +283,32 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
+        #endregion
+
+        #region InventoryEvent
+
         private void OnPanelInventoryAction(InventoryEventPayload payload)
         {
+            switch (payload.eventType)
+            {
+                case InventoryEventType.MoveItem:
+                {
+                    payload.baseItem.SetSlot(payload.slot.SlotItemPosition);
+                }
+                    break;
+                case InventoryEventType.CopyItem:
+                {
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(payload.slot.transform, InventorySlotCopyItem.Path);
+                    copy.SetSlot(payload.slot.SlotItemPosition);
+                    copy.SetItem(payload.baseItem.SlotItem);
+                    copy.SetOnDragParent(transform);
+                }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
+
+        #endregion
     }
 }
