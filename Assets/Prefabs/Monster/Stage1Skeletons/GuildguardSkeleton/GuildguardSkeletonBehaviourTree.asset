@@ -52,7 +52,6 @@ MonoBehaviour:
   - rid: 5827610129303863303
   - rid: 5827610129303863305
   - rid: 5827610152718303246
-  - rid: 5827610181934514192
   - rid: 5827610181934514194
   - rid: 5827610181934514195
   - rid: 5827610181934514197
@@ -112,8 +111,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542872
-  viewPosition: {x: 499, y: -246, z: 0}
-  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
+  viewPosition: {x: 922.5, y: 130, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -636,7 +635,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6d53a2b5f6847479686fd335f3a035f5
-        position: {x: -720, y: -45}
+        position: {x: -600, y: -45}
         blackboard:
           keys: []
         description: Dead
@@ -644,7 +643,6 @@ MonoBehaviour:
         children:
         - rid: 6937830456686542849
         - rid: 6937830438081396749
-        - rid: 5827610181934514192
     - rid: 5827610088829878275
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -870,25 +868,6 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228071
           defaultValue: {fileID: 0}
-    - rid: 5827610181934514192
-      type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 525158284265d438497b39baeba31496
-        position: {x: -570, y: 90}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        animationTrigger:
-          reference:
-            rid: -2
-          defaultValue: SkeletonDead
-        wait:
-          reference:
-            rid: -2
-          defaultValue: 5
     - rid: 5827610181934514194
       type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
       data:
@@ -1262,7 +1241,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 384f85715a8ef48638035bccfc988514
-        position: {x: -720, y: 90}
+        position: {x: -525, y: 90}
         blackboard:
           keys: []
         description: 
@@ -1308,7 +1287,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e9146a4adb9744664a5cd52259803b0a
-        position: {x: -885, y: 90}
+        position: {x: -690, y: 90}
         blackboard:
           keys: []
         description: 

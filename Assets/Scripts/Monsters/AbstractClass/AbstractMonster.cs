@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Data;
@@ -16,6 +17,22 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
+        private const float disableMonsterTime = 4.0f;
+        private const float enableMonsterTime = 7.5f;
+
+        [SerializeField] public SkeletonMonsterData monsterData;
+
+        [SerializeField] public RunToPlayerAttackData runToPlayerData;
+        [SerializeField] public BoxColliderAttackData meleeAttackData;
+        [SerializeField] public WeaponAttackData weaponAttackData;
+        [SerializeField] public ProjectileAttackData projectileAttackData;
+        [SerializeField] public FleeSkillData fleeSkilldata;
+        [SerializeField] public FanShapeAttackData fanshapeAttackData;
+
+        public BlackboardKey<bool> isDamaged;
+        public BlackboardKey<bool> isDead;
+        public BlackboardKey<bool> isReturning;
+
         protected bool isAttacking;
         protected AbstractAttack[] skills;
         protected Animator animator;
@@ -78,16 +95,51 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void ReceiveDamage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
-            //if(combatPayload.MonsterDamageEffectName!=MonsterDamageEffectType.None)
-            //{
-            //    statusEffects.TryGetValue(combatPayload.MonsterDamageEffectName, out IMonsterStatusEffect effect);
-            //    statusController.ApplyStatusEffect(effect);
-            //}
-                UpdateHP(combatPayload.Damage);
+            UpdateHP(combatPayload.Damage);
  
         }
 
-        public abstract void UpdateHP(float damage);
+        public void UpdateHP(float damage)
+        {
+            if (isReturning.value) return;
+            currentHP -= damage;
+            dataContainer.CurrentHp.Value = (int)currentHP;
+            isDamaged.value = true;
+            if (currentHP <= 0)
+            {
+                isDead.value = true;
+                MonsterDead();
+            }
+        }
+
+        private void MonsterDead()
+        {
+            StartCoroutine(DisableMonster());
+        }
+
+        private IEnumerator DisableMonster()
+        {
+            if(animator==null)
+            {
+                animator = GetComponent<Animator>();
+            }
+            Debug.Log("PlayDead");
+            animator.SetTrigger("SkeletonDead");
+            yield return new WaitForSeconds(disableMonsterTime);
+            StartCoroutine(EnableMosnter());
+            GetComponent<Collider>().enabled = false;
+        }
+
+        private IEnumerator EnableMosnter()
+        {
+            yield return new WaitForSeconds(enableMonsterTime);
+            isDead.value = false;
+            animator.SetTrigger("SkeletonIdleSitting");
+            GetComponent<Collider>().enabled = true;
+            gameObject.transform.position = monsterData.spawnPosition;
+            currentHP = monsterData.maxHP;
+            dataContainer.CurrentHp.Value = (int)currentHP;
+        }
 
     }
 

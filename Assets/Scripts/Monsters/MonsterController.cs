@@ -31,20 +31,11 @@ namespace Assets.Scripts.Monsters
 
         public enum SkillName { MeleeAttack, End }
 
-        [SerializeField] public SkeletonMonsterData monsterData;
-        [SerializeField] public RunToPlayerAttackData runToPlayerData;
 
-        [SerializeField] public BoxColliderAttackData meleeAttackData;
-        [SerializeField] public WeaponAttackData weaponAttackData;
-        [SerializeField] public ProjectileAttackData projectileAttackData;
-        [SerializeField] public FleeSkillData fleeSkilldata;
-        [SerializeField] public FanShapeAttackData fanshapeAttackData;
 
         private TicketMachine ticketMachine;
 
-        public BlackboardKey<bool> isDamaged;
-        public BlackboardKey<bool> isDead;
-        public BlackboardKey<bool> isReturning;
+
 
         private void Awake()
         {
@@ -133,6 +124,7 @@ namespace Assets.Scripts.Monsters
             behaviourTreeInstance.SetBlackboardValue<GameObject>("PatrolPoints", obj);
             obj.SetActive(false);
 
+            monsterData.spawnPosition = transform.position;
             behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", transform.position);
             behaviourTreeInstance.SetBlackboardValue<float>("MovementSpeed", monsterData.movementSpeed);
             isDead = behaviourTreeInstance.FindBlackboardKey<bool>("IsDead");
@@ -190,17 +182,6 @@ namespace Assets.Scripts.Monsters
 
 
 
-        public override void UpdateHP(float damage)
-        {
-            if (isReturning.value) return;
-            currentHP -= damage;
-            dataContainer.CurrentHp.Value = (int)currentHP;
-            isDamaged.value = true;
-            if (currentHP <= 0)
-            {
-                isDead.value = true;
-            }
-        }
 
         public void ChangeEffectState(MonsterDamageEffectType effect)
         {
