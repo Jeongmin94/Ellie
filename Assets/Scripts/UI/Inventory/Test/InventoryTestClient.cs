@@ -72,6 +72,8 @@ namespace Assets.Scripts.UI.Inventory.Test
             var testItemInfo = itemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
+            payload.itemData = testItemInfo;
+
             return payload;
         }
     }

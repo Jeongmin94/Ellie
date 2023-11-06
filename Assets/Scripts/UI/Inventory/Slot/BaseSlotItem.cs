@@ -22,7 +22,7 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
-        public BaseItem SlotItem { get; protected set; }
+        public BaseItem SlotItem { get; set; }
 
         private Image raycastImage;
         private RectTransform rect;
@@ -30,6 +30,14 @@ namespace Assets.Scripts.UI.Inventory
         // Item
         protected Image itemImage;
         protected TextMeshProUGUI itemText;
+
+        // itemCount.lineSpacing = lineHeight;
+        // itemCount.fontSize = fontSize;
+        // itemCount.color = Color.white;
+        // itemCount.alignment = TextAlignmentOptions.MidlineRight;
+        // itemCount.text = string.Empty;
+        //
+        // defaultSprite = itemImage.sprite;
 
         protected Transform onDragParent;
         protected SlotItemPosition slotItemPosition;
@@ -109,9 +117,15 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             itemImage.sprite = SlotItem.ItemSprite;
-            itemText.text = SlotItem.ItemCount.Value.ToString();
+            itemText.text = baseItem.itemCount.Value.ToString();
+            
+            baseItem.itemCount.Subscribe(OnItemCountChanged);
         }
-        
+
+        private void OnItemCountChanged(int value)
+        {
+            itemText.text = value.ToString();
+        }
 
         public BaseItem GetBaseItem() => SlotItem;
 

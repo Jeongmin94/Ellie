@@ -22,6 +22,8 @@ namespace Channels.UI
         public ActionType actionType;
         public ItemData itemData;
         
+        public Transform onDragParent;
+        
         public Sprite sprite;
         public string name;
         public string text;

@@ -20,18 +20,6 @@ namespace Assets.Scripts.UI.Inventory
             copyItemAction += listener;
         }
 
-        public override void SetItem(BaseItem baseItem)
-        {
-            SlotItem = baseItem;
-            if (slotItemPosition)
-            {
-                slotItemPosition.SetItem(SlotItem);
-            }
-
-            itemImage.sprite = SlotItem.ItemSprite;
-            itemText.text = $"copy: {SlotItem.ItemCount.Value}";
-        }
-
         private void OnDestroy()
         {
             copyItemAction = null;

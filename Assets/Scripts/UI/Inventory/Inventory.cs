@@ -300,7 +300,8 @@ namespace Assets.Scripts.UI.Inventory
 
         private void AddItem(UIPayload uiPayload)
         {
-            buttonPanel.AddItem(SlotAreaType.Item, uiPayload.itemData.groupType, uiPayload.itemData);
+            uiPayload.onDragParent = transform;
+            buttonPanel.AddItem(SlotAreaType.Item, uiPayload.itemData.groupType, uiPayload);
         }
 
         #endregion

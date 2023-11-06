@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
+using Channels.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -105,6 +105,7 @@ namespace Assets.Scripts.UI.Inventory
             for (int i = 0; i < row * col; i++)
             {
                 var slot = UIManager.Instance.MakeSubItem<InventorySlot>(rect, UIManager.InventorySlot);
+                slot.Index = i;
                 slot.Subscribe(OnSlotInventoryAction);
                 slot.SlotType = SlotAreaType;
                 slots.Add(slot);
@@ -132,11 +133,8 @@ namespace Assets.Scripts.UI.Inventory
                 var dup = FindSlot(payload.baseItem.SlotItem.ItemIndex);
                 if (dup != null)
                 {
-                    Debug.Log($"이미 카피됨: {dup.name}, {dup.SlotItem.ItemName} - payload: {payload.baseItem.SlotItem.ItemName}");
                     return;
                 }
-
-                Debug.Log($"카피 가능: {payload.baseItem.SlotItem.ItemName}");
             }
 
             payload.slotAreaType = SlotAreaType;
@@ -148,17 +146,25 @@ namespace Assets.Scripts.UI.Inventory
             return slots.Find(s => s.SlotItem != null && s.SlotItem.ItemIndex == itemIndex);
         }
 
-        public void AddItem(ItemData item)
+        private InventorySlot FindEmptySlot()
+        {
+            return slots.Find(s => s.SlotItem == null);
+        }
+
+        public void AddItem(UIPayload payload)
         {
             // 1. 해당 아이템이 이미 있는 경우에는 카운트 증가
+            var item = payload.itemData;
             var dup = FindSlot(item.index);
             if (dup)
             {
-                dup.SlotItem.ItemCount.Value++;
+                dup.SlotItem.itemCount.Value++;
                 return;
             }
 
-            // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 증가
+            // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 추가
+            var emptySlot = FindEmptySlot();
+            emptySlot.CreateSlotItem(payload);
         }
 
         #endregion

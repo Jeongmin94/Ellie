@@ -8,7 +8,8 @@ namespace Assets.Scripts.Item
     {
         public ItemData itemData;
 
-        public Data<int> ItemCount = new Data<int>();
+        public readonly Data<int> itemCount = new Data<int>();
+
         public int ItemIndex => itemData.index;
         public Sprite ItemSprite { get; private set; }
         public string ItemName => itemData.name;
@@ -16,6 +17,7 @@ namespace Assets.Scripts.Item
         public virtual void InitResources()
         {
             ItemSprite = ResourceManager.Instance.LoadSprite(itemData.imageName);
+            itemCount.Value++;
         }
     }
 }

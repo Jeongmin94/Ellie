@@ -1,9 +1,11 @@
 using System;
 using Assets.Scripts.Item;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
+using Channels.UI;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -62,20 +64,7 @@ namespace Assets.Scripts.UI.Inventory
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
             rect.sizeDelta = InventoryConst.SlotRect.GetSize();
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
-
-            // itemCount.lineSpacing = lineHeight;
-            // itemCount.fontSize = fontSize;
-            // itemCount.color = Color.white;
-            // itemCount.alignment = TextAlignmentOptions.MidlineRight;
-            // itemCount.text = string.Empty;
-            //
-            // defaultSprite = itemImage.sprite;
         }
-
-        // !TODO: 스위칭 전용 슬롯 추가 필요
-        //      - 스위칭 슬롯 -> 아이템 슬롯: 이동됨, 스위칭 슬롯에서 빠짐
-        //      - 아이템 슬롯 -> 스위칭 슬롯: 복사됨, 아이템 슬롯에는 그대로 있음
-        //      - 스위칭 슬롯에 등록되면 static ui에 등록된 아이템 표시되어야 함
 
         // 슬롯에 아이템 장착
         // 아이템 정보, 슬롯 인덱스
@@ -128,9 +117,16 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction?.Invoke(payload);
         }
 
-        public void UpdateItem()
+        public void CreateSlotItem(UIPayload payload)
         {
-            
+            BaseItem baseItem = new BaseItem();
+            baseItem.itemData = payload.itemData;
+            baseItem.InitResources();
+
+            var origin = UIManager.Instance.MakeSubItem<InventorySlotItem>(transform, InventorySlotItem.Path);
+            origin.SetSlot(SlotItemPosition);
+            origin.SetItem(baseItem);
+            origin.SetOnDragParent(payload.onDragParent);
         }
 
         public void Subscribe(Action<InventoryEventPayload> listener)
