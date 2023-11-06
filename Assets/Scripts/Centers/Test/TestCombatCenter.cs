@@ -9,11 +9,11 @@ namespace Assets.Scripts.Centers.Test
     public class TestCombatCenter : BaseCenter
     {
         public GameObject player;
-        public GameObject tempCenter;
         public TestAttacker attacker;
         public StoneHatchery hatchery;
         public Ore[] ores;
-        
+
+        public int curStage = 1;
        
         private void Awake()
         {
@@ -23,14 +23,14 @@ namespace Assets.Scripts.Centers.Test
         protected override void Start()
         {
             CheckTicket(player);
-            CheckTicket(tempCenter);
-            //CheckTicket(attacker.gameObject);
+            CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
-            //foreach(Ore ore in ores)
-            //{
-            //    Debug.Log($"{ore.name} checked");
-            //    CheckTicket(ore.gameObject);
-            //}
+            foreach (Ore ore in ores)
+            {
+                ore.curStage = curStage;
+                Debug.Log($"{ore.name} checked");
+                CheckTicket(ore.gameObject);
+            }
         }
     }
 }

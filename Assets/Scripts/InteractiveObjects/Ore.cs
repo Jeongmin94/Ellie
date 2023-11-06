@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Assets.Scripts.Utils;
@@ -6,6 +7,7 @@ using Channels.Components;
 using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
@@ -25,6 +27,8 @@ namespace Assets.Scripts.InteractiveObjects
         public OreData data;
         public Tier tier;
 
+
+        public int curStage;
         public int hardness;
         public int maxHp;
         public int hp;
@@ -149,31 +153,37 @@ namespace Assets.Scripts.InteractiveObjects
                         for (int i = 0; i < dropData.Item2; i++)
                         {
                             //TODO : 돌맹이 데이터테이블에서 해당하는 티어의 돌맹이 랜덤하게 뽑아내기
-                            MineStone();
-                            //필요한 것 : 돌맹이 위치, 돌맹이에 AddForce해 줄 벡터
+                            //Item2 : 돌맹이 개수
+                            //Item1 : 돌맹이 티어
+                            //돌맹이 티어로 데이터풀에서 해당 티어에 맞는 돌맹이 && 현재 스테이지 이하의 돌 중 랜덤 생성하기
+                            List<StoneData> tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().
+                                stones.Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
+                            if (tempStones.Count <= 0) continue;
+                            int randIndex = Random.Range(0, tempStones.Count);
+                            MineStone(tempStones[randIndex].index);
                         }
                     }
-
                     break;
                 }
             }
         }
 
-        private void MineStone()
+        private void MineStone(int stoneIdx)
         {
             StoneEventPayload payload = new()
             {
                 Type = StoneEventType.MineStone,
                 StoneSpawnPos = stoneSpawnPos.position,
-                StoneForce = GetRandVector()
+                StoneForce = GetRandVector(),
+                StoneIdx = stoneIdx,
             };
-            Debug.Log("Mine Stone");
+            Debug.Log("Mine Stone : " + stoneIdx.ToString());
             ticketMachine.SendMessage(ChannelType.Stone, payload);
         }
 
         private Vector3 GetRandVector()
         {
-            Vector3 vec = new Vector3(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
             return vec.normalized;
         }
 

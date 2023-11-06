@@ -21,7 +21,7 @@ namespace Channels.Utils
                     channel = new UIChannel();
                     break;
                 case ChannelType.Stone:
-                    channel = new ItemChannel();
+                    channel = new StoneChannel();
                     break;
                 case ChannelType.BossInteraction:
                     channel = new BossInteractionChannel();

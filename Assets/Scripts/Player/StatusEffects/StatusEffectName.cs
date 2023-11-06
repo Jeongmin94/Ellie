@@ -1,16 +1,17 @@
 namespace Assets.Scripts.StatusEffects
 {
-    public enum PlayerStatusEffectName
+    public enum StatusEffectName
     {
         None,
         WeakRigidity,
         StrongRigidity,
         Down,
         Knockback,
+        Airborne,
         KnockedAirborne,
         Stun,
         Confusion,
-        Shock,
+        Electricshock,
         Incarceration,
         Snare,
         Burn,
