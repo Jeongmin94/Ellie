@@ -28,9 +28,8 @@ namespace Assets.Scripts.Item.Stone
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
             //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
-            ticketMachine.RegisterObserver(ChannelType.Stone, ItemEvent);
+            ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
-
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
@@ -55,7 +54,7 @@ namespace Assets.Scripts.Item.Stone
             stonePool.Push(stone);
         }
 
-        public void ItemEvent(IBaseEventPayload payload)
+        public void StoneEvent(IBaseEventPayload payload)
         {
             Debug.Log("hatchery : make stone");
             StoneEventPayload itemPayload = payload as StoneEventPayload;

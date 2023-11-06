@@ -46,6 +46,5 @@ namespace Assets.Scripts.Item
             Debug.Log("Player Loot : " + this.name);
             hatchery.CollectStone(this);
         }
-       
     }
 }

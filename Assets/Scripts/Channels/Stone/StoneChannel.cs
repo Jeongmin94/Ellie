@@ -27,6 +27,8 @@ namespace Assets.Scripts.Channels.Item
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             StoneEventPayload stonePayload = payload as StoneEventPayload;
+
+            //Hatchery의 StoneEvent 함수를 호출합니다
             Publish(stonePayload);
         }
     }
