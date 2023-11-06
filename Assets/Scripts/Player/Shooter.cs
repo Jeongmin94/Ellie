@@ -59,7 +59,6 @@ namespace Assets.Scripts.Player
         private Vector3 launchDirection;
         private float chargingTime = 0.0f;
         private float chargingRatio = 0.0f;
-
        
         private void OnEnable()
         {

@@ -5,6 +5,16 @@ namespace Assets.Scripts.Item.Stone
 {
     public class TestStoneLootable : BaseStone, ICombatant
     {
+        [SerializeField] private LayerMask layerMask;
+
+        void Start()
+        {
+            int exceptGroundLayer = LayerMask.NameToLayer("ExceptGround");
+            int monsterLayer = LayerMask.NameToLayer("Monster");
+
+            layerMask = (1 << exceptGroundLayer) | (1 << monsterLayer);
+        }
+
         public void Attack(IBaseEventPayload payload)
         { 
             
@@ -17,12 +27,23 @@ namespace Assets.Scripts.Item.Stone
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log("Collision");
-            ICombatant enemy = collision.gameObject.GetComponent<ICombatant>();
-            if (enemy != null && !collision.gameObject.CompareTag("Player"))
+            foreach (ContactPoint contact in collision.contacts)
             {
-                Debug.Log("돌 발사");
-                hatchery.Attack(GenerateStonePayload(collision.transform));
+                GameObject hitObject = contact.otherCollider.gameObject;
+
+                if ((layerMask.value & (1 << hitObject.layer)) == 0)
+                {
+                    continue;
+                }
+
+                ICombatant enemy = hitObject.GetComponent<ICombatant>();
+
+                if (enemy != null && !hitObject.CompareTag("Player"))
+                {
+                    Debug.Log($"{contact} 돌 충돌");
+                    hatchery.Attack(GenerateStonePayload(hitObject.transform));
+                    break;
+                }
             }
         }
 
