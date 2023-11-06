@@ -96,7 +96,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             CombatPayload combatPayload = payload as CombatPayload;
             UpdateHP(combatPayload.Damage);
- 
         }
 
         public void UpdateHP(float damage)
