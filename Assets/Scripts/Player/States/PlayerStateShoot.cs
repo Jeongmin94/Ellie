@@ -30,7 +30,7 @@ namespace Assets.Scripts.Player.States
         public override void OnExitState()
         {
             Controller.TurnOffAimCam();
-            Controller.SetAimingAnimLayerToDefault();
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
             Controller.ActivateShootPos(false);
             Controller.Anim.SetBool("IsShooting", false);
         }

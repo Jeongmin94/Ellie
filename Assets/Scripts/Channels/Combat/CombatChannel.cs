@@ -36,8 +36,13 @@ namespace Channels.Combat
         //공격자의 공격 시작 위치
         public Vector3 AttackStartPosition { get; set; }
 
-        //공격이 플레이어에게 피격됐을 때 플레이어에게 유발되는 상태이상
+        //공격에 피격됐을 때 유발되는 상태이상
         public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
+        //상태이상의 지속시간
+        public float statusEffectduration { get; set; }
+        //공격이 유발하는 힘
+        public float force { get; set; }
+
         //!TODO : 공격이 enemy에 피격됐을 시 유발되는 상태이상의 enum이 필요합니다
     }
 
