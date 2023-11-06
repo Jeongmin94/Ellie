@@ -17,10 +17,13 @@ namespace Assets.Scripts.Player.States
 
             Controller.isFalling = true;
             Controller.Anim.SetBool("IsFalling", true);
+            Controller.SetColliderHeight(1f);
         }
 
         public override void OnExitState()
         {
+            Controller.SetColliderHeight(1.5f);
+
             Controller.isFalling = false;
             Controller.Anim.SetBool("IsFalling", false);
         }   

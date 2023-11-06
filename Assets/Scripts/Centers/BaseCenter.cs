@@ -68,6 +68,7 @@ namespace Centers
 
             foreach (var machine in machines)
             {
+                Debug.Log($"CheckTicket :: {machine}");
                 machine.Ticket(this);
             }
         }

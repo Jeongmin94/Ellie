@@ -1,0 +1,30 @@
+namespace Assets.Scripts.StatusEffects
+{
+    public enum StatusEffectName
+    {
+        None,
+        WeakRigidity,
+        StrongRigidity,
+        Down,
+        Knockback,
+        Airborne,
+        KnockedAirborne,
+        Stun,
+        Confusion,
+        Electricshock,
+        Incarceration,
+        Snare,
+        Burn,
+        Slowdown,
+        Nearsight,
+        Farsighted,
+        Blind,
+        Static,
+        Adhesive,
+        PowerUp,
+        SpeedRacer,
+        MuscleStrengthen,
+        Marksman,
+        Shield
+    }
+}

@@ -38,6 +38,10 @@ namespace Assets.Scripts.Player.States
         {
             InterpolateMoveSpeed();
             ControlSpeed();
+            if(Controller.MoveInput.magnitude == 0f)
+            {
+                Controller.ChangeState(PlayerStateName.Idle);
+            }
             if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 Controller.ChangeState(PlayerStateName.Walk);

@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Item.Stone;
+﻿using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using UnityEngine;
@@ -7,6 +8,7 @@ namespace Assets.Scripts.Item
 {
     public class BaseStone : Poolable, ILootable
     {
+        public StoneData data = null;
         public StoneHatchery hatchery { get; set; }
         
         private new Rigidbody rigidbody;
@@ -20,7 +22,10 @@ namespace Assets.Scripts.Item
         {
             rigidbody = gameObject.GetComponent<Rigidbody>();
         }
-
+        private void OnDisable()
+        {
+            data = null;
+        }
         public void SetPosition(Vector3 position)
         {
             rigidbody.position = position;
@@ -41,6 +46,5 @@ namespace Assets.Scripts.Item
             Debug.Log("Player Loot : " + this.name);
             hatchery.CollectStone(this);
         }
-       
     }
 }
