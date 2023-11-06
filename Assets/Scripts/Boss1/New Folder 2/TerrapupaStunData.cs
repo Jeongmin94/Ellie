@@ -17,8 +17,6 @@ public class TerrapupaStunData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("duration", stunDuration, tree);
 
         duration = FindBlackboardKey<float>("duration", tree);

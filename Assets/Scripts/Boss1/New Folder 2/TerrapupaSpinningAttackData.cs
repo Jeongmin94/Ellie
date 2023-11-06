@@ -21,8 +21,6 @@ public class TerrapupaSpinningAttackData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("rotationSpeed", spinningAttackRotationSpeed, tree);
         SetBlackboardValue<float>("movementSpeed", spinningAttackMovementSpeed, tree);
         SetBlackboardValue<int>("attackValue", spinningAttackAttackValue, tree);

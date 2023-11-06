@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using Assets.Scripts.Utils;
+using Channels.Combat;
+using Channels.Components;
+using Channels.Type;
+using System.Collections.Generic;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -22,9 +26,16 @@ namespace Boss.Terrapupa
             set { stone = value; }
         }
 
+        public TerrapupaWeakPoint WeakPoint
+        {
+            get { return weakPoint; }
+            set { weakPoint = value; }
+        }
+
         public BlackboardKey<Transform> player;
         public BlackboardKey<Transform> objectTransform;
         public BlackboardKey<Transform> magicStoneTransform;
+        public BlackboardKey<int> currentHP;
         public BlackboardKey<bool> canThrowStone;
         public BlackboardKey<bool> canEarthQuake;
         public BlackboardKey<bool> canRoll;
@@ -38,7 +49,7 @@ namespace Boss.Terrapupa
         private void Start()
         {
             InitStatus();
-            weakPoint.collisionAction += OnCollidedCoreByPlayerStone;
+            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
 
         private void InitStatus()
@@ -48,6 +59,7 @@ namespace Boss.Terrapupa
             player = behaviourTreeInstance.FindBlackboardKey<Transform>("player");
             objectTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("objectTransform");
             magicStoneTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("magicStoneTransform");
+            currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
             canThrowStone = behaviourTreeInstance.FindBlackboardKey<bool>("canThrowStone");
             canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
             canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
@@ -59,12 +71,23 @@ namespace Boss.Terrapupa
             pos = behaviourTreeInstance.FindBlackboardKey<Vector3>("pos");
         }
 
-        private void OnCollidedCoreByPlayerStone()
+        private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
         {
-            Debug.Log("충돌 확인");
+            // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
+            Debug.Log($"OnCollidedCoreByPlayerStone :: {payload}");
+
             if(isStuned.value)
             {
-                Debug.Log("기절 상태, 데미지 입음");
+                CombatPayload combatPayload = payload as CombatPayload;
+                int damage = combatPayload.Damage;
+
+                currentHP.Value -= damage;
+                Debug.Log($"기절 상태, 데미지 입음 {currentHP.Value}");
+                
+            }
+            else 
+            {
+                Debug.Log("기절 상태가 아님");
             }
         }
     }

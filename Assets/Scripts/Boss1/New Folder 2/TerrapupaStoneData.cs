@@ -21,8 +21,6 @@ public class TerrapupaStoneData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("rotationSpeed", stoneRotationSpeed, tree);
         SetBlackboardValue<float>("movementSpeed", stoneMovementSpeed, tree);
         SetBlackboardValue<int>("attackValue", stoneAttackValue, tree);

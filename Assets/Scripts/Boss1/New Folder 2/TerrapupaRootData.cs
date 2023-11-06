@@ -31,8 +31,6 @@ public class TerrapupaRootData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<int>("currentHP", hp, tree);
         SetBlackboardValue<bool>("canRoll", rollUsable, tree);
         SetBlackboardValue<bool>("canThrowStone", stoneUsable, tree);

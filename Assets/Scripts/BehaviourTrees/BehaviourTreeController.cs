@@ -80,7 +80,6 @@ public class BehaviourTreeController : MonoBehaviour
     public void RegisterBlackboardData(string dataName, BehaviourTree tree)
     {
         BaseBTData data = Search(dataName);
-        Debug.Log(data);
 
         if(data != null)
         {

@@ -19,8 +19,6 @@ public class TerrapupaIntakeData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("duration", intakeDuration, tree);
         SetBlackboardValue<int>("healValue", intakeHealValue, tree);
 

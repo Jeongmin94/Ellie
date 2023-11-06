@@ -27,8 +27,6 @@ public class TerrapupaEarthQuakeData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("rotationSpeed", earthQuakeRotationSpeed, tree);
         SetBlackboardValue<float>("moveDistance", earthQuakeMoveDistance, tree);
         SetBlackboardValue<float>("movementSpeed", earthQuakeMovementSpeed, tree);

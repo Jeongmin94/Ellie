@@ -37,6 +37,7 @@ MonoBehaviour:
   - rid: 1683426094593605654
   - rid: 1683426094593605655
   - rid: 1683426094593605672
+  - rid: 283011133722066944
   treeState: 0
   blackboard:
     keys:
@@ -47,8 +48,8 @@ MonoBehaviour:
     - rid: 283011087430582291
     - rid: 283011090204065827
     - rid: 283011023650684947
-  viewPosition: {x: 2886.4, y: 587.2, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: 1421, y: 274, z: 0}
+  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
     RefIds:
@@ -130,6 +131,21 @@ MonoBehaviour:
         name: isIntake
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
+    - rid: 283011133722066944
+      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 4349ad17f89bb4e40aec9fdf708ad793
+        position: {x: -1395, y: -15}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: -2
+          defaultValue: Break
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -347,7 +363,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: aabe291d51028984f91b288e0231cd9f
-        position: {x: -1740, y: -195}
+        position: {x: -1650, y: -180}
         blackboard:
           keys: []
         description: 
@@ -355,6 +371,7 @@ MonoBehaviour:
         children:
         - rid: 1401849447854899234
         - rid: 1401849447854899236
+        - rid: 283011133722066944
     - rid: 1401849447854899236
       type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
       data:
@@ -379,7 +396,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3f7c8c90c34ec50469ed326b4741ba1c
-        position: {x: -1425, y: -15}
+        position: {x: -1155, y: -15}
         blackboard:
           keys: []
         description: 
@@ -401,7 +418,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 23d63816b073bb941b238a3fdcce5182
-        position: {x: -1290, y: -195}
+        position: {x: -1020, y: -195}
         blackboard:
           keys: []
         description: 
@@ -415,7 +432,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 7e1e660b383fbbd48af65b206d8c772a
-        position: {x: -1170, y: -15}
+        position: {x: -900, y: -15}
         blackboard:
           keys: []
         description: 

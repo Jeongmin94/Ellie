@@ -18,8 +18,6 @@ namespace Centers.Boss
         public GameObject magicStalactiteTemp;
         public GameObject magicStoneTemp;
 
-        private TicketMachine ticketMachine;
-
         private MagicStoneTemp magicStone;
 
         public int numberOfSector = 3;
@@ -33,9 +31,16 @@ namespace Centers.Boss
 
         private void Awake()
         {
-            SetTicketMachine();
+            base.Init();
             SubscribeEvents();
             SpawnStalactites();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            CheckTicket(boss.gameObject);
         }
 
         private void Update()
@@ -56,15 +61,6 @@ namespace Centers.Boss
             }
         }
 
-        private void SetTicketMachine()
-        {
-            // ticket 설정
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-
-            // 기본 Ticket 추가
-            ticketMachine.AddTickets(ChannelType.Combat);
-        }
-
         private void SubscribeEvents()
         {
             EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
@@ -80,13 +76,15 @@ namespace Centers.Boss
 
         private void SpawnStalactites()
         {
+            Transform objectTransform = transform.GetChild(0);
+
             for (int i = 0; i < numberOfSector; i++)
             {
                 List<MagicStalactite> sectorList = new List<MagicStalactite>();
                 for (int j = 0; j < stalactitePerSector; j++)
                 {
                     Vector3 position = GenerateRandomPositionInSector(i);
-                    GameObject stalactite = Instantiate(magicStalactiteTemp, position, Quaternion.identity);
+                    GameObject stalactite = Instantiate(magicStalactiteTemp, position, Quaternion.identity, objectTransform);
                     MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
                     instantStalactite.MyIndex = i;
                     sectorList.Add(instantStalactite);

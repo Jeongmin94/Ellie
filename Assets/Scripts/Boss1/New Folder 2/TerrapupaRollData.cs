@@ -21,8 +21,6 @@ public class TerrapupaRollData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("rayCastLength", rollRayCastLength, tree);
         SetBlackboardValue<float>("movementSpeed", rollMovementSpeed, tree);
         SetBlackboardValue<int>("attackValue", rollAttackValue, tree);

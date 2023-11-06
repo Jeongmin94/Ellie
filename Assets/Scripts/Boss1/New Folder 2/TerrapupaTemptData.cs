@@ -19,8 +19,6 @@ public class TerrapupaTemptData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("movementSpeed", temptMovementSpeed, tree);
         SetBlackboardValue<float>("stateChangeDetectionDistance", temptStateChangeDetectionDistance, tree);
 

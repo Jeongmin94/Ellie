@@ -19,8 +19,6 @@ public class TerrapupaLowAttackData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("rotationSpeed", lowAttackRotationSpeed, tree);
         SetBlackboardValue<int>("attackValue", lowAttackAttackValue, tree);
 

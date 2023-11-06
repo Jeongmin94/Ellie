@@ -19,8 +19,6 @@ public class TerrapupaTraceData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
-        Debug.Log(tree);
-
         SetBlackboardValue<float>("rotationSpeed", traceRotationSpeed, tree);
         SetBlackboardValue<float>("movementSpeed", traceMovementSpeed, tree);
 
