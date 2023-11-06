@@ -57,7 +57,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.Burn;
+            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.Burn;
             payload.Damage = (int)data.attackValue;
             Attack(payload);
         }

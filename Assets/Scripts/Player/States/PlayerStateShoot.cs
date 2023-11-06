@@ -12,7 +12,6 @@ namespace Assets.Scripts.Player.States
         // !TODO : 쏘고 난 후의 애니메이션 필요함
         private float recoilTime;
         private float curTime;
-        private GameObject stone;
         
         public PlayerStateShoot(PlayerController controller) : base(controller)
         {
@@ -21,7 +20,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            stone = Controller.Stone;
             Controller.Anim.SetBool("IsShooting", true);
             Controller.SetTimeScale(1f);
             curTime = 0;
@@ -32,7 +30,7 @@ namespace Assets.Scripts.Player.States
         public override void OnExitState()
         {
             Controller.TurnOffAimCam();
-            Controller.SetAimingAnimLayerToDefault();
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
             Controller.ActivateShootPos(false);
             Controller.Anim.SetBool("IsShooting", false);
         }

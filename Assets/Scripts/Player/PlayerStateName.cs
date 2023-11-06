@@ -16,6 +16,9 @@
         Mining,
         Exhaust,
         Rigidity,
+        Down,
+        KnockedAirborne,
+        GetUp,
         Dead
     }
 }

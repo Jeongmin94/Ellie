@@ -94,6 +94,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
+            Debug.Log("Recieve DAMAGE");
             CombatPayload combatPayload = payload as CombatPayload;
             UpdateHP(combatPayload.Damage);
         }

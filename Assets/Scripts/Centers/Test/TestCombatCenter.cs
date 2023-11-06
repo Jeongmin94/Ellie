@@ -16,7 +16,8 @@ namespace Assets.Scripts.Centers.Test
         public MonsterController[] monsters;
         public StoneHatchery hatchery;
         public Ore[] ores;
-        
+
+        public int curStage = 1;
        
         private void Awake()
         {
@@ -27,14 +28,12 @@ namespace Assets.Scripts.Centers.Test
         {
             CheckTicket(player.gameObject);
             CheckTicket(attacker.gameObject);
+
             foreach (MonsterController monster in monsters)
             {
                 CheckTicket(monster.gameObject);
             }
 
-
-            CheckTicket(player);
-            CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
             foreach (Ore ore in ores)
             {

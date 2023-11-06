@@ -27,9 +27,7 @@ namespace Channels.Combat
 
         //공격자의 데미지
         public int Damage { get; set; }
-        public Vector3 StoneSpawnPos { get; set; }
-        public Vector3 StoneDirection { get; set; }
-        public float StoneStrength { get; set; }
+        
         //공격 이벤트 발행시의 공격 방향
         public Vector3 AttackDirection { get; set; }
 
@@ -39,8 +37,13 @@ namespace Channels.Combat
         //공격자의 공격 시작 위치
         public Vector3 AttackStartPosition { get; set; }
 
-        //공격이 플레이어에게 피격됐을 때 플레이어에게 유발되는 상태이상
-        public PlayerStatusEffectName PlayerStatusEffectName { get; set; }
+        //공격에 피격됐을 때 유발되는 상태이상
+        public StatusEffectName PlayerStatusEffectName { get; set; }
+        //상태이상의 지속시간
+        public float statusEffectduration { get; set; }
+        //공격이 유발하는 힘
+        public float force { get; set; }
+
         //!TODO : 공격이 enemy에 피격됐을 시 유발되는 상태이상의 enum이 필요합니다
 
         public MonsterDamageEffectType MonsterDamageEffectName { get; set; }
@@ -52,13 +55,8 @@ namespace Channels.Combat
         {
             Debug.Log("Recieve activate");
             CombatPayload combatPayload = payload as CombatPayload;
-            //돌달라는 페이로드임?->
-            if(combatPayload.Type == CombatType.RequestStone)
-            {
-                Publish(combatPayload);
-                return;
-            }
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
+            Debug.Log(combatant);
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
         }
 

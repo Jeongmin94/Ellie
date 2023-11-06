@@ -19,8 +19,8 @@ namespace Channels.Utils
                 case ChannelType.UI:
                     channel = new UIChannel();
                     break;
-                case ChannelType.Item:
-                    channel = new ItemChannel();
+                case ChannelType.Stone:
+                    channel = new StoneChannel();
                     break;
             }
 

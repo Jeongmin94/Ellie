@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Combat;
@@ -25,11 +26,10 @@ namespace Assets.Scripts.Item.Stone
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Item);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
             //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
-            ticketMachine.RegisterObserver(ChannelType.Item, ItemEvent);
+            ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
-
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
@@ -41,9 +41,10 @@ namespace Assets.Scripts.Item.Stone
             ticketMachine.SendMessage(ChannelType.Combat, payload);
         }
 
-        public Poolable GetStone()
+        public Poolable GetStone(int stoneIdx)
         {
             Poolable obj = stonePool.Pop();
+            obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             obj.GetComponent<BaseStone>().hatchery = this;
             return obj;
         }
@@ -53,22 +54,22 @@ namespace Assets.Scripts.Item.Stone
             stonePool.Push(stone);
         }
 
-        public void ItemEvent(IBaseEventPayload payload)
+        public void StoneEvent(IBaseEventPayload payload)
         {
             Debug.Log("hatchery : make stone");
-            ItemPayload itemPayload = payload as ItemPayload;
-            BaseStone stone = GetStone() as BaseStone;
+            StoneEventPayload itemPayload = payload as StoneEventPayload;
+            BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
             Vector3 startPos = itemPayload.StoneSpawnPos;
             Vector3 direction = itemPayload.StoneDirection;
             Vector3 force = itemPayload.StoneForce;
             float strength = itemPayload.StoneStrength;
-            if (itemPayload.Type == ItemType.RequestStone)
+            if (itemPayload.Type == StoneEventType.RequestStone)
             {
                 Debug.Log("Release Stone at hatchery");
 
                 ReleaseStone(stone, startPos, direction, strength);
             }
-            else if (itemPayload.Type == ItemType.MineStone)
+            else if (itemPayload.Type == StoneEventType.MineStone)
             {
                 Debug.Log("Mine Stone at hatchery");
                 MineStone(stone, startPos, force);

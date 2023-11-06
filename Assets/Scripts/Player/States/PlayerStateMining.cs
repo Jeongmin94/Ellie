@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.InteractiveObjects;
-using System;
-using System.ComponentModel;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
@@ -20,7 +18,6 @@ namespace Assets.Scripts.Player.States
             curOre = Controller.CurOre;
             miningTime = Controller.MiningTime;
             curTime = 0f;
-            Controller.Anim.SetLayerWeight(2, 1);
             LookOre();
             Controller.Pickaxe.gameObject.SetActive(true);
             Controller.Anim.SetBool("IsMining", true);
@@ -28,7 +25,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
-            Controller.Anim.SetLayerWeight(2, 0);
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Mining);
             Controller.Pickaxe.gameObject.SetActive(false);
             Controller.Anim.SetBool("IsMining", false);
         }
@@ -39,6 +36,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
+            Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Mining, 1);
             //입력이 들어오면 스테이트 탈출
             if (Controller.MoveInput.magnitude > 0)
             {

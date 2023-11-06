@@ -16,15 +16,18 @@ namespace Assets.Scripts.Player.States
             Controller.canTurn = true;
             jumpInputTime = 0;
             Controller.isJumping = true;
-            Controller.JumpPlayer();
+            Controller.Jump();
             Controller.Anim.SetBool("IsJumping",true);
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.JumpStaminaConsumption);
+            Controller.SetColliderHeight(1f);
         }
 
         public override void OnExitState()
         {
             Controller.Anim.SetBool("IsJumping", false);
+            Controller.SetColliderHeight(1.5f);
+
             //Controller.isJumping = false;
         }
 
