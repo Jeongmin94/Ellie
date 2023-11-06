@@ -29,6 +29,17 @@ public class TerrapupaRootData : BaseBTData
     public BlackboardKey<float> midRangeDetectionDistance;
     public BlackboardKey<float> shortRangeDetectionDistance;
 
+    public BlackboardKey<Transform> player;
+    public BlackboardKey<Transform> objectTransform;
+    public BlackboardKey<Transform> magicStoneTransform;
+    public BlackboardKey<bool> canThrowStone;
+    public BlackboardKey<bool> canEarthQuake;
+    public BlackboardKey<bool> canRoll;
+    public BlackboardKey<bool> canLowAttack;
+    public BlackboardKey<bool> isTempted;
+    public BlackboardKey<bool> isIntake;
+    public BlackboardKey<bool> isStuned;
+
     public override void Init(BehaviourTree tree)
     {
         SetBlackboardValue<int>("currentHP", hp, tree);
@@ -44,5 +55,18 @@ public class TerrapupaRootData : BaseBTData
         longRangeDetectionDistance = FindBlackboardKey<float>("longRangeDetectionDistance", tree);
         midRangeDetectionDistance = FindBlackboardKey<float>("midRangeDetectionDistance", tree);
         shortRangeDetectionDistance = FindBlackboardKey<float>("shortRangeDetectionDistance", tree);
+
+        player = FindBlackboardKey<Transform>("player", tree);
+        objectTransform = FindBlackboardKey<Transform>("objectTransform", tree);
+        magicStoneTransform = FindBlackboardKey<Transform>("magicStoneTransform", tree);
+        currentHP = FindBlackboardKey<int>("currentHP", tree);
+        canThrowStone = FindBlackboardKey<bool>("canThrowStone", tree);
+        canEarthQuake = FindBlackboardKey<bool>("canEarthQuake", tree);
+        canRoll = FindBlackboardKey<bool>("canRoll", tree);
+        canLowAttack = FindBlackboardKey<bool>("canLowAttack", tree);
+        isTempted = FindBlackboardKey<bool>("isTempted", tree);
+        isIntake = FindBlackboardKey<bool>("isIntake", tree);
+        isStuned = FindBlackboardKey<bool>("isStuned", tree);
+
     }
 }

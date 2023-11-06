@@ -8,6 +8,20 @@ using UnityEngine;
 public abstract class BaseBTData : ScriptableObject
 {
     protected string dataName;
+    protected BehaviourTree tree;
+
+    public BehaviourTree Tree
+    {
+        get
+        {
+            return tree;
+        }
+        set
+        {
+            if (tree == null)
+                tree = value;
+        }
+    }
 
     public string DataName
     {
@@ -38,14 +52,15 @@ public abstract class BaseBTData : ScriptableObject
 public class BehaviourTreeController : MonoBehaviour
 {
     [SerializeField] protected BehaviourTreeInstance behaviourTreeInstance;
-    [SerializeField] protected BaseBTData rootTree;
+    [SerializeField] protected BaseBTData rootTreeData;
     [SerializeField] private List<BaseBTData> settingList;
 
     public void InitRootTree(BehaviourTree tree)
     {
-        if(tree != null)
+        if (tree != null)
         {
-            rootTree.Init(tree);
+            rootTreeData.Tree = tree;
+            rootTreeData.Init(tree);
         }
         else
         {
@@ -53,7 +68,7 @@ public class BehaviourTreeController : MonoBehaviour
         }
     }
 
-    public T GetData<T>(string dataName) where T : BaseBTData
+    public T Data<T>(string dataName) where T : BaseBTData
     {
         foreach (var setting in settingList)
         {
@@ -81,8 +96,9 @@ public class BehaviourTreeController : MonoBehaviour
     {
         BaseBTData data = Search(dataName);
 
-        if(data != null)
+        if (data != null)
         {
+            data.Tree = tree;
             data.Init(tree);
         }
     }

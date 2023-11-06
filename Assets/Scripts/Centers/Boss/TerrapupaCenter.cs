@@ -346,7 +346,8 @@ namespace Centers.Boss
         private void OnGUI()
         {
             {
-                float distance = Vector3.Distance(player.transform.position, boss.transform.position);
+                Vector3 directionToBoss = boss.transform.position - player.transform.position;
+                float distance = directionToBoss.magnitude;
                 string distanceText = "Distance: " + distance.ToString("F2");
 
                 int boxWidth = 200;
@@ -361,7 +362,8 @@ namespace Centers.Boss
             {
                 if (magicStone != null)
                 {
-                    float distance = Vector3.Distance(boss.transform.position, magicStone.transform.position);
+                    Vector3 directionToStone = magicStone.transform.position - boss.transform.position;
+                    float distance = directionToStone.magnitude;
                     string distanceText = "Distance: " + distance.ToString("F2");
 
                     int boxWidth = 200;
@@ -371,10 +373,11 @@ namespace Centers.Boss
 
                     Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
                     GUI.Box(boxRect, "");
-                    GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText); 
+                    GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
                 }
             }
         }
+
 
         private void OnDrawGizmos()
         {

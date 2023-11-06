@@ -27,33 +27,26 @@ public class MoveToPosLerp : ActionNode
 
     protected override State OnUpdate()
     {
-        Vector3 targetPos;
-        if(targetTransform.Value == null)
-        {
-            targetPos = targetPosition.Value;
-        }
-        else
-        {
-            targetPos = targetTransform.Value.position;
-        }
+        Vector3 targetPos = targetTransform.Value == null ? targetPosition.Value : targetTransform.Value.position;
+        Vector3 toTarget = targetPos - context.transform.position;
 
-
-        if (Vector3.Distance(context.transform.position, targetPos) < 0.001f)
+        if (toTarget.sqrMagnitude < 0.001f)
         {
             return State.Success;
         }
 
         t += Time.deltaTime * moveSpeed.Value / Vector3.Distance(startPosition, targetPos);
-        t = Mathf.Clamp(t, 0.0f, 1.0f);
+        t = Mathf.Clamp(t, 0f, 1f);
         Vector3 nextPosition = Vector3.Lerp(startPosition, targetPos, t);
 
-        if (Vector3.Distance(startPosition, nextPosition) >= moveDistance.Value)
+        if ((nextPosition - startPosition).sqrMagnitude >= moveDistance.Value * moveDistance.Value)
         {
             return State.Success;
         }
 
         context.transform.position = nextPosition;
 
-        return State.Success;
+        return State.Running;
     }
+
 }

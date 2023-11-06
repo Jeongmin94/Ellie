@@ -10,13 +10,12 @@ namespace Boss.Terrapupa
 {
     public class TerrapupaController : BehaviourTreeController
     {
+
         [SerializeField] private Transform target;
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
-
+        
         private TicketMachine ticketMachine;
-
-        public TerrapupaRootData terrapupaData;
 
         public Transform Target
         {
@@ -36,6 +35,8 @@ namespace Boss.Terrapupa
             set { weakPoint = value; }
         }
 
+        [HideInInspector] public TerrapupaRootData terrapupaData;
+
         public BlackboardKey<Transform> player;
         public BlackboardKey<Transform> objectTransform;
         public BlackboardKey<Transform> magicStoneTransform;
@@ -48,8 +49,6 @@ namespace Boss.Terrapupa
         public BlackboardKey<bool> isIntake;
         public BlackboardKey<bool> isStuned;
 
-        public BlackboardKey<Vector3> pos;
-
         private void Awake()
         {
             InitTicketMachine();
@@ -60,11 +59,12 @@ namespace Boss.Terrapupa
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Terrapupa, ChannelType.BossInteraction);
         }
 
         private void InitStatus()
         {
+            terrapupaData = rootTreeData as TerrapupaRootData;
             behaviourTreeInstance.SetBlackboardValue<Transform>("player", target);
 
             player = behaviourTreeInstance.FindBlackboardKey<Transform>("player");

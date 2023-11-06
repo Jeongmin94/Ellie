@@ -25,7 +25,10 @@ public class MoveToPosLerpRunning : ActionNode
 
     protected override State OnUpdate()
     {
-        if (Vector3.Distance(context.transform.position, targetPosition.Value) < 0.001f)
+        Vector3 directionToTarget = targetPosition.Value - context.transform.position;
+        float closeEnoughSqr = 0.001f;
+
+        if (directionToTarget.sqrMagnitude < closeEnoughSqr)
         {
             return State.Success;
         }
@@ -43,4 +46,5 @@ public class MoveToPosLerpRunning : ActionNode
 
         return State.Running;
     }
+
 }

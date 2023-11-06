@@ -36,9 +36,6 @@ namespace Channels.Boss
         // 상호작용 받는 대상 (객체 <- 객체)
         public Transform Receiver { get; set; }
 
-        // 상호작용 받는 대상 (객체들 <- 객체)
-        public List<Transform> Receivers { get; set; }
-
         // 테라푸파의 공격 제한 타입
         public TerrapupaAttackType TerrapupaBannedAttackType { get; set; }
     }
