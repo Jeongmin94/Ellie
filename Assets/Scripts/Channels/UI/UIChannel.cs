@@ -12,6 +12,7 @@ namespace Channels.UI
     public enum ActionType
     {
         AddSlotItem,
+        ConsumeSlotItem,
         RemoveSlotItem,
         ToggleInventory,
     }

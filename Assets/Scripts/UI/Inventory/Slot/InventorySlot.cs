@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
@@ -23,11 +24,12 @@ namespace Assets.Scripts.UI.Inventory
         private readonly float lineHeight = 25.0f;
 
         public int Index { get; set; }
-        public BaseItem SlotItem { get; set; }
+        public BaseItem SlotItemData { get; set; }
         public SlotAreaType SlotType { get; set; }
         public SlotItemPosition SlotItemPosition { get; private set; }
 
         private RectTransform rect;
+        private readonly List<InventorySlot> copylist = new List<InventorySlot>();
 
         // !TODO: 필요 없음. 삭제해도 됨(인벤토리 기본 구현 완료 후 삭제하기)
         private Image itemImage;
@@ -58,7 +60,7 @@ namespace Assets.Scripts.UI.Inventory
         private void InitObjects()
         {
             SlotItemPosition.slot = this;
-            SlotItem = null;
+            SlotItemData = null;
 
             rect = GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
@@ -125,8 +127,22 @@ namespace Assets.Scripts.UI.Inventory
 
             var origin = UIManager.Instance.MakeSubItem<InventorySlotItem>(transform, InventorySlotItem.Path);
             origin.SetSlot(SlotItemPosition);
-            origin.SetItem(baseItem);
+            origin.SetItemData(baseItem);
             origin.SetOnDragParent(payload.onDragParent);
+
+            baseItem.slotItems[SlotType] = origin;
+            baseItem.slots[SlotType] = this;
+        }
+
+        public void ClearSlotItemPosition()
+        {
+            SlotItemPosition.ClearItem();
+        }
+
+        private void OnSlotItemDestroy()
+        {
+            Debug.Log($"{Index} OnSlotItemDestroy");
+            ClearSlotItemPosition();
         }
 
         public void Subscribe(Action<InventoryEventPayload> listener)

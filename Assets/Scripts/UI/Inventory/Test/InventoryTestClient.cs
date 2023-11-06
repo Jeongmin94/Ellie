@@ -47,10 +47,17 @@ namespace Assets.Scripts.UI.Inventory.Test
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
             }
 
-            // 현재 카테고리에 아이템 추가
+            // 아이템 생성
             if (Input.GetKeyDown(KeyCode.A))
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload());
+                ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
+            }
+
+            // 아이템 소모
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
             }
         }
 
@@ -68,6 +75,30 @@ namespace Assets.Scripts.UI.Inventory.Test
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.AddSlotItem;
+
+            var testItemInfo = itemDataParsingInfo.items[0];
+            testItemInfo.imageName = "UI/Item/ItemDefaultRed";
+
+            payload.itemData = testItemInfo;
+
+            return payload;
+        }
+
+        private UIPayload MakeAddItemPayload2()
+        {
+            var ret = MakeAddItemPayload();
+
+            ret.itemData = itemDataParsingInfo.items[2];
+            ret.itemData.imageName = "UI/Item/ItemDefaultWhite";
+
+            return ret;
+        }
+
+        private UIPayload MakeConsumeItemPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.ConsumeSlotItem;
 
             var testItemInfo = itemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";

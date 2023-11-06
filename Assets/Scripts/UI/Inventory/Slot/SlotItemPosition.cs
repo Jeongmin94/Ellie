@@ -8,22 +8,14 @@ namespace Assets.Scripts.UI.Inventory
     {
         public InventorySlot slot;
 
-        // !TODO: 필요 없음. 삭제해도 됨(인벤토리 기본 구현 완료 후 삭제하기)
-        private Image itemImage;
-
-        private void Awake()
-        {
-            itemImage = GetComponent<Image>();
-        }
-
         public void SetItem(BaseItem item)
         {
-            slot.SlotItem = item;
+            slot.SlotItemData = item;
         }
 
         public void ClearItem()
         {
-            slot.SlotItem = null;
+            slot.SlotItemData = null;
         }
     }
 }

@@ -283,6 +283,12 @@ namespace Assets.Scripts.UI.Inventory
                 AddItem(uiPayload);
                 return;
             }
+
+            if (uiPayload.actionType == ActionType.ConsumeSlotItem)
+            {
+                ConsumeItem(uiPayload);
+                return;
+            }
         }
 
         private void ToggleInventory()
@@ -298,10 +304,15 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
-        private void AddItem(UIPayload uiPayload)
+        private void AddItem(UIPayload payload)
         {
-            uiPayload.onDragParent = transform;
-            buttonPanel.AddItem(SlotAreaType.Item, uiPayload.itemData.groupType, uiPayload);
+            payload.onDragParent = transform;
+            buttonPanel.AddItem(SlotAreaType.Item, payload.itemData.groupType, payload);
+        }
+
+        private void ConsumeItem(UIPayload payload)
+        {
+            buttonPanel.ConsumeItem(SlotAreaType.Item, payload.itemData.groupType, payload);
         }
 
         #endregion
@@ -315,16 +326,24 @@ namespace Assets.Scripts.UI.Inventory
                 case InventoryEventType.MoveItem:
                 {
                     payload.baseItem.SetSlot(payload.slot.SlotItemPosition);
-                    payload.baseItem.SetItem(payload.baseItem.SlotItem);
+                    payload.baseItem.SetItemData(payload.baseItem.SlotItemData);
+
+                    payload.baseItem.SlotItemData.slots[payload.slot.SlotType] = payload.slot;
                 }
                     break;
 
                 case InventoryEventType.CopyItem:
                 {
-                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(payload.slot.transform, InventorySlotCopyItem.Path);
-                    copy.SetSlot(payload.slot.SlotItemPosition);
-                    copy.SetItem(payload.baseItem.SlotItem);
+                    var baseSlotItem = payload.baseItem;
+                    var slot = payload.slot;
+
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.SetSlot(slot.SlotItemPosition);
+                    copy.SetItemData(baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
+
+                    baseSlotItem.SlotItemData.slotItems[slot.SlotType] = copy;
+                    baseSlotItem.SlotItemData.slots[slot.SlotType] = slot;
                 }
                     break;
                 default:

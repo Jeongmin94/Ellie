@@ -150,13 +150,17 @@ namespace Assets.Scripts.UI.Inventory
 
         public void AddItem(SlotAreaType slotAreaType, GroupType groupType, UIPayload payload)
         {
-            // 아이템을 추가함
-            // 추가할 때에는 아이템 이름, 스프라이트, 수량만 있으면 됨
-            // InventorySlot에 아이템 정보를 추가해야 함
             if (slotAreas.TryGetValue(slotAreaType, out var area))
             {
-                ActivateToggle(groupType, true);
                 area[(int)groupType].AddItem(payload);
+            }
+        }
+
+        public void ConsumeItem(SlotAreaType slotAreaType, GroupType groupType, UIPayload payload)
+        {
+            if (slotAreas.TryGetValue(slotAreaType, out var area))
+            {
+                area[(int)groupType].ConsumeItem(payload);
             }
         }
 

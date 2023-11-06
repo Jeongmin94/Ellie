@@ -1,4 +1,5 @@
 using Assets.Scripts.Item;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
@@ -22,7 +23,7 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
-        public BaseItem SlotItem { get; set; }
+        public BaseItem SlotItemData { get; protected set; }
 
         private Image raycastImage;
         private RectTransform rect;
@@ -108,18 +109,20 @@ namespace Assets.Scripts.UI.Inventory
             rectTransform.localPosition = Vector3.zero;
         }
 
-        public virtual void SetItem(BaseItem baseItem)
+        public virtual void SetItemData(BaseItem baseItem)
         {
-            SlotItem = baseItem;
+            SlotItemData = baseItem;
+
             if (slotItemPosition)
             {
-                slotItemPosition.SetItem(SlotItem);
+                slotItemPosition.SetItem(SlotItemData);
             }
 
-            itemImage.sprite = SlotItem.ItemSprite;
+            itemImage.sprite = SlotItemData.ItemSprite;
             itemText.text = baseItem.itemCount.Value.ToString();
-            
+
             baseItem.itemCount.Subscribe(OnItemCountChanged);
+            baseItem.SubscribeDestroyHandler(RemoveBaseSlotItem);
         }
 
         private void OnItemCountChanged(int value)
@@ -127,7 +130,12 @@ namespace Assets.Scripts.UI.Inventory
             itemText.text = value.ToString();
         }
 
-        public BaseItem GetBaseItem() => SlotItem;
+        private void RemoveBaseSlotItem()
+        {
+            ResourceManager.Instance.Destroy(gameObject);
+        }
+
+        public BaseItem GetBaseItem() => SlotItemData;
 
         public void SetSlot(SlotItemPosition parent)
         {
@@ -135,6 +143,7 @@ namespace Assets.Scripts.UI.Inventory
 
             if (slotItemPosition != null)
             {
+                // 이전 슬롯의 아이템 설정 초기화
                 slotItemPosition.ClearItem();
             }
 

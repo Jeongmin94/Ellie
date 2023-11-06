@@ -23,7 +23,7 @@ namespace Assets.Scripts.UI.Inventory
         private void OnDestroy()
         {
             copyItemAction = null;
-            SlotItem = null;
+            SlotItemData = null;
         }
 
         public override bool IsOrigin() => false;

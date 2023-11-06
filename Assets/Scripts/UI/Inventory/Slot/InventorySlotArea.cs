@@ -130,7 +130,7 @@ namespace Assets.Scripts.UI.Inventory
             // !TODO: 카피 슬롯에 이미 아이템이 등록되어 있는데, 다시 요청이 오면 위치를 해당 위치로 변경
             if (payload.eventType == InventoryEventType.CopyItem && SlotAreaType == SlotAreaType.Equipment)
             {
-                var dup = FindSlot(payload.baseItem.SlotItem.ItemIndex);
+                var dup = FindSlot(payload.baseItem.SlotItemData.ItemIndex);
                 if (dup != null)
                 {
                     return;
@@ -143,12 +143,12 @@ namespace Assets.Scripts.UI.Inventory
 
         private InventorySlot FindSlot(int itemIndex)
         {
-            return slots.Find(s => s.SlotItem != null && s.SlotItem.ItemIndex == itemIndex);
+            return slots.Find(s => s.SlotItemData != null && s.SlotItemData.ItemIndex == itemIndex);
         }
 
         private InventorySlot FindEmptySlot()
         {
-            return slots.Find(s => s.SlotItem == null);
+            return slots.Find(s => s.SlotItemData == null);
         }
 
         public void AddItem(UIPayload payload)
@@ -158,13 +158,35 @@ namespace Assets.Scripts.UI.Inventory
             var dup = FindSlot(item.index);
             if (dup)
             {
-                dup.SlotItem.itemCount.Value++;
+                dup.SlotItemData.itemCount.Value++;
+                Debug.Log($"{dup.SlotItemData.ItemName} idx: {dup.Index} - {dup.SlotItemData.itemCount.Value}");
                 return;
             }
 
             // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 추가
             var emptySlot = FindEmptySlot();
             emptySlot.CreateSlotItem(payload);
+        }
+
+        public void ConsumeItem(UIPayload payload)
+        {
+            // 1. 존재하지 않는 아이템이면 무효 처리
+            var item = payload.itemData;
+            var slot = FindSlot(item.index);
+            if (slot == null)
+            {
+                Debug.LogWarning($"{item.name}은 존재하지 않는 아이템입니다.");
+                return;
+            }
+
+            // 2. 존재하는 아이템이면 카운트 감소
+            // 카운트가 0이 되면 목록에서 제거
+            slot.SlotItemData.itemCount.Value--;
+            if (slot.SlotItemData.itemCount.Value == 0)
+            {
+                Debug.Log($"{slot.Index}의 아이템 삭제");
+                slot.SlotItemData.DestroyItem();
+            }
         }
 
         #endregion
