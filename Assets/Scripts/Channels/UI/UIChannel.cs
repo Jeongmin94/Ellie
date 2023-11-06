@@ -20,6 +20,8 @@ namespace Channels.UI
     {
         public UIType uiType;
         public ActionType actionType;
+        public ItemData itemData;
+        
         public Sprite sprite;
         public string name;
         public string text;

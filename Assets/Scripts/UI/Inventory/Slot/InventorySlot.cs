@@ -4,7 +4,6 @@ using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
-using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -127,6 +126,11 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             slotInventoryAction?.Invoke(payload);
+        }
+
+        public void UpdateItem()
+        {
+            
         }
 
         public void Subscribe(Action<InventoryEventPayload> listener)

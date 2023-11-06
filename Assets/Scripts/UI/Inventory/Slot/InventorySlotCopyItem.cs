@@ -29,7 +29,7 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             itemImage.sprite = SlotItem.ItemSprite;
-            itemText.text = $"copy: {SlotItem.ItemCount}";
+            itemText.text = $"copy: {SlotItem.ItemCount.Value}";
         }
 
         private void OnDestroy()

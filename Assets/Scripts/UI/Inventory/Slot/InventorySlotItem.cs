@@ -1,6 +1,4 @@
 using Assets.Scripts.Item;
-using Assets.Scripts.UI.Framework.Presets;
-using UnityEngine;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -40,6 +38,18 @@ namespace Assets.Scripts.UI.Inventory
 
             // 아이템 슬롯이 추가될 때, inventory를 onDragParent에 추가시켜야 함
             onDragParent = transform.parent;
+        }
+
+        public override void SetItem(BaseItem baseItem)
+        {
+            SlotItem = baseItem;
+            if (slotItemPosition)
+            {
+                slotItemPosition.SetItem(SlotItem);
+            }
+
+            itemImage.sprite = SlotItem.ItemSprite;
+            itemText.text = $"origin: {SlotItem.ItemCount.Value}";
         }
 
         public override bool IsOrigin() => true;

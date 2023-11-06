@@ -10,7 +10,7 @@ namespace Assets.Scripts.Managers
     {
         [SerializeField] private List<DataParsingInfo> dataList;
 
-        private Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
+        private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
 
         private GoogleSheetsParser parser;
         private bool isParseDone = false;

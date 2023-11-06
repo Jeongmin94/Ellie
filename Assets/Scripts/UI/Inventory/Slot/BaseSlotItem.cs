@@ -35,14 +35,6 @@ namespace Assets.Scripts.UI.Inventory
         protected SlotItemPosition slotItemPosition;
         private bool isDropped;
 
-        public virtual void SetItem(BaseItem baseItem)
-        {
-            SlotItem = baseItem;
-            slotItemPosition.SetItem(SlotItem);
-            itemImage.sprite = SlotItem.ItemSprite;
-            itemText.text = SlotItem.ItemCount.ToString();
-        }
-
         protected override void Init()
         {
             isDropped = false;
@@ -107,6 +99,19 @@ namespace Assets.Scripts.UI.Inventory
             rectTransform.sizeDelta = Vector2.one;
             rectTransform.localPosition = Vector3.zero;
         }
+
+        public virtual void SetItem(BaseItem baseItem)
+        {
+            SlotItem = baseItem;
+            if (slotItemPosition)
+            {
+                slotItemPosition.SetItem(SlotItem);
+            }
+
+            itemImage.sprite = SlotItem.ItemSprite;
+            itemText.text = SlotItem.ItemCount.Value.ToString();
+        }
+        
 
         public BaseItem GetBaseItem() => SlotItem;
 

@@ -1,3 +1,6 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -11,12 +14,15 @@ namespace Assets.Scripts.UI.Inventory.Test
     public class InventoryTestClient : MonoBehaviour
     {
         [SerializeField] private InventoryChannel inventoryChannel;
+        [SerializeField] private ItemDataParsingInfo itemDataParsingInfo;
 
         private TicketMachine ticketMachine;
 
         private void Awake()
         {
             InitTicketMachine();
+
+            StartCoroutine(CheckParse());
         }
 
         private void InitTicketMachine()
@@ -25,6 +31,12 @@ namespace Assets.Scripts.UI.Inventory.Test
             ticketMachine.AddTickets(ChannelType.UI);
 
             TicketManager.Instance.Ticket(ticketMachine);
+        }
+
+        private IEnumerator CheckParse()
+        {
+            yield return DataManager.Instance.CheckIsParseDone();
+            Debug.Log($"{itemDataParsingInfo} 파싱 완료");
         }
 
         private void Update()
@@ -38,7 +50,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             // 현재 카테고리에 아이템 추가
             if (Input.GetKeyDown(KeyCode.A))
             {
-                // ticketMachine.SendMessage(ChannelType.UI, UI);
+                ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload());
             }
         }
 
@@ -47,6 +59,18 @@ namespace Assets.Scripts.UI.Inventory.Test
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.ToggleInventory;
+
+            return payload;
+        }
+
+        private UIPayload MakeAddItemPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.AddSlotItem;
+
+            var testItemInfo = itemDataParsingInfo.items[0];
+            testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             return payload;
         }

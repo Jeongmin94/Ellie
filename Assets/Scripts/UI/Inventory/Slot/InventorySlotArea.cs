@@ -129,13 +129,7 @@ namespace Assets.Scripts.UI.Inventory
             // !TODO: 카피 슬롯에 이미 아이템이 등록되어 있는데, 다시 요청이 오면 위치를 해당 위치로 변경
             if (payload.eventType == InventoryEventType.CopyItem && SlotAreaType == SlotAreaType.Equipment)
             {
-                var dup = slots.Find(s =>
-                {
-                    if (s.SlotItem != null && s.SlotItem.ItemIndex == payload.baseItem.SlotItem.ItemIndex)
-                        return true;
-                    return false;
-                });
-
+                var dup = FindSlot(payload.baseItem.SlotItem.ItemIndex);
                 if (dup != null)
                 {
                     Debug.Log($"이미 카피됨: {dup.name}, {dup.SlotItem.ItemName} - payload: {payload.baseItem.SlotItem.ItemName}");
@@ -149,8 +143,22 @@ namespace Assets.Scripts.UI.Inventory
             slotAreaInventoryAction?.Invoke(payload);
         }
 
-        public void AddItem(BaseItem item)
+        private InventorySlot FindSlot(int itemIndex)
         {
+            return slots.Find(s => s.SlotItem != null && s.SlotItem.ItemIndex == itemIndex);
+        }
+
+        public void AddItem(ItemData item)
+        {
+            // 1. 해당 아이템이 이미 있는 경우에는 카운트 증가
+            var dup = FindSlot(item.index);
+            if (dup)
+            {
+                dup.SlotItem.ItemCount.Value++;
+                return;
+            }
+
+            // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 증가
         }
 
         #endregion

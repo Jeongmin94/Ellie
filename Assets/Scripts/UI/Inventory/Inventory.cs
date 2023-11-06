@@ -272,6 +272,21 @@ namespace Assets.Scripts.UI.Inventory
             if (payload is not UIPayload uiPayload)
                 return;
 
+            if (uiPayload.actionType == ActionType.ToggleInventory)
+            {
+                ToggleInventory();
+                return;
+            }
+
+            if (uiPayload.actionType == ActionType.AddSlotItem)
+            {
+                AddItem(uiPayload);
+                return;
+            }
+        }
+
+        private void ToggleInventory()
+        {
             if (isOpened)
             {
                 OnCloseButtonClickAction();
@@ -281,6 +296,11 @@ namespace Assets.Scripts.UI.Inventory
                 isOpened = true;
                 gameObject.SetActive(true);
             }
+        }
+
+        private void AddItem(UIPayload uiPayload)
+        {
+            buttonPanel.AddItem(SlotAreaType.Item, uiPayload.itemData.groupType, uiPayload.itemData);
         }
 
         #endregion
@@ -297,6 +317,7 @@ namespace Assets.Scripts.UI.Inventory
                     payload.baseItem.SetItem(payload.baseItem.SlotItem);
                 }
                     break;
+
                 case InventoryEventType.CopyItem:
                 {
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(payload.slot.transform, InventorySlotCopyItem.Path);
