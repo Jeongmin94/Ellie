@@ -145,6 +145,30 @@ namespace Assets.Scripts.UI.Inventory
         private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
         {
             payload.groupType = type;
+
+            if (payload.eventType == InventoryEventType.CopyItemWithShortCut)
+            {
+                var groupType = payload.baseItem.SlotItemData.itemData.groupType;
+                if (slotAreas.TryGetValue(SlotAreaType.Equipment, out var area))
+                {
+                    InventorySlot dup = area[(int)groupType].FindSlot(payload.baseItem.SlotItemData.ItemIndex);
+                    if (dup != null)
+                    {
+                        Debug.Log($"이미 등록되어 있는 아이템");
+                        return;
+                    }
+
+                    InventorySlot emptySlot = area[(int)groupType].FindEmptySlot();
+                    if (emptySlot == null)
+                    {
+                        Debug.Log($"비어있는 슬롯이 없음");
+                        return;
+                    }
+
+                    payload.slot = emptySlot;
+                }
+            }
+
             panelInventoryAction?.Invoke(payload);
         }
 

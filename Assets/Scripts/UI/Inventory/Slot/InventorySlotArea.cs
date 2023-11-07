@@ -127,7 +127,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotInventoryAction(InventoryEventPayload payload)
         {
-            if (payload.eventType == InventoryEventType.CopyItem && SlotAreaType == SlotAreaType.Equipment)
+            if (payload.eventType == InventoryEventType.CopyItemWithDrag && SlotAreaType == SlotAreaType.Equipment)
             {
                 var dup = FindSlot(payload.baseItem.SlotItemData.ItemIndex);
                 if (dup != null)
@@ -140,12 +140,12 @@ namespace Assets.Scripts.UI.Inventory
             slotAreaInventoryAction?.Invoke(payload);
         }
 
-        private InventorySlot FindSlot(int itemIndex)
+        public InventorySlot FindSlot(int itemIndex)
         {
             return slots.Find(s => s.SlotItemData != null && s.SlotItemData.ItemIndex == itemIndex);
         }
 
-        private InventorySlot FindEmptySlot()
+        public InventorySlot FindEmptySlot()
         {
             return slots.Find(s => s.SlotItemData == null);
         }
@@ -206,7 +206,7 @@ namespace Assets.Scripts.UI.Inventory
                     Debug.Log($"current slot: {current.Index}");
 
                     var baseSlotItem = current.SlotItemData.slotItems[SlotAreaType];
-                    emptySlot.InvokeInventoryEvent(baseSlotItem);
+                    emptySlot.InvokeCopyOrMove(baseSlotItem);
                 }
             }
         }

@@ -76,6 +76,31 @@ namespace Assets.Scripts.UI.Inventory
             gameObject.BindEvent(OnDragHandler, UIEvent.Drag);
             gameObject.BindEvent(OnEndDragHandler, UIEvent.EndDrag);
             gameObject.BindEvent(OnDropHandler, UIEvent.Drop);
+            gameObject.BindEvent(OnClickHandler, UIEvent.Click);
+        }
+
+        private void OnClickHandler(PointerEventData data)
+        {
+            var payload = new InventoryEventPayload();
+            // 설명에 등록
+            if (data.button == PointerEventData.InputButton.Left)
+            {
+                if (slotItemPosition.slot.SlotType == SlotAreaType.Description)
+                    return;
+
+                payload.eventType = InventoryEventType.ShowDescription;
+            }
+            // 장착에 등록
+            else if (data.button == PointerEventData.InputButton.Right)
+            {
+                if (slotItemPosition.slot.SlotType != SlotAreaType.Item)
+                    return;
+
+                payload.eventType = InventoryEventType.CopyItemWithShortCut;
+            }
+
+            payload.baseItem = this;
+            slotItemPosition.slot.InvokeSlotItemEvent(payload);
         }
 
         private void OnDropHandler(PointerEventData data)
@@ -95,10 +120,10 @@ namespace Assets.Scripts.UI.Inventory
 
             var swapSlot = UIManager.Instance.slotSwapBuffer;
             swapSlot.SlotType = thisSlot.SlotType;
-            swapSlot.InvokeInventoryEvent(this);
+            swapSlot.InvokeCopyOrMove(this);
 
-            thisSlot.InvokeInventoryEvent(otherSlotItem);
-            otherSlot.InvokeInventoryEvent(this);
+            thisSlot.InvokeCopyOrMove(otherSlotItem);
+            otherSlot.InvokeCopyOrMove(this);
         }
 
         private void OnBeginDragHandler(PointerEventData data)

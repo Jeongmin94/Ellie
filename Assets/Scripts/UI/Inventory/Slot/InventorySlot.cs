@@ -68,7 +68,12 @@ namespace Assets.Scripts.UI.Inventory
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
         }
 
-        public void InvokeInventoryEvent(BaseSlotItem baseSlotItem)
+        public void InvokeSlotItemEvent(InventoryEventPayload payload)
+        {
+            slotInventoryAction?.Invoke(payload);
+        }
+
+        public void InvokeCopyOrMove(BaseSlotItem baseSlotItem)
         {
             var payload = new InventoryEventPayload
             {
@@ -82,7 +87,7 @@ namespace Assets.Scripts.UI.Inventory
                 // copy
                 if (SlotType == SlotAreaType.Equipment)
                 {
-                    payload.eventType = InventoryEventType.CopyItem;
+                    payload.eventType = InventoryEventType.CopyItemWithDrag;
                 }
                 else
                 {
@@ -127,7 +132,7 @@ namespace Assets.Scripts.UI.Inventory
             if (baseSlotItem == null)
                 return;
 
-            InvokeInventoryEvent(baseSlotItem);
+            InvokeCopyOrMove(baseSlotItem);
         }
 
         public void CreateSlotItem(UIPayload payload)

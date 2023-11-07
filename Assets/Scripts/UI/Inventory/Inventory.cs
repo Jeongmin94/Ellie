@@ -20,7 +20,9 @@ namespace Assets.Scripts.UI.Inventory
     public enum InventoryEventType
     {
         MoveItem,
-        CopyItem
+        CopyItemWithDrag,
+        CopyItemWithShortCut,
+        ShowDescription,
     }
 
     public struct InventoryEventPayload
@@ -334,7 +336,21 @@ namespace Assets.Scripts.UI.Inventory
                 }
                     break;
 
-                case InventoryEventType.CopyItem:
+                case InventoryEventType.CopyItemWithDrag:
+                {
+                    var baseSlotItem = payload.baseItem;
+                    var slot = payload.slot;
+
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
+                    copy.SetOnDragParent(transform);
+
+                    baseSlotItem.ChangeSlot(slot.SlotType, slot);
+                    baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+                }
+                    break;
+
+                case InventoryEventType.CopyItemWithShortCut:
                 {
                     var baseSlotItem = payload.baseItem;
                     var slot = payload.slot;
