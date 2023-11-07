@@ -23,7 +23,7 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
-        public BaseItem SlotItemData { get; protected set; }
+        public BaseItem SlotItemData { get; set; }
 
         private Image raycastImage;
         private RectTransform rect;

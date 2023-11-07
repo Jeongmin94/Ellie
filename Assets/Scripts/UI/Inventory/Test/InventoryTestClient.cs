@@ -19,9 +19,13 @@ namespace Assets.Scripts.UI.Inventory.Test
 
         private TicketMachine ticketMachine;
 
+        private UIPayload testPayload;
+
         private void Awake()
         {
             InitTicketMachine();
+
+            testPayload = MakeAddItemPayload();
         }
 
         private void InitTicketMachine()
@@ -54,7 +58,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             // 아이템 생성
             if (Input.GetKeyDown(KeyCode.A))
             {
-                ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload());
+                ticketMachine.SendMessage(ChannelType.UI, testPayload);
                 ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
             }
 
@@ -72,6 +76,11 @@ namespace Assets.Scripts.UI.Inventory.Test
             if (Input.GetKeyDown(KeyCode.S))
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
+            }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
             }
         }
 

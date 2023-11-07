@@ -204,7 +204,6 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (slotAreas.TryGetValue(slotAreaType, out var area))
             {
-                var slot = area[(int)groupType];
                 area[(int)groupType].ConsumeItem(payload);
             }
         }

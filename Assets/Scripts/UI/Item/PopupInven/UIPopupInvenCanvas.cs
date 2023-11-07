@@ -118,7 +118,7 @@ namespace Assets.Scripts.UI.Item.PopupInven
             UIPayload uiPayload = payload as UIPayload;
             if (uiPayload.actionType == ActionType.AddSlotItem)
             {
-                AddItem(new ItemInfo(uiPayload.sprite, uiPayload.name, uiPayload.text, uiPayload.count));
+                // AddItem(new ItemInfo(uiPayload.sprite, uiPayload.name, uiPayload.text, uiPayload.count));
             }
             else if (uiPayload.actionType == ActionType.RemoveSlotItem)
             {

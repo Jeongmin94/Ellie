@@ -26,11 +26,6 @@ namespace Channels.UI
         public ItemData itemData;
 
         public Transform onDragParent;
-
-        public Sprite sprite;
-        public string name;
-        public string text;
-        public int count;
     }
 
     public class UIChannel : BaseEventChannel

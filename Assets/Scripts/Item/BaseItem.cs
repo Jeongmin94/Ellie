@@ -66,6 +66,7 @@ namespace Assets.Scripts.Item
             var slotItemsKeys = slotItems.Keys;
             foreach (var key in slotItemsKeys)
             {
+                slotItems[key].SlotItemData = null;
                 ResourceManager.Instance.Destroy(slotItems[key].gameObject);
             }
 
@@ -74,6 +75,7 @@ namespace Assets.Scripts.Item
 
         public void DestroyItem(SlotAreaType type)
         {
+            slotItems[type].SlotItemData = null;
             ResourceManager.Instance.Destroy(slotItems[type].gameObject);
             slotItems.Remove(type);
         }
