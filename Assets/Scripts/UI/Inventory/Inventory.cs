@@ -76,6 +76,11 @@ namespace Assets.Scripts.UI.Inventory
         // Close Button
         private CloseButton closeButton;
 
+        // Description
+        private DescriptionNamePanel descriptionNamePanel;
+        private DescriptionTextPanel descriptionTextPanel;
+        private InventorySlot descriptionSlot;
+
         [Tooltip("Slot Area Grid")]
         [SerializeField]
         private int row = 3;
@@ -179,16 +184,16 @@ namespace Assets.Scripts.UI.Inventory
 
         private void Start()
         {
-            var descName = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
-            descName.transform.SetParent(descriptionPanel.transform);
-
-            var descText = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
-            descText.transform.SetParent(descriptionPanel.transform);
-
-            var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
             // !TODO: description 영역에서 발생하는 이벤트 관리 주체 필요
-            slot.SlotType = SlotAreaType.Description;
-            slot.transform.SetParent(descriptionPanel.transform);
+            descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
+            descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
+
+            descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
+            descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
+
+            descriptionSlot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
+            descriptionSlot.SlotType = SlotAreaType.Description;
+            descriptionSlot.transform.SetParent(descriptionPanel.transform);
 
             closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
             SetValues(closeButton.transform, transform, AnchorPresets.MiddleCenter, InventoryConst.CloseButtonRect);
@@ -367,8 +372,14 @@ namespace Assets.Scripts.UI.Inventory
 
                 case InventoryEventType.ShowDescription:
                 {
+                    var baseSlotItem = payload.baseItem;
+                    descriptionNamePanel.SetDescriptionName(baseSlotItem.SlotItemData.ItemName);
+                    descriptionTextPanel.SetDescriptionText(baseSlotItem.SlotItemData.itemData.description);
+                    descriptionSlot.SetSprite(payload.baseItem.SlotItemData.ItemSprite);
+                    descriptionSlot.SetViewMode(true);
                 }
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }

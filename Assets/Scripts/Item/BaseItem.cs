@@ -11,8 +11,6 @@ namespace Assets.Scripts.Item
 
     public class BaseItem
     {
-        private ItemDestroyHandler destroyHandler;
-
         public ItemData itemData;
 
         public readonly Data<int> itemCount = new Data<int>();
@@ -25,12 +23,6 @@ namespace Assets.Scripts.Item
         {
             ItemSprite = ResourceManager.Instance.LoadSprite(itemData.imageName);
             itemCount.Value++;
-        }
-
-        public void SubscribeDestroyHandler(ItemDestroyHandler listener)
-        {
-            destroyHandler -= listener;
-            destroyHandler += listener;
         }
 
         public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();

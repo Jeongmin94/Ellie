@@ -82,7 +82,7 @@ namespace Assets.Scripts.UI.Inventory
         private void OnClickHandler(PointerEventData data)
         {
             var payload = new InventoryEventPayload();
-            // 설명에 등록
+            // 좌클릭 => 설명에 등록
             if (data.button == PointerEventData.InputButton.Left)
             {
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Description)
@@ -90,7 +90,7 @@ namespace Assets.Scripts.UI.Inventory
 
                 payload.eventType = InventoryEventType.ShowDescription;
             }
-            // 장착에 등록
+            // 우클릭 => 장착
             else if (data.button == PointerEventData.InputButton.Right)
             {
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Description)

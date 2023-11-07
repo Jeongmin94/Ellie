@@ -31,7 +31,6 @@ namespace Assets.Scripts.UI.Inventory
         private RectTransform rect;
         private readonly List<InventorySlot> copylist = new List<InventorySlot>();
 
-        // !TODO: 필요 없음. 삭제해도 됨(인벤토리 기본 구현 완료 후 삭제하기)
         private Image itemImage;
 
         private Action<InventoryEventPayload> slotInventoryAction;
@@ -66,6 +65,18 @@ namespace Assets.Scripts.UI.Inventory
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
             rect.sizeDelta = InventoryConst.SlotRect.GetSize();
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
+        }
+
+        public void SetViewMode(bool isTrue)
+        {
+            var itemColor = itemImage.color;
+            itemColor.a = isTrue ? 1.0f : 0.0f;
+            itemImage.color = itemColor;
+        }
+
+        public void SetSprite(Sprite sprite)
+        {
+            itemImage.sprite = sprite;
         }
 
         public void InvokeSlotItemEvent(InventoryEventPayload payload)
