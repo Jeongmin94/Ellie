@@ -19,6 +19,7 @@
         Down,
         KnockedAirborne,
         GetUp,
+        Conversation,
         Dead
     }
 }

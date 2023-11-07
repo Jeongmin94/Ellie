@@ -37,9 +37,9 @@ namespace Assets.Scripts.Player
             return QuestDataListObj.questDataList[questIdx].status;
         }
 
-        public List<string>[] GetDialog(int questIdx)
-        {
-            return QuestDataListObj.questDataList[questIdx].dialogList;
-        }
+        //public List<string>[] GetDialog(int questIdx)
+        //{
+        //    return QuestDataListObj.questDataList[questIdx].dialogList;
+        //}
     }
 }

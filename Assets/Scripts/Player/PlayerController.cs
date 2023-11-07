@@ -38,6 +38,7 @@ namespace Assets.Scripts.Player
         public GameObject mainCam;
         public GameObject cinematicMainCam;
         public GameObject cinematicAimCam;
+        public GameObject cinematicDialogCam;
 
         [Header("Move")]
         [SerializeField] private float walkSpeed;
@@ -210,6 +211,7 @@ namespace Assets.Scripts.Player
             isRigid = false;
             initialFixedDeltaTime = Time.fixedDeltaTime;
             cinematicAimCam.SetActive(false);
+            cinematicDialogCam.SetActive(false);
 
             stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
                 stepRayUpper.transform.position.z);
@@ -282,6 +284,9 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Down, playerStateDown);
             PlayerStateGetUp playerStateGetUp = new(this);
             stateMachine.AddState(PlayerStateName.GetUp, playerStateGetUp);
+            PlayerStateConversation playerStateConversation = new(this);
+            stateMachine.AddState(PlayerStateName.Conversation, playerStateConversation);
+
         }
         public void MovePlayer(float moveSpeed)
         {
@@ -443,6 +448,18 @@ namespace Assets.Scripts.Player
             cinematicMainCam.SetActive(true);
             cinematicAimCam.SetActive(false);
         }
+
+        public void TurnOnDialogCam()
+        {
+            cinematicDialogCam.SetActive(true);
+            cinematicMainCam.SetActive(false);    
+        }
+
+        public void TurnOffDialogCam()
+        {
+            cinematicMainCam.SetActive(true);
+            cinematicDialogCam.SetActive(false);
+        }
         public void SetTimeScale(float expectedTimeScale)
         {
             //현재 timeScale과 fixedDeltatime을 파라미터의 값에 맞게 변경합니다
@@ -517,6 +534,25 @@ namespace Assets.Scripts.Player
         public PlayerStateName GetCurState()
         {
             return stateMachine.CurrentStateName;
+        }
+
+        public void StartConversation()
+        {
+            TurnOnDialogCam();
+            cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().LookAt = GetComponent<PlayerInteraction>().interactiveObject.transform;
+
+            GetComponent<PlayerInteraction>().isInteracting = true;
+            ChangeState(PlayerStateName.Conversation);
+        }
+
+        public void EndConversation()
+        {
+            //cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().LookAt = null;
+            //cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().Follow = null;
+
+            TurnOffDialogCam();
+            GetComponent<PlayerInteraction>().isInteracting = false;
+            ChangeState(PlayerStateName.Idle);
         }
 
         private void OnGUI()
