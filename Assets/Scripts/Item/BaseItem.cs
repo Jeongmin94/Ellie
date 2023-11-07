@@ -36,6 +36,16 @@ namespace Assets.Scripts.Item
         public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
         public readonly IDictionary<SlotAreaType, BaseSlotItem> slotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
 
+        public void ChangeSlot(SlotAreaType type, InventorySlot slot)
+        {
+            slots[type] = slot;
+        }
+
+        public void ChangeSlotItem(SlotAreaType type, BaseSlotItem item)
+        {
+            slotItems[type] = item;
+        }
+
         public void DestroyItem()
         {
             var keys = slots.Keys;

@@ -127,7 +127,6 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotInventoryAction(InventoryEventPayload payload)
         {
-            // !TODO: 카피 슬롯에 이미 아이템이 등록되어 있는데, 다시 요청이 오면 위치를 해당 위치로 변경
             if (payload.eventType == InventoryEventType.CopyItem && SlotAreaType == SlotAreaType.Equipment)
             {
                 var dup = FindSlot(payload.baseItem.SlotItemData.ItemIndex);

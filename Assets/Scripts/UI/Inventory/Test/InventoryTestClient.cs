@@ -21,8 +21,6 @@ namespace Assets.Scripts.UI.Inventory.Test
         private void Awake()
         {
             InitTicketMachine();
-
-            StartCoroutine(CheckParse());
         }
 
         private void InitTicketMachine()
@@ -31,6 +29,11 @@ namespace Assets.Scripts.UI.Inventory.Test
             ticketMachine.AddTickets(ChannelType.UI);
 
             TicketManager.Instance.Ticket(ticketMachine);
+        }
+
+        private void Start()
+        {
+            StartCoroutine(CheckParse());
         }
 
         private IEnumerator CheckParse()

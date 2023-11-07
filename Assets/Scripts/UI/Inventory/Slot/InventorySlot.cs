@@ -68,22 +68,8 @@ namespace Assets.Scripts.UI.Inventory
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
         }
 
-        // 슬롯에 아이템 장착
-        // 아이템 정보, 슬롯 인덱스
-        private void OnDropHandler(PointerEventData data)
+        public void InvokeInventoryEvent(BaseSlotItem baseSlotItem)
         {
-            // Description은 읽기 전용
-            if (SlotType == SlotAreaType.Description)
-                return;
-
-            if (SlotItemData != null)
-                return;
-
-            var droppedItem = data.pointerDrag;
-            var baseSlotItem = droppedItem.GetComponent<BaseSlotItem>();
-            if (baseSlotItem == null)
-                return;
-
             var payload = new InventoryEventPayload
             {
                 baseItem = baseSlotItem,
@@ -122,6 +108,28 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction?.Invoke(payload);
         }
 
+        // 슬롯에 아이템 장착
+        // 아이템 정보, 슬롯 인덱스
+        private void OnDropHandler(PointerEventData data)
+        {
+            // Description은 읽기 전용
+            if (SlotType == SlotAreaType.Description)
+                return;
+
+            if (SlotItemData != null)
+            {
+                Debug.Log($"이미 아이템이 존재하는 슬롯 {SlotItemData.ItemName}");
+                return;
+            }
+
+            var droppedItem = data.pointerDrag;
+            var baseSlotItem = droppedItem.GetComponent<BaseSlotItem>();
+            if (baseSlotItem == null)
+                return;
+
+            InvokeInventoryEvent(baseSlotItem);
+        }
+
         public void CreateSlotItem(UIPayload payload)
         {
             BaseItem baseItem = new BaseItem();
@@ -140,12 +148,6 @@ namespace Assets.Scripts.UI.Inventory
         public void ClearSlotItemPosition()
         {
             SlotItemPosition.ClearItem();
-        }
-
-        private void OnSlotItemDestroy()
-        {
-            Debug.Log($"{Index} OnSlotItemDestroy");
-            ClearSlotItemPosition();
         }
 
         public void Subscribe(Action<InventoryEventPayload> listener)

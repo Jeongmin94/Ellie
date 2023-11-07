@@ -1,5 +1,3 @@
-using Assets.Scripts.Item;
-
 namespace Assets.Scripts.UI.Inventory
 {
     public class InventorySlotItem : BaseSlotItem

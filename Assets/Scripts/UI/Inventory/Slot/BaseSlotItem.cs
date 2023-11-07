@@ -75,6 +75,33 @@ namespace Assets.Scripts.UI.Inventory
             gameObject.BindEvent(OnBeginDragHandler, UIEvent.BeginDrag);
             gameObject.BindEvent(OnDragHandler, UIEvent.Drag);
             gameObject.BindEvent(OnEndDragHandler, UIEvent.EndDrag);
+            gameObject.BindEvent(OnDropHandler, UIEvent.Drop);
+        }
+
+        private void OnDropHandler(PointerEventData data)
+        {
+            var droppedItem = data.pointerDrag;
+            var otherSlotItem = droppedItem.GetComponent<BaseSlotItem>();
+
+            if (otherSlotItem == null)
+                return;
+
+            var otherSlot = otherSlotItem.slotItemPosition.slot;
+            var thisSlot = slotItemPosition.slot;
+            if (otherSlot.SlotType != thisSlot.SlotType)
+            {
+                return;
+            }
+
+            var swapSlot = UIManager.Instance.slotSwapBuffer;
+            swapSlot.SlotType = thisSlot.SlotType;
+            swapSlot.InvokeInventoryEvent(this);
+
+            thisSlot.InvokeInventoryEvent(otherSlotItem);
+            otherSlot.InvokeInventoryEvent(this);
+
+            // thisSlot.InvokeInventoryEvent(otherSlotItem);
+            // otherSlot.InvokeInventoryEvent(this);
         }
 
         private void OnBeginDragHandler(PointerEventData data)
@@ -119,20 +146,30 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             itemImage.sprite = SlotItemData.ItemSprite;
-            itemText.text = baseItem.itemCount.Value.ToString();
+            itemText.text = SlotItemData.itemCount.Value.ToString();
 
-            baseItem.itemCount.Subscribe(OnItemCountChanged);
-            baseItem.SubscribeDestroyHandler(RemoveBaseSlotItem);
+            SlotItemData.itemCount.Subscribe(OnItemCountChanged);
+        }
+
+        public void MoveSlot(SlotItemPosition position, BaseItem data)
+        {
+            SetSlot(position);
+            SetItemData(data);
+        }
+
+        public void ChangeSlot(SlotAreaType type, InventorySlot slot)
+        {
+            SlotItemData?.ChangeSlot(type, slot);
+        }
+
+        public void ChangeSlotItem(SlotAreaType type, BaseSlotItem item)
+        {
+            SlotItemData?.ChangeSlotItem(type, item);
         }
 
         private void OnItemCountChanged(int value)
         {
             itemText.text = value.ToString();
-        }
-
-        private void RemoveBaseSlotItem()
-        {
-            ResourceManager.Instance.Destroy(gameObject);
         }
 
         public BaseItem GetBaseItem() => SlotItemData;

@@ -85,6 +85,8 @@ namespace Assets.Scripts.UI.Inventory
 
         private bool isOpened = false;
 
+        private InventorySlot swapBuffer;
+
         private void Awake()
         {
             Init();
@@ -194,6 +196,12 @@ namespace Assets.Scripts.UI.Inventory
 
         private void InitButtonPanel()
         {
+            swapBuffer = UIManager.Instance.MakeSubItem<InventorySlot>(outerRim.transform, UIManager.InventorySlot);
+            swapBuffer.name = "SwapBuffer";
+            swapBuffer.Subscribe(OnPanelInventoryAction);
+            UIManager.Instance.slotSwapBuffer = swapBuffer;
+
+
             InitItemArea();
             InitEquipmentArea();
             buttonPanel.Subscribe(ToggleChangeCallback);
@@ -321,10 +329,8 @@ namespace Assets.Scripts.UI.Inventory
             {
                 case InventoryEventType.MoveItem:
                 {
-                    payload.baseItem.SetSlot(payload.slot.SlotItemPosition);
-                    payload.baseItem.SetItemData(payload.baseItem.SlotItemData);
-
-                    payload.baseItem.SlotItemData.slots[payload.slot.SlotType] = payload.slot;
+                    payload.baseItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseItem.SlotItemData);
+                    payload.baseItem.ChangeSlot(payload.slot.SlotType, payload.slot);
                 }
                     break;
 
@@ -334,12 +340,11 @@ namespace Assets.Scripts.UI.Inventory
                     var slot = payload.slot;
 
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
-                    copy.SetSlot(slot.SlotItemPosition);
-                    copy.SetItemData(baseSlotItem.SlotItemData);
+                    copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
 
-                    baseSlotItem.SlotItemData.slotItems[slot.SlotType] = copy;
-                    baseSlotItem.SlotItemData.slots[slot.SlotType] = slot;
+                    baseSlotItem.ChangeSlot(slot.SlotType, slot);
+                    baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
                 }
                     break;
                 default:

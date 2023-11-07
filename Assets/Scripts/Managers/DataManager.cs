@@ -63,7 +63,7 @@ namespace Assets.Scripts.Managers
 
         public IEnumerator CheckIsParseDone()
         {
-            var wfs = new WaitForEndOfFrame();
+            var wfs = new WaitForSeconds(1.0f);
             while (!isParseDone)
                 yield return wfs;
         }
