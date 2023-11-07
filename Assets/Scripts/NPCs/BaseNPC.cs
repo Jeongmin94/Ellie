@@ -17,6 +17,7 @@ namespace Assets.Scripts.NPCs
         private bool isInteracting;
         private Transform NPCObj;
         private int dialogIdx;
+        [SerializeField] private float rotationSpeed;
 
 
         private void Awake()
@@ -68,7 +69,7 @@ namespace Assets.Scripts.NPCs
                 Vector3 direction = player.transform.position - NPCObj.transform.position;
 
                 Quaternion rotation = Quaternion.LookRotation(direction);
-                NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, rotation, Time.deltaTime * 10.0f);
+                NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
 
                 float angleDifference = Quaternion.Angle(NPCObj.transform.rotation, rotation);
 
@@ -89,7 +90,7 @@ namespace Assets.Scripts.NPCs
         {
             while (Quaternion.Angle(NPCObj.transform.rotation, Quaternion.identity) > 1.0f)
             {
-                NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, Quaternion.identity, Time.deltaTime * 10.0f);
+                NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, Quaternion.identity, Time.deltaTime * rotationSpeed);
                 yield return null;
             }
 

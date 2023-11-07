@@ -28,7 +28,6 @@ namespace Assets.Scripts.Centers.Test
             foreach (Ore ore in ores)
             {
                 ore.curStage = curStage;
-                Debug.Log($"{ore.name} checked");
                 CheckTicket(ore.gameObject);
             }
         }
