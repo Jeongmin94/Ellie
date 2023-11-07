@@ -179,12 +179,35 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             // 2. 존재하는 아이템이면 카운트 감소
-            // 카운트가 0이 되면 목록에서 제거
             slot.SlotItemData.itemCount.Value--;
             if (slot.SlotItemData.itemCount.Value == 0)
             {
                 Debug.Log($"{slot.Index}의 아이템 삭제");
                 slot.SlotItemData.DestroyItem();
+
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    var current = slots[i];
+                    if (current.SlotItemData == null)
+                        continue;
+
+                    InventorySlot emptySlot = null;
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        var s = slots[j];
+                        if (s.SlotItemData == null)
+                            emptySlot = s;
+                    }
+
+                    if (emptySlot == null)
+                        continue;
+
+                    Debug.Log($"empty slot: {emptySlot.Index}");
+                    Debug.Log($"current slot: {current.Index}");
+
+                    var baseSlotItem = current.SlotItemData.slotItems[SlotAreaType];
+                    emptySlot.InvokeInventoryEvent(baseSlotItem);
+                }
             }
         }
 

@@ -8,6 +8,7 @@ using Channels.Type;
 using Channels.UI;
 using Data.UI.Inventory;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.UI.Inventory.Test
 {
@@ -57,6 +58,16 @@ namespace Assets.Scripts.UI.Inventory.Test
                 ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
             }
 
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                var payload = MakeAddItemPayload2();
+                var testItemInfo = itemDataParsingInfo.items[Random.Range(1, itemDataParsingInfo.items.Count)];
+                testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
+                payload.itemData = testItemInfo;
+
+                ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
+
             // 아이템 소모
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -91,7 +102,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         {
             var ret = MakeAddItemPayload();
 
-            ret.itemData = itemDataParsingInfo.items[2];
+            ret.itemData = itemDataParsingInfo.items[1];
             ret.itemData.imageName = "UI/Item/ItemDefaultWhite";
 
             return ret;

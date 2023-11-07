@@ -99,9 +99,6 @@ namespace Assets.Scripts.UI.Inventory
 
             thisSlot.InvokeInventoryEvent(otherSlotItem);
             otherSlot.InvokeInventoryEvent(this);
-
-            // thisSlot.InvokeInventoryEvent(otherSlotItem);
-            // otherSlot.InvokeInventoryEvent(this);
         }
 
         private void OnBeginDragHandler(PointerEventData data)
