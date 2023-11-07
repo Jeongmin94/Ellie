@@ -87,10 +87,6 @@ namespace Assets.Scripts.UI.Inventory
 
         private void Awake()
         {
-            // !TODO: 페이로드 이벤트로 drag parent 설정해주기
-            // !TODO: 추후에 제거해야 함
-            // drag parent 전달 임시용
-            UIManager.Instance.OnDragParent = transform;
             Init();
         }
 
