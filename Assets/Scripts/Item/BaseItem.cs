@@ -46,7 +46,13 @@ namespace Assets.Scripts.Item
             slotItems[type] = item;
         }
 
-        public void DestroyItem()
+        public void Reset()
+        {
+            ClearAllSlot();
+            DestroyAllItem();
+        }
+
+        public void ClearAllSlot()
         {
             var keys = slots.Keys;
             foreach (var key in keys)
@@ -55,7 +61,16 @@ namespace Assets.Scripts.Item
             }
 
             slots.Clear();
+        }
 
+        public void ClearSlot(SlotAreaType type)
+        {
+            slots[type].ClearSlotItemPosition();
+            slots.Remove(type);
+        }
+
+        public void DestroyAllItem()
+        {
             var slotItemsKeys = slotItems.Keys;
             foreach (var key in slotItemsKeys)
             {
@@ -63,6 +78,12 @@ namespace Assets.Scripts.Item
             }
 
             slotItems.Clear();
+        }
+
+        public void DestroyItem(SlotAreaType type)
+        {
+            ResourceManager.Instance.Destroy(slotItems[type].gameObject);
+            slotItems.Remove(type);
         }
     }
 }

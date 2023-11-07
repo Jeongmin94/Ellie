@@ -93,9 +93,18 @@ namespace Assets.Scripts.UI.Inventory
             // 장착에 등록
             else if (data.button == PointerEventData.InputButton.Right)
             {
-                if (slotItemPosition.slot.SlotType != SlotAreaType.Item)
+                if (slotItemPosition.slot.SlotType == SlotAreaType.Description)
                     return;
 
+                // 장착 + 우클릭 -> 장착 해제
+                if (slotItemPosition.slot.SlotType == SlotAreaType.Equipment)
+                {
+                    SlotItemData.ClearSlot(SlotAreaType.Equipment);
+                    SlotItemData.DestroyItem(SlotAreaType.Equipment);
+                    return;
+                }
+
+                // 아이템 + 우클릭 -> 장착에 등록
                 payload.eventType = InventoryEventType.CopyItemWithShortCut;
             }
 

@@ -183,7 +183,7 @@ namespace Assets.Scripts.UI.Inventory
             if (slot.SlotItemData.itemCount.Value == 0)
             {
                 Debug.Log($"{slot.Index}의 아이템 삭제");
-                slot.SlotItemData.DestroyItem();
+                slot.SlotItemData.Reset();
 
                 for (int i = 0; i < slots.Count; i++)
                 {
