@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Assets.Scripts.StatusEffects;
 
 namespace Assets.Scripts.Monsters.EffectStatus
 {
@@ -16,7 +17,7 @@ namespace Assets.Scripts.Monsters.EffectStatus
         private void MonsterStatusPlainHit(MonsterEffectStatusController controller)
         {
             controller.AddStatusEffect(this);
-            monsterController.ChangeEffectState(MonsterDamageEffectType.PlainHit);
+            monsterController.ChangeEffectState(StatusEffectName.None);
         }
     }
 }

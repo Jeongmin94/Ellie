@@ -9,17 +9,13 @@ using Assets.Scripts.Monsters.AbstractClass;
 
 
 using UnityEngine.AI;
-using System.Collections.Generic;
-using Channels.UI;
-using Assets.Scripts.Data;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Assets.Scripts.Utils;
 using Channels.Type;
-using Channels.Combat;
-using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Combat;
+using Assets.Scripts.StatusEffects;
 
 namespace Assets.Scripts.Monsters
 {
@@ -28,14 +24,7 @@ namespace Assets.Scripts.Monsters
         //Temp
         public GameObject player;
 
-
-        public enum SkillName { MeleeAttack, End }
-
-
-
         private TicketMachine ticketMachine;
-
-
 
         private void Awake()
         {
@@ -52,9 +41,7 @@ namespace Assets.Scripts.Monsters
         {
             SetNavMesh();
             SetBehaviourTreeInstance();
-
         }
-
         private void SetSkills()
         {
             if(meleeAttackData!=null)
@@ -77,7 +64,7 @@ namespace Assets.Scripts.Monsters
             if(fanshapeAttackData!=null)
             {
                 AddSkills(fanshapeAttackData.attackName, Enums.AttackSkill.FanshapeAttack);
-                Attacks[fanshapeAttackData.attackName].InitializeFanShpae(fanshapeAttackData);
+                Attacks[fanshapeAttackData.attackName].InitializeFanShape(fanshapeAttackData);
             }
         }
 
@@ -124,8 +111,8 @@ namespace Assets.Scripts.Monsters
             behaviourTreeInstance.SetBlackboardValue<GameObject>("PatrolPoints", obj);
             obj.SetActive(false);
 
-            monsterData.spawnPosition = transform.position;
-            behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", transform.position);
+            spawnPosition = gameObject.transform.position;
+            behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", spawnPosition);
             behaviourTreeInstance.SetBlackboardValue<float>("MovementSpeed", monsterData.movementSpeed);
             isDead = behaviourTreeInstance.FindBlackboardKey<bool>("IsDead");
             isDamaged = behaviourTreeInstance.FindBlackboardKey<bool>("IsDamaged");
@@ -180,12 +167,13 @@ namespace Assets.Scripts.Monsters
             agent.baseOffset = -0.01f;
         }
 
-
-
-
-        public void ChangeEffectState(MonsterDamageEffectType effect)
+        public void ChangeEffectState(StatusEffectName effect)
         {
-
+            
+        }
+        public override void ReturnSpawnLocation()
+        {
+            gameObject.transform.position = spawnPosition;
         }
     }
 }

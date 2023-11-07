@@ -5,6 +5,12 @@ using UnityEngine;
 using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.Monsters.AbstractClass;
 
+//[SerializeField]
+//public class SkeletonMonsterData
+//{
+
+//}
+
 namespace Assets.Scripts.Data
 {
 
@@ -21,7 +27,6 @@ namespace Assets.Scripts.Data
         public float chasePlayerDistance;
         public float overtravelDistance;
         public float stopDistance;
-        public Vector3 spawnPosition;
 
         public Enums.MonsterKind kind;
         public Enums.MovementType type;

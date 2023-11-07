@@ -16,11 +16,11 @@ namespace Assets.Scripts.Monsters.Attacks
         {
             SetTicketMachine();
         }
-        public override void InitializeFanShpae(FanShapeAttackData data)
+        public override void InitializeFanShape(FanShapeAttackData data)
         {
             target = GameObject.Find("Player").transform;
             attackData = data;
-            base.InitializeFanShpae(data);
+            base.InitializeFanShape(data);
         }
 
         public bool CaculateDotProduct()

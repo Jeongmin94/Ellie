@@ -13,6 +13,7 @@ public class ReturnToPosition : ActionNode
     protected override void OnStart() {
         context.agent.stoppingDistance = 0.0f;
         context.agent.destination = spawnPosition.Value;
+        isReturning.Value = true;
     }
 
     protected override void OnStop() {

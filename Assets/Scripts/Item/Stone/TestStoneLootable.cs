@@ -32,7 +32,6 @@ namespace Assets.Scripts.Item.Stone
                 GameObject hitObject = contact.otherCollider.gameObject;
                 if ((layerMask.value & (1 << hitObject.layer)) == 0)
                 {
-                    Debug.Log("이쪽으로 빠진	");
                     continue;
                 }
 

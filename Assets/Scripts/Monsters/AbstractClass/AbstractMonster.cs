@@ -17,8 +17,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
-        private const float disableMonsterTime = 4.0f;
-        private const float enableMonsterTime = 7.5f;
+        private const float monsterRespawnTime = 7.5f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
 
@@ -41,13 +40,14 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public Dictionary<string, AbstractAttack> Attacks=new();
 
-        protected Dictionary<MonsterDamageEffectType, IMonsterStatusEffect> statusEffects;
         protected MonsterEffectStatusController statusController;
 
         protected UIMonsterBillboard billboard;
         protected readonly MonsterDataContainer dataContainer = new();
 
         protected float currentHP;
+
+        protected Vector3 spawnPosition;
 
         public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {
@@ -94,7 +94,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
-            Debug.Log("Recieve DAMAGE");
             CombatPayload combatPayload = payload as CombatPayload;
             UpdateHP(combatPayload.Damage);
         }
@@ -123,24 +122,22 @@ namespace Assets.Scripts.Monsters.AbstractClass
             {
                 animator = GetComponent<Animator>();
             }
-            Debug.Log("PlayDead");
             animator.SetTrigger("SkeletonDead");
-            yield return new WaitForSeconds(disableMonsterTime);
-            StartCoroutine(EnableMosnter());
             GetComponent<Collider>().enabled = false;
-        }
+            yield return new WaitForSeconds(monsterRespawnTime);
 
-        private IEnumerator EnableMosnter()
-        {
-            yield return new WaitForSeconds(enableMonsterTime);
-            isDead.value = false;
-            animator.SetTrigger("SkeletonIdleSitting");
             GetComponent<Collider>().enabled = true;
-            gameObject.transform.position = monsterData.spawnPosition;
+            ReturnSpawnLocation();
+            animator.SetTrigger("SkeletonIdleAttack");
+            isDamaged.value = false;
             currentHP = monsterData.maxHP;
             dataContainer.CurrentHp.Value = (int)currentHP;
+            yield return new WaitForSeconds(1.0f);
+            isDead.value = false;
         }
 
+        public virtual void ReturnSpawnLocation()
+        { }
     }
 
 }

@@ -52,7 +52,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public virtual void InitializeAOE(AOEAttackData data)
         { }
 
-        public virtual void InitializeFanShpae(FanShapeAttackData data)
+        public virtual void InitializeFanShape(FanShapeAttackData data)
         { }
 
         public virtual void ReceiveDamage(IBaseEventPayload payload)

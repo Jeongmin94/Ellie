@@ -1,7 +1,6 @@
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
 using UnityEngine;
-using Assets.Scripts.Monsters.EffectStatus;
 
 namespace Channels.Combat
 {
@@ -43,10 +42,6 @@ namespace Channels.Combat
         public float statusEffectduration { get; set; }
         //공격이 유발하는 힘
         public float force { get; set; }
-
-        //!TODO : 공격이 enemy에 피격됐을 시 유발되는 상태이상의 enum이 필요합니다
-
-        public MonsterDamageEffectType MonsterDamageEffectName { get; set; }
     }
 
     public class CombatChannel : BaseEventChannel
