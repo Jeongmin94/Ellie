@@ -168,6 +168,26 @@ namespace Assets.Scripts.UI.Inventory
                     payload.slot = emptySlot;
                 }
             }
+            else if (payload.eventType == InventoryEventType.SortSlotArea)
+            {
+                var types = Enum.GetValues(typeof(SlotAreaType));
+                for (int i = 0; i < types.Length; i++)
+                {
+                    SlotAreaType t = (SlotAreaType)types.GetValue(i);
+
+                    if (t == SlotAreaType.Description)
+                    {
+                        continue;
+                    }
+
+                    if (slotAreas.TryGetValue(t, out var areas))
+                    {
+                        areas[(int)payload.groupType].Sort();
+                    }
+                }
+
+                return;
+            }
 
             panelInventoryAction?.Invoke(payload);
         }
@@ -184,6 +204,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (slotAreas.TryGetValue(slotAreaType, out var area))
             {
+                var slot = area[(int)groupType];
                 area[(int)groupType].ConsumeItem(payload);
             }
         }

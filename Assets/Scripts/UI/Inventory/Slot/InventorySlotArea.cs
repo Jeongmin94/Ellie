@@ -158,7 +158,6 @@ namespace Assets.Scripts.UI.Inventory
             if (dup)
             {
                 dup.SlotItemData.itemCount.Value++;
-                Debug.Log($"{dup.SlotItemData.ItemName} idx: {dup.Index} - {dup.SlotItemData.itemCount.Value}");
                 return;
             }
 
@@ -183,13 +182,17 @@ namespace Assets.Scripts.UI.Inventory
             if (slot.SlotItemData.itemCount.Value == 0)
             {
                 Debug.Log($"{slot.Index}의 아이템 삭제");
-                slot.SlotItemData.Reset();
 
-                Sort();
+                InventoryEventPayload inventoryEvent = new InventoryEventPayload();
+                inventoryEvent.eventType = InventoryEventType.SortSlotArea;
+                inventoryEvent.groupType = slot.SlotItemData.itemData.groupType;
+
+                slot.SlotItemData.Reset();
+                slotAreaInventoryAction?.Invoke(inventoryEvent);
             }
         }
 
-        private void Sort()
+        public void Sort()
         {
             for (int i = 0; i < slots.Count; i++)
             {
@@ -207,9 +210,6 @@ namespace Assets.Scripts.UI.Inventory
 
                 if (emptySlot == null)
                     continue;
-
-                Debug.Log($"empty slot: {emptySlot.Index}");
-                Debug.Log($"current slot: {current.Index}");
 
                 var baseSlotItem = current.SlotItemData.slotItems[SlotAreaType];
                 emptySlot.InvokeCopyOrMove(baseSlotItem);

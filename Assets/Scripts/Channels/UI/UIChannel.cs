@@ -22,11 +22,11 @@ namespace Channels.UI
     {
         public UIType uiType;
         public ActionType actionType;
-        public SlotAreaType slotAreaType;
+        public SlotAreaType slotAreaType;       // !TODO: 장착 슬롯에 장착된 아이템 땡기기 해야함
         public ItemData itemData;
-        
+
         public Transform onDragParent;
-        
+
         public Sprite sprite;
         public string name;
         public string text;

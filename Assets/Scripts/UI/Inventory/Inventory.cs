@@ -23,12 +23,13 @@ namespace Assets.Scripts.UI.Inventory
         CopyItemWithDrag,
         CopyItemWithShortCut,
         ShowDescription,
+        SortSlotArea,
     }
 
     public struct InventoryEventPayload
     {
         public InventoryEventType eventType;
-        public SlotAreaType slotAreaType; // 슬롯 타입: Item, Equipment
+        public SlotAreaType slotAreaType; // 슬롯 타입: Item, Equipment, Description
         public GroupType groupType;       // 아이템 타입: Consumption, Stone, Etc
         public BaseSlotItem baseItem;     // 슬롯 아이템 정보
         public InventorySlot slot;        // 슬롯 위치
@@ -313,12 +314,12 @@ namespace Assets.Scripts.UI.Inventory
         private void AddItem(UIPayload payload)
         {
             payload.onDragParent = transform;
-            buttonPanel.AddItem(SlotAreaType.Item, payload.itemData.groupType, payload);
+            buttonPanel.AddItem(payload.slotAreaType, payload.itemData.groupType, payload);
         }
 
         private void ConsumeItem(UIPayload payload)
         {
-            buttonPanel.ConsumeItem(SlotAreaType.Item, payload.itemData.groupType, payload);
+            buttonPanel.ConsumeItem(payload.slotAreaType, payload.itemData.groupType, payload);
         }
 
         #endregion
