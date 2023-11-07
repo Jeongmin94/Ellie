@@ -185,29 +185,34 @@ namespace Assets.Scripts.UI.Inventory
                 Debug.Log($"{slot.Index}의 아이템 삭제");
                 slot.SlotItemData.Reset();
 
-                for (int i = 0; i < slots.Count; i++)
+                Sort();
+            }
+        }
+
+        private void Sort()
+        {
+            for (int i = 0; i < slots.Count; i++)
+            {
+                var current = slots[i];
+                if (current.SlotItemData == null)
+                    continue;
+
+                InventorySlot emptySlot = null;
+                for (int j = i - 1; j >= 0; j--)
                 {
-                    var current = slots[i];
-                    if (current.SlotItemData == null)
-                        continue;
-
-                    InventorySlot emptySlot = null;
-                    for (int j = i - 1; j >= 0; j--)
-                    {
-                        var s = slots[j];
-                        if (s.SlotItemData == null)
-                            emptySlot = s;
-                    }
-
-                    if (emptySlot == null)
-                        continue;
-
-                    Debug.Log($"empty slot: {emptySlot.Index}");
-                    Debug.Log($"current slot: {current.Index}");
-
-                    var baseSlotItem = current.SlotItemData.slotItems[SlotAreaType];
-                    emptySlot.InvokeCopyOrMove(baseSlotItem);
+                    var s = slots[j];
+                    if (s.SlotItemData == null)
+                        emptySlot = s;
                 }
+
+                if (emptySlot == null)
+                    continue;
+
+                Debug.Log($"empty slot: {emptySlot.Index}");
+                Debug.Log($"current slot: {current.Index}");
+
+                var baseSlotItem = current.SlotItemData.slotItems[SlotAreaType];
+                emptySlot.InvokeCopyOrMove(baseSlotItem);
             }
         }
 

@@ -363,6 +363,11 @@ namespace Assets.Scripts.UI.Inventory
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
                 }
                     break;
+
+                case InventoryEventType.ShowDescription:
+                {
+                }
+                    break;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

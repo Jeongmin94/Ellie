@@ -1,3 +1,4 @@
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 namespace Channels.UI
@@ -21,6 +22,7 @@ namespace Channels.UI
     {
         public UIType uiType;
         public ActionType actionType;
+        public SlotAreaType slotAreaType;
         public ItemData itemData;
         
         public Transform onDragParent;
