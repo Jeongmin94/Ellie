@@ -48,6 +48,7 @@ namespace Channels.Boss
         private Vector3 vector3Value;
         private Transform transformValue1;
         private Transform transformValue2;
+        private Transform transformValue3;
         private TerrapupaAttackType attackTypeValue;
         private Transform sender;
 
@@ -58,6 +59,7 @@ namespace Channels.Boss
             vector3Value = Vector3.zero;
             transformValue1 = null;
             transformValue2 = null;
+            transformValue3 = null;
             attackTypeValue = TerrapupaAttackType.None;
         }
 
@@ -89,6 +91,12 @@ namespace Channels.Boss
         {
             get { return transformValue2; }
             set { transformValue2 = value; }
+        }
+
+        public Transform TransformValue3
+        {
+            get { return transformValue3; }
+            set { transformValue3 = value; }
         }
 
         public TerrapupaAttackType AttackTypeValue

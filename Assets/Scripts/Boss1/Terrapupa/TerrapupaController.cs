@@ -8,14 +8,21 @@ using UnityEngine;
 
 namespace Boss.Terrapupa
 {
+    public enum TerrapupaType
+    {
+        None,
+        Terra,
+        Pupa,
+    }
+
     public class TerrapupaController : BehaviourTreeController
     {
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
+        [HideInInspector] public TerrapupaRootData terrapupaData;
         
         private TicketMachine ticketMachine;
-
-        [HideInInspector] public TerrapupaRootData terrapupaData;
+        private TerrapupaType bossType;
 
         public Transform Stone
         {
@@ -28,6 +35,20 @@ namespace Boss.Terrapupa
             get { return weakPoint; }
             set { weakPoint = value; }
         }
+
+        public TerrapupaType BossType
+        {
+            get { return bossType; }
+            set
+            {
+                if(bossType == TerrapupaType.None)
+                {
+                    bossType = value;
+                }
+            }
+        }
+
+
         private void Awake()
         {
             InitTicketMachine();

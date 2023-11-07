@@ -79,7 +79,8 @@ namespace Boss.Objects
                             IntValue = myIndex,
                             FloatValue = respawnValue,
                             TransformValue1 = transform,
-                            TransformValue2 = other.transform.root
+                            TransformValue2 = other.transform.root,
+                            Sender = other.transform.root,
                         });
 
                     rb.useGravity = false;

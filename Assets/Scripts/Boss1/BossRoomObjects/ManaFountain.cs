@@ -54,7 +54,7 @@ namespace Boss.Objects
                         { 
                             TransformValue1 = transform, 
                             AttackTypeValue = banBossAttackType,
-                            Sender = other.transform,
+                            Sender = other.transform.root,
                         });
                 }
                 else if (other.transform.CompareTag("BattleObject"))

@@ -25,6 +25,8 @@ namespace Centers.Boss
         public float fieldRadius = 25.0f;
         public float fieldHeight = 8.0f;
 
+        public int bossDeathCheck = 0;
+
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
         [SerializeField] private TerrapupaController pupa;
@@ -82,8 +84,11 @@ namespace Centers.Boss
         private void SetBossTarget()
         {
             terrapupa.terrapupaData.player.Value = player.transform;
-            terra.terrapupaData.player.Value = player.transform;
+            terrapupa.BossType = TerrapupaType.Pupa;
             //terrapupa.gameObject.SetActive(false);
+
+            terra.terrapupaData.player.Value = player.transform;
+            terrapupa.BossType = TerrapupaType.Pupa;
             //terra.gameObject.SetActive(false);
         }
 
@@ -151,8 +156,8 @@ namespace Centers.Boss
 
             for (int i = 0; i < 3; i++)
             {
-                GameObject playerStone = Instantiate(
-                    playerStoneTemp, manaPayload.TransformValue2.position, Quaternion.identity);
+                Poolable playerStone = PoolManager.Instance.Pop(playerStoneTemp, transform);
+                playerStone.transform.position = manaPayload.TransformValue2.position;
 
                 Vector3 randomDirection = new Vector3(
                 Random.Range(-1f, 1f), Random.Range(0.5f, 1f), Random.Range(-1f, 1f)).normalized;
@@ -185,6 +190,12 @@ namespace Centers.Boss
             }
 
             TerrapupaController actor = manaPayload.Sender.GetComponent<TerrapupaController>();
+            if (actor == null)
+            {
+                actor = manaPayload.Sender.GetComponent<TerrapupaStone>().Owner.GetComponent<TerrapupaController>();
+                manaPayload.Sender = actor.transform;
+            }
+
             switch (manaPayload.AttackTypeValue)
             {
                 case TerrapupaAttackType.ThrowStone:
@@ -289,18 +300,22 @@ namespace Centers.Boss
         {
             Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
 
-            TerrapupaController actor = stalactitePayload.Sender.GetComponent<TerrapupaController>();
-            if (stalactitePayload.TransformValue2 != null)
+            Transform boss = stalactitePayload.TransformValue2;
+            if (boss != null)
             {
-                Debug.Log("보스 타격");
-
-                if (actor.terrapupaData.isIntake.Value)
+                TerrapupaController actor = boss.GetComponent<TerrapupaController>();
+                if (stalactitePayload.TransformValue2 != null)
                 {
-                    Debug.Log("섭취 -> 기절");
+                    Debug.Log("보스 타격");
 
-                    actor.terrapupaData.isStuned.Value = true;
-                    actor.terrapupaData.isTempted.Value = false;
-                    actor.terrapupaData.isIntake.Value = false;
+                    if (actor.terrapupaData.isIntake.Value)
+                    {
+                        Debug.Log("섭취 -> 기절");
+
+                        actor.terrapupaData.isStuned.Value = true;
+                        actor.terrapupaData.isTempted.Value = false;
+                        actor.terrapupaData.isIntake.Value = false;
+                    }
                 }
             }
 
@@ -323,7 +338,7 @@ namespace Centers.Boss
         {
             Debug.Log($"OnBossAtrractedByMagicStone :: 보스 마법 돌맹이를 추적 시작");
 
-            TerrapupaController actor = magicStonePayload.Sender.GetComponent<TerrapupaController>();
+            TerrapupaController actor = magicStonePayload.TransformValue2.GetComponent<TerrapupaController>();
             actor.terrapupaData.isTempted.Value = true;
             actor.terrapupaData.isIntake.Value = false;
             actor.terrapupaData.magicStoneTransform.Value = magicStonePayload.TransformValue1;
@@ -333,7 +348,7 @@ namespace Centers.Boss
         {
             Debug.Log($"OnBossUnattractedByMagicStone :: 보스 마법 돌맹이를 추적 종료");
 
-            TerrapupaController actor = magicStonePayload.Sender.GetComponent<TerrapupaController>();
+            TerrapupaController actor = magicStonePayload.TransformValue2.GetComponent<TerrapupaController>();
             actor.terrapupaData.isTempted.Value = false;
             actor.terrapupaData.isIntake.Value = false;
             actor.terrapupaData.magicStoneTransform.Value = null;
@@ -360,66 +375,75 @@ namespace Centers.Boss
             Debug.Log($"OnBossDeath :: 보스가 사망");
 
             BossEventPayload payload = bossPayload as BossEventPayload;
-            // 2페이즈 확인용 임시
-            int level = payload.IntValue;
+            payload.Sender.gameObject.SetActive(false);
 
-            if (level == 2)
+            bossDeathCheck++;
+
+            // 2페이즈 확인용 임시
+            switch (bossDeathCheck)
             {
-                Debug.Log("확인용");
+                case 1:
+                    Debug.Log("한마리 잡음");
+                    break;
+                case 2:
+                    Debug.Log("다잡음");
+                    break;
+                case 3:
+                    break;
+                default:
+                    break;
             }
 
         }
 
         private void OnGUI()
         {
+            int boxWidth = 200;
+            int boxHeight = 70; // 충분한 높이 설정
+            int offsetX = 10;
+            int offsetY = 10;
+
             if (terrapupa)
             {
+                offsetY = 10;
                 Vector3 directionToBoss = terrapupa.transform.position - player.transform.position;
                 float distance = directionToBoss.magnitude;
-                string distanceText = "Terrapupa Distance: " + distance.ToString("F2");
-
-                int boxWidth = 200;
-                int boxHeight = 30;
-                int offsetX = 10;
-                int offsetY = 10;
+                string distanceText = "Distance: " + distance.ToString("F2");
+                string hpText = "HP: " + terrapupa.terrapupaData.currentHP.value.ToString("F2");
+                string nameText = "Name: " + terrapupa.gameObject.name;
 
                 Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-                GUI.Box(boxRect, "");
-                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
+                GUI.Box(boxRect, nameText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
             }
             if (terra)
             {
+                offsetY = 90;
                 Vector3 directionToBoss = terra.transform.position - player.transform.position;
                 float distance = directionToBoss.magnitude;
-                string distanceText = "Terra Distance: " + distance.ToString("F2");
-
-                int boxWidth = 200;
-                int boxHeight = 30;
-                int offsetX = 10;
-                int offsetY = 50;
+                string distanceText = "Distance: " + distance.ToString("F2");
+                string hpText = "HP: " + terra.terrapupaData.currentHP.value.ToString("F2");
+                string nameText = "Name: " + terra.gameObject.name;
 
                 Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-                GUI.Box(boxRect, "");
-                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
+                GUI.Box(boxRect, nameText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
             }
             if (magicStone)
             {
-
-                Vector3 directionToStone = magicStone.transform.position - terrapupa.transform.position;
-                float distance = directionToStone.magnitude;
-                string distanceText = "MagicStone Distance: " + distance.ToString("F2");
-
-                int boxWidth = 200;
-                int boxHeight = 30;
-                int offsetX = 10;
-                int offsetY = 90;
+                offsetY = 170;
+                Vector3 directionToBoss = magicStone.transform.position - player.transform.position;
+                float distance = directionToBoss.magnitude;
+                string distanceText = "Distance: " + distance.ToString("F2");
+                string nameText = "Name: " + magicStone.gameObject.name;
 
                 Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-                GUI.Box(boxRect, "");
-                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 5, boxWidth, boxHeight), distanceText);
+                GUI.Box(boxRect, nameText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
             }
         }
-
 
         private void OnDrawGizmos()
         {
@@ -427,11 +451,11 @@ namespace Centers.Boss
             Color rayColor = Color.red;
             Gizmos.color = rayColor;
 
-            if(terrapupa)
+            if (terrapupa)
             {
                 Gizmos.DrawRay(terrapupa.transform.position, terrapupa.transform.forward * rayLength);
             }
-            if(terra)
+            if (terra)
             {
                 Gizmos.DrawRay(terra.transform.position, terra.transform.forward * rayLength);
             }

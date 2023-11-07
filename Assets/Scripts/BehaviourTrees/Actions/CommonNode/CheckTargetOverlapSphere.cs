@@ -6,7 +6,7 @@ using TheKiwiCoder;
 [System.Serializable]
 public class CheckTargetOverlapSphere : ActionNode
 {
-    public NodeProperty<Transform> returnObject;
+    public NodeProperty<Transform> returnObject; // 단일 Transform으로 변경
 
     public NodeProperty<LayerMask> layer;
     public NodeProperty<string> tag;
@@ -19,6 +19,7 @@ public class CheckTargetOverlapSphere : ActionNode
 
     protected override void OnStart()
     {
+        returnObject.Value = null; // 단일 객체이므로 null로 초기화
     }
 
     protected override void OnStop()
@@ -34,18 +35,19 @@ public class CheckTargetOverlapSphere : ActionNode
         {
             if (IsTargetValid(hitCollider, forward))
             {
-                AssignReturnObject(hitCollider);
-                return State.Success;
+                returnObject.Value = isCheckRootTransform.Value ? hitCollider.transform.root : hitCollider.transform;
+                return State.Success; // 최초 발견대상을 찾으면 즉시 성공 상태 반환
             }
         }
 
-        return State.Failure;
+        return State.Failure; // 대상을 찾지 못했으면 실패 상태 반환
     }
 
     private bool IsTargetValid(Collider collider, Vector3 forward)
     {
         Vector3 toTarget = (collider.transform.position - context.transform.position).normalized;
-        if (Vector3.Angle(forward, toTarget) > angle.Value / 2)
+        // 내적을 이용하여 범위 내에 있는지 체크
+        if (Vector3.Dot(forward, toTarget) < Mathf.Cos(angle.Value * Mathf.Deg2Rad / 2))
         {
             return false;
         }
@@ -68,10 +70,5 @@ public class CheckTargetOverlapSphere : ActionNode
         return !Physics.Linecast(context.transform.position, collider.transform.position, out RaycastHit hit) ||
                hit.collider == collider ||
                (layer.Value == 0 || (hit.collider.gameObject.layer == Mathf.Log(layer.Value, 2)));
-    }
-
-    private void AssignReturnObject(Collider collider)
-    {
-        returnObject.Value = isCheckRootTransform.Value ? collider.transform.root : collider.transform;
     }
 }
