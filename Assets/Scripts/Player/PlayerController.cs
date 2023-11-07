@@ -7,6 +7,7 @@ using Channels.Components;
 using Channels.Type;
 using Cinemachine;
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -73,6 +74,8 @@ namespace Assets.Scripts.Player
         [SerializeField] private GameObject stepRayLower;
         [SerializeField] float stepHeight;
         [SerializeField] float stepSmooth;
+        [SerializeField] private float lowerRayLength;
+        [SerializeField] private float upperRayLength;
 
         [Header("Dodge")]
         [SerializeField] private float dodgeInvulnerableTime;
@@ -215,7 +218,7 @@ namespace Assets.Scripts.Player
             cinematicAimCam.SetActive(false);
             cinematicDialogCam.SetActive(false);
 
-            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
+            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepRayLower.transform.position.y + stepHeight,
                 stepRayUpper.transform.position.z);
             SetCurOre(null);
             Pickaxe.gameObject.SetActive(false);
@@ -227,8 +230,8 @@ namespace Assets.Scripts.Player
             {
                 inputMagnitude *= 1.5f;
             }
-            if (!canMove)
-                inputMagnitude = 0f;
+            //if (!canMove)
+            //    inputMagnitude = 0f;
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
         private void ResetPlayerPos()
@@ -302,6 +305,7 @@ namespace Assets.Scripts.Player
                     Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
                     break;
                 case SlopeStat.Climable:
+                    ClimbStep();
                     Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
                     break;
                 case SlopeStat.CantClimb:
@@ -311,37 +315,84 @@ namespace Assets.Scripts.Player
 
         private void ClimbStep()
         {
+            bool flag = false;
+            Debug.Log("Checking Step");
+            RaycastHit[] hitLower = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
+            if (hitLower.Any())
+            {
+                RaycastHit[] hitUpper = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
+                if (!hitUpper.Any())
+                {
+                    //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    flag = true;
+                }
+            }
+
+            RaycastHit[] hitLower45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
+            if (hitLower45.Any())
+            {
+                RaycastHit[] hitUpper45 = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
+                if (!hitUpper45.Any())
+                {
+                    //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    flag = true;
+                }
+            }
+            RaycastHit[] hitLowerMinus45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), lowerRayLength, groundLayer);
+            if (hitLowerMinus45.Any())
+            {
+                RaycastHit[] hitUpperMinus45 = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), upperRayLength, groundLayer);
+                if (!hitUpperMinus45.Any())
+                {
+                    //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    flag = true;
+                }
+            }
+
+            if (flag)
+            {
+                Rb.AddForce(Vector3.up * 60f, ForceMode.Force);
+                //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                Debug.Log("Step");
+            }
             // !TODO : Lerp로 부드럽게 올라가도록 수정
-            if (Physics.Raycast(stepRayLower.transform.position,
-                PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitLower, 0.1f, groundLayer))
-            {
-                if (!Physics.Raycast(stepRayUpper.transform.position,
-                    PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitUpper, 0.2f, groundLayer))
-                {
-                    Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-                }
-            }
+            //if (Physics.Raycast(stepRayLower.transform.position,
+            //    PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitLower, lowerRayLength, groundLayer))
+            //{
+            //    Debug.Log(hitLower.collider.gameObject.name);
+            //    if (!Physics.Raycast(stepRayUpper.transform.position,
+            //        PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitUpper, upperRayLength, groundLayer))
+            //    {
+            //        Debug.Log("Step");
+            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+            //    }
+            //}
 
-            if (Physics.Raycast(stepRayLower.transform.position,
-                PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitLower45, 0.1f, groundLayer))
-            {
+            //if (Physics.Raycast(stepRayLower.transform.position,
+            //    PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitLower45, lowerRayLength, groundLayer))
+            //{
+            //    Debug.Log(hitLower45.collider.gameObject.name);
 
-                if (!Physics.Raycast(stepRayUpper.transform.position,
-                    PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitUpper45, 0.2f, groundLayer))
-                {
-                    Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-                }
-            }
+            //    if (!Physics.Raycast(stepRayUpper.transform.position,
+            //        PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitUpper45, upperRayLength, groundLayer))
+            //    {
+            //        Debug.Log("Step");
+            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+            //    }
+            //}
 
-            if (Physics.Raycast(stepRayLower.transform.position,
-                PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitLowerMinus45, 0.1f, groundLayer))
-            {
-                if (!Physics.Raycast(stepRayUpper.transform.position,
-                    PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitUpperMinus45, 0.2f, groundLayer))
-                {
-                    Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-                }
-            }
+            //if (Physics.Raycast(stepRayLower.transform.position,
+            //    PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitLowerMinus45, lowerRayLength, groundLayer))
+            //{
+            //    Debug.Log(hitLowerMinus45.collider.gameObject.name);
+
+            //    if (!Physics.Raycast(stepRayUpper.transform.position,
+            //        PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitUpperMinus45, upperRayLength, groundLayer))
+            //    {
+            //        Debug.Log("Step");
+            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+            //    }
+            //}
         }
         public void Jump()
         {
@@ -414,7 +465,8 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                if (Mathf.Equals(angle, 0f))
+                //Debug.Log("CurrAngle : " + angle.ToString());
+                if (angle<10f)
                     return SlopeStat.Flat;
                 if (angle > maxSlopeAngle)
                     return SlopeStat.CantClimb;
@@ -564,6 +616,18 @@ namespace Assets.Scripts.Player
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
             GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
             GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Color rayColor = Color.red;
+            Gizmos.color = rayColor;
+            
+            Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
+            
+            
+            Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
+            
         }
     }
 }

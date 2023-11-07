@@ -133,7 +133,7 @@ Rigidbody:
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
 --- !u!65 &2552781755657443656
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -160,3 +160,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isUsing: 0
+  data:
+    index: 0
+    name: 
+    description: 
+    appearanceStage: 0
+    tier: 0
+    element: 0
+    damage: 0
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: 
+    specialEffectIndex: 0
+    combineCost: 0
+    sellCost: 0
+    imageName: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
