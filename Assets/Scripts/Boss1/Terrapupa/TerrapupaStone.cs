@@ -51,8 +51,6 @@ namespace Boss.Terrapupa
 		{
 			if (collision.gameObject.CompareTag("Wall"))
 			{
-				Debug.Log($"{collision.collider.name} Ãæµ¹");
-
 				PoolManager.Instance.Push(this);
 			}
 		}

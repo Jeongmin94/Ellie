@@ -40,6 +40,9 @@ public class TerrapupaRootData : BaseBTData
     public BlackboardKey<bool> isIntake;
     public BlackboardKey<bool> isStuned;
 
+    public BlackboardKey<bool> hitThrowStone;
+    public BlackboardKey<bool> hitEarthQuake;
+
     public override void Init(BehaviourTree tree)
     {
         SetBlackboardValue<int>("currentHP", hp, tree);
@@ -68,5 +71,7 @@ public class TerrapupaRootData : BaseBTData
         isIntake = FindBlackboardKey<bool>("isIntake", tree);
         isStuned = FindBlackboardKey<bool>("isStuned", tree);
 
+        hitThrowStone = FindBlackboardKey<bool>("hitThrowStone", tree);
+        hitEarthQuake = FindBlackboardKey<bool>("hitEarthQuake", tree);
     }
 }

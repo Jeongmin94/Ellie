@@ -38,13 +38,13 @@ namespace Centers.Boss
             base.Init();
             SubscribeEvents();
             SpawnStalactites();
-            SetBossTarget();
         }
 
         protected override void Start()
         {
             base.Start();
 
+            SetBossTarget();
             CheckTicket(terrapupa.gameObject);
             CheckTicket(terra.gameObject);
         }
@@ -83,13 +83,12 @@ namespace Centers.Boss
 
         private void SetBossTarget()
         {
+            terra.terrapupaData.player.Value = player.transform;
+            //terra.gameObject.SetActive(false);
+
             terrapupa.terrapupaData.player.Value = player.transform;
-            terrapupa.BossType = TerrapupaType.Pupa;
             //terrapupa.gameObject.SetActive(false);
 
-            terra.terrapupaData.player.Value = player.transform;
-            terrapupa.BossType = TerrapupaType.Pupa;
-            //terra.gameObject.SetActive(false);
         }
 
         private void SpawnStalactites()
@@ -255,25 +254,32 @@ namespace Centers.Boss
             Debug.Log($"OnStartEarthQuake");
             BossEventPayload payload = earthQuakePayload as BossEventPayload;
 
+            if(payload == null)
+            {
+                return;
+            }
+
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
+            Transform bossTransform = payload.TransformValue3;
             int attack = payload.IntValue;
 
             Debug.Log(playerTransform);
             Debug.Log(manaTransform);
+            Debug.Log(bossTransform);
 
-            float jumpCheckValue = 0.3f;
+            float jumpCheckValue = 5.0f;
 
             if (playerTransform != null)
             {
                 // 플레이어 아래 광선을 쏴서 점프 체크
                 RaycastHit hit;
 
-                LayerMask groundLayer = LayerMask.GetMask("Ground");
-                bool isJumping = !Physics.Raycast(playerTransform.position, -Vector3.up, out hit, jumpCheckValue, groundLayer);
+                LayerMask groundLayer = 1 << LayerMask.NameToLayer("Ground");
+                bool isJumping = !Physics.Raycast(playerTransform.position + Vector3.up * 0.1f, -Vector3.up, out hit, jumpCheckValue + 0.1f, groundLayer);
 
                 Debug.Log($"Raycast distance: {hit.distance}");
-                if (isJumping)
+                if (!isJumping)
                 {
                     Debug.Log($"플레이어 피해 {attack} 입음");
                     float upPower = 10.0f;
@@ -293,6 +299,12 @@ namespace Centers.Boss
                     TransformValue1 = manaTransform,
                     AttackTypeValue = manaFountain.banBossAttackType,
                 });
+            }
+            if(bossTransform != null)
+            {
+                // 보스 체크
+                TerrapupaRootData target = bossTransform.GetComponent<TerrapupaController>().terrapupaData;
+                target.hitEarthQuake.Value = true;
             }
         }
 

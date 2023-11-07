@@ -53,7 +53,7 @@ public class SetBossEvent : ActionNode
             if (vector3Value.Value != Vector3.zero) payload.Vector3Value = vector3Value.Value;
             if (transformValue1.Value != null) payload.TransformValue1 = transformValue1.Value;
             if (transformValue2.Value != null) payload.TransformValue2 = transformValue2.Value;
-            if (transformValue3.Value != null) payload.TransformValue2 = transformValue3.Value;
+            if (transformValue3.Value != null) payload.TransformValue3 = transformValue3.Value;
             if (attackTypeValue.Value != TerrapupaAttackType.None) payload.AttackTypeValue = attackTypeValue.Value;
         }
 
