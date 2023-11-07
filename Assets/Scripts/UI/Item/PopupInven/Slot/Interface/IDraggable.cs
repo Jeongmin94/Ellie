@@ -1,8 +1,13 @@
+using Assets.Scripts.Item;
+using Assets.Scripts.UI.Inventory;
+using UnityEngine;
+
 namespace Assets.Scripts.UI.Item.PopupInven
 {
     public interface IDraggable
     {
-        public SlotInfo GetSlotInfo();
-        public void SetSlotInfo(SlotInfo info);
+        public BaseItem GetBaseItem();
+        public void SetSlot(SlotItemPosition parent);
+        public bool IsOrigin();
     }
 }

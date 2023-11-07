@@ -1,3 +1,4 @@
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 namespace Channels.UI
@@ -12,13 +13,20 @@ namespace Channels.UI
     public enum ActionType
     {
         AddSlotItem,
+        ConsumeSlotItem,
         RemoveSlotItem,
+        ToggleInventory,
     }
 
     public class UIPayload : IBaseEventPayload
     {
         public UIType uiType;
         public ActionType actionType;
+        public SlotAreaType slotAreaType;
+        public ItemData itemData;
+        
+        public Transform onDragParent;
+        
         public Sprite sprite;
         public string name;
         public string text;
@@ -29,11 +37,16 @@ namespace Channels.UI
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            Debug.Log($"I'm UIChannel");
+            if (payload is not UIPayload uiPayload)
+                return;
 
-            var uiPayload = payload as UIPayload;
             if (uiPayload.uiType == UIType.Notify)
+            {
                 Publish(payload);
+                return;
+            }
+
+            // do something
         }
     }
 }

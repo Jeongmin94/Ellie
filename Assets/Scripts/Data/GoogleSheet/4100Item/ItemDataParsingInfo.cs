@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 [Serializable]
 public class ItemData
 {
+    public readonly GroupType groupType = GroupType.Consumption;
+
     public int index;
     public string name;
     public string description;
@@ -20,7 +23,7 @@ public class ItemData
 [CreateAssetMenu(fileName = "ItemData", menuName = "GameData List/ItemData")]
 public class ItemDataParsingInfo : DataParsingInfo
 {
-    public List<ItemData> items;
+    public List<ItemData> items = new List<ItemData>();
 
     public override T GetIndexData<T>(int index) where T : class
     {

@@ -3,13 +3,18 @@ using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.Serialization;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
 {
     public class UIManager : Singleton<UIManager>
     {
+        public readonly Vector2 resolution = new Vector2(1920, 1080);
+
         public const string NameUIRoot = "@UI_Root";
         public const string PrefixPopup = "UI/Popup/";
         public const string PrefixStatic = "UI/Static/";
@@ -24,16 +29,25 @@ namespace Assets.Scripts.Managers
         public const string UIMonsterBillboard = "Monster/MonsterBillboard";
 
         // Inven
-        public const string UIPopupInvenCanvas = "Inven/PopupInvenCanvas";
+        public const string UIPopupInvenCanvas = "Inventory/PopupInvenCanvas";
         public const string UISlot = "Slot/Slot";
         public const string UISlotItem = "Slot/SlotItem";
         public const string UIGridArea = "Slot/GridArea";
         public const string UIHorizontalGridArea = "Slot/HorizontalGridArea";
         public const string UIItemMenuButton = "Slot/ItemMenuButton";
 
+        // Inventory
+        public const string Inventory = "Inventory/Inventory";
+        public const string InventorySlot = "Slot/InventorySlot";
+        public const string DescriptionTextPanel = "Slot/Description/DescriptionTextPanel";
+        public const string DescriptionNamePanel = "Slot/Description/DescriptionNamePanel";
+        public const string ImageAndTextArea = "Slot/Gold/ImageAndTextArea";
+
         private int order = 10;
 
         private readonly Stack<UIPopup> popupStack = new Stack<UIPopup>();
+
+        public InventorySlot slotSwapBuffer;
 
         public GameObject Root
         {
@@ -65,6 +79,11 @@ namespace Assets.Scripts.Managers
             Canvas canvas = go.GetOrAddComponent<Canvas>();
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.overrideSorting = true; // 각 캔버스가 서로 독립적인 sort order를 가짐
+            canvas.scaleFactor = 1.0f;
+
+            CanvasScaler canvasScaler = go.GetOrAddComponent<CanvasScaler>();
+            canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+            canvasScaler.referenceResolution = resolution;
 
             if (sort)
                 canvas.sortingOrder = order++;
