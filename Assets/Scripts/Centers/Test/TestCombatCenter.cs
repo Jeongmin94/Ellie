@@ -13,7 +13,7 @@ namespace Assets.Scripts.Centers.Test
     {
         public GameObject player;
         public TestAttacker attacker;
-        public MonsterController[] monsters;
+        public Transform monsters;
         public StoneHatchery hatchery;
         public Ore[] ores;
 
@@ -29,9 +29,9 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(player.gameObject);
             CheckTicket(attacker.gameObject);
 
-            foreach (MonsterController monster in monsters)
+            foreach (Transform childMonster in monsters)
             {
-                CheckTicket(monster.gameObject);
+                CheckTicket(childMonster.gameObject);
             }
 
             CheckTicket(hatchery.gameObject);

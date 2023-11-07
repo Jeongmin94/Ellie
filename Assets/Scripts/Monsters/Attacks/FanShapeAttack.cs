@@ -27,13 +27,18 @@ namespace Assets.Scripts.Monsters.Attacks
         {
             Vector3 interV = target.position - transform.position;
 
-            float dot = Vector3.Dot(interV.normalized, transform.forward);
+            float dot = Vector3.Dot(interV.normalized, transform.forward.normalized);
             float theta = Mathf.Acos(dot);
             float degree = Mathf.Rad2Deg * theta;
 
             if (degree <= attackData.angleRange / 2.0f)
             {
-                return true;
+                interV.y = 0;
+                Debug.Log("interV Magnitude : " + interV.magnitude);
+                if (interV.sqrMagnitude <= attackData.radius * attackData.radius)
+                {
+                    return true;
+                }
             }
 
             return false;

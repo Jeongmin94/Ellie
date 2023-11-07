@@ -17,7 +17,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
-        private const float monsterRespawnTime = 7.5f;
+        private const float monsterRespawnTime = 20.0f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
 

@@ -164,7 +164,7 @@ namespace Assets.Scripts.Monsters
             agent.speed = monsterData.movementSpeed;
             agent.angularSpeed = monsterData.rotationSpeed;
             agent.stoppingDistance = monsterData.stopDistance;
-            agent.baseOffset = -0.01f;
+            agent.baseOffset = -0.1f;
         }
 
         public void ChangeEffectState(StatusEffectName effect)
