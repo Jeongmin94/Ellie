@@ -112,6 +112,7 @@ namespace Assets.Scripts.Player
         public bool isJumping;
         public bool isDodging;
         public bool isZooming;
+        public bool canMove;
         public bool canJump;
         public bool canTurn;
         public bool isRigid;
@@ -206,6 +207,7 @@ namespace Assets.Scripts.Player
         private void InitVariables()
         {
             Rb.freezeRotation = true;
+            canMove = true;
             canJump = true;
             isGrounded = true;
             isRigid = false;
@@ -225,6 +227,8 @@ namespace Assets.Scripts.Player
             {
                 inputMagnitude *= 1.5f;
             }
+            if (!canMove)
+                inputMagnitude = 0f;
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
         private void ResetPlayerPos()

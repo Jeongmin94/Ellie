@@ -12,6 +12,8 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
             Controller.canTurn = false;
+            Controller.canMove = false;
+                
             Vector3 direction = Controller.GetComponent<PlayerInteraction>().interactiveObject.transform.position - Controller.PlayerObj.transform.position;
             direction.y = 0;
             Controller.PlayerObj.rotation = Quaternion.LookRotation(direction);
@@ -20,6 +22,8 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
+            Controller.canMove = true;
+            Controller.canTurn = true;
         }
 
         public override void OnFixedUpdateState()
