@@ -9,10 +9,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99197430dfa2cbd42bd9d8c40de6eabd, type: 3}
-  m_Name: Stone
+  m_Script: {fileID: 11500000, guid: d1b0ccc2ffdec3a43a0121c4ab6ef8b4, type: 3}
+  m_Name: PupaRoot
   m_EditorClassIdentifier: 
-  stoneRotationSpeed: 1
-  stoneMovementSpeed: 7
-  stoneScale: 2.72
-  stoneAttackValue: 5
+  hp: 30
+  rollUsable: 1
+  stoneUsable: 0
+  earthQuakeUsable: 0
+  lowAttackQuakeUsable: 1
+  LongRangeDetectionDistance: 25
+  MidRangeDetectionDistance: 15
+  ShortRangeDetectionDistance: 5

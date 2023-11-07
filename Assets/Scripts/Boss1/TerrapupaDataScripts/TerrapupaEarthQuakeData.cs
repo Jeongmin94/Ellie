@@ -7,7 +7,7 @@ public class TerrapupaEarthQuakeData : BaseBTData
 {
     public TerrapupaEarthQuakeData()
     {
-        dataName = "EarthQuake";
+        dataName = "TerrapupaEarthQuake";
     }
 
     [Header("땅 뒤집기 공격")]

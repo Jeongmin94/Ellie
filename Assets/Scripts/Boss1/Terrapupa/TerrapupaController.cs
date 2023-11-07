@@ -10,18 +10,12 @@ namespace Boss.Terrapupa
 {
     public class TerrapupaController : BehaviourTreeController
     {
-
-        [SerializeField] private Transform target;
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
         
         private TicketMachine ticketMachine;
 
-        public Transform Target
-        {
-            get { return target; }
-            set { target = value; }
-        }
+        [HideInInspector] public TerrapupaRootData terrapupaData;
 
         public Transform Stone
         {
@@ -34,21 +28,6 @@ namespace Boss.Terrapupa
             get { return weakPoint; }
             set { weakPoint = value; }
         }
-
-        [HideInInspector] public TerrapupaRootData terrapupaData;
-
-        public BlackboardKey<Transform> player;
-        public BlackboardKey<Transform> objectTransform;
-        public BlackboardKey<Transform> magicStoneTransform;
-        public BlackboardKey<int> currentHP;
-        public BlackboardKey<bool> canThrowStone;
-        public BlackboardKey<bool> canEarthQuake;
-        public BlackboardKey<bool> canRoll;
-        public BlackboardKey<bool> canLowAttack;
-        public BlackboardKey<bool> isTempted;
-        public BlackboardKey<bool> isIntake;
-        public BlackboardKey<bool> isStuned;
-
         private void Awake()
         {
             InitTicketMachine();
@@ -65,19 +44,6 @@ namespace Boss.Terrapupa
         private void InitStatus()
         {
             terrapupaData = rootTreeData as TerrapupaRootData;
-            behaviourTreeInstance.SetBlackboardValue<Transform>("player", target);
-
-            player = behaviourTreeInstance.FindBlackboardKey<Transform>("player");
-            objectTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("objectTransform");
-            magicStoneTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("magicStoneTransform");
-            currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
-            canThrowStone = behaviourTreeInstance.FindBlackboardKey<bool>("canThrowStone");
-            canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
-            canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
-            canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
-            isTempted = behaviourTreeInstance.FindBlackboardKey<bool>("isTempted");
-            isIntake = behaviourTreeInstance.FindBlackboardKey<bool>("isIntake");
-            isStuned = behaviourTreeInstance.FindBlackboardKey<bool>("isStuned");
         }
 
         private void SubscribeEvent()
@@ -90,13 +56,13 @@ namespace Boss.Terrapupa
             // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
             Debug.Log($"OnCollidedCoreByPlayerStone :: {payload}");
 
-            if(isStuned.value)
+            if(terrapupaData.isStuned.value)
             {
                 CombatPayload combatPayload = payload as CombatPayload;
                 int damage = combatPayload.Damage;
 
-                currentHP.Value -= damage;
-                Debug.Log($"기절 상태, 데미지 입음 {currentHP.Value}");
+                terrapupaData.currentHP.Value -= damage;
+                Debug.Log($"기절 상태, 데미지 입음 {terrapupaData.currentHP.Value}");
                 
             }
             else 

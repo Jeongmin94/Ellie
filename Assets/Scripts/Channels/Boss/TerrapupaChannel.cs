@@ -49,6 +49,7 @@ namespace Channels.Boss
         private Transform transformValue1;
         private Transform transformValue2;
         private TerrapupaAttackType attackTypeValue;
+        private Transform sender;
 
         public BossEventPayload()
         {
@@ -95,6 +96,12 @@ namespace Channels.Boss
             get { return attackTypeValue; }
             set { attackTypeValue = value; }
         }
+        public Transform Sender
+        {
+            get { return sender; }
+            set { sender = value; }
+        }
+
     }
 
     public class TerrapupaChannel : BaseEventChannel

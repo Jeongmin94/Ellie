@@ -7,7 +7,7 @@ public class TerrapupaTemptData : BaseBTData
 {
     public TerrapupaTemptData()
     {
-        dataName = "Tempt";
+        dataName = "TerrapupaTempt";
     }
 
     [Header("유인 상태")]

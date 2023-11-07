@@ -12,6 +12,7 @@ namespace Boss.Objects
         private LineRenderer lineRenderer;
 
         private int myIndex;
+        private bool isFallen = false;
 
         public int MyIndex
         {
@@ -60,43 +61,49 @@ namespace Boss.Objects
                 Debug.Log(collision.transform.name);
 
                 rb.useGravity = true;
+                isFallen = true;
             }
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.transform.CompareTag("Boss"))
+            if (isFallen)
             {
-                Debug.Log($"{other} 충돌!");
+                if (other.transform.CompareTag("Boss"))
+                {
+                    Debug.Log($"{other} 충돌!");
 
-                EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
-                    new BossEventPayload
-                    {
-                        IntValue = myIndex,
-                        FloatValue = respawnValue,
-                        TransformValue1 = transform,
-                        TransformValue2 = other.transform.root
-                    });
+                    EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
+                        new BossEventPayload
+                        {
+                            IntValue = myIndex,
+                            FloatValue = respawnValue,
+                            TransformValue1 = transform,
+                            TransformValue2 = other.transform.root
+                        });
 
-                rb.useGravity = false;
-                rb.velocity = Vector3.zero;
-                gameObject.SetActive(false);
-            }
-            else if (other.transform.CompareTag("Ground"))
-            {
-                Debug.Log($"{other} 충돌!");
+                    rb.useGravity = false;
+                    rb.velocity = Vector3.zero;
+                    isFallen = false;
+                    gameObject.SetActive(false);
+                }
+                else if (other.transform.CompareTag("Ground"))
+                {
+                    Debug.Log($"{other} 충돌!");
 
-                EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
-                    new BossEventPayload
-                    {
-                        IntValue = myIndex,
-                        FloatValue = respawnValue,
-                        TransformValue1 = transform,
-                    });
+                    EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
+                        new BossEventPayload
+                        {
+                            IntValue = myIndex,
+                            FloatValue = respawnValue,
+                            TransformValue1 = transform,
+                        });
 
-                rb.useGravity = false;
-                rb.velocity = Vector3.zero;
-                gameObject.SetActive(false);
+                    rb.useGravity = false;
+                    rb.velocity = Vector3.zero;
+                    isFallen = false;
+                    gameObject.SetActive(false);
+                } 
             }
         }
     }

@@ -7,7 +7,7 @@ using UnityEngine;
 
 public abstract class BaseBTData : ScriptableObject
 {
-    protected string dataName;
+    public string dataName;
     protected BehaviourTree tree;
 
     public BehaviourTree Tree

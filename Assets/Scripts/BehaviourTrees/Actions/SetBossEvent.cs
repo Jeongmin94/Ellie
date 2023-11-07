@@ -27,6 +27,7 @@ public class SetBossEvent : ActionNode
 
     protected override State OnUpdate() {
         BossEventPayload payload = bossPayload.Value as BossEventPayload;
+
         if(payload == null)
         {
             return State.Failure;
@@ -53,6 +54,7 @@ public class SetBossEvent : ActionNode
             if (attackTypeValue.Value != TerrapupaAttackType.None) payload.AttackTypeValue = attackTypeValue.Value;
         }
 
+        payload.Sender = context.transform;
         bossPayload.Value = payload;
 
         return State.Success;

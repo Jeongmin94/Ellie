@@ -36,7 +36,11 @@ namespace Boss.Objects
                     isCooldown = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
-                        new BossEventPayload { TransformValue1 = transform, TransformValue2 = spawnPosition });
+                        new BossEventPayload 
+                        { 
+                            TransformValue1 = transform, 
+                            TransformValue2 = spawnPosition 
+                        });
                     
                 }
                 else if (other.transform.CompareTag("Boss"))
@@ -46,9 +50,12 @@ namespace Boss.Objects
                     isBroken = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
-                        new BossEventPayload { 
+                        new BossEventPayload 
+                        { 
                             TransformValue1 = transform, 
-                            AttackTypeValue = banBossAttackType });
+                            AttackTypeValue = banBossAttackType,
+                            Sender = other.transform,
+                        });
                 }
                 else if (other.transform.CompareTag("BattleObject"))
                 {
@@ -62,7 +69,8 @@ namespace Boss.Objects
                         {
                             TransformValue1 = transform,
                             TransformValue2 = other.transform,
-                            AttackTypeValue = banBossAttackType
+                            AttackTypeValue = banBossAttackType,
+                            Sender = other.transform,
                         });
                 }
             }

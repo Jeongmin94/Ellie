@@ -7,7 +7,7 @@ public class TerrapupaLowAttackData : BaseBTData
 {
     public TerrapupaLowAttackData()
     {
-        dataName = "LowAttack";
+        dataName = "TerrapupaLowAttack";
     }
 
     [Header("하단 공격")]

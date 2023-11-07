@@ -7,7 +7,7 @@ public class TerrapupaStunData : BaseBTData
 {
     public TerrapupaStunData()
     {
-        dataName = "Stun";
+        dataName = "TerrapupaStun";
     }
 
     [Header("기절 상태")]

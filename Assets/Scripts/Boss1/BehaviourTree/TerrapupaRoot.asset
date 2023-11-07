@@ -55,6 +55,13 @@ MonoBehaviour:
   - rid: 283011023650684939
   - rid: 283011023650684943
   - rid: 283011023650684946
+  - rid: 283011153473568768
+  - rid: 283011153473568769
+  - rid: 283011153473568781
+  - rid: 283011153473568782
+  - rid: 283011153473568783
+  - rid: 283011153473568786
+  - rid: 283011153473568790
   treeState: 0
   blackboard:
     keys:
@@ -73,8 +80,8 @@ MonoBehaviour:
     - rid: 283011090204065792
     - rid: 283011090204065793
     - rid: 283011090204065794
-  viewPosition: {x: 1597, y: 127, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: 1535, y: -20, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -132,7 +139,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: Stun
+          defaultValue: TerrapupaStun
     - rid: 283011023650684930
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -149,7 +156,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: Intake
+          defaultValue: TerrapupaIntake
     - rid: 283011023650684931
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -166,7 +173,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: Tempt
+          defaultValue: TerrapupaTempt
     - rid: 283011023650684932
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -183,7 +190,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: Roll
+          defaultValue: TerrapupaRoll
     - rid: 283011023650684933
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -214,7 +221,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: Stone
+          defaultValue: TerrapupaStone
     - rid: 283011023650684935
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -231,7 +238,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: EarthQuake
+          defaultValue: TerrapupaEarthQuake
     - rid: 283011023650684936
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -248,7 +255,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: Trace
+          defaultValue: TerrapupaTrace
     - rid: 283011023650684937
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -265,7 +272,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: LowAttack
+          defaultValue: TerrapupaLowAttack
     - rid: 283011023650684938
       type: {class: RandomSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -296,7 +303,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: SpinningAttack
+          defaultValue: TerrapupaSpinningAttack
     - rid: 283011023650684940
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -365,19 +372,130 @@ MonoBehaviour:
         typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
+    - rid: 283011153473568768
+      type: {class: InterruptSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 96de40ae07954854e872876ddb5d73e8
+        position: {x: -2400, y: -765}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011153473568769
+        - rid: 1401849327350972429
+    - rid: 283011153473568769
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c1a35d8d68f66a242a9f36b5b60584a6
+        position: {x: -4500, y: -300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011153473568781
+        - rid: 283011153473568782
+    - rid: 283011153473568781
+      type: {class: ComparePropertyLess, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d34d5a31d08cd5645a644faf6302da9f
+        position: {x: -4710, y: -150}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        nodeValue:
+          reference:
+            rid: 1401849265356013568
+        compareValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isEqual:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 283011153473568782
+      type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0caac7aa3f4d40b428fbb995ad1b6399
+        position: {x: -4500, y: 0}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        treeAsset: {fileID: 11400000, guid: 7a366da9ba67e8045ab034e08064017f, type: 2}
+        treeInstance: {fileID: 0}
+        controllerNames:
+          reference:
+            rid: -2
+          defaultValue: 
+    - rid: 283011153473568783
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: be794bcc6486c174bb834f56890b2592
+        position: {x: -2700, y: -1050}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011153473568786
+        - rid: 1401849265356013607
+    - rid: 283011153473568786
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e81c9560a76af0e409a0fe08bd1501a8
+        position: {x: -3000, y: -900}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011153473568790
+    - rid: 283011153473568790
+      type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 677569821d620444e9ccef1cc841b168
+        position: {x: -3000, y: -750}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        treeAsset: {fileID: 11400000, guid: 131d8b0969a20b94790bbc7c42199471, type: 2}
+        treeInstance: {fileID: 0}
+        controllerNames:
+          reference:
+            rid: -2
+          defaultValue: 
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -2100, y: -900}
+        position: {x: -2700, y: -1200}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: 1401849265356013607
+          rid: 283011153473568783
     - rid: 1401849265356013568
       type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -390,13 +508,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a8a78a1e4f0dcf14bbfc02a4706b1e2d
-        position: {x: -2100, y: -750}
+        position: {x: -2400, y: -900}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: 1401849327350972429
+          rid: 283011153473568768
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
@@ -444,7 +562,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: dd0ff01669863ca40b3a0ec827f8b218
-        position: {x: -2100, y: -600}
+        position: {x: -2400, y: -600}
         blackboard:
           keys: []
         description: 

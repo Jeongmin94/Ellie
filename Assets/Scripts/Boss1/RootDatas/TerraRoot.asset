@@ -10,13 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1b0ccc2ffdec3a43a0121c4ab6ef8b4, type: 3}
-  m_Name: Root
+  m_Name: TerraRoot
   m_EditorClassIdentifier: 
-  hp: 45
-  rollUsable: 1
+  dataName: TerrapupaRoot
+  hp: 30
+  rollUsable: 0
   stoneUsable: 1
   earthQuakeUsable: 1
-  lowAttackQuakeUsable: 1
+  lowAttackQuakeUsable: 0
   LongRangeDetectionDistance: 25
   MidRangeDetectionDistance: 15
   ShortRangeDetectionDistance: 5

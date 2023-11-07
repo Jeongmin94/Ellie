@@ -7,7 +7,7 @@ public class TerrapupaSpinningAttackData : BaseBTData
 {
     public TerrapupaSpinningAttackData()
     {
-        dataName = "SpinningAttack";
+        dataName = "TerrapupaSpinningAttack";
     }
 
     [Header("회전 공격")]

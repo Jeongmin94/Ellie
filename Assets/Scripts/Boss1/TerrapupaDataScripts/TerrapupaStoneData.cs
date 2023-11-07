@@ -7,12 +7,12 @@ public class TerrapupaStoneData : BaseBTData
 {
     public TerrapupaStoneData()
     {
-        dataName = "Stone";
+        dataName = "TerrapupaStone";
     }
 
     [Header("돌 던지기 공격")]
     [Tooltip("타겟팅 회전 속도")] public float stoneRotationSpeed = 1.0f;
-    [Tooltip("돌의 이동 속도")] public float stoneMovementSpeed = 7.0f;
+    [Tooltip("돌의 이동 속도")] public float stoneMovementSpeed = 15.0f;
     [Tooltip("돌의 공격력")] public int stoneAttackValue = 5;
 
     public BlackboardKey<float> rotationSpeed;

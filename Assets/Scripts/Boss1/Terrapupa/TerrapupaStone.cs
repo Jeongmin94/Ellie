@@ -11,14 +11,36 @@ namespace Boss.Terrapupa
 {
 	public class TerrapupaStone : Poolable
 	{
+		[SerializeField] private float movementSpeed = 15.0f;
+		[SerializeField] private float attackValue = 5.0f;
+
+		private Transform owner;
 		private TicketMachine ticketMachine;
 
-		public float movementSpeed = 7.0f;
+		public Transform Owner
+		{
+			get { return owner; }
+		}
 
         private void Awake()
         {
 			SetTicketMachine();
         }
+
+        private void OnDisable()
+        {
+            transform.localScale = Vector3.one;
+        }
+
+        public void Init(Vector3 position, Vector3 scale, float speed, int attack, Transform sender)
+		{
+			transform.position = position;
+			transform.localScale = scale;
+			movementSpeed = speed;
+			attackValue = attack;
+			owner = sender;
+        }
+
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();

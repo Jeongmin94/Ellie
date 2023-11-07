@@ -7,7 +7,7 @@ public class TerrapupaIntakeData : BaseBTData
 {
     public TerrapupaIntakeData()
     {
-        dataName = "Intake";
+        dataName = "TerrapupaIntake";
     }
 
     [Header("섭취 상태")]

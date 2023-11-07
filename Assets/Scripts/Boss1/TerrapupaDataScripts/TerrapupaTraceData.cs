@@ -7,7 +7,7 @@ public class TerrapupaTraceData : BaseBTData
 {
     public TerrapupaTraceData()
     {
-        dataName = "Trace";
+        dataName = "TerrapupaTrace";
     }
 
     [Header("추적 상태")]

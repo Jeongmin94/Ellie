@@ -7,7 +7,7 @@ public class TerrapupaRollData : BaseBTData
 {
     public TerrapupaRollData()
     {
-        dataName = "Roll";
+        dataName = "TerrapupaRoll";
     }
 
     [Header("구르기 공격")]
