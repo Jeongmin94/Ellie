@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -14,8 +15,8 @@ namespace Assets.Scripts.UI.Inventory.Test
 {
     public class InventoryTestClient : MonoBehaviour
     {
-        [SerializeField] private InventoryChannel inventoryChannel;
         [SerializeField] private ItemDataParsingInfo itemDataParsingInfo;
+        [SerializeField] private GameGoods gameGoods;
 
         private TicketMachine ticketMachine;
 
@@ -24,6 +25,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         private void Awake()
         {
             InitTicketMachine();
+            gameGoods.Init();
 
             UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
@@ -82,6 +84,18 @@ namespace Assets.Scripts.UI.Inventory.Test
             if (Input.GetKeyDown(KeyCode.W))
             {
                 Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                gameGoods.gold.Value--;
+                gameGoods.stonePiece.Value--;
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                gameGoods.gold.Value++;
+                gameGoods.stonePiece.Value++;
             }
         }
 

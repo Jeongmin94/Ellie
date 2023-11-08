@@ -182,17 +182,20 @@ namespace Assets.Scripts.UI.Inventory
             SlotItemData.itemCount.Subscribe(OnItemCountChanged);
         }
 
+        // 슬롯의 위치 이동
         public void MoveSlot(SlotItemPosition position, BaseItem data)
         {
             SetSlot(position);
             SetItemData(data);
         }
 
+        // SlotItemData에서 참조하는 슬롯 변경
         public void ChangeSlot(SlotAreaType type, InventorySlot slot)
         {
             SlotItemData?.ChangeSlot(type, slot);
         }
 
+        // SlotItemData에서 참조하는 슬롯 아이템 변경
         public void ChangeSlotItem(SlotAreaType type, BaseSlotItem item)
         {
             SlotItemData?.ChangeSlotItem(type, item);
@@ -200,6 +203,10 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnItemCountChanged(int value)
         {
+            if (value < 0)
+                value = 0;
+            if (value > 9999)
+                value = 9999;
             itemText.text = value.ToString();
         }
 

@@ -2,7 +2,7 @@ using Assets.Scripts.UI.Framework;
 
 namespace Assets.Scripts.UI.Inventory
 {
-    public class GoldPanel : UIBase
+    public class GoodsPanel : UIBase
     {
         private void Awake()
         {

@@ -79,6 +79,10 @@ namespace Assets.Scripts.UI.Inventory
         private DescriptionTextPanel descriptionTextPanel;
         private InventorySlot descriptionSlot;
 
+        // GameGoods
+        private ImageAndTextArea goldImageAndTextArea;
+        private ImageAndTextArea stonePieceImageAndTextArea;
+
         [Tooltip("Slot Area Grid")]
         [SerializeField]
         private int row = 3;
@@ -145,42 +149,9 @@ namespace Assets.Scripts.UI.Inventory
             descImageRect.localPosition = InventoryConst.DescImageRect.ToCanvasPos();
             descImageRect.SetParent(descriptionPanel.transform);
 
+            InitDescriptionPanel();
             InitButtonPanel();
-
-            var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
-            AnchorPresets.SetAnchorPreset(goldRect, AnchorPresets.MiddleCenter);
-            goldRect.sizeDelta = InventoryConst.GoldRect.GetSize();
-            goldRect.localPosition = InventoryConst.GoldRect.ToCanvasPos();
-            goldRect.SetParent(categoryPanel.transform);
-
-            var goldArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
-            goldArea.Rect.sizeDelta = Vector2.zero;
-            goldArea.Rect.localPosition = Vector3.zero;
-
-            SetValues(goldArea.Image.GetComponent<RectTransform>(), goldArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
-            SetValues(goldArea.Text.GetComponent<RectTransform>(), goldArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
-
-            goldArea.transform.SetParent(goldRect.transform);
-
-            var stoneArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
-            stoneArea.Rect.sizeDelta = Vector2.zero;
-            stoneArea.Rect.localPosition = Vector3.zero;
-
-            SetValues(stoneArea.Image.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
-            SetValues(stoneArea.Text.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
-
-            stoneArea.transform.SetParent(goldRect.transform);
-
-            // description panel
-            descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
-            descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
-
-            descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
-            descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
-
-            descriptionSlot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
-            descriptionSlot.SlotType = SlotAreaType.Description;
-            descriptionSlot.transform.SetParent(descriptionPanel.transform);
+            InitGoodsPanel();
 
             closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
             SetValues(closeButton.transform, transform, AnchorPresets.MiddleCenter, InventoryConst.CloseButtonRect);
@@ -200,6 +171,51 @@ namespace Assets.Scripts.UI.Inventory
         {
             buttonPanel.ActivateToggle(GroupType.Stone, true);
             OnCloseButtonClickAction();
+        }
+
+        private void InitGoodsPanel()
+        {
+            var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
+            AnchorPresets.SetAnchorPreset(goldRect, AnchorPresets.MiddleCenter);
+            goldRect.sizeDelta = InventoryConst.GoldRect.GetSize();
+            goldRect.localPosition = InventoryConst.GoldRect.ToCanvasPos();
+            goldRect.SetParent(categoryPanel.transform);
+
+            goldImageAndTextArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            goldImageAndTextArea.Rect.sizeDelta = Vector2.zero;
+            goldImageAndTextArea.Rect.localPosition = Vector3.zero;
+            goldImageAndTextArea.Image.sprite = ResourceManager.Instance.LoadSprite(ImageAndTextArea.GoldPath);
+
+            SetValues(goldImageAndTextArea.Image.GetComponent<RectTransform>(), goldImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
+            SetValues(goldImageAndTextArea.Text.GetComponent<RectTransform>(), goldImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
+
+            goldImageAndTextArea.transform.SetParent(goldRect.transform);
+            goods.gold.Subscribe(goldImageAndTextArea.OnGoodsCountChanged);
+
+            stonePieceImageAndTextArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            stonePieceImageAndTextArea.Rect.sizeDelta = Vector2.zero;
+            stonePieceImageAndTextArea.Rect.localPosition = Vector3.zero;
+            stonePieceImageAndTextArea.Image.sprite = ResourceManager.Instance.LoadSprite(ImageAndTextArea.StonePiecePath);
+
+            SetValues(stonePieceImageAndTextArea.Image.GetComponent<RectTransform>(), stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
+            SetValues(stonePieceImageAndTextArea.Text.GetComponent<RectTransform>(), stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
+
+            stonePieceImageAndTextArea.transform.SetParent(goldRect.transform);
+            goods.stonePiece.Subscribe(stonePieceImageAndTextArea.OnGoodsCountChanged);
+        }
+
+        private void InitDescriptionPanel()
+        {
+            // description panel
+            descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
+            descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
+
+            descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
+            descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
+
+            descriptionSlot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
+            descriptionSlot.SlotType = SlotAreaType.Description;
+            descriptionSlot.transform.SetParent(descriptionPanel.transform);
         }
 
         private void InitButtonPanel()
