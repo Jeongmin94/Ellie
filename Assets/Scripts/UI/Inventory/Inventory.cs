@@ -1,5 +1,5 @@
 using System;
-using Assets.Scripts.Item;
+using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
@@ -7,7 +7,6 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using Data.UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
@@ -54,8 +53,7 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionImageArea,
         }
 
-
-        [SerializeField] private InventoryChannel inventoryChannel;
+        [SerializeField] private GameGoods goods;
 
         // GameObject
         private GameObject descriptionPanel;
@@ -126,6 +124,7 @@ namespace Assets.Scripts.UI.Inventory
             descImageArea = GetImage((int)Images.DescriptionImageArea);
 
             buttonPanel = categoryButtonPanel.GetOrAddComponent<CategoryButtonPanel>();
+            buttonPanel.InitCategoryButtonPanel();
             buttonPanel.Subscribe(OnPanelInventoryAction);
         }
 
@@ -171,20 +170,8 @@ namespace Assets.Scripts.UI.Inventory
             SetValues(stoneArea.Text.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
 
             stoneArea.transform.SetParent(goldRect.transform);
-        }
 
-        private void InitTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.UI);
-            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
-
-            TicketManager.Instance.Ticket(ticketMachine);
-        }
-
-        private void Start()
-        {
-            // !TODO: description 영역에서 발생하는 이벤트 관리 주체 필요
+            // description panel
             descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
             descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
 
@@ -198,8 +185,21 @@ namespace Assets.Scripts.UI.Inventory
             closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
             SetValues(closeButton.transform, transform, AnchorPresets.MiddleCenter, InventoryConst.CloseButtonRect);
             closeButton.Subscribe(OnCloseButtonClickAction);
+        }
 
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
+
+            TicketManager.Instance.Ticket(ticketMachine);
+        }
+
+        private void Start()
+        {
             buttonPanel.ActivateToggle(GroupType.Stone, true);
+            OnCloseButtonClickAction();
         }
 
         private void InitButtonPanel()
@@ -208,7 +208,6 @@ namespace Assets.Scripts.UI.Inventory
             swapBuffer.name = "SwapBuffer";
             swapBuffer.Subscribe(OnPanelInventoryAction);
             UIManager.Instance.slotSwapBuffer = swapBuffer;
-
 
             InitItemArea();
             InitEquipmentArea();

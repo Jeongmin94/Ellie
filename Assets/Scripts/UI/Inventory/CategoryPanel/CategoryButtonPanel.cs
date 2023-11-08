@@ -48,7 +48,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private Action<InventoryEventPayload> panelInventoryAction;
 
-        private void Awake()
+        public void InitCategoryButtonPanel()
         {
             Init();
         }

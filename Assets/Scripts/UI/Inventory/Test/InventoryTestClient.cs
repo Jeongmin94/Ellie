@@ -24,6 +24,8 @@ namespace Assets.Scripts.UI.Inventory.Test
         private void Awake()
         {
             InitTicketMachine();
+
+            UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
 
         private void InitTicketMachine()
