@@ -122,13 +122,13 @@ namespace Assets.Scripts.Monsters.AbstractClass
             {
                 animator = GetComponent<Animator>();
             }
-            animator.SetTrigger("SkeletonDead");
+            animator.Play("Dead");
             GetComponent<Collider>().enabled = false;
             yield return new WaitForSeconds(monsterRespawnTime);
 
             GetComponent<Collider>().enabled = true;
             ReturnSpawnLocation();
-            animator.SetTrigger("SkeletonIdleAttack");
+            animator.Play("Respawn");
             isDamaged.value = false;
             currentHP = monsterData.maxHP;
             dataContainer.CurrentHp.Value = (int)currentHP;

@@ -1,12 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using UnityEngine;
 
-namespace Assets.Scripts.Item
-{
     public class ItemHatchery : MonoBehaviour
     {
+        private TicketMachine ticketMachine;
+
         private const int poolSize = 10;
         private Pool itemPool;
 
@@ -14,18 +19,39 @@ namespace Assets.Scripts.Item
 
         private void Awake()
         {
+            SetTicketMachine();
             InitPool();
         }
+
+        private void SetTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTicket(ChannelType.Item);
+            ticketMachine.RegisterObserver(ChannelType.Item, DropItemEvent);
+        }
+
         private void InitPool()
         {
             itemPool = PoolManager.Instance.CreatePool(item, poolSize);
         }
 
-        public void ProduceItem(Transform transform, int itemIndex)
+        public void DropItemEvent(IBaseEventPayload payload)
+        {
+            ItemEventPayload itemPayload = payload as ItemEventPayload;
+            TestItemDrop item =  DropItem(itemPayload.itemIndex) as TestItemDrop;
+            item.transform.position = itemPayload.itemDropPosition;
+        }
+
+        public Poolable DropItem(int itemIndex)
         {
             Poolable obj = itemPool.Pop();
             obj.GetComponent<TestItemDrop>().data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIndex);
-            //obj.GetComponent<TestItemDrop>().hatchery = this;
+
+            return obj;
+        }
+
+        public void PickItem(TestItemDrop item)
+        {
+            itemPool.Push(item);
         }
     }
-}

@@ -7,5 +7,6 @@ namespace Channels.Type
         Stone,
         BossInteraction,
         Terrapupa,
+        Item
     }
 }

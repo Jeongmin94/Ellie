@@ -73,7 +73,7 @@ namespace Assets.Scripts.Monsters
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
+            ticketMachine.AddTicket(ChannelType.Combat);
         }
 
         private void InitUI()
@@ -89,6 +89,7 @@ namespace Assets.Scripts.Monsters
         {
             dataContainer.MaxHp = (int)monsterData.maxHP;
             currentHP = monsterData.maxHP;
+            dataContainer.PrevHp = (int)currentHP;
             dataContainer.CurrentHp.Value = (int)currentHP;
             dataContainer.Name = monsterData.monsterName;
 
@@ -176,11 +177,6 @@ namespace Assets.Scripts.Monsters
         public override void ReturnSpawnLocation()
         {
             gameObject.transform.position = spawnPosition;
-        }
-
-        private void DropIteam()
-        {
-
         }
     }
 }

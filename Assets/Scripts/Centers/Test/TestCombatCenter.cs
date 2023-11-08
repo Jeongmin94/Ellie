@@ -31,6 +31,8 @@ namespace Assets.Scripts.Centers.Test
 
             foreach (Transform childMonster in monsters)
             {
+                Debug.Log("Monster Ticket Checked");
+                Debug.Log(childMonster);
                 CheckTicket(childMonster.gameObject);
             }
 
