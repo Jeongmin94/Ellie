@@ -2,6 +2,7 @@
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using System.Collections;
 using System.Collections.Generic;
 using TheKiwiCoder;
 using UnityEngine;
@@ -33,6 +34,7 @@ namespace Boss.Terrapupa
             InitTicketMachine();
             InitStatus();
             SubscribeEvent();
+            StartCoroutine(FallCheck());
         }
 
         private void InitTicketMachine()
@@ -49,6 +51,35 @@ namespace Boss.Terrapupa
         private void SubscribeEvent()
         {
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+        }
+
+        private IEnumerator FallCheck()
+        {
+            LayerMask groundMask = LayerMask.GetMask("Ground");
+            float checkDistance = 30.0f;
+            float fallCheckLatency = 5.0f;
+            float rayStartOffset = 10.0f;
+
+            while (true)
+            {
+                RaycastHit hit;
+
+                Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
+
+                bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
+
+                if (!hitGround)
+                {
+                    Debug.Log("추락 방지, 포지션 초기화");
+                    transform.position = Vector3.zero;
+                }
+                else
+                {
+                    Debug.Log(hit.distance);
+                }
+
+                yield return new WaitForSeconds(fallCheckLatency);
+            }
         }
 
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)

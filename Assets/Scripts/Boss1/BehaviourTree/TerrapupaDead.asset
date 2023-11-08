@@ -36,7 +36,7 @@ MonoBehaviour:
     - rid: 283011090204065825
     - rid: 283011153473568825
     - rid: 283011153473568826
-  viewPosition: {x: 1006, y: 910, z: 0}
+  viewPosition: {x: 1964, y: 1206, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -154,8 +154,8 @@ MonoBehaviour:
         children:
         - rid: 283011153473568803
         - rid: 283011153473568824
-        - rid: 283011153473568827
         - rid: 283011153473568805
+        - rid: 283011153473568827
         - rid: 283011153473568807
     - rid: 283011153473568803
       type: {class: SetRigidbodyKinematic, ns: , asm: Assembly.Ellie}
@@ -163,7 +163,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: caed81605d8eb5641a0d624e8829a955
-        position: {x: -1680, y: -750}
+        position: {x: -1635, y: -750}
         blackboard:
           keys: []
         description: 
@@ -178,7 +178,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 94673d7e6b500ba45aae31fc224ed1b8
-        position: {x: -975, y: -750}
+        position: {x: -1200, y: -750}
         blackboard:
           keys: []
         description: 
@@ -218,12 +218,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
-    - rid: 283011153473568806
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: DeathPayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 283011153473568807
       type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
       data:
@@ -241,7 +235,7 @@ MonoBehaviour:
           defaultValue: 10
         baseEventPayload:
           reference:
-            rid: 283011153473568806
+            rid: 283011153473568826
     - rid: 283011153473568822
       type: {class: CheckCurrentAnimationTime, ns: , asm: Assembly.Ellie}
       data:
@@ -270,7 +264,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a20d73f8327cb424f9614fcea2f39758
-        position: {x: -1425, y: -750}
+        position: {x: -1380, y: -750}
         blackboard:
           keys: []
         description: 
@@ -328,7 +322,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fda53569eb140d6449254e13b05403e5
-        position: {x: -1245, y: -750}
+        position: {x: -1035, y: -750}
         blackboard:
           keys: []
         description: 
@@ -346,7 +340,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -1950, y: -1290}
+        position: {x: -1950, y: -1305}
         blackboard:
           keys: []
         description: "\uC0AC\uB9DD"

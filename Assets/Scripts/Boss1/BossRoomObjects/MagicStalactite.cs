@@ -31,6 +31,11 @@ namespace Boss.Objects
             lineRenderer.endColor = Color.magenta;
         }
 
+        private void OnDisable()
+        {
+            rb.isKinematic = true;
+        }
+
         private void Update()
         {
             RaycastHit hit;
@@ -61,6 +66,7 @@ namespace Boss.Objects
                 Debug.Log(collision.transform.name);
 
                 rb.useGravity = true;
+                rb.isKinematic = false;
                 isFallen = true;
             }
         }

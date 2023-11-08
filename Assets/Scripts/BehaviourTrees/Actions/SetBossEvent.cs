@@ -29,11 +29,6 @@ public class SetBossEvent : ActionNode
     protected override State OnUpdate() {
         BossEventPayload payload = bossPayload.Value as BossEventPayload;
 
-        if(payload == null)
-        {
-            return State.Failure;
-        }
-
         if(isInit.Value)
         {
             // √ ±‚»≠ O

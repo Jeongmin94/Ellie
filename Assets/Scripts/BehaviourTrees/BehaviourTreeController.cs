@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TheKiwiCoder;
-using Unity.VisualScripting.Antlr3.Runtime.Tree;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public abstract class BaseBTData : ScriptableObject

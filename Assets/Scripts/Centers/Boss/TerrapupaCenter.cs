@@ -24,6 +24,7 @@ namespace Centers.Boss
         public int stalactitePerSector = 3;
         public float fieldRadius = 25.0f;
         public float fieldHeight = 8.0f;
+        public float fallCheckLatency = 5.0f;
 
         public int bossDeathCheck = 0;
 
@@ -47,6 +48,7 @@ namespace Centers.Boss
             SetBossTarget();
             CheckTicket(terrapupa.gameObject);
             CheckTicket(terra.gameObject);
+            CheckTicket(pupa.gameObject);
         }
 
         private void Update()
@@ -79,16 +81,17 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, OnBossUnattractedByMagicStone);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
         }
 
         private void SetBossTarget()
         {
-            terra.terrapupaData.player.Value = player.transform;
-            //terra.gameObject.SetActive(false);
-
             terrapupa.terrapupaData.player.Value = player.transform;
-            //terrapupa.gameObject.SetActive(false);
+            terra.terrapupaData.player.Value = player.transform;
+            pupa.terrapupaData.player.Value = player.transform;
 
+            terra.gameObject.SetActive(false);
+            pupa.gameObject.SetActive(false);
         }
 
         private void SpawnStalactites()
@@ -268,7 +271,7 @@ namespace Centers.Boss
             Debug.Log(manaTransform);
             Debug.Log(bossTransform);
 
-            float jumpCheckValue = 5.0f;
+            float jumpCheckValue = 1.0f;
 
             if (playerTransform != null)
             {
@@ -378,7 +381,12 @@ namespace Centers.Boss
             actor.terrapupaData.isTempted.Value = false;
             actor.terrapupaData.isIntake.Value = false;
             actor.terrapupaData.magicStoneTransform.Value = null;
-            Destroy(_magicStone.gameObject);
+
+            if (_magicStone != null)
+            {
+                Destroy(_magicStone.gameObject);
+            }
+
             magicStone = null;
         }
 
@@ -387,7 +395,11 @@ namespace Centers.Boss
             Debug.Log($"OnBossDeath :: 보스가 사망");
 
             BossEventPayload payload = bossPayload as BossEventPayload;
-            payload.Sender.gameObject.SetActive(false);
+            Debug.Log(payload.Sender);
+            if(payload.Sender != null)
+            {
+                payload.Sender.gameObject.SetActive(false);
+            }
 
             bossDeathCheck++;
 
@@ -395,17 +407,41 @@ namespace Centers.Boss
             switch (bossDeathCheck)
             {
                 case 1:
-                    Debug.Log("한마리 잡음");
+                    Debug.Log("2페이즈");
+                    TerrapupaDead();
                     break;
                 case 2:
-                    Debug.Log("다잡음");
+                    Debug.Log("1마리남음");
                     break;
                 case 3:
+                    Debug.Log("3페이즈");
                     break;
                 default:
                     break;
             }
+        }
 
+        private void TerrapupaDead()
+        {
+            Debug.Log("TerrapupaDead :: 테라, 푸파 소환");
+
+            terra.gameObject.SetActive(true);
+            pupa.gameObject.SetActive(true);
+
+            terra.transform.position = terrapupa.transform.position;
+            pupa.transform.position = terrapupa.transform.position;
+
+            terra.terrapupaData.player.Value = player.transform;
+            pupa.terrapupaData.player.Value = player.transform;
+        }
+
+
+        private void OnHitStone(BossEventPayload bossPayload)
+        {
+            Debug.Log($"OnHitStone :: 보스가 돌에 맞음");
+
+            TerrapupaRootData target = bossPayload.TransformValue1.GetComponent<TerrapupaController>().terrapupaData;
+            target.hitThrowStone.Value = true;
         }
 
         private void OnGUI()
