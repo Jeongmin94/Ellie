@@ -479,9 +479,23 @@ namespace Centers.Boss
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
             }
-            if (magicStone)
+            if (pupa)
             {
                 offsetY = 170;
+                Vector3 directionToBoss = pupa.transform.position - player.transform.position;
+                float distance = directionToBoss.magnitude;
+                string distanceText = "Distance: " + distance.ToString("F2");
+                string hpText = "HP: " + pupa.terrapupaData.currentHP.value.ToString("F2");
+                string nameText = "Name: " + pupa.gameObject.name;
+
+                Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
+                GUI.Box(boxRect, nameText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
+            }
+            if (magicStone)
+            {
+                offsetY = 250;
                 Vector3 directionToBoss = magicStone.transform.position - player.transform.position;
                 float distance = directionToBoss.magnitude;
                 string distanceText = "Distance: " + distance.ToString("F2");
