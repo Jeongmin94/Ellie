@@ -16,6 +16,7 @@ using Assets.Scripts.Utils;
 using Channels.Type;
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Monsters
 {
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Monsters
         public GameObject player;
 
         private TicketMachine ticketMachine;
+        //private List<TestIteamDrop> dropableIteam;
 
         private void Awake()
         {
@@ -174,6 +176,11 @@ namespace Assets.Scripts.Monsters
         public override void ReturnSpawnLocation()
         {
             gameObject.transform.position = spawnPosition;
+        }
+
+        private void DropIteam()
+        {
+
         }
     }
 }
