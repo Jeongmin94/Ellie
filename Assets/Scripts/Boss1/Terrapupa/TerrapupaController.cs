@@ -3,8 +3,6 @@ using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using System.Collections;
-using System.Collections.Generic;
-using TheKiwiCoder;
 using UnityEngine;
 
 namespace Boss.Terrapupa
@@ -27,6 +25,11 @@ namespace Boss.Terrapupa
         {
             get { return weakPoint; }
             set { weakPoint = value; }
+        }
+
+        public TicketMachine TicketMachine
+        {
+            get { return ticketMachine; }
         }
 
         private void Awake()
@@ -72,10 +75,6 @@ namespace Boss.Terrapupa
                 {
                     Debug.Log("추락 방지, 포지션 초기화");
                     transform.position = Vector3.zero;
-                }
-                else
-                {
-                    Debug.Log(hit.distance);
                 }
 
                 yield return new WaitForSeconds(fallCheckLatency);

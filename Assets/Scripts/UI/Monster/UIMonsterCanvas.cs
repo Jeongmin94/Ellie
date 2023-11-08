@@ -68,8 +68,12 @@ namespace Assets.Scripts.UI.Monster
         
         private void OnChangeHealth(int value)
         {
+            Debug.Log("깎이긴함?");
             if (prevHealth == value)
+            {
+                Debug.Log("안댐");
                 return;
+            }
 
             float target = value / (float)maxHealth;
             float t = time;

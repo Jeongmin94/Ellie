@@ -1,7 +1,9 @@
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Utils;
 using Channels.Boss;
+using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using System.Collections;
@@ -13,7 +15,7 @@ namespace Boss.Terrapupa
 	public class TerrapupaStone : Poolable
 	{
 		[SerializeField] private float movementSpeed = 15.0f;
-		[SerializeField] private float attackValue = 5.0f;
+		[SerializeField] private int attackValue = 5;
 		[SerializeField] private LayerMask layerMask;
 
 		private Transform owner;
@@ -29,7 +31,6 @@ namespace Boss.Terrapupa
 
         private void Awake()
         {
-			SetTicketMachine();
 			sphereCollider = GetComponent<SphereCollider>();
 			rb = GetComponent<Rigidbody>();
         }
@@ -42,28 +43,35 @@ namespace Boss.Terrapupa
 			rb.isKinematic = true;
         }
 
-        public void Init(Vector3 position, Vector3 scale, float speed, int attack, Transform sender)
+        public void Init(Vector3 position, Vector3 scale, float speed, int attack, Transform sender, TicketMachine senderTicketMacine)
 		{
 			transform.position = position;
 			transform.localScale = scale;
 			movementSpeed = speed;
 			attackValue = attack;
 			owner = sender;
-        }
-
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Terrapupa, ChannelType.BossInteraction, ChannelType.Combat);
+			ticketMachine = senderTicketMacine;
         }
 
         private void OnCollisionEnter(Collision collision)
 		{
-			if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Player"))
+            {
+				ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+				{
+					Attacker = owner,
+					Defender = collision.transform.root,
+					Damage = attackValue,
+					statusEffectduration = 1.0f,
+					PlayerStatusEffectName = StatusEffectName.Down,
+
+                });
+            }
+            if (collision.gameObject.CompareTag("Wall"))
 			{
 				PoolManager.Instance.Push(this);
-			}
-		}
+            }
+        }
 
         private void OnTriggerEnter(Collider other)
         {

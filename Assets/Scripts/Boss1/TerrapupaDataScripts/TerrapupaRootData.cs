@@ -11,6 +11,7 @@ public class TerrapupaRootData : BaseBTData
     }
 
     [Header("기본 수치")]
+    [Tooltip("보스 이름")] public string bossName;
     [Tooltip("보스의 체력")] public int hp = 45;
 
     [Header("패턴 사용 여부")]

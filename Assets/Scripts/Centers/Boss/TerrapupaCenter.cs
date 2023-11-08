@@ -9,6 +9,8 @@ using Assets.Scripts.Managers;
 using Channels.Components;
 using Assets.Scripts.Utils;
 using Channels.Type;
+using Channels.Combat;
+using Assets.Scripts.StatusEffects;
 
 namespace Centers.Boss
 {
@@ -146,7 +148,7 @@ namespace Centers.Boss
             TerrapupaController actor = stonePayload.Sender.GetComponent<TerrapupaController>();
 
             Poolable stone = PoolManager.Instance.Pop(actor.Stone.gameObject, transform);
-            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.IntValue, stonePayload.Sender);
+            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.IntValue, stonePayload.Sender, actor.TicketMachine);
             stone.GetComponent<TerrapupaStone>().MoveToTarget(stonePayload.TransformValue1);
 
             actor.Stone.gameObject.SetActive(false);
@@ -265,6 +267,7 @@ namespace Centers.Boss
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
             Transform bossTransform = payload.TransformValue3;
+            Transform boss = payload.Sender;
             int attack = payload.IntValue;
 
             Debug.Log(playerTransform);
@@ -285,9 +288,17 @@ namespace Centers.Boss
                 if (!isJumping)
                 {
                     Debug.Log($"플레이어 피해 {attack} 입음");
-                    float upPower = 10.0f;
-                    Vector3 forceDirection = (Vector3.up * upPower);
-                    playerTransform.gameObject.GetComponent<Rigidbody>().AddForce(forceDirection, ForceMode.Impulse);
+                    
+                    TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
+                    bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                    {
+                        Attacker = boss,
+                        Defender = playerTransform,
+                        Damage = payload.IntValue,
+                        PlayerStatusEffectName = StatusEffectName.KnockedAirborne,
+                        statusEffectduration = 1.0f,
+                        force = 15.0f,
+                    });
                 }
             }
             if (manaTransform != null)
@@ -411,7 +422,7 @@ namespace Centers.Boss
                     TerrapupaDead();
                     break;
                 case 2:
-                    Debug.Log("1마리남음");
+                    Debug.Log("2페이즈 1마리남음");
                     break;
                 case 3:
                     Debug.Log("3페이즈");
@@ -492,18 +503,6 @@ namespace Centers.Boss
                 GUI.Box(boxRect, nameText);
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
-            }
-            if (magicStone)
-            {
-                offsetY = 250;
-                Vector3 directionToBoss = magicStone.transform.position - player.transform.position;
-                float distance = directionToBoss.magnitude;
-                string distanceText = "Distance: " + distance.ToString("F2");
-                string nameText = "Name: " + magicStone.gameObject.name;
-
-                Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-                GUI.Box(boxRect, nameText);
-                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
             }
         }
 
