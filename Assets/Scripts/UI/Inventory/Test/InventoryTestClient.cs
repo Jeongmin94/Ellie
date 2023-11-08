@@ -41,13 +41,13 @@ namespace Assets.Scripts.UI.Inventory.Test
         private void Start()
         {
             StartCoroutine(CheckParse());
-            testPayload = MakeAddItemPayload();
         }
 
         private IEnumerator CheckParse()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             Debug.Log($"{itemDataParsingInfo} 파싱 완료");
+            testPayload = MakeAddItemPayload();
         }
 
         private void Update()
