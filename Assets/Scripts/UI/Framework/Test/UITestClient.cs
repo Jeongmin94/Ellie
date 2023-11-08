@@ -10,7 +10,6 @@ using Assets.Scripts.UI.Status;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework

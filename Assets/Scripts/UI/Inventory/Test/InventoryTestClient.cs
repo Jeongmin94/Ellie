@@ -24,8 +24,6 @@ namespace Assets.Scripts.UI.Inventory.Test
         private void Awake()
         {
             InitTicketMachine();
-
-            testPayload = MakeAddItemPayload();
         }
 
         private void InitTicketMachine()
@@ -39,6 +37,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         private void Start()
         {
             StartCoroutine(CheckParse());
+            testPayload = MakeAddItemPayload();
         }
 
         private IEnumerator CheckParse()
