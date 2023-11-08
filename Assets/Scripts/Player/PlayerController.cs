@@ -316,7 +316,6 @@ namespace Assets.Scripts.Player
         private void ClimbStep()
         {
             bool flag = false;
-            Debug.Log("Checking Step");
             RaycastHit[] hitLower = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
             if (hitLower.Any())
             {
@@ -353,46 +352,8 @@ namespace Assets.Scripts.Player
             {
                 Rb.AddForce(Vector3.up * 60f, ForceMode.Force);
                 //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-                Debug.Log("Step");
             }
-            // !TODO : Lerp로 부드럽게 올라가도록 수정
-            //if (Physics.Raycast(stepRayLower.transform.position,
-            //    PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitLower, lowerRayLength, groundLayer))
-            //{
-            //    Debug.Log(hitLower.collider.gameObject.name);
-            //    if (!Physics.Raycast(stepRayUpper.transform.position,
-            //        PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitUpper, upperRayLength, groundLayer))
-            //    {
-            //        Debug.Log("Step");
-            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-            //    }
-            //}
-
-            //if (Physics.Raycast(stepRayLower.transform.position,
-            //    PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitLower45, lowerRayLength, groundLayer))
-            //{
-            //    Debug.Log(hitLower45.collider.gameObject.name);
-
-            //    if (!Physics.Raycast(stepRayUpper.transform.position,
-            //        PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitUpper45, upperRayLength, groundLayer))
-            //    {
-            //        Debug.Log("Step");
-            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-            //    }
-            //}
-
-            //if (Physics.Raycast(stepRayLower.transform.position,
-            //    PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitLowerMinus45, lowerRayLength, groundLayer))
-            //{
-            //    Debug.Log(hitLowerMinus45.collider.gameObject.name);
-
-            //    if (!Physics.Raycast(stepRayUpper.transform.position,
-            //        PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitUpperMinus45, upperRayLength, groundLayer))
-            //    {
-            //        Debug.Log("Step");
-            //        Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-            //    }
-            //}
+            
         }
         public void Jump()
         {
@@ -596,16 +557,12 @@ namespace Assets.Scripts.Player
         {
             TurnOnDialogCam();
             cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().LookAt = GetComponent<PlayerInteraction>().interactiveObject.transform;
-
-            GetComponent<PlayerInteraction>().isInteracting = true;
             ChangeState(PlayerStateName.Conversation);
+            GetComponent<PlayerInteraction>().isInteracting = true;
         }
 
         public void EndConversation()
         {
-            //cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().LookAt = null;
-            //cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().Follow = null;
-
             TurnOffDialogCam();
             GetComponent<PlayerInteraction>().isInteracting = false;
             ChangeState(PlayerStateName.Idle);

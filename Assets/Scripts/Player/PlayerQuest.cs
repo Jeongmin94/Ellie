@@ -9,6 +9,7 @@ namespace Assets.Scripts.Player
     {
         //스크립터블 오브젝트
         [SerializeField] private QuestDataList QuestDataListObj;
+        const int DEFAULT = 6100;
 
 
         private void Start()
@@ -19,7 +20,7 @@ namespace Assets.Scripts.Player
         private void InitQuestDataList()
         {
             // !TODO : 구글 스프레드 시트에서 데이터를 파싱하여 List를 갱신
-            foreach(QuestData data in QuestDataListObj.questDataList)
+            foreach (QuestData data in QuestDataListObj.questDataList)
             {
                 data.status = QuestStatus.CantAccept;
             }
@@ -29,17 +30,25 @@ namespace Assets.Scripts.Player
 
         public void RenewQuestStatus(int questIdx, QuestStatus status)
         {
-            QuestDataListObj.questDataList[questIdx].status = status;
+            QuestDataListObj.questDataList[questIdx % DEFAULT].status = status;
         }
 
         public QuestStatus GetQuestStatus(int questIdx)
         {
-            return QuestDataListObj.questDataList[questIdx].status;
+            return QuestDataListObj.questDataList[questIdx % DEFAULT].status;
         }
 
-        //public List<string>[] GetDialog(int questIdx)
-        //{
-        //    return QuestDataListObj.questDataList[questIdx].dialogList;
-        //}
+        private void Update()
+        {
+            //test
+            if(Input.GetKeyDown(KeyCode.M))
+            {
+                QuestDataListObj.questDataList[0].status = QuestStatus.Done;
+            }
+            if(Input.GetKeyDown(KeyCode.N))
+            {
+                QuestDataListObj.questDataList[0].status = QuestStatus.Accepted;
+            }
+        }
     }
 }

@@ -1455,7 +1455,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 632459810}
-  - component: {fileID: 632459809}
   - component: {fileID: 632459808}
   m_Layer: 0
   m_Name: TalkingSkull2nd
@@ -1477,20 +1476,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &632459809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 632459807}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9301f497d098548b98996888f9ee00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCIndex: 0
-  rotationSpeed: 10
 --- !u!4 &632459810
 Transform:
   m_ObjectHideFlags: 0
@@ -1584,9 +1569,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.44200003
+    - target: {fileID: 1118065665, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118065665, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Lens.m_SensorSize.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
@@ -1608,9 +1597,13 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -5
       objectReference: {fileID: 0}
-    - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.7420001
+    - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Lens.m_SensorSize.y
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
@@ -1660,9 +1653,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.44200003
+    - target: {fileID: 4016927572422116012, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Lens.m_SensorSize.x
+      value: 36
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572422116012, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Lens.m_SensorSize.y
+      value: 24
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
@@ -2980,6 +2977,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8027749db19f86642b16a488f1dc6344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1523587310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 278480150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6affbb72b17d351408e34d137f197a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  QuestDataListObj: {fileID: 11400000, guid: ede4e9372c017b24483c81459f8667a0, type: 2}
 --- !u!1 &1561561441
 GameObject:
   m_ObjectHideFlags: 0
@@ -2989,8 +2999,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1561561443}
-  - component: {fileID: 1561561442}
   - component: {fileID: 1561561444}
+  - component: {fileID: 1561561445}
   m_Layer: 0
   m_Name: TalkingSkull1st
   m_TagString: Interactive
@@ -2998,20 +3008,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1561561442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1561561441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d9301f497d098548b98996888f9ee00, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  NPCIndex: 0
-  rotationSpeed: 10
 --- !u!4 &1561561443
 Transform:
   m_ObjectHideFlags: 0
@@ -3041,6 +3037,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1561561445
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1561561441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2488ae63445ac244a79ee8b4307789d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NPCIndex: 6000
+  rotationSpeed: 10
 --- !u!114 &1576797211 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2892055828505711282, guid: 0c20d2e9a367b9a4b862024c59c261ff, type: 3}
@@ -4160,6 +4170,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 458f46be428eaef41996a7f5a483fe97, type: 2}
   - {fileID: 11400000, guid: 3d4debebac4d17d4898c9e09129cc2f1, type: 2}
   - {fileID: 11400000, guid: 872d3f2f4674a0946a2c79b6dbeffcd7, type: 2}
+  - {fileID: 11400000, guid: 9d1444ac499a3f04681f23574212e9c6, type: 2}
+  - {fileID: 11400000, guid: 8d04e0f3c7f3fa34386b54ae0d6b841f, type: 2}
 --- !u!4 &2140884676
 Transform:
   m_ObjectHideFlags: 0

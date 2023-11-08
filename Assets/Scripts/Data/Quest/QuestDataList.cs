@@ -23,9 +23,7 @@ namespace Assets.Scripts.Data.Quest
         public string name;
         public string description;
         public QuestStatus status;
-        //public List<string>[] dialogList = new List<string>[(int)QuestStatus.End];
-        //대화 배열은 NPC 데이터에 넣어놓는걸로
-
+        public bool isCleared = false;
     }
     [CreateAssetMenu(fileName = "QuestDataList", menuName = "Quest/QuestDataList")]
     public class QuestDataList : ScriptableObject

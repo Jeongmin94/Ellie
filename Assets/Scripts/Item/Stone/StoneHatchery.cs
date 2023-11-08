@@ -54,7 +54,6 @@ namespace Assets.Scripts.Item.Stone
 
         public void StoneEvent(IBaseEventPayload payload)
         {
-            Debug.Log("hatchery : make stone");
             StoneEventPayload itemPayload = payload as StoneEventPayload;
             BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
             Vector3 startPos = itemPayload.StoneSpawnPos;
@@ -63,13 +62,11 @@ namespace Assets.Scripts.Item.Stone
             float strength = itemPayload.StoneStrength;
             if (itemPayload.Type == StoneEventType.RequestStone)
             {
-                Debug.Log("Release Stone at hatchery");
 
                 ReleaseStone(stone, startPos, direction, strength);
             }
             else if (itemPayload.Type == StoneEventType.MineStone)
             {
-                Debug.Log("Mine Stone at hatchery");
                 MineStone(stone, startPos, force);
             }
 
