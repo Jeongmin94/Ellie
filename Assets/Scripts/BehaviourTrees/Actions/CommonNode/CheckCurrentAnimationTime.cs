@@ -6,6 +6,7 @@ using TheKiwiCoder;
 [System.Serializable]
 public class CheckCurrentAnimationTime : ActionNode
 {
+    public NodeProperty<int> layerIndex;
     public NodeProperty<float> checkTimeValue;
 
     protected override void OnStart() {
@@ -21,7 +22,7 @@ public class CheckCurrentAnimationTime : ActionNode
             return State.Failure;
         }
 
-        AnimatorStateInfo stateInfo = context.animator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo stateInfo = context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value);
 
         float currentAnimationPer = stateInfo.normalizedTime % 1.0f;
         if(currentAnimationPer >= checkTimeValue.Value)

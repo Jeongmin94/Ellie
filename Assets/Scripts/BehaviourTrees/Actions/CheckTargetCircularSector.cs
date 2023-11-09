@@ -4,7 +4,7 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class CheckTargetOverlapSphere : ActionNode
+public class CheckTargetCircularSector : ActionNode
 {
     public NodeProperty<Transform> returnObject;
 
@@ -12,6 +12,7 @@ public class CheckTargetOverlapSphere : ActionNode
     public NodeProperty<string> tag;
 
     public NodeProperty<float> radius;
+    public NodeProperty<float> angle;
 
     public NodeProperty<bool> isCheckWall;
     public NodeProperty<bool> isCheckRootTransform;
@@ -27,11 +28,12 @@ public class CheckTargetOverlapSphere : ActionNode
 
     protected override State OnUpdate()
     {
+        Vector3 forward = context.transform.forward;
         Collider[] hitColliders = Physics.OverlapSphere(context.transform.position, radius.Value);
 
         foreach (Collider hitCollider in hitColliders)
         {
-            if (IsTargetValid(hitCollider))
+            if (IsTargetValid(hitCollider, forward))
             {
                 returnObject.Value = isCheckRootTransform.Value ? hitCollider.transform.root : hitCollider.transform;
                 return State.Success;
@@ -41,8 +43,15 @@ public class CheckTargetOverlapSphere : ActionNode
         return State.Failure;
     }
 
-    private bool IsTargetValid(Collider collider)
+    private bool IsTargetValid(Collider collider, Vector3 forward)
     {
+        Vector3 toTarget = (collider.transform.position - context.transform.position).normalized;
+        // 내적을 이용하여 범위 내에 있는지 체크
+        if (Vector3.Dot(forward, toTarget) < Mathf.Cos(angle.Value * Mathf.Deg2Rad / 2))
+        {
+            return false;
+        }
+
         if (!string.IsNullOrEmpty(tag.Value) && !collider.CompareTag(tag.Value))
         {
             return false;
