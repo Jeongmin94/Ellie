@@ -102,11 +102,12 @@ namespace Assets.Scripts.UI.Equipment
             }
         }
 
-        public Transform GetPosition(int index) => frames[index].ImageRect;
-
-        public void EquipItem(InventorySlot slot, BaseSlotItem baseSlotItem)
+        public void SubscribeSlots(List<InventorySlot> slots)
         {
+            // slots.ForEach(s => );
         }
+
+        public Transform GetPosition(int index) => frames[index].ImageRect;
 
         // 아이템 장착
         public void EquipItem(BaseSlotItem baseItem)

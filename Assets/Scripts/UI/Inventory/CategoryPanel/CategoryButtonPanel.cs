@@ -49,6 +49,11 @@ namespace Assets.Scripts.UI.Inventory
             Init();
         }
 
+        public InventorySlotArea GetSlotArea(SlotAreaType slotAreaType, GroupType groupType)
+        {
+            return slotAreas[slotAreaType][(int)groupType];
+        }
+
         protected override void Init()
         {
             Bind();

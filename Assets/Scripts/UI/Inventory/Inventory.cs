@@ -506,8 +506,11 @@ namespace Assets.Scripts.UI.Inventory
                 new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
             };
 
+            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
             consumptionCanvas.InitFrame(directions);
+            consumptionCanvas.SubscribeSlots(consumptionArea.GetSlots());
             consumptionCanvas.groupType = GroupType.Consumption;
+
             frameCanvasMap.TryAdd(GroupType.Consumption, consumptionCanvas);
         }
 
@@ -528,8 +531,11 @@ namespace Assets.Scripts.UI.Inventory
                 new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameWidth / 2.0f),
             };
 
+            var stoneArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Stone);
             stoneCanvas.InitFrame(directions);
+            stoneCanvas.SubscribeSlots(stoneArea.GetSlots());
             stoneCanvas.groupType = GroupType.Stone;
+
             frameCanvasMap.TryAdd(GroupType.Stone, stoneCanvas);
         }
 

@@ -30,10 +30,12 @@ namespace Assets.Scripts.UI.Inventory
 
         private RectTransform rect;
         private readonly List<InventorySlot> copylist = new List<InventorySlot>();
-
         private Image itemImage;
 
         private Action<InventoryEventPayload> slotInventoryAction;
+
+        // for Equipment Frame
+        // public 
 
         private void Awake()
         {
@@ -79,11 +81,13 @@ namespace Assets.Scripts.UI.Inventory
             itemImage.sprite = sprite;
         }
 
+        // baseSlotItem에서 이벤트 호출할 수 있도록 열어둠
         public void InvokeSlotItemEvent(InventoryEventPayload payload)
         {
             slotInventoryAction?.Invoke(payload);
         }
 
+        // !TODO: 이전 장착 슬롯 클리어하는 함수인데 필요 없을 수도 있음
         public void InvokeClearEquipFrame(BaseSlotItem baseSlotItem)
         {
             var payload = new InventoryEventPayload()
@@ -97,6 +101,7 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction?.Invoke(payload);
         }
 
+        // !TODO: 여기에서 equipment 미러링 중계해야 할 수도 있음
         public void InvokeCopyOrMove(BaseSlotItem baseSlotItem)
         {
             InvokeClearEquipFrame(baseSlotItem);
@@ -176,6 +181,8 @@ namespace Assets.Scripts.UI.Inventory
             baseItem.slotItems[SlotType] = origin;
             baseItem.slots[SlotType] = this;
 
+            // !TODO
+            // 아이템을 처음 습득했을 때, 장착 가능한 슬롯이 있으면 장착
             InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, origin);
         }
 

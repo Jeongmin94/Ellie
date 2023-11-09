@@ -32,6 +32,8 @@ namespace Assets.Scripts.UI.Inventory
 
         private readonly List<InventorySlot> slots = new List<InventorySlot>();
 
+        public List<InventorySlot> GetSlots() => slots;
+
         private void Awake()
         {
             Init();
