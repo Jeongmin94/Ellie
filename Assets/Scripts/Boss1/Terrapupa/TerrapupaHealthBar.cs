@@ -11,7 +11,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrapupaHealthBar : MonoBehaviour, ICombatant
+public class TerrapupaHealthBar : MonoBehaviour
 {
     [SerializeField] private TerrapupaRootData data;
 
@@ -44,15 +44,11 @@ public class TerrapupaHealthBar : MonoBehaviour, ICombatant
         billboard.InitData(dataContainer);
     }
 
-    public void Attack(IBaseEventPayload payload)
+    public void RenewHealthBar(int currentHP)
     {
-
-    }
-
-    public void ReceiveDamage(IBaseEventPayload payload)
-    {
-        CombatPayload combatPayload = payload as CombatPayload;
-
-        dataContainer.CurrentHp.Value -= combatPayload.Damage;
+        if (currentHP >= 0)
+        {
+            dataContainer.CurrentHp.Value = currentHP;
+        }
     }
 }

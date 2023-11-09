@@ -28,6 +28,8 @@ namespace Centers.Boss
         public float fieldHeight = 8.0f;
         public float fallCheckLatency = 5.0f;
 
+        public int tempMagicStoneCount = 0;
+
         public int bossDeathCheck = 0;
 
         [SerializeField] private TerrapupaController terrapupa;
@@ -47,6 +49,7 @@ namespace Centers.Boss
         {
             base.Start();
 
+            tempMagicStoneCount = 100;
             SetBossTarget();
             CheckTicket(terrapupa.gameObject);
             CheckTicket(terra.gameObject);
@@ -55,8 +58,9 @@ namespace Centers.Boss
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1) && tempMagicStoneCount > 0)
             {
+                tempMagicStoneCount--;
                 GameObject temp = Instantiate(magicStoneTemp, player.transform.position, Quaternion.identity);
                 magicStone = temp.GetComponent<MagicStoneTemp>();
             }
@@ -169,6 +173,7 @@ namespace Centers.Boss
                 playerStone.GetComponent<Rigidbody>().AddForce(
                     randomDirection * 5.0f, ForceMode.Impulse);
             }
+            tempMagicStoneCount++;
 
             StartCoroutine(ManaCooldown(manaPayload));
         }
@@ -387,8 +392,10 @@ namespace Centers.Boss
             BossEventPayload payload = bossPayload as BossEventPayload;
 
             Transform _magicStone = payload.TransformValue1;
+            int healValue = payload.IntValue;
 
             TerrapupaController actor = payload.Sender.GetComponent<TerrapupaController>();
+            actor.GetHealed(healValue);
             actor.terrapupaData.isTempted.Value = false;
             actor.terrapupaData.isIntake.Value = false;
             actor.terrapupaData.magicStoneTransform.Value = null;
@@ -503,6 +510,15 @@ namespace Centers.Boss
                 GUI.Box(boxRect, nameText);
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
+            }
+            if (tempMagicStoneCount >= 0)
+            {
+                offsetY = 250;
+                string magicStoneText = "MagicstoneCount: " + tempMagicStoneCount;
+
+                Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
+                GUI.Box(boxRect, "마법 돌맹이 갯수");
+                GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, 50), magicStoneText);
             }
         }
 

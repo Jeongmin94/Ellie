@@ -49,7 +49,7 @@ MonoBehaviour:
     - rid: 283011090204065865
     - rid: 283011090204065867
     - rid: 283011178275274844
-  viewPosition: {x: -487, y: 436, z: 0}
+  viewPosition: {x: -1140, y: 99, z: 0}
   viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
@@ -132,6 +132,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442281
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -180,6 +184,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442284
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

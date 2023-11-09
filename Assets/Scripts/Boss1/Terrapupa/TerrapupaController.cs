@@ -11,6 +11,7 @@ namespace Boss.Terrapupa
     {
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
+        [SerializeField] private TerrapupaHealthBar healthBar;
         [HideInInspector] public TerrapupaRootData terrapupaData;
         
         private TicketMachine ticketMachine;
@@ -30,6 +31,11 @@ namespace Boss.Terrapupa
         public TicketMachine TicketMachine
         {
             get { return ticketMachine; }
+        }
+
+        public TerrapupaHealthBar HealthBar
+        { 
+            get { return healthBar; }
         }
 
         private void Awake()
@@ -91,14 +97,30 @@ namespace Boss.Terrapupa
                 CombatPayload combatPayload = payload as CombatPayload;
                 int damage = combatPayload.Damage;
 
-                terrapupaData.currentHP.Value -= damage;
-                Debug.Log($"기절 상태, 데미지 입음 {terrapupaData.currentHP.Value}");
+                GetDamaged(damage);
+                Debug.Log($"기절 상태, {damage} 데미지 입음 : {terrapupaData.currentHP.Value}");
                 
             }
             else 
             {
                 Debug.Log("기절 상태가 아님");
             }
+        }
+
+        public void GetDamaged(int damageValue)
+        {
+            terrapupaData.currentHP.Value -= damageValue;
+            healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+        }
+
+        public void GetHealed(int healValue)
+        {
+            terrapupaData.currentHP.Value += healValue;
+            if(terrapupaData.currentHP.value > terrapupaData.hp)
+            {
+                terrapupaData.currentHP.Value = terrapupaData.hp;
+            }
+            healthBar.RenewHealthBar(terrapupaData.currentHP.value);
         }
     }
 }
