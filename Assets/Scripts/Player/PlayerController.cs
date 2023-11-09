@@ -8,6 +8,7 @@ using Channels.Type;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
+using Unity.Plastic.Newtonsoft.Json.Bson;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -84,6 +85,8 @@ namespace Assets.Scripts.Player
         [SerializeField] private AimTargetData aimTargetData;
 
         [Header("Attack")]
+        [SerializeField] private GameObject slingshot;
+        [SerializeField] private GameObject rightHand;
         [SerializeField] private bool hasRock;
         public GameObject shooter;
         private Vector3 aimTarget;
@@ -222,6 +225,7 @@ namespace Assets.Scripts.Player
                 stepRayUpper.transform.position.z);
             SetCurOre(null);
             Pickaxe.gameObject.SetActive(false);
+            TurnOffSlingshot();
         }
         private void SetMovingAnim()
         {
@@ -497,8 +501,6 @@ namespace Assets.Scripts.Player
             Anim.SetLayerWeight((int)layer, curWeight);
         }
 
-        
-
         public void SetAnimLayerToDefault(AnimLayer layer)
         {
             StartCoroutine(SetAnimToDefaultlayerCoroutine((int)layer));
@@ -568,6 +570,31 @@ namespace Assets.Scripts.Player
             ChangeState(PlayerStateName.Idle);
         }
 
+        public void TurnOnSlingshot()
+        {
+            slingshot.SetActive(true);
+        }
+
+        public void TurnOffSlingshot()
+        {
+            slingshot.SetActive(false);
+        }
+
+        public void AddForceSlingshotLeather()
+        {
+            Vector3 dir = slingshot.transform.position - slingshot.GetComponent<Slingshot>().leather.transform.position;
+            slingshot.GetComponent<Slingshot>().leather.GetComponent<Rigidbody>().AddForce(dir.normalized * 20f, ForceMode.Impulse);
+        }
+
+        public void GrabSlingshotLeather()
+        {
+            slingshot.GetComponent<Slingshot>().leather.transform.position = rightHand.transform.position;
+        }
+
+        public void TurnSlingshotLineRenderer(bool b)
+        {
+            slingshot.GetComponent<Slingshot>().TurnLineRenderer(b);
+        }
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
