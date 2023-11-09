@@ -229,13 +229,18 @@ namespace Assets.Scripts.Player
         }
         private void SetMovingAnim()
         {
+            if (stateMachine.CurrentStateName == PlayerStateName.Conversation)
+            {
+                Anim.SetFloat("Input Magnitude", 0f);
+
+                return;
+            }
             inputMagnitude = Mathf.Clamp01(MoveInput.magnitude);
             if (isSprinting)
             {
                 inputMagnitude *= 1.5f;
             }
-            //if (!canMove)
-            //    inputMagnitude = 0f;
+            
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
         private void ResetPlayerPos()
