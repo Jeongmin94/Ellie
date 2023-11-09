@@ -1,5 +1,6 @@
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 

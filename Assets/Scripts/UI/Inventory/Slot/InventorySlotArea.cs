@@ -129,7 +129,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (payload.eventType == InventoryEventType.CopyItemWithDrag && SlotAreaType == SlotAreaType.Equipment)
             {
-                var dup = FindSlot(payload.baseItem.SlotItemData.ItemIndex);
+                var dup = FindSlot(payload.baseSlotItem.SlotItemData.ItemIndex);
                 if (dup != null)
                 {
                     return;
@@ -181,6 +181,7 @@ namespace Assets.Scripts.UI.Inventory
             slot.SlotItemData.itemCount.Value--;
             if (slot.SlotItemData.itemCount.Value == 0)
             {
+                //  - 아이템의 개수가 0이 되면 장착 슬롯에서 해제
                 Debug.Log($"{slot.Index}의 아이템 삭제");
 
                 InventoryEventPayload inventoryEvent = new InventoryEventPayload();

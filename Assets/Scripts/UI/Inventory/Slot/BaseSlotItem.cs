@@ -108,7 +108,7 @@ namespace Assets.Scripts.UI.Inventory
                 payload.eventType = InventoryEventType.CopyItemWithShortCut;
             }
 
-            payload.baseItem = this;
+            payload.baseSlotItem = this;
             slotItemPosition.slot.InvokeSlotItemEvent(payload);
         }
 

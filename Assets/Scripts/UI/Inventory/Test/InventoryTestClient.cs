@@ -19,62 +19,16 @@ namespace Assets.Scripts.UI.Inventory.Test
         [SerializeField] private ItemDataParsingInfo itemDataParsingInfo;
         [SerializeField] private GameGoods gameGoods;
 
-        private FrameCanvas consumptionCanvas;
-        private FrameCanvas stoneCanvas;
-
         private TicketMachine ticketMachine;
 
         private UIPayload testPayload;
 
         private void Awake()
         {
-            InitConsumptionCanvas();
-            InitStoneCanvas();
             InitTicketMachine();
             gameGoods.Init();
 
             UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
-        }
-
-        private void InitConsumptionCanvas()
-        {
-            consumptionCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
-            consumptionCanvas.FrameWidth = 86.0f;
-            consumptionCanvas.FrameHeight = 86.0f;
-            consumptionCanvas.FramePanelRect = EquipmentConst.ConsumptionPanelRect;
-            consumptionCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/ConsumptionFrameRotated");
-
-            consumptionCanvas.InitFrameCanvas();
-
-            Vector2[] directions =
-            {
-                new Vector2(0.0f, consumptionCanvas.FrameHeight / 2.0f),
-                new Vector2(-consumptionCanvas.FrameWidth / 2.0f, 0.0f),
-                new Vector2(0.0f, -consumptionCanvas.FrameHeight / 2.0f),
-                new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
-            };
-
-            consumptionCanvas.InitFrame(directions);
-        }
-
-        private void InitStoneCanvas()
-        {
-            stoneCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
-            stoneCanvas.FrameWidth = 113.0f;
-            stoneCanvas.FrameHeight = 113.0f;
-            stoneCanvas.FramePanelRect = EquipmentConst.StonePanelRect;
-            stoneCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/StoneFrame");
-
-            stoneCanvas.InitFrameCanvas();
-
-            Vector2[] directions =
-            {
-                new Vector2(0.0f, stoneCanvas.FrameHeight / 2.0f),
-                new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
-                new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameWidth / 2.0f),
-            };
-
-            stoneCanvas.InitFrame(directions);
         }
 
         private void InitTicketMachine()

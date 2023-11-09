@@ -144,14 +144,15 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
         {
-            payload.groupType = type;
+            if (payload.eventType != InventoryEventType.EquipItem)
+                payload.groupType = type;
 
             if (payload.eventType == InventoryEventType.CopyItemWithShortCut)
             {
-                var groupType = payload.baseItem.SlotItemData.itemData.groupType;
+                var groupType = payload.baseSlotItem.SlotItemData.itemData.groupType;
                 if (slotAreas.TryGetValue(SlotAreaType.Equipment, out var area))
                 {
-                    InventorySlot dup = area[(int)groupType].FindSlot(payload.baseItem.SlotItemData.ItemIndex);
+                    InventorySlot dup = area[(int)groupType].FindSlot(payload.baseSlotItem.SlotItemData.ItemIndex);
                     if (dup != null)
                     {
                         Debug.Log($"이미 등록되어 있는 아이템");
@@ -187,6 +188,16 @@ namespace Assets.Scripts.UI.Inventory
                 }
 
                 return;
+            }
+            else if (payload.eventType == InventoryEventType.EquipItem)
+            {
+                if (slotAreas.TryGetValue(SlotAreaType.Equipment, out var area))
+                {
+                    InventorySlot emptySlot = area[(int)payload.groupType].FindEmptySlot();
+                    if (emptySlot == null)
+                        return;
+                    payload.slot = emptySlot;
+                }
             }
 
             panelInventoryAction?.Invoke(payload);

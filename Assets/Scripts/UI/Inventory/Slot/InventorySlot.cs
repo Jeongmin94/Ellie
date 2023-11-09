@@ -88,7 +88,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             var payload = new InventoryEventPayload
             {
-                baseItem = baseSlotItem,
+                baseSlotItem = baseSlotItem,
                 slot = this,
             };
 
@@ -159,6 +159,16 @@ namespace Assets.Scripts.UI.Inventory
 
             baseItem.slotItems[SlotType] = origin;
             baseItem.slots[SlotType] = this;
+            
+            // 장착 슬롯을 확인해서 장착해주기
+            var inventoryEventPayload = new InventoryEventPayload
+            {
+                eventType = InventoryEventType.EquipItem,
+                groupType = payload.itemData.groupType,
+                baseSlotItem = origin
+            };
+
+            slotInventoryAction?.Invoke(inventoryEventPayload);
         }
 
         public void ClearSlotItemPosition()

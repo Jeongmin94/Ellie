@@ -23,6 +23,8 @@ namespace Assets.Scripts.UI.Equipment
         [SerializeField] private float spacing = 1.0f;
         [SerializeField] private Rect framePanelRect;
 
+        public GroupType groupType;
+        
         public Sprite FrameImage
         {
             get => frameImage;
@@ -99,5 +101,7 @@ namespace Assets.Scripts.UI.Equipment
                 frames.Add(frame);
             }
         }
+
+        
     }
 }
