@@ -97,6 +97,7 @@ namespace Centers.Boss
             terra.terrapupaData.player.Value = player.transform;
             pupa.terrapupaData.player.Value = player.transform;
 
+            terrapupa.gameObject.SetActive(false);
             terra.gameObject.SetActive(false);
             pupa.gameObject.SetActive(false);
         }
