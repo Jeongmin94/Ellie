@@ -42,6 +42,7 @@ namespace Assets.Scripts.InteractiveObjects.NPCs
             while (true)
             {
                 Vector3 direction = player.transform.position - NPCObj.transform.position;
+                direction.y = 0;
 
                 Quaternion rotation = Quaternion.LookRotation(direction);
                 NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, rotation, Time.deltaTime * rotationSpeed);

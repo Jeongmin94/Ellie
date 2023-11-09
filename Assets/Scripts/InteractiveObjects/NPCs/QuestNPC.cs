@@ -86,6 +86,7 @@ namespace Assets.Scripts.InteractiveObjects.NPCs
                     {
                         obj.GetComponent<PlayerQuest>().RenewQuestStatus(data.questIdx, QuestStatus.End);
                         //다음 퀘스트를 수락 가능한 상태로 변경합니다
+                        // !TODO : 플레이어에게 보상을 줘야 합니다
                         obj.GetComponent<PlayerQuest>().RenewQuestStatus(data.questIdx + 1, QuestStatus.Unaccepted);
                         obj.GetComponent<PlayerController>().EndConversation();
                         EndInteract();
