@@ -28,6 +28,8 @@ namespace Assets.Scripts.UI.Inventory
         ShowDescription,
         SortSlotArea,
         EquipItem,
+        UnEquipItem,
+        UpdateEquipItem,
     }
 
     public struct InventoryEventPayload
@@ -37,6 +39,7 @@ namespace Assets.Scripts.UI.Inventory
         public GroupType groupType;       // 아이템 타입: Consumption, Stone, Etc
         public BaseSlotItem baseSlotItem; // 슬롯 아이템 정보
         public InventorySlot slot;        // 슬롯 위치
+        public BaseItem baseItem;         // 아이템 정보
     }
 
     public class Inventory : UIPopup
@@ -363,13 +366,20 @@ namespace Assets.Scripts.UI.Inventory
         {
             switch (payload.eventType)
             {
+                // 아이템 이동
                 case InventoryEventType.MoveItem:
                 {
                     payload.baseSlotItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseSlotItem.SlotItemData);
                     payload.baseSlotItem.ChangeSlot(payload.slot.SlotType, payload.slot);
+
+                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
+                    {
+                        canvas.EquipItem(payload.baseSlotItem);
+                    }
                 }
                     break;
 
+                // 드래그 앤 드롭으로 장착
                 case InventoryEventType.CopyItemWithDrag:
                 {
                     var baseSlotItem = payload.baseSlotItem;
@@ -382,9 +392,16 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+
+                    // !TODO: 해당 슬롯 frameCanvas 표시해주기
+                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
+                    {
+                        canvas.EquipItem(baseSlotItem);
+                    }
                 }
                     break;
 
+                // 우클릭으로 장착
                 case InventoryEventType.CopyItemWithShortCut:
                 {
                     var baseSlotItem = payload.baseSlotItem;
@@ -397,9 +414,16 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+
+                    // !TODO: 해당 슬롯 frameCanvas 표시해주기
+                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
+                    {
+                        canvas.EquipItem(baseSlotItem);
+                    }
                 }
                     break;
 
+                // 설명창에 아이템 표시
                 case InventoryEventType.ShowDescription:
                 {
                     var baseSlotItem = payload.baseSlotItem;
@@ -410,6 +434,7 @@ namespace Assets.Scripts.UI.Inventory
                 }
                     break;
 
+                // 아이템 처음 습득시 카피 + 장착
                 case InventoryEventType.EquipItem:
                 {
                     // 1. 장착 슬롯에 아이템 장착 요청하기
@@ -424,10 +449,32 @@ namespace Assets.Scripts.UI.Inventory
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
 
-                    // 2. 장착 캔버스에 아이템 장착 표시 요청하기
                     if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
                     {
-                        canvas.EquipItem(baseSlotItem.SlotItemData);
+                        canvas.EquipItem(baseSlotItem);
+                    }
+                }
+                    break;
+
+                case InventoryEventType.UnEquipItem:
+                {
+                    var slot = payload.baseSlotItem.GetSlot();
+                    if (slot == UIManager.Instance.slotSwapBuffer)
+                        return;
+
+                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
+                    {
+                        canvas.UnEquipItem(payload.baseSlotItem);
+                    }
+                }
+                    break;
+
+                case InventoryEventType.UpdateEquipItem:
+                {
+                    Debug.Log($"업데이트: {payload.baseSlotItem.SlotItemData.ItemName}");
+                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
+                    {
+                        canvas.EquipItem(payload.baseSlotItem);
                     }
                 }
                     break;

@@ -1,5 +1,4 @@
 using System;
-using Assets.Scripts.Item;
 
 namespace Assets.Scripts.UI.Inventory
 {

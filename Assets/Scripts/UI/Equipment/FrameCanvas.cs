@@ -4,7 +4,6 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Inventory;
-using UnityEditor.ShaderKeywordFilter;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Equipment
@@ -96,16 +95,52 @@ namespace Assets.Scripts.UI.Equipment
                 var frame = UIManager.Instance.MakeSubItem<EquipmentFrame>(panelRect, EquipmentFrame.Path);
                 frame.name = $"{frame.name}#{i}";
                 frame.SetFrame(frameWidth, frameHeight);
-                frame.SetFrameSprite(frameImage);
+                frame.SetFrameImage(frameImage);
                 frame.transform.Translate(directions[i]);
 
                 frames.Add(frame);
             }
         }
 
-        public void EquipItem(BaseItem baseItem)
+        public Transform GetPosition(int index) => frames[index].ImageRect;
+
+        public void EquipItem(InventorySlot slot, BaseSlotItem baseSlotItem)
         {
-            frames[0].SetFrameSprite(baseItem.ItemSprite);
+        }
+
+        // 아이템 장착
+        public void EquipItem(BaseSlotItem baseItem)
+        {
+            var slot = baseItem.GetSlot();
+            int slotIdx = slot.Index;
+            if (slotIdx < 0 || slotIdx >= frames.Count)
+            {
+                Debug.LogWarning($"Frames index out of range({frames.Count}), slot index: {slot.Index}");
+                return;
+            }
+
+            var frame = frames[slotIdx];
+            frame.TurnOffFrameItem();
+            {
+                frame.SetItemImage(baseItem.SlotItemData.ItemSprite);
+                frame.SetItemText(baseItem.SlotItemData.itemCount.Value.ToString());
+            }
+            frame.TurnOnFrameItem();
+        }
+
+        // 아이템 장착 해제
+        public void UnEquipItem(BaseSlotItem baseItem)
+        {
+            var slot = baseItem.GetSlot();
+            int slotIdx = slot.Index;
+            if (slotIdx < 0 || slotIdx >= frames.Count)
+            {
+                Debug.LogWarning($"Frames index out of range({frames.Count}), slot index: {slot.Index}");
+                return;
+            }
+
+            var frame = frames[slotIdx];
+            frame.TurnOffFrameItem();
         }
     }
 }

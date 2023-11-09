@@ -84,8 +84,23 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction?.Invoke(payload);
         }
 
+        public void InvokeClearEquipFrame(BaseSlotItem baseSlotItem)
+        {
+            var payload = new InventoryEventPayload()
+            {
+                eventType = InventoryEventType.UnEquipItem,
+                groupType = baseSlotItem.SlotItemData.itemData.groupType,
+                baseSlotItem = baseSlotItem,
+                slot = this,
+            };
+
+            slotInventoryAction?.Invoke(payload);
+        }
+
         public void InvokeCopyOrMove(BaseSlotItem baseSlotItem)
         {
+            InvokeClearEquipFrame(baseSlotItem);
+
             var payload = new InventoryEventPayload
             {
                 baseSlotItem = baseSlotItem,
@@ -160,13 +175,17 @@ namespace Assets.Scripts.UI.Inventory
 
             baseItem.slotItems[SlotType] = origin;
             baseItem.slots[SlotType] = this;
-            
-            // 장착 슬롯을 확인해서 장착해주기
+
+            InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, origin);
+        }
+
+        public void InvokeEquipmentFrameEvent(InventoryEventType eventType, GroupType groupType, BaseSlotItem baseSlotItem)
+        {
             var inventoryEventPayload = new InventoryEventPayload
             {
-                eventType = InventoryEventType.EquipItem,
-                groupType = payload.itemData.groupType,
-                baseSlotItem = origin
+                eventType = eventType,
+                groupType = groupType,
+                baseSlotItem = baseSlotItem,
             };
 
             slotInventoryAction?.Invoke(inventoryEventPayload);

@@ -104,6 +104,7 @@ namespace Assets.Scripts.UI.Inventory
                 // 장착 + 우클릭 -> 장착 해제
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Equipment)
                 {
+                    // !TODO: 장착 해제할 때, FrameCanvas에서도 해제해야 함
                     SlotItemData.ClearSlot(SlotAreaType.Equipment);
                     SlotItemData.DestroyItem(SlotAreaType.Equipment);
                     return;
@@ -137,6 +138,7 @@ namespace Assets.Scripts.UI.Inventory
             swapSlot.InvokeCopyOrMove(this);
 
             thisSlot.InvokeCopyOrMove(otherSlotItem);
+
             otherSlot.InvokeCopyOrMove(this);
         }
 
@@ -187,6 +189,8 @@ namespace Assets.Scripts.UI.Inventory
             SlotItemData.itemCount.Subscribe(OnItemCountChanged);
         }
 
+        public InventorySlot GetSlot() => slotItemPosition.slot;
+
         // 슬롯의 위치 이동
         public void MoveSlot(SlotItemPosition position, BaseItem data)
         {
@@ -204,6 +208,12 @@ namespace Assets.Scripts.UI.Inventory
         public void ChangeSlotItem(SlotAreaType type, BaseSlotItem item)
         {
             SlotItemData?.ChangeSlotItem(type, item);
+        }
+
+        // Equipment Frame에서 참조하는 슬롯 아이템 변경
+        public void ChangeEquipmentSlotItem(SlotAreaType type, BaseSlotItem item)
+        {
+            SlotItemData?.ChangeEquipmentSlot(type, item);
         }
 
         private const int ItemMinCount = 0;

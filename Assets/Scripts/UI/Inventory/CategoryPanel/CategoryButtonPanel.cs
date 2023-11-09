@@ -1,12 +1,8 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Item;
 using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
-using Channels.Type;
 using Channels.UI;
-using Data.UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -144,7 +140,9 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
         {
-            if (payload.eventType != InventoryEventType.EquipItem)
+            if (payload.eventType != InventoryEventType.EquipItem &&
+                payload.eventType != InventoryEventType.UnEquipItem &&
+                payload.eventType != InventoryEventType.UpdateEquipItem)
                 payload.groupType = type;
 
             if (payload.eventType == InventoryEventType.CopyItemWithShortCut)

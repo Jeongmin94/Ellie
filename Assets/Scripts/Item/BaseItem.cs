@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.ActionData;
 using Assets.Scripts.Managers;
@@ -27,6 +26,8 @@ namespace Assets.Scripts.Item
 
         public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
         public readonly IDictionary<SlotAreaType, BaseSlotItem> slotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
+        public readonly IDictionary<SlotAreaType, BaseSlotItem> equipmentSlotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
+        // !TODO baseItem을 참조하는 아이템 제거 처리해야 함
 
         public void ChangeSlot(SlotAreaType type, InventorySlot slot)
         {
@@ -36,6 +37,11 @@ namespace Assets.Scripts.Item
         public void ChangeSlotItem(SlotAreaType type, BaseSlotItem item)
         {
             slotItems[type] = item;
+        }
+
+        public void ChangeEquipmentSlot(SlotAreaType type, BaseSlotItem item)
+        {
+            equipmentSlotItems[type] = item;
         }
 
         public void Reset()
