@@ -17,7 +17,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
-        private const float monsterRespawnTime = 20.0f;
+        private const float monsterRespawnTime = 5.0f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
 
@@ -128,7 +128,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
             GetComponent<Collider>().enabled = true;
             ReturnSpawnLocation();
-            animator.Play("Respawn");
+            animator.Play("IdleAttack");
             isDamaged.value = false;
             currentHP = monsterData.maxHP;
             dataContainer.CurrentHp.Value = (int)currentHP;

@@ -56,8 +56,11 @@ namespace Assets.Scripts.Monsters.Attacks
             {
                 if (CaculateDotProduct())
                 {
-                    SetAndAttack(attackData, target);
-                    break;
+                    if (target.CompareTag("Player"))
+                    {
+                        SetAndAttack(attackData, target);
+                        break;
+                    }
                 }
                 accumTime += Time.deltaTime;
                 yield return null;

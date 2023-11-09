@@ -30,8 +30,10 @@ namespace Assets.Scripts.Monsters
 
         private void Awake()
         {
-            behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+            //temp, will change with gamecenter
             player = GameObject.Find("Player");
+
+            behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
 
             SetSkills();
             SetTicketMachine();
