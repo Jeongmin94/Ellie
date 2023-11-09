@@ -27,6 +27,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public int combineCost;
         public int sellCost;
         public string imageName;
+        public string textureName;
     }
 
     [CreateAssetMenu(fileName = "StoneData", menuName = "GameData List/StoneData")]
@@ -96,6 +97,8 @@ namespace Assets.Scripts.Data.GoogleSheet
                     data.sellCost = int.Parse(entries[14].Trim());
                     //이미지 이름
                     data.imageName = entries[15].Trim();
+                    //
+                    data.textureName = entries[16].Trim();
                 }
                 catch (Exception e)
                 {

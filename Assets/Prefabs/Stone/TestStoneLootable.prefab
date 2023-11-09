@@ -43,8 +43,9 @@ GameObject:
   - component: {fileID: 8834590345174965193}
   - component: {fileID: 2795238054223840226}
   - component: {fileID: 1087265509129993356}
-  - component: {fileID: 2552781755657443656}
   - component: {fileID: -3968176375274465142}
+  - component: {fileID: -5844785568743199483}
+  - component: {fileID: 3824317402987347600}
   m_Layer: 0
   m_Name: TestStoneLootable
   m_TagString: Stone
@@ -61,7 +62,7 @@ Transform:
   m_GameObject: {fileID: 5557161655972076161}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 914195218378666572}
@@ -75,7 +76,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5557161655972076161}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: 46b6aef3c90a1ee46b46a368a290bdfd, type: 3}
 --- !u!23 &2795238054223840226
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -134,19 +135,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!65 &2552781755657443656
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5557161655972076161}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &-3968176375274465142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +165,34 @@ MonoBehaviour:
     combineCost: 0
     sellCost: 0
     imageName: 
+    textureName: 
   layerMask:
     serializedVersion: 2
     m_Bits: 0
+--- !u!135 &-5844785568743199483
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557161655972076161}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Radius: 0.21719456
+  m_Center: {x: -0.0772171, y: 0.0051851273, z: 0.046448708}
+--- !u!64 &3824317402987347600
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557161655972076161}
+  m_Material: {fileID: 13400000, guid: 65da2c9b799e5e0419c961b400b9ef6d, type: 2}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 145b1f9b9ac30c94da22c719daa74ec6, type: 3}

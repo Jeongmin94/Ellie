@@ -13,6 +13,7 @@ namespace Assets.Scripts.Item.Stone
     {
         private TicketMachine ticketMachine;
         private Pool stonePool;
+        [SerializeField] Mesh[] stoneMeshes;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
@@ -44,6 +45,8 @@ namespace Assets.Scripts.Item.Stone
             Poolable obj = stonePool.Pop();
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             obj.GetComponent<BaseStone>().hatchery = this;
+            int idx = Random.Range(0, stoneMeshes.Length);
+            obj.gameObject.GetComponent<MeshFilter>().mesh = stoneMeshes[idx];
             return obj;
         }
 
