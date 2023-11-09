@@ -7,8 +7,8 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class ImageAndTextArea : UIBase
     {
-        public static readonly string GoldPath = "UI/Item/Gold";
-        public static readonly string StonePiecePath = "UI/Item/StonePiece";
+        public static readonly string GoldPath = "UI/Item/Gold2";
+        public static readonly string StonePiecePath = "UI/Item/StonePiece2";
 
         private enum Images
         {
