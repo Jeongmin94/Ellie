@@ -44,6 +44,11 @@ namespace Assets.Scripts.UI.Inventory
         protected SlotItemPosition slotItemPosition;
         private bool isDropped;
 
+        public virtual void InitBaseSlotItem()
+        {
+            Init();
+        }
+
         protected override void Init()
         {
             isDropped = false;
@@ -201,12 +206,15 @@ namespace Assets.Scripts.UI.Inventory
             SlotItemData?.ChangeSlotItem(type, item);
         }
 
+        private const int ItemMinCount = 0;
+        private const int ItemMaxCount = 9999;
+
         private void OnItemCountChanged(int value)
         {
-            if (value < 0)
-                value = 0;
-            if (value > 9999)
-                value = 9999;
+            if (value < ItemMinCount)
+                value = ItemMinCount;
+            if (value > ItemMaxCount)
+                value = ItemMaxCount;
             itemText.text = value.ToString();
         }
 

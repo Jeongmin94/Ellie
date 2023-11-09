@@ -9,7 +9,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private Action<InventoryEventPayload> copyItemAction;
 
-        private void Awake()
+        public override void InitBaseSlotItem()
         {
             Init();
         }

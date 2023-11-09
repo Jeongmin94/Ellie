@@ -153,6 +153,7 @@ namespace Assets.Scripts.UI.Inventory
             baseItem.InitResources();
 
             var origin = UIManager.Instance.MakeSubItem<InventorySlotItem>(transform, InventorySlotItem.Path);
+            origin.InitBaseSlotItem();
             origin.SetSlot(SlotItemPosition);
             origin.SetItemData(baseItem);
             origin.SetOnDragParent(payload.onDragParent);

@@ -37,7 +37,6 @@ namespace Assets.Scripts.UI.Inventory
         public GroupType groupType;       // 아이템 타입: Consumption, Stone, Etc
         public BaseSlotItem baseSlotItem; // 슬롯 아이템 정보
         public InventorySlot slot;        // 슬롯 위치
-        public ItemData itemData;         // 아이템 정보
     }
 
     public class Inventory : UIPopup
@@ -377,6 +376,7 @@ namespace Assets.Scripts.UI.Inventory
                     var slot = payload.slot;
 
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
 
@@ -391,6 +391,7 @@ namespace Assets.Scripts.UI.Inventory
                     var slot = payload.slot;
 
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
 
@@ -416,6 +417,7 @@ namespace Assets.Scripts.UI.Inventory
                     var slot = payload.slot;
 
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
 
@@ -423,6 +425,10 @@ namespace Assets.Scripts.UI.Inventory
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
 
                     // 2. 장착 캔버스에 아이템 장착 표시 요청하기
+                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
+                    {
+                        canvas.EquipItem(baseSlotItem.SlotItemData);
+                    }
                 }
                     break;
 

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Framework.Static;
@@ -24,7 +25,7 @@ namespace Assets.Scripts.UI.Equipment
         [SerializeField] private Rect framePanelRect;
 
         public GroupType groupType;
-        
+
         public Sprite FrameImage
         {
             get => frameImage;
@@ -102,6 +103,9 @@ namespace Assets.Scripts.UI.Equipment
             }
         }
 
-        
+        public void EquipItem(BaseItem baseItem)
+        {
+            frames[0].SetFrameSprite(baseItem.ItemSprite);
+        }
     }
 }
