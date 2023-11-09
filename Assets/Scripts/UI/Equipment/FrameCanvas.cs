@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Framework.Static;
@@ -102,46 +101,28 @@ namespace Assets.Scripts.UI.Equipment
             }
         }
 
-        public void SubscribeSlots(List<InventorySlot> slots)
+        public void RegisterObservers(List<InventorySlot> slots)
         {
-            // slots.ForEach(s => );
+            slots.ForEach(s => s.SubscribeEquipmentFrameAction(OnEquipmentFrameAction));
         }
 
-        public Transform GetPosition(int index) => frames[index].ImageRect;
-
-        // 아이템 장착
-        public void EquipItem(BaseSlotItem baseItem)
+        private void OnEquipmentFrameAction(InventoryEventPayload payload)
         {
-            var slot = baseItem.GetSlot();
-            int slotIdx = slot.Index;
+            int slotIdx = payload.slot.Index;
             if (slotIdx < 0 || slotIdx >= frames.Count)
-            {
-                Debug.LogWarning($"Frames index out of range({frames.Count}), slot index: {slot.Index}");
                 return;
-            }
 
-            var frame = frames[slotIdx];
-            frame.TurnOffFrameItem();
+            EquipmentFrame frame = frames[slotIdx];
+            if (payload.slot.SlotItemData == null)
             {
-                frame.SetItemImage(baseItem.SlotItemData.ItemSprite);
-                frame.SetItemText(baseItem.SlotItemData.itemCount.Value.ToString());
+                frame.TurnOffFrameItem();
             }
-            frame.TurnOnFrameItem();
-        }
-
-        // 아이템 장착 해제
-        public void UnEquipItem(BaseSlotItem baseItem)
-        {
-            var slot = baseItem.GetSlot();
-            int slotIdx = slot.Index;
-            if (slotIdx < 0 || slotIdx >= frames.Count)
+            else
             {
-                Debug.LogWarning($"Frames index out of range({frames.Count}), slot index: {slot.Index}");
-                return;
+                frame.SetItemImage(payload.slot.SlotItemData.ItemSprite);
+                frame.SetItemText(payload.slot.SlotItemData.itemCount.Value.ToString());
+                frame.TurnOnFrameItem();
             }
-
-            var frame = frames[slotIdx];
-            frame.TurnOffFrameItem();
         }
     }
 }

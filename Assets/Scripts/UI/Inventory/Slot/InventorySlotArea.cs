@@ -165,7 +165,12 @@ namespace Assets.Scripts.UI.Inventory
             if (dup)
             {
                 dup.SlotItemData.itemCount.Value++;
-                dup.InvokeEquipmentFrameEvent(InventoryEventType.UpdateEquipItem, item.groupType, dup.SlotItemData.slotItems[dup.SlotType]);
+                slotAreaInventoryAction(new InventoryEventPayload()
+                {
+                    eventType = InventoryEventType.UpdateEquipItem,
+                    groupType = dup.SlotItemData.itemData.groupType,
+                    baseItem = dup.SlotItemData,
+                });
             }
             else
             {
@@ -189,15 +194,16 @@ namespace Assets.Scripts.UI.Inventory
 
             // 2. 존재하는 아이템이면 카운트 감소
             slot.SlotItemData.itemCount.Value--;
-            if (slot.SlotItemData.itemCount.Value > 0)
+            slotAreaInventoryAction?.Invoke(new InventoryEventPayload()
             {
-                slot.InvokeEquipmentFrameEvent(InventoryEventType.UpdateEquipItem, item.groupType, slot.SlotItemData.slotItems[SlotAreaType]);
-            }
-            else if (slot.SlotItemData.itemCount.Value == 0)
+                eventType = InventoryEventType.UpdateEquipItem,
+                groupType = slot.SlotItemData.itemData.groupType,
+                baseItem = slot.SlotItemData,
+            });
+
+            if (slot.SlotItemData.itemCount.Value == 0)
             {
                 Debug.Log($"{slot.Index}의 아이템 삭제");
-                //  - 아이템의 개수가 0이 되면 장착 슬롯에서 해제
-                // slot.InvokeEquipmentFrameEvent(InventoryEventType.UnEquipItem, item.groupType, slot.SlotItemData.slotItems[SlotAreaType]);
 
                 InventoryEventPayload inventoryEvent = new InventoryEventPayload();
                 inventoryEvent.eventType = InventoryEventType.SortSlotArea;

@@ -202,6 +202,16 @@ namespace Assets.Scripts.UI.Inventory
                     payload.slot = emptySlot;
                 }
             }
+            else if (payload.eventType == InventoryEventType.UpdateEquipItem)
+            {
+                if (slotAreas.TryGetValue(SlotAreaType.Equipment, out var area))
+                {
+                    var slot = area[(int)payload.groupType].FindSlot(payload.baseItem.ItemIndex);
+                    if (slot == null)
+                        return;
+                    payload.slot = slot;
+                }
+            }
 
             panelInventoryAction?.Invoke(payload);
         }

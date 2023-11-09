@@ -371,11 +371,6 @@ namespace Assets.Scripts.UI.Inventory
                 {
                     payload.baseSlotItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseSlotItem.SlotItemData);
                     payload.baseSlotItem.ChangeSlot(payload.slot.SlotType, payload.slot);
-
-                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
-                    {
-                        canvas.EquipItem(payload.baseSlotItem);
-                    }
                 }
                     break;
 
@@ -392,12 +387,6 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
-
-                    // !TODO: 해당 슬롯 frameCanvas 표시해주기
-                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
-                    {
-                        canvas.EquipItem(baseSlotItem);
-                    }
                 }
                     break;
 
@@ -414,12 +403,6 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
-
-                    // !TODO: 해당 슬롯 frameCanvas 표시해주기
-                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
-                    {
-                        canvas.EquipItem(baseSlotItem);
-                    }
                 }
                     break;
 
@@ -448,34 +431,12 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
-
-                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
-                    {
-                        canvas.EquipItem(baseSlotItem);
-                    }
-                }
-                    break;
-
-                case InventoryEventType.UnEquipItem:
-                {
-                    var slot = payload.baseSlotItem.GetSlot();
-                    if (slot == UIManager.Instance.slotSwapBuffer)
-                        return;
-
-                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
-                    {
-                        canvas.UnEquipItem(payload.baseSlotItem);
-                    }
                 }
                     break;
 
                 case InventoryEventType.UpdateEquipItem:
                 {
-                    Debug.Log($"업데이트: {payload.baseSlotItem.SlotItemData.ItemName}");
-                    if (frameCanvasMap.TryGetValue(payload.groupType, out var canvas))
-                    {
-                        canvas.EquipItem(payload.baseSlotItem);
-                    }
+                    payload.slot.InvokeEquipmentFrameAction(payload);
                 }
                     break;
 
@@ -508,7 +469,7 @@ namespace Assets.Scripts.UI.Inventory
 
             var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
             consumptionCanvas.InitFrame(directions);
-            consumptionCanvas.SubscribeSlots(consumptionArea.GetSlots());
+            consumptionCanvas.RegisterObservers(consumptionArea.GetSlots());
             consumptionCanvas.groupType = GroupType.Consumption;
 
             frameCanvasMap.TryAdd(GroupType.Consumption, consumptionCanvas);
@@ -533,7 +494,7 @@ namespace Assets.Scripts.UI.Inventory
 
             var stoneArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Stone);
             stoneCanvas.InitFrame(directions);
-            stoneCanvas.SubscribeSlots(stoneArea.GetSlots());
+            stoneCanvas.RegisterObservers(stoneArea.GetSlots());
             stoneCanvas.groupType = GroupType.Stone;
 
             frameCanvasMap.TryAdd(GroupType.Stone, stoneCanvas);

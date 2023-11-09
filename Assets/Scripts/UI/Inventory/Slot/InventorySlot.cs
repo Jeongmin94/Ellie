@@ -35,7 +35,7 @@ namespace Assets.Scripts.UI.Inventory
         private Action<InventoryEventPayload> slotInventoryAction;
 
         // for Equipment Frame
-        // public 
+        private Action<InventoryEventPayload> equipmentFrameAction;
 
         private void Awake()
         {
@@ -87,25 +87,8 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction?.Invoke(payload);
         }
 
-        // !TODO: 이전 장착 슬롯 클리어하는 함수인데 필요 없을 수도 있음
-        public void InvokeClearEquipFrame(BaseSlotItem baseSlotItem)
-        {
-            var payload = new InventoryEventPayload()
-            {
-                eventType = InventoryEventType.UnEquipItem,
-                groupType = baseSlotItem.SlotItemData.itemData.groupType,
-                baseSlotItem = baseSlotItem,
-                slot = this,
-            };
-
-            slotInventoryAction?.Invoke(payload);
-        }
-
-        // !TODO: 여기에서 equipment 미러링 중계해야 할 수도 있음
         public void InvokeCopyOrMove(BaseSlotItem baseSlotItem)
         {
-            InvokeClearEquipFrame(baseSlotItem);
-
             var payload = new InventoryEventPayload
             {
                 baseSlotItem = baseSlotItem,
@@ -181,8 +164,6 @@ namespace Assets.Scripts.UI.Inventory
             baseItem.slotItems[SlotType] = origin;
             baseItem.slots[SlotType] = this;
 
-            // !TODO
-            // 아이템을 처음 습득했을 때, 장착 가능한 슬롯이 있으면 장착
             InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, origin);
         }
 
@@ -209,9 +190,21 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction += listener;
         }
 
+        public void SubscribeEquipmentFrameAction(Action<InventoryEventPayload> listener)
+        {
+            equipmentFrameAction -= listener;
+            equipmentFrameAction += listener;
+        }
+
+        public void InvokeEquipmentFrameAction(InventoryEventPayload payload)
+        {
+            equipmentFrameAction?.Invoke(payload);
+        }
+
         private void OnDestroy()
         {
             slotInventoryAction = null;
+            equipmentFrameAction = null;
         }
     }
 }

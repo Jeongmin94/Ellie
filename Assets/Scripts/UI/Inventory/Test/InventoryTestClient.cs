@@ -139,6 +139,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.ConsumeSlotItem;
+            payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = itemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
