@@ -58,7 +58,7 @@ MonoBehaviour:
     - rid: 283011153473568811
     - rid: 283011090204065841
     - rid: 283011178275274829
-  viewPosition: {x: 1831, y: 650, z: 0}
+  viewPosition: {x: 1712, y: 432.8, z: 0}
   viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
   references:
     version: 2
@@ -101,7 +101,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 96d4a4956a237114789dfe1594c91c77
-        position: {x: -1605, y: -420}
+        position: {x: -1605, y: -435}
         blackboard:
           keys: []
         description: 
@@ -347,6 +347,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2
@@ -362,6 +366,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2
@@ -472,6 +480,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125029124177926
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -483,6 +495,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: 283011090204065836
@@ -571,6 +587,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125029124177947
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
