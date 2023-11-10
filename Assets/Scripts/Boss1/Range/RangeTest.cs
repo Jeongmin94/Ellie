@@ -12,8 +12,8 @@ public class RangeTest : MonoBehaviour
 
     public float radius = 10.0f;
     public float angle = 60.0f;
-    public float height = 8.0f;
-    public float width = 4.0f;
+    public float height = 10.0f;
+    public float width = 5.0f;
     public float upperBase = 5.0f;
     public float lowerBase = 5.0f;
 
@@ -30,15 +30,15 @@ public class RangeTest : MonoBehaviour
         switch (type)
         {
             case RangeType.Cone:
-                return CheckEnemiesInCone(target, radius, angle, checkTag);
+                return CheckEnemiesInCone(my.transform, radius, angle, checkTag);
             case RangeType.Circle:
-                return CheckEnemiesInCircle(target, radius, checkTag);
+                return CheckEnemiesInCircle(my.transform, radius, checkTag);
             case RangeType.Trapezoid:
-                return CheckEnemiesInTrapezoid(target, upperBase, lowerBase, height, checkTag);
+                return CheckEnemiesInTrapezoid(my.transform, upperBase, lowerBase, height, checkTag);
             case RangeType.Rectangle:
-                return CheckEnemiesInRectangle(target, width, height, checkTag);
-            case RangeType.Hybrid:
-                return CheckEnemiesInHybrid(target, radius, angle, upperBase, checkTag);
+                return CheckEnemiesInRectangle(my.transform, width, height, checkTag);
+            case RangeType.HybridCone:
+                return CheckEnemiesInHybrid(my.transform, radius, angle, upperBase, checkTag);
             default:
                 break;
         }
@@ -48,6 +48,11 @@ public class RangeTest : MonoBehaviour
 
     private void GetKey()
     {
+        if(Input.GetKeyDown(KeyCode.Backspace))
+        {
+            RangeManager.Instance.isParentOn = !RangeManager.Instance.isParentOn;
+        }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (my != null)
@@ -58,7 +63,7 @@ public class RangeTest : MonoBehaviour
                 Type = RangeType.Cone,
                 Radius = radius,
                 Angle = angle,
-                DetectionMeterial = material,
+                DetectionMaterial = material,
             });
 
             type = RangeType.Cone;
@@ -72,7 +77,7 @@ public class RangeTest : MonoBehaviour
             {
                 Type = RangeType.Circle,
                 Radius = radius,
-                DetectionMeterial = material,
+                DetectionMaterial = material,
             });
 
             type = RangeType.Circle;
@@ -88,7 +93,7 @@ public class RangeTest : MonoBehaviour
                 UpperBase = upperBase,
                 LowerBase = lowerBase,
                 Height = height,
-                DetectionMeterial = material,
+                DetectionMaterial = material,
             });
 
             type = RangeType.Trapezoid;
@@ -103,7 +108,7 @@ public class RangeTest : MonoBehaviour
                 Type = RangeType.Rectangle,
                 Width = width,
                 Height = height,
-                DetectionMeterial = material,
+                DetectionMaterial = material,
             });
 
             type = RangeType.Rectangle;
@@ -115,14 +120,14 @@ public class RangeTest : MonoBehaviour
 
             my = RangeManager.Instance.CreateRange(target, new RangePayload
             {
-                Type = RangeType.Hybrid,
+                Type = RangeType.HybridCone,
                 UpperBase = upperBase,
                 Radius = radius,
                 Angle = angle,
-                DetectionMeterial = material,
+                DetectionMaterial = material,
             });
 
-            type = RangeType.Hybrid;
+            type = RangeType.HybridCone;
         }
     }
     public List<Transform> CheckEnemiesInCone(Transform rangeObject, float radius, float angle, string enemyTag = "Monster")

@@ -30,7 +30,7 @@ namespace Centers.Boss
 
         public int tempMagicStoneCount = 0;
 
-        public int bossDeathCheck = 0;
+        private int bossDeathCheck = 0;
 
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
@@ -97,7 +97,7 @@ namespace Centers.Boss
             terra.terrapupaData.player.Value = player.transform;
             pupa.terrapupaData.player.Value = player.transform;
 
-            terrapupa.gameObject.SetActive(false);
+            //terrapupa.gameObject.SetActive(false);
             terra.gameObject.SetActive(false);
             pupa.gameObject.SetActive(false);
         }

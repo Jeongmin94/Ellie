@@ -6,29 +6,32 @@ using UnityEngine;
 public enum RangeType
 {
     None,
-    Cone,
-    Circle,
-    Trapezoid,
-    Rectangle,
-    Hybrid,
+    Cone,       // 부채꼴
+    Circle,     // 원
+    Trapezoid,  // 사다리꼴
+    Rectangle,  // 사각형
+    HybridCone, // 부채꼴 + 사다리꼴
 }
 
 public class RangePayload
 {
     public RangeType Type { get; set; }
+    public Material DetectionMaterial { get; set; }
     // 부채꼴, 원
-    public Material DetectionMeterial { get; set; }
     public float Radius { get; set; }
     public float Angle { get; set; }
-    // 사각형(Width, Height), 사다리꼴(시작부분이 Upper)
+    // 사각형(Width - 직선 범위, Height - 폭)
     public float Height { get; set; }
     public float Width { get; set; }
+    // 부채꼴(UpperBase - 시작, LowerBase - 끝)
     public float UpperBase { get; set; }
     public float LowerBase { get; set; }
 }
 
 public class RangeManager : Singleton<RangeManager>
 {
+    public bool isParentOn = false;
+
     private Material detectionMaterial;
 
     private void Start()
@@ -41,11 +44,19 @@ public class RangeManager : Singleton<RangeManager>
         if (payload == null)
             return null;
 
-        Material material = payload.DetectionMeterial ?? detectionMaterial;
-        GameObject rangeObject = InitGameObject("Range", parent);
+        Material material = payload.DetectionMaterial ?? detectionMaterial;
+        GameObject rangeObject;
+        if (isParentOn)
+        {
+            rangeObject = InitGameObject("Range", parent);
+        }
+        else
+        {
+            rangeObject = InitGameObject("Range", parent.position, parent.rotation);
+        }
 
-        if (payload.DetectionMeterial != null)
-            material = payload.DetectionMeterial;
+        if (payload.DetectionMaterial != null)
+            material = payload.DetectionMaterial;
 
         switch (payload.Type)
         {
@@ -61,7 +72,7 @@ public class RangeManager : Singleton<RangeManager>
             case RangeType.Rectangle:
                 CreateRectangle(rangeObject, payload.Width, payload.Height, material);
                 break;
-            case RangeType.Hybrid:
+            case RangeType.HybridCone:
                 CreateHybrid(rangeObject, payload.Radius, payload.Angle, payload.UpperBase, material);
                 break;
         }
@@ -72,8 +83,30 @@ public class RangeManager : Singleton<RangeManager>
     {
         GameObject sectorObject = new GameObject(objName);
         sectorObject.transform.SetParent(parent, false); // 지정된 부모 오브젝트의 로컬 좌표를 따릅니다.
-        sectorObject.transform.localPosition = new Vector3(0, 0.2f, 0); // 부모 오브젝트의 위치에 맞춥니다.
+        sectorObject.transform.localPosition = new Vector3(0, 0.3f, 0); // 부모 오브젝트의 위치에 맞춥니다.
         sectorObject.transform.localRotation = Quaternion.identity; // 부모 오브젝트의 회전에 맞춥니다.
+
+        return sectorObject;
+    }
+
+    private GameObject InitGameObject(string objName, Vector3 position, Quaternion rotation)
+    {
+        // Ground 레이어를 가지고 있는 오브젝트를 검출하는 레이어 마스크를 생성합니다.
+        int groundLayer = LayerMask.GetMask("Ground");
+
+        // -Vector3.up 방향으로 Raycast를 발사합니다.
+        RaycastHit hit;
+        Vector3 checkPosition = position + new Vector3(0, 2.0f, 0);
+        if (Physics.Raycast(checkPosition, -Vector3.up, out hit, Mathf.Infinity, groundLayer))
+        {
+            // Raycast가 Ground 레이어를 가지고 있는 오브젝트에 맞았다면, 그 위치의 위에 오브젝트를 생성합니다.
+            position = hit.point + new Vector3(0, 0.3f, 0);
+        }
+
+        // 오브젝트를 생성합니다.
+        GameObject sectorObject = new GameObject(objName);
+        sectorObject.transform.position = position;
+        sectorObject.transform.rotation = rotation;
 
         return sectorObject;
     }
@@ -105,14 +138,14 @@ public class RangeManager : Singleton<RangeManager>
         for (int i = 0; i < segments; i++)
         {
             triangles[i * 3] = 0;
-            triangles[i * 3 + 1] = i + 1;
-            triangles[i * 3 + 2] = i + 2;
+            triangles[i * 3 + 1] = i + 2;
+            triangles[i * 3 + 2] = i + 1;
         }
 
-        // 마지막 삼각형을 설정합니다.
-        triangles[(segments - 1) * 3] = 0;
-        triangles[(segments - 1) * 3 + 1] = segments;
-        triangles[(segments - 1) * 3 + 2] = 1;
+        //// 마지막 삼각형을 설정합니다.
+        //triangles[(segments - 1) * 3] = 0;
+        //triangles[(segments - 1) * 3 + 1] = segments;
+        //triangles[(segments - 1) * 3 + 2] = 1;
 
         mesh.vertices = vertices;
         mesh.triangles = triangles;
