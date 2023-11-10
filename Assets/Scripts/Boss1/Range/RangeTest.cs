@@ -6,10 +6,10 @@ using UnityEngine;
 public class RangeTest : MonoBehaviour
 {
     [SerializeField] private RangeType type = RangeType.None;
-    public Transform target;
-    public Material material;
     public string checkTag = "Monster";
 
+    public Transform target;
+    public Material material;
     public float radius = 10.0f;
     public float angle = 60.0f;
     public float height = 10.0f;
@@ -30,15 +30,20 @@ public class RangeTest : MonoBehaviour
         switch (type)
         {
             case RangeType.Cone:
-                return CheckEnemiesInCone(my.transform, radius, angle, checkTag);
+                ConeRange cone = my.GetComponent<ConeRange>();
+                return cone.CheckRange(checkTag);
             case RangeType.Circle:
-                return CheckEnemiesInCircle(my.transform, radius, checkTag);
+                CircleRange circle = my.GetComponent<CircleRange>();
+                return circle.CheckRange(checkTag);
             case RangeType.Trapezoid:
-                return CheckEnemiesInTrapezoid(my.transform, upperBase, lowerBase, height, checkTag);
+                TrapezoidRange trapezoid = my.GetComponent<TrapezoidRange>();
+                return trapezoid.CheckRange(checkTag);
             case RangeType.Rectangle:
-                return CheckEnemiesInRectangle(my.transform, width, height, checkTag);
+                RectangleRange rectangle = my.GetComponent<RectangleRange>();
+                return rectangle.CheckRange(checkTag);
             case RangeType.HybridCone:
-                return CheckEnemiesInHybrid(my.transform, radius, angle, upperBase, checkTag);
+                HybridConeRange hybridCone = my.GetComponent<HybridConeRange>();
+                return hybridCone.CheckRange(checkTag);
             default:
                 break;
         }
@@ -48,11 +53,6 @@ public class RangeTest : MonoBehaviour
 
     private void GetKey()
     {
-        if(Input.GetKeyDown(KeyCode.Backspace))
-        {
-            RangeManager.Instance.isParentOn = !RangeManager.Instance.isParentOn;
-        }
-
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (my != null)
@@ -130,182 +130,6 @@ public class RangeTest : MonoBehaviour
             type = RangeType.HybridCone;
         }
     }
-    public List<Transform> CheckEnemiesInCone(Transform rangeObject, float radius, float angle, string enemyTag = "Monster")
-    {
-        // 부채꼴의 중심과 방향을 계산합니다.
-        Vector3 center = rangeObject.position;
-        Quaternion direction = rangeObject.rotation;
-
-        // 부채꼴 범위 내의 모든 콜라이더를 감지합니다.
-        Collider[] collidersInCone = Physics.OverlapSphere(center, radius);
-
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
-        foreach (Collider collider in collidersInCone)
-        {
-            if (collider.tag == enemyTag)
-            {
-                // 이 콜라이더의 위치가 부채꼴 범위 내에 있는지 확인합니다.
-                Vector3 directionToCollider = collider.transform.position - rangeObject.position;
-                float distanceToCollider = directionToCollider.magnitude;
-                if (distanceToCollider < radius)
-                {
-                    float angleToCollider = Vector3.Angle(direction * Vector3.forward, directionToCollider);
-                    if (Mathf.Abs(angleToCollider) < angle / 2)
-                    {
-                        enemies.Add(collider.transform);
-                    }
-                }
-            }
-        }
-
-        // "적" 태그를 가진 콜라이더의 Transform[]을 반환합니다.
-        return enemies;
-    }
-
-
-    public List<Transform> CheckEnemiesInRectangle(Transform rangeObject, float width, float height, string enemyTag = "Monster")
-    {
-        // 사각형의 중심과 방향을 계산합니다.
-        Vector3 center = rangeObject.position;
-        Quaternion direction = rangeObject.rotation;
-
-        // 사각형 범위 내의 모든 콜라이더를 감지합니다.
-        Collider[] collidersInRectangle = Physics.OverlapBox(center, new Vector3(width / 2, 1, height / 2), direction);
-
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
-        foreach (Collider collider in collidersInRectangle)
-        {
-            if (collider.tag == enemyTag)
-            {
-                // 이 콜라이더의 위치를 사각형의 로컬 좌표계로 변환합니다.
-                Vector3 localColliderPosition = rangeObject.InverseTransformPoint(collider.transform.position);
-
-                // 이 콜라이더의 로컬 위치가 사각형 범위 내에 있는지 확인합니다.
-                if (Mathf.Abs(localColliderPosition.x) < width / 2 && Mathf.Abs(localColliderPosition.z) < height / 2)
-                {
-                    enemies.Add(collider.transform);
-                }
-            }
-        }
-
-        // "적" 태그를 가진 콜라이더의 Transform[]을 반환합니다.
-        return enemies;
-    }
-
-
-    public List<Transform> CheckEnemiesInTrapezoid(Transform origin, float upperBase, float lowerBase, float height, string enemyTag = "Monster")
-    {
-        // 사다리꼴의 너비의 절반을 계산합니다.
-        float halfWidthAtBase = upperBase / 2f;
-        float halfWidthAtTop = lowerBase / 2f;
-
-        // 사다리꼴의 넓이를 계산합니다.
-        float area = (upperBase + lowerBase) * height / 2f;
-
-        // 사다리꼴의 중심과 방향을 계산합니다.
-        Vector3 center = origin.position + origin.forward * (height / 2f);
-        Quaternion direction = origin.rotation;
-
-        // 사다리꼴 범위 내의 모든 콜라이더를 감지합니다.
-        Collider[] collidersInTrapezoid = Physics.OverlapSphere(center, Mathf.Sqrt(area));
-
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
-        foreach (Collider collider in collidersInTrapezoid)
-        {
-            if (collider.tag == enemyTag)
-            {
-                // 이 콜라이더의 위치가 사다리꼴 범위 내에 있는지 확인합니다.
-                Vector3 localPoint = origin.InverseTransformPoint(collider.transform.position);
-                if (localPoint.z > 0 && localPoint.z < height)
-                {
-                    float halfWidthAtThisPoint = Mathf.Lerp(halfWidthAtBase, halfWidthAtTop, localPoint.z / height);
-                    if (Mathf.Abs(localPoint.x) < halfWidthAtThisPoint)
-                    {
-                        enemies.Add(collider.transform);
-                    }
-                }
-            }
-        }
-
-        // "적" 태그를 가진 콜라이더의 Transform[]을 반환합니다.
-        return enemies;
-    }
-
-    public List<Transform> CheckEnemiesInCircle(Transform rangeObject, float radius, string enemyTag = "Monster")
-    {
-        // 원의 중심과 방향을 계산합니다.
-        Vector3 center = rangeObject.position;
-        Quaternion direction = rangeObject.rotation;
-
-        // 원 범위 내의 모든 콜라이더를 감지합니다.
-        Collider[] collidersInCircle = Physics.OverlapSphere(center, radius);
-
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
-        foreach (Collider collider in collidersInCircle)
-        {
-            if (collider.tag == enemyTag)
-            {
-                // 이 콜라이더의 위치가 원 범위 내에 있는지 확인합니다.
-                Vector3 localPoint = rangeObject.InverseTransformPoint(collider.transform.position);
-                float distanceToCollider = Vector3.Distance(localPoint, Vector3.zero);
-                if (distanceToCollider < radius)
-                {
-                    enemies.Add(collider.transform);
-                }
-            }
-        }
-
-        // "적" 태그를 가진 콜라이더의 Transform[]을 반환합니다.
-        return enemies;
-    }
-
-    public List<Transform> CheckEnemiesInHybrid(Transform rangeObject, float radius, float angle, float upperBase, string enemyTag = "Monster")
-    {
-        // 하이브리드 범위의 중심과 방향을 계산합니다.
-        Vector3 center = rangeObject.position;
-        Quaternion direction = rangeObject.rotation;
-
-        // 부채꼴 범위의 현(Chord)의 길이를 계산합니다.
-        float lowerBase = 2 * radius * Mathf.Sin(Mathf.Deg2Rad * angle / 2);
-
-        // 하이브리드 범위 내의 모든 콜라이더를 감지합니다.
-        Collider[] collidersInHybrid = Physics.OverlapSphere(center, radius);
-
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
-        foreach (Collider collider in collidersInHybrid)
-        {
-            if (collider.tag == enemyTag)
-            {
-                // 이 콜라이더의 위치를 하이브리드 범위의 로컬 좌표계로 변환합니다.
-                Vector3 localPoint = rangeObject.InverseTransformPoint(collider.transform.position);
-
-                // 부채꼴 범위 내에 있는지 확인합니다.
-                if (localPoint.z >= 0 && localPoint.z <= radius && Mathf.Abs(Mathf.Atan2(localPoint.x, localPoint.z) * Mathf.Rad2Deg) <= angle / 2)
-                {
-                    enemies.Add(collider.transform);
-                }
-                // 사다리꼴 범위 내에 있는지 확인합니다.
-                else if (localPoint.z >= 0 && localPoint.z <= radius)
-                {
-                    float halfWidthAtThisPoint = Mathf.Lerp(upperBase / 2, lowerBase / 2, localPoint.z / radius);
-                    if (Mathf.Abs(localPoint.x) <= halfWidthAtThisPoint)
-                    {
-                        enemies.Add(collider.transform);
-                    }
-                }
-            }
-        }
-
-        // "적" 태그를 가진 콜라이더의 Transform[]을 반환합니다.
-        return enemies;
-    }
-
-
 
     void OnGUI()
     {

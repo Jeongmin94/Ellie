@@ -11,8 +11,11 @@ public class TrapezoidRange : BaseRange
     public float UpperBase { get; private set; }
     public float LowerBase { get; private set; }
 
-    public TrapezoidRange(Transform objTransform, bool isSetParent = false) : base(objTransform, isSetParent)
+    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
     {
+        base.Init(rangeObject, objTransform, isSetParent);
+
+        RangeObject.name = "TrapezoidRange";
     }
 
     public override void CreateRange(RangePayload payload)
@@ -24,8 +27,8 @@ public class TrapezoidRange : BaseRange
         DetectionMaterial = payload.DetectionMaterial;
 
         // MeshFilter와 MeshRenderer 컴포넌트를 추가합니다.
-        MeshFilter meshFilter = rangeObject.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = rangeObject.AddComponent<MeshRenderer>();
+        MeshFilter meshFilter = RangeObject.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = RangeObject.AddComponent<MeshRenderer>();
 
         Mesh mesh = new Mesh();
 
@@ -56,7 +59,7 @@ public class TrapezoidRange : BaseRange
 
     public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
     {
-        Transform objTransform = rangeObject.transform;
+        Transform objTransform = RangeObject.transform;
 
         // 사다리꼴의 너비의 절반을 계산합니다.
         float halfWidthAtBase = UpperBase / 2f;

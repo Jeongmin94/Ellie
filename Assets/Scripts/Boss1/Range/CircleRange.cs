@@ -8,8 +8,11 @@ public class CircleRange : BaseRange
     public float Radius { get; private set; }
     public float Angle { get; private set; }
 
-    public CircleRange(Transform objTransform, bool isSetParent = false) : base(objTransform, isSetParent)
+    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
     {
+        base.Init(rangeObject, objTransform, isSetParent);
+
+        RangeObject.name = "CircleRange";
     }
 
     public override void CreateRange(RangePayload payload)
@@ -20,8 +23,8 @@ public class CircleRange : BaseRange
         DetectionMaterial = payload.DetectionMaterial;
 
         // MeshFilter와 MeshRenderer 컴포넌트를 추가합니다.
-        MeshFilter meshFilter = rangeObject.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = rangeObject.AddComponent<MeshRenderer>();
+        MeshFilter meshFilter = RangeObject.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = RangeObject.AddComponent<MeshRenderer>();
 
         Mesh mesh = new Mesh();
 
@@ -58,7 +61,7 @@ public class CircleRange : BaseRange
 
     public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
     {
-        Transform objTransform = rangeObject.transform;
+        Transform objTransform = RangeObject.transform;
 
         // 원의 중심과 방향을 계산합니다.
         Vector3 center = objTransform.position;

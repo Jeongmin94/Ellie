@@ -10,20 +10,25 @@ public class HybridConeRange : BaseRange
     public float Angle { get; private set; }
     public float UpperBase { get; private set; }
 
-    public HybridConeRange(Transform objTransform, bool isSetParent = false) : base(objTransform, isSetParent)
+    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
     {
+        base.Init(rangeObject, objTransform, isSetParent);
+
+        RangeObject.name = "HybridConeRange";
     }
+
 
     public override void CreateRange(RangePayload payload)
     {
         Radius = payload.Radius;
         Angle = payload.Angle;
+        UpperBase = payload.UpperBase;
 
         DetectionMaterial = payload.DetectionMaterial;
 
         // MeshFilter와 MeshRenderer 컴포넌트를 추가합니다.
-        MeshFilter meshFilter = rangeObject.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = rangeObject.AddComponent<MeshRenderer>();
+        MeshFilter meshFilter = RangeObject.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = RangeObject.AddComponent<MeshRenderer>();
 
         Mesh mesh = new Mesh();
 
@@ -68,7 +73,7 @@ public class HybridConeRange : BaseRange
 
     public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
     {
-        Transform objTransform = rangeObject.transform;
+        Transform objTransform = RangeObject.transform;
 
         // 하이브리드 범위의 중심과 방향을 계산합니다.
         Vector3 center = objTransform.position;
@@ -90,7 +95,7 @@ public class HybridConeRange : BaseRange
                 Vector3 localPoint = objTransform.InverseTransformPoint(collider.transform.position);
 
                 // 부채꼴 범위 내에 있는지 확인합니다.
-                if (localPoint.z >= 0 && localPoint.z <= Radius && Mathf.Abs(Mathf.Atan2(localPoint.x, localPoint.z) * Mathf.Rad2Deg) <= angle / 2)
+                if (localPoint.z >= 0 && localPoint.z <= Radius && Mathf.Abs(Mathf.Atan2(localPoint.x, localPoint.z) * Mathf.Rad2Deg) <= Angle / 2)
                 {
                     enemies.Add(collider.transform);
                 }
