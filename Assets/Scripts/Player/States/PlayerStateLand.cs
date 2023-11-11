@@ -21,7 +21,7 @@ namespace Assets.Scripts.Player.States
             time = 0f;
             Controller.SetTimeScale(1f);
 
-            if (Controller.cinematicAimCam.activeSelf)
+            if (Controller.cinematicAimCam.gameObject.activeSelf)
                 Controller.TurnOffAimCam();
 
             Controller.PlayerStatus.isRecoveringStamina = true;

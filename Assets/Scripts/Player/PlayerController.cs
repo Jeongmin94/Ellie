@@ -37,10 +37,10 @@ namespace Assets.Scripts.Player
 
 
         [Header("Camera")]
-        public GameObject mainCam;
-        public GameObject cinematicMainCam;
-        public GameObject cinematicAimCam;
-        public GameObject cinematicDialogCam;
+        public Camera mainCam;
+        public CinemachineVirtualCamera cinematicMainCam;
+        public CinemachineVirtualCamera cinematicAimCam;
+        public CinemachineVirtualCamera cinematicDialogCam;
 
         [Header("Move")]
         [SerializeField] private float walkSpeed;
@@ -87,8 +87,9 @@ namespace Assets.Scripts.Player
         [Header("Attack")]
         [SerializeField] private GameObject slingshot;
         [SerializeField] private GameObject rightHand;
-        [SerializeField] private bool hasRock;
+        public bool hasStone;
         public GameObject shooter;
+        public GameObject MeleeAttackCollider;
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -218,14 +219,16 @@ namespace Assets.Scripts.Player
             isGrounded = true;
             isRigid = false;
             initialFixedDeltaTime = Time.fixedDeltaTime;
-            cinematicAimCam.SetActive(false);
-            cinematicDialogCam.SetActive(false);
+            TurnOffAimCam();
+            TurnOffDialogCam();
 
             stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepRayLower.transform.position.y + stepHeight,
                 stepRayUpper.transform.position.z);
             SetCurOre(null);
             Pickaxe.gameObject.SetActive(false);
             TurnOffSlingshot();
+            TurnOffMeleeAttackCollider();
+
         }
         private void SetMovingAnim()
         {
@@ -278,7 +281,7 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
             PlayerStateDodge playerStateDodge = new(this);
             stateMachine.AddState(PlayerStateName.Dodge, playerStateDodge);
-            PlayerStatusAirborne playerStateAirbourn = new(this);
+            PlayerStateAirborne playerStateAirbourn = new(this);
             stateMachine.AddState(PlayerStateName.Airborne, playerStateAirbourn);
             PlayerStateLand playerStateLand = new(this);
             stateMachine.AddState(PlayerStateName.Land, playerStateLand);
@@ -302,6 +305,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.GetUp, playerStateGetUp);
             PlayerStateConversation playerStateConversation = new(this);
             stateMachine.AddState(PlayerStateName.Conversation, playerStateConversation);
+            PlayerStateMeleeAttack playerStateMeleeAttack = new(this);
+            stateMachine.AddState(PlayerStateName.MeleeAttack, playerStateMeleeAttack);
 
         }
         public void MovePlayer(float moveSpeed)
@@ -466,25 +471,25 @@ namespace Assets.Scripts.Player
         }
         public void TurnOnAimCam()
         {
-            cinematicMainCam.SetActive(false);
-            cinematicAimCam.SetActive(true);
+            cinematicMainCam.gameObject.SetActive(false);
+            cinematicAimCam.gameObject.SetActive(true);
         }
         public void TurnOffAimCam()
         {
-            cinematicMainCam.SetActive(true);
-            cinematicAimCam.SetActive(false);
+            cinematicMainCam.gameObject.SetActive(true);
+            cinematicAimCam.gameObject.SetActive(false);
         }
 
         public void TurnOnDialogCam()
         {
-            cinematicDialogCam.SetActive(true);
-            cinematicMainCam.SetActive(false);    
+            cinematicDialogCam.gameObject.SetActive(true);
+            cinematicMainCam.gameObject.SetActive(false);    
         }
 
         public void TurnOffDialogCam()
         {
-            cinematicMainCam.SetActive(true);
-            cinematicDialogCam.SetActive(false);
+            cinematicMainCam.gameObject.SetActive(true);
+            cinematicDialogCam.gameObject.SetActive(false);
         }
         public void SetTimeScale(float expectedTimeScale)
         {
@@ -530,7 +535,7 @@ namespace Assets.Scripts.Player
 
         public void Aim()
         {
-            Ray shootRay = mainCam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            Ray shootRay = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
             RaycastHit hit;
             if (Physics.Raycast(shootRay, out hit, Mathf.Infinity, ~layerToIgnore))
             {
@@ -563,7 +568,7 @@ namespace Assets.Scripts.Player
         public void StartConversation()
         {
             TurnOnDialogCam();
-            cinematicDialogCam.GetComponent<CinemachineVirtualCamera>().LookAt = GetComponent<PlayerInteraction>().interactiveObject.transform;
+            cinematicDialogCam.LookAt = GetComponent<PlayerInteraction>().interactiveObject.transform;
             ChangeState(PlayerStateName.Conversation);
             GetComponent<PlayerInteraction>().isInteracting = true;
         }
@@ -583,6 +588,16 @@ namespace Assets.Scripts.Player
         public void TurnOffSlingshot()
         {
             slingshot.SetActive(false);
+        }
+
+        public void TurnOnMeleeAttackCollider()
+        {
+            MeleeAttackCollider.SetActive(true);
+        }
+
+        public void TurnOffMeleeAttackCollider()
+        {
+            MeleeAttackCollider.SetActive(false);
         }
 
         public void AddForceSlingshotLeather()

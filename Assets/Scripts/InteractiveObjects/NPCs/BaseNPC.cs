@@ -19,6 +19,7 @@ namespace Assets.Scripts.InteractiveObjects.NPCs
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
 
+        WaitForEndOfFrame wff = new WaitForEndOfFrame();
         // !TODO : GetComponent로 플레이어 컴포넌트 참조하는 로직을 채널 이용한 중개자 패턴으로 변경
         private void Awake()
         {
@@ -54,7 +55,7 @@ namespace Assets.Scripts.InteractiveObjects.NPCs
                     player.GetComponent<PlayerController>().StartConversation();
                     yield break;
                 }
-                yield return null;
+                yield return wff;
             }
         }
         public void EndInteract()
