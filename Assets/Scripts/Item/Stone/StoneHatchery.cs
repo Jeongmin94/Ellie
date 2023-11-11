@@ -47,6 +47,7 @@ namespace Assets.Scripts.Item.Stone
             obj.GetComponent<BaseStone>().hatchery = this;
             int idx = Random.Range(0, stoneMeshes.Length);
             obj.gameObject.GetComponent<MeshFilter>().mesh = stoneMeshes[idx];
+            obj.gameObject.GetComponent<MeshCollider>().sharedMesh = stoneMeshes[idx];
             return obj;
         }
 
