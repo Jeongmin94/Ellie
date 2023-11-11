@@ -6,6 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "BoxColliderAttack", menuName = "GameData List/Monsters/BoxColliderAttack", order = int.MaxValue)]
 public class BoxColliderAttackData : ScriptableObject   
 {
+    public string attackName;
     public CombatType combatType;
     public float attackValue;
     public float attackableDistance;

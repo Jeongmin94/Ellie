@@ -42,6 +42,7 @@ public class DistanceAttackable : ActionNode
             return State.Failure;
         }
         usedTime = Time.time;
+        Debug.Log("Attacked");
 
         return State.Success;
     }

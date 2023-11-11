@@ -23,7 +23,13 @@ namespace Assets.Scripts.Monsters.Utility
         }
         public enum AttackSkill
         {
-            BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, AOEAttack, End
+            BoxCollider,
+            SphereCollider,
+            ProjectileAttack,
+            WeaponAttack,
+            AOEAttack,
+            FanshapeAttack,
+            End
         }
 
         //Monster State

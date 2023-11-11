@@ -7,18 +7,20 @@ using Channels.Type;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using Assets.Scripts.Player;
+using Channels.Combat;
+using Assets.Scripts.Combat;
 
 namespace Assets.Scripts.Monsters.Attacks
 {
     public class BoxColliderAttack : AbstractAttack
     {
         private BoxCollider collider;
-        private PlayerStatus playerStatus;
-
-        private TicketMachine ticketMachine;
-        private CombatPayload payload=new();
-
         private BoxColliderAttackData attackData;
+
+        private void Awake()
+        {
+            SetTicketMachine();   
+        }
 
         public override void InitializeBoxCollider(BoxColliderAttackData data)
         {
@@ -34,10 +36,6 @@ namespace Assets.Scripts.Monsters.Attacks
             collider.size = data.size;
             gameObject.transform.localPosition = data.offset;
             collider.enabled = false;
-
-            playerStatus = GameObject.Find("Player").GetComponent<PlayerStatus>();
-
-            SetTicketMachine();
         }
 
         public override void ActivateAttack()
@@ -56,37 +54,32 @@ namespace Assets.Scripts.Monsters.Attacks
         {
             if (owner == "Monster")
             {
-                if (other.tag == "Player")
+                if (other.CompareTag("Player"))
                 {
-                    Debug.Log("MONSTER ATTACKED");
-                    SetPayloadAttack(attackData);
-                    Attack(payload);
+                    if (other.gameObject.GetComponent<ICombatant>() != null)
+                    {
+                        Debug.Log(other);
+                        SetAndAttack(attackData, other.transform);
+                    }
                 }
             }
         }
 
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-        }
-
-        private void SetPayloadAttack(BoxColliderAttackData data)
+        private void SetAndAttack(BoxColliderAttackData data, Transform otherTransform)
         {
             Debug.Log("SetPayloadAttack");
+            CombatPayload payload = new();
             payload.Type = data.combatType;
             payload.Attacker = transform;
-            payload.Defender = playerStatus.transform;
+            payload.Defender = otherTransform;
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
-            payload.AttackPosition = playerStatus.transform.position;
+            payload.AttackPosition = otherTransform.position;
             payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
             payload.Damage = (int)data.attackValue;
+            Attack(payload);
         }
-        public override void Attack(IBaseEventPayload payload)
-        {
-            ticketMachine.SendMessage(ChannelType.Combat, payload);
-        }
+
 
     }
 }

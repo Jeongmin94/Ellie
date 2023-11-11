@@ -7,6 +7,7 @@ using TheKiwiCoder;
 public class OvertravelBool : ActionNode
 {
     public NodeProperty<Vector3> returnPosition;
+    public NodeProperty<bool> isReturning;
     protected override void OnStart()
     {
     }
@@ -19,12 +20,12 @@ public class OvertravelBool : ActionNode
     {
         float distance = Vector3.SqrMagnitude(returnPosition.Value - context.transform.position);
         float overtravelDist = context.controller.monsterData.overtravelDistance;
-        //if(Vector3.Distance(returnPosition.Value, context.transform.position)
-        //    >context.controller.monsterData.overtravelDistance)
         if (distance > overtravelDist * overtravelDist)
         {
+            isReturning.Value = true;
             return State.Success;
         }
+        isReturning.Value = false;
         return State.Failure;
     }
 }

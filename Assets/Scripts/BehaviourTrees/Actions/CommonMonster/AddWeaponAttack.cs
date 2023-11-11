@@ -12,8 +12,7 @@ public class AddWeaponAttack : ActionNode
     public NodeProperty<string> weaponPrefabName;
 
     protected override void OnStart() {
-        GameObject obj = Functions.FindChildByName(context.gameObject, weaponPrefabName.Value);
-        context.controller.weaponAttackData.weapon = obj;
+        
 
     }
 

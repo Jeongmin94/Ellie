@@ -161,6 +161,7 @@ namespace Assets.Scripts.Player
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
+            Debug.Log("Player recieve Damage");
             CombatPayload combatPayload = payload as CombatPayload;
             //상태이상 공격 처리 로직
             if (combatPayload.PlayerStatusEffectName != StatusEffectName.None)

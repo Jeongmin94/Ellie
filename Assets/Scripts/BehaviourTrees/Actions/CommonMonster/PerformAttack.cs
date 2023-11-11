@@ -17,6 +17,7 @@ public class PerformAttack : ActionNode
 
     protected override State OnUpdate()
     {
+        Debug.Log("SKILL NAME : " + skillName.Value);
         if(context.controller.Attacks.TryGetValue(skillName.Value, out AbstractAttack atk))
         {
             atk.ActivateAttack();

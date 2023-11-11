@@ -30,7 +30,6 @@ namespace Assets.Scripts.Item.Stone
             foreach (ContactPoint contact in collision.contacts)
             {
                 GameObject hitObject = contact.otherCollider.gameObject;
-
                 if ((layerMask.value & (1 << hitObject.layer)) == 0)
                 {
                     continue;
