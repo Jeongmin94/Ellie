@@ -17,6 +17,8 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsFalling", false);
             Controller.isJumping = false;
             Controller.isFalling = false;
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
+            Controller.ActivateShootPos(false);
 
             time = 0f;
             Controller.SetTimeScale(1f);

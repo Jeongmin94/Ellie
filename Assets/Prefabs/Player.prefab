@@ -165,6 +165,7 @@ GameObject:
   - component: {fileID: 1346398097}
   - component: {fileID: 1346398096}
   - component: {fileID: 1346398099}
+  - component: {fileID: 969891551}
   m_Layer: 2
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -272,6 +273,39 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &969891551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1346398095}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1 &1414984756
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,6 +469,64 @@ LineRenderer:
     generateLightingData: 0
   m_UseWorldSpace: 1
   m_Loop: 0
+--- !u!1 &1626558121
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1626558122}
+  - component: {fileID: 1626558123}
+  - component: {fileID: 1626558125}
+  m_Layer: 2
+  m_Name: MeleeAttackCollider
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1626558122
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626558121}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.087, y: 0, z: 0.16}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2800323668963975507}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1626558123
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626558121}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.3, y: 1, z: 0.64}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1626558125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1626558121}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a460b39b37e38dc4280054204f76bc01, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1668694612
 GameObject:
   m_ObjectHideFlags: 0
@@ -640,7 +732,7 @@ MonoBehaviour:
   linePoints: 25
   calculatingTime: 1
   releasePosition: {fileID: 1833054886}
-  shootingPower: 40
+  shootingPower: 15
   chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   withPlayer: 1
@@ -7295,10 +7387,10 @@ MonoBehaviour:
   playerObj: {fileID: 3473479438722185937}
   playerCollider: {fileID: 4016927572169917174}
   orientation: {fileID: 4016927572048160162}
-  mainCam: {fileID: 1346398095}
-  cinematicMainCam: {fileID: 4016927572231187841}
-  cinematicAimCam: {fileID: 4016927572422116014}
-  cinematicDialogCam: {fileID: 1118065663}
+  mainCam: {fileID: 1346398097}
+  cinematicMainCam: {fileID: 4016927572231187846}
+  cinematicAimCam: {fileID: 4016927572422116012}
+  cinematicDialogCam: {fileID: 1118065665}
   walkSpeed: 4
   sprintSpeed: 6
   dodgeSpeed: 10
@@ -7328,8 +7420,9 @@ MonoBehaviour:
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
-  hasRock: 0
+  hasStone: 0
   shooter: {fileID: 1833054885}
+  MeleeAttackCollider: {fileID: 1626558121}
   zoomMultiplier: 0.2
   recoilTime: 0.3
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
@@ -8391,6 +8484,7 @@ Transform:
   - {fileID: 4097378937246294345}
   - {fileID: 8255718709204165548}
   - {fileID: 4794274618647196}
+  - {fileID: 1626558122}
   m_Father: {fileID: 2051738611245099733}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

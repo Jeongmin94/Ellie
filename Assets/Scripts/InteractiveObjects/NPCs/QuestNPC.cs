@@ -2,6 +2,7 @@
 using Assets.Scripts.Data.Quest;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
+using Codice.CM.Common;
 using System.Linq;
 using UnityEngine;
 
@@ -87,6 +88,7 @@ namespace Assets.Scripts.InteractiveObjects.NPCs
                         obj.GetComponent<PlayerQuest>().RenewQuestStatus(data.questIdx, QuestStatus.End);
                         //다음 퀘스트를 수락 가능한 상태로 변경합니다
                         // !TODO : 플레이어에게 보상을 줘야 합니다
+                        GiveReward();
                         obj.GetComponent<PlayerQuest>().RenewQuestStatus(data.questIdx + 1, QuestStatus.Unaccepted);
                         obj.GetComponent<PlayerController>().EndConversation();
                         EndInteract();
@@ -118,6 +120,11 @@ namespace Assets.Scripts.InteractiveObjects.NPCs
             int idx = data.dialogIndexList[(int)status][curDialogIdx];
             //!TODO : 대사를 로그가 아닌 UI로 출력해야 합니다
             Debug.Log(DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(idx).dialog);
+        }
+
+        protected virtual void GiveReward()
+        {
+            Debug.Log("퀘스트보상!");
         }
     }
 }

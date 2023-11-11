@@ -16,7 +16,6 @@ namespace Assets.Scripts.Player
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("MeleeAttackTriggerEnter : " + other.name);
             if (FindRootParent(other.gameObject).CompareTag("Player")) return;
             ICombatant enemy = other.GetComponent<ICombatant>();
             if (enemy!=null)
