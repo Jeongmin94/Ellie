@@ -1,27 +1,30 @@
-﻿using Channels;
+using System.Collections;
+using System.Collections.Generic;
+using Channels;
 using UnityEngine;
 
 namespace Assets.Scripts.Channels.Item
 {
-    public enum StoneEventType
+    public enum ItemEventType
     {
-        RequestStone,
-        MineStone,
+        PickupItem,
+        UseItem,
     }
-    public class StoneEventPayload : IBaseEventPayload
+
+    public class ItemEventPayload : IBaseEventPayload
     {
-        public StoneEventType Type { get; set; }
-        public Vector3 StoneSpawnPos { get; set; }
-        public Vector3 StoneDirection { get; set; }
-        public Vector3 StoneForce { get; set; }
-        public float StoneStrength { get; set; }
+        public ItemEventType type;
+        public int itemIndex = 4100;
+        public Vector3 itemDropPosition;
     }
     public class ItemChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            StoneEventPayload itemPayload = payload as StoneEventPayload;
+            ItemEventPayload itemPayload = payload as ItemEventPayload;
+
             Publish(itemPayload);
         }
     }
+
 }

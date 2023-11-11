@@ -4,6 +4,9 @@ namespace Channels.Type
     {
         Combat,
         UI,
-        Stone
+        Stone,
+        BossInteraction,
+        Terrapupa,
+        Item
     }
 }

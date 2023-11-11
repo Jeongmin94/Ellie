@@ -1,6 +1,7 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
+using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using UnityEngine;
@@ -57,6 +58,7 @@ namespace Centers.Test
             if (GUI.Button(new Rect(10, 10, 100, 20), "attack client"))
             {
                 dataContainer.CurrentHp.Value -= damage;
+                //ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload { Type = CombatType.Test, HP = dataContainer.CurrentHp.Value }); ;
             }
 
             if (GUI.Button(new Rect(10, 30, 100, 20), "heal client"))

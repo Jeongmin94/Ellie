@@ -190,7 +190,7 @@ namespace Assets.Scripts.Player
             GetInput();
             CheckGround();
             Turn();
-            SetColliderHeight();
+            //SetColliderHeight();
             ResetPlayerPos();
             SetMovingAnim();
             stateMachine?.UpdateState();
@@ -234,12 +234,14 @@ namespace Assets.Scripts.Player
                 ChangeState(PlayerStateName.Idle);
             }
         }
-        private void SetColliderHeight()
+        public void SetColliderHeight(float colliderHeight)
         {
-            if (isJumping || isFalling)
-                playerCollider.height = 1f;
-            else
-                playerCollider.height = 1.5f;
+            
+            //if (isJumping || isFalling)
+            //    playerCollider.height = 1f;
+            //else
+            //    playerCollider.height = 1.5f;
+            playerCollider.height = colliderHeight;
         }
         private void AddAdditionalGravityForce()
         {

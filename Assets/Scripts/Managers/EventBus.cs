@@ -4,16 +4,21 @@ using System.Collections.Generic;
 public enum EventBusEvents
 {
     None,
-    ThrowStoneByBoss1,
     GripStoneByBoss1,
+    ThrowStoneByBoss1,
     HitManaByPlayerStone,
     DestroyedManaByBoss1,
-    RespawnMana,
     OccurEarthQuake,
+    DropMagicStalactite,
+    BossAttractedByMagicStone,
+    BossUnattractedByMagicStone,
+    IntakeMagicStoneByBoss1,
+
 }
 
 public interface IBaseEventPayload
 {
+
 }
 
 public class EventBus : Singleton<EventBus>

@@ -2,6 +2,9 @@
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Player;
 using Centers;
+using Assets.Scripts.Monsters;
+using UnityEngine;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Centers.Test
@@ -10,9 +13,11 @@ namespace Assets.Scripts.Centers.Test
     {
         public GameObject player;
         public TestAttacker attacker;
+        public Transform monsters;
         public StoneHatchery hatchery;
         public Ore[] ores;
-        
+
+        public int curStage = 1;
        
         private void Awake()
         {
@@ -21,10 +26,16 @@ namespace Assets.Scripts.Centers.Test
 
         protected override void Start()
         {
-            CheckTicket(player);
+            CheckTicket(player.gameObject);
             CheckTicket(attacker.gameObject);
+
+            foreach (Transform childMonster in monsters)
+            {
+                CheckTicket(childMonster.gameObject);
+            }
+
             CheckTicket(hatchery.gameObject);
-            foreach(Ore ore in ores)
+            foreach (Ore ore in ores)
             {
                 Debug.Log($"{ore.name} checked");
                 CheckTicket(ore.gameObject);

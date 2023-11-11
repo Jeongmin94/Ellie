@@ -9,44 +9,33 @@ using Assets.Scripts.Monsters.AbstractClass;
 
 
 using UnityEngine.AI;
-using System.Collections.Generic;
-using Channels.UI;
-using Assets.Scripts.Data;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Assets.Scripts.Utils;
 using Channels.Type;
-using Channels.Combat;
+using Assets.Scripts.Combat;
+using Assets.Scripts.StatusEffects;
+using System.Collections.Generic;
 
 namespace Assets.Scripts.Monsters
 {
-    public class MonsterController : AbstractMonster
+    public class MonsterController : AbstractMonster, ICombatant
     {
         //Temp
         public GameObject player;
 
-
-        public enum SkillName { MeleeAttack, End }
-
-        [SerializeField] public SkeletonMonsterData monsterData;
-        [SerializeField] public RunToPlayerAttackData runToPlayerData;
-
-        [SerializeField] public BoxColliderAttackData meleeAttackData;
-        [SerializeField] public WeaponAttackData weaponAttackData;
-        [SerializeField] public ProjectileAttackData projectileAttackData;
-        [SerializeField] public FleeSkillData fleeSkilldata;
-
-        private UIMonsterBillboard billboard;
-        private readonly MonsterDataContainer dataContainer = new();
-
         private TicketMachine ticketMachine;
+        //private List<TestIteamDrop> dropableIteam;
 
         private void Awake()
         {
-            behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+            //temp, will change with gamecenter
             player = GameObject.Find("Player");
 
+            behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+
+            SetSkills();
             SetTicketMachine();
             InitUI();
             InitData();
@@ -56,13 +45,37 @@ namespace Assets.Scripts.Monsters
         {
             SetNavMesh();
             SetBehaviourTreeInstance();
-
+        }
+        private void SetSkills()
+        {
+            if(meleeAttackData!=null)
+            {
+                AddSkills(meleeAttackData.attackName, Enums.AttackSkill.BoxCollider);
+                Attacks[meleeAttackData.attackName].InitializeBoxCollider(meleeAttackData);
+            }
+            if(weaponAttackData!=null)
+            {
+                GameObject obj = Functions.FindChildByName(gameObject, weaponAttackData.weaponName);
+                weaponAttackData.weapon = obj;
+                AddSkills(weaponAttackData.attackName, Enums.AttackSkill.WeaponAttack);
+                Attacks[weaponAttackData.attackName].InitializeWeapon(weaponAttackData);
+            }
+            if(projectileAttackData!=null)
+            {
+                AddSkills(projectileAttackData.attackName, Enums.AttackSkill.ProjectileAttack);
+                Attacks[projectileAttackData.attackName].InitializeProjectile(projectileAttackData);
+            }
+            if(fanshapeAttackData!=null)
+            {
+                AddSkills(fanshapeAttackData.attackName, Enums.AttackSkill.FanshapeAttack);
+                Attacks[fanshapeAttackData.attackName].InitializeFanShape(fanshapeAttackData);
+            }
         }
 
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
+            ticketMachine.AddTicket(ChannelType.Combat);
         }
 
         private void InitUI()
@@ -76,8 +89,10 @@ namespace Assets.Scripts.Monsters
 
         private void InitData()
         {
-            dataContainer.MaxHp = (int)monsterData.HP;
-            dataContainer.CurrentHp.Value = (int)Mathf.Ceil(monsterData.HP);
+            dataContainer.MaxHp = (int)monsterData.maxHP;
+            currentHP = monsterData.maxHP;
+            dataContainer.PrevHp = (int)currentHP;
+            dataContainer.CurrentHp.Value = (int)currentHP;
             dataContainer.Name = monsterData.monsterName;
 
             billboard.InitData(dataContainer);
@@ -101,8 +116,14 @@ namespace Assets.Scripts.Monsters
             behaviourTreeInstance.SetBlackboardValue<GameObject>("PatrolPoints", obj);
             obj.SetActive(false);
 
-            behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", transform.position);
+            spawnPosition = gameObject.transform.position;
+            behaviourTreeInstance.SetBlackboardValue<Vector3>("SpawnPosition", spawnPosition);
             behaviourTreeInstance.SetBlackboardValue<float>("MovementSpeed", monsterData.movementSpeed);
+            isDead = behaviourTreeInstance.FindBlackboardKey<bool>("IsDead");
+            isDamaged = behaviourTreeInstance.FindBlackboardKey<bool>("IsDamaged");
+            isReturning = behaviourTreeInstance.FindBlackboardKey<bool>("IsReturning");
+            isDead.value = false;
+            isDamaged.value = false;
 
             if (meleeAttackData != null)
             {
@@ -134,6 +155,12 @@ namespace Assets.Scripts.Monsters
                 behaviourTreeInstance.SetBlackboardValue<float>("FleeDistance", fleeSkilldata.fleeDistance);
                 behaviourTreeInstance.SetBlackboardValue<float>("FleeSpeed", fleeSkilldata.fleeSpeed);
             }
+            if(fanshapeAttackData!=null)
+            {
+                behaviourTreeInstance.SetBlackboardValue<float>("FanshapeAnimationHold", fanshapeAttackData.animationHold);
+                behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackableDistance", fanshapeAttackData.attackableDistance);
+                behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackInterval", fanshapeAttackData.attackInterval);
+            }
         }
 
         private void SetNavMesh()
@@ -145,15 +172,13 @@ namespace Assets.Scripts.Monsters
             agent.baseOffset = -0.1f;
         }
 
-        public override void ReceiveDamage(IBaseEventPayload payload)
+        public void ChangeEffectState(StatusEffectName effect)
         {
-            CombatPayload combatPayload = payload as CombatPayload;
-            Damaged(combatPayload.Damage);
+            
         }
-
-        private void Damaged(float damage)
+        public override void ReturnSpawnLocation()
         {
-            monsterData.HP -= damage;
+            gameObject.transform.position = spawnPosition;
         }
     }
 }

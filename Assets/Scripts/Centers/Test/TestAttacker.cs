@@ -16,7 +16,7 @@ namespace Assets.Scripts.Centers.Test
         public int testDamage;
         public float testEffectDuration;
         public float testForce;
-        public PlayerStatusEffectName statusEffect;
+        public StatusEffectName statusEffect;
         private TicketMachine ticketMachine;
 
         private void Awake()

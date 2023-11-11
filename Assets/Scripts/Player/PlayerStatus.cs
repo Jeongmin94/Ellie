@@ -45,7 +45,7 @@ namespace Assets.Scripts.Player
         public bool isDead;
         public bool isRecoveringStamina;
 
-        private Dictionary<PlayerStatusEffectName, IPlayerStatusEffect> playerStatusEffects;
+        private Dictionary<StatusEffectName, IPlayerStatusEffect> playerStatusEffects;
         private PlayerStatusEffectController playerStatusEffectController;
 
         float tempStamina;
@@ -98,11 +98,11 @@ namespace Assets.Scripts.Player
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
-            playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
-            playerStatusEffects.Add(PlayerStatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
-            playerStatusEffects.Add(PlayerStatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
-            playerStatusEffects.Add(PlayerStatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
-            playerStatusEffects.Add(PlayerStatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
+            playerStatusEffects.Add(StatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
+            playerStatusEffects.Add(StatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
+            playerStatusEffects.Add(StatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
+            playerStatusEffects.Add(StatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
+            playerStatusEffects.Add(StatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
 
 
         }
@@ -161,9 +161,10 @@ namespace Assets.Scripts.Player
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
+            Debug.Log("Player recieve Damage");
             CombatPayload combatPayload = payload as CombatPayload;
             //상태이상 공격 처리 로직
-            if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
+            if (combatPayload.PlayerStatusEffectName != StatusEffectName.None)
             {
                 Debug.Log("Player : RecieveDamage");
                 playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
