@@ -87,11 +87,11 @@ namespace Assets.Scripts.UI.Equipment
         {
         }
 
-        public void InitFrame(Vector2[] directions)
+        public void InitFrame(Vector2[] directions, string uiName)
         {
             for (int i = 0; i < directions.Length; i++)
             {
-                var frame = UIManager.Instance.MakeSubItem<EquipmentFrame>(panelRect, EquipmentFrame.Path);
+                var frame = UIManager.Instance.MakeSubItem<EquipmentFrame>(panelRect, uiName);
                 frame.name = $"{frame.name}#{i}";
                 frame.SetFrame(frameWidth, frameHeight);
                 frame.SetFrameImage(frameImage);

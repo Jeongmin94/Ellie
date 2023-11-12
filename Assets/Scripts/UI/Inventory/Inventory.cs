@@ -468,7 +468,7 @@ namespace Assets.Scripts.UI.Inventory
             };
 
             var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
-            consumptionCanvas.InitFrame(directions);
+            consumptionCanvas.InitFrame(directions, EquipmentFrame.DefaultPath);
             consumptionCanvas.RegisterObservers(consumptionArea.GetSlots());
             consumptionCanvas.groupType = GroupType.Consumption;
 
@@ -485,15 +485,20 @@ namespace Assets.Scripts.UI.Inventory
 
             stoneCanvas.InitFrameCanvas();
 
+            const float INF = 9999.0f;
             Vector2[] directions =
             {
                 new Vector2(0.0f, stoneCanvas.FrameHeight / 2.0f),
                 new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
-                new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameWidth / 2.0f),
+                new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
+                // new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight * 1.5f),
+                // new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight * 1.5f),
+                new Vector2(INF, INF),
+                new Vector2(INF, INF),
             };
 
             var stoneArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Stone);
-            stoneCanvas.InitFrame(directions);
+            stoneCanvas.InitFrame(directions, EquipmentFrame.StonePath);
             stoneCanvas.RegisterObservers(stoneArea.GetSlots());
             stoneCanvas.groupType = GroupType.Stone;
 

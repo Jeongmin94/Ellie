@@ -8,7 +8,8 @@ namespace Assets.Scripts.UI.Equipment
 {
     public class EquipmentFrame : UIBase
     {
-        public static readonly string Path = "Slot/Equipment/EquipmentFrame";
+        public static readonly string DefaultPath = "Slot/Equipment/EquipmentFrame";
+        public static readonly string StonePath = "Slot/Equipment/StoneEquipmentFrame";
 
         private enum Images
         {
