@@ -10,9 +10,9 @@ public class RectangleRange : BaseRange
     public float Width { get; private set; }
     public float Height { get; private set; }
 
-    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
+    public override void Init(GameObject rangeObject, RangePayload payload)
     {
-        base.Init(rangeObject, objTransform, isSetParent);
+        base.Init(rangeObject, payload);
 
         RangeObject.name = "RectangleRange";
     }
@@ -55,7 +55,7 @@ public class RectangleRange : BaseRange
         meshRenderer.material = DetectionMaterial;
     }
 
-    public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
+    public override List<Transform> CheckRange(string checkTag = "", int layerMask = -1)
     {
         Transform objTransform = RangeObject.transform;
 
@@ -67,10 +67,10 @@ public class RectangleRange : BaseRange
         Collider[] collidersInRectangle = Physics.OverlapBox(center, new Vector3(Width / 2, 1, Height / 2), direction, layerMask);
 
         // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
+        List<Transform> targets = new List<Transform>();
         foreach (Collider collider in collidersInRectangle)
         {
-            if (checkTag == null || collider.tag == checkTag)
+            if (checkTag == "" || collider.CompareTag(checkTag))
             {
                 // 이 콜라이더의 위치를 사각형의 로컬 좌표계로 변환합니다.
                 Vector3 localColliderPosition = objTransform.InverseTransformPoint(collider.transform.position);
@@ -78,11 +78,11 @@ public class RectangleRange : BaseRange
                 // 이 콜라이더의 로컬 위치가 사각형 범위 내에 있는지 확인합니다.
                 if (Mathf.Abs(localColliderPosition.x) < Width / 2 && Mathf.Abs(localColliderPosition.z) < Height / 2)
                 {
-                    enemies.Add(collider.transform);
+                    targets.Add(collider.transform);
                 }
             }
         }
 
-        return enemies;
+        return targets;
     }
 }

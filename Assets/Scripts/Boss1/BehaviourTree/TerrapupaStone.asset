@@ -46,6 +46,8 @@ MonoBehaviour:
   - rid: 283011178275274826
   - rid: 283011178275274828
   - rid: 283011178275274830
+  - rid: 1683426247750189098
+  - rid: 1683426247750189100
   treeState: 0
   blackboard:
     keys:
@@ -58,8 +60,9 @@ MonoBehaviour:
     - rid: 283011153473568811
     - rid: 283011090204065841
     - rid: 283011178275274829
-  viewPosition: {x: 1712, y: 432.8, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+    - rid: 1683426247750189099
+  viewPosition: {x: 1676.8, y: 209.6, z: 0}
+  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
     RefIds:
@@ -101,7 +104,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 96d4a4956a237114789dfe1594c91c77
-        position: {x: -1605, y: -435}
+        position: {x: -1590, y: -420}
         blackboard:
           keys: []
         description: 
@@ -243,6 +246,7 @@ MonoBehaviour:
         description: 
         drawGizmos: 0
         children:
+        - rid: 1683426247750189098
         - rid: 8619125029124177954
         - rid: 1401849265356013579
     - rid: 283011178275274825
@@ -389,6 +393,7 @@ MonoBehaviour:
         - rid: 8619125029124177929
         - rid: 283011090204065842
         - rid: 1401849379394682880
+        - rid: 1683426247750189100
         - rid: 1401849265356013617
         - rid: 8619125051680882732
     - rid: 1401849265356013605
@@ -412,7 +417,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6172c072c7095544b9a8bbc47676a5c2
-        position: {x: -1170, y: -420}
+        position: {x: -1020, y: -420}
         blackboard:
           keys: []
         description: 
@@ -464,6 +469,70 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 1
+    - rid: 1683426247750189098
+      type: {class: AddTrapezoidRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e26d0e2d64913ea4bb8c1c5ca424d83a
+        position: {x: -3675, y: 165}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189099
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 1
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 1
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        height:
+          reference:
+            rid: -2
+          defaultValue: 50
+        upperBase:
+          reference:
+            rid: -2
+          defaultValue: 3
+        lowerBase:
+          reference:
+            rid: -2
+          defaultValue: 3
+    - rid: 1683426247750189099
+      type: {class: RangeKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: range
+        typeName: BaseRange, Assembly.Ellie, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 1683426247750189100
+      type: {class: DeleteRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 883dd3c6799b1c54a844989bd7dd0606
+        position: {x: -1185, y: -420}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189099
+          defaultValue: {fileID: 0}
     - rid: 8619125029124177924
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -639,7 +708,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 8c1177f33a503544f91cf4716e7c2786
-        position: {x: -3390, y: 150}
+        position: {x: -3390, y: 165}
         blackboard:
           keys: []
         description: 
@@ -707,7 +776,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 41ea8eaac528c2f4a848642abf83fa46
-        position: {x: -870, y: -420}
+        position: {x: -720, y: -420}
         blackboard:
           keys: []
         description: 

@@ -144,4 +144,10 @@ namespace TheKiwiCoder {
     {
 
     }
+
+    [System.Serializable]
+    public class RangeKey : BlackboardKey<BaseRange>
+    {
+
+    }
 }

@@ -10,6 +10,7 @@ public class RangeTest : MonoBehaviour
 
     public Transform target;
     public Material material;
+    public bool isFollow = false;
     public float radius = 10.0f;
     public float angle = 60.0f;
     public float height = 10.0f;
@@ -27,6 +28,9 @@ public class RangeTest : MonoBehaviour
 
     private List<Transform> RangeCheck()
     {
+        if (my == null)
+            return null;
+
         switch (type)
         {
             case RangeType.Cone:
@@ -58,12 +62,15 @@ public class RangeTest : MonoBehaviour
             if (my != null)
                 Destroy(my);
 
-            my = RangeManager.Instance.CreateRange(target, new RangePayload
+            my = RangeManager.Instance.CreateRange(new RangePayload
             {
                 Type = RangeType.Cone,
+                Original = target,
+                IsFollowOrigin = isFollow,
                 Radius = radius,
                 Angle = angle,
-                DetectionMaterial = material,
+
+                RemainTime = 3.0f,
             });
 
             type = RangeType.Cone;
@@ -73,11 +80,12 @@ public class RangeTest : MonoBehaviour
             if (my != null)
                 Destroy(my);
 
-            my = RangeManager.Instance.CreateRange(target, new RangePayload
+            my = RangeManager.Instance.CreateRange(new RangePayload
             {
                 Type = RangeType.Circle,
+                Original = target,
+                IsFollowOrigin = isFollow,
                 Radius = radius,
-                DetectionMaterial = material,
             });
 
             type = RangeType.Circle;
@@ -87,13 +95,14 @@ public class RangeTest : MonoBehaviour
             if (my != null)
                 Destroy(my);
 
-            my = RangeManager.Instance.CreateRange(target, new RangePayload
+            my = RangeManager.Instance.CreateRange(new RangePayload
             {
                 Type = RangeType.Trapezoid,
+                Original = target,
+                IsFollowOrigin = isFollow,
                 UpperBase = upperBase,
                 LowerBase = lowerBase,
                 Height = height,
-                DetectionMaterial = material,
             });
 
             type = RangeType.Trapezoid;
@@ -103,12 +112,13 @@ public class RangeTest : MonoBehaviour
             if (my != null)
                 Destroy(my);
 
-            my = RangeManager.Instance.CreateRange(target, new RangePayload
+            my = RangeManager.Instance.CreateRange(new RangePayload
             {
                 Type = RangeType.Rectangle,
+                Original = target,
+                IsFollowOrigin = isFollow,
                 Width = width,
                 Height = height,
-                DetectionMaterial = material,
             });
 
             type = RangeType.Rectangle;
@@ -118,13 +128,14 @@ public class RangeTest : MonoBehaviour
             if (my != null)
                 Destroy(my);
 
-            my = RangeManager.Instance.CreateRange(target, new RangePayload
+            my = RangeManager.Instance.CreateRange(new RangePayload
             {
                 Type = RangeType.HybridCone,
+                Original = target,
+                IsFollowOrigin = isFollow,
                 UpperBase = upperBase,
                 Radius = radius,
                 Angle = angle,
-                DetectionMaterial = material,
             });
 
             type = RangeType.HybridCone;
@@ -170,18 +181,18 @@ public class RangeTest : MonoBehaviour
 
     }
 
-    void OnDrawGizmos()
-    {
-        // 사각형의 중심과 방향을 계산합니다.
-        Vector3 center = target.position;
-        Quaternion direction = target.rotation;
+    //void OnDrawGizmos()
+    //{
+    //    // 사각형의 중심과 방향을 계산합니다.
+    //    Vector3 center = target.position;
+    //    Quaternion direction = target.rotation;
 
-        // Gizmos를 사용하여 하이브리드 범위를 그립니다.
-        Gizmos.color = Color.red;
-        Gizmos.matrix = Matrix4x4.TRS(center, direction, Vector3.one);
-        Gizmos.DrawRay(Vector3.zero, Quaternion.Euler(0, -angle / 2, 0) * Vector3.forward * radius);
-        Gizmos.DrawRay(Vector3.zero, Quaternion.Euler(0, angle / 2, 0) * Vector3.forward * radius);
-        Gizmos.DrawWireSphere(Vector3.zero, radius);
-        Gizmos.DrawWireCube(Vector3.zero, new Vector3(upperBase, 1, 0));
-    }
+    //    // Gizmos를 사용하여 하이브리드 범위를 그립니다.
+    //    Gizmos.color = Color.red;
+    //    Gizmos.matrix = Matrix4x4.TRS(center, direction, Vector3.one);
+    //    Gizmos.DrawRay(Vector3.zero, Quaternion.Euler(0, -angle / 2, 0) * Vector3.forward * radius);
+    //    Gizmos.DrawRay(Vector3.zero, Quaternion.Euler(0, angle / 2, 0) * Vector3.forward * radius);
+    //    Gizmos.DrawWireSphere(Vector3.zero, radius);
+    //    Gizmos.DrawWireCube(Vector3.zero, new Vector3(upperBase, 1, 0));
+    //}
 }

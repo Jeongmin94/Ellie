@@ -11,9 +11,9 @@ public class TrapezoidRange : BaseRange
     public float UpperBase { get; private set; }
     public float LowerBase { get; private set; }
 
-    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
+    public override void Init(GameObject rangeObject, RangePayload payload)
     {
-        base.Init(rangeObject, objTransform, isSetParent);
+        base.Init(rangeObject, payload);
 
         RangeObject.name = "TrapezoidRange";
     }
@@ -57,7 +57,7 @@ public class TrapezoidRange : BaseRange
         meshRenderer.material = DetectionMaterial;
     }
 
-    public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
+    public override List<Transform> CheckRange(string checkTag = "", int layerMask = -1)
     {
         Transform objTransform = RangeObject.transform;
 
@@ -75,11 +75,10 @@ public class TrapezoidRange : BaseRange
         // 사다리꼴 범위 내의 모든 콜라이더를 감지합니다.
         Collider[] collidersInTrapezoid = Physics.OverlapSphere(center, Mathf.Sqrt(area), layerMask);
 
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
+        List<Transform> targets = new List<Transform>();
         foreach (Collider collider in collidersInTrapezoid)
         {
-            if (checkTag == null || collider.tag == checkTag)
+            if (checkTag == "" || collider.CompareTag(checkTag))
             {
                 // 이 콜라이더의 위치가 사다리꼴 범위 내에 있는지 확인합니다.
                 Vector3 localPoint = objTransform.InverseTransformPoint(collider.transform.position);
@@ -88,12 +87,12 @@ public class TrapezoidRange : BaseRange
                     float halfWidthAtThisPoint = Mathf.Lerp(halfWidthAtBase, halfWidthAtTop, localPoint.z / Height);
                     if (Mathf.Abs(localPoint.x) < halfWidthAtThisPoint)
                     {
-                        enemies.Add(collider.transform);
+                        targets.Add(collider.transform);
                     }
                 }
             }
         }
 
-        return enemies;
+        return targets;
     }
 }

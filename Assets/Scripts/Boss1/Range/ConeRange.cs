@@ -9,10 +9,9 @@ public class ConeRange : BaseRange
     public float Radius { get; private set; }
     public float Angle { get; private set; }
 
-
-    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
+    public override void Init(GameObject rangeObject, RangePayload payload)
     {
-        base.Init(rangeObject, objTransform, isSetParent);
+        base.Init(rangeObject, payload);
 
         RangeObject.name = "ConeRange";
     }
@@ -61,8 +60,9 @@ public class ConeRange : BaseRange
         meshRenderer.material = DetectionMaterial;
     }
 
-    public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
+    public override List<Transform> CheckRange(string checkTag = "", int layerMask = -1)
     {
+        Debug.Log(layerMask);
         Transform objTransform = RangeObject.transform;
 
         // 부채꼴의 중심과 방향을 계산합니다.
@@ -72,11 +72,10 @@ public class ConeRange : BaseRange
         // 부채꼴 범위 내의 모든 콜라이더를 감지합니다.
         Collider[] collidersInCone = Physics.OverlapSphere(center, Radius, layerMask);
 
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
+        List<Transform> targets = new List<Transform>();
         foreach (Collider collider in collidersInCone)
         {
-            if (checkTag == null || collider.tag == checkTag)
+            if (checkTag == "" || collider.CompareTag(checkTag))
             {
                 // 이 콜라이더의 위치가 부채꼴 범위 내에 있는지 확인합니다.
                 Vector3 directionToCollider = collider.transform.position - objTransform.position;
@@ -86,12 +85,12 @@ public class ConeRange : BaseRange
                     float angleToCollider = Vector3.Angle(direction * Vector3.forward, directionToCollider);
                     if (Mathf.Abs(angleToCollider) < Angle / 2)
                     {
-                        enemies.Add(collider.transform);
+                        targets.Add(collider.transform);
                     }
                 }
             }
         }
 
-        return enemies;
+        return targets;
     }
 }

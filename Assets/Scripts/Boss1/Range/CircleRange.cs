@@ -8,9 +8,9 @@ public class CircleRange : BaseRange
     public float Radius { get; private set; }
     public float Angle { get; private set; }
 
-    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
+    public override void Init(GameObject rangeObject, RangePayload payload)
     {
-        base.Init(rangeObject, objTransform, isSetParent);
+        base.Init(rangeObject, payload);
 
         RangeObject.name = "CircleRange";
     }
@@ -59,7 +59,7 @@ public class CircleRange : BaseRange
         meshRenderer.material = DetectionMaterial;
     }
 
-    public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
+    public override List<Transform> CheckRange(string checkTag = "", int layerMask = -1)
     {
         Transform objTransform = RangeObject.transform;
 
@@ -70,22 +70,21 @@ public class CircleRange : BaseRange
         // 원 범위 내의 모든 콜라이더를 감지합니다.
         Collider[] collidersInCircle = Physics.OverlapSphere(center, Radius, layerMask);
 
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
+        List<Transform> targets = new List<Transform>();
         foreach (Collider collider in collidersInCircle)
         {
-            if (checkTag  == null || collider.tag == checkTag)
+            if (checkTag == "" || collider.CompareTag(checkTag))
             {
                 // 이 콜라이더의 위치가 원 범위 내에 있는지 확인합니다.
                 Vector3 localPoint = objTransform.InverseTransformPoint(collider.transform.position);
                 float distanceToCollider = Vector3.Distance(localPoint, Vector3.zero);
                 if (distanceToCollider < Radius)
                 {
-                    enemies.Add(collider.transform);
+                    targets.Add(collider.transform);
                 }
             }
         }
 
-        return enemies;
+        return targets;
     }
 }

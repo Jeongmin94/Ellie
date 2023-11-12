@@ -1583,7 +1583,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh169092
+  m_Name: pb_Mesh23282
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1924,7 +1924,7 @@ MonoBehaviour:
   type: 0
   checkTag: Monster
   target: {fileID: 1753431928}
-  material: {fileID: 2100000, guid: bbb235fff4f48426b863b36058ab66d2, type: 2}
+  material: {fileID: 0}
   radius: 10
   angle: 60
   height: 10
@@ -2591,7 +2591,6 @@ GameObject:
   - component: {fileID: 1800794078}
   - component: {fileID: 1800794077}
   - component: {fileID: 1800794076}
-  - component: {fileID: 1800794075}
   m_Layer: 0
   m_Name: 2
   m_TagString: Monster
@@ -2599,22 +2598,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!54 &1800794075
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1800794074}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!65 &1800794076
 BoxCollider:
   m_ObjectHideFlags: 0

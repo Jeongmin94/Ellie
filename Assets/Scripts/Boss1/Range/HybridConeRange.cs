@@ -10,9 +10,9 @@ public class HybridConeRange : BaseRange
     public float Angle { get; private set; }
     public float UpperBase { get; private set; }
 
-    public override void Init(GameObject rangeObject, Transform objTransform, bool isSetParent)
+    public override void Init(GameObject rangeObject, RangePayload payload)
     {
-        base.Init(rangeObject, objTransform, isSetParent);
+        base.Init(rangeObject, payload);
 
         RangeObject.name = "HybridConeRange";
     }
@@ -71,7 +71,7 @@ public class HybridConeRange : BaseRange
         meshRenderer.material = DetectionMaterial;
     }
 
-    public override List<Transform> CheckRange(string checkTag = null, int layerMask = -1)
+    public override List<Transform> CheckRange(string checkTag = "", int layerMask = -1)
     {
         Transform objTransform = RangeObject.transform;
 
@@ -85,11 +85,10 @@ public class HybridConeRange : BaseRange
         // 하이브리드 범위 내의 모든 콜라이더를 감지합니다.
         Collider[] collidersInHybrid = Physics.OverlapSphere(center, Radius, layerMask);
 
-        // 이 콜라이더들 중에서 "적" 태그를 가진 것들만 선택합니다.
-        List<Transform> enemies = new List<Transform>();
+        List<Transform> targets = new List<Transform>();
         foreach (Collider collider in collidersInHybrid)
         {
-            if (checkTag == null || collider.tag == checkTag)
+            if (checkTag == "" || collider.CompareTag(checkTag))
             {
                 // 이 콜라이더의 위치를 하이브리드 범위의 로컬 좌표계로 변환합니다.
                 Vector3 localPoint = objTransform.InverseTransformPoint(collider.transform.position);
@@ -97,7 +96,7 @@ public class HybridConeRange : BaseRange
                 // 부채꼴 범위 내에 있는지 확인합니다.
                 if (localPoint.z >= 0 && localPoint.z <= Radius && Mathf.Abs(Mathf.Atan2(localPoint.x, localPoint.z) * Mathf.Rad2Deg) <= Angle / 2)
                 {
-                    enemies.Add(collider.transform);
+                    targets.Add(collider.transform);
                 }
                 // 사다리꼴 범위 내에 있는지 확인합니다.
                 else if (localPoint.z >= 0 && localPoint.z <= Radius)
@@ -105,12 +104,12 @@ public class HybridConeRange : BaseRange
                     float halfWidthAtThisPoint = Mathf.Lerp(UpperBase / 2, lowerBase / 2, localPoint.z / Radius);
                     if (Mathf.Abs(localPoint.x) <= halfWidthAtThisPoint)
                     {
-                        enemies.Add(collider.transform);
+                        targets.Add(collider.transform);
                     }
                 }
             }
         }
 
-        return enemies;
+        return targets;
     }
 }

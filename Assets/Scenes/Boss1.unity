@@ -153,9 +153,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
+  checkTag: Monster
   target: {fileID: 8979523351823365815}
   material: {fileID: 2100000, guid: bbb235fff4f48426b863b36058ab66d2, type: 2}
-  checkTag: Monster
+  isFollow: 0
   radius: 10
   angle: 60
   height: 10
@@ -1537,7 +1538,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23230
+  m_Name: pb_Mesh90260
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2195,7 +2196,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh23152
+  m_Name: pb_Mesh90182
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2657,7 +2658,6 @@ MonoBehaviour:
   fieldHeight: 7
   fallCheckLatency: 5
   tempMagicStoneCount: 0
-  bossDeathCheck: 0
   terrapupa: {fileID: 375716984}
   terra: {fileID: 8979523352542451406}
   pupa: {fileID: 4358872970538757720}
@@ -3934,7 +3934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.37
+      value: 13.72
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalRotation.w
