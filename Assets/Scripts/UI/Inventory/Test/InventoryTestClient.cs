@@ -98,6 +98,16 @@ namespace Assets.Scripts.UI.Inventory.Test
                 gameGoods.gold.Value++;
                 gameGoods.stonePiece.Value++;
             }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                ticketMachine.SendMessage(ChannelType.UI, MakeCCWPayload());
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
+            }
         }
 
         private UIPayload MakeInventoryOpenPayload()
@@ -145,6 +155,26 @@ namespace Assets.Scripts.UI.Inventory.Test
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
+
+            return payload;
+        }
+
+        private UIPayload MakeCCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveCounterClockwise;
+            payload.slotAreaType = SlotAreaType.Equipment;
+
+            return payload;
+        }
+
+        private UIPayload MakeCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveClockwise;
+            payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;
         }

@@ -332,6 +332,18 @@ namespace Assets.Scripts.UI.Inventory
                 ConsumeItem(uiPayload);
                 return;
             }
+
+            if (uiPayload.actionType == ActionType.MoveClockwise ||
+                uiPayload.actionType == ActionType.MoveCounterClockwise)
+            {
+                MoveEquipmentSlot(uiPayload);
+                return;
+            }
+        }
+
+        private void MoveEquipmentSlot(UIPayload payload)
+        {
+            buttonPanel.MoveItem(payload.slotAreaType, payload);
         }
 
         private void ToggleInventory()

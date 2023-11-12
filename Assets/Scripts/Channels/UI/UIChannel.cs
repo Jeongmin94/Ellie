@@ -14,15 +14,16 @@ namespace Channels.UI
     {
         AddSlotItem,
         ConsumeSlotItem,
-        RemoveSlotItem,
         ToggleInventory,
+        MoveClockwise,
+        MoveCounterClockwise,
     }
 
     public class UIPayload : IBaseEventPayload
     {
         public UIType uiType;
         public ActionType actionType;
-        public SlotAreaType slotAreaType;       // !TODO: 장착 슬롯에 장착된 아이템 땡기기 해야함
+        public SlotAreaType slotAreaType;
         public ItemData itemData;
 
         public Transform onDragParent;

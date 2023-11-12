@@ -186,7 +186,7 @@ namespace Assets.Scripts.UI.Inventory
 
                     if (slotAreas.TryGetValue(t, out var areas))
                     {
-                        areas[(int)payload.groupType].Sort();
+                        areas[(int)payload.groupType].Sort(SortType.OnLeft);
                     }
                 }
 
@@ -229,6 +229,19 @@ namespace Assets.Scripts.UI.Inventory
             if (slotAreas.TryGetValue(slotAreaType, out var area))
             {
                 area[(int)groupType].ConsumeItem(payload);
+            }
+        }
+
+        // !TODO 회전하는 슬롯에 대한 정의 필요
+        // 현재는 인벤토리에서 오픈된 type에 대해서 이동함
+        public void MoveItem(SlotAreaType slotAreaType, UIPayload payload)
+        {
+            if (type == GroupType.Etc)
+                return;
+
+            if (slotAreas.TryGetValue(slotAreaType, out var area))
+            {
+                area[(int)type].MoveItem(payload);
             }
         }
 
