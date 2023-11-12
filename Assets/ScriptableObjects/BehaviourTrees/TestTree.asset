@@ -39,7 +39,6 @@ MonoBehaviour:
   - rid: 1683426247750189071
   - rid: 1683426247750189074
   - rid: 1683426247750189075
-  - rid: 1683426247750189077
   - rid: 1683426247750189078
   - rid: 1683426247750189079
   - rid: 1683426247750189080
@@ -53,8 +52,8 @@ MonoBehaviour:
     - rid: 283011178275274806
     - rid: 1683426247750189056
     - rid: 1683426247750189076
-  viewPosition: {x: -59.2, y: 592.8, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: 1150.4, y: 218.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -238,13 +237,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: dc13f68f-8813-4271-afdd-4309e0372002
-        position: {x: 1470, y: -900}
+        position: {x: -405, y: -360}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         child:
-          rid: 1683426247750189069
+          rid: 283011178275274794
     - rid: 1683426247750189056
       type: {class: RangeKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -266,6 +265,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         startPosition:
           reference:
             rid: -2
@@ -301,6 +304,10 @@ MonoBehaviour:
           reference:
             rid: 1683426247750189056
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         origin:
           reference:
             rid: -2
@@ -336,6 +343,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         startPosition:
           reference:
             rid: -2
@@ -367,6 +378,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         origin:
           reference:
             rid: -2
@@ -398,6 +413,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         startPosition:
           reference:
             rid: -2
@@ -437,6 +456,10 @@ MonoBehaviour:
           reference:
             rid: 1683426247750189056
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         origin:
           reference:
             rid: -2
@@ -476,6 +499,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         startPosition:
           reference:
             rid: -2
@@ -511,6 +538,10 @@ MonoBehaviour:
           reference:
             rid: 1683426247750189056
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         origin:
           reference:
             rid: -2
@@ -546,6 +577,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         startPosition:
           reference:
             rid: -2
@@ -585,6 +620,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         origin:
           reference:
             rid: -2
@@ -730,43 +769,6 @@ MonoBehaviour:
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
           Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: []
-    - rid: 1683426247750189077
-      type: {class: CheckTargetOverlapSphere, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: bb6c83458c01e0549bcbf93337363bfe
-        position: {x: 90, y: -720}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        returnObject:
-          reference:
-            rid: -2
-          defaultValue: {fileID: 0}
-        layer:
-          reference:
-            rid: -2
-          defaultValue:
-            serializedVersion: 2
-            m_Bits: 0
-        tag:
-          reference:
-            rid: -2
-          defaultValue: 
-        radius:
-          reference:
-            rid: -2
-          defaultValue: 0
-        isCheckWall:
-          reference:
-            rid: -2
-          defaultValue: 0
-        isCheckRootTransform:
-          reference:
-            rid: -2
-          defaultValue: 0
     - rid: 1683426247750189078
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -798,6 +800,10 @@ MonoBehaviour:
           reference:
             rid: 1683426247750189056
           defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
         startPosition:
           reference:
             rid: -2

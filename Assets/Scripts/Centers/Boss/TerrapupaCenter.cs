@@ -89,6 +89,7 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnMeleeAttack);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnLowAttack);
         }
 
         private void SetBossTarget()
@@ -496,6 +497,66 @@ namespace Centers.Boss
                     PlayerStatusEffectName = StatusEffectName.WeakRigidity,
                     statusEffectduration = 0.05f,
                 });
+            }
+            if (manaTransform != null)
+            {
+                // 해당 마나의 샘 쿨타임 적용, 삭제
+                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
+                manaFountain.IsBroken = true;
+
+                OnDestroyedMana(new BossEventPayload
+                {
+                    Sender = payload.Sender,
+                    TransformValue1 = manaTransform,
+                    AttackTypeValue = manaFountain.banBossAttackType,
+                });
+            }
+        }
+
+        private void OnLowAttack(IBaseEventPayload bossPayload)
+        {
+            Debug.Log($"OnLowAttack");
+            BossEventPayload payload = bossPayload as BossEventPayload;
+
+            if (payload == null)
+            {
+                return;
+            }
+
+            Transform playerTransform = payload.TransformValue1;
+            Transform manaTransform = payload.TransformValue2;
+            Transform boss = payload.Sender;
+            int attack = payload.IntValue;
+
+            Debug.Log(playerTransform);
+            Debug.Log(manaTransform);
+
+            float jumpCheckValue = 1.0f;
+
+            if (playerTransform != null)
+            {
+                // 플레이어 아래 광선을 쏴서 점프 체크
+                RaycastHit hit;
+
+                LayerMask groundLayer = 1 << LayerMask.NameToLayer("Ground");
+                bool isJumping = !Physics.Raycast(playerTransform.position + Vector3.up * 0.1f, -Vector3.up, out hit, jumpCheckValue + 0.1f, groundLayer);
+
+                Debug.Log($"Raycast distance: {hit.distance}");
+                if (!isJumping)
+                {
+                    Debug.Log($"플레이어 피해 {attack} 입음");
+
+                    TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
+                    bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                    {
+                        Attacker = boss,
+                        Defender = playerTransform,
+                        Damage = payload.IntValue,
+                        PlayerStatusEffectName = StatusEffectName.Down,
+                        statusEffectduration = 0.5f,
+                        force = 10.0f,
+                    });
+                }
             }
             if (manaTransform != null)
             {

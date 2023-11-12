@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
@@ -95,6 +96,7 @@ namespace Boss.Terrapupa
             if(terrapupaData.isStuned.value)
             {
                 CombatPayload combatPayload = payload as CombatPayload;
+                PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
                 int damage = combatPayload.Damage;
 
                 GetDamaged(damage);

@@ -56,7 +56,7 @@ MonoBehaviour:
     - rid: 283011090204065905
     - rid: 283011178275274761
     - rid: 283011178275274789
-  viewPosition: {x: 1781, y: 493, z: 0}
+  viewPosition: {x: 1867.2, y: 398.4, z: 0}
   viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
@@ -286,6 +286,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125030485229583
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -297,6 +301,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -332,6 +340,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125030485229587
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -343,6 +355,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -463,6 +479,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125030485229600
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -589,6 +609,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125046743924740
       type: {class: CheckRayCastForward, ns: , asm: Assembly.Ellie}
       data:
@@ -608,3 +632,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: Wall
+        layerMask:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 0

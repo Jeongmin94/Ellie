@@ -19,23 +19,23 @@ namespace Boss.Objects
             {
                 isTrigger = true;
 
+                target = other.transform.root;
+
                 EventBus.Instance.Publish(EventBusEvents.BossAttractedByMagicStone,
                     new BossEventPayload { TransformValue1 = transform, TransformValue2 = other.transform.root });
-
-                target = other.transform.root;
             }
         }
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.transform.root == target)
+            if (other.CompareTag("Boss") && other.transform.root == target)
             {
                 isTrigger = false;
 
+                target = null;
+
                 EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone,
                     new BossEventPayload { TransformValue1 = transform, TransformValue2 = other.transform.root });
-
-                target = null;
             }
         }
     }

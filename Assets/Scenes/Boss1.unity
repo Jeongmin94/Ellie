@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &39596088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1538,7 +1538,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh90260
+  m_Name: pb_Mesh246112
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1955,15 +1955,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
-      value: 35
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.742
+      value: 0.442
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2196,7 +2196,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh90182
+  m_Name: pb_Mesh246034
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -3920,6 +3920,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8601787291080418615, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -3971,6 +3975,10 @@ PrefabInstance:
     - target: {fileID: 8979523351519513283, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8979523352929639508, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
