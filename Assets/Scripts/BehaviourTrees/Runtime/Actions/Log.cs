@@ -1,9 +1,7 @@
-
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace TheKiwiCoder {
+namespace TheKiwiCoder
+{
     [System.Serializable]
     public class Log : ActionNode {
         [Tooltip("Message to log to the console")]

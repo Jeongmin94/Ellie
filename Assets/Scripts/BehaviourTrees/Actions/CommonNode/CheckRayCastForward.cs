@@ -8,9 +8,12 @@ public class CheckRayCastForward : ActionNode
 {
     public NodeProperty<float> rayCastLength;
     public NodeProperty<string> targetTag;
+    public NodeProperty<LayerMask> layerMask;
 
     protected override void OnStart()
     {
+        if (layerMask.Value == 0)
+            layerMask.Value = -1;
     }
 
     protected override void OnStop()
@@ -19,11 +22,13 @@ public class CheckRayCastForward : ActionNode
 
     protected override State OnUpdate()
     {
-        RaycastHit hit;
+        RaycastHit[] hits;
 
-        if (Physics.Raycast(context.transform.position, context.transform.forward, out hit, rayCastLength.Value))
+        hits = Physics.RaycastAll(context.transform.position, context.transform.forward, rayCastLength.Value, layerMask.Value);
+
+        foreach (RaycastHit hit in hits)
         {
-            if (targetTag.Value == null || hit.collider.CompareTag(targetTag.Value))
+            if (targetTag.Value == "" || hit.collider.CompareTag(targetTag.Value))
             {
                 return State.Success;
             }

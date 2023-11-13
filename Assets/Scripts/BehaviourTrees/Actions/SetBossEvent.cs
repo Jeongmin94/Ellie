@@ -13,6 +13,7 @@ public class SetBossEvent : ActionNode
     public NodeProperty<Vector3> vector3Value;
     public NodeProperty<Transform> transformValue1;
     public NodeProperty<Transform> transformValue2;
+    public NodeProperty<Transform> transformValue3;
     public NodeProperty<TerrapupaAttackType> attackTypeValue;
 
     protected override void OnStart() {
@@ -27,10 +28,6 @@ public class SetBossEvent : ActionNode
 
     protected override State OnUpdate() {
         BossEventPayload payload = bossPayload.Value as BossEventPayload;
-        if(payload == null)
-        {
-            return State.Failure;
-        }
 
         if(isInit.Value)
         {
@@ -40,6 +37,7 @@ public class SetBossEvent : ActionNode
             payload.Vector3Value = vector3Value.Value;
             payload.TransformValue1 = transformValue1.Value;
             payload.TransformValue2 = transformValue2.Value;
+            payload.TransformValue3 = transformValue3.Value;
             payload.AttackTypeValue = attackTypeValue.Value;
         }
         else
@@ -50,9 +48,11 @@ public class SetBossEvent : ActionNode
             if (vector3Value.Value != Vector3.zero) payload.Vector3Value = vector3Value.Value;
             if (transformValue1.Value != null) payload.TransformValue1 = transformValue1.Value;
             if (transformValue2.Value != null) payload.TransformValue2 = transformValue2.Value;
+            if (transformValue3.Value != null) payload.TransformValue3 = transformValue3.Value;
             if (attackTypeValue.Value != TerrapupaAttackType.None) payload.AttackTypeValue = attackTypeValue.Value;
         }
 
+        payload.Sender = context.transform;
         bossPayload.Value = payload;
 
         return State.Success;

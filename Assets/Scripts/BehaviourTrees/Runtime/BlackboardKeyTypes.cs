@@ -138,4 +138,16 @@ namespace TheKiwiCoder {
     {
 
     }
+
+    [System.Serializable]
+    public class ListTransformKey : BlackboardKey<List<Transform>>
+    {
+
+    }
+
+    [System.Serializable]
+    public class RangeKey : BlackboardKey<BaseRange>
+    {
+
+    }
 }

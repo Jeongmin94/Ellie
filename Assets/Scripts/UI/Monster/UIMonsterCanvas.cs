@@ -69,7 +69,9 @@ namespace Assets.Scripts.UI.Monster
         private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
+            {
                 return;
+            }
 
             float target = value / (float)maxHealth;
             float t = time;

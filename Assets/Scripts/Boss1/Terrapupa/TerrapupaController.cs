@@ -1,24 +1,21 @@
-﻿using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System.Collections.Generic;
-using TheKiwiCoder;
+using System.Collections;
 using UnityEngine;
 
 namespace Boss.Terrapupa
 {
     public class TerrapupaController : BehaviourTreeController
     {
-        [SerializeField] private Transform target;
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
-
-        public Transform Target
-        {
-            get { return target; }
-            set { target = value; }
-        }
+        [SerializeField] private TerrapupaHealthBar healthBar;
+        [HideInInspector] public TerrapupaRootData terrapupaData;
+        
+        private TicketMachine ticketMachine;
 
         public Transform Stone
         {
@@ -32,43 +29,63 @@ namespace Boss.Terrapupa
             set { weakPoint = value; }
         }
 
-        public BlackboardKey<Transform> player;
-        public BlackboardKey<Transform> objectTransform;
-        public BlackboardKey<Transform> magicStoneTransform;
-        public BlackboardKey<int> currentHP;
-        public BlackboardKey<bool> canThrowStone;
-        public BlackboardKey<bool> canEarthQuake;
-        public BlackboardKey<bool> canRoll;
-        public BlackboardKey<bool> canLowAttack;
-        public BlackboardKey<bool> isTempted;
-        public BlackboardKey<bool> isIntake;
-        public BlackboardKey<bool> isStuned;
-
-        public BlackboardKey<Vector3> pos;
-
-        private void Start()
+        public TicketMachine TicketMachine
         {
+            get { return ticketMachine; }
+        }
+
+        public TerrapupaHealthBar HealthBar
+        { 
+            get { return healthBar; }
+        }
+
+        private void Awake()
+        {
+            InitTicketMachine();
             InitStatus();
-            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+            SubscribeEvent();
+            StartCoroutine(FallCheck());
+        }
+
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Terrapupa, ChannelType.BossInteraction);
         }
 
         private void InitStatus()
         {
-            behaviourTreeInstance.SetBlackboardValue<Transform>("player", target);
+            terrapupaData = rootTreeData as TerrapupaRootData;
+        }
 
-            player = behaviourTreeInstance.FindBlackboardKey<Transform>("player");
-            objectTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("objectTransform");
-            magicStoneTransform = behaviourTreeInstance.FindBlackboardKey<Transform>("magicStoneTransform");
-            currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
-            canThrowStone = behaviourTreeInstance.FindBlackboardKey<bool>("canThrowStone");
-            canEarthQuake = behaviourTreeInstance.FindBlackboardKey<bool>("canEarthQuake");
-            canRoll = behaviourTreeInstance.FindBlackboardKey<bool>("canRoll");
-            canLowAttack = behaviourTreeInstance.FindBlackboardKey<bool>("canLowAttack");
-            isTempted = behaviourTreeInstance.FindBlackboardKey<bool>("isTempted");
-            isIntake = behaviourTreeInstance.FindBlackboardKey<bool>("isIntake");
-            isStuned = behaviourTreeInstance.FindBlackboardKey<bool>("isStuned");
+        private void SubscribeEvent()
+        {
+            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+        }
 
-            pos = behaviourTreeInstance.FindBlackboardKey<Vector3>("pos");
+        private IEnumerator FallCheck()
+        {
+            LayerMask groundMask = LayerMask.GetMask("Ground");
+            float checkDistance = 30.0f;
+            float fallCheckLatency = 5.0f;
+            float rayStartOffset = 10.0f;
+
+            while (true)
+            {
+                RaycastHit hit;
+
+                Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
+
+                bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
+
+                if (!hitGround)
+                {
+                    Debug.Log("추락 방지, 포지션 초기화");
+                    transform.position = Vector3.zero;
+                }
+
+                yield return new WaitForSeconds(fallCheckLatency);
+            }
         }
 
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
@@ -76,19 +93,36 @@ namespace Boss.Terrapupa
             // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
             Debug.Log($"OnCollidedCoreByPlayerStone :: {payload}");
 
-            if(isStuned.value)
+            if(terrapupaData.isStuned.value)
             {
                 CombatPayload combatPayload = payload as CombatPayload;
+                PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
                 int damage = combatPayload.Damage;
 
-                currentHP.Value -= damage;
-                Debug.Log($"기절 상태, 데미지 입음 {currentHP.Value}");
+                GetDamaged(damage);
+                Debug.Log($"기절 상태, {damage} 데미지 입음 : {terrapupaData.currentHP.Value}");
                 
             }
             else 
             {
                 Debug.Log("기절 상태가 아님");
             }
+        }
+
+        public void GetDamaged(int damageValue)
+        {
+            terrapupaData.currentHP.Value -= damageValue;
+            healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+        }
+
+        public void GetHealed(int healValue)
+        {
+            terrapupaData.currentHP.Value += healValue;
+            if(terrapupaData.currentHP.value > terrapupaData.hp)
+            {
+                terrapupaData.currentHP.Value = terrapupaData.hp;
+            }
+            healthBar.RenewHealthBar(terrapupaData.currentHP.value);
         }
     }
 }

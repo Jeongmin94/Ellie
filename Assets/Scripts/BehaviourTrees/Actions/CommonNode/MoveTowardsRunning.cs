@@ -21,38 +21,43 @@ public class MoveTowardsRunning : ActionNode
     }
     protected override State OnUpdate()
     {
+        float stoppingDistanceSqr = 0.001f; // 0.000001f
+        float moveDistanceSqr = moveDistance.Value * moveDistance.Value; // 이동해야 할 거리의 제곱
+
         // Vector3 사용
         if (targetTransform.Value == null)
         {
             Vector3 currentPosition = context.transform.position;
-            if (Vector3.Distance(currentPosition, targetPosition.Value) < 0.001f)
+            Vector3 directionToTarget = targetPosition.Value - currentPosition;
+            if (directionToTarget.sqrMagnitude < stoppingDistanceSqr)
             {
                 return State.Success;
             }
 
-            Vector3 nextPosition = Vector3.MoveTowards(context.transform.position, targetPosition.Value, moveSpeed.Value * Time.deltaTime);
-            travelledDistance += Vector3.Distance(currentPosition, nextPosition);
+            Vector3 nextPosition = Vector3.MoveTowards(currentPosition, targetPosition.Value, moveSpeed.Value * Time.deltaTime);
+            travelledDistance += (nextPosition - currentPosition).magnitude;
 
-            if (travelledDistance >= moveDistance.Value)
+            if (travelledDistance * travelledDistance >= moveDistanceSqr) // 제곱값으로 비교
             {
                 return State.Success;
             }
 
-            context.transform.position = nextPosition; 
+            context.transform.position = nextPosition;
         }
         // Transform 사용
         else
         {
             Vector3 currentPosition = context.transform.position;
-            if (Vector3.Distance(currentPosition, targetTransform.Value.position) < 0.001f)
+            Vector3 directionToTarget = targetTransform.Value.position - currentPosition;
+            if (directionToTarget.sqrMagnitude < stoppingDistanceSqr)
             {
                 return State.Success;
             }
 
-            Vector3 nextPosition = Vector3.MoveTowards(context.transform.position, targetTransform.Value.position, moveSpeed.Value * Time.deltaTime);
-            travelledDistance += Vector3.Distance(currentPosition, nextPosition);
+            Vector3 nextPosition = Vector3.MoveTowards(currentPosition, targetTransform.Value.position, moveSpeed.Value * Time.deltaTime);
+            travelledDistance += (nextPosition - currentPosition).magnitude;
 
-            if (travelledDistance >= moveDistance.Value)
+            if (travelledDistance * travelledDistance >= moveDistanceSqr) // 제곱값으로 비교
             {
                 return State.Success;
             }
@@ -60,7 +65,8 @@ public class MoveTowardsRunning : ActionNode
             context.transform.position = nextPosition;
         }
 
-        // 목표 안넘어가면 유지
+        // 목표에 도달하지 않았으면 Running 상태 유지
         return State.Running;
     }
+
 }

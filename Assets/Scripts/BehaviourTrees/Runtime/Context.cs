@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using Assets.Scripts.Monsters;
-
+using Channels.Components;
 
 namespace TheKiwiCoder {
     // The context is a shared object every node has access to.
@@ -24,6 +24,7 @@ namespace TheKiwiCoder {
 
         public MonsterController controller;
         public BehaviourTreeController btController;
+        public TicketMachine ticketMachine;
 
         public static Context CreateFromGameObject(GameObject gameObject) {
             // Fetch all commonly used components
@@ -41,6 +42,7 @@ namespace TheKiwiCoder {
             // Add whatever else you need here...
             context.controller = gameObject.GetComponent<MonsterController>();
             context.btController = gameObject.GetComponent<BehaviourTreeController>();
+            context.ticketMachine = gameObject.GetComponent<TicketMachine>();
 
             return context;
         }

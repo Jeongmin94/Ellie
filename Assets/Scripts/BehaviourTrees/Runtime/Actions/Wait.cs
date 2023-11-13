@@ -26,7 +26,15 @@ namespace TheKiwiCoder {
             
             float timeRemaining = Time.time - startTime;
             if (timeRemaining > duration) {
-                return State.Success;
+                if (timeRemaining - duration > 1.0f)
+                {
+                    Debug.Log($"Wait Return Failure :: {timeRemaining - duration}");
+                    return State.Failure;
+                }
+                else
+                {
+                    return State.Success;
+                }
             }
             return State.Running;
         }
