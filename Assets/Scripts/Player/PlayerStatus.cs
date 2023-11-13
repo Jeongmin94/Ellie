@@ -168,7 +168,10 @@ namespace Assets.Scripts.Player
             {
                 Debug.Log("Player : RecieveDamage");
                 playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
-                playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
+                if (effect != null)
+                {
+                    playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
+                }
             }
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
@@ -180,7 +183,7 @@ namespace Assets.Scripts.Player
 
             info.effectDuration = payload.statusEffectduration;
             info.effectForce = payload.force;
-            return info; 
+            return info;
         }
     }
 }

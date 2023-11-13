@@ -2,11 +2,13 @@
 
 namespace Assets.Scripts.Player.States
 {
-    internal class PlayerStatusAirborne : PlayerBaseState
+    internal class PlayerStateAirborne : PlayerBaseState
     {
         Rigidbody rb;
         private float moveSpeed = 1;
-        public PlayerStatusAirborne(PlayerController controller) : base(controller)
+        private const float AIRBORNE_TIME_THRESHOLD = 3.0f;
+        private float time;
+        public PlayerStateAirborne(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
         }
@@ -18,6 +20,7 @@ namespace Assets.Scripts.Player.States
             Controller.isFalling = true;
             Controller.Anim.SetBool("IsFalling", true);
             Controller.SetColliderHeight(1f);
+            time = 0f;
         }
 
         public override void OnExitState()
@@ -36,9 +39,14 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && Controller.hasStone)
             {
                 Controller.ChangeState(PlayerStateName.Zoom);
+            }
+            time += Time.deltaTime;
+            if(time>=AIRBORNE_TIME_THRESHOLD)
+            {
+                Controller.ChangeState(PlayerStateName.Land);
             }
         }
     }

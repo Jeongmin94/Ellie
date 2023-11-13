@@ -5,8 +5,10 @@ namespace Assets.Scripts.Player
 {
     public class PlayerInteraction : MonoBehaviour
     {
-        private GameObject interactiveObject = null;
+        internal GameObject interactiveObject = null;
+        public bool isInteracting = false;
         private bool canInteract = false;
+        
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Interactive")) return;
@@ -22,8 +24,10 @@ namespace Assets.Scripts.Player
 
         private void Interact()
         {
-            if (!canInteract || null == interactiveObject) return;
+            if (GetComponent<PlayerController>().GetCurState() != PlayerStateName.Idle) return;
+            if (!canInteract || isInteracting || null == interactiveObject) return;
             interactiveObject.GetComponent<IInteractiveObject>().Interact(this.gameObject);
+            Debug.Log("interact with" + interactiveObject.name);
         }
 
         private void Update()

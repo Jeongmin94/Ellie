@@ -95,7 +95,6 @@ namespace Assets.Scripts.Player
         }
         public void Shoot(TicketMachine ticketMachine)
         {
-            Debug.Log("Shoot");
             StoneEventPayload payload = new()
             {
                 Type = StoneEventType.RequestStone,

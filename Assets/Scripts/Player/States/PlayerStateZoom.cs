@@ -15,18 +15,21 @@ namespace Assets.Scripts.Player.States
         {
             Controller.canTurn = false;
             zoomingTime = Controller.mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
-            //zoomingTime = 0.4f;
+            //zoomingTime = 1.0f;
             Controller.TurnOnAimCam();
             curTime = 0;
             if (!Controller.isGrounded)
                 Controller.isFalling = true;
             Controller.SetTimeScale(Controller.zoomMultiplier);
-            Controller.AimingAnimLayerWeight = 0f;
+            //Controller.AimingAnimLayerWeight = 0f;
+            Controller.TurnOnSlingshot();
+            Controller.TurnSlingshotLineRenderer(true);
 
         }
 
         public override void OnExitState()
         {
+            Controller.TurnOffSlingshot();
 
         }
 
@@ -36,6 +39,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
+            Controller.GrabSlingshotLeather();
             Controller.Aim();
             Controller.LookAimTarget();
             Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Aiming, 1f);
