@@ -2,7 +2,6 @@ using Assets.Scripts.Data.UI;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace Assets.Scripts.UI
 {
@@ -13,7 +12,7 @@ namespace Assets.Scripts.UI
 
         public void InitDialogText()
         {
-            dialogText = gameObject.FindChild<TextMeshProUGUI>();
+            dialogText = gameObject.FindChild<TextMeshProUGUI>(null, true);
         }
 
         public void InitTypography(DialogTypographyData typographyData)

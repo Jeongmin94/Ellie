@@ -7,6 +7,20 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+// !TODO: 대화창 UI 종류
+// 1. 이름 + 대화
+//      - 배경이 비쳐 보이는 이름과 대사창
+//      - 넘기기 버튼으로 대사 넘기기 가능(스킵 없음)
+//      - 플레이어의 조작권 회수 여부
+// 2. 대화
+//      - 대사창이 없는 상태로 대사를 출력
+//      - 일정 시간이 지나면 자동으로 사라짐
+//      - 조작권은 플레이어에게 있음
+
+// !TODO: 대사 출력 방법
+//      - 대사는 앞에서부터 순차적으로 출력
+//      - 대사의 발화자가 바뀌거나, 대사창을 초과하는 경우에는 넘기기 버튼을 클릭할 때까지 대기
+//      - 말풍선은 캐릭터의 머리 위로 투명도가 낮은 흰색 말풍선 사용
 namespace Assets.Scripts.UI
 {
     public class DialogCanvas : UIPopup
@@ -99,7 +113,5 @@ namespace Assets.Scripts.UI
             dialogContextText.InitDialogText();
             dialogContextText.InitTypography(dialogContextData);
         }
-
-        // !TODO: 다음 버튼(g) 눌렀을 때, 대화창 넘어가기 + 대화창 종료하기
     }
 }
