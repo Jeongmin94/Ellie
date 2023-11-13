@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.ActionData;
 using Assets.Scripts.Managers;
@@ -11,8 +10,6 @@ namespace Assets.Scripts.Item
 
     public class BaseItem
     {
-        private ItemDestroyHandler destroyHandler;
-
         public ItemData itemData;
 
         public readonly Data<int> itemCount = new Data<int>();
@@ -27,14 +24,10 @@ namespace Assets.Scripts.Item
             itemCount.Value++;
         }
 
-        public void SubscribeDestroyHandler(ItemDestroyHandler listener)
-        {
-            destroyHandler -= listener;
-            destroyHandler += listener;
-        }
-
         public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
         public readonly IDictionary<SlotAreaType, BaseSlotItem> slotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
+        public readonly IDictionary<SlotAreaType, BaseSlotItem> equipmentSlotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
+        // !TODO baseItem을 참조하는 아이템 제거 처리해야 함
 
         public void ChangeSlot(SlotAreaType type, InventorySlot slot)
         {
@@ -44,6 +37,11 @@ namespace Assets.Scripts.Item
         public void ChangeSlotItem(SlotAreaType type, BaseSlotItem item)
         {
             slotItems[type] = item;
+        }
+
+        public void ChangeEquipmentSlot(SlotAreaType type, BaseSlotItem item)
+        {
+            equipmentSlotItems[type] = item;
         }
 
         public void Reset()
@@ -74,6 +72,7 @@ namespace Assets.Scripts.Item
             var slotItemsKeys = slotItems.Keys;
             foreach (var key in slotItemsKeys)
             {
+                slotItems[key].SlotItemData = null;
                 ResourceManager.Instance.Destroy(slotItems[key].gameObject);
             }
 
@@ -82,6 +81,7 @@ namespace Assets.Scripts.Item
 
         public void DestroyItem(SlotAreaType type)
         {
+            slotItems[type].SlotItemData = null;
             ResourceManager.Instance.Destroy(slotItems[type].gameObject);
             slotItems.Remove(type);
         }

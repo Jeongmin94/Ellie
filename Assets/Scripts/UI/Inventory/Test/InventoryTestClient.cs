@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Equipment;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
@@ -14,14 +16,19 @@ namespace Assets.Scripts.UI.Inventory.Test
 {
     public class InventoryTestClient : MonoBehaviour
     {
-        [SerializeField] private InventoryChannel inventoryChannel;
         [SerializeField] private ItemDataParsingInfo itemDataParsingInfo;
+        [SerializeField] private GameGoods gameGoods;
 
         private TicketMachine ticketMachine;
+
+        private UIPayload testPayload;
 
         private void Awake()
         {
             InitTicketMachine();
+            gameGoods.Init();
+
+            UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
 
         private void InitTicketMachine()
@@ -41,6 +48,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         {
             yield return DataManager.Instance.CheckIsParseDone();
             Debug.Log($"{itemDataParsingInfo} 파싱 완료");
+            testPayload = MakeAddItemPayload();
         }
 
         private void Update()
@@ -54,7 +62,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             // 아이템 생성
             if (Input.GetKeyDown(KeyCode.A))
             {
-                ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload());
+                ticketMachine.SendMessage(ChannelType.UI, testPayload);
                 ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
             }
 
@@ -73,6 +81,33 @@ namespace Assets.Scripts.UI.Inventory.Test
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
             }
+
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
+            }
+
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                gameGoods.gold.Value--;
+                gameGoods.stonePiece.Value--;
+            }
+
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                gameGoods.gold.Value++;
+                gameGoods.stonePiece.Value++;
+            }
+
+            if (Input.GetKeyDown(KeyCode.N))
+            {
+                ticketMachine.SendMessage(ChannelType.UI, MakeCCWPayload());
+            }
+
+            if (Input.GetKeyDown(KeyCode.M))
+            {
+                ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
+            }
         }
 
         private UIPayload MakeInventoryOpenPayload()
@@ -89,6 +124,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.AddSlotItem;
+            payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = itemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
@@ -113,11 +149,32 @@ namespace Assets.Scripts.UI.Inventory.Test
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.ConsumeSlotItem;
+            payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = itemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
+
+            return payload;
+        }
+
+        private UIPayload MakeCCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveCounterClockwise;
+            payload.slotAreaType = SlotAreaType.Equipment;
+
+            return payload;
+        }
+
+        private UIPayload MakeCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveClockwise;
+            payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;
         }

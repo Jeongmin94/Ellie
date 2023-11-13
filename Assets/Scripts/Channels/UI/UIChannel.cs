@@ -14,8 +14,9 @@ namespace Channels.UI
     {
         AddSlotItem,
         ConsumeSlotItem,
-        RemoveSlotItem,
         ToggleInventory,
+        MoveClockwise,
+        MoveCounterClockwise,
     }
 
     public class UIPayload : IBaseEventPayload
@@ -24,13 +25,8 @@ namespace Channels.UI
         public ActionType actionType;
         public SlotAreaType slotAreaType;
         public ItemData itemData;
-        
+
         public Transform onDragParent;
-        
-        public Sprite sprite;
-        public string name;
-        public string text;
-        public int count;
     }
 
     public class UIChannel : BaseEventChannel

@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class ItemData
 {
-    public readonly GroupType groupType = GroupType.Consumption;
+    public readonly GroupType groupType = GroupType.Stone;
 
     public int index;
     public string name;

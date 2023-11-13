@@ -9,7 +9,7 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class CategoryToggleController : ToggleController
     {
-        private ToggleChangeHandler toggleChangeCallback;
+        private ActivateButtonPanelHandler activateButtonPanelCallback;
 
         public string toggleTitle;
         public GroupType type;
@@ -21,7 +21,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnDestroy()
         {
-            toggleChangeCallback = null;
+            activateButtonPanelCallback = null;
         }
 
         public void Init(GroupType groupType)
@@ -59,10 +59,10 @@ namespace Assets.Scripts.UI.Inventory
             text.color = InventoryConst.ToggleOnFontColor;
         }
 
-        public void Subscribe(ToggleChangeHandler listener)
+        public void Subscribe(ActivateButtonPanelHandler listener)
         {
-            toggleChangeCallback -= listener;
-            toggleChangeCallback += listener;
+            activateButtonPanelCallback -= listener;
+            activateButtonPanelCallback += listener;
         }
 
         private void OnValueChanged(bool isOn)
@@ -70,7 +70,7 @@ namespace Assets.Scripts.UI.Inventory
             text.fontSize = GetToggledSize(isOn);
             text.color = GetToggledColor(isOn);
             Interactable = !isOn;
-            toggleChangeCallback?.Invoke(ToggleChangeInfo.Of(type, isOn));
+            activateButtonPanelCallback?.Invoke(ToggleChangeInfo.Of(type, isOn));
         }
 
         private Color GetToggledColor(bool isOn)

@@ -4,10 +4,11 @@ namespace Assets.Scripts.UI.Inventory
     {
         public static readonly string Path = "Slot/InventorySlotItem";
 
-        private void Awake()
+        public override void InitBaseSlotItem()
         {
             Init();
         }
+
 
         protected override void Init()
         {

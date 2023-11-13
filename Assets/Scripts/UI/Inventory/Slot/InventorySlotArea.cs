@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
 using Channels.UI;
+using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +17,12 @@ namespace Assets.Scripts.UI.Inventory
         Item,
         Equipment,
         Description
+    }
+
+    public enum SortType
+    {
+        OnLeft,
+        OnRight
     }
 
     public class InventorySlotArea : UIBase
@@ -31,6 +39,11 @@ namespace Assets.Scripts.UI.Inventory
         private Action<InventoryEventPayload> slotAreaInventoryAction;
 
         private readonly List<InventorySlot> slots = new List<InventorySlot>();
+
+        public List<InventorySlot> GetSlots() => slots;
+
+        private ISlotSort left, right;
+        private IDictionary<SortType, ISlotSort> sorts = new Dictionary<SortType, ISlotSort>();
 
         private void Awake()
         {
@@ -51,6 +64,11 @@ namespace Assets.Scripts.UI.Inventory
 
         private void InitObjects()
         {
+            left = new SortOnLeft();
+            right = new SortOnRight();
+
+            sorts[SortType.OnLeft] = left;
+            sorts[SortType.OnRight] = right;
         }
 
         public void MoveSlotArea(Transform target, Transform parent, Rect size)
@@ -127,16 +145,21 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotInventoryAction(InventoryEventPayload payload)
         {
-            if (payload.eventType == InventoryEventType.CopyItemWithDrag && SlotAreaType == SlotAreaType.Equipment)
+            if (payload.eventType == InventoryEventType.CopyItemWithDrag ||
+                payload.eventType == InventoryEventType.CopyItemWithShortCut)
             {
-                var dup = FindSlot(payload.baseItem.SlotItemData.ItemIndex);
-                if (dup != null)
+                if (SlotAreaType == SlotAreaType.Equipment)
                 {
-                    return;
+                    var dup = FindSlot(payload.baseSlotItem.SlotItemData.ItemIndex);
+                    if (dup != null)
+                    {
+                        return;
+                    }
                 }
             }
 
             payload.slotAreaType = SlotAreaType;
+
             slotAreaInventoryAction?.Invoke(payload);
         }
 
@@ -158,13 +181,20 @@ namespace Assets.Scripts.UI.Inventory
             if (dup)
             {
                 dup.SlotItemData.itemCount.Value++;
-                Debug.Log($"{dup.SlotItemData.ItemName} idx: {dup.Index} - {dup.SlotItemData.itemCount.Value}");
-                return;
+                slotAreaInventoryAction(new InventoryEventPayload()
+                {
+                    eventType = InventoryEventType.UpdateEquipItem,
+                    groupType = dup.SlotItemData.itemData.groupType,
+                    baseItem = dup.SlotItemData,
+                });
             }
-
-            // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 추가
-            var emptySlot = FindEmptySlot();
-            emptySlot.CreateSlotItem(payload);
+            else
+            {
+                // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 추가
+                var emptySlot = FindEmptySlot();
+                if (emptySlot)
+                    emptySlot.CreateSlotItem(payload);
+            }
         }
 
         public void ConsumeItem(UIPayload payload)
@@ -180,39 +210,144 @@ namespace Assets.Scripts.UI.Inventory
 
             // 2. 존재하는 아이템이면 카운트 감소
             slot.SlotItemData.itemCount.Value--;
+            slotAreaInventoryAction?.Invoke(new InventoryEventPayload()
+            {
+                eventType = InventoryEventType.UpdateEquipItem,
+                groupType = slot.SlotItemData.itemData.groupType,
+                baseItem = slot.SlotItemData,
+            });
+
             if (slot.SlotItemData.itemCount.Value == 0)
             {
                 Debug.Log($"{slot.Index}의 아이템 삭제");
-                slot.SlotItemData.Reset();
 
-                Sort();
+                InventoryEventPayload inventoryEvent = new InventoryEventPayload();
+                inventoryEvent.eventType = InventoryEventType.SortSlotArea;
+                inventoryEvent.groupType = slot.SlotItemData.itemData.groupType;
+
+                slot.SlotItemData.Reset();
+                slotAreaInventoryAction?.Invoke(inventoryEvent);
             }
         }
 
-        private void Sort()
+        public void MoveItem(UIPayload payload)
         {
-            for (int i = 0; i < slots.Count; i++)
+            if (payload.actionType == ActionType.MoveClockwise)
             {
-                var current = slots[i];
-                if (current.SlotItemData == null)
-                    continue;
-
-                InventorySlot emptySlot = null;
-                for (int j = i - 1; j >= 0; j--)
+                BaseSlotItem swapItem = null;
+                for (int i = slots.Count - 1; i >= 0; i--)
                 {
-                    var s = slots[j];
-                    if (s.SlotItemData == null)
-                        emptySlot = s;
+                    var cur = slots[i];
+                    if (cur.SlotItemData == null)
+                        continue;
+
+                    if (i == slots.Count - 1)
+                    {
+                        swapItem = cur.SlotItemData.slotItems[SlotAreaType];
+                        var swap = UIManager.Instance.slotSwapBuffer;
+                        swap.SlotType = SlotAreaType;
+                        swap.InvokeCopyOrMove(swapItem);
+                    }
+                    else
+                    {
+                        slots[i + 1].InvokeCopyOrMove(cur.SlotItemData.slotItems[SlotAreaType]);
+                    }
                 }
 
-                if (emptySlot == null)
-                    continue;
+                if (swapItem)
+                {
+                    slots.First().InvokeCopyOrMove(swapItem);
+                }
+            }
+            else if (payload.actionType == ActionType.MoveCounterClockwise)
+            {
+                BaseSlotItem swapItem = null;
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    var cur = slots[i];
+                    if (cur.SlotItemData == null)
+                        continue;
 
-                Debug.Log($"empty slot: {emptySlot.Index}");
-                Debug.Log($"current slot: {current.Index}");
+                    if (i == 0)
+                    {
+                        swapItem = cur.SlotItemData.slotItems[SlotAreaType];
+                        var swap = UIManager.Instance.slotSwapBuffer;
+                        swap.SlotType = SlotAreaType;
+                        swap.InvokeCopyOrMove(swapItem);
+                    }
+                    else
+                    {
+                        slots[i - 1].InvokeCopyOrMove(cur.SlotItemData.slotItems[SlotAreaType]);
+                    }
+                }
 
-                var baseSlotItem = current.SlotItemData.slotItems[SlotAreaType];
-                emptySlot.InvokeCopyOrMove(baseSlotItem);
+                if (swapItem)
+                {
+                    slots.Last().InvokeCopyOrMove(swapItem);
+                }
+            }
+        }
+
+        public void Sort(SortType sortType)
+        {
+            sorts[sortType].Sort(slots, SlotAreaType);
+        }
+
+        private interface ISlotSort
+        {
+            void Sort(List<InventorySlot> slots, SlotAreaType slotAreaType);
+        }
+
+        private class SortOnRight : ISlotSort
+        {
+            public void Sort(List<InventorySlot> slots, SlotAreaType slotAreaType)
+            {
+                for (int i = slots.Count - 1; i >= 0; i--)
+                {
+                    var current = slots[i];
+                    if (current.SlotItemData == null)
+                        continue;
+
+                    InventorySlot emptySlot = null;
+                    for (int j = i + 1; j < slots.Count; j++)
+                    {
+                        if (slots[j].SlotItemData == null)
+                            emptySlot = slots[j];
+                    }
+
+                    if (emptySlot == null)
+                        continue;
+
+                    var baseSlotItem = current.SlotItemData.slotItems[slotAreaType];
+                    emptySlot.InvokeCopyOrMove(baseSlotItem);
+                }
+            }
+        }
+
+        private class SortOnLeft : ISlotSort
+        {
+            public void Sort(List<InventorySlot> slots, SlotAreaType slotAreaType)
+            {
+                for (int i = 0; i < slots.Count; i++)
+                {
+                    var current = slots[i];
+                    if (current.SlotItemData == null)
+                        continue;
+
+                    InventorySlot emptySlot = null;
+                    for (int j = i - 1; j >= 0; j--)
+                    {
+                        var s = slots[j];
+                        if (s.SlotItemData == null)
+                            emptySlot = s;
+                    }
+
+                    if (emptySlot == null)
+                        continue;
+
+                    var baseSlotItem = current.SlotItemData.slotItems[slotAreaType];
+                    emptySlot.InvokeCopyOrMove(baseSlotItem);
+                }
             }
         }
 

@@ -10,7 +10,6 @@ using Assets.Scripts.UI.Status;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework
@@ -70,28 +69,6 @@ namespace Assets.Scripts.UI.Framework
 
         private void OnKeyAction()
         {
-            // 아이템 습득 테스트
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                Debug.Log($"아이템 생성");
-                UIPayload payload = new UIPayload();
-                payload.uiType = UIType.Notify;
-                payload.sprite = ResourceManager.Instance.LoadExternResource<Sprite>($"{PrefixExclamationPath}{ExclamationGray}");
-                payload.name = "TestItem";
-                payload.count = 1;
-                payload.actionType = ActionType.AddSlotItem;
-
-                ticketMachine.SendMessage(ChannelType.UI, payload);
-            }
-
-            // 아이템 버리기 테스트
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Debug.Log($"아이템 삭제");
-                UIPayload payload = new UIPayload();
-                payload.uiType = UIType.Notify;
-                ticketMachine.SendMessage(ChannelType.UI, payload);
-            }
         }
 
         private void Start()

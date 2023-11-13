@@ -1,13 +1,16 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Item;
+using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Equipment;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using Data.UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
@@ -15,7 +18,7 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.Scripts.UI.Inventory
 {
-    public delegate void ToggleChangeHandler(ToggleChangeInfo changeInfo);
+    public delegate void ActivateButtonPanelHandler(ToggleChangeInfo changeInfo);
 
     public enum InventoryEventType
     {
@@ -23,15 +26,20 @@ namespace Assets.Scripts.UI.Inventory
         CopyItemWithDrag,
         CopyItemWithShortCut,
         ShowDescription,
+        SortSlotArea,
+        EquipItem,
+        UnEquipItem,
+        UpdateEquipItem,
     }
 
     public struct InventoryEventPayload
     {
         public InventoryEventType eventType;
-        public SlotAreaType slotAreaType; // 슬롯 타입: Item, Equipment
+        public SlotAreaType slotAreaType; // 슬롯 타입: Item, Equipment, Description
         public GroupType groupType;       // 아이템 타입: Consumption, Stone, Etc
-        public BaseSlotItem baseItem;     // 슬롯 아이템 정보
+        public BaseSlotItem baseSlotItem; // 슬롯 아이템 정보
         public InventorySlot slot;        // 슬롯 위치
+        public BaseItem baseItem;         // 아이템 정보
     }
 
     public class Inventory : UIPopup
@@ -53,8 +61,7 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionImageArea,
         }
 
-
-        [SerializeField] private InventoryChannel inventoryChannel;
+        [SerializeField] private GameGoods goods;
 
         // GameObject
         private GameObject descriptionPanel;
@@ -74,6 +81,20 @@ namespace Assets.Scripts.UI.Inventory
 
         // Close Button
         private CloseButton closeButton;
+
+        // Description
+        private DescriptionNamePanel descriptionNamePanel;
+        private DescriptionTextPanel descriptionTextPanel;
+        private InventorySlot descriptionSlot;
+
+        // GameGoods
+        private ImageAndTextArea goldImageAndTextArea;
+        private ImageAndTextArea stonePieceImageAndTextArea;
+
+        // Frame Canvas
+        private FrameCanvas consumptionCanvas;
+        private FrameCanvas stoneCanvas;
+        private readonly IDictionary<GroupType, FrameCanvas> frameCanvasMap = new Dictionary<GroupType, FrameCanvas>();
 
         [Tooltip("Slot Area Grid")]
         [SerializeField]
@@ -120,6 +141,7 @@ namespace Assets.Scripts.UI.Inventory
             descImageArea = GetImage((int)Images.DescriptionImageArea);
 
             buttonPanel = categoryButtonPanel.GetOrAddComponent<CategoryButtonPanel>();
+            buttonPanel.InitCategoryButtonPanel();
             buttonPanel.Subscribe(OnPanelInventoryAction);
         }
 
@@ -140,31 +162,16 @@ namespace Assets.Scripts.UI.Inventory
             descImageRect.localPosition = InventoryConst.DescImageRect.ToCanvasPos();
             descImageRect.SetParent(descriptionPanel.transform);
 
+            InitDescriptionPanel();
             InitButtonPanel();
+            InitGoodsPanel();
 
-            var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
-            AnchorPresets.SetAnchorPreset(goldRect, AnchorPresets.MiddleCenter);
-            goldRect.sizeDelta = InventoryConst.GoldRect.GetSize();
-            goldRect.localPosition = InventoryConst.GoldRect.ToCanvasPos();
-            goldRect.SetParent(categoryPanel.transform);
+            closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
+            SetValues(closeButton.transform, transform, AnchorPresets.MiddleCenter, InventoryConst.CloseButtonRect);
+            closeButton.Subscribe(OnCloseButtonClickAction);
 
-            var goldArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
-            goldArea.Rect.sizeDelta = Vector2.zero;
-            goldArea.Rect.localPosition = Vector3.zero;
-
-            SetValues(goldArea.Image.GetComponent<RectTransform>(), goldArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
-            SetValues(goldArea.Text.GetComponent<RectTransform>(), goldArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
-
-            goldArea.transform.SetParent(goldRect.transform);
-
-            var stoneArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
-            stoneArea.Rect.sizeDelta = Vector2.zero;
-            stoneArea.Rect.localPosition = Vector3.zero;
-
-            SetValues(stoneArea.Image.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
-            SetValues(stoneArea.Text.GetComponent<RectTransform>(), stoneArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
-
-            stoneArea.transform.SetParent(goldRect.transform);
+            InitConsumptionCanvas();
+            InitStoneCanvas();
         }
 
         private void InitTicketMachine()
@@ -178,22 +185,53 @@ namespace Assets.Scripts.UI.Inventory
 
         private void Start()
         {
-            var descName = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
-            descName.transform.SetParent(descriptionPanel.transform);
-
-            var descText = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
-            descText.transform.SetParent(descriptionPanel.transform);
-
-            var slot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
-            // !TODO: description 영역에서 발생하는 이벤트 관리 주체 필요
-            slot.SlotType = SlotAreaType.Description;
-            slot.transform.SetParent(descriptionPanel.transform);
-
-            closeButton = UIManager.Instance.MakeSubItem<CloseButton>(transform, CloseButton.Path);
-            SetValues(closeButton.transform, transform, AnchorPresets.MiddleCenter, InventoryConst.CloseButtonRect);
-            closeButton.Subscribe(OnCloseButtonClickAction);
-
             buttonPanel.ActivateToggle(GroupType.Stone, true);
+            OnCloseButtonClickAction();
+        }
+
+        private void InitGoodsPanel()
+        {
+            var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
+            AnchorPresets.SetAnchorPreset(goldRect, AnchorPresets.MiddleCenter);
+            goldRect.sizeDelta = InventoryConst.GoldRect.GetSize();
+            goldRect.localPosition = InventoryConst.GoldRect.ToCanvasPos();
+            goldRect.SetParent(categoryPanel.transform);
+
+            goldImageAndTextArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            goldImageAndTextArea.Rect.sizeDelta = Vector2.zero;
+            goldImageAndTextArea.Rect.localPosition = Vector3.zero;
+            goldImageAndTextArea.Image.sprite = ResourceManager.Instance.LoadSprite(ImageAndTextArea.GoldPath);
+
+            SetValues(goldImageAndTextArea.Image.GetComponent<RectTransform>(), goldImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
+            SetValues(goldImageAndTextArea.Text.GetComponent<RectTransform>(), goldImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
+
+            goldImageAndTextArea.transform.SetParent(goldRect.transform);
+            goods.gold.Subscribe(goldImageAndTextArea.OnGoodsCountChanged);
+
+            stonePieceImageAndTextArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            stonePieceImageAndTextArea.Rect.sizeDelta = Vector2.zero;
+            stonePieceImageAndTextArea.Rect.localPosition = Vector3.zero;
+            stonePieceImageAndTextArea.Image.sprite = ResourceManager.Instance.LoadSprite(ImageAndTextArea.StonePiecePath);
+
+            SetValues(stonePieceImageAndTextArea.Image.GetComponent<RectTransform>(), stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
+            SetValues(stonePieceImageAndTextArea.Text.GetComponent<RectTransform>(), stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
+
+            stonePieceImageAndTextArea.transform.SetParent(goldRect.transform);
+            goods.stonePiece.Subscribe(stonePieceImageAndTextArea.OnGoodsCountChanged);
+        }
+
+        private void InitDescriptionPanel()
+        {
+            // description panel
+            descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
+            descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
+
+            descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
+            descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
+
+            descriptionSlot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
+            descriptionSlot.SlotType = SlotAreaType.Description;
+            descriptionSlot.transform.SetParent(descriptionPanel.transform);
         }
 
         private void InitButtonPanel()
@@ -203,10 +241,9 @@ namespace Assets.Scripts.UI.Inventory
             swapBuffer.Subscribe(OnPanelInventoryAction);
             UIManager.Instance.slotSwapBuffer = swapBuffer;
 
-
             InitItemArea();
             InitEquipmentArea();
-            buttonPanel.Subscribe(ToggleChangeCallback);
+            buttonPanel.Subscribe(ActivateButtonPanelCallback);
         }
 
         private void InitItemArea()
@@ -243,7 +280,7 @@ namespace Assets.Scripts.UI.Inventory
 
         #region ToggleEvent
 
-        private void ToggleChangeCallback(ToggleChangeInfo changeInfo)
+        private void ActivateButtonPanelCallback(ToggleChangeInfo changeInfo)
         {
             var target = changeInfo.IsOn ? transform : outerRim.transform;
             if (changeInfo.IsOn)
@@ -295,6 +332,18 @@ namespace Assets.Scripts.UI.Inventory
                 ConsumeItem(uiPayload);
                 return;
             }
+
+            if (uiPayload.actionType == ActionType.MoveClockwise ||
+                uiPayload.actionType == ActionType.MoveCounterClockwise)
+            {
+                MoveEquipmentSlot(uiPayload);
+                return;
+            }
+        }
+
+        private void MoveEquipmentSlot(UIPayload payload)
+        {
+            buttonPanel.MoveItem(payload.slotAreaType, payload);
         }
 
         private void ToggleInventory()
@@ -313,12 +362,12 @@ namespace Assets.Scripts.UI.Inventory
         private void AddItem(UIPayload payload)
         {
             payload.onDragParent = transform;
-            buttonPanel.AddItem(SlotAreaType.Item, payload.itemData.groupType, payload);
+            buttonPanel.AddItem(payload.slotAreaType, payload.itemData.groupType, payload);
         }
 
         private void ConsumeItem(UIPayload payload)
         {
-            buttonPanel.ConsumeItem(SlotAreaType.Item, payload.itemData.groupType, payload);
+            buttonPanel.ConsumeItem(payload.slotAreaType, payload.itemData.groupType, payload);
         }
 
         #endregion
@@ -329,19 +378,22 @@ namespace Assets.Scripts.UI.Inventory
         {
             switch (payload.eventType)
             {
+                // 아이템 이동
                 case InventoryEventType.MoveItem:
                 {
-                    payload.baseItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseItem.SlotItemData);
-                    payload.baseItem.ChangeSlot(payload.slot.SlotType, payload.slot);
+                    payload.baseSlotItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseSlotItem.SlotItemData);
+                    payload.baseSlotItem.ChangeSlot(payload.slot.SlotType, payload.slot);
                 }
                     break;
 
+                // 드래그 앤 드롭으로 장착
                 case InventoryEventType.CopyItemWithDrag:
                 {
-                    var baseSlotItem = payload.baseItem;
+                    var baseSlotItem = payload.baseSlotItem;
                     var slot = payload.slot;
 
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
 
@@ -350,12 +402,14 @@ namespace Assets.Scripts.UI.Inventory
                 }
                     break;
 
+                // 우클릭으로 장착
                 case InventoryEventType.CopyItemWithShortCut:
                 {
-                    var baseSlotItem = payload.baseItem;
+                    var baseSlotItem = payload.baseSlotItem;
                     var slot = payload.slot;
 
                     var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
 
@@ -364,13 +418,103 @@ namespace Assets.Scripts.UI.Inventory
                 }
                     break;
 
+                // 설명창에 아이템 표시
                 case InventoryEventType.ShowDescription:
                 {
+                    var baseSlotItem = payload.baseSlotItem;
+                    descriptionNamePanel.SetDescriptionName(baseSlotItem.SlotItemData.ItemName);
+                    descriptionTextPanel.SetDescriptionText(baseSlotItem.SlotItemData.itemData.description);
+                    descriptionSlot.SetSprite(payload.baseSlotItem.SlotItemData.ItemSprite);
+                    descriptionSlot.SetViewMode(true);
                 }
                     break;
+
+                // 아이템 처음 습득시 카피 + 장착
+                case InventoryEventType.EquipItem:
+                {
+                    // 1. 장착 슬롯에 아이템 장착 요청하기
+                    var baseSlotItem = payload.baseSlotItem;
+                    var slot = payload.slot;
+
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    copy.InitBaseSlotItem();
+                    copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
+                    copy.SetOnDragParent(transform);
+
+                    baseSlotItem.ChangeSlot(slot.SlotType, slot);
+                    baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+                }
+                    break;
+
+                case InventoryEventType.UpdateEquipItem:
+                {
+                    payload.slot.InvokeEquipmentFrameAction(payload);
+                }
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        #endregion
+
+        #region FrameCanvas
+
+        private void InitConsumptionCanvas()
+        {
+            consumptionCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
+            consumptionCanvas.FrameWidth = 86.0f;
+            consumptionCanvas.FrameHeight = 86.0f;
+            consumptionCanvas.FramePanelRect = EquipmentConst.ConsumptionPanelRect;
+            consumptionCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/ConsumptionFrameRotated");
+
+            consumptionCanvas.InitFrameCanvas();
+
+            Vector2[] directions =
+            {
+                new Vector2(0.0f, consumptionCanvas.FrameHeight / 2.0f),
+                new Vector2(-consumptionCanvas.FrameWidth / 2.0f, 0.0f),
+                new Vector2(0.0f, -consumptionCanvas.FrameHeight / 2.0f),
+                new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
+            };
+
+            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
+            consumptionCanvas.InitFrame(directions, EquipmentFrame.DefaultPath);
+            consumptionCanvas.RegisterObservers(consumptionArea.GetSlots());
+            consumptionCanvas.groupType = GroupType.Consumption;
+
+            frameCanvasMap.TryAdd(GroupType.Consumption, consumptionCanvas);
+        }
+
+        private void InitStoneCanvas()
+        {
+            stoneCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
+            stoneCanvas.FrameWidth = 113.0f;
+            stoneCanvas.FrameHeight = 113.0f;
+            stoneCanvas.FramePanelRect = EquipmentConst.StonePanelRect;
+            stoneCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/StoneFrame");
+
+            stoneCanvas.InitFrameCanvas();
+
+            const float INF = 9999.0f;
+            Vector2[] directions =
+            {
+                new Vector2(0.0f, stoneCanvas.FrameHeight / 2.0f),
+                new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
+                new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
+                // new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight * 1.5f),
+                // new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight * 1.5f),
+                new Vector2(INF, INF),
+                new Vector2(INF, INF),
+            };
+
+            var stoneArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Stone);
+            stoneCanvas.InitFrame(directions, EquipmentFrame.StonePath);
+            stoneCanvas.RegisterObservers(stoneArea.GetSlots());
+            stoneCanvas.groupType = GroupType.Stone;
+
+            frameCanvasMap.TryAdd(GroupType.Stone, stoneCanvas);
         }
 
         #endregion

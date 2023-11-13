@@ -30,11 +30,12 @@ namespace Assets.Scripts.UI.Inventory
 
         private RectTransform rect;
         private readonly List<InventorySlot> copylist = new List<InventorySlot>();
-
-        // !TODO: 필요 없음. 삭제해도 됨(인벤토리 기본 구현 완료 후 삭제하기)
         private Image itemImage;
 
         private Action<InventoryEventPayload> slotInventoryAction;
+
+        // for Equipment Frame
+        private Action<InventoryEventPayload> equipmentFrameAction;
 
         private void Awake()
         {
@@ -68,6 +69,19 @@ namespace Assets.Scripts.UI.Inventory
             rect.localPosition = InventoryConst.SlotRect.ToCanvasPos();
         }
 
+        public void SetViewMode(bool isTrue)
+        {
+            var itemColor = itemImage.color;
+            itemColor.a = isTrue ? 1.0f : 0.0f;
+            itemImage.color = itemColor;
+        }
+
+        public void SetSprite(Sprite sprite)
+        {
+            itemImage.sprite = sprite;
+        }
+
+        // baseSlotItem에서 이벤트 호출할 수 있도록 열어둠
         public void InvokeSlotItemEvent(InventoryEventPayload payload)
         {
             slotInventoryAction?.Invoke(payload);
@@ -77,7 +91,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             var payload = new InventoryEventPayload
             {
-                baseItem = baseSlotItem,
+                baseSlotItem = baseSlotItem,
                 slot = this,
             };
 
@@ -142,12 +156,27 @@ namespace Assets.Scripts.UI.Inventory
             baseItem.InitResources();
 
             var origin = UIManager.Instance.MakeSubItem<InventorySlotItem>(transform, InventorySlotItem.Path);
+            origin.InitBaseSlotItem();
             origin.SetSlot(SlotItemPosition);
             origin.SetItemData(baseItem);
             origin.SetOnDragParent(payload.onDragParent);
 
             baseItem.slotItems[SlotType] = origin;
             baseItem.slots[SlotType] = this;
+
+            InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, origin);
+        }
+
+        public void InvokeEquipmentFrameEvent(InventoryEventType eventType, GroupType groupType, BaseSlotItem baseSlotItem)
+        {
+            var inventoryEventPayload = new InventoryEventPayload
+            {
+                eventType = eventType,
+                groupType = groupType,
+                baseSlotItem = baseSlotItem,
+            };
+
+            slotInventoryAction?.Invoke(inventoryEventPayload);
         }
 
         public void ClearSlotItemPosition()
@@ -161,9 +190,21 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction += listener;
         }
 
+        public void SubscribeEquipmentFrameAction(Action<InventoryEventPayload> listener)
+        {
+            equipmentFrameAction -= listener;
+            equipmentFrameAction += listener;
+        }
+
+        public void InvokeEquipmentFrameAction(InventoryEventPayload payload)
+        {
+            equipmentFrameAction?.Invoke(payload);
+        }
+
         private void OnDestroy()
         {
             slotInventoryAction = null;
+            equipmentFrameAction = null;
         }
     }
 }

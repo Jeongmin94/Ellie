@@ -1,5 +1,4 @@
 using System;
-using Assets.Scripts.Item;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -9,7 +8,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private Action<InventoryEventPayload> copyItemAction;
 
-        private void Awake()
+        public override void InitBaseSlotItem()
         {
             Init();
         }
