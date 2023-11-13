@@ -259,7 +259,7 @@ MonoBehaviour:
   m_BlendUpdateMethod: 1
   m_DefaultBlend:
     m_Style: 1
-    m_Time: 0.4
+    m_Time: 1
     m_CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -7391,8 +7391,8 @@ MonoBehaviour:
   cinematicMainCam: {fileID: 4016927572231187846}
   cinematicAimCam: {fileID: 4016927572422116012}
   cinematicDialogCam: {fileID: 1118065665}
-  walkSpeed: 4
-  sprintSpeed: 6
+  walkSpeed: 5
+  sprintSpeed: 8
   dodgeSpeed: 10
   rotationSpeed: 10
   jumpForce: 9
@@ -7420,10 +7420,10 @@ MonoBehaviour:
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
-  hasStone: 0
+  hasStone: 1
   shooter: {fileID: 1833054885}
   MeleeAttackCollider: {fileID: 1626558121}
-  zoomMultiplier: 0.2
+  zoomMultiplier: 0.5
   recoilTime: 0.3
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
   miningTime: 4
