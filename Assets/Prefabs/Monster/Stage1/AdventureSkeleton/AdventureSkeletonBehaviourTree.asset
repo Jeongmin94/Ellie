@@ -83,6 +83,7 @@ MonoBehaviour:
   - rid: 6937830456686542859
   - rid: 6937830569823436808
   - rid: 6937830569823436811
+  - rid: 6937830705275600896
   treeState: 0
   blackboard:
     keys:
@@ -110,8 +111,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542871
-  viewPosition: {x: -877, y: -61, z: 0}
-  viewScale: {x: 0.6575163, y: 0.6575163, z: 1}
+  viewPosition: {x: 1621, y: 25, z: 0}
+  viewScale: {x: 0.4971768, y: 0.4971768, z: 1}
   references:
     version: 2
     RefIds:
@@ -1146,7 +1147,7 @@ MonoBehaviour:
         animationTrigger:
           reference:
             rid: -2
-          defaultValue: SkeletonHit
+          defaultValue: CaveBat
         wait:
           reference:
             rid: -2
@@ -1440,3 +1441,14 @@ MonoBehaviour:
           reference:
             rid: 5827610127647113223
           defaultValue: 0
+    - rid: 6937830705275600896
+      type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 84706767ac062496592658219fa68df6
+        position: {x: -2205, y: 915}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0

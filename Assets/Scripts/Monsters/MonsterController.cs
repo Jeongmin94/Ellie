@@ -28,17 +28,25 @@ namespace Assets.Scripts.Monsters
         private TicketMachine ticketMachine;
         //private List<TestIteamDrop> dropableIteam;
 
+        private AudioSource audioSource;
+
+        public List<AudioClip> audioClip;
+        private Dictionary<string, AudioClip> audioClips;
+
+
         private void Awake()
         {
             //temp, will change with gamecenter
             player = GameObject.Find("Player");
 
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+            audioSource = GetComponent<AudioSource>();
 
             SetSkills();
             SetTicketMachine();
             InitUI();
             InitData();
+            SetAudios();
         }
 
         private void Start()
@@ -70,6 +78,15 @@ namespace Assets.Scripts.Monsters
                 AddSkills(fanshapeAttackData.attackName, Enums.AttackSkill.FanshapeAttack);
                 Attacks[fanshapeAttackData.attackName].InitializeFanShape(fanshapeAttackData);
             }
+        }
+
+        private void SetAudios()
+        {
+            StartCoroutine(LoadAudios());
+        }
+        private IEnumerator LoadAudios()
+        {
+            yield return null; 
         }
 
         private void SetTicketMachine()
@@ -179,6 +196,12 @@ namespace Assets.Scripts.Monsters
         public override void ReturnSpawnLocation()
         {
             gameObject.transform.position = spawnPosition;
+        }
+
+        private void PlayAudio(AudioClip clip)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
         }
     }
 }

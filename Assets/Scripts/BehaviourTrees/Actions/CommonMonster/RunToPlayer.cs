@@ -23,21 +23,16 @@ public class RunToPlayer : ActionNode
     protected override State OnUpdate()
     {
         context.agent.destination = player.Value.transform.position;
-        float remainingDistance = Vector3.SqrMagnitude(context.agent.destination - context.transform.position);
+        float distance = Vector3.SqrMagnitude(context.agent.destination - context.transform.position);
         if (accumTime < context.controller.runToPlayerData.attackDuration)
         {
-            Debug.Log("destination : " + context.agent.destination);
-            Debug.Log("Remain : "+remainingDistance);
-            Debug.Log("Stop : " + context.agent.stoppingDistance * context.agent.stoppingDistance);
-            if (remainingDistance < context.agent.stoppingDistance * context.agent.stoppingDistance)
+            if (distance < context.agent.stoppingDistance * context.agent.stoppingDistance)
             {
                 return State.Success;
             }
             accumTime += Time.deltaTime;
-            Debug.Log("Running");
             return State.Running;
         }
-        Debug.Log("FinishRun");
         return State.Success;
     }
 }
