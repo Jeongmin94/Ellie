@@ -67,7 +67,6 @@ namespace Assets.Scripts.Monsters.Attacks
 
         private void SetAndAttack(BoxColliderAttackData data, Transform otherTransform)
         {
-            Debug.Log("SetPayloadAttack");
             CombatPayload payload = new();
             payload.Type = data.combatType;
             payload.Attacker = transform;

@@ -36,6 +36,7 @@ namespace Assets.Scripts.Item.Stone
                 }
 
                 ICombatant enemy = hitObject.GetComponent<ICombatant>();
+                Debug.Log("!!!" + enemy);
 
                 if (enemy != null && !hitObject.CompareTag("Player"))
                 {
