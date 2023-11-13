@@ -28,12 +28,19 @@ namespace Assets.Scripts.Monsters
         private TicketMachine ticketMachine;
         //private List<TestIteamDrop> dropableIteam;
 
+        private AudioSource audioSource;
+
+        public List<AudioClip> audioClip;
+        private Dictionary<string, AudioClip> audioClips;
+
+
         private void Awake()
         {
             //temp, will change with gamecenter
             player = GameObject.Find("Player");
 
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
+            audioSource = GetComponent<AudioSource>();
 
             SetSkills();
             SetTicketMachine();
@@ -179,6 +186,12 @@ namespace Assets.Scripts.Monsters
         public override void ReturnSpawnLocation()
         {
             gameObject.transform.position = spawnPosition;
+        }
+
+        private void PlayAudio(AudioClip clip)
+        {
+            audioSource.clip = clip;
+            audioSource.Play();
         }
     }
 }
