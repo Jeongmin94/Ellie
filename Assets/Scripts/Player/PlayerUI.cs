@@ -38,8 +38,6 @@ namespace Assets.Scripts.Player
             var healthAndStamina = UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
             staminaBarImage = healthAndStamina.BarImage;
             
-            UIManager.Instance.MakeStatic<UIStoneInven>(UIStoneInven);
-            UIManager.Instance.MakeStatic<UIItemInven>(UIItemInven);
             statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
         }
     }

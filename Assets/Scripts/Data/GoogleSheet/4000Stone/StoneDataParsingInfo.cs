@@ -1,3 +1,4 @@
+using Assets.Scripts.Item;
 using Assets.Scripts.StatusEffects;
 using Codice.Client.BaseCommands.Ls;
 using System;
@@ -9,11 +10,8 @@ using UnityEngine;
 namespace Assets.Scripts.Data.GoogleSheet
 {
     [Serializable]
-    public class StoneData
+    public class StoneData : ItemMetaData
     {
-        public int index;
-        public string name;
-        public string description;
         public int appearanceStage;
         public int tier;
         public Element element;
@@ -26,7 +24,6 @@ namespace Assets.Scripts.Data.GoogleSheet
         public int specialEffectIndex;
         public int combineCost;
         public int sellCost;
-        public string imageName;
         public string textureName;
     }
 
@@ -58,6 +55,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                 StoneData data = new();
                 try
                 {
+                    data.groupType = UI.Inventory.GroupType.Stone;
                     //인덱스
                     data.index = int.Parse(entries[0].Trim());
                     //이름
@@ -95,8 +93,8 @@ namespace Assets.Scripts.Data.GoogleSheet
                     data.combineCost = int.Parse(entries[13].Trim());
                     //상인 판매 비용
                     data.sellCost = int.Parse(entries[14].Trim());
-                    //이미지 이름
-                    data.imageName = entries[15].Trim();
+                    //이미지 이름 -> extern의 해당 폴더 찾아가서 가져오기
+                    data.imageName = "UI/Item/Stone/" + entries[15].Trim();
                     //
                     data.textureName = entries[16].Trim();
                 }

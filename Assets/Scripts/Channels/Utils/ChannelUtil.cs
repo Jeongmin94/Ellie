@@ -23,7 +23,6 @@ namespace Channels.Utils
                     channel = new StoneChannel();
                     break;
             }
-
             return channel;
         }
     }

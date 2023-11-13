@@ -50,7 +50,7 @@ namespace Assets.Scripts.Item.Stone
         {
             var payload = new CombatPayload();
             // !TODO : 돌맹이 데이터 읽어와서 현재 돌맹이에 맞는 값으로 페이로드 초기화
-
+            
             //=> test
             payload.Type = CombatType.Projectile;
             payload.Attacker = transform;
@@ -58,7 +58,7 @@ namespace Assets.Scripts.Item.Stone
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = defender.position;
-            payload.Damage = 5;
+            payload.Damage = data.damage;
             //<=
             return payload;
         }

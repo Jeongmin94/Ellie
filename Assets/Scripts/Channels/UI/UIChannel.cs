@@ -1,3 +1,4 @@
+using Assets.Scripts.Item;
 using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
@@ -17,6 +18,7 @@ namespace Channels.UI
         ToggleInventory,
         MoveClockwise,
         MoveCounterClockwise,
+        SetPlayerProperty
     }
 
     public class UIPayload : IBaseEventPayload
@@ -24,15 +26,18 @@ namespace Channels.UI
         public UIType uiType;
         public ActionType actionType;
         public SlotAreaType slotAreaType;
-        public ItemData itemData;
-
+        public GroupType groupType;
+        //ItemMetaData는 UI에 출력할 데이터들만 포함합니다
+        public ItemMetaData itemData;
         public Transform onDragParent;
+        public bool isItemNull;
     }
 
     public class UIChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
+            Debug.Log("UIChannel receiveMessage");
             if (payload is not UIPayload uiPayload)
                 return;
 
