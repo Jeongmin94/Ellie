@@ -11,16 +11,26 @@ namespace Assets.Scripts.Monsters.Attacks
     {
         private FanShapeAttackData attackData;
         [SerializeField] private Transform target;
+        private AudioSource audioSource;
 
         private void Awake()
         {
             SetTicketMachine();
+            audioSource = gameObject.AddComponent<AudioSource>();
         }
+        private void Start()
+        {
+            audioSource.clip = audioController.GetAudio(MonsterAudioType.WeaponAttackHit);
+            audioSource.spatialBlend = 1.0f;
+            audioSource.maxDistance = 50.0f;
+        }
+
         public override void InitializeFanShape(FanShapeAttackData data)
         {
             target = GameObject.Find("Player").transform;
             attackData = data;
             base.InitializeFanShape(data);
+            audioController = transform.parent.GetComponent<MonsterAudioController>();
         }
 
         public bool CaculateDotProduct()
@@ -34,7 +44,6 @@ namespace Assets.Scripts.Monsters.Attacks
             if (degree <= attackData.angleRange / 2.0f)
             {
                 interV.y = 0;
-                Debug.Log("interV Magnitude : " + interV.magnitude);
                 if (interV.sqrMagnitude <= attackData.radius * attackData.radius)
                 {
                     return true;
@@ -58,6 +67,11 @@ namespace Assets.Scripts.Monsters.Attacks
                 {
                     if (target.CompareTag("Player"))
                     {
+                        if(audioSource.clip==null)
+                        {
+                            audioSource.clip = audioController.GetAudio(MonsterAudioType.WeaponAttackHit);
+                        }
+                        audioSource.Play();
                         SetAndAttack(attackData, target);
                         break;
                     }
