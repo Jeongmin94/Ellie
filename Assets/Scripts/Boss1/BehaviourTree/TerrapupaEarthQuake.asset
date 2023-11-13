@@ -55,6 +55,7 @@ MonoBehaviour:
   - rid: 1683426247750189113
   - rid: 1683426247750189114
   - rid: 1683426247750189115
+  - rid: 283011297055604740
   treeState: 0
   blackboard:
     keys:
@@ -74,8 +75,9 @@ MonoBehaviour:
     - rid: 283011090204065847
     - rid: 283011178275274832
     - rid: 1683426247750189102
-  viewPosition: {x: 2105.6, y: 272, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+    - rid: 283011291767373846
+  viewPosition: {x: 279.42856, y: 454.85715, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -226,7 +228,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c61994cad6f0b42488712ff95bf62725
-        position: {x: -450, y: -60}
+        position: {x: -525, y: -60}
         blackboard:
           keys: []
         description: 
@@ -279,6 +281,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 1683426247750189103
+        - rid: 283011297055604740
         - rid: 8619125046743924777
     - rid: 283011178275274832
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -358,6 +361,44 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 1
+    - rid: 283011291767373846
+      type: {class: GameObjectKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: effect1
+        typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011297055604740
+      type: {class: EarthQuakeParticle, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 1bc75dba6ff167c4ebb62d167cdfc55c
+        position: {x: 225, y: -150}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373846
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 1, y: 1, z: 1}
+        forwardOffset:
+          reference:
+            rid: -2
+          defaultValue: 0
+        angle:
+          reference:
+            rid: -2
+          defaultValue: 45
+        particleCount:
+          reference:
+            rid: -2
+          defaultValue: 5
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -383,7 +424,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: df99a5c1bff44a04791230643cf9627a
-        position: {x: -285, y: -60}
+        position: {x: -360, y: -60}
         blackboard:
           keys: []
         description: 
@@ -550,7 +591,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 38341333d4d538a40be1d5c51f29dd18
-        position: {x: 270, y: -150}
+        position: {x: 45, y: -150}
         blackboard:
           keys: []
         description: 
@@ -746,7 +787,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 0024a9f359a413f448dd9eeee721c33b
-        position: {x: -1050, y: -660}
+        position: {x: -1005, y: -645}
         blackboard:
           keys: []
         description: 
@@ -766,7 +807,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 643053a973e02494bb98a2e0af5599f0
-        position: {x: -1080, y: -525}
+        position: {x: -1035, y: -525}
         blackboard:
           keys: []
         description: 

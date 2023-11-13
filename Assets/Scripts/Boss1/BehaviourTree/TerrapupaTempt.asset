@@ -29,6 +29,8 @@ MonoBehaviour:
   - rid: 1683426094593605657
   - rid: 1683426094593605658
   - rid: 1683426094593605678
+  - rid: 283011291767373835
+  - rid: 283011291767373837
   treeState: 0
   blackboard:
     keys:
@@ -39,8 +41,8 @@ MonoBehaviour:
     - rid: 1401849440881606659
     - rid: 283011090204065826
     - rid: 283011090204065904
-  viewPosition: {x: 2259.2, y: 488, z: 0}
-  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  viewPosition: {x: 2638, y: 760, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -84,6 +86,45 @@ MonoBehaviour:
         typeName: UnityEngine.Vector3, UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
         value: {x: 0, y: 0, z: 0}
+    - rid: 283011291767373835
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 9cd78b156d9eda44b8e4e8fc85227704
+        position: {x: -2640, y: -405}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011291767373837
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011291767373837
+      type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8efa9a0f33a963840aef64fb5838ea50
+        position: {x: -2670, y: -285}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
+        animationName:
+          reference:
+            rid: 283011090204065826
+          defaultValue: 
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -225,6 +266,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 1683426094593605657
+        - rid: 283011291767373835
         - rid: 1401849440881606690
         - rid: 1401849447854899209
     - rid: 1401849447854899208
@@ -263,7 +305,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 256b07ed43d6fe04db7e7285610e2498
-        position: {x: -2730, y: -375}
+        position: {x: -3135, y: -300}
         blackboard:
           keys: []
         description: 
@@ -293,7 +335,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 81ada54f67697814783e58f8622e3da2
-        position: {x: -2730, y: -555}
+        position: {x: -3000, y: -555}
         blackboard:
           keys: []
         description: 
@@ -308,7 +350,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 185206126e6066c428bea32123917700
-        position: {x: -2550, y: -375}
+        position: {x: -2940, y: -300}
         blackboard:
           keys: []
         description: 
@@ -330,7 +372,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6222acb0dddde124daf0af9f20f54ded
-        position: {x: -2910, y: -375}
+        position: {x: -3315, y: -300}
         blackboard:
           keys: []
         description: 

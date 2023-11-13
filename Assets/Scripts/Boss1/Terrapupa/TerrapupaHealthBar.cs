@@ -20,10 +20,9 @@ public class TerrapupaHealthBar : MonoBehaviour
 
     private int a = 100;
 
-    private void Start()
+    private void Awake()
     {
         InitUI();
-        InitData();
     }
 
     private void InitUI()
@@ -35,10 +34,11 @@ public class TerrapupaHealthBar : MonoBehaviour
         billboard.InitBillboard(billboardPos);
     }
 
-    public void InitData()
+    public void InitData(TerrapupaRootData data)
     {
-        dataContainer.MaxHp = data.currentHP.value;
-        dataContainer.CurrentHp.Value = (int)Mathf.Ceil(data.currentHP.value);
+        this.data = data;
+        dataContainer.MaxHp = data.hp;
+        dataContainer.CurrentHp.Value = (int)Mathf.Ceil(data.hp);
         dataContainer.Name = data.bossName;
 
         billboard.InitData(dataContainer);

@@ -56,6 +56,8 @@ namespace Boss.Terrapupa
         private void InitStatus()
         {
             terrapupaData = rootTreeData as TerrapupaRootData;
+            healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
+            healthBar.InitData(terrapupaData);
         }
 
         private void SubscribeEvent()

@@ -60,7 +60,8 @@ MonoBehaviour:
     - rid: 1683426247750189089
     - rid: 1683426247750189092
     - rid: 1683426247750189104
-  viewPosition: {x: -589, y: 131, z: 0}
+    - rid: 283011291767373850
+  viewPosition: {x: -1694, y: 143, z: 0}
   viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
@@ -135,7 +136,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: df18f19c6765fd246890b22c41192f7c
-        position: {x: 2820, y: 210}
+        position: {x: 2805, y: 240}
         blackboard:
           keys: []
         description: 
@@ -155,7 +156,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 404e9ae248b0378488f9f8b5131e571c
-        position: {x: 2790, y: 330}
+        position: {x: 2775, y: 345}
         blackboard:
           keys: []
         description: 
@@ -192,7 +193,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 1da5e1ef87e516a49951dbfaad47de38
-        position: {x: 3390, y: 540}
+        position: {x: 3375, y: 585}
         blackboard:
           keys: []
         description: 
@@ -501,6 +502,13 @@ MonoBehaviour:
           reference:
             rid: 1401849418967941121
           defaultValue: {fileID: 0}
+    - rid: 283011291767373850
+      type: {class: GameObjectKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: effect1
+        typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

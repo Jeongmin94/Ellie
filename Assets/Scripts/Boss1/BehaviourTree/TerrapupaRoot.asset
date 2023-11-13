@@ -101,8 +101,8 @@ MonoBehaviour:
     - rid: 283011090204065792
     - rid: 283011090204065793
     - rid: 283011090204065794
-  viewPosition: {x: 870, y: 172, z: 0}
-  viewScale: {x: 0.25, y: 0.25, z: 1}
+  viewPosition: {x: 997.1429, y: -880, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -314,7 +314,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a039d84436bd89a44badbcf9421e70ad
-        position: {x: 735, y: 600}
+        position: {x: 750, y: 600}
         blackboard:
           keys: []
         description: "\uD68C\uC804 \uACF5\uACA9"
@@ -593,7 +593,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: TerrapupaReactLowAttack
+          defaultValue: TerrapupaLowAttack
     - rid: 283011177918496778
       type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -640,7 +640,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: TerrapupaReactRoll
+          defaultValue: TerrapupaRoll
     - rid: 283011177918496784
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

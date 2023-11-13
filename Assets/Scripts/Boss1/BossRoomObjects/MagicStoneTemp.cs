@@ -26,17 +26,17 @@ namespace Boss.Objects
             }
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Boss") && other.transform.root == target)
-            {
-                isTrigger = false;
+        //private void OnTriggerExit(Collider other)
+        //{
+        //    if (other.CompareTag("Boss") && other.transform.root == target)
+        //    {
+        //        isTrigger = false;
 
-                target = null;
+        //        target = null;
 
-                EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone,
-                    new BossEventPayload { TransformValue1 = transform, TransformValue2 = other.transform.root });
-            }
-        }
+        //        EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone,
+        //            new BossEventPayload { TransformValue1 = transform, TransformValue2 = other.transform.root });
+        //    }
+        //}
     }
 }
