@@ -1,11 +1,12 @@
 using Assets.Scripts.Data.UI;
+using Assets.Scripts.Data.UI.Dialog;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.SimpleDialog
+namespace Assets.Scripts.UI.Dialog
 {
     public class SimpleDialogCanvas : UIPopup
     {

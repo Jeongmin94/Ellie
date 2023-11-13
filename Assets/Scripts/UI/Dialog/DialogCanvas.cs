@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Data.UI;
+using Assets.Scripts.Data.UI.Dialog;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
@@ -22,7 +23,7 @@ using UnityEngine.UI;
 //      - 대사는 앞에서부터 순차적으로 출력
 //      - 대사의 발화자가 바뀌거나, 대사창을 초과하는 경우에는 넘기기 버튼을 클릭할 때까지 대기
 //      - 말풍선은 캐릭터의 머리 위로 투명도가 낮은 흰색 말풍선 사용
-namespace Assets.Scripts.UI
+namespace Assets.Scripts.UI.Dialog
 {
     public class DialogCanvas : UIPopup
     {
