@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Data.UI;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
@@ -112,6 +113,12 @@ namespace Assets.Scripts.UI
             dialogContextText = dialogContextPanel.gameObject.GetOrAddComponent<DialogText>();
             dialogContextText.InitDialogText();
             dialogContextText.InitTypography(dialogContextData);
+        }
+
+        private void Start()
+        {
+            // for test
+            dialogContextText.Play("아무것도 먹지 못 한지 벌써 일주일이나 지났어", 0.01f);
         }
     }
 }
