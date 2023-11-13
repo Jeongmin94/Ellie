@@ -26,8 +26,9 @@ public class CheckRangeTarget : ActionNode
 
     protected override State OnUpdate()
     {
-        if (range == null)
+        if (range.Value == null)
         {
+            target = null;
             return State.Failure;
         }
 
