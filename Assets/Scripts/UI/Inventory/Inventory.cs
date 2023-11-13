@@ -18,7 +18,7 @@ using Vector3 = UnityEngine.Vector3;
 
 namespace Assets.Scripts.UI.Inventory
 {
-    public delegate void ToggleChangeHandler(ToggleChangeInfo changeInfo);
+    public delegate void ActivateButtonPanelHandler(ToggleChangeInfo changeInfo);
 
     public enum InventoryEventType
     {
@@ -243,7 +243,7 @@ namespace Assets.Scripts.UI.Inventory
 
             InitItemArea();
             InitEquipmentArea();
-            buttonPanel.Subscribe(ToggleChangeCallback);
+            buttonPanel.Subscribe(ActivateButtonPanelCallback);
         }
 
         private void InitItemArea()
@@ -280,7 +280,7 @@ namespace Assets.Scripts.UI.Inventory
 
         #region ToggleEvent
 
-        private void ToggleChangeCallback(ToggleChangeInfo changeInfo)
+        private void ActivateButtonPanelCallback(ToggleChangeInfo changeInfo)
         {
             var target = changeInfo.IsOn ? transform : outerRim.transform;
             if (changeInfo.IsOn)

@@ -38,7 +38,7 @@ namespace Assets.Scripts.UI.Inventory
         private ToggleGroup toggleGroup;
         private CategoryToggleController[] toggles;
         private GroupType type = GroupType.Consumption;
-        private ToggleChangeHandler toggleChangeCallback;
+        private ActivateButtonPanelHandler activateButtonPanelHandler;
 
         private readonly IDictionary<SlotAreaType, List<InventorySlotArea>> slotAreas = new Dictionary<SlotAreaType, List<InventorySlotArea>>();
 
@@ -98,7 +98,7 @@ namespace Assets.Scripts.UI.Inventory
                 type = changeInfo.Type; // 현재 활성화된 슬롯 타입
             }
 
-            toggleChangeCallback?.Invoke(changeInfo);
+            activateButtonPanelHandler?.Invoke(changeInfo);
         }
 
         public void MoveSlotArea(SlotAreaType areaType, GroupType groupType, Transform target, Transform parent, Rect size)
@@ -118,10 +118,10 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
-        public void Subscribe(ToggleChangeHandler listener)
+        public void Subscribe(ActivateButtonPanelHandler listener)
         {
-            toggleChangeCallback -= listener;
-            toggleChangeCallback += listener;
+            activateButtonPanelHandler -= listener;
+            activateButtonPanelHandler += listener;
         }
 
         public void ActivateToggle(GroupType groupType, bool isOn)
@@ -137,7 +137,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnDestroy()
         {
-            toggleChangeCallback = null;
+            activateButtonPanelHandler = null;
             panelInventoryAction = null;
         }
 
