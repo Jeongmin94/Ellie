@@ -32,7 +32,6 @@ public class GoogleSheetsParser : MonoBehaviour
     private IEnumerator ParseData(DataParsingInfo info)
     {
         UnityWebRequest www = UnityWebRequest.Get(info.GetConvertedURL());
-        print(info.GetConvertedURL());
         yield return www.SendWebRequest();
 
         info.tsv = www.downloadHandler.text;

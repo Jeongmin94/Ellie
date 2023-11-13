@@ -39,6 +39,7 @@ namespace Assets.Scripts.Centers.Test
             {
                 Debug.Log($"{ore.name} checked");
                 CheckTicket(ore.gameObject);
+                ore.curStage = curStage;
             }
         }
     }

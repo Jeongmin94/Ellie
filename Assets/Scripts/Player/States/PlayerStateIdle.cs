@@ -35,7 +35,10 @@ namespace Assets.Scripts.Player.States
             }
             if (Input.GetMouseButtonDown(0))
             {
-                Controller.ChangeState(PlayerStateName.Zoom);
+                if (Controller.hasStone)
+                    Controller.ChangeState(PlayerStateName.Zoom);
+                else
+                    Controller.ChangeState(PlayerStateName.MeleeAttack);
             }
             if (Input.GetKeyDown(KeyCode.G) && Controller.CurOre != null)
             {

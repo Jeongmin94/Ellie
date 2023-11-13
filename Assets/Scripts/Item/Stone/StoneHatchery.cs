@@ -5,8 +5,6 @@ using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Item.Stone
@@ -15,6 +13,7 @@ namespace Assets.Scripts.Item.Stone
     {
         private TicketMachine ticketMachine;
         private Pool stonePool;
+        [SerializeField] Mesh[] stoneMeshes;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
@@ -46,6 +45,9 @@ namespace Assets.Scripts.Item.Stone
             Poolable obj = stonePool.Pop();
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             obj.GetComponent<BaseStone>().hatchery = this;
+            int idx = Random.Range(0, stoneMeshes.Length);
+            obj.gameObject.GetComponent<MeshFilter>().mesh = stoneMeshes[idx];
+            obj.gameObject.GetComponent<MeshCollider>().sharedMesh = stoneMeshes[idx];
             return obj;
         }
 
@@ -56,7 +58,6 @@ namespace Assets.Scripts.Item.Stone
 
         public void StoneEvent(IBaseEventPayload payload)
         {
-            Debug.Log("hatchery : make stone");
             StoneEventPayload itemPayload = payload as StoneEventPayload;
             BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
             Vector3 startPos = itemPayload.StoneSpawnPos;
@@ -65,13 +66,11 @@ namespace Assets.Scripts.Item.Stone
             float strength = itemPayload.StoneStrength;
             if (itemPayload.Type == StoneEventType.RequestStone)
             {
-                Debug.Log("Release Stone at hatchery");
 
                 ReleaseStone(stone, startPos, direction, strength);
             }
             else if (itemPayload.Type == StoneEventType.MineStone)
             {
-                Debug.Log("Mine Stone at hatchery");
                 MineStone(stone, startPos, force);
             }
 

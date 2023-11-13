@@ -24,6 +24,7 @@ namespace Assets.Scripts.Player.States
             dodgeTime = 0f;
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.DodgeStaminaConsumption);
+            Controller.gameObject.tag = "Untagged";
         }
 
         public override void OnExitState()
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Player.States
             //Controller.cam.RotationSpeed = 10f;
             Controller.isDodging = false;
             Controller.Anim.SetBool("IsDodging", false);
+            Controller.gameObject.tag = "Player";
 
         }
 

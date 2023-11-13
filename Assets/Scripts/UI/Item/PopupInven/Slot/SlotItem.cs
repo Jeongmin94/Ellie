@@ -12,7 +12,7 @@ using UnityEngine.UI;
 // - 슬롯 아이템이 생성될 때, 
 namespace Assets.Scripts.UI.Item.PopupInven
 {
-    public class SlotItem : UIBase, IDraggable
+    public class SlotItem : UIBase
     {
         private enum Images
         {

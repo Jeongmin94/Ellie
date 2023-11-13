@@ -71,6 +71,21 @@ namespace Channels.Components
             }
         }
 
+        public void Ticket(IDictionary<ChannelType, BaseEventChannel> channels)
+        {
+            if (tickets.Any())
+            {
+                foreach (var channelType in tickets.Keys)
+                {
+                    tickets[channelType].Subscribe(channels[channelType]);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"{name}'s ticketTypes is Empty");
+            }
+        }
+
         /// <summary>
         /// 런타임에 Ticket을 추가합니다.
         /// </summary>

@@ -76,7 +76,7 @@ namespace Assets.Scripts.UI.Item.PopupInven
                 IsUsed = true;
                 // 슬롯이 위치 이동인지 아니면 핫스왑 등록인지 여부에 따라서 등록 설정
                 slotItem = si;
-                draggable.SetSlotInfo(SlotInfo.Of(this));
+                // draggable.SetSlotInfo(SlotInfo.Of(this));
             }
         }
     }
