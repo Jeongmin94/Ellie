@@ -42,6 +42,7 @@ MonoBehaviour:
   - rid: 1683426247750189108
   - rid: 1683426247750189112
   - rid: 1683426247750189150
+  - rid: 283011289884393473
   treeState: 0
   blackboard:
     keys:
@@ -57,8 +58,8 @@ MonoBehaviour:
     - rid: 1683426247750189092
     - rid: 1683426247750189104
     - rid: 1683426247750189151
-  viewPosition: {x: -736, y: -2.4, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: -114, y: 208, z: 0}
+  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
     RefIds:
@@ -121,6 +122,7 @@ MonoBehaviour:
         description: 
         drawGizmos: 0
         children:
+        - rid: 283011289884393473
         - rid: 1683426247750189093
         - rid: 283011018610442277
         - rid: 283011018610442278
@@ -407,6 +409,25 @@ MonoBehaviour:
         name: checkInit
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
+    - rid: 283011289884393473
+      type: {class: LookAtPosition, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: eedeccca122d9b44c931061896e8740a
+        position: {x: 1545, y: 345}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        targetTransform:
+          reference:
+            rid: 1401849418967941121
+          defaultValue: {fileID: 0}
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
