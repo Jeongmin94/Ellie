@@ -46,6 +46,7 @@ namespace Assets.Scripts.Monsters
             SetTicketMachine();
             InitUI();
             InitData();
+            SetAudios();
         }
 
         private void Start()
@@ -77,6 +78,15 @@ namespace Assets.Scripts.Monsters
                 AddSkills(fanshapeAttackData.attackName, Enums.AttackSkill.FanshapeAttack);
                 Attacks[fanshapeAttackData.attackName].InitializeFanShape(fanshapeAttackData);
             }
+        }
+
+        private void SetAudios()
+        {
+            StartCoroutine(LoadAudios());
+        }
+        private IEnumerator LoadAudios()
+        {
+            yield return null; 
         }
 
         private void SetTicketMachine()
