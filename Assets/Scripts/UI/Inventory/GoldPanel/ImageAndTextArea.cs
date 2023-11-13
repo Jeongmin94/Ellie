@@ -7,6 +7,9 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class ImageAndTextArea : UIBase
     {
+        public static readonly string GoldPath = "UI/Item/Gold2";
+        public static readonly string StonePiecePath = "UI/Item/StonePiece2";
+
         private enum Images
         {
             Image
@@ -52,6 +55,16 @@ namespace Assets.Scripts.UI.Inventory
             Text.fontSize = fontSize;
             Text.lineSpacing = lineHeight;
             Text.alignment = TextAlignmentOptions.Bottom;
+        }
+
+        public void OnGoodsCountChanged(int value)
+        {
+            if (value < 0)
+                value = 0;
+            if (value > 9999)
+                value = 9999;
+
+            Text.text = value.ToString();
         }
     }
 }

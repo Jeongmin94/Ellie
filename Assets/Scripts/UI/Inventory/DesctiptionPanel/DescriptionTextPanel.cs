@@ -50,5 +50,10 @@ namespace Assets.Scripts.UI.Inventory
             descText.alignment = TextAlignmentOptions.TopLeft;
             descText.lineSpacing = lineHeight;
         }
+
+        public void SetDescriptionText(string text)
+        {
+            descText.text = text;
+        }
     }
 }
