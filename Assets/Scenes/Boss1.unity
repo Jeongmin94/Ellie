@@ -423,7 +423,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 25a9fb42d361f46ad89221f6d301e96e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1516,6 +1516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fdcb801d8ce8fb42b941aa069e38117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stoneMeshes: []
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
 --- !u!4 &670877508
 Transform:
@@ -1538,7 +1539,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh246112
+  m_Name: pb_Mesh48594
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1925,6 +1926,7 @@ MonoBehaviour:
   channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
   player: {fileID: 2027803452}
   attacker: {fileID: 0}
+  monsters: {fileID: 0}
   hatchery: {fileID: 670877507}
   ores:
   - {fileID: 280586041}
@@ -1953,17 +1955,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.442
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.5200005
+      objectReference: {fileID: 0}
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
       value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.442
+      value: 0.74200004
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2064,6 +2074,10 @@ PrefabInstance:
     - target: {fileID: 4287311989058363499, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_TagString
       value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 6030200240847392581, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: hasStone
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
@@ -2196,7 +2210,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh246034
+  m_Name: pb_Mesh48516
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -2725,7 +2739,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c22777d6e868e4f2fb421913386b154e, type: 2}
+  - {fileID: 2100000, guid: 25a9fb42d361f46ad89221f6d301e96e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3586,6 +3600,7 @@ GameObject:
   - component: {fileID: 2062563603}
   - component: {fileID: 2062563602}
   - component: {fileID: 2062563604}
+  - component: {fileID: 2062563605}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -3712,6 +3727,26 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2062563605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2062563601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &2082996057
 GameObject:
   m_ObjectHideFlags: 0
