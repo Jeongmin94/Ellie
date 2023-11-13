@@ -1,14 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Equipment;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using Data.UI.Inventory;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
