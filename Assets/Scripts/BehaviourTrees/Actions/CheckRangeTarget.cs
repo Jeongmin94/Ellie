@@ -33,6 +33,9 @@ public class CheckRangeTarget : ActionNode
         }
 
         List<Transform> targets = range.Value.CheckRange(checkTag.Value, checkLayer.Value);
+        if(targets == null)
+            return State.Failure;
+
         foreach (var item in targets)
         {
             Debug.Log(item);

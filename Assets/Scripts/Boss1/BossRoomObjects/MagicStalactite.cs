@@ -94,7 +94,7 @@ namespace Boss.Objects
                     isFallen = false;
                     gameObject.SetActive(false);
                 }
-                else if (other.transform.CompareTag("Ground"))
+                else if (other.transform.CompareTag("Ground") || other.transform.CompareTag("InteractionObject"))
                 {
                     Debug.Log($"{other} 충돌!");
 
