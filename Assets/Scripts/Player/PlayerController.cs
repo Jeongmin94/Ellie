@@ -5,6 +5,7 @@ using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
@@ -90,6 +91,8 @@ namespace Assets.Scripts.Player
         public bool hasStone;
         public GameObject shooter;
         public GameObject MeleeAttackCollider;
+        [SerializeField] private int curStoneIdx;
+
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -151,12 +154,8 @@ namespace Assets.Scripts.Player
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
         public float RecoilTime { get { return recoilTime; } }
-        public GameObject Stone
-        {
-            get { return stone; }
-            set { stone = value; }
-        }
-
+        
+        public int CurStoneIdx { get { return curStoneIdx; } }
 
         private float inputMagnitude;
 
@@ -176,14 +175,15 @@ namespace Assets.Scripts.Player
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
         }
 
         private void Start()
         {
             //커서 락
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Locked;
+            //Cursor.visible = false;
+            //Cursor.lockState = CursorLockMode.Locked;
 
             //스테이트 머신 초기화
             InitStateMachine();
@@ -631,7 +631,34 @@ namespace Assets.Scripts.Player
             
             
             Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
+        }
+
+        private void OnNotifyAction(IBaseEventPayload payload)
+        {
+            UIPayload uiPayload = payload as UIPayload;
+            if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
+            //hasStone = !uiPayload.isItemNull;
             
+            switch (uiPayload.groupType)
+            {
+                case UI.Inventory.GroupType.Consumption:
+                    Debug.Log("Consumption");
+                    break;
+                case UI.Inventory.GroupType.Stone:
+                    Debug.Log("Stone");
+                    hasStone = !uiPayload.isItemNull;
+                    if (uiPayload.itemData != null)
+                        curStoneIdx = uiPayload.itemData.index;
+                    else
+                        curStoneIdx = 0;
+                    break;
+                case UI.Inventory.GroupType.Etc:
+                    Debug.Log("Etc");
+                    break;
+                default:
+                    Debug.Log("null");
+                    break;
+            }
         }
     }
 }

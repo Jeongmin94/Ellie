@@ -23,7 +23,12 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsShooting", true);
             Controller.SetTimeScale(1f);
             curTime = 0;
-            Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine);
+            if(Controller.CurStoneIdx != 0)
+            {
+                Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine, Controller.CurStoneIdx);
+
+
+            }
             Controller.TurnOnSlingshot();
             Controller.AddForceSlingshotLeather();
             Controller.TurnSlingshotLineRenderer(false);

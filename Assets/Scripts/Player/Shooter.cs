@@ -4,6 +4,7 @@ using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
 using System;
 using UnityEngine;
 
@@ -93,16 +94,26 @@ namespace Assets.Scripts.Player
                 }
             }
         }
-        public void Shoot(TicketMachine ticketMachine)
+        public void Shoot(TicketMachine ticketMachine, int stoneIdx)
         {
+            //해처리로 이벤트 보내기
             StoneEventPayload payload = new()
             {
-                Type = StoneEventType.RequestStone,
+                Type = StoneEventType.ShootStone,
                 StoneSpawnPos = releasePosition.position,
                 StoneDirection = launchDirection,
-                StoneStrength = shootingPower * chargingRatio
+                StoneStrength = shootingPower * chargingRatio,
+                StoneIdx = stoneIdx
             };
             ticketMachine.SendMessage(ChannelType.Stone, payload);
+            //UI에 이벤트 보내기
+            UIPayload uIPayload = new()
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.ConsumeSlotItem,
+                groupType = UI.Inventory.GroupType.Stone
+
+            };
             lineRenderer.enabled = false;
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;

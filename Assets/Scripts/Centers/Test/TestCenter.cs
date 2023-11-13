@@ -1,21 +1,49 @@
+﻿using Assets.Scripts.InteractiveObjects;
+using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.UI.Inventory.Test;
+using Centers;
 using UnityEngine;
 
-namespace Centers.Test
+namespace Assets.Scripts.Centers.Test
 {
     public class TestCenter : BaseCenter
     {
-        public TestCenterClient client;
+        public GameObject player;
+        public TestAttacker attacker;
+        public StoneHatchery hatchery;
+        public InventoryTestClient inventoryClient;
+        public Inventory inventory;
+        public Ore[] ores;
 
+        public int curStage = 1;
+       
         private void Awake()
         {
             Init();
-
-            Debug.Log($"TestCenter Awake");
+            inventory = UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
 
         protected override void Start()
         {
-            CheckTicket(client.gameObject);
+            CheckTicket(player.gameObject);
+            //CheckTicket(attacker.gameObject);
+
+            //foreach (Transform childMonster in monsters)
+            //{
+            //    CheckTicket(childMonster.gameObject);
+            //}
+
+            CheckTicket(hatchery.gameObject);
+            foreach (Ore ore in ores)
+            {
+                Debug.Log($"{ore.name} checked");
+                CheckTicket(ore.gameObject);
+                ore.curStage = curStage;
+            }
+            CheckTicket(inventoryClient.gameObject);
+            CheckTicket(inventory.gameObject);
         }
     }
 }

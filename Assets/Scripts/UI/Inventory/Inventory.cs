@@ -30,6 +30,7 @@ namespace Assets.Scripts.UI.Inventory
         EquipItem,
         UnEquipItem,
         UpdateEquipItem,
+        SendMessageToPlayer,
     }
 
     public struct InventoryEventPayload
@@ -339,6 +340,8 @@ namespace Assets.Scripts.UI.Inventory
                 MoveEquipmentSlot(uiPayload);
                 return;
             }
+            // !TODO : 플레이어 돌맹이 불 프로퍼티에 대한 로직 작성
+
         }
 
         private void MoveEquipmentSlot(UIPayload payload)
@@ -452,11 +455,37 @@ namespace Assets.Scripts.UI.Inventory
                 }
                     break;
 
+                case InventoryEventType.SendMessageToPlayer:
+                {
+                    // !TODO : UIChannel에 플레이어의 has 변수를 바꿔줄 이벤트 쏴야됨
+                    
+                    ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
+                }
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
         }
 
+
+        private UIPayload GeneratePayloadToPlayer(InventoryEventPayload payload)
+        {
+            UIPayload uiPayload = new UIPayload();
+            uiPayload.uiType = UIType.Notify;
+            if(payload.slot.SlotItemData != null)
+                uiPayload.itemData = payload.slot.SlotItemData.itemData;
+            uiPayload.actionType = ActionType.SetPlayerProperty;
+            uiPayload.groupType = payload.groupType;
+            if(payload.slot.SlotItemData == null)
+                uiPayload.isItemNull = true;
+            else
+            {
+                //uiPayload.itemData = payload.slot.SlotItemData.itemData;
+                uiPayload.isItemNull = false;
+            }
+            return uiPayload;
+        }
         #endregion
 
         #region FrameCanvas
