@@ -1,5 +1,3 @@
-using System;
-using Assets.Scripts.Data.UI;
 using Assets.Scripts.Data.UI.Dialog;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;

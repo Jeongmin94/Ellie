@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Text;
-using Assets.Scripts.Data.UI;
 using Assets.Scripts.Data.UI.Dialog;
 using Assets.Scripts.Utils;
 using TMPro;
