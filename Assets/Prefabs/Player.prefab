@@ -181,7 +181,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.999, y: 0.44200003, z: -4.52}
+  m_LocalPosition: {x: 0, y: 0.7420001, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -204,7 +204,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 54.1285
+  m_FocalLength: 38.059135
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -213,7 +213,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 25
+  field of view: 35
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -7303,6 +7303,7 @@ GameObject:
   - component: {fileID: 728780517}
   - component: {fileID: 1523587310}
   - component: {fileID: 5725452510402027805}
+  - component: {fileID: 8277164713214988917}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -7420,9 +7421,10 @@ MonoBehaviour:
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
-  hasStone: 1
+  hasStone: 0
   shooter: {fileID: 1833054885}
   MeleeAttackCollider: {fileID: 1626558121}
+  curStoneIdx: 0
   zoomMultiplier: 0.5
   recoilTime: 0.3
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
@@ -7437,6 +7439,7 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canTurn: 0
+  canAttack: 0
   isRigid: 0
 --- !u!114 &4016927572337565220
 MonoBehaviour:
@@ -7487,6 +7490,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: 0
       m_LegacyVelocityFilterStrength: 0
   cameraLookAt: {fileID: 4016927573013624959}
+  canAim: 1
 --- !u!114 &108283331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7588,6 +7592,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestDataListObj: {fileID: 11400000, guid: ede4e9372c017b24483c81459f8667a0, type: 2}
+--- !u!114 &8277164713214988917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ac7b9f0eda0304ca0d33b10a55017c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameGoods: {fileID: 11400000, guid: a0101c60cb2252647a2e44d0c3c85951, type: 2}
+  isOpen: 0
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0

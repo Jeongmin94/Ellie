@@ -50,7 +50,7 @@ namespace Assets.Scripts.Player.States
                 Controller.ChangeState(PlayerStateName.Charging);
             }
 
-            if (Input.GetMouseButtonDown(0) && Controller.canAttack)
+            if (Input.GetMouseButtonUp(0))
             {
                 Controller.SetTimeScale(1f);
                 Controller.TurnOffAimCam();
