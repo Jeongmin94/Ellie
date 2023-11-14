@@ -18,7 +18,8 @@ namespace Channels.UI
         ToggleInventory,
         MoveClockwise,
         MoveCounterClockwise,
-        SetPlayerProperty
+        SetPlayerProperty,
+        ClickCloseButton
     }
 
     public class UIPayload : IBaseEventPayload

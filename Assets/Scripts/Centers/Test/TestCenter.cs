@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.UI.Inventory.Test;
 using Centers;
@@ -13,7 +14,6 @@ namespace Assets.Scripts.Centers.Test
         public GameObject player;
         public TestAttacker attacker;
         public StoneHatchery hatchery;
-        public InventoryTestClient inventoryClient;
         public Inventory inventory;
         public Ore[] ores;
 
@@ -22,15 +22,13 @@ namespace Assets.Scripts.Centers.Test
         private void Awake()
         {
             Init();
-            inventory = UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
 
         protected override void Start()
         {
             CheckTicket(player.gameObject);
+            CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(attacker.gameObject);
-
-
             CheckTicket(hatchery.gameObject);
             foreach (Ore ore in ores)
             {
@@ -38,8 +36,7 @@ namespace Assets.Scripts.Centers.Test
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
             }
-            CheckTicket(inventoryClient.gameObject);
-            CheckTicket(inventory.gameObject);
+            //CheckTicket(inventory.gameObject);
         }
     }
 }
