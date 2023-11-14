@@ -5,16 +5,19 @@ using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System;
-using System.Collections.Generic;
+using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Item.Stone
 {
     public class StoneHatchery : MonoBehaviour
     {
+
+        private const int STONEIDXSTART = 4000;
         private TicketMachine ticketMachine;
         private Pool stonePool;
+        [SerializeField] Mesh[] stoneMeshes;
+        [SerializeField] Material[] materials;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
@@ -22,11 +25,13 @@ namespace Assets.Scripts.Item.Stone
         {
             SetTicketMachine();
             InitStonePool();
+            string resourcePath = "Materials/StoneMaterials";
+            materials = Resources.LoadAll<Material>(resourcePath);
         }
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
             //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
             ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
@@ -46,6 +51,11 @@ namespace Assets.Scripts.Item.Stone
             Poolable obj = stonePool.Pop();
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             obj.GetComponent<BaseStone>().hatchery = this;
+            int idx = Random.Range(0, stoneMeshes.Length);
+            obj.gameObject.GetComponent<MeshFilter>().mesh = stoneMeshes[idx];
+            obj.gameObject.GetComponent<MeshCollider>().sharedMesh = stoneMeshes[idx];
+            int matIdx = obj.GetComponent<BaseStone>().data.index % STONEIDXSTART;
+            obj.gameObject.GetComponent<MeshRenderer>().material = materials[matIdx];
             return obj;
         }
 
@@ -56,22 +66,28 @@ namespace Assets.Scripts.Item.Stone
 
         public void StoneEvent(IBaseEventPayload payload)
         {
-            Debug.Log("hatchery : make stone");
             StoneEventPayload itemPayload = payload as StoneEventPayload;
             BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
             Vector3 startPos = itemPayload.StoneSpawnPos;
             Vector3 direction = itemPayload.StoneDirection;
             Vector3 force = itemPayload.StoneForce;
             float strength = itemPayload.StoneStrength;
-            if (itemPayload.Type == StoneEventType.RequestStone)
+            if (itemPayload.Type == StoneEventType.ShootStone)
             {
-                Debug.Log("Release Stone at hatchery");
-
                 ReleaseStone(stone, startPos, direction, strength);
+                //UI 페이로드 작성
+                UIPayload uIPayload = new()
+                {
+                    uiType = UIType.Notify,
+                    actionType = ActionType.ConsumeSlotItem,
+                    slotAreaType = UI.Inventory.SlotAreaType.Item,
+                    itemData = stone.data,
+
+                };
+                ticketMachine.SendMessage(ChannelType.UI, uIPayload);
             }
             else if (itemPayload.Type == StoneEventType.MineStone)
             {
-                Debug.Log("Mine Stone at hatchery");
                 MineStone(stone, startPos, force);
             }
 

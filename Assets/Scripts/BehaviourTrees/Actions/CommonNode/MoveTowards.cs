@@ -14,21 +14,24 @@ public class MoveTowards : ActionNode
     protected override void OnStop() {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
+        float stoppingDistanceSqr = 0.001f;
+
         // Vector3로 이동
         if (targetTransform.Value == null)
         {
-            if (Vector3.Distance(context.transform.position, targetPosition.Value) < 0.001f)
+            if ((context.transform.position - targetPosition.Value).sqrMagnitude < stoppingDistanceSqr)
             {
                 return State.Success;
             }
 
-            context.transform.position = Vector3.MoveTowards(context.transform.position, targetPosition.Value, moveSpeed.Value * Time.deltaTime); 
+            context.transform.position = Vector3.MoveTowards(context.transform.position, targetPosition.Value, moveSpeed.Value * Time.deltaTime);
         }
         // Transform으로 이동
         else
         {
-            if (Vector3.Distance(context.transform.position, targetTransform.Value.position) < 0.001f)
+            if ((context.transform.position - targetTransform.Value.position).sqrMagnitude < stoppingDistanceSqr)
             {
                 return State.Success;
             }

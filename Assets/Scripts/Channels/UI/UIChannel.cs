@@ -1,3 +1,5 @@
+using Assets.Scripts.Item;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 namespace Channels.UI
@@ -12,28 +14,41 @@ namespace Channels.UI
     public enum ActionType
     {
         AddSlotItem,
-        RemoveSlotItem,
+        ConsumeSlotItem,
+        ToggleInventory,
+        MoveClockwise,
+        MoveCounterClockwise,
+        SetPlayerProperty,
+        ClickCloseButton
     }
 
     public class UIPayload : IBaseEventPayload
     {
         public UIType uiType;
         public ActionType actionType;
-        public Sprite sprite;
-        public string name;
-        public string text;
-        public int count;
+        public SlotAreaType slotAreaType;
+        public GroupType groupType;
+        //ItemMetaData는 UI에 출력할 데이터들만 포함합니다
+        public ItemMetaData itemData;
+        public Transform onDragParent;
+        public bool isItemNull;
     }
 
     public class UIChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            Debug.Log($"I'm UIChannel");
+            Debug.Log("UIChannel receiveMessage");
+            if (payload is not UIPayload uiPayload)
+                return;
 
-            var uiPayload = payload as UIPayload;
             if (uiPayload.uiType == UIType.Notify)
+            {
                 Publish(payload);
+                return;
+            }
+
+            // do something
         }
     }
 }

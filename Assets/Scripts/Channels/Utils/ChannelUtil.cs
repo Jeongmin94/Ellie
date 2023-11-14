@@ -1,5 +1,6 @@
 using System;
 using Assets.Scripts.Channels.Item;
+using Channels.Boss;
 using Channels.Combat;
 using Channels.Type;
 using Channels.UI;
@@ -22,8 +23,13 @@ namespace Channels.Utils
                 case ChannelType.Stone:
                     channel = new StoneChannel();
                     break;
+                case ChannelType.BossInteraction:
+                    channel = new BossInteractionChannel();
+                    break;
+                case ChannelType.Terrapupa:
+                    channel = new TerrapupaChannel();
+                    break;
             }
-
             return channel;
         }
     }

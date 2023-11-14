@@ -61,8 +61,24 @@ namespace Channels.Components
             {
                 foreach (var channelType in tickets.Keys)
                 {
+                    Debug.Log(channelType + " 채널 구독 : " + gameObject.name);
                     tickets[channelType].Subscribe(center.GetChannel(channelType));
                     Subscribe(center.OnAddTicket);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"{name}'s ticketTypes is Empty");
+            }
+        }
+
+        public void Ticket(IDictionary<ChannelType, BaseEventChannel> channels)
+        {
+            if (tickets.Any())
+            {
+                foreach (var channelType in tickets.Keys)
+                {
+                    tickets[channelType].Subscribe(channels[channelType]);
                 }
             }
             else

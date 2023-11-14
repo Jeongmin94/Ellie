@@ -5,8 +5,11 @@ using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
 using Cinemachine;
 using System.Collections;
+using System.Linq;
+using Unity.Plastic.Newtonsoft.Json.Bson;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -35,9 +38,10 @@ namespace Assets.Scripts.Player
 
 
         [Header("Camera")]
-        public GameObject mainCam;
-        public GameObject cinematicMainCam;
-        public GameObject cinematicAimCam;
+        public Camera mainCam;
+        public CinemachineVirtualCamera cinematicMainCam;
+        public CinemachineVirtualCamera cinematicAimCam;
+        public CinemachineVirtualCamera cinematicDialogCam;
 
         [Header("Move")]
         [SerializeField] private float walkSpeed;
@@ -72,6 +76,8 @@ namespace Assets.Scripts.Player
         [SerializeField] private GameObject stepRayLower;
         [SerializeField] float stepHeight;
         [SerializeField] float stepSmooth;
+        [SerializeField] private float lowerRayLength;
+        [SerializeField] private float upperRayLength;
 
         [Header("Dodge")]
         [SerializeField] private float dodgeInvulnerableTime;
@@ -80,8 +86,13 @@ namespace Assets.Scripts.Player
         [SerializeField] private AimTargetData aimTargetData;
 
         [Header("Attack")]
-        [SerializeField] private bool hasRock;
+        [SerializeField] private GameObject slingshot;
+        [SerializeField] private GameObject rightHand;
+        public bool hasStone;
         public GameObject shooter;
+        public GameObject MeleeAttackCollider;
+        [SerializeField] private int curStoneIdx;
+
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -111,8 +122,10 @@ namespace Assets.Scripts.Player
         public bool isJumping;
         public bool isDodging;
         public bool isZooming;
+        public bool canMove;
         public bool canJump;
         public bool canTurn;
+        public bool canAttack;
         public bool isRigid;
 
         private float initialFixedDeltaTime;
@@ -142,12 +155,8 @@ namespace Assets.Scripts.Player
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
         public float RecoilTime { get { return recoilTime; } }
-        public GameObject Stone
-        {
-            get { return stone; }
-            set { stone = value; }
-        }
-
+        
+        public int CurStoneIdx { get { return curStoneIdx; } }
 
         private float inputMagnitude;
 
@@ -164,10 +173,13 @@ namespace Assets.Scripts.Player
             InitTicketMachine();
             //stateMachine.CurrentState.
         }
+
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
+
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
         }
 
         private void Start()
@@ -205,34 +217,47 @@ namespace Assets.Scripts.Player
         private void InitVariables()
         {
             Rb.freezeRotation = true;
+            canMove = true;
             canJump = true;
+            canAttack = true;
             isGrounded = true;
             isRigid = false;
             initialFixedDeltaTime = Time.fixedDeltaTime;
-            cinematicAimCam.SetActive(false);
+            TurnOffAimCam();
+            TurnOffDialogCam();
 
-            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepHeight,
+            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepRayLower.transform.position.y + stepHeight,
                 stepRayUpper.transform.position.z);
             SetCurOre(null);
             Pickaxe.gameObject.SetActive(false);
+            TurnOffSlingshot();
+            TurnOffMeleeAttackCollider();
+
         }
         private void SetMovingAnim()
         {
+            if (stateMachine.CurrentStateName == PlayerStateName.Conversation || !canMove)
+            {
+                Anim.SetFloat("Input Magnitude", 0f);
+
+                return;
+            }
             inputMagnitude = Mathf.Clamp01(MoveInput.magnitude);
             if (isSprinting)
             {
                 inputMagnitude *= 1.5f;
             }
+            
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
         private void ResetPlayerPos()
         {
             //Test용
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                transform.position = new Vector3(0f, 1f, 0f);
-                ChangeState(PlayerStateName.Idle);
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    transform.position = new Vector3(0f, 1f, 0f);
+            //    ChangeState(PlayerStateName.Idle);
+            //}
         }
         public void SetColliderHeight(float colliderHeight)
         {
@@ -260,7 +285,7 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Jump, playerStateJump);
             PlayerStateDodge playerStateDodge = new(this);
             stateMachine.AddState(PlayerStateName.Dodge, playerStateDodge);
-            PlayerStatusAirborne playerStateAirbourn = new(this);
+            PlayerStateAirborne playerStateAirbourn = new(this);
             stateMachine.AddState(PlayerStateName.Airborne, playerStateAirbourn);
             PlayerStateLand playerStateLand = new(this);
             stateMachine.AddState(PlayerStateName.Land, playerStateLand);
@@ -282,9 +307,15 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Down, playerStateDown);
             PlayerStateGetUp playerStateGetUp = new(this);
             stateMachine.AddState(PlayerStateName.GetUp, playerStateGetUp);
+            PlayerStateConversation playerStateConversation = new(this);
+            stateMachine.AddState(PlayerStateName.Conversation, playerStateConversation);
+            PlayerStateMeleeAttack playerStateMeleeAttack = new(this);
+            stateMachine.AddState(PlayerStateName.MeleeAttack, playerStateMeleeAttack);
+
         }
         public void MovePlayer(float moveSpeed)
         {
+            if (!canMove) return;
             switch(CheckSlope())
             {
                 // !TODO : 경사로에서 흘러내리는 문제 수정
@@ -293,6 +324,7 @@ namespace Assets.Scripts.Player
                     Rb.AddForce(MOVE_FORCE * moveSpeed * MoveDirection.normalized, ForceMode.Force);
                     break;
                 case SlopeStat.Climable:
+                    ClimbStep();
                     Rb.AddForce(GetSlopeMoveDirection() * moveSpeed * MOVE_FORCE, ForceMode.Force);
                     break;
                 case SlopeStat.CantClimb:
@@ -302,37 +334,45 @@ namespace Assets.Scripts.Player
 
         private void ClimbStep()
         {
-            // !TODO : Lerp로 부드럽게 올라가도록 수정
-            if (Physics.Raycast(stepRayLower.transform.position,
-                PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitLower, 0.1f, groundLayer))
+            bool flag = false;
+            RaycastHit[] hitLower = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
+            if (hitLower.Any())
             {
-                if (!Physics.Raycast(stepRayUpper.transform.position,
-                    PlayerObj.TransformDirection(Vector3.forward), out RaycastHit hitUpper, 0.2f, groundLayer))
+                RaycastHit[] hitUpper = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
+                if (!hitUpper.Any())
                 {
-                    Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    flag = true;
                 }
             }
 
-            if (Physics.Raycast(stepRayLower.transform.position,
-                PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitLower45, 0.1f, groundLayer))
+            RaycastHit[] hitLower45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
+            if (hitLower45.Any())
             {
-
-                if (!Physics.Raycast(stepRayUpper.transform.position,
-                    PlayerObj.TransformDirection(1.5f, 0, 1), out RaycastHit hitUpper45, 0.2f, groundLayer))
+                RaycastHit[] hitUpper45 = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
+                if (!hitUpper45.Any())
                 {
-                    Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    flag = true;
+                }
+            }
+            RaycastHit[] hitLowerMinus45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), lowerRayLength, groundLayer);
+            if (hitLowerMinus45.Any())
+            {
+                RaycastHit[] hitUpperMinus45 = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), upperRayLength, groundLayer);
+                if (!hitUpperMinus45.Any())
+                {
+                    //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
+                    flag = true;
                 }
             }
 
-            if (Physics.Raycast(stepRayLower.transform.position,
-                PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitLowerMinus45, 0.1f, groundLayer))
+            if (flag)
             {
-                if (!Physics.Raycast(stepRayUpper.transform.position,
-                    PlayerObj.TransformDirection(-1.5f, 0, 1), out RaycastHit hitUpperMinus45, 0.2f, groundLayer))
-                {
-                    Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
-                }
+                Rb.AddForce(Vector3.up * 60f, ForceMode.Force);
+                //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
             }
+            
         }
         public void Jump()
         {
@@ -405,7 +445,8 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
-                if (Mathf.Equals(angle, 0f))
+                //Debug.Log("CurrAngle : " + angle.ToString());
+                if (angle<10f)
                     return SlopeStat.Flat;
                 if (angle > maxSlopeAngle)
                     return SlopeStat.CantClimb;
@@ -435,13 +476,25 @@ namespace Assets.Scripts.Player
         }
         public void TurnOnAimCam()
         {
-            cinematicMainCam.SetActive(false);
-            cinematicAimCam.SetActive(true);
+            cinematicMainCam.gameObject.SetActive(false);
+            cinematicAimCam.gameObject.SetActive(true);
         }
         public void TurnOffAimCam()
         {
-            cinematicMainCam.SetActive(true);
-            cinematicAimCam.SetActive(false);
+            cinematicMainCam.gameObject.SetActive(true);
+            cinematicAimCam.gameObject.SetActive(false);
+        }
+
+        public void TurnOnDialogCam()
+        {
+            cinematicDialogCam.gameObject.SetActive(true);
+            cinematicMainCam.gameObject.SetActive(false);    
+        }
+
+        public void TurnOffDialogCam()
+        {
+            cinematicMainCam.gameObject.SetActive(true);
+            cinematicDialogCam.gameObject.SetActive(false);
         }
         public void SetTimeScale(float expectedTimeScale)
         {
@@ -462,8 +515,6 @@ namespace Assets.Scripts.Player
             }
             Anim.SetLayerWeight((int)layer, curWeight);
         }
-
-        
 
         public void SetAnimLayerToDefault(AnimLayer layer)
         {
@@ -489,7 +540,7 @@ namespace Assets.Scripts.Player
 
         public void Aim()
         {
-            Ray shootRay = mainCam.GetComponent<Camera>().ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            Ray shootRay = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
             RaycastHit hit;
             if (Physics.Raycast(shootRay, out hit, Mathf.Infinity, ~layerToIgnore))
             {
@@ -519,11 +570,105 @@ namespace Assets.Scripts.Player
             return stateMachine.CurrentStateName;
         }
 
+        public void StartConversation()
+        {
+            TurnOnDialogCam();
+            cinematicDialogCam.LookAt = GetComponent<PlayerInteraction>().interactiveObject.transform;
+            ChangeState(PlayerStateName.Conversation);
+            GetComponent<PlayerInteraction>().isInteracting = true;
+        }
+
+        public void EndConversation()
+        {
+            TurnOffDialogCam();
+            GetComponent<PlayerInteraction>().isInteracting = false;
+            ChangeState(PlayerStateName.Idle);
+        }
+
+        public void TurnOnSlingshot()
+        {
+            slingshot.SetActive(true);
+        }
+
+        public void TurnOffSlingshot()
+        {
+            slingshot.SetActive(false);
+        }
+
+        public void TurnOnMeleeAttackCollider()
+        {
+            MeleeAttackCollider.SetActive(true);
+        }
+
+        public void TurnOffMeleeAttackCollider()
+        {
+            MeleeAttackCollider.SetActive(false);
+        }
+
+        public void AddForceSlingshotLeather()
+        {
+            Vector3 dir = slingshot.transform.position - slingshot.GetComponent<Slingshot>().leather.transform.position;
+            slingshot.GetComponent<Slingshot>().leather.GetComponent<Rigidbody>().AddForce(dir.normalized * 20f, ForceMode.Impulse);
+        }
+
+        public void GrabSlingshotLeather()
+        {
+            slingshot.GetComponent<Slingshot>().leather.transform.position = rightHand.transform.position;
+        }
+
+        public void TurnSlingshotLineRenderer(bool b)
+        {
+            slingshot.GetComponent<Slingshot>().TurnLineRenderer(b);
+        }
         private void OnGUI()
         {
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
             GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
             GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Color rayColor = Color.red;
+            Gizmos.color = rayColor;
+            
+            Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
+            
+            
+            Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
+        }
+
+        private void OnNotifyAction(IBaseEventPayload payload)
+        {
+            
+            UIPayload uiPayload = payload as UIPayload;
+            if(uiPayload.actionType == ActionType.ClickCloseButton)
+            {
+                GetComponent<PlayerInventory>().OnInventoryToggle();
+            }
+            if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
+            //hasStone = !uiPayload.isItemNull;
+            
+            switch (uiPayload.groupType)
+            {
+                case UI.Inventory.GroupType.Consumption:
+                    Debug.Log("Consumption");
+                    break;
+                case UI.Inventory.GroupType.Stone:
+                    Debug.Log("Stone");
+                    hasStone = !uiPayload.isItemNull;
+                    if (uiPayload.itemData != null)
+                        curStoneIdx = uiPayload.itemData.index;
+                    else
+                        curStoneIdx = 0;
+                    break;
+                case UI.Inventory.GroupType.Etc:
+                    Debug.Log("Etc");
+                    break;
+                default:
+                    Debug.Log("null");
+                    break;
+            }
         }
     }
 }

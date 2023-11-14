@@ -1,10 +1,5 @@
 using Assets.Scripts.Combat;
-using Assets.Scripts.Utils;
-using Channels.Components;
-using Channels.Type;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Boss.Terrapupa
@@ -12,19 +7,6 @@ namespace Boss.Terrapupa
     public class TerrapupaWeakPoint : MonoBehaviour, ICombatant
     {
         private Action<IBaseEventPayload> collisionAction;
-
-        private TicketMachine ticketMachine;
-
-        private void Awake()
-        {
-            SetTicketMachine();
-        }
-
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-        }
 
         public void SubscribeCollisionAction(Action<IBaseEventPayload> action)
         {

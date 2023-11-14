@@ -25,7 +25,6 @@ namespace Assets.Scripts.Centers.Test
         }
         private void SetTicketMachine()
         {
-            Debug.Log("TestAttacker SetTicketMachine()");
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat);
 

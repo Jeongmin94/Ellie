@@ -33,9 +33,12 @@ namespace Assets.Scripts.Player.States
                 //점프하면 점프 스테이트로 전이
                 Controller.ChangeState(PlayerStateName.Jump);
             }
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && Controller.canAttack)
             {
-                Controller.ChangeState(PlayerStateName.Zoom);
+                if (Controller.hasStone)
+                    Controller.ChangeState(PlayerStateName.Zoom);
+                else
+                    Controller.ChangeState(PlayerStateName.MeleeAttack);
             }
             if (Input.GetKeyDown(KeyCode.G) && Controller.CurOre != null)
             {

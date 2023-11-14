@@ -9,11 +9,17 @@ namespace TheKiwiCoder
         [Tooltip("Restarts the subtree on success")] public bool restartOnSuccess = true;
         [Tooltip("Restarts the subtree on failure")] public bool restartOnFailure = false;
         [Tooltip("Maximum number of times the subtree will be repeated. Set to 0 to loop forever")] public int maxRepeats = 0;
+        public NodeProperty<int> repeatKey;
 
         int iterationCount = 0;
 
         protected override void OnStart()
         {
+            if(repeatKey.Value != 0)
+            {
+                maxRepeats = repeatKey.Value;
+            }
+
             iterationCount = 0;
         }
 

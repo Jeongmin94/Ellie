@@ -8,7 +8,6 @@ using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 
-// !TODO: HealthData 사용하지 않도록 변경
 namespace Assets.Scripts.UI.Monster
 {
     public class UIMonsterCanvas : UIStatic
@@ -69,7 +68,9 @@ namespace Assets.Scripts.UI.Monster
         private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
+            {
                 return;
+            }
 
             float target = value / (float)maxHealth;
             float t = time;

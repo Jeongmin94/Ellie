@@ -46,14 +46,16 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
-            if (Input.GetKeyDown(KeyCode.LeftControl)
-                )
+            if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0) && Controller.canAttack)
             {
-                Controller.ChangeState(PlayerStateName.Zoom);
+                if (Controller.hasStone)
+                    Controller.ChangeState(PlayerStateName.Zoom);
+                else
+                    Controller.ChangeState(PlayerStateName.MeleeAttack);
             }
         }
 

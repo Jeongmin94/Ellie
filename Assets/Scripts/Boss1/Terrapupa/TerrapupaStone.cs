@@ -1,6 +1,9 @@
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Utils;
+using Channels.Boss;
+using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using System.Collections;
@@ -11,36 +14,83 @@ namespace Boss.Terrapupa
 {
 	public class TerrapupaStone : Poolable
 	{
-		private TicketMachine ticketMachine;
+		[SerializeField] private float movementSpeed = 15.0f;
+		[SerializeField] private int attackValue = 5;
+		[SerializeField] private LayerMask layerMask;
 
-		public float movementSpeed = 7.0f;
+		private Transform owner;
+		private TicketMachine ticketMachine;
+		private SphereCollider sphereCollider;
+		private Rigidbody rb;
+
+
+        public Transform Owner
+		{
+			get { return owner; }
+		}
 
         private void Awake()
         {
-			SetTicketMachine();
+			sphereCollider = GetComponent<SphereCollider>();
+			rb = GetComponent<Rigidbody>();
         }
-        private void SetTicketMachine()
+
+        private void OnDisable()
         {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Terrapupa, ChannelType.BossInteraction, ChannelType.Combat);
+            transform.localScale = Vector3.one;
+
+            sphereCollider.enabled = false;
+			rb.isKinematic = true;
+        }
+
+        public void Init(Vector3 position, Vector3 scale, float speed, int attack, Transform sender, TicketMachine senderTicketMacine)
+		{
+			transform.position = position;
+			transform.localScale = scale;
+			movementSpeed = speed;
+			attackValue = attack;
+			owner = sender;
+			ticketMachine = senderTicketMacine;
         }
 
         private void OnCollisionEnter(Collision collision)
 		{
-			if (collision.gameObject.CompareTag("Wall"))
+            if (collision.gameObject.CompareTag("Player"))
+            {
+				ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+				{
+					Attacker = owner,
+					Defender = collision.transform.root,
+					Damage = attackValue,
+					statusEffectduration = 1.0f,
+					PlayerStatusEffectName = StatusEffectName.Down,
+
+                });
+            }
+            if (collision.gameObject.CompareTag("Wall"))
 			{
-				Debug.Log($"{collision.collider.name} Ãæµ¹");
-
 				PoolManager.Instance.Push(this);
-			}
-		}
+            }
+        }
 
-		public void MoveToTarget(Transform target)
+        private void OnTriggerEnter(Collider other)
+        {
+            if (((1 << other.gameObject.layer) & layerMask) != 0 && other.transform.root != owner.transform.root)
+            {
+				EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
+				{
+					TransformValue1 = other.transform.root,
+				});
+
+                PoolManager.Instance.Push(this);
+            }
+        }
+
+        public void MoveToTarget(Transform target)
 		{
 			Vector3 direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
 			direction.Normalize();
 
-			Rigidbody rb = GetComponent<Rigidbody>();
 			SphereCollider sphereCollider = GetComponent<SphereCollider>();
 
 			if (rb != null && sphereCollider != null)

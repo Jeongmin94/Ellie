@@ -13,7 +13,10 @@ public enum EventBusEvents
     BossAttractedByMagicStone,
     BossUnattractedByMagicStone,
     IntakeMagicStoneByBoss1,
-
+    BossDeath,
+    HitStone,
+    BossMeleeAttack,
+    BossLowAttack,
 }
 
 public interface IBaseEventPayload

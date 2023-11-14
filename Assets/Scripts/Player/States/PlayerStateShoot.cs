@@ -23,7 +23,15 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsShooting", true);
             Controller.SetTimeScale(1f);
             curTime = 0;
-            Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine);
+            if(Controller.CurStoneIdx != 0)
+            {
+                Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine, Controller.CurStoneIdx);
+
+
+            }
+            Controller.TurnOnSlingshot();
+            Controller.AddForceSlingshotLeather();
+            Controller.TurnSlingshotLineRenderer(false);
         }
         
 
@@ -33,6 +41,7 @@ namespace Assets.Scripts.Player.States
             Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
             Controller.ActivateShootPos(false);
             Controller.Anim.SetBool("IsShooting", false);
+            Controller.TurnOffSlingshot();
         }
 
         public override void OnFixedUpdateState()

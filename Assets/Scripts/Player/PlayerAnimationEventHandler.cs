@@ -15,5 +15,22 @@ namespace Assets.Scripts.Player
         {
             pickaxe.PrintSmithingEffect();
         }
+
+        public void HandleMeleeAttackAnimationStopEvent()
+        {
+            if (GetComponent<PlayerStatus>().Stamina <= 10.0f)
+            {
+                GetComponent<PlayerController>().ChangeState(PlayerStateName.Exhaust);
+            }
+            else
+            {
+                GetComponent<PlayerController>().ChangeState(PlayerStateName.Idle);
+            }
+        }
+
+        public void HandleMeleeAttackColliderOnEvent()
+        {
+            GetComponent<PlayerController>().TurnOnMeleeAttackCollider();
+        }
     }
 }

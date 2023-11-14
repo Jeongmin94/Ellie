@@ -16,12 +16,14 @@ namespace Assets.Scripts.Player.States
             moveSpeed = Controller.WalkSpeed;
             Controller.canTurn = false;
             Controller.PlayerStatus.isRecoveringStamina = false;
+            Controller.TurnOnSlingshot();
 
         }
 
         public override void OnExitState()
         {
             Controller.PlayerStatus.isRecoveringStamina = true;
+            Controller.TurnOffSlingshot();
         }
 
         public override void OnFixedUpdateState()
@@ -39,6 +41,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Shoot);
             }
+            Controller.GrabSlingshotLeather();
         }
     }
 }

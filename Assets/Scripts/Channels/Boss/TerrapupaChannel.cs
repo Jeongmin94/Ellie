@@ -39,9 +39,6 @@ namespace Channels.Boss
 
         // 상호작용 받는 대상 (객체 <- 객체)
         public Transform Receiver { get; set; }
-
-        // 상호작용 받는 대상 (객체들 <- 객체)
-        public List<Transform> Receivers { get; set; }
     }
 
     public class BossEventPayload : IBaseEventPayload
@@ -51,7 +48,9 @@ namespace Channels.Boss
         private Vector3 vector3Value;
         private Transform transformValue1;
         private Transform transformValue2;
+        private Transform transformValue3;
         private TerrapupaAttackType attackTypeValue;
+        private Transform sender;
 
         public BossEventPayload()
         {
@@ -60,6 +59,7 @@ namespace Channels.Boss
             vector3Value = Vector3.zero;
             transformValue1 = null;
             transformValue2 = null;
+            transformValue3 = null;
             attackTypeValue = TerrapupaAttackType.None;
         }
 
@@ -93,11 +93,23 @@ namespace Channels.Boss
             set { transformValue2 = value; }
         }
 
+        public Transform TransformValue3
+        {
+            get { return transformValue3; }
+            set { transformValue3 = value; }
+        }
+
         public TerrapupaAttackType AttackTypeValue
         {
             get { return attackTypeValue; }
             set { attackTypeValue = value; }
         }
+        public Transform Sender
+        {
+            get { return sender; }
+            set { sender = value; }
+        }
+
     }
 
     public class TerrapupaChannel : BaseEventChannel
