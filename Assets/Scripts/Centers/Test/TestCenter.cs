@@ -30,10 +30,6 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(player.gameObject);
             CheckTicket(attacker.gameObject);
 
-            //foreach (Transform childMonster in monsters)
-            //{
-            //    CheckTicket(childMonster.gameObject);
-            //}
 
             CheckTicket(hatchery.gameObject);
             foreach (Ore ore in ores)
