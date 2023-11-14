@@ -73,6 +73,7 @@ MonoBehaviour:
   - rid: 1683426247750189140
   - rid: 1683426247750189142
   - rid: 1683426247750189153
+  - rid: 283011313877123073
   treeState: 0
   blackboard:
     keys:
@@ -94,8 +95,8 @@ MonoBehaviour:
     - rid: 1683426247750189154
     - rid: 283011291767373852
     - rid: 283011291767373853
-  viewPosition: {x: 2952, y: 483, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: 3015, y: 397, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
@@ -509,6 +510,26 @@ MonoBehaviour:
         typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
+    - rid: 283011313877123073
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c12dcbcb556d76e48859c25bb19e6bb6
+        position: {x: -3180, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 8619125030485229587
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1112,7 +1133,7 @@ MonoBehaviour:
         - rid: 1683426247750189096
         - rid: 8619125030485229605
         - rid: 8619125030485229585
-        - rid: 8619125030485229587
+        - rid: 283011313877123073
         - rid: 8619125030485229588
         - rid: 283011198868258851
         - rid: 1683426247750189097

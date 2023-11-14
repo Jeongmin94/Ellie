@@ -3,14 +3,14 @@ using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.UI.Monster;
 using UnityEngine;
 
-public class TerrapupaHealthBar : MonoBehaviour
+public class TerrapupaMinionHealthBar : MonoBehaviour
 {
-    [SerializeField] private TerrapupaRootData data;
+    [SerializeField] private TerrapupaMinionRootData data;
+
+    public float scaleFactor = 0.001f;
 
     private UIMonsterBillboard billboard;
     private readonly MonsterDataContainer dataContainer = new MonsterDataContainer();
-
-    public float scaleFactor = 0.003f;
 
     private void Awake()
     {
@@ -26,7 +26,7 @@ public class TerrapupaHealthBar : MonoBehaviour
         billboard.InitBillboard(billboardPos);
     }
 
-    public void InitData(TerrapupaRootData data)
+    public void InitData(TerrapupaMinionRootData data)
     {
         this.data = data;
         dataContainer.MaxHp = data.hp;
