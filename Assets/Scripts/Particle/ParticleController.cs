@@ -38,12 +38,6 @@ namespace Assets.Scripts.Particle
 
             ps.Play();
         }
-        private void SetSortingLayer(string layerName, int order)
-        {
-            var renderer = ps.GetComponent<Renderer>();
-            renderer.sortingLayerName = layerName;
-            renderer.sortingOrder = order;
-        }
 
         private void OnParticleSystemStopped()
         {

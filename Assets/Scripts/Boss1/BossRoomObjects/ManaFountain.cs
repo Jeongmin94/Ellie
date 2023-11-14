@@ -1,4 +1,9 @@
-﻿using Channels.Boss;
+﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Utils;
+using Channels.Boss;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using UnityEngine;
 
 namespace Boss.Objects
@@ -13,6 +18,9 @@ namespace Boss.Objects
         private bool isCooldown;
         private bool isBroken;
 
+        private const int MAGICSTONE_INDEX = 4020;
+        private TicketMachine ticketMachine;
+
         public bool IsCooldown
         {
             get { return isCooldown; }
@@ -25,9 +33,14 @@ namespace Boss.Objects
             set { isBroken = value; }
         }
 
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if(!isBroken)
+            if (!isBroken)
             {
                 if (other.transform.CompareTag("Stone") && !isCooldown)
                 {
@@ -36,12 +49,22 @@ namespace Boss.Objects
                     isCooldown = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
-                        new BossEventPayload 
-                        { 
-                            TransformValue1 = transform, 
-                            TransformValue2 = spawnPosition 
+                        new BossEventPayload
+                        {
+                            TransformValue1 = transform,
                         });
-                    
+
+
+                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
+                    ticketMachine.SendMessage(ChannelType.Stone,
+                        new StoneEventPayload
+                        {
+                            Type = StoneEventType.MineStone,
+                            StoneSpawnPos = spawnPosition.position,
+                            StoneForce = GetRandVector(),
+                            StoneIdx = MAGICSTONE_INDEX,
+                        });
+
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {
@@ -50,9 +73,9 @@ namespace Boss.Objects
                     isBroken = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
-                        new BossEventPayload 
-                        { 
-                            TransformValue1 = transform, 
+                        new BossEventPayload
+                        {
+                            TransformValue1 = transform,
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform.root,
                         });
@@ -74,6 +97,11 @@ namespace Boss.Objects
                         });
                 }
             }
+        }
+        private Vector3 GetRandVector()
+        {
+            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+            return vec.normalized;
         }
     }
 }

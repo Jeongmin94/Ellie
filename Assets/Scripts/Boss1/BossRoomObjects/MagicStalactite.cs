@@ -1,4 +1,5 @@
 ﻿using Channels.Boss;
+using Channels.Components;
 using System.Collections;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ namespace Boss.Objects
 
         private int myIndex;
         private bool isFallen = false;
+
+        private TicketMachine ticketMachine;
 
         public int MyIndex
         {
@@ -34,6 +37,11 @@ namespace Boss.Objects
         private void OnDisable()
         {
             rb.isKinematic = true;
+        }
+
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
         }
 
         private void Update()

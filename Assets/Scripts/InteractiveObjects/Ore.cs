@@ -27,7 +27,6 @@ namespace Assets.Scripts.InteractiveObjects
         public OreData data;
         public Tier tier;
 
-
         public int curStage;
         public int hardness;
         public int maxHp;
@@ -60,6 +59,7 @@ namespace Assets.Scripts.InteractiveObjects
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Stone);
         }
+
         private IEnumerator InitOre()
         {
             yield return DataManager.Instance.CheckIsParseDone();

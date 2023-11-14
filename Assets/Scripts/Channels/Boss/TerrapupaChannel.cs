@@ -44,6 +44,7 @@ namespace Channels.Boss
     public class BossEventPayload : IBaseEventPayload
     {
         private int intValue;
+        private bool boolValue;
         private float floatValue;
         private Vector3 vector3Value;
         private Transform transformValue1;
@@ -55,6 +56,7 @@ namespace Channels.Boss
         public BossEventPayload()
         {
             intValue = 0;
+            boolValue = false;
             floatValue = 0.0f;
             vector3Value = Vector3.zero;
             transformValue1 = null;
@@ -67,6 +69,12 @@ namespace Channels.Boss
         {
             get { return intValue; }
             set { intValue = value; }
+        }
+
+        public bool BoolValue
+        {
+            get { return boolValue; }
+            set { boolValue = value; }
         }
 
         public float FloatValue
