@@ -90,7 +90,6 @@ namespace Assets.Scripts.Item.Stone
             {
                 MineStone(stone, startPos, force);
             }
-
         }
         
         private void MineStone(BaseStone stone, Vector3 position, Vector3 force)
