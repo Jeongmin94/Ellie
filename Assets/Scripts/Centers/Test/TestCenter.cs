@@ -12,7 +12,6 @@ namespace Assets.Scripts.Centers.Test
     public class TestCenter : BaseCenter
     {
         public GameObject player;
-        public TestAttacker attacker;
         public StoneHatchery hatchery;
         public Inventory inventory;
         public Ore[] ores;
@@ -28,7 +27,6 @@ namespace Assets.Scripts.Centers.Test
         {
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
-            CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
             foreach (Ore ore in ores)
             {
@@ -36,7 +34,6 @@ namespace Assets.Scripts.Centers.Test
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
             }
-            //CheckTicket(inventory.gameObject);
         }
     }
 }

@@ -44,6 +44,9 @@ public class Slingshot : MonoBehaviour {
         leftLineRenderer.SetWidth(0.04f, 0.04f);
         rightLineRenderer.SetWidth(0.04f, 0.04f);
 
+        leftLineRenderer.enabled = false;
+        rightLineRenderer.enabled = false;
+
         rightElastic.GetComponent<SkinnedMeshRenderer>().enabled = false;
         leftElastic.GetComponent<SkinnedMeshRenderer>().enabled = false;
         leather.GetComponent<SkinnedMeshRenderer>().enabled = false;
