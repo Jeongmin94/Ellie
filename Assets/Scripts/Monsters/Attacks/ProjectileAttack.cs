@@ -44,6 +44,7 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public void ProjectileHitPlayer(Transform otherTransform)
         {
+            audioController.PlayAudio(MonsterAudioType.ProjectileHit);
             SetAndAttack(attackData, otherTransform);
         }
 
