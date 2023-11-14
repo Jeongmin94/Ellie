@@ -10,7 +10,7 @@ namespace Assets.Scripts.Item
 
     public class BaseItem
     {
-        public ItemData itemData;
+        public ItemMetaData itemData;
 
         public readonly Data<int> itemCount = new Data<int>();
 

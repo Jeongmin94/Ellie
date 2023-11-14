@@ -1,33 +1,27 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 [Serializable]
-public class ItemData
+public class ConsumableItemData : ItemMetaData
 {
-    public readonly GroupType groupType = GroupType.Stone;
-
-    public int index;
-    public string name;
-    public string description;
     public int appearanceStage;
 
     public string status;
     public int increasePoint;
     public int increasePercent;
-
-    public string imageName;
 }
 
-[CreateAssetMenu(fileName = "ItemData", menuName = "GameData List/ItemData")]
-public class ItemDataParsingInfo : DataParsingInfo
+[CreateAssetMenu(fileName = "ConsumableItemData", menuName = "GameData List/ConsumableItemData")]
+public class ConsumableItemDataParsingInfo : DataParsingInfo
 {
-    public List<ItemData> items = new List<ItemData>();
+    public List<ConsumableItemData> items = new List<ConsumableItemData>();
 
     public override T GetIndexData<T>(int index) where T : class
     {
-        if (typeof(T) == typeof(OreData))
+        if (typeof(T) == typeof(ConsumableItemData))
         {
             return items.Find(m => m.index == index) as T;
         }
@@ -47,10 +41,11 @@ public class ItemDataParsingInfo : DataParsingInfo
 
             string[] entries = lines[i].Split('\t');
 
-            ItemData data = new ItemData();
+            ConsumableItemData data = new ConsumableItemData();
 
             try
             {
+                data.groupType = GroupType.Consumption;
                 //인덱스
                 data.index = int.Parse(entries[0].Trim());
                 //이름

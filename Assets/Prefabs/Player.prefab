@@ -3467,7 +3467,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4799732635936662
 Transform:
   m_ObjectHideFlags: 0
@@ -4013,8 +4013,8 @@ SkinnedMeshRenderer:
   m_BlendShapeWeights: []
   m_RootBone: {fileID: 0}
   m_AABB:
-    m_Center: {x: -0.0000009536743, y: 0.000000008381903, z: 0.0000010728836}
-    m_Extent: {x: 0.5, y: 1, z: 0.49999997}
+    m_Center: {x: 0, y: 0, z: 0.0012837648}
+    m_Extent: {x: 0.5, y: 0.99999994, z: 0.5035712}
   m_DirtyAABB: 0
 --- !u!183 &183293502102091304
 Cloth:
@@ -6276,7 +6276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4900778103450186
 Transform:
   m_ObjectHideFlags: 0
@@ -7303,6 +7303,7 @@ GameObject:
   - component: {fileID: 728780517}
   - component: {fileID: 1523587310}
   - component: {fileID: 5725452510402027805}
+  - component: {fileID: 8277164713214988917}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -7420,9 +7421,10 @@ MonoBehaviour:
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
-  hasStone: 1
+  hasStone: 0
   shooter: {fileID: 1833054885}
   MeleeAttackCollider: {fileID: 1626558121}
+  curStoneIdx: 0
   zoomMultiplier: 0.5
   recoilTime: 0.3
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
@@ -7437,6 +7439,7 @@ MonoBehaviour:
   canMove: 0
   canJump: 0
   canTurn: 0
+  canAttack: 0
   isRigid: 0
 --- !u!114 &4016927572337565220
 MonoBehaviour:
@@ -7487,6 +7490,7 @@ MonoBehaviour:
       m_LegacyHeadingDefinition: 0
       m_LegacyVelocityFilterStrength: 0
   cameraLookAt: {fileID: 4016927573013624959}
+  canAim: 1
 --- !u!114 &108283331
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7588,6 +7592,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   QuestDataListObj: {fileID: 11400000, guid: ede4e9372c017b24483c81459f8667a0, type: 2}
+--- !u!114 &8277164713214988917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4ac7b9f0eda0304ca0d33b10a55017c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameGoods: {fileID: 11400000, guid: a0101c60cb2252647a2e44d0c3c85951, type: 2}
+  isOpen: 0
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0

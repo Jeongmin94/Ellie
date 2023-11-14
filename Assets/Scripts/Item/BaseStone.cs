@@ -2,6 +2,8 @@
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
+using Channels.Type;
+using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
@@ -9,6 +11,7 @@ namespace Assets.Scripts.Item
     public class BaseStone : Poolable, ILootable
     {
         public StoneData data = null;
+        
         public StoneHatchery hatchery { get; set; }
         
         private new Rigidbody rigidbody;
@@ -44,7 +47,20 @@ namespace Assets.Scripts.Item
         public void Visit(PlayerLooting player)
         {
             Debug.Log("Player Loot : " + this.name);
+            // !TODO : PlayerLooting에서 Inventory에 AddItem 메시지를 UIChannel에 발송해야됨
+            player.gameObject.GetComponentInParent<PlayerController>().TicketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayload());
             hatchery.CollectStone(this);
+        }
+
+        private UIPayload GenerateStoneAcquirePayload()
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.AddSlotItem;
+            payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+            payload.groupType = UI.Inventory.GroupType.Stone;
+            payload.itemData = data;
+            return payload;
         }
     }
 }

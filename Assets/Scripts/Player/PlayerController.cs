@@ -5,6 +5,7 @@ using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
@@ -90,6 +91,8 @@ namespace Assets.Scripts.Player
         public bool hasStone;
         public GameObject shooter;
         public GameObject MeleeAttackCollider;
+        [SerializeField] private int curStoneIdx;
+
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -122,6 +125,7 @@ namespace Assets.Scripts.Player
         public bool canMove;
         public bool canJump;
         public bool canTurn;
+        public bool canAttack;
         public bool isRigid;
 
         private float initialFixedDeltaTime;
@@ -151,12 +155,8 @@ namespace Assets.Scripts.Player
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
         public float RecoilTime { get { return recoilTime; } }
-        public GameObject Stone
-        {
-            get { return stone; }
-            set { stone = value; }
-        }
-
+        
+        public int CurStoneIdx { get { return curStoneIdx; } }
 
         private float inputMagnitude;
 
@@ -177,8 +177,9 @@ namespace Assets.Scripts.Player
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone);
 
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
         }
 
         private void Start()
@@ -218,6 +219,7 @@ namespace Assets.Scripts.Player
             Rb.freezeRotation = true;
             canMove = true;
             canJump = true;
+            canAttack = true;
             isGrounded = true;
             isRigid = false;
             initialFixedDeltaTime = Time.fixedDeltaTime;
@@ -234,7 +236,7 @@ namespace Assets.Scripts.Player
         }
         private void SetMovingAnim()
         {
-            if (stateMachine.CurrentStateName == PlayerStateName.Conversation)
+            if (stateMachine.CurrentStateName == PlayerStateName.Conversation || !canMove)
             {
                 Anim.SetFloat("Input Magnitude", 0f);
 
@@ -251,11 +253,11 @@ namespace Assets.Scripts.Player
         private void ResetPlayerPos()
         {
             //Test용
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                transform.position = new Vector3(0f, 1f, 0f);
-                ChangeState(PlayerStateName.Idle);
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    transform.position = new Vector3(0f, 1f, 0f);
+            //    ChangeState(PlayerStateName.Idle);
+            //}
         }
         public void SetColliderHeight(float colliderHeight)
         {
@@ -313,6 +315,7 @@ namespace Assets.Scripts.Player
         }
         public void MovePlayer(float moveSpeed)
         {
+            if (!canMove) return;
             switch(CheckSlope())
             {
                 // !TODO : 경사로에서 흘러내리는 문제 수정
@@ -633,7 +636,39 @@ namespace Assets.Scripts.Player
             
             
             Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
+        }
+
+        private void OnNotifyAction(IBaseEventPayload payload)
+        {
             
+            UIPayload uiPayload = payload as UIPayload;
+            if(uiPayload.actionType == ActionType.ClickCloseButton)
+            {
+                GetComponent<PlayerInventory>().OnInventoryToggle();
+            }
+            if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
+            //hasStone = !uiPayload.isItemNull;
+            
+            switch (uiPayload.groupType)
+            {
+                case UI.Inventory.GroupType.Consumption:
+                    Debug.Log("Consumption");
+                    break;
+                case UI.Inventory.GroupType.Stone:
+                    Debug.Log("Stone");
+                    hasStone = !uiPayload.isItemNull;
+                    if (uiPayload.itemData != null)
+                        curStoneIdx = uiPayload.itemData.index;
+                    else
+                        curStoneIdx = 0;
+                    break;
+                case UI.Inventory.GroupType.Etc:
+                    Debug.Log("Etc");
+                    break;
+                default:
+                    Debug.Log("null");
+                    break;
+            }
         }
     }
 }
