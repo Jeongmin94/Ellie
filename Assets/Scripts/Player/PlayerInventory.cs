@@ -5,7 +5,6 @@ using Assets.Scripts.UI.Inventory;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -60,6 +59,7 @@ namespace Assets.Scripts.Player
             {
                 ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest());
             }
+
         }
         private UIPayload MakeInventoryOpenPayload()
         {
@@ -119,5 +119,6 @@ namespace Assets.Scripts.Player
             payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(4000);
             return payload;
         }
+
     }
 }
