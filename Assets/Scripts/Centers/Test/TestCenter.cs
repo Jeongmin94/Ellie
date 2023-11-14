@@ -28,7 +28,7 @@ namespace Assets.Scripts.Centers.Test
         {
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
-            CheckTicket(attacker.gameObject);
+            //CheckTicket(attacker.gameObject);
             CheckTicket(hatchery.gameObject);
             foreach (Ore ore in ores)
             {
