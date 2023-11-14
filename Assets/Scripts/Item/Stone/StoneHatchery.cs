@@ -82,7 +82,6 @@ namespace Assets.Scripts.Item.Stone
                     actionType = ActionType.ConsumeSlotItem,
                     slotAreaType = UI.Inventory.SlotAreaType.Item,
                     itemData = stone.data,
-
                 };
                 ticketMachine.SendMessage(ChannelType.UI, uIPayload);
             }
@@ -90,7 +89,6 @@ namespace Assets.Scripts.Item.Stone
             {
                 MineStone(stone, startPos, force);
             }
-
         }
         
         private void MineStone(BaseStone stone, Vector3 position, Vector3 force)
