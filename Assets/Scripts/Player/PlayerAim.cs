@@ -9,6 +9,8 @@ namespace Assets.Scripts.Player
 
         public Transform cameraLookAt;
 
+        public bool canAim = true;
+
         private float zoomingCoeff;
         void Start()
         {
@@ -17,6 +19,7 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
+            if (!canAim) return;
             xAxis.Update(Time.deltaTime / Time.timeScale);
             yAxis.Update(Time.deltaTime / Time.timeScale);
 

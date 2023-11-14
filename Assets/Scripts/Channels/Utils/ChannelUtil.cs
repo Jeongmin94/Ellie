@@ -30,7 +30,6 @@ namespace Channels.Utils
                     channel = new TerrapupaChannel();
                     break;
             }
-
             return channel;
         }
     }

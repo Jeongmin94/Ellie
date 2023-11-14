@@ -16,7 +16,7 @@ namespace Assets.Scripts.UI.Inventory.Test
 {
     public class InventoryTestClient : MonoBehaviour
     {
-        [SerializeField] private ItemDataParsingInfo itemDataParsingInfo;
+        [SerializeField] private ConsumableItemDataParsingInfo consumableItemDataParsingInfo;
         [SerializeField] private GameGoods gameGoods;
 
         private TicketMachine ticketMachine;
@@ -28,15 +28,15 @@ namespace Assets.Scripts.UI.Inventory.Test
             InitTicketMachine();
             gameGoods.Init();
 
-            UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
+            //UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
+            //invent.
         }
 
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.UI);
-
-            TicketManager.Instance.Ticket(ticketMachine);
+            //TicketManager.Instance.Ticket(ticketMachine);
         }
 
         private void Start()
@@ -47,7 +47,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         private IEnumerator CheckParse()
         {
             yield return DataManager.Instance.CheckIsParseDone();
-            Debug.Log($"{itemDataParsingInfo} 파싱 완료");
+            Debug.Log($"{consumableItemDataParsingInfo} 파싱 완료");
             testPayload = MakeAddItemPayload();
         }
 
@@ -59,45 +59,45 @@ namespace Assets.Scripts.UI.Inventory.Test
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
             }
 
-            // 아이템 생성
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                ticketMachine.SendMessage(ChannelType.UI, testPayload);
-                ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
-            }
+            //// 아이템 생성
+            //if (Input.GetKeyDown(KeyCode.A))
+            //{
+            //    //ticketMachine.SendMessage(ChannelType.UI, testPayload);
+            //    ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
+            //}
 
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-                var payload = MakeAddItemPayload2();
-                var testItemInfo = itemDataParsingInfo.items[Random.Range(1, itemDataParsingInfo.items.Count)];
-                testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
-                payload.itemData = testItemInfo;
+            //if (Input.GetKeyDown(KeyCode.Q))
+            //{
+            //    var payload = MakeAddItemPayload2();
+            //    var testItemInfo = consumableItemDataParsingInfo.items[Random.Range(1, consumableItemDataParsingInfo.items.Count)];
+            //    testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
+            //    payload.itemData = testItemInfo;
 
-                ticketMachine.SendMessage(ChannelType.UI, payload);
-            }
+            //    ticketMachine.SendMessage(ChannelType.UI, payload);
+            //}
 
-            // 아이템 소모
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
-            }
+            //// 아이템 소모
+            //if (Input.GetKeyDown(KeyCode.S))
+            //{
+            //    ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
+            //}
 
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
-            }
+            //if (Input.GetKeyDown(KeyCode.W))
+            //{
+            //    Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
+            //}
 
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                gameGoods.gold.Value--;
-                gameGoods.stonePiece.Value--;
-            }
+            //if (Input.GetKeyDown(KeyCode.Z))
+            //{
+            //    gameGoods.gold.Value--;
+            //    gameGoods.stonePiece.Value--;
+            //}
 
-            if (Input.GetKeyDown(KeyCode.X))
-            {
-                gameGoods.gold.Value++;
-                gameGoods.stonePiece.Value++;
-            }
+            //if (Input.GetKeyDown(KeyCode.X))
+            //{
+            //    gameGoods.gold.Value++;
+            //    gameGoods.stonePiece.Value++;
+            //}
 
             if (Input.GetKeyDown(KeyCode.N))
             {
@@ -126,7 +126,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.actionType = ActionType.AddSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
 
-            var testItemInfo = itemDataParsingInfo.items[0];
+            var testItemInfo = consumableItemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
@@ -138,7 +138,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         {
             var ret = MakeAddItemPayload();
 
-            ret.itemData = itemDataParsingInfo.items[1];
+            ret.itemData = consumableItemDataParsingInfo.items[1];
             ret.itemData.imageName = "UI/Item/ItemDefaultWhite";
 
             return ret;
@@ -151,7 +151,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.actionType = ActionType.ConsumeSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
 
-            var testItemInfo = itemDataParsingInfo.items[0];
+            var testItemInfo = consumableItemDataParsingInfo.items[0];
             testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
