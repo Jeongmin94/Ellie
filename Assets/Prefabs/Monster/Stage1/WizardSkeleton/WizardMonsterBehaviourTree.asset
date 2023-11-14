@@ -113,7 +113,6 @@ MonoBehaviour:
   - rid: 6937830705275600946
   - rid: 6937830705275600947
   - rid: 6937830705275600948
-  - rid: 6937830728085012480
   treeState: 0
   blackboard:
     keys:
@@ -137,8 +136,8 @@ MonoBehaviour:
     - rid: 6937830456686542870
     - rid: 6937830569823436819
     - rid: 6937830569823436825
-  viewPosition: {x: 2287, y: -385, z: 0}
-  viewScale: {x: 0.6575163, y: 0.6575163, z: 1}
+  viewPosition: {x: -737, y: -285.5, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -173,6 +172,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827609998966652930
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2069,14 +2072,3 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
-    - rid: 6937830728085012480
-      type: {class: PlayParticle, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 6745847c851b840c3b1bae2e171a4126
-        position: {x: -2370, y: 1236.2427}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
