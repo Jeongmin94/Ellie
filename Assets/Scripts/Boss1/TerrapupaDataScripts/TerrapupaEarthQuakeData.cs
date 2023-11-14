@@ -10,6 +10,9 @@ public class TerrapupaEarthQuakeData : BaseBTData
         dataName = "TerrapupaEarthQuake";
     }
 
+    [Header("이펙트 설정")]
+    [Tooltip("내려 찍기 이펙트")] public GameObject earthQuakeEffect1;
+
     [Header("땅 뒤집기 공격")]
     [Tooltip("타겟팅 회전 속도")] public float earthQuakeRotationSpeed = 4.0f;
     [Tooltip("땅 뒤집기 시 이동 거리")] public float earthQuakeMoveDistance = 10.0f;
@@ -17,6 +20,8 @@ public class TerrapupaEarthQuakeData : BaseBTData
     [Tooltip("땅 뒤집기 감지 각도")] public float earthQuakeAttackAngle = 45.0f;
     [Tooltip("땅 뒤집기 적중 거리")] public float earthQuakeEffectiveRadius = 50.0f;
     [Tooltip("땅 뒤집기 공격력")] public int earthQuakeAttackValue = 5;
+
+    public BlackboardKey<GameObject> effect1;
 
     public BlackboardKey<float> rotationSpeed;
     public BlackboardKey<float> moveDistance;
@@ -27,6 +32,7 @@ public class TerrapupaEarthQuakeData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
+        SetBlackboardValue<GameObject>("effect1", earthQuakeEffect1, tree);
         SetBlackboardValue<float>("rotationSpeed", earthQuakeRotationSpeed, tree);
         SetBlackboardValue<float>("moveDistance", earthQuakeMoveDistance, tree);
         SetBlackboardValue<float>("movementSpeed", earthQuakeMovementSpeed, tree);
@@ -34,6 +40,7 @@ public class TerrapupaEarthQuakeData : BaseBTData
         SetBlackboardValue<float>("effectiveRadius", earthQuakeEffectiveRadius, tree);
         SetBlackboardValue<int>("attackValue", earthQuakeAttackValue, tree);
 
+        effect1 = FindBlackboardKey<GameObject>("effect1", tree);
         rotationSpeed = FindBlackboardKey<float>("rotationSpeed", tree);
         moveDistance = FindBlackboardKey<float>("moveDistance", tree);
         movementSpeed = FindBlackboardKey<float>("movementSpeed", tree);

@@ -39,12 +39,13 @@ namespace Boss.Terrapupa
             get { return healthBar; }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             InitTicketMachine();
             InitStatus();
             SubscribeEvent();
-            StartCoroutine(FallCheck());
         }
 
         private void InitTicketMachine()
@@ -56,36 +57,13 @@ namespace Boss.Terrapupa
         private void InitStatus()
         {
             terrapupaData = rootTreeData as TerrapupaRootData;
+            healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
+            healthBar.InitData(terrapupaData);
         }
 
         private void SubscribeEvent()
         {
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
-        }
-
-        private IEnumerator FallCheck()
-        {
-            LayerMask groundMask = LayerMask.GetMask("Ground");
-            float checkDistance = 30.0f;
-            float fallCheckLatency = 5.0f;
-            float rayStartOffset = 10.0f;
-
-            while (true)
-            {
-                RaycastHit hit;
-
-                Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
-
-                bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
-
-                if (!hitGround)
-                {
-                    Debug.Log("추락 방지, 포지션 초기화");
-                    transform.position = Vector3.zero;
-                }
-
-                yield return new WaitForSeconds(fallCheckLatency);
-            }
         }
 
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
