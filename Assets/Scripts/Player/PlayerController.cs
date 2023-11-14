@@ -125,6 +125,7 @@ namespace Assets.Scripts.Player
         public bool canMove;
         public bool canJump;
         public bool canTurn;
+        public bool canAttack;
         public bool isRigid;
 
         private float initialFixedDeltaTime;
@@ -182,8 +183,8 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             //커서 락
-            //Cursor.visible = false;
-            //Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
             //스테이트 머신 초기화
             InitStateMachine();
@@ -216,6 +217,7 @@ namespace Assets.Scripts.Player
             Rb.freezeRotation = true;
             canMove = true;
             canJump = true;
+            canAttack = true;
             isGrounded = true;
             isRigid = false;
             initialFixedDeltaTime = Time.fixedDeltaTime;
@@ -232,7 +234,7 @@ namespace Assets.Scripts.Player
         }
         private void SetMovingAnim()
         {
-            if (stateMachine.CurrentStateName == PlayerStateName.Conversation)
+            if (stateMachine.CurrentStateName == PlayerStateName.Conversation || !canMove)
             {
                 Anim.SetFloat("Input Magnitude", 0f);
 
@@ -249,11 +251,11 @@ namespace Assets.Scripts.Player
         private void ResetPlayerPos()
         {
             //Test용
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                transform.position = new Vector3(0f, 1f, 0f);
-                ChangeState(PlayerStateName.Idle);
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    transform.position = new Vector3(0f, 1f, 0f);
+            //    ChangeState(PlayerStateName.Idle);
+            //}
         }
         public void SetColliderHeight(float colliderHeight)
         {
@@ -311,6 +313,7 @@ namespace Assets.Scripts.Player
         }
         public void MovePlayer(float moveSpeed)
         {
+            if (!canMove) return;
             switch(CheckSlope())
             {
                 // !TODO : 경사로에서 흘러내리는 문제 수정
@@ -635,7 +638,12 @@ namespace Assets.Scripts.Player
 
         private void OnNotifyAction(IBaseEventPayload payload)
         {
+            
             UIPayload uiPayload = payload as UIPayload;
+            if(uiPayload.actionType == ActionType.ClickCloseButton)
+            {
+                GetComponent<PlayerInventory>().OnInventoryToggle();
+            }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
             

@@ -54,7 +54,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && Controller.canAttack)
             {
                 if (Controller.hasStone)
                     Controller.ChangeState(PlayerStateName.Zoom);

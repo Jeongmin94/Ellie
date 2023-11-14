@@ -108,6 +108,7 @@ namespace Assets.Scripts.UI.Inventory
         private TicketMachine ticketMachine;
 
         private bool isOpened = false;
+        public bool IsOpened => isOpened;
 
         private InventorySlot swapBuffer;
 
@@ -304,6 +305,12 @@ namespace Assets.Scripts.UI.Inventory
         {
             isOpened = false;
             gameObject.SetActive(false);
+            UIPayload payload = new()
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.ClickCloseButton,
+            };
+            ticketMachine.SendMessage(ChannelType.UI, payload);
         }
 
         #endregion
