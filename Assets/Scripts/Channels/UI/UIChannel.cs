@@ -38,7 +38,6 @@ namespace Channels.UI
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            Debug.Log("UIChannel receiveMessage");
             if (payload is not UIPayload uiPayload)
                 return;
 
