@@ -113,6 +113,7 @@ MonoBehaviour:
   - rid: 6937830705275600946
   - rid: 6937830705275600947
   - rid: 6937830705275600948
+  - rid: 6937830728085012480
   treeState: 0
   blackboard:
     keys:
@@ -1635,6 +1636,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600928
       type: {class: RandomSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1668,6 +1673,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600930
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1684,6 +1693,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 4
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1720,6 +1733,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600933
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1736,6 +1753,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 4
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1772,6 +1793,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600936
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1788,6 +1813,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 2
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1824,6 +1853,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600939
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1840,6 +1873,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 4
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1876,6 +1913,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600942
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1892,6 +1933,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 4
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1928,6 +1973,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600945
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1944,6 +1993,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 2
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1966,6 +2019,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600947
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1985,6 +2042,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600948
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -2004,3 +2065,18 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 6937830728085012480
+      type: {class: PlayParticle, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 6745847c851b840c3b1bae2e171a4126
+        position: {x: -2370, y: 1236.2427}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0

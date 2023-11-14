@@ -26,6 +26,7 @@ namespace Assets.Scripts.Monsters
         public GameObject player;
 
         private TicketMachine ticketMachine;
+
         //private List<TestIteamDrop> dropableIteam;
 
 
