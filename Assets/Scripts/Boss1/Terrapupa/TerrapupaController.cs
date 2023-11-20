@@ -44,8 +44,14 @@ namespace Boss.Terrapupa
             base.Awake();
 
             InitTicketMachine();
-            InitStatus();
             SubscribeEvent();
+            terrapupaData = rootTreeData as TerrapupaRootData;
+            healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
+        }
+
+        private void Start()
+        {
+            InitStatus();
         }
 
         private void InitTicketMachine()
@@ -56,8 +62,6 @@ namespace Boss.Terrapupa
 
         private void InitStatus()
         {
-            terrapupaData = rootTreeData as TerrapupaRootData;
-            healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
             healthBar.InitData(terrapupaData);
         }
 

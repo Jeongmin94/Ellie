@@ -18,6 +18,7 @@ public enum EventBusEvents
     BossMeleeAttack,
     BossLowAttack,
     ApplyBossCooldown,
+    BossMinionAttack,
 }
 
 public interface IBaseEventPayload

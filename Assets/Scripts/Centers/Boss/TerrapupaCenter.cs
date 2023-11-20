@@ -9,6 +9,7 @@ using Channels.Type;
 using Channels.Combat;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Item.Stone;
+using System.Collections.Generic;
 
 namespace Centers.Boss
 {
@@ -18,6 +19,7 @@ namespace Centers.Boss
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
         [SerializeField] private TerrapupaController pupa;
+        [SerializeField] private List<TerrapupaMinionController> minions;
         [SerializeField] private PlayerController player;
         [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
 
@@ -37,8 +39,23 @@ namespace Centers.Boss
         {
             base.Start();
 
-            SetBossTarget();
             CheckTickets();
+            SetBossTarget();
+        }
+
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("테라푸파 사망");
+                terrapupa.terrapupaData.currentHP.Value = 0;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("테라, 푸파 사망");
+                terra.terrapupaData.currentHP.Value = 0;
+                pupa.terrapupaData.currentHP.Value = 0;
+            }
         }
 
         /// <summary>
@@ -50,10 +67,18 @@ namespace Centers.Boss
             terrapupa.terrapupaData.player.Value = player.transform;
             terra.terrapupaData.player.Value = player.transform;
             pupa.terrapupaData.player.Value = player.transform;
+            foreach (var minion in minions)
+            {
+                minion.minionData.player.Value = player.transform;
+            }
 
             terrapupa.gameObject.SetActive(isActiveTerrapupa);
             terra.gameObject.SetActive(isActiveTerra);
             pupa.gameObject.SetActive(isActivePupa);
+            foreach (var minion in minions)
+            {
+                minion.gameObject.SetActive(false);
+            }
         }
 
         private void CheckTickets()
@@ -63,6 +88,10 @@ namespace Centers.Boss
             CheckTicket(terra.gameObject);
             CheckTicket(pupa.gameObject);
             CheckTicket(terrapupaMapObjects.gameObject);
+            foreach (var minion in minions)
+            {
+                CheckTicket(minion.gameObject);
+            }
         }
 
         private void SubscribeEvents()
@@ -78,6 +107,7 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnMeleeAttack);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnLowAttack);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnMinionAttack);
         }
 
         /// <summary>
@@ -258,26 +288,30 @@ namespace Centers.Boss
             Debug.Log(payload.Sender);
             if(payload.Sender != null)
             {
+                string bossName = payload.Sender.name;
+
+                if(bossName == "Terrapupa")
+                {
+                    Debug.Log("테라푸파 사망, 2페이즈");
+                    SpawnTerraAndPupa();
+                }
+                else if(bossName == "Terra" || bossName == "Pupa")
+                {
+                    Debug.Log("테라 혹은 푸파 사망, 미니언 2마리 소환");
+                    SpawnMinions(payload.Sender);
+                }
+                else
+                {
+                    bossDeathCheck++;
+                    Debug.Log($"미니언 소환, 남은 미니언 {4 - bossDeathCheck}");
+                }
+
                 payload.Sender.gameObject.SetActive(false);
             }
 
-            bossDeathCheck++;
-
-            // 2페이즈 확인용 임시
-            switch (bossDeathCheck)
+            if(bossDeathCheck == 4)
             {
-                case 1:
-                    Debug.Log("2페이즈");
-                    SpawnTerraAndPupa();
-                    break;
-                case 2:
-                    Debug.Log("2페이즈 1마리남음");
-                    break;
-                case 3:
-                    Debug.Log("3페이즈");
-                    break;
-                default:
-                    break;
+                Debug.Log("보스 클리어");
             }
         }
 
@@ -295,6 +329,25 @@ namespace Centers.Boss
             pupa.terrapupaData.player.Value = player.transform;
         }
 
+        private void SpawnMinions(Transform obj)
+        {
+            Debug.Log("SpawnMinions :: 테, 라, 푸, 파 랜덤 2마리 소환");
+
+            Vector3 position = obj.position;
+
+            for(int i = 0; i < 2; i++)
+            {
+                int index = Random.Range(0, minions.Count);
+                TerrapupaMinionController minion = minions[index];
+
+                minion.gameObject.SetActive(true);
+
+                minion.transform.position = position;
+                minion.minionData.player.Value = player.transform;
+
+                minions.RemoveAt(index);
+            }
+        }
 
         private void OnHitStone(BossEventPayload bossPayload)
         {
@@ -412,6 +465,54 @@ namespace Centers.Boss
                         AttackTypeValue = manaFountain.banBossAttackType,
                     });
             }
+        }
+
+        private void OnMinionAttack(IBaseEventPayload bossPayload)
+        {
+            Debug.Log($"OnMinionAttack :: 보스 미니언의 공격");
+
+            BossEventPayload payload = bossPayload as BossEventPayload;
+
+            if (payload == null)
+            {
+                return;
+            }
+
+            Transform playerTransform = payload.TransformValue1;
+            Transform minion = payload.Sender;
+            int attack = payload.IntValue;
+
+            Debug.Log(playerTransform);
+
+            if (playerTransform != null)
+            {
+                Debug.Log($"플레이어 피해 {attack} 입음");
+
+                TerrapupaMinionController minionController = minion.GetComponent<TerrapupaMinionController>();
+                minionController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                {
+                    Attacker = minion,
+                    Defender = playerTransform,
+                    Damage = payload.IntValue,
+                    PlayerStatusEffectName = StatusEffectName.WeakRigidity,
+                    statusEffectduration = 0.05f,
+                });
+
+            }
+
+            StartCoroutine(MinionAttackCooldown(payload));
+        }
+
+        private IEnumerator MinionAttackCooldown(BossEventPayload payload)
+        {
+            TerrapupaMinionController minionController = payload.Sender.GetComponent<TerrapupaMinionController>();
+            Debug.Log($"{minionController} 공격 봉인");
+            minionController.minionData.canAttack.Value = false;
+
+            yield return new WaitForSeconds(5.0f);
+
+            Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
+            minionController.minionData.canAttack.Value = true;
         }
 
 

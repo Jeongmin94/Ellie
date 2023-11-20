@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
-  m_Name: TerrapupaDead
+  m_Name: TerrapupaMinionDead
   m_EditorClassIdentifier: 
   rootNode:
     rid: 1401849175978016768
@@ -27,17 +27,13 @@ MonoBehaviour:
   - rid: 283011153473568805
   - rid: 283011153473568807
   - rid: 283011153473568822
-  - rid: 283011153473568824
-  - rid: 283011153473568827
   treeState: 0
   blackboard:
     keys:
-    - rid: 283011153473568823
     - rid: 283011090204065825
-    - rid: 283011153473568825
     - rid: 283011153473568826
-  viewPosition: {x: 1437.6, y: 714.4, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 1088, y: 755.2, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -48,7 +44,7 @@ MonoBehaviour:
       data:
         name: animationName
         typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: Dying
+        value: Die
     - rid: 283011153473568795
       type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
       data:
@@ -161,9 +157,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 283011153473568803
-        - rid: 283011153473568824
         - rid: 283011153473568805
-        - rid: 283011153473568827
         - rid: 283011153473568807
     - rid: 283011153473568803
       type: {class: SetRigidbodyKinematic, ns: , asm: Assembly.Ellie}
@@ -171,7 +165,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: caed81605d8eb5641a0d624e8829a955
-        position: {x: -1635, y: -750}
+        position: {x: -1560, y: -750}
         blackboard:
           keys: []
         description: 
@@ -232,7 +226,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 93a3d71bf1c966547a7ea8413af074c8
-        position: {x: -795, y: -750}
+        position: {x: -900, y: -750}
         blackboard:
           keys: []
         description: 
@@ -263,89 +257,12 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0.98
-    - rid: 283011153473568823
-      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: magicStoneTransform
-        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
-          Culture=neutral, PublicKeyToken=null
-        value: {fileID: 0}
-    - rid: 283011153473568824
-      type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: a20d73f8327cb424f9614fcea2f39758
-        position: {x: -1380, y: -750}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        isInit:
-          reference:
-            rid: -2
-          defaultValue: 1
-        bossPayload:
-          reference:
-            rid: 283011153473568825
-        intValue:
-          reference:
-            rid: -2
-          defaultValue: 0
-        floatValue:
-          reference:
-            rid: -2
-          defaultValue: 0
-        vector3Value:
-          reference:
-            rid: -2
-          defaultValue: {x: 0, y: 0, z: 0}
-        transformValue1:
-          reference:
-            rid: 283011153473568823
-          defaultValue: {fileID: 0}
-        transformValue2:
-          reference:
-            rid: -2
-          defaultValue: {fileID: 0}
-        transformValue3:
-          reference:
-            rid: -2
-          defaultValue: {fileID: 0}
-        attackTypeValue:
-          reference:
-            rid: -2
-          defaultValue: 0
-    - rid: 283011153473568825
-      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: manaStonePayload
-        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
-          PublicKeyToken=null
     - rid: 283011153473568826
       type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         name: deathPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
-    - rid: 283011153473568827
-      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: fda53569eb140d6449254e13b05403e5
-        position: {x: -1035, y: -750}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        eventBusEvent:
-          reference:
-            rid: -2
-          defaultValue: 9
-        baseEventPayload:
-          reference:
-            rid: 283011153473568825
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

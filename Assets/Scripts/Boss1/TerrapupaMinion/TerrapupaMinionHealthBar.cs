@@ -7,7 +7,7 @@ public class TerrapupaMinionHealthBar : MonoBehaviour
 {
     [SerializeField] private TerrapupaMinionRootData data;
 
-    public float scaleFactor = 0.001f;
+    public float scaleFactor = 0.003f;
 
     private UIMonsterBillboard billboard;
     private readonly MonsterDataContainer dataContainer = new MonsterDataContainer();
