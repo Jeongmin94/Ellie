@@ -1,8 +1,14 @@
+using System;
 using Assets.Scripts.Data.UI.Dialog;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Dialog;
+using Channels.Type;
+using Channels.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -50,17 +56,20 @@ namespace Assets.Scripts.UI.Dialog
         private GameObject dialogPanel;
         private RectTransform dialogPanelRect;
 
+        // 다음 버튼 패널
         private GameObject dialogNextPanel;
         private RectTransform dialogNextPanelRect;
 
+        // 대사 출력 패널
         private GameObject dialogContextPanel;
+        private DialogText dialogContextText;
 
         private Image dialogImage;
 
         private TextMeshProUGUI dialogTitle;
         private TextMeshProUGUI dialogNext;
 
-        private DialogText dialogContextText;
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -73,6 +82,7 @@ namespace Assets.Scripts.UI.Dialog
 
             Bind();
             InitObjects();
+            InitTicketMachine();
         }
 
         private void Bind()
@@ -114,10 +124,51 @@ namespace Assets.Scripts.UI.Dialog
             dialogContextText.InitTypography(dialogContextData);
         }
 
-        private void Start()
+        private void InitTicketMachine()
         {
-            // for test
-            dialogContextText.Play("아무것도 먹지 못 한지 벌써 일주일이나 지났어", 0.01f);
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+
+            ticketMachine.AddTickets(ChannelType.Dialog);
+            ticketMachine.RegisterObserver(ChannelType.Dialog, OnNotify);
+
+            TicketManager.Instance.Ticket(ticketMachine);
+        }
+
+        private void OnNotify(IBaseEventPayload payload)
+        {
+            if (payload is not DialogPayload dialogPayload)
+                return;
+
+            Debug.Log($"{name}, {dialogPayload.text} - OnNotify");
+
+            switch (dialogPayload.dialogAction)
+            {
+                case DialogAction.Play:
+                {
+                    dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
+                }
+                    break;
+                case DialogAction.Stop:
+                {
+                    dialogContextText.Stop();
+                }
+                    break;
+
+                case DialogAction.Resume:
+                {
+                    dialogContextText.Resume();
+                }
+                    break;
+
+                case DialogAction.Pause:
+                {
+                    dialogContextText.Pause();
+                }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }
