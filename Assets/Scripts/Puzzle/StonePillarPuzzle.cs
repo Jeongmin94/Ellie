@@ -5,22 +5,22 @@ namespace Assets.Scripts.Puzzle
 {
     public class StonePillarPuzzle : MonoBehaviour
     {
-        private Vector3 center;
-        private Vector3 size;
-        private int count = 0;
+        public Vector3 center;
+        public Vector3 size;
+        public int count = 0;
 
-        [SerializeField] private GameObject pillar1;
-        [SerializeField] private GameObject pillar2;
-        [SerializeField] private GameObject pillar3;
+        public GameObject pillar1;
+        public GameObject pillar2;
+        public GameObject pillar3;
 
-        [SerializeField] private float pillar1Height;
-        [SerializeField] private float pillar2Height;
-        [SerializeField] private float pillar3Height;
+        public float pillar1Height;
+        public float pillar2Height;
+        public float pillar3Height;
 
-        [SerializeField] private float waitTime;
-        [SerializeField] private float raisingSpeed;
+        public float waitTime;
 
         private bool isDone;
+        public float raisingSpeed;
         private void Start()
         {
             center = transform.position;
