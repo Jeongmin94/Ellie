@@ -19,6 +19,7 @@ namespace Channels.Dialog
         public DialogType dialogType;
         public DialogAction dialogAction;
         public string text;
+        public string speaker;
         public float interval;
 
         public static DialogPayload Play(string text, float interval = 0.01f)

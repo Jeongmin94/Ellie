@@ -22,6 +22,7 @@ namespace Assets.Scripts.UI.Dialog
         private string currentText = string.Empty;
         private float currentInterval = 0.0f;
         private bool onPause = false;
+        private bool onBlink = false;
 
         private void Awake()
         {
@@ -67,12 +68,19 @@ namespace Assets.Scripts.UI.Dialog
             StartCoroutine(playingEnumerator);
         }
 
-        public void Stop()
+        public IEnumerator Play(string text, float interval, float duration)
         {
-            if (!IsPlaying)
-                return;
+            playingEnumerator = ReadText(text, interval, duration);
+            yield return StartCoroutine(playingEnumerator);
+        }
 
-            OnNext = true;
+        public bool Stop()
+        {
+            if (IsPlaying)
+                return false;
+
+            onBlink = false;
+            return true;
         }
 
         public void Next()
@@ -83,36 +91,27 @@ namespace Assets.Scripts.UI.Dialog
             OnNext = true;
         }
 
-        public void Pause()
+        public void SetPause(bool pause)
         {
             if (!IsPlaying)
                 return;
 
-            onPause = true;
+            onPause = pause;
         }
 
-        public void Resume()
+        private IEnumerator ReadText(string text, float interval, float duration = 0.0f)
         {
-            if (!IsPlaying)
-                return;
+            StopCoroutine(blinkEnumerator);
 
-            onPause = false;
-        }
-
-        private IEnumerator ReadText(string text, float interval)
-        {
             IsPlaying = true;
             currentText = text;
             currentInterval = interval;
 
             WaitForSeconds wfs = new WaitForSeconds(interval);
-            WaitForFixedUpdate wff = new WaitForFixedUpdate();
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
 
             foreach (var ch in text)
             {
-                while (onPause)
-                    yield return wff;
-
                 if (OnNext)
                     break;
 
@@ -120,6 +119,9 @@ namespace Assets.Scripts.UI.Dialog
                 dialogText.text = sb.ToString();
 
                 yield return wfs;
+
+                while (onPause)
+                    yield return wfef;
             }
 
             IsPlaying = false;
@@ -128,8 +130,11 @@ namespace Assets.Scripts.UI.Dialog
             dialogText.text = text;
             sb.Clear();
 
+            onBlink = true;
             blinkEnumerator = Blink(text);
             StartCoroutine(blinkEnumerator);
+            if (duration > 0.0f)
+                yield return StartCoroutine(Reserve(duration));
         }
 
         // 현재 텍스트 출력 후 깜빡거리는 효과 추가
@@ -138,15 +143,29 @@ namespace Assets.Scripts.UI.Dialog
         {
             WaitForSeconds wfs = new WaitForSeconds(0.5f);
             bool isBlink = false;
-            string onBlink = text + '|';
+            string blinkText = text + '|';
 
-            while (!IsPlaying)
+            while (onBlink)
             {
-                dialogText.text = isBlink ? onBlink : text;
+                dialogText.text = isBlink ? blinkText : text;
 
                 isBlink = !isBlink;
                 yield return wfs;
             }
+        }
+
+        private IEnumerator Reserve(float duration)
+        {
+            float timeAcc = 0.0f;
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+
+            while (timeAcc <= duration)
+            {
+                timeAcc += Time.deltaTime;
+                yield return wfef;
+            }
+
+            onBlink = false;
         }
     }
 }

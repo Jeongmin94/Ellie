@@ -142,25 +142,31 @@ namespace Assets.Scripts.UI.Dialog
             {
                 case DialogAction.Play:
                 {
+                    dialogPanel.gameObject.SetActive(true);
+
+                    dialogTitle.text = dialogPayload.speaker;
                     dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
                 }
                     break;
 
                 case DialogAction.Stop:
                 {
-                    dialogContextText.Stop();
+                    if (dialogContextText.Stop())
+                    {
+                        dialogPanel.gameObject.SetActive(false);
+                    }
                 }
                     break;
 
                 case DialogAction.Resume:
                 {
-                    dialogContextText.Resume();
+                    dialogContextText.SetPause(false);
                 }
                     break;
 
                 case DialogAction.Pause:
                 {
-                    dialogContextText.Pause();
+                    dialogContextText.SetPause(true);
                 }
                     break;
 
