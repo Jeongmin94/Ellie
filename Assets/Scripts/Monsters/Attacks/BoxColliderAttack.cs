@@ -16,6 +16,7 @@ namespace Assets.Scripts.Monsters.Attacks
     {
         private BoxCollider collider;
         private BoxColliderAttackData attackData;
+        private ParticleSystem particle;
 
         private void Awake()
         {
@@ -59,6 +60,12 @@ namespace Assets.Scripts.Monsters.Attacks
                     if (other.gameObject.GetComponent<ICombatant>() != null)
                     {
                         audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
+                        if (particle == null)
+                        {
+                            particle = particleController.GetParticle(MonsterParticleType.MeleeHit);
+                        }
+                        particle.transform.position = other.transform.position;
+                        particle.Play();
                         SetAndAttack(attackData, other.transform);
                     }
                 }

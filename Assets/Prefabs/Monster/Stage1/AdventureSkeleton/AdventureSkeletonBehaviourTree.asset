@@ -107,6 +107,7 @@ MonoBehaviour:
   - rid: 6937830705275600922
   - rid: 6937830705275600923
   - rid: 6937830705275600924
+  - rid: 6937830866574114816
   treeState: 0
   blackboard:
     keys:
@@ -134,8 +135,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542871
-  viewPosition: {x: 274, y: 141.5, z: 0}
-  viewScale: {x: 0.25, y: 0.25, z: 1}
+  viewPosition: {x: 1456, y: -211.5, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -170,6 +171,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827609998966652930
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -247,7 +252,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e52811ae9daed4e1eb83d1290970ec3d
-        position: {x: -3105, y: 570}
+        position: {x: -3285, y: 570}
         blackboard:
           keys: []
         description: RunToPlayer
@@ -264,7 +269,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 66312dc16c5ab4f63ac0cbda231190be
-        position: {x: -3495, y: 705}
+        position: {x: -3675, y: 705}
         blackboard:
           keys: []
         description: 
@@ -291,7 +296,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 5eb7fdc77efdb4848a31a0da9f39c3ac
-        position: {x: -2955, y: 705}
+        position: {x: -3135, y: 705}
         blackboard:
           keys: []
         description: 
@@ -911,7 +916,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3ff18f65cd91145a6923f6adc2b049aa
-        position: {x: -3315, y: 705}
+        position: {x: -3495, y: 705}
         blackboard:
           keys: []
         description: 
@@ -930,7 +935,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a9b72822e58e5455ea148fb29c4f1348
-        position: {x: -2805, y: 705}
+        position: {x: -2985, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1319,6 +1324,7 @@ MonoBehaviour:
         - rid: 6937830456686542853
         - rid: 6937830705275600922
         - rid: 6937830456686542855
+        - rid: 6937830866574114816
         - rid: 6937830705275600923
         - rid: 6937830456686542852
         - rid: 6937830456686542854
@@ -1328,7 +1334,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ceb16d0c0e18b4c3d8005f59dd7e136a
-        position: {x: -2595, y: 705}
+        position: {x: -2745, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1370,7 +1376,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4df951dc2e2064e7682448dfad126464
-        position: {x: -2415, y: 705}
+        position: {x: -2565, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1397,7 +1403,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a2436a824bf44410cbf9669c99e4b4cf
-        position: {x: -2115, y: 705}
+        position: {x: -2265, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1493,6 +1499,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600900
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1523,6 +1533,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 3
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1559,6 +1573,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600905
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1575,6 +1593,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 3
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1611,6 +1633,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600908
       type: {class: RandomSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1644,6 +1670,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600910
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1660,6 +1690,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 2
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1682,6 +1716,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600912
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1698,6 +1736,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 3
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1734,6 +1776,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600915
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1750,6 +1796,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 1
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1786,6 +1836,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600919
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1802,6 +1856,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 3
         isInteruptable:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isLoop:
           reference:
             rid: -2
           defaultValue: 0
@@ -1838,13 +1896,17 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600922
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 35af60f69ed994119878876f808dec70
-        position: {x: -2265, y: 705}
+        position: {x: -2415, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1857,6 +1919,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600923
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
@@ -1876,13 +1942,17 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6937830705275600924
       type: {class: PlayAudio, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 114485f7220bd4eaf98a65638601254f
-        position: {x: -3105, y: 705}
+        position: {x: -3285, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1895,3 +1965,22 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 6937830866574114816
+      type: {class: PlayParticle, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7170416a797c04eeab0848233805b440
+        position: {x: -2055, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        particleType:
+          reference:
+            rid: -2
+          defaultValue: 2

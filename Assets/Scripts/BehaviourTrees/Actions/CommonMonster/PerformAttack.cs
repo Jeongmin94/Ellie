@@ -17,15 +17,12 @@ public class PerformAttack : ActionNode
 
     protected override State OnUpdate()
     {
-        Debug.Log("SKILL NAME : " + skillName.Value);
         if(context.controller.Attacks.TryGetValue(skillName.Value, out AbstractAttack atk))
         {
             atk.ActivateAttack();
-            Debug.Log(skillName.Value+ "  Attack");
             return State.Success;
         }
 
-        Debug.LogError(context.gameObject + "SKILL UNFOUND");
         return State.Failure;
     }
 }

@@ -1470,21 +1470,22 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1068597257678563727}
+  - component: {fileID: 8131742662541749375}
+  - component: {fileID: 1390045677}
+  - component: {fileID: 1731138202}
+  - component: {fileID: 7659240725079815480}
   - component: {fileID: 8543985638472674019}
   - component: {fileID: 2321734310753455670}
   - component: {fileID: 5872819883924350083}
   - component: {fileID: 7946567599469075429}
-  - component: {fileID: 7659240725079815480}
-  - component: {fileID: 8131742662541749375}
   - component: {fileID: 1390045670}
-  - component: {fileID: 1390045677}
   m_Layer: 10
   m_Name: AdventureSkeleton
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1068597257678563727
 Transform:
   m_ObjectHideFlags: 0
@@ -1506,6 +1507,71 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8131742662541749375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412197747154225357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ea758fc79144779ad000b17ece2c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData: {fileID: 11400000, guid: 9f591f613d6974261834a7af79b56119, type: 2}
+  runToPlayerData: {fileID: 11400000, guid: 4f79b9be81dae4adb9e3d9c1c2e4d111, type: 2}
+  meleeAttackData: {fileID: 11400000, guid: 0d740a15ef6f246bea944ea5c6787197, type: 2}
+  weaponAttackData: {fileID: 0}
+  projectileAttackData: {fileID: 0}
+  fleeSkilldata: {fileID: 0}
+  fanshapeAttackData: {fileID: 11400000, guid: 7fabdc495f9ea4b418b615f0f11894a4, type: 2}
+  behaviourTreeInstance: {fileID: 0}
+  player: {fileID: 0}
+--- !u!114 &1390045677
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412197747154225357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: c820c946f59004cb3832834d4cb87342, type: 2}
+--- !u!114 &1731138202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412197747154225357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: b5eb79329df1549d3a18c06cb09e3c91, type: 2}
+--- !u!114 &7659240725079815480
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412197747154225357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  behaviourTree: {fileID: 11400000, guid: 77862248fcc864cab8d9a13ceb088336, type: 2}
+  validate: 1
+  blackboardOverrides: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!95 &8543985638472674019
 Animator:
   serializedVersion: 5
@@ -1579,45 +1645,6 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &7659240725079815480
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4412197747154225357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58c6f9b140a52a14881ec09eaebb66eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  behaviourTree: {fileID: 11400000, guid: 77862248fcc864cab8d9a13ceb088336, type: 2}
-  validate: 1
-  blackboardOverrides: []
-  references:
-    version: 2
-    RefIds: []
---- !u!114 &8131742662541749375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4412197747154225357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ea758fc79144779ad000b17ece2c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 9f591f613d6974261834a7af79b56119, type: 2}
-  runToPlayerData: {fileID: 11400000, guid: 4f79b9be81dae4adb9e3d9c1c2e4d111, type: 2}
-  meleeAttackData: {fileID: 11400000, guid: 0d740a15ef6f246bea944ea5c6787197, type: 2}
-  weaponAttackData: {fileID: 0}
-  projectileAttackData: {fileID: 0}
-  fleeSkilldata: {fileID: 0}
-  fanshapeAttackData: {fileID: 11400000, guid: 7fabdc495f9ea4b418b615f0f11894a4, type: 2}
-  behaviourTreeInstance: {fileID: 0}
-  player: {fileID: 0}
 --- !u!82 &1390045670
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1714,19 +1741,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1390045677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4412197747154225357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: c820c946f59004cb3832834d4cb87342, type: 2}
 --- !u!1 &4556069370795293131
 GameObject:
   m_ObjectHideFlags: 0
