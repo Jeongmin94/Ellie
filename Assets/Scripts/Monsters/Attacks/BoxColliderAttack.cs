@@ -58,7 +58,7 @@ namespace Assets.Scripts.Monsters.Attacks
                 {
                     if (other.gameObject.GetComponent<ICombatant>() != null)
                     {
-                        Debug.Log(other);
+                        audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
                         SetAndAttack(attackData, other.transform);
                     }
                 }
