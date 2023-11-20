@@ -75011,12 +75011,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.99900055
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.44200015
       objectReference: {fileID: 0}
     - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.5199995
+      value: -1.1077652
       objectReference: {fileID: 0}
     - target: {fileID: 1118065665, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
@@ -75062,6 +75066,26 @@ PrefabInstance:
       propertyPath: Damping.y
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: IgnoreTag
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: CameraRadius
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: DampingFromCollision
+      value: 1.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: DampingIntoCollision
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: CameraCollisionFilter.m_Bits
+      value: 256
+      objectReference: {fileID: 0}
     - target: {fileID: 4016927572231187844, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_CollideAgainst.m_Bits
       value: 0
@@ -75074,6 +75098,14 @@ PrefabInstance:
       propertyPath: m_Lens.m_SensorSize.y
       value: 24
       objectReference: {fileID: 0}
+    - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7420001
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -5
+      objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
       value: Player
@@ -75084,7 +75116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565217, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.21
+      value: 30.5
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565217, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
@@ -75092,7 +75124,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565217, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.8
+      value: 101.7
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565217, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75131,12 +75163,20 @@ PrefabInstance:
       value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.44200015
       objectReference: {fileID: 0}
+    - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.0137024
+      objectReference: {fileID: 0}
     - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: CameraCollisionFilter.m_Bits
-      value: 0
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
