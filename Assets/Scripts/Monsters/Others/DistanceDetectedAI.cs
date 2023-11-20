@@ -25,7 +25,6 @@ namespace Assets.Scripts.Monsters.Others
 
         private void OnTriggerStay(Collider other)
         {
-            Debug.Log("Entered : "+other.name);
             if (other.tag == "Player")
             {
                 Debug.Log(gameObject.name + "IS DETECTED");
