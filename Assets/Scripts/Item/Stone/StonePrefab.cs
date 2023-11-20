@@ -1,13 +1,13 @@
 ﻿using Assets.Scripts.Combat;
 using Channels.Combat;
+using System;
 using UnityEngine;
 namespace Assets.Scripts.Item.Stone
 {
-    public class TestStoneLootable : BaseStone, ICombatant
+    public class StonePrefab : BaseStone, ICombatant
     {
         [SerializeField] private LayerMask layerMask;
-
-        void Start()
+        private void Start()
         {
             int exceptGroundLayer = LayerMask.NameToLayer("ExceptGround");
             int monsterLayer = LayerMask.NameToLayer("Monster");
