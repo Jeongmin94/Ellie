@@ -634,7 +634,6 @@ namespace Assets.Scripts.Player
             
             Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
             
-            
             Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
         }
 
