@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -10,7 +9,7 @@ namespace UI.Dialog.Test
 {
     public class DialogTestClient : MonoBehaviour
     {
-        public string text = "Hello World";
+        public string text = "Hello World Hello World Hello World Hello World";
 
         private TicketMachine ticketMachine;
 
@@ -22,18 +21,13 @@ namespace UI.Dialog.Test
             TicketManager.Instance.Ticket(ticketMachine);
         }
 
-        private DialogPayload MakePlayPayload(string context, float interval = 0.01f)
-        {
-            return DialogPayload.Play(context, interval);
-        }
-
         private void OnGUI()
         {
             text = GUI.TextField(new Rect(10, 10, 500, 50), text, 100);
 
             if (GUI.Button(new Rect(520, 10, 100, 50), "Play Dialog"))
             {
-                ticketMachine.SendMessage(ChannelType.Dialog, DialogPayload.Play(text));
+                ticketMachine.SendMessage(ChannelType.Dialog, DialogPayload.Play(text, 0.1f));
             }
 
             if (GUI.Button(new Rect(625, 10, 100, 50), "Pause"))
@@ -49,6 +43,11 @@ namespace UI.Dialog.Test
             if (GUI.Button(new Rect(520, 65, 100, 50), "Stop"))
             {
                 ticketMachine.SendMessage(ChannelType.Dialog, DialogPayload.Stop());
+            }
+
+            if (GUI.Button(new Rect(625, 65, 100, 50), "OnNext"))
+            {
+                ticketMachine.SendMessage(ChannelType.Dialog, DialogPayload.OnNext());
             }
         }
     }

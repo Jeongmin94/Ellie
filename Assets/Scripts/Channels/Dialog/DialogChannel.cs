@@ -11,6 +11,7 @@ namespace Channels.Dialog
         Stop,
         Pause,
         Resume,
+        OnNext,
     }
 
     public class DialogPayload : IBaseEventPayload
@@ -39,7 +40,7 @@ namespace Channels.Dialog
 
             return payload;
         }
-        
+
         public static DialogPayload Pause()
         {
             DialogPayload payload = new DialogPayload();
@@ -48,12 +49,21 @@ namespace Channels.Dialog
 
             return payload;
         }
-        
+
         public static DialogPayload Resume()
         {
             DialogPayload payload = new DialogPayload();
             payload.dialogType = DialogType.Notify;
             payload.dialogAction = DialogAction.Resume;
+
+            return payload;
+        }
+
+        public static DialogPayload OnNext()
+        {
+            DialogPayload payload = new DialogPayload();
+            payload.dialogType = DialogType.Notify;
+            payload.dialogAction = DialogAction.OnNext;
 
             return payload;
         }

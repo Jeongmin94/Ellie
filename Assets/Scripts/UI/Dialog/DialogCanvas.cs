@@ -8,7 +8,6 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
-using Channels.UI;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -139,8 +138,6 @@ namespace Assets.Scripts.UI.Dialog
             if (payload is not DialogPayload dialogPayload)
                 return;
 
-            Debug.Log($"{name}, {dialogPayload.text} - OnNotify");
-
             switch (dialogPayload.dialogAction)
             {
                 case DialogAction.Play:
@@ -148,6 +145,7 @@ namespace Assets.Scripts.UI.Dialog
                     dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
                 }
                     break;
+
                 case DialogAction.Stop:
                 {
                     dialogContextText.Stop();
@@ -163,6 +161,12 @@ namespace Assets.Scripts.UI.Dialog
                 case DialogAction.Pause:
                 {
                     dialogContextText.Pause();
+                }
+                    break;
+
+                case DialogAction.OnNext:
+                {
+                    dialogContextText.Next();
                 }
                     break;
 
