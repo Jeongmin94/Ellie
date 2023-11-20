@@ -9,7 +9,6 @@ using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
-using Unity.Plastic.Newtonsoft.Json.Bson;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -92,7 +91,7 @@ namespace Assets.Scripts.Player
         public GameObject shooter;
         public GameObject MeleeAttackCollider;
         [SerializeField] private int curStoneIdx;
-
+        [SerializeField] Transform AimObj;
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -103,6 +102,7 @@ namespace Assets.Scripts.Player
                 aimTarget = value;
             }
         }
+
         public float zoomMultiplier;
 
         [SerializeField] private float recoilTime;
@@ -112,7 +112,6 @@ namespace Assets.Scripts.Player
         [SerializeField] private float miningTime;
         [SerializeField] private Pickaxe pickaxe;
         public Pickaxe Pickaxe { get { return pickaxe; } }
-        // !TODO : Interaction 채널을 통해 플레이어와 Interactive 오브젝트들이 상호작용할 수 있게 수정
         private Ore curOre = null;
 
         [Header("Boolean Properties")]
@@ -216,6 +215,7 @@ namespace Assets.Scripts.Player
 
         private void InitVariables()
         {
+
             Rb.freezeRotation = true;
             canMove = true;
             canJump = true;
@@ -483,6 +483,7 @@ namespace Assets.Scripts.Player
         {
             cinematicMainCam.gameObject.SetActive(true);
             cinematicAimCam.gameObject.SetActive(false);
+            
         }
 
         public void TurnOnDialogCam()
@@ -550,9 +551,11 @@ namespace Assets.Scripts.Player
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
+            AimObj.position = AimTarget;
         }
         public void LookAimTarget()
         {
+            AimObj.gameObject.SetActive(true);
             Vector3 directionToTarget = AimTarget - PlayerObj.position;
             directionToTarget.y = 0;
 

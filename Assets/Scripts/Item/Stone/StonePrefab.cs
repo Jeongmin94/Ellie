@@ -25,8 +25,12 @@ namespace Assets.Scripts.Item.Stone
 
         }
 
+
         private void OnCollisionEnter(Collision collision)
         {
+            // !TODO : 충돌 대상에 대해 조건을 나누고, 페이로드 작성해서 해처리에 보냅니다
+            //trail off
+            transform.GetChild(0).gameObject.SetActive(false);
             foreach (ContactPoint contact in collision.contacts)
             {
                 GameObject hitObject = contact.otherCollider.gameObject;
@@ -45,6 +49,7 @@ namespace Assets.Scripts.Item.Stone
                     break;
                 }
             }
+            //페이로드 만들어서 hatchery에 쏴줘
         }
 
         private CombatPayload GenerateStonePayload(Transform defender)

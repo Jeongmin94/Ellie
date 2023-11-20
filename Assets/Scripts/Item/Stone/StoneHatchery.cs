@@ -32,12 +32,10 @@ namespace Assets.Scripts.Item.Stone
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
-            //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
             ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
         private void InitStonePool()
         {
-            //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
             stonePool = PoolManager.Instance.CreatePool(stone, initialPoolSize);
         }
 
@@ -66,13 +64,14 @@ namespace Assets.Scripts.Item.Stone
 
         public void StoneEvent(IBaseEventPayload payload)
         {
-            StoneEventPayload itemPayload = payload as StoneEventPayload;
-            BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
-            Vector3 startPos = itemPayload.StoneSpawnPos;
-            Vector3 direction = itemPayload.StoneDirection;
-            Vector3 force = itemPayload.StoneForce;
-            float strength = itemPayload.StoneStrength;
-            if (itemPayload.Type == StoneEventType.ShootStone)
+            StoneEventPayload stonePayload = payload as StoneEventPayload;
+            StonePrefab stone = GetStone(stonePayload.StoneIdx) as StonePrefab;
+            Vector3 startPos = stonePayload.StoneSpawnPos;
+            Vector3 direction = stonePayload.StoneDirection;
+            Vector3 force = stonePayload.StoneForce;
+            float strength = stonePayload.StoneStrength;
+           
+            if (stonePayload.Type == StoneEventType.ShootStone)
             {
                 ReleaseStone(stone, startPos, direction, strength);
                 //UI 페이로드 작성
@@ -85,19 +84,19 @@ namespace Assets.Scripts.Item.Stone
                 };
                 ticketMachine.SendMessage(ChannelType.UI, uIPayload);
             }
-            else if (itemPayload.Type == StoneEventType.MineStone)
+            else if (stonePayload.Type == StoneEventType.MineStone)
             {
                 MineStone(stone, startPos, force);
             }
         }
         
-        private void MineStone(BaseStone stone, Vector3 position, Vector3 force)
+        private void MineStone(StonePrefab stone, Vector3 position, Vector3 force)
         {
             stone.transform.position = position;
             stone.GetComponent<Rigidbody>().AddForce(force * 4f, ForceMode.Impulse);
         }
 
-        private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
+        private void ReleaseStone(StonePrefab stone, Vector3 startPos, Vector3 direction, float strength)
         {
             stone.SetPosition(startPos);
             stone.MoveStone(direction, strength);
