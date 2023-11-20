@@ -10,11 +10,8 @@ namespace Assets.Scripts.UI.Dialog
 {
     public class DialogText : MonoBehaviour
     {
-        public bool IsPlaying { get; set; } = false;
-
-        // G키 눌러서 다음 텍스트 출력하는 용도
-        public bool OnNext { get; set; } = false;
-
+        private bool IsPlaying { get; set; } = false;
+        private bool OnNext { get; set; } = false;
 
         private IEnumerator playingEnumerator;
         private IEnumerator blinkEnumerator;
@@ -22,8 +19,8 @@ namespace Assets.Scripts.UI.Dialog
 
         private readonly Queue<string> dialogQueue = new Queue<string>();
         private readonly StringBuilder sb = new StringBuilder();
-        private string currentText;
-        private float currentInterval;
+        private string currentText = string.Empty;
+        private float currentInterval = 0.0f;
         private bool onPause = false;
 
         private void Awake()
@@ -104,8 +101,6 @@ namespace Assets.Scripts.UI.Dialog
 
         private IEnumerator ReadText(string text, float interval)
         {
-            StopCoroutine(blinkEnumerator);
-
             IsPlaying = true;
             currentText = text;
             currentInterval = interval;
@@ -127,14 +122,13 @@ namespace Assets.Scripts.UI.Dialog
                 yield return wfs;
             }
 
-            blinkEnumerator = Blink(text);
             IsPlaying = false;
             OnNext = false;
             onPause = false;
             dialogText.text = text;
             sb.Clear();
 
-            // 깜빡거리기 시작
+            blinkEnumerator = Blink(text);
             StartCoroutine(blinkEnumerator);
         }
 
@@ -146,7 +140,7 @@ namespace Assets.Scripts.UI.Dialog
             bool isBlink = false;
             string onBlink = text + '|';
 
-            while (true)
+            while (!IsPlaying)
             {
                 dialogText.text = isBlink ? onBlink : text;
 
