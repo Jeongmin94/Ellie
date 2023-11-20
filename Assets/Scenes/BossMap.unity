@@ -2112,6 +2112,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
       value: 13
@@ -2181,6 +2185,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -2401,11 +2409,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 411392, guid: d35aef65f03ae2a4e98cc24bcb5b5cdc, type: 3}
   m_PrefabInstance: {fileID: 383631719}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &406595067 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9091874407811079102, guid: b611ffeca4c38744d998284b8be3f5e6, type: 3}
-  m_PrefabInstance: {fileID: 979381638}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &409276582
 PrefabInstance:
@@ -2807,6 +2810,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -3248,6 +3255,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -4060,6 +4071,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -4231,6 +4246,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -4655,6 +4674,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -5553,9 +5576,9 @@ MonoBehaviour:
   player: {fileID: 2115764845}
   terrapupaMapObjects: {fileID: 1891697169}
   fallCheckLatency: 5
-  isActiveTerrapupa: 0
-  isActiveTerra: 1
-  isActivePupa: 1
+  isActiveTerrapupa: 1
+  isActiveTerra: 0
+  isActivePupa: 0
 --- !u!4 &952424627
 Transform:
   m_ObjectHideFlags: 0
@@ -5799,7 +5822,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-11852
+  m_Name: pb_Mesh109364
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -5977,6 +6000,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
       value: 10
@@ -6046,6 +6073,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -8249,6 +8280,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -8318,6 +8353,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -8595,6 +8634,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -8814,6 +8857,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -9159,6 +9206,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
@@ -10133,7 +10184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf17e062cceede946a7cd6929225c11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magicStalactitePrefab: {fileID: 406595067}
+  magicStalactitePrefab: {fileID: 9091874407811079102, guid: b611ffeca4c38744d998284b8be3f5e6, type: 3}
   manaFountains:
   - {fileID: 2072028222}
   - {fileID: 872517315}
@@ -11537,6 +11588,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
+      objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -11843,6 +11898,10 @@ PrefabInstance:
     - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_Layer
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 190504, guid: 6041dc253bbed79498437808853d8183, type: 3}
+      propertyPath: m_TagString
+      value: Ground
       objectReference: {fileID: 0}
     - target: {fileID: 473592, guid: 6041dc253bbed79498437808853d8183, type: 3}
       propertyPath: m_RootOrder

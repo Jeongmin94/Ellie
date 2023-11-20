@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Particle
 {
-
     public class ParticleController : Poolable
     {
         public ParticleSystem ps { get; private set; }

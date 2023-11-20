@@ -1,19 +1,13 @@
 ﻿using Assets.Scripts.Combat;
 using Channels.Combat;
+using Channels.Type;
 using System;
 using UnityEngine;
 namespace Assets.Scripts.Item.Stone
 {
     public class StonePrefab : BaseStone, ICombatant
     {
-        [SerializeField] private LayerMask layerMask;
-        private void Start()
-        {
-            int exceptGroundLayer = LayerMask.NameToLayer("ExceptGround");
-            int monsterLayer = LayerMask.NameToLayer("Monster");
-
-            layerMask = (1 << exceptGroundLayer) | (1 << monsterLayer);
-        }
+        public BaseStoneEffect StoneEffect { get; set; }
 
         public void Attack(IBaseEventPayload payload)
         { 
@@ -25,26 +19,10 @@ namespace Assets.Scripts.Item.Stone
 
         }
 
-        private void OnCollisionEnter(Collision collision)
+        public void OccurEffect(Transform defender)
         {
-            foreach (ContactPoint contact in collision.contacts)
-            {
-                GameObject hitObject = contact.otherCollider.gameObject;
-                if ((layerMask.value & (1 << hitObject.layer)) == 0)
-                {
-                    continue;
-                }
-
-                ICombatant enemy = hitObject.GetComponent<ICombatant>();
-                Debug.Log("!!!" + enemy);
-
-                if (enemy != null && !hitObject.CompareTag("Player"))
-                {
-                    Debug.Log($"{contact} 돌 충돌");
-                    hatchery.Attack(GenerateStonePayload(hitObject.transform));
-                    break;
-                }
-            }
+            Debug.Log($"{defender} 돌 충돌");
+            hatchery.Attack(GenerateStonePayload(defender));
         }
 
         private CombatPayload GenerateStonePayload(Transform defender)

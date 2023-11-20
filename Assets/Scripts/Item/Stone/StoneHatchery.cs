@@ -12,12 +12,12 @@ namespace Assets.Scripts.Item.Stone
 {
     public class StoneHatchery : MonoBehaviour
     {
-
         private const int STONEIDXSTART = 4000;
         private TicketMachine ticketMachine;
         private Pool stonePool;
         [SerializeField] Mesh[] stoneMeshes;
         [SerializeField] Material[] materials;
+        [SerializeField] BaseStoneEffect[] stoneEffects;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
@@ -28,6 +28,7 @@ namespace Assets.Scripts.Item.Stone
             string resourcePath = "Materials/StoneMaterials";
             materials = Resources.LoadAll<Material>(resourcePath);
         }
+
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -56,7 +57,36 @@ namespace Assets.Scripts.Item.Stone
             obj.gameObject.GetComponent<MeshCollider>().sharedMesh = stoneMeshes[idx];
             int matIdx = obj.GetComponent<BaseStone>().data.index % STONEIDXSTART;
             obj.gameObject.GetComponent<MeshRenderer>().material = materials[matIdx];
+            AddStoneEffect(obj, stoneIdx);
+            
             return obj;
+        }
+
+        public void AddStoneEffect(Poolable obj, int stoneIdx)
+        {
+            BaseStoneEffect currentEffect = obj.GetComponent<BaseStoneEffect>();
+            if (currentEffect != null)
+            {
+                Destroy(currentEffect);
+            }
+
+            BaseStoneEffect effect;
+            // 추후 enum + 데이터테이블 + 딕셔너리로 수정
+            switch (stoneIdx)
+            {
+                case 4020:
+                    effect = obj.gameObject.AddComponent<MagicStone>();
+                    break;
+                default:
+                    effect = obj.gameObject.AddComponent<NormalStone>();
+                    break;
+            }
+
+            StonePrefab prefab = obj.GetComponent<StonePrefab>();
+
+            prefab.StoneEffect = effect;
+            effect.InitData(prefab.data);
+            effect.SubscribeAction(prefab.OccurEffect);
         }
 
         public void CollectStone(BaseStone stone)
@@ -72,6 +102,7 @@ namespace Assets.Scripts.Item.Stone
             Vector3 direction = itemPayload.StoneDirection;
             Vector3 force = itemPayload.StoneForce;
             float strength = itemPayload.StoneStrength;
+            stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
             if (itemPayload.Type == StoneEventType.ShootStone)
             {
                 ReleaseStone(stone, startPos, direction, strength);
