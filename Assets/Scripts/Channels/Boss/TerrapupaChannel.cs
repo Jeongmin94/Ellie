@@ -43,6 +43,7 @@ namespace Channels.Boss
 
     public class BossEventPayload : IBaseEventPayload
     {
+        private GameObject prefabValue;
         private int intValue;
         private bool boolValue;
         private float floatValue;
@@ -55,6 +56,7 @@ namespace Channels.Boss
 
         public BossEventPayload()
         {
+            prefabValue = null;
             intValue = 0;
             boolValue = false;
             floatValue = 0.0f;
@@ -63,6 +65,12 @@ namespace Channels.Boss
             transformValue2 = null;
             transformValue3 = null;
             attackTypeValue = TerrapupaAttackType.None;
+        }
+
+        public GameObject PrefabValue
+        {
+            get { return prefabValue; }
+            set { prefabValue = value; }
         }
 
         public int IntValue

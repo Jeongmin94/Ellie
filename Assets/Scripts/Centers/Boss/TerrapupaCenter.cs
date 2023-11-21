@@ -10,6 +10,7 @@ using Channels.Combat;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Item.Stone;
 using System.Collections.Generic;
+using Assets.Scripts.Particle;
 
 namespace Centers.Boss
 {
@@ -180,6 +181,7 @@ namespace Centers.Boss
                 return;
             }
 
+            GameObject hitEffect = payload.PrefabValue;
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
             Transform bossTransform = payload.TransformValue3;
@@ -215,6 +217,13 @@ namespace Centers.Boss
                         statusEffectduration = 1.0f,
                         force = 15.0f,
                     });
+
+                    ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
+                    {
+                        Position = playerTransform.position,
+                        Rotation = playerTransform.rotation,
+                        Scale = new Vector3(0.5f, 0.5f, 0.5f),
+                    });
                 }
             }
             if (manaTransform != null)
@@ -230,12 +239,27 @@ namespace Centers.Boss
                         TransformValue1 = manaTransform,
                         AttackTypeValue = manaFountain.banBossAttackType,
                     });
+
+                ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
+                {
+                    Position = manaTransform.position,
+                    Rotation = manaTransform.rotation,
+                    Scale = new Vector3(0.7f, 0.7f, 0.7f),
+                    Offset = new Vector3(0.0f, 1.0f, 0.0f),
+                });
             }
             if(bossTransform != null)
             {
                 // 보스 체크
                 TerrapupaRootData target = bossTransform.GetComponent<TerrapupaController>().terrapupaData;
                 target.hitEarthQuake.Value = true;
+
+                ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
+                {
+                    Position = bossTransform.position,
+                    Rotation = bossTransform.rotation,
+                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
+                });
             }
         }
 
