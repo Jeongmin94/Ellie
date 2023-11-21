@@ -10,10 +10,12 @@ namespace Boss.Objects
 {
     public class ManaFountain : MonoBehaviour
     {
-        public TerrapupaAttackType banBossAttackType;
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
+
+        public TerrapupaAttackType banBossAttackType;
         public Transform spawnPosition;
+        public GameObject hitEffect;
 
         private bool isCooldown;
         private bool isBroken;
@@ -75,6 +77,7 @@ namespace Boss.Objects
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
                         new BossEventPayload
                         {
+                            PrefabValue = hitEffect,
                             TransformValue1 = transform,
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform.root,
@@ -90,6 +93,7 @@ namespace Boss.Objects
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
                         new BossEventPayload
                         {
+                            PrefabValue = hitEffect,
                             TransformValue1 = transform,
                             TransformValue2 = other.transform,
                             AttackTypeValue = banBossAttackType,

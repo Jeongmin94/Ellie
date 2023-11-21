@@ -25,11 +25,13 @@ namespace Centers.Boss
         [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
 
         public float fallCheckLatency = 5.0f;
-        private int bossDeathCheck = 0;
         public bool isActiveTerrapupa = true;
         public bool isActiveTerra = false;
         public bool isActivePupa = false;
         public bool isActiveMinions = false;
+
+        public int currentLevel = 1;   // 1페이즈, 2페이즈 체크용
+        public int minionDeathCheck = 4;
 
         private void Awake()
         {
@@ -42,19 +44,19 @@ namespace Centers.Boss
             base.Start();
 
             CheckTickets();
-            SetBossTarget();
+            SetBossInfo();
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                Debug.Log("테라푸파 사망");
+                Debug.Log("테라푸파 사망 치트");
                 terrapupa.terrapupaData.currentHP.Value = 0;
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                Debug.Log("테라, 푸파 사망");
+                Debug.Log("테라, 푸파 사망 치트");
                 terra.terrapupaData.currentHP.Value = 0;
                 pupa.terrapupaData.currentHP.Value = 0;
             }
@@ -64,7 +66,7 @@ namespace Centers.Boss
         /// Init Boss Center
         /// </summary>
 
-        private void SetBossTarget()
+        private void SetBossInfo()
         {
             terrapupa.terrapupaData.player.Value = player.transform;
             terra.terrapupaData.player.Value = player.transform;
@@ -82,6 +84,9 @@ namespace Centers.Boss
             {
                 minion.gameObject.SetActive(isActiveMinions);
             }
+
+            // 1, 2페이즈 체크 (임시)
+            currentLevel = isActiveTerrapupa ? 1 : 2;
         }
 
         private void CheckTickets()
@@ -108,9 +113,10 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
             EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
-            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnMeleeAttack);
-            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnLowAttack);
-            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnMinionAttack);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnBossMeleeAttack);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
+            EventBus.Instance.Subscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
         }
 
         /// <summary>
@@ -235,18 +241,11 @@ namespace Centers.Boss
                 EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
                     new BossEventPayload
                     {
+                        PrefabValue = hitEffect,
                         Sender = payload.Sender,
                         TransformValue1 = manaTransform,
                         AttackTypeValue = manaFountain.banBossAttackType,
                     });
-
-                ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
-                {
-                    Position = manaTransform.position,
-                    Rotation = manaTransform.rotation,
-                    Scale = new Vector3(0.7f, 0.7f, 0.7f),
-                    Offset = new Vector3(0.0f, 1.0f, 0.0f),
-                });
             }
             if(bossTransform != null)
             {
@@ -328,14 +327,14 @@ namespace Centers.Boss
                 }
                 else
                 {
-                    bossDeathCheck++;
-                    Debug.Log($"미니언 소환, 남은 미니언 {4 - bossDeathCheck}");
+                    minionDeathCheck--;
+                    Debug.Log($"미니언 사망, 남은 미니언 {minionDeathCheck}");
                 }
 
                 payload.Sender.gameObject.SetActive(false);
             }
 
-            if(bossDeathCheck == 4)
+            if(minionDeathCheck == 0)
             {
                 Debug.Log("보스 클리어");
             }
@@ -383,7 +382,7 @@ namespace Centers.Boss
             target.hitThrowStone.Value = true;
         }
 
-        private void OnMeleeAttack(IBaseEventPayload bossPayload)
+        private void OnBossMeleeAttack(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnMeleeAttack :: 보스의 근접 공격");
 
@@ -432,7 +431,7 @@ namespace Centers.Boss
             }
         }
 
-        private void OnLowAttack(IBaseEventPayload bossPayload)
+        private void OnBossLowAttack(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnLowAttack");
             BossEventPayload payload = bossPayload as BossEventPayload;
@@ -493,7 +492,7 @@ namespace Centers.Boss
             }
         }
 
-        private void OnMinionAttack(IBaseEventPayload bossPayload)
+        private void OnBossMinionAttack(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnMinionAttack :: 보스 미니언의 공격");
 
@@ -541,6 +540,32 @@ namespace Centers.Boss
             minionController.minionData.canAttack.Value = true;
         }
 
+        private void OnDestroyAllManaFountains()
+        {
+            Debug.Log($"OnDestroyAllManaFountains :: 보스 즉사");
+
+            switch (currentLevel)
+            {
+                case 1:
+                    currentLevel++;
+                    Debug.Log("테라푸파 사망, 즉사");
+                    Vector3 pos = terrapupa.transform.position;
+                    
+                    terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
+                    terrapupa.terrapupaData.currentHP.Value = 0;
+                    break;
+                case 2:
+                    Debug.Log("테라, 푸파 사망, 즉사");
+                    Vector3 pos1 = terra.transform.position;
+                    Vector3 pos2 = pupa.transform.position;
+
+                    terrapupa.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
+                    terrapupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
+                    terra.terrapupaData.currentHP.Value = 0;
+                    pupa.terrapupaData.currentHP.Value = 0;
+                    break;
+            }
+        }
 
         private void OnGUI()
         {

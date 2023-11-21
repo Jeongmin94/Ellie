@@ -1,3 +1,4 @@
+using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
 using Boss.Terrapupa;
@@ -14,18 +15,29 @@ public class TerrapupaMapObjectController : MonoBehaviour
     [SerializeField] private List<ManaFountain> manaFountains;
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
-    public int numberOfSector = 3;
-    public int stalactitePerSector = 3;
-    public float fieldRadius = 25.0f;
-    public float fieldHeight = 8.0f;
+    [Header("종마석")]
+    [Tooltip("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
+    [Tooltip("구역 갯수")] public int numberOfSector = 3;
+    [Tooltip("구역 당 종마석 갯수")] public int stalactitePerSector = 3;
+    [Tooltip("생성 구역 반지름")] public float fieldRadius = 25.0f;
+    [Tooltip("생성 높이")] public float fieldHeight = 8.0f;
+
+    [Header("마나의 샘")]
+    [Tooltip("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
+    [Tooltip("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
 
     private TicketMachine ticketMachine;
+
+    private int manaFountainCount;
 
     private void Awake()
     {
         SubscribeEvents();
         SpawnStalactites();
+        InitManaFountains();
         InitTicketMachine();
+
+        manaFountainCount = manaFountains.Count;
     }
 
     /// <summary>
@@ -60,18 +72,17 @@ public class TerrapupaMapObjectController : MonoBehaviour
 
     private void SpawnStalactites()
     {
-        Transform objectTransform = transform.GetChild(0);
-
         for (int i = 0; i < numberOfSector; i++)
         {
             List<MagicStalactite> sectorList = new List<MagicStalactite>();
             for (int j = 0; j < stalactitePerSector; j++)
             {
                 Vector3 position = GenerateRandomPositionInSector(i);
-                GameObject stalactite = Instantiate(magicStalactitePrefab, position, Quaternion.identity, objectTransform);
+                GameObject stalactite = Instantiate(magicStalactitePrefab, position, Quaternion.identity, transform);
                 MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
                 instantStalactite.MyIndex = i;
                 sectorList.Add(instantStalactite);
+                instantStalactite.respawnValue = regenerateStalactiteTime;
             }
             stalactites.Add(sectorList);
         }
@@ -91,6 +102,15 @@ public class TerrapupaMapObjectController : MonoBehaviour
             fieldHeight,
             Mathf.Sin(angle) * distance
         );
+    }
+
+    public void InitManaFountains()
+    {
+        foreach (var mana in manaFountains)
+        {
+            mana.coolDownValue = regenerateManaStoneTime;
+            mana.respawnValue = respawnManaFountainTime;
+        }
     }
 
     /// <summary>
@@ -120,6 +140,9 @@ public class TerrapupaMapObjectController : MonoBehaviour
         Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} 공격 타입 봉인");
         manaPayload.BoolValue = false;
 
+        GameObject hitEffect = manaPayload.PrefabValue;
+        Transform manaTransform = manaPayload.TransformValue1;
+
         if (manaPayload.TransformValue2 != null)
         {
             Destroy(manaPayload.TransformValue2.gameObject);
@@ -132,7 +155,17 @@ public class TerrapupaMapObjectController : MonoBehaviour
             manaPayload.Sender = actor.transform;
         }
 
-        
+        if(hitEffect != null)
+        {
+            ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
+            {
+                Position = manaTransform.position,
+                Rotation = manaTransform.rotation,
+                Scale = new Vector3(0.7f, 0.7f, 0.7f),
+                Offset = new Vector3(0.0f, 1.0f, 0.0f),
+            });
+        }
+
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
 
         StartCoroutine(ManaRespawn(manaPayload));
@@ -140,16 +173,22 @@ public class TerrapupaMapObjectController : MonoBehaviour
 
     private IEnumerator ManaRespawn(BossEventPayload manaPayload)
     {
-
+        manaFountainCount--;
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
         mana.IsBroken = true;
         mana.gameObject.SetActive(false);
+
+        if(manaFountainCount == 0)
+        {
+            EventBus.Instance.Publish(EventBusEvents.DestroyAllManaFountain);
+        }
 
         yield return new WaitForSeconds(mana.respawnValue);
 
         Debug.Log($"{mana.name} 리스폰 완료");
         manaPayload.BoolValue = true;
 
+        manaFountainCount++;
         mana.gameObject.SetActive(true);
         mana.IsBroken = false;
         mana.IsCooldown = false;

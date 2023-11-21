@@ -19,6 +19,7 @@ public enum EventBusEvents
     BossLowAttack,
     ApplyBossCooldown,
     BossMinionAttack,
+    DestroyAllManaFountain,
 }
 
 public interface IBaseEventPayload

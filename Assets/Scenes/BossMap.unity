@@ -4237,6 +4237,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1891697168}
     m_Modifications:
     - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
+    - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: spawnPosition
       value: 
       objectReference: {fileID: 911421106}
@@ -4672,6 +4676,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1891697168}
     m_Modifications:
+    - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
     - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: spawnPosition
       value: 
@@ -5758,10 +5766,12 @@ MonoBehaviour:
   player: {fileID: 1062887270}
   terrapupaMapObjects: {fileID: 1891697169}
   fallCheckLatency: 5
-  isActiveTerrapupa: 0
-  isActiveTerra: 1
-  isActivePupa: 1
+  isActiveTerrapupa: 1
+  isActiveTerra: 0
+  isActivePupa: 0
   isActiveMinions: 0
+  currentLevel: 1
+  minionDeathCheck: 4
 --- !u!4 &952424627
 Transform:
   m_ObjectHideFlags: 0
@@ -6021,7 +6031,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh281762
+  m_Name: pb_Mesh25950
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -11448,10 +11458,13 @@ MonoBehaviour:
   - {fileID: 872517315}
   - {fileID: 1917262532}
   - {fileID: 185217254}
+  regenerateStalactiteTime: 30
   numberOfSector: 3
   stalactitePerSector: 3
   fieldRadius: 25
   fieldHeight: 8
+  respawnManaFountainTime: 30
+  regenerateManaStoneTime: 10
 --- !u!1 &1894779597 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 111768, guid: d35aef65f03ae2a4e98cc24bcb5b5cdc, type: 3}
@@ -12081,6 +12094,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1891697168}
     m_Modifications:
+    - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
     - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: spawnPosition
       value: 
@@ -13647,6 +13664,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1891697168}
     m_Modifications:
+    - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: hitEffect
+      value: 
+      objectReference: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
     - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: spawnPosition
       value: 

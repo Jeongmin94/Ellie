@@ -11,11 +11,10 @@ namespace Boss.Objects
 
         private Rigidbody rb;
         private LineRenderer lineRenderer;
+        private TicketMachine ticketMachine;
 
         private int myIndex;
         private bool isFallen = false;
-
-        private TicketMachine ticketMachine;
 
         public int MyIndex
         {
