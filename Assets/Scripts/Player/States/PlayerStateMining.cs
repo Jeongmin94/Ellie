@@ -86,13 +86,13 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.CurOre.Smith(damage);
             }
-            Controller.Pickaxe.Durability--;
-            if (Controller.Pickaxe.Durability <= 0)
-            {
-                Debug.Log("Pickaxe is Broken");
-                Controller.ChangeState(PlayerStateName.Idle);
-                Controller.isPickaxeAvailable = false;
-            }
+            //Controller.Pickaxe.Durability--;
+            //if (Controller.Pickaxe.Durability <= 0)
+            //{
+            //    Debug.Log("Pickaxe is Broken");
+            //    Controller.ChangeState(PlayerStateName.Idle);
+            //    Controller.isPickaxeAvailable = false;
+            //}
         }
     }
 }
