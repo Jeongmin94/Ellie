@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.Item;
 using UnityEngine;
+using Assets.Scripts.UI.Inventory;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {
@@ -52,7 +53,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                 StoneData data = new();
                 try
                 {
-                    data.groupType = UI.Inventory.GroupType.Stone;
+                    data.groupType = GroupType.Stone;
                     //�ε���
                     data.index = int.Parse(entries[0].Trim());
                     //�̸�

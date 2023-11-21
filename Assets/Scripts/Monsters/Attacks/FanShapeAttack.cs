@@ -11,6 +11,7 @@ namespace Assets.Scripts.Monsters.Attacks
         private FanShapeAttackData attackData;
         [SerializeField] private Transform target;
         private AudioSource audioSource;
+        private ParticleSystem particle;
 
         private void Awake()
         {
@@ -29,7 +30,10 @@ namespace Assets.Scripts.Monsters.Attacks
             target = GameObject.Find("Player").transform;
             attackData = data;
             base.InitializeFanShape(data);
-            audioController = transform.parent.GetComponent<MonsterAudioController>();
+            if (audioController == null)
+                audioController = transform.parent.GetComponent<MonsterAudioController>();
+            if (particleController == null)
+                particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public bool CaculateDotProduct()
@@ -70,7 +74,14 @@ namespace Assets.Scripts.Monsters.Attacks
                         {
                             audioSource.clip = audioController.GetAudio(MonsterAudioType.WeaponAttackHit);
                         }
+                        if(particle==null)
+                        {
+                            particle = particleController.GetParticle(MonsterParticleType.WeaponHit);
+                        }
                         audioSource.Play();
+                        Debug.Log("!!!Particle " + particle);
+                        particle.transform.position = target.position;
+                        particle.Play();
                         SetAndAttack(attackData, target);
                         break;
                     }

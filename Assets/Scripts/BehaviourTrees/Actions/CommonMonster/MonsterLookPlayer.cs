@@ -6,30 +6,27 @@ using TheKiwiCoder;
 [System.Serializable]
 public class MonsterLookPlayer : ActionNode
 {
-    public NodeProperty<GameObject> player;
-    public NodeProperty<float> duration;
-    public NodeProperty<float> rotationSpeed;
+    public NodeProperty<Vector3> playerPos;
 
-    private Vector3 directionVector;
+    private Quaternion targetRotation;
     private float accumTime;
     protected override void OnStart() {
         accumTime = 0.0f;
+        Vector3 directionVector = playerPos.Value - context.transform.position;
+        directionVector.Normalize();
+        targetRotation = Quaternion.LookRotation(directionVector,Vector3.up);
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        if(accumTime<duration.Value)
+        if (accumTime < 0.5f)
         {
-            directionVector = player.Value.transform.position - context.transform.position;
-            directionVector.y = 0.0f;
-            Quaternion targetRotation = Quaternion.LookRotation(directionVector);
-            context.transform.rotation = Quaternion.Slerp(context.transform.rotation, targetRotation, rotationSpeed.Value * Time.deltaTime);
-
+            context.transform.rotation = Quaternion.Slerp(context.transform.rotation, targetRotation, Time.deltaTime * 10.0f);
             accumTime += Time.deltaTime;
             return State.Running;
         }
-        return State.Success;
+        else return State.Success;
     }
 }

@@ -119,8 +119,8 @@ MonoBehaviour:
     - rid: 6937830615371481108
     - rid: 6937830615371481109
     - rid: 6937830615371481110
-  viewPosition: {x: 1586.5, y: -322, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: 5285, y: -437.5, z: 0}
+  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
   references:
     version: 2
     RefIds:
@@ -155,6 +155,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827609998966652930
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -664,18 +668,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
-          reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
+        playerPos:
           reference:
             rid: -2
-          defaultValue: 2
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 5827610152718303232
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -845,18 +841,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
-          reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
+        playerPos:
           reference:
             rid: -2
-          defaultValue: 2
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 6937830456686542868
       type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
       data:
@@ -868,18 +856,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
-          reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
+        playerPos:
           reference:
             rid: -2
-          defaultValue: 2
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 6937830456686542869
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

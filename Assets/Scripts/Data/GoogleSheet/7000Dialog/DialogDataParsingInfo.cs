@@ -11,11 +11,14 @@ namespace Assets.Scripts.Data.GoogleSheet
         public string dialog;
         public int speaker;
     }
-    [CreateAssetMenu(fileName = "DialogData", menuName = "GameData List/DialogData")]
 
+    [CreateAssetMenu(fileName = "DialogData", menuName = "GameData List/DialogData")]
     public class DialogDataParsingInfo : DataParsingInfo
     {
+        private const int InvalidValue = -1;
+        
         public List<DialogData> datas = new();
+
         public override T GetIndexData<T>(int index)
         {
             if (typeof(T) == typeof(DialogData))
@@ -30,7 +33,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         {
             datas.Clear();
             string[] lines = tsv.Split('\n');
-            for(int i = 0; i<lines.Length; i++)
+            for (int i = 0; i < lines.Length; i++)
             {
                 if (string.IsNullOrEmpty(lines[i])) continue;
                 string[] entries = lines[i].Split('\t');
@@ -38,11 +41,28 @@ namespace Assets.Scripts.Data.GoogleSheet
                 try
                 {
                     //인덱스
-                    data.index = int.Parse(entries[0].Trim()); 
+                    string index = entries[0].Trim();
+                    if (string.IsNullOrEmpty(index))
+                    {
+                        data.index = InvalidValue;
+                    }
+                    else
+                    {
+                        data.index = int.Parse(entries[0].Trim());
+                    }
+
                     //대화 문자열
                     data.dialog = entries[1].Trim();
                     //화자(0은 npc, 1은 플레이어)
-                    data.speaker = int.Parse(entries[2].Trim());
+                    string speaker = entries[2].Trim();
+                    if (string.IsNullOrEmpty(speaker))
+                    {
+                        data.speaker = InvalidValue;
+                    }
+                    else
+                    {
+                        data.speaker = int.Parse(entries[2].Trim());
+                    }
                 }
                 catch (Exception e)
                 {
@@ -50,6 +70,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                     Debug.LogError(e);
                     continue;
                 }
+
                 datas.Add(data);
             }
         }

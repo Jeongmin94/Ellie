@@ -13,13 +13,14 @@ MonoBehaviour:
   m_Name: CaveBatMonsterData
   m_EditorClassIdentifier: 
   monsterID: 1
-  monsterName: "\uB3D9\uAD74 \uBC15"
-  maxHP: 5
-  movementSpeed: 3
+  monsterName: "\uB3D9\uAD74 \uBC15\uC950"
+  maxHP: 2
+  movementSpeed: 7
+  returnSpeed: 10
   rotationSpeed: 180
   detectPlayerDistance: 30
   chasePlayerDistance: 20
-  overtravelDistance: 30
+  overtravelDistance: 80
   stopDistance: 1.2
   kind: 1
   type: 0

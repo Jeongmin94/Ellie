@@ -1,14 +1,10 @@
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Equipment;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using Data.UI.Inventory;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -28,15 +24,14 @@ namespace Assets.Scripts.UI.Inventory.Test
             InitTicketMachine();
             gameGoods.Init();
 
-            //UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
-            //invent.
+            UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
 
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.UI);
-            //TicketManager.Instance.Ticket(ticketMachine);
+            TicketManager.Instance.Ticket(ticketMachine);
         }
 
         private void Start()

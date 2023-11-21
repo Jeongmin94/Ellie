@@ -2,6 +2,7 @@ using System;
 using Assets.Scripts.Channels.Item;
 using Channels.Boss;
 using Channels.Combat;
+using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 
@@ -28,6 +29,9 @@ namespace Channels.Utils
                     break;
                 case ChannelType.Terrapupa:
                     channel = new TerrapupaChannel();
+                    break;
+                case ChannelType.Dialog:
+                    channel = new DialogChannel();
                     break;
             }
             return channel;
