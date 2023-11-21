@@ -36,16 +36,17 @@ public class CheckRangeTarget : ActionNode
         if(targets == null)
             return State.Failure;
 
-        foreach (var item in targets)
-        {
-            Debug.Log(item);
-        }
 
         if (targets.Count == 0)
         {
             target.Value = null;
             return State.Success;
         }
+        foreach (var item in targets)
+        {
+            Debug.Log(item);
+        }
+
         foreach (var item in targets)
         {
             if (item.root == context.transform.root)

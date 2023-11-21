@@ -27,11 +27,10 @@ namespace Assets.Scripts.Item.Stone
                 }
 
                 ICombatant enemy = hitObject.GetComponentInChildren<ICombatant>();
-                Debug.Log($"NormalStone OnCollisionEnter :: {collision.gameObject.name}");
 
                 if (enemy != null && !hitObject.CompareTag("Player"))
                 {
-                    Debug.Log($"ICombatant OK {enemy}");
+                    Debug.Log($"NormalStone OnCollisionEnter :: ICombatant OK {collision.gameObject.name}");
                     OccurEffect(hitObject.transform);
                     break;
                 }
