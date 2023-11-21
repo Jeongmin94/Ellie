@@ -89,8 +89,8 @@ MonoBehaviour:
     - rid: 5827610086317228080
     - rid: 5827610127647113221
     - rid: 5827610127647113223
-  viewPosition: {x: 193, y: -48, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: 470.5, y: 246, z: 0}
+  viewScale: {x: 0.3759371, y: 0.3759371, z: 1}
   references:
     version: 2
     RefIds:
@@ -144,6 +144,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 5827609998966652930
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

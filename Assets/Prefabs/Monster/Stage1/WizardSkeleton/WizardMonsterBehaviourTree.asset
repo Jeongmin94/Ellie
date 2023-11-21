@@ -137,8 +137,8 @@ MonoBehaviour:
     - rid: 6937830456686542870
     - rid: 6937830569823436819
     - rid: 6937830569823436825
-  viewPosition: {x: 1146.5, y: 53.5, z: 0}
-  viewScale: {x: 0.3759371, y: 0.3759371, z: 1}
+  viewPosition: {x: 683, y: 31.5, z: 0}
+  viewScale: {x: 0.43232766, y: 0.43232766, z: 1}
   references:
     version: 2
     RefIds:
@@ -311,8 +311,8 @@ MonoBehaviour:
         - rid: 5827610105833848848
         - rid: 6937830866574114817
         - rid: 6937830705275600946
-        - rid: 5827610220521848834
         - rid: 6937830456686542866
+        - rid: 5827610220521848834
         - rid: 6937830705275600947
         - rid: 5827610086317228046
         - rid: 5827610220521848841
@@ -814,18 +814,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
+        playerPos:
           reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
-          reference:
-            rid: -2
-          defaultValue: 2
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+            rid: 5827610086317228070
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 5827610152718303232
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -959,7 +951,7 @@ MonoBehaviour:
           defaultValue: GhostAttack
         wait:
           reference:
-            rid: -2
+            rid: 5827610105833848834
           defaultValue: 0
     - rid: 5827610220521848835
       type: {class: PlayAnimationAndWait, ns: , asm: Assembly.Ellie}
@@ -1105,18 +1097,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
+        playerPos:
           reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
-          reference:
-            rid: -2
-          defaultValue: 2
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+            rid: 5827610086317228070
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 6937830456686542866
       type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
       data:
@@ -1128,18 +1112,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
+        playerPos:
           reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
-          reference:
-            rid: -2
-          defaultValue: 2.5
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+            rid: 5827610086317228070
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 6937830456686542868
       type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
       data:
@@ -1151,18 +1127,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        player:
+        playerPos:
           reference:
-            rid: 5827610086317228068
-          defaultValue: {fileID: 0}
-        duration:
-          reference:
-            rid: -2
-          defaultValue: 2
-        rotationSpeed:
-          reference:
-            rid: -2
-          defaultValue: 180
+            rid: 5827610086317228070
+          defaultValue: {x: 0, y: 0, z: 0}
     - rid: 6937830456686542869
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1419,7 +1387,7 @@ MonoBehaviour:
           defaultValue: GhostMove
         wait:
           reference:
-            rid: -2
+            rid: 5827610105833848834
           defaultValue: 0
     - rid: 6937830598220185611
       type: {class: ReturnToPosition, ns: , asm: Assembly.Ellie}

@@ -901,8 +901,9 @@ GameObject:
   - component: {fileID: 453060592}
   - component: {fileID: 453060604}
   - component: {fileID: 453060605}
+  - component: {fileID: 888380734}
   m_Layer: 10
-  m_Name: Polygonal One Eyed Bat Black
+  m_Name: CaveBat
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1159,6 +1160,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 9a904c12f67a8472fa6dd66acb5c0d69, type: 2}
+--- !u!114 &888380734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860538853240187878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000, guid: bd835a946ce8d4310bac2aff715cf2b9, type: 2}
 --- !u!1 &6860746806608860722
 GameObject:
   m_ObjectHideFlags: 0

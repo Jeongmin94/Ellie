@@ -2956,13 +2956,14 @@ GameObject:
   - component: {fileID: 3323000195417403496}
   - component: {fileID: 2594655644297438153}
   - component: {fileID: 2156146737864194590}
+  - component: {fileID: 1945422486}
   m_Layer: 10
   m_Name: NormalSkeleton
   m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5660498856279433209
 Transform:
   m_ObjectHideFlags: 0
@@ -3205,6 +3206,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: 3f6c590f626134c978d3ffae7265b5d1, type: 2}
+--- !u!114 &1945422486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034515840355106491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  data: {fileID: 0}
 --- !u!1 &9178374280581418941
 GameObject:
   m_ObjectHideFlags: 0
