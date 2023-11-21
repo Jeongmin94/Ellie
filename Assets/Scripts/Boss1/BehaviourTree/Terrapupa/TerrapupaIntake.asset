@@ -20,7 +20,6 @@ MonoBehaviour:
   - rid: 1401849440881606696
   - rid: 1401849440881606697
   - rid: 1401849442858696715
-  - rid: 1401849447854899203
   - rid: 1401849447854899204
   - rid: 1401849447854899205
   - rid: 1401849447854899211
@@ -36,7 +35,8 @@ MonoBehaviour:
   - rid: 1683426247750189186
   - rid: 283011291767373838
   - rid: 283011291767373840
-  - rid: 283011470369751060
+  - rid: 283011470369751062
+  - rid: 283011470369751063
   treeState: 0
   blackboard:
     keys:
@@ -47,8 +47,8 @@ MonoBehaviour:
     - rid: 283011090204065829
     - rid: 283011090204065879
     - rid: 1401849442858696713
-  viewPosition: {x: 1328, y: 447.2, z: 0}
-  viewScale: {x: 0.2842624, y: 0.2842624, z: 1}
+  viewPosition: {x: 1869.6, y: 453.6, z: 0}
+  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
   references:
     version: 2
     RefIds:
@@ -129,7 +129,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d1b38dfd3e3fd5a44abd2a8887e5f534
-        position: {x: -2685, y: -195}
+        position: {x: -2685, y: -210}
         blackboard:
           keys: []
         description: 
@@ -162,28 +162,38 @@ MonoBehaviour:
           reference:
             rid: 283011090204065825
           defaultValue: 
-    - rid: 283011470369751060
-      type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+    - rid: 283011470369751062
+      type: {class: WaitWithTimeOut, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
-        guid: c88b648b7461f1e4f833bd4c95c1b6ec
-        position: {x: -2070, y: -90}
+        guid: 27a61a2205c106340b2df4be2fd5c347
+        position: {x: -2561.037, y: -750.52484}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
-        pair:
-          key:
-            rid: 1683426094593605668
-          value:
-            rid: 283011470369751061
-    - rid: 283011470369751061
-      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        duration: 1
+    - rid: 283011470369751063
+      type: {class: WaitWithTimeOut, ns: , asm: Assembly.Ellie}
       data:
-        name: 
-        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 1
+        state: 0
+        started: 0
+        guid: c112a14cff9c5fd428c76d94d204041c
+        position: {x: -2175, y: -90}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: 283011090204065829
+          defaultValue: 0
+        duration: 5
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -209,7 +219,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f5cbab8ab6d025c44af4cc3c045e2991
-        position: {x: -2445, y: -90}
+        position: {x: -2355, y: -90}
         blackboard:
           keys: []
         description: 
@@ -272,37 +282,20 @@ MonoBehaviour:
         baseEventPayload:
           reference:
             rid: 1401849442858696713
-    - rid: 1401849447854899203
-      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 1ba8e2d760b21ae4f8b04eeecf16fc37
-        position: {x: -2250, y: -90}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        timeValue:
-          reference:
-            rid: 283011090204065829
-          defaultValue: 0
-        duration: 5
     - rid: 1401849447854899204
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 8c3bfe7e075653d4d8386b268ba7f7d5
-        position: {x: -2130, y: -300}
+        position: {x: -2160, y: -300}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
         - rid: 1401849440881606693
-        - rid: 1401849447854899203
-        - rid: 283011470369751060
+        - rid: 283011470369751063
         - rid: 1401849447854899205
     - rid: 1401849447854899205
       type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -310,7 +303,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: b364e40267a99444eb9da0ca22a4e365
-        position: {x: -1875, y: -90}
+        position: {x: -1965, y: -90}
         blackboard:
           keys: []
         description: 
