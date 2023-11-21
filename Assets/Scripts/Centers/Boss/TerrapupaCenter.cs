@@ -52,11 +52,19 @@ namespace Centers.Boss
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("테라푸파 사망 치트");
+                Vector3 pos = terrapupa.transform.position;
+
+                terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
                 terrapupa.terrapupaData.currentHP.Value = 0;
             }
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Debug.Log("테라, 푸파 사망 치트");
+                Vector3 pos1 = terra.transform.position;
+                Vector3 pos2 = pupa.transform.position;
+
+                terrapupa.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
+                terrapupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
                 terra.terrapupaData.currentHP.Value = 0;
                 pupa.terrapupaData.currentHP.Value = 0;
             }

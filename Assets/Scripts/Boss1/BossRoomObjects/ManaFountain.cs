@@ -20,6 +20,7 @@ namespace Boss.Objects
         private bool isCooldown;
         private bool isBroken;
 
+        private const int NORMALSTONE_INDEX = 4000;
         private const int MAGICSTONE_INDEX = 4020;
         private TicketMachine ticketMachine;
 
@@ -82,6 +83,20 @@ namespace Boss.Objects
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform.root,
                         });
+
+                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ticketMachine.SendMessage(ChannelType.Stone,
+                            new StoneEventPayload
+                            {
+                                Type = StoneEventType.MineStone,
+                                StoneSpawnPos = spawnPosition.position,
+                                StoneForce = GetRandVector(),
+                                StoneIdx = NORMALSTONE_INDEX,
+                            });
+                    }
+
                 }
                 else if (other.transform.CompareTag("BattleObject"))
                 {
@@ -99,6 +114,19 @@ namespace Boss.Objects
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform,
                         });
+
+                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ticketMachine.SendMessage(ChannelType.Stone,
+                            new StoneEventPayload
+                            {
+                                Type = StoneEventType.MineStone,
+                                StoneSpawnPos = spawnPosition.position,
+                                StoneForce = GetRandVector(),
+                                StoneIdx = NORMALSTONE_INDEX,
+                            });
+                    }
                 }
             }
         }
