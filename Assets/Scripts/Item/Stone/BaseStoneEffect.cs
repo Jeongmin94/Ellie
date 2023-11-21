@@ -25,6 +25,7 @@ namespace Assets.Scripts.Item.Stone
 
         public void SubscribeAction(Action<Transform> action)
         {
+            effectAction -= action;
             effectAction += action;
         }
 

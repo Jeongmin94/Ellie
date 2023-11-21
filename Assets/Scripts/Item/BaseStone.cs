@@ -41,7 +41,10 @@ namespace Assets.Scripts.Item
         private IEnumerator EnableStoneTrail()
         {
             yield return new WaitForSeconds(0.02f);
-            transform.GetChild(0).gameObject.SetActive(true);
+            if(transform.childCount > 0)
+            {
+                transform.GetChild(0).gameObject.SetActive(true);
+            }
 
         }
 

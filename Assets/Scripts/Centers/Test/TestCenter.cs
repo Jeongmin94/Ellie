@@ -35,9 +35,12 @@ namespace Assets.Scripts.Centers.Test
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
             }
-            foreach (Transform child in monsters.transform)
+            if(monsters != null)
             {
-                CheckTicket(child.gameObject);
+                foreach (Transform child in monsters.transform)
+                {
+                    CheckTicket(child.gameObject);
+                }
             }
         }
     }
