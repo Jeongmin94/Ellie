@@ -1,7 +1,4 @@
-﻿using CodiceApp;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Slingshot : MonoBehaviour {
     public GameObject rightElastic;

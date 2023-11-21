@@ -1,8 +1,6 @@
-﻿using JetBrains.Annotations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {

@@ -6,7 +6,6 @@ using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
 using Channels.UI;
-using Unity.Plastic.Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.UI;
 

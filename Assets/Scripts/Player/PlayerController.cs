@@ -9,7 +9,6 @@ using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
-using Unity.Plastic.Newtonsoft.Json.Bson;
 using UnityEngine;
 
 namespace Assets.Scripts.Player

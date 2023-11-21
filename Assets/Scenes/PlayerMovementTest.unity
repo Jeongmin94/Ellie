@@ -774,7 +774,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
   player: {fileID: 278480150}
-  attacker: {fileID: 133582872}
   hatchery: {fileID: 430058477}
   inventory: {fileID: 0}
   ores:
@@ -1540,12 +1539,24 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44200003
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4.52
+      objectReference: {fileID: 0}
     - target: {fileID: 1118065665, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1118065665, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_ClearFlags
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
@@ -1562,7 +1573,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.7420001
+      value: 0.742
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1639,6 +1650,10 @@ PrefabInstance:
     - target: {fileID: 4016927572422116012, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.y
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44200003
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}

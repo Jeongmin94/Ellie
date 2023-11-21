@@ -96,11 +96,13 @@ namespace Assets.Scripts.Monsters.Attacks
             Attack(payload);
         }
 
+#if UNITY_EDITOR
         private void OnDrawGizmos()
         {
             Handles.color = Color.red;
             Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, attackData.angleRange / 2, attackData.radius);
             Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -attackData.angleRange / 2, attackData.radius);
         }
+#endif
     }
 }
