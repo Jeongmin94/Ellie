@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
-  m_Name: TerrapupaMinionTrace
+  m_Name: TerrapupaMinionRunAway
   m_EditorClassIdentifier: 
   rootNode:
     rid: 1401849175978016768
@@ -18,8 +18,8 @@ MonoBehaviour:
   - rid: 1401849175978016768
   - rid: 1401849265356013609
   - rid: 1401849265356013612
-  - rid: 1401849265356013613
-  - rid: 8619125029124177928
+  - rid: 283011470369751047
+  - rid: 283011470369751051
   treeState: 0
   blackboard:
     keys:
@@ -27,7 +27,8 @@ MonoBehaviour:
     - rid: 283011090204065863
     - rid: 283011090204065861
     - rid: 283011090204065862
-  viewPosition: {x: -124, y: 281.6, z: 0}
+    - rid: 283011470369751048
+  viewPosition: {x: -172.8, y: 295.2, z: 0}
   viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
@@ -52,6 +53,59 @@ MonoBehaviour:
         name: animationName
         typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: Move
+    - rid: 283011470369751047
+      type: {class: RunAwayTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c31f60d2cc752b64fbbbde5e4af4d869
+        position: {x: 1275, y: 30}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        target:
+          reference:
+            rid: 1401849418967941121
+          defaultValue: {fileID: 0}
+        speed:
+          reference:
+            rid: 283011090204065862
+          defaultValue: 0
+        rayDistance:
+          reference:
+            rid: 283011470369751048
+          defaultValue: 0
+    - rid: 283011470369751048
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: rayDistance
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 3
+    - rid: 283011470369751051
+      type: {class: SmoothLookAt, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 22552b2080cb7474ca9c20ef71a3ad66
+        position: {x: 1095, y: 30}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetTransform:
+          reference:
+            rid: 1401849418967941121
+          defaultValue: {fileID: 0}
+        targetPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        rotationSpeed:
+          reference:
+            rid: 283011090204065861
+          defaultValue: 0
+        reverse: 1
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -78,15 +132,15 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 1401849265356013612
-        - rid: 8619125029124177928
-        - rid: 1401849265356013613
+        - rid: 283011470369751051
+        - rid: 283011470369751047
     - rid: 1401849265356013612
       type: {class: PlayAnimation, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 3f5a332b14474aa4aa80127bff58fe29
-        position: {x: 885, y: 15}
+        position: {x: 900, y: 30}
         blackboard:
           keys: []
         description: 
@@ -95,21 +149,6 @@ MonoBehaviour:
           reference:
             rid: 283011090204065863
           defaultValue: Walking
-    - rid: 1401849265356013613
-      type: {class: MoveDirection, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 6531107f71650944b9952548f92bcbeb
-        position: {x: 1305, y: 15}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        moveSpeed:
-          reference:
-            rid: 283011090204065862
-          defaultValue: 2
     - rid: 1401849418967941121
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -117,27 +156,3 @@ MonoBehaviour:
         typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
-    - rid: 8619125029124177928
-      type: {class: SmoothLookAt, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: f0c96dcf03b89ef4abe4c8747e4ee0b1
-        position: {x: 1095, y: 15}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        targetTransform:
-          reference:
-            rid: 1401849418967941121
-          defaultValue: {fileID: 0}
-        targetPosition:
-          reference:
-            rid: -2
-          defaultValue: {x: 0, y: 0, z: 0}
-        rotationSpeed:
-          reference:
-            rid: 283011090204065861
-          defaultValue: 1
-        reverse: 0

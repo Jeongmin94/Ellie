@@ -10,6 +10,7 @@ public class AddParticleToTarget : ActionNode
     public NodeProperty<GameObject> effectPrefab;
     public NodeProperty<Transform> origin;
     public NodeProperty<Vector3> scale;
+    public NodeProperty<Vector3> offset;
 
     public NodeProperty<bool> isLoop;
     public NodeProperty<bool> isFollowOrigin;
@@ -39,6 +40,7 @@ public class AddParticleToTarget : ActionNode
             IsFollowOrigin = isFollowOrigin.Value,
             Position = origin.Value.transform.position,
             Rotation = origin.Value.transform.rotation,
+            Offset = offset.Value,
             Scale = scale.Value,
         });
 

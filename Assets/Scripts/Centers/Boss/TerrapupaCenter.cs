@@ -28,6 +28,7 @@ namespace Centers.Boss
         public bool isActiveTerrapupa = true;
         public bool isActiveTerra = false;
         public bool isActivePupa = false;
+        public bool isActiveMinions = false;
 
         private void Awake()
         {
@@ -69,6 +70,7 @@ namespace Centers.Boss
             pupa.terrapupaData.player.Value = player.transform;
             foreach (var minion in minions)
             {
+                Debug.Log("확인");
                 minion.minionData.player.Value = player.transform;
             }
 
@@ -77,7 +79,7 @@ namespace Centers.Boss
             pupa.gameObject.SetActive(isActivePupa);
             foreach (var minion in minions)
             {
-                minion.gameObject.SetActive(false);
+                minion.gameObject.SetActive(isActiveMinions);
             }
         }
 

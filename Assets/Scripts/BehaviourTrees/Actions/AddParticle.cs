@@ -8,11 +8,12 @@ using Assets.Scripts.Particle;
 public class AddParticle : ActionNode
 {
     public NodeProperty<GameObject> effectPrefab;
-    public NodeProperty<bool> isLoop;
-
     public NodeProperty<Vector3> pos;
     public NodeProperty<Quaternion> rot;
     public NodeProperty<Vector3> scale;
+    public NodeProperty<Vector3> offset;
+
+    public NodeProperty<bool> isLoop;
 
     protected override void OnStart()
     {
@@ -35,6 +36,7 @@ public class AddParticle : ActionNode
             Rotation = rot.Value,
             IsLoop = isLoop.Value,
             Scale = scale.Value,
+            Offset = offset.Value,
         });
 
         return State.Success;

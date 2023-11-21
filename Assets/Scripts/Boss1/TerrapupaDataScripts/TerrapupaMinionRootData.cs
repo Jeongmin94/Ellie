@@ -7,7 +7,7 @@ public class TerrapupaMinionRootData : BaseBTData
 {
     public TerrapupaMinionRootData()
     {
-        dataName = "TerrapupaRoot";
+        dataName = "TerrapupaMinionRoot";
     }
 
     [Header("기본 수치")]
