@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Equipments;
 using Assets.Scripts.InteractiveObjects;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -112,6 +113,9 @@ namespace Assets.Scripts.Player
         [SerializeField] private Pickaxe pickaxe;
         public Pickaxe Pickaxe { get { return pickaxe; } }
         private Ore curOre = null;
+        public bool isPickaxeAvailable = false;
+        public Pickaxe.Tier curPickaxeTier;
+
 
         [Header("Boolean Properties")]
         public bool isGrounded;
@@ -147,13 +151,13 @@ namespace Assets.Scripts.Player
         public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
         public Ore CurOre { get { return curOre; } }
         public float MiningTime { get { return miningTime; } }
+        public bool IsPickaxeAvailable { get { return isPickaxeAvailable; } }
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
         public float RecoilTime { get { return recoilTime; } }
-        
         public int CurStoneIdx { get { return curStoneIdx; } }
 
         private float inputMagnitude;
@@ -205,6 +209,12 @@ namespace Assets.Scripts.Player
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
+            //=>for pickaxe loot test
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                GetPickaxeTest();
+            }
+
         }
         private void FixedUpdate()
         {
@@ -247,7 +257,7 @@ namespace Assets.Scripts.Player
             {
                 inputMagnitude *= 1.5f;
             }
-            
+
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
         private void ResetPlayerPos()
@@ -261,7 +271,7 @@ namespace Assets.Scripts.Player
         }
         public void SetColliderHeight(float colliderHeight)
         {
-            
+
             //if (isJumping || isFalling)
             //    playerCollider.height = 1f;
             //else
@@ -316,7 +326,7 @@ namespace Assets.Scripts.Player
         public void MovePlayer(float moveSpeed)
         {
             if (!canMove) return;
-            switch(CheckSlope())
+            switch (CheckSlope())
             {
                 // !TODO : 경사로에서 흘러내리는 문제 수정
                 case SlopeStat.Flat:
@@ -372,7 +382,7 @@ namespace Assets.Scripts.Player
                 Rb.AddForce(Vector3.up * 60f, ForceMode.Force);
                 //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
             }
-            
+
         }
         public void Jump()
         {
@@ -446,7 +456,7 @@ namespace Assets.Scripts.Player
             {
                 float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 //Debug.Log("CurrAngle : " + angle.ToString());
-                if (angle<10f)
+                if (angle < 10f)
                     return SlopeStat.Flat;
                 if (angle > maxSlopeAngle)
                     return SlopeStat.CantClimb;
@@ -483,13 +493,13 @@ namespace Assets.Scripts.Player
         {
             cinematicMainCam.gameObject.SetActive(true);
             cinematicAimCam.gameObject.SetActive(false);
-            
+
         }
 
         public void TurnOnDialogCam()
         {
             cinematicDialogCam.gameObject.SetActive(true);
-            cinematicMainCam.gameObject.SetActive(false);    
+            cinematicMainCam.gameObject.SetActive(false);
         }
 
         public void TurnOffDialogCam()
@@ -508,7 +518,7 @@ namespace Assets.Scripts.Player
             // 애니메이션의 레이어의 Weight를 증가시킵니다. State의 Update에서 호출합니다
             float curWeight = Anim.GetLayerWeight((int)layer);
             if (Mathf.Equals(curWeight, weight)) return;
-           
+
             float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             if (curWeight < weight)
             {
@@ -626,43 +636,65 @@ namespace Assets.Scripts.Player
         {
             Color rayColor = Color.red;
             Gizmos.color = rayColor;
-            
+
             Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
-            
+
             Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
         }
 
         private void OnNotifyAction(IBaseEventPayload payload)
         {
-            
+            //UI페이로드 처리 로직입니다
             UIPayload uiPayload = payload as UIPayload;
-            if(uiPayload.actionType == ActionType.ClickCloseButton)
+            //인벤토리 닫는 이벤트일 경우
+            if (uiPayload.actionType == ActionType.ClickCloseButton)
             {
                 GetComponent<PlayerInventory>().OnInventoryToggle();
             }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
-            
+
+
             switch (uiPayload.groupType)
             {
                 case UI.Inventory.GroupType.Consumption:
-                    Debug.Log("Consumption");
                     break;
                 case UI.Inventory.GroupType.Stone:
-                    Debug.Log("Stone");
-                    hasStone = !uiPayload.isItemNull;
+                    Debug.Log("!!");
+                    hasStone = !uiPayload.isStoneNull;
                     if (uiPayload.itemData != null)
                         curStoneIdx = uiPayload.itemData.index;
                     else
                         curStoneIdx = 0;
                     break;
                 case UI.Inventory.GroupType.Etc:
-                    Debug.Log("Etc");
+                    if (uiPayload.itemData != null && uiPayload.itemData.index >= 9000 && uiPayload.itemData.index < 9005)
+                    {
+                        Debug.Log(uiPayload.itemData.index);
+                        if (!isPickaxeAvailable)
+                        {
+                            isPickaxeAvailable = true;
+                        }
+                        curPickaxeTier = (Pickaxe.Tier)uiPayload.itemData.index;
+                        pickaxe.LoadPickaxeData((Pickaxe.Tier)uiPayload.itemData.index);
+                    }
                     break;
                 default:
-                    Debug.Log("null");
                     break;
             }
+        }
+
+        private void GetPickaxeTest()
+        {
+            UIPayload payload = new()
+            {
+                uiType = UIType.Notify,
+                groupType = UI.Inventory.GroupType.Etc,
+                slotAreaType = UI.Inventory.SlotAreaType.Item,
+                actionType = ActionType.AddSlotItem,
+                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(9000)
+            };
+            ticketMachine.SendMessage(ChannelType.UI, payload);
         }
     }
 }

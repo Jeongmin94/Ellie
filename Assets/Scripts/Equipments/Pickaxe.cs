@@ -22,7 +22,7 @@ namespace Assets.Scripts.Equipments
         public int Durability { get { return durability; } set { durability = value; } }
         public int MinSmithPower { get { return data.minSmithPower; } }
         public int MaxSmithPower { get { return data.maxSmithPower; } }
-        private void LoadPickaxeData(Tier tier)
+        public void LoadPickaxeData(Tier tier)
         {
             this.tier = tier;
             data = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>((int)tier);

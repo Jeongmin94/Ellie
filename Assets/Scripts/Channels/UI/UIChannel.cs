@@ -31,7 +31,7 @@ namespace Channels.UI
         //ItemMetaData는 UI에 출력할 데이터들만 포함합니다
         public ItemMetaData itemData;
         public Transform onDragParent;
-        public bool isItemNull;
+        public bool isStoneNull;
     }
 
     public class UIChannel : BaseEventChannel

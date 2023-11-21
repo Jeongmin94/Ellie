@@ -91,6 +91,7 @@ namespace Assets.Scripts.Player.States
             {
                 Debug.Log("Pickaxe is Broken");
                 Controller.ChangeState(PlayerStateName.Idle);
+                Controller.isPickaxeAvailable = false;
             }
         }
     }

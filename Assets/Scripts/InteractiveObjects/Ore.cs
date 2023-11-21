@@ -198,7 +198,9 @@ namespace Assets.Scripts.InteractiveObjects
 
         public void Interact(GameObject obj)
         {
-            obj.GetComponent<PlayerController>().SetCurOre(this);
+            PlayerController player = obj.GetComponent<PlayerController>();
+            if (!player.IsPickaxeAvailable) return;
+            player.SetCurOre(this);
         }
     }
 }

@@ -485,11 +485,11 @@ namespace Assets.Scripts.UI.Inventory
             uiPayload.actionType = ActionType.SetPlayerProperty;
             uiPayload.groupType = payload.groupType;
             if(payload.slot.SlotItemData == null)
-                uiPayload.isItemNull = true;
+                uiPayload.isStoneNull = true;
             else
             {
                 //uiPayload.itemData = payload.slot.SlotItemData.itemData;
-                uiPayload.isItemNull = false;
+                uiPayload.isStoneNull = false;
             }
             return uiPayload;
         }

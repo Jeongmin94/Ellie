@@ -27,7 +27,6 @@ namespace Assets.Scripts.Player
             if (GetComponent<PlayerController>().GetCurState() != PlayerStateName.Idle) return;
             if (!canInteract || isInteracting || null == interactiveObject) return;
             interactiveObject.GetComponent<IInteractiveObject>().Interact(this.gameObject);
-            Debug.Log("interact with" + interactiveObject.name);
         }
 
         private void Update()

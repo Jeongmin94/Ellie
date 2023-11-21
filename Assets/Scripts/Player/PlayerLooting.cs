@@ -14,7 +14,6 @@ namespace Assets.Scripts.Player
                 Accept(lootable);
             }
         }
-       
         
         private void Accept(ILootable item)
         {
