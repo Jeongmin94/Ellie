@@ -41,7 +41,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Shoot);
             }
-            Controller.GrabSlingshotLeather();
+            //Controller.GrabSlingshotLeather();
         }
     }
 }

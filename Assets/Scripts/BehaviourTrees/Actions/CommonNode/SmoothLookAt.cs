@@ -10,6 +10,8 @@ public class SmoothLookAt : ActionNode
     public NodeProperty<Vector3> targetPosition;
     public NodeProperty<float> rotationSpeed;
 
+    public bool reverse;
+
     protected override void OnStart() {
     }
 
@@ -33,6 +35,12 @@ public class SmoothLookAt : ActionNode
         if (direction.sqrMagnitude < 0.001f)
         {
             return State.Success;
+        }
+
+        // 반대 방향 바라보기
+        if(reverse)
+        {
+            direction *= -1;
         }
 
         Quaternion rotation = Quaternion.LookRotation(direction);

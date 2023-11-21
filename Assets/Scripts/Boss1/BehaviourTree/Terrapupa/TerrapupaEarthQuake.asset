@@ -76,8 +76,9 @@ MonoBehaviour:
     - rid: 283011178275274832
     - rid: 1683426247750189102
     - rid: 283011291767373846
-  viewPosition: {x: 404, y: 487, z: 0}
-  viewScale: {x: 0.375937, y: 0.375937, z: 1}
+    - rid: 283011470369751064
+  viewPosition: {x: 160, y: 423.2, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -240,6 +241,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849379394682882
+        prefabValue:
+          reference:
+            rid: 283011470369751064
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: 283011090204065847
@@ -399,6 +404,13 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 5
+    - rid: 283011470369751064
+      type: {class: GameObjectKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: hiteffect1
+        typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1027,3 +1039,4 @@ MonoBehaviour:
           reference:
             rid: 283011090204065844
           defaultValue: 4
+        reverse: 0

@@ -91,7 +91,6 @@ namespace Assets.Scripts.Player
         public GameObject shooter;
         public GameObject MeleeAttackCollider;
         [SerializeField] private int curStoneIdx;
-
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -102,6 +101,7 @@ namespace Assets.Scripts.Player
                 aimTarget = value;
             }
         }
+
         public float zoomMultiplier;
 
         [SerializeField] private float recoilTime;
@@ -111,7 +111,6 @@ namespace Assets.Scripts.Player
         [SerializeField] private float miningTime;
         [SerializeField] private Pickaxe pickaxe;
         public Pickaxe Pickaxe { get { return pickaxe; } }
-        // !TODO : Interaction 채널을 통해 플레이어와 Interactive 오브젝트들이 상호작용할 수 있게 수정
         private Ore curOre = null;
 
         [Header("Boolean Properties")]
@@ -205,6 +204,7 @@ namespace Assets.Scripts.Player
             ResetPlayerPos();
             SetMovingAnim();
             stateMachine?.UpdateState();
+            GrabSlingshotLeather();
         }
         private void FixedUpdate()
         {
@@ -215,6 +215,7 @@ namespace Assets.Scripts.Player
 
         private void InitVariables()
         {
+
             Rb.freezeRotation = true;
             canMove = true;
             canJump = true;
@@ -482,6 +483,7 @@ namespace Assets.Scripts.Player
         {
             cinematicMainCam.gameObject.SetActive(true);
             cinematicAimCam.gameObject.SetActive(false);
+            
         }
 
         public void TurnOnDialogCam()
@@ -604,12 +606,6 @@ namespace Assets.Scripts.Player
             MeleeAttackCollider.SetActive(false);
         }
 
-        public void AddForceSlingshotLeather()
-        {
-            Vector3 dir = slingshot.transform.position - slingshot.GetComponent<Slingshot>().leather.transform.position;
-            slingshot.GetComponent<Slingshot>().leather.GetComponent<Rigidbody>().AddForce(dir.normalized * 20f, ForceMode.Impulse);
-        }
-
         public void GrabSlingshotLeather()
         {
             slingshot.GetComponent<Slingshot>().leather.transform.position = rightHand.transform.position;
@@ -632,7 +628,6 @@ namespace Assets.Scripts.Player
             Gizmos.color = rayColor;
             
             Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
-            
             
             Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
         }

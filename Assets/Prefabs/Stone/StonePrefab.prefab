@@ -11,11 +11,11 @@ GameObject:
   - component: {fileID: 5557161655972076160}
   - component: {fileID: 8536418912870323123}
   - component: {fileID: 2795238054223840226}
+  - component: {fileID: 5000909787681256553}
   - component: {fileID: 1087265509129993356}
-  - component: {fileID: -3968176375274465142}
   - component: {fileID: 3824317402987347600}
   m_Layer: 0
-  m_Name: TestStoneLootable
+  m_Name: StonePrefab
   m_TagString: Stone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,6 +86,41 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &5000909787681256553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5557161655972076161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 74f0af75f0c73194fb13604569f8e75f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUsing: 0
+  data:
+    groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+    appearanceStage: 0
+    tier: 0
+    element: 0
+    damage: 0
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: 
+    specialEffectIndex: 0
+    combineCost: 0
+    sellCost: 0
+    textureName: 
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!54 &1087265509129993356
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -102,40 +137,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
---- !u!114 &-3968176375274465142
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5557161655972076161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 74f0af75f0c73194fb13604569f8e75f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isUsing: 0
-  data:
-    index: 0
-    name: 
-    description: 
-    appearanceStage: 0
-    tier: 0
-    element: 0
-    damage: 0
-    statusEffect: 0
-    statusEffectDuration: 0
-    debuff: 0
-    conditions: 
-    specialEffectName: 
-    specialEffectIndex: 0
-    combineCost: 0
-    sellCost: 0
-    imageName: 
-    textureName: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!64 &3824317402987347600
 MeshCollider:
   m_ObjectHideFlags: 0

@@ -74,6 +74,7 @@ MonoBehaviour:
   - rid: 1683426247750189140
   - rid: 1683426247750189142
   - rid: 283011313877123072
+  - rid: 283011470369751065
   treeState: 0
   blackboard:
     keys:
@@ -94,8 +95,8 @@ MonoBehaviour:
     - rid: 1683426247750189135
     - rid: 283011291767373847
     - rid: 283011291767373848
-  viewPosition: {x: 1478, y: 378, z: 0}
-  viewScale: {x: 0.25, y: 0.25, z: 1}
+  viewPosition: {x: 923.2, y: 136.8, z: 0}
+  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
   references:
     version: 2
     RefIds:
@@ -376,6 +377,7 @@ MonoBehaviour:
           reference:
             rid: 283011198868258855
           defaultValue: 5
+        reverse: 0
     - rid: 283011198868258848
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -541,6 +543,41 @@ MonoBehaviour:
         restartOnFailure: 1
         maxRepeats: 0
         repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011470369751065
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 35909d51f8abb534a958ae001c88379f
+        position: {x: -1890, y: 0}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373847
+          defaultValue: {fileID: 2185058541512979953, guid: e789f1a5aa35d6e4a9ac725ac7d71b6c, type: 3}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0.5, y: 0.5, z: 0.5}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 1, z: 0}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
           reference:
             rid: -2
           defaultValue: 0
@@ -816,6 +853,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1683426247750189135
+        prefabValue:
+          reference:
+            rid: 283011291767373848
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: 283011090204065834
@@ -1144,7 +1185,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 0306ee24520f83a48a6ea4fa5133ee20
-        position: {x: -1515, y: 0}
+        position: {x: -1440, y: 0}
         blackboard:
           keys: []
         description: 
@@ -1244,6 +1285,7 @@ MonoBehaviour:
         description: 
         drawGizmos: 0
         children:
+        - rid: 283011470369751065
         - rid: 8619125044285014017
         - rid: 8619125030485229595
     - rid: 8619125030485229609
@@ -1278,7 +1320,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 1257df198a517ef4380915991f839402
-        position: {x: -1725, y: 0}
+        position: {x: -1650, y: 0}
         blackboard:
           keys: []
         description: 
@@ -1298,7 +1340,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ce3a3ad898218bf40886c1f73f76ff6f
-        position: {x: -1755, y: 135}
+        position: {x: -1680, y: 135}
         blackboard:
           keys: []
         description: 

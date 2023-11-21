@@ -48,7 +48,6 @@ namespace Assets.Scripts.UI.Monster
             prevHealth = container.PrevHp;
             maxHealth = container.MaxHp;
             container.CurrentHp.Subscribe(OnChangeHealth);
-            
             SetName(container.Name);
         }
         

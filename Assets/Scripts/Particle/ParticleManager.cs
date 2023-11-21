@@ -12,6 +12,7 @@ namespace Assets.Scripts.Particle
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; }
         public Vector3 Scale { get; set; } = Vector3.one;
+        public Vector3 Offset { get; set; }
     }
 
     public class ParticleManager : Singleton<ParticleManager>
@@ -28,12 +29,14 @@ namespace Assets.Scripts.Particle
 
             if (payload.Origin != null)
             {
-                particle.transform.position = payload.Origin.position;
+                // Origin의 로컬 좌표를 기준으로 추가 오프셋 벡터 설정
+                Vector3 transformedOffset = payload.Origin.TransformDirection(payload.Offset);
+                particle.transform.position = payload.Origin.position + transformedOffset;
                 particle.transform.rotation = payload.Origin.rotation;
             }
             else
             {
-                particle.transform.position = payload.Position;
+                particle.transform.position = payload.Position + payload.Offset;
                 particle.transform.rotation = payload.Rotation;
             }
 

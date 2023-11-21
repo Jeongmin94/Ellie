@@ -8,6 +8,7 @@ public class SetBossEvent : ActionNode
     public NodeProperty<bool> isInit;
     public NodeProperty<IBaseEventPayload> bossPayload;
 
+    public NodeProperty<GameObject> prefabValue;
     public NodeProperty<int> intValue;
     public NodeProperty<float> floatValue;
     public NodeProperty<Vector3> vector3Value;
@@ -32,6 +33,7 @@ public class SetBossEvent : ActionNode
         if(isInit.Value)
         {
             // 초기화 O
+            payload.PrefabValue = prefabValue.Value;
             payload.IntValue = intValue.Value;
             payload.FloatValue = floatValue.Value;
             payload.Vector3Value = vector3Value.Value;
@@ -43,6 +45,7 @@ public class SetBossEvent : ActionNode
         else
         {
             // 기존 값 유지
+            if (prefabValue.Value != null) payload.PrefabValue = prefabValue.Value;
             if (intValue.Value != 0) payload.IntValue = intValue.Value;
             if (floatValue.Value != 0.0f) payload.FloatValue = floatValue.Value;
             if (vector3Value.Value != Vector3.zero) payload.Vector3Value = vector3Value.Value;

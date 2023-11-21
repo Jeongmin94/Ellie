@@ -3,7 +3,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Particle
 {
-
     public class ParticleController : Poolable
     {
         public ParticleSystem ps { get; private set; }
@@ -37,12 +36,6 @@ namespace Assets.Scripts.Particle
             isFollowOrigin = payload.IsFollowOrigin;
 
             ps.Play();
-        }
-        private void SetSortingLayer(string layerName, int order)
-        {
-            var renderer = ps.GetComponent<Renderer>();
-            renderer.sortingLayerName = layerName;
-            renderer.sortingOrder = order;
         }
 
         private void OnParticleSystemStopped()

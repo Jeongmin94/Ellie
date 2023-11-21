@@ -5,6 +5,7 @@ using Boss.Terrapupa;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,7 +13,7 @@ using UnityEngine;
 public class TerrapupaMinionController : BehaviourTreeController, ICombatant
 {
     [SerializeField] private TerrapupaMinionHealthBar healthBar;
-    [HideInInspector] public TerrapupaMinionRootData terrapupaData;
+    [HideInInspector] public TerrapupaMinionRootData minionData;
 
     private TicketMachine ticketMachine;
 
@@ -31,6 +32,12 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
         base.Awake();
 
         InitTicketMachine();
+        minionData = rootTreeData as TerrapupaMinionRootData;
+        healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
+    }
+
+    private void Start()
+    {
         InitStatus();
     }
 
@@ -42,9 +49,7 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
 
     private void InitStatus()
     {
-        terrapupaData = rootTreeData as TerrapupaMinionRootData;
-        healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
-        healthBar.InitData(terrapupaData);
+        healthBar.InitData(minionData);
     }
 
     public void Attack(IBaseEventPayload payload)
@@ -61,12 +66,12 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
         int damage = combatPayload.Damage;
 
         GetDamaged(damage);
-        Debug.Log($"{damage} 데미지 입음 : {terrapupaData.currentHP.Value}");
+        Debug.Log($"{damage} 데미지 입음 : {minionData.currentHP.Value}");
     }
 
     public void GetDamaged(int damageValue)
     {
-        terrapupaData.currentHP.Value -= damageValue;
-        healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+        minionData.currentHP.Value -= damageValue;
+        healthBar.RenewHealthBar(minionData.currentHP.value);
     }
 }
