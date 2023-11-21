@@ -5,6 +5,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Channels.Type;
 using Channels.UI;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Item
@@ -34,6 +35,14 @@ namespace Assets.Scripts.Item
         {
             rigidbody.position = position;
             rigidbody.rotation = Quaternion.identity;
+            StartCoroutine(EnableStoneTrail());
+        }
+
+        private IEnumerator EnableStoneTrail()
+        {
+            yield return new WaitForSeconds(0.02f);
+            transform.GetChild(0).gameObject.SetActive(true);
+
         }
 
         public void MoveStone(Vector3 direction, float strength)

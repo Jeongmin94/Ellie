@@ -77,6 +77,11 @@ namespace Boss.Objects
                 rb.isKinematic = false;
                 isFallen = true;
             }
+            //puzzle test
+            if(collision.transform.CompareTag("Ground"))
+            {
+                gameObject.SetActive(false);
+            }
         }
 
         private void OnTriggerEnter(Collider other)

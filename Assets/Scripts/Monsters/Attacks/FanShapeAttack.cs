@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Monsters.AbstractClass;
 using Channels.Combat;
-using UnityEngine;
+using System.Collections;
 using UnityEditor;
+using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Attacks
 {

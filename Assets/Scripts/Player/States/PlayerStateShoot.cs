@@ -30,7 +30,6 @@ namespace Assets.Scripts.Player.States
 
             }
             Controller.TurnOnSlingshot();
-            Controller.AddForceSlingshotLeather();
             Controller.TurnSlingshotLineRenderer(false);
         }
         
