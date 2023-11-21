@@ -6,6 +6,8 @@ using TheKiwiCoder;
 [System.Serializable]
 public class PlayParticle : ActionNode
 {
+    public NodeProperty<MonsterParticleType> particleType;
+
     protected override void OnStart() {
     }
 
@@ -13,6 +15,9 @@ public class PlayParticle : ActionNode
     }
 
     protected override State OnUpdate() {
-        return State.Success;
+        if (context.particleController.PlayParticle(particleType.Value))
+            return State.Success;
+
+        return State.Failure;
     }
 }

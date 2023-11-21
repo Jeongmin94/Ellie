@@ -26,6 +26,7 @@ namespace Assets.Scripts.Monsters.Attacks
             InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableMinimumDistance);
             offset = data.offset;
             projectile = data.projectilePrefab.GetComponent<Projectile>();
+            particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public override void ActivateAttack()
@@ -45,6 +46,9 @@ namespace Assets.Scripts.Monsters.Attacks
         public void ProjectileHitPlayer(Transform otherTransform)
         {
             audioController.PlayAudio(MonsterAudioType.ProjectileHit);
+            ParticleSystem particle = particleController.GetParticle(MonsterParticleType.ProjectileHit);
+            particle.transform.position = otherTransform.position;
+            particle.Play();
             SetAndAttack(attackData, otherTransform);
         }
 

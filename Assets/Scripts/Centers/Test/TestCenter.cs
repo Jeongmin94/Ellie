@@ -15,6 +15,7 @@ namespace Assets.Scripts.Centers.Test
         public StoneHatchery hatchery;
         public Inventory inventory;
         public Ore[] ores;
+        public GameObject monsters;
 
         public int curStage = 1;
        
@@ -33,6 +34,10 @@ namespace Assets.Scripts.Centers.Test
                 Debug.Log($"{ore.name} checked");
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
+            }
+            foreach (Transform child in monsters.transform)
+            {
+                CheckTicket(child.gameObject);
             }
         }
     }

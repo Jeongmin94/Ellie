@@ -15,12 +15,13 @@ MonoBehaviour:
   monsterID: 1
   monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808"
   maxHP: 10
-  movementSpeed: 2
+  movementSpeed: 6
+  returnSpeed: 10
   rotationSpeed: 180
   detectPlayerDistance: 30
-  chasePlayerDistance: 15
-  overtravelDistance: 30
-  stopDistance: 1
+  chasePlayerDistance: 20
+  overtravelDistance: 60
+  stopDistance: 1.5
   kind: 1
   type: 0
   turnType: 0

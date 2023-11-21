@@ -24,6 +24,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         private TicketMachine ticketMachine;
 
         [SerializeField] protected MonsterAudioController audioController;
+        [SerializeField] protected MonsterParticleController particleController;
 
         public abstract void ActivateAttack();
 
@@ -37,8 +38,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
             IsAttackReady = true;
             owner = transform.parent.gameObject.tag;
-
             audioController = transform.parent.GetComponent<MonsterAudioController>();
+            particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public virtual void InitializeBoxCollider(BoxColliderAttackData data)

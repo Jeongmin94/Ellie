@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterID: 1
   monsterName: "\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808"
-  maxHP: 10
-  movementSpeed: 2
+  maxHP: 5
+  movementSpeed: 5
+  returnSpeed: 10
   rotationSpeed: 180
   detectPlayerDistance: 30
   chasePlayerDistance: 20
-  overtravelDistance: 30
+  overtravelDistance: 60
   stopDistance: 1.5
   kind: 1
   type: 0
