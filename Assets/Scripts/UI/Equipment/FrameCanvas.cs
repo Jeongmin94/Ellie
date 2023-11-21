@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Framework.Static;
@@ -20,20 +23,14 @@ namespace Assets.Scripts.UI.Equipment
         [SerializeField] private float frameWidth = 86.0f;
         [SerializeField] private float frameHeight = 86.0f;
         [SerializeField] private float spacing = 1.0f;
-        [SerializeField] private Rect framePanelRect;
 
         public GroupType groupType;
+        private UITransformData uiTransformData;
 
         public Sprite FrameImage
         {
             get => frameImage;
             set => frameImage = value;
-        }
-
-        public Rect FramePanelRect
-        {
-            get { return framePanelRect; }
-            set { framePanelRect = value; }
         }
 
         public float FrameWidth
@@ -53,18 +50,36 @@ namespace Assets.Scripts.UI.Equipment
         private RectTransform panelRect;
 
         private readonly List<EquipmentFrame> frames = new List<EquipmentFrame>();
+        private readonly Queue<Rect> rectQueue = new Queue<Rect>();
+        private readonly Queue<Vector2> scaleQueue = new Queue<Vector2>();
 
-        public void InitFrameCanvas()
+        public void InitFrameCanvas(UITransformData transformData)
         {
+            uiTransformData = transformData;
+
+#if UNITY_EDITOR
+            uiTransformData.actionRect.Subscribe(OnRectChange);
+            uiTransformData.actionScale.Subscribe(OnScaleChange);
+#endif
+
             Init();
+            Init(uiTransformData);
         }
 
-        protected override void Init()
+        private void OnRectChange(Rect rect)
         {
-            base.Init();
+            rectQueue.Enqueue(rect);
+        }
 
+        private void OnScaleChange(Vector2 scale)
+        {
+            scaleQueue.Enqueue(scale);
+        }
+
+        private void Init(UITransformData transformData)
+        {
             Bind();
-            InitObjects();
+            InitObjects(transformData);
             BindEvent();
         }
 
@@ -76,15 +91,35 @@ namespace Assets.Scripts.UI.Equipment
             panelRect = framePanel.GetComponent<RectTransform>();
         }
 
-        private void InitObjects()
+        private void InitObjects(UITransformData transformData)
+        {
+            SetTransform(transformData.actionRect.Value);
+        }
+
+        private void SetTransform(Rect rect)
         {
             AnchorPresets.SetAnchorPreset(panelRect, AnchorPresets.MiddleCenter);
-            panelRect.sizeDelta = framePanelRect.GetSize();
-            panelRect.localPosition = framePanelRect.ToCanvasPos();
+            panelRect.sizeDelta = rect.GetSize();
+            panelRect.localPosition = rect.ToCanvasPos();
+        }
+
+        private void SetScale(Vector2 scale)
+        {
+            panelRect.localScale = scale;
         }
 
         private void BindEvent()
         {
+        }
+
+        private void Update()
+        {
+#if UNITY_EDITOR
+            if (rectQueue.Any())
+                SetTransform(rectQueue.Dequeue());
+            if (scaleQueue.Any())
+                SetScale(scaleQueue.Dequeue());
+#endif
         }
 
         public void InitFrame(Vector2[] directions, string uiName)

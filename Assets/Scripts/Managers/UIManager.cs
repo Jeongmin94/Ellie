@@ -6,7 +6,6 @@ using System.Collections.Generic;
 using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.Managers
