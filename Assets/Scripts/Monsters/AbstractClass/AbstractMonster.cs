@@ -49,6 +49,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected Vector3 spawnPosition;
 
+        protected MonsterAudioController audioController;
+
         public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {
             AbstractAttack attack = null;
@@ -109,10 +111,15 @@ namespace Assets.Scripts.Monsters.AbstractClass
                 isDead.value = true;
                 MonsterDead();
             }
+            else
+            {
+                audioController.PlayAudio(MonsterAudioType.Hit);
+            }
         }
 
         private void MonsterDead()
         {
+            audioController.PlayAudio(MonsterAudioType.Dead);
             StartCoroutine(DisableMonster());
         }
 

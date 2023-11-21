@@ -32,6 +32,10 @@ namespace Centers.Boss
 
         private int bossDeathCheck = 0;
 
+        public bool isActiveTerrapupa = true;
+        public bool isActiveTerra = false;
+        public bool isActivePupa = false;
+
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
         [SerializeField] private TerrapupaController pupa;
@@ -98,9 +102,9 @@ namespace Centers.Boss
             terra.terrapupaData.player.Value = player.transform;
             pupa.terrapupaData.player.Value = player.transform;
 
-            terrapupa.gameObject.SetActive(false);
-            //terra.gameObject.SetActive(false);
-            //pupa.gameObject.SetActive(false);
+            terrapupa.gameObject.SetActive(isActiveTerrapupa);
+            terra.gameObject.SetActive(isActiveTerra);
+            pupa.gameObject.SetActive(isActivePupa);
         }
 
         private void SpawnStalactites()
@@ -208,23 +212,7 @@ namespace Centers.Boss
                 manaPayload.Sender = actor.transform;
             }
 
-            switch (manaPayload.AttackTypeValue)
-            {
-                case TerrapupaAttackType.ThrowStone:
-                    actor.terrapupaData.canThrowStone.Value = false;
-                    break;
-                case TerrapupaAttackType.EarthQuake:
-                    actor.terrapupaData.canEarthQuake.Value = false;
-                    break;
-                case TerrapupaAttackType.Roll:
-                    actor.terrapupaData.canRoll.Value = false;
-                    break;
-                case TerrapupaAttackType.LowAttack:
-                    actor.terrapupaData.canLowAttack.Value = false;
-                    break;
-                default:
-                    break;
-            }
+            BossApplyAttackCooldown(manaPayload.AttackTypeValue, false);
 
             StartCoroutine(ManaRespawn(manaPayload));
         }
@@ -242,20 +230,34 @@ namespace Centers.Boss
             mana.IsBroken = false;
             mana.IsCooldown = false;
 
-            TerrapupaController actor = manaPayload.Sender.GetComponent<TerrapupaController>();
-            switch (manaPayload.AttackTypeValue)
+            BossApplyAttackCooldown(manaPayload.AttackTypeValue, true);
+        }
+
+        private void BossApplyAttackCooldown(TerrapupaAttackType attackType, bool isTrueFalse)
+        {
+            terrapupa.terrapupaData.canThrowStone.Value = isTrueFalse;
+
+            switch (attackType)
             {
                 case TerrapupaAttackType.ThrowStone:
-                    actor.terrapupaData.canThrowStone.Value = true;
+                    if (terrapupa.terrapupaData.stoneUsable) terrapupa.terrapupaData.canThrowStone.Value = isTrueFalse;
+                    if (terra.terrapupaData.stoneUsable) terra.terrapupaData.canThrowStone.Value = isTrueFalse;
+                    if (pupa.terrapupaData.stoneUsable) pupa.terrapupaData.canThrowStone.Value = isTrueFalse;
                     break;
                 case TerrapupaAttackType.EarthQuake:
-                    actor.terrapupaData.canEarthQuake.Value = true;
+                    if (terrapupa.terrapupaData.earthQuakeUsable) terrapupa.terrapupaData.canEarthQuake.Value = isTrueFalse;
+                    if (terra.terrapupaData.earthQuakeUsable) terra.terrapupaData.canEarthQuake.Value = isTrueFalse;
+                    if (pupa.terrapupaData.earthQuakeUsable) pupa.terrapupaData.canEarthQuake.Value = isTrueFalse;
                     break;
                 case TerrapupaAttackType.Roll:
-                    actor.terrapupaData.canRoll.Value = true;
+                    if (terrapupa.terrapupaData.rollUsable) terrapupa.terrapupaData.canRoll.Value = isTrueFalse;
+                    if (terra.terrapupaData.rollUsable) terra.terrapupaData.canRoll.Value = isTrueFalse;
+                    if (pupa.terrapupaData.rollUsable) pupa.terrapupaData.canRoll.Value = isTrueFalse;
                     break;
                 case TerrapupaAttackType.LowAttack:
-                    actor.terrapupaData.canLowAttack.Value = true;
+                    if (terrapupa.terrapupaData.lowAttackUsable) terrapupa.terrapupaData.canLowAttack.Value = isTrueFalse;
+                    if (terra.terrapupaData.lowAttackUsable) terra.terrapupaData.canLowAttack.Value = isTrueFalse;
+                    if (pupa.terrapupaData.lowAttackUsable) pupa.terrapupaData.canLowAttack.Value = isTrueFalse;
                     break;
                 default:
                     break;
@@ -573,6 +575,7 @@ namespace Centers.Boss
             }
         }
 
+
         private void OnGUI()
         {
             int boxWidth = 200;
@@ -630,22 +633,6 @@ namespace Centers.Boss
                 Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
                 GUI.Box(boxRect, "마법 돌맹이 갯수");
                 GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, 50), magicStoneText);
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            float rayLength = 7.0f;
-            Color rayColor = Color.red;
-            Gizmos.color = rayColor;
-
-            if (terrapupa)
-            {
-                Gizmos.DrawRay(terrapupa.transform.position, terrapupa.transform.forward * rayLength);
-            }
-            if (terra)
-            {
-                Gizmos.DrawRay(terra.transform.position, terra.transform.forward * rayLength);
             }
         }
     }

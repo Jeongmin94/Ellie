@@ -6,7 +6,7 @@ using Assets.Scripts.Item;
 
 public class TestItemDrop : Poolable
 {
-    public ItemData data = null;
+    public ConsumableItemData data = null;
     [SerializeField] private ItemHatchery hatchery;
 
     private void OnTriggerEnter(Collider other)

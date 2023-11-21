@@ -34,7 +34,6 @@ namespace Channels.Utils
                     channel = new DialogChannel();
                     break;
             }
-
             return channel;
         }
     }

@@ -1,7 +1,4 @@
-﻿using CodiceApp;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Slingshot : MonoBehaviour {
     public GameObject rightElastic;
@@ -43,6 +40,9 @@ public class Slingshot : MonoBehaviour {
 
         leftLineRenderer.SetWidth(0.04f, 0.04f);
         rightLineRenderer.SetWidth(0.04f, 0.04f);
+
+        leftLineRenderer.enabled = false;
+        rightLineRenderer.enabled = false;
 
         rightElastic.GetComponent<SkinnedMeshRenderer>().enabled = false;
         leftElastic.GetComponent<SkinnedMeshRenderer>().enabled = false;

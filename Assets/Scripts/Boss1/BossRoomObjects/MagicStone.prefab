@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1527e9b9e6e49c14a97d279dab440714, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsing: 0
   attractionRadiusRange: 10
   bossLayer:
     serializedVersion: 2
@@ -65,7 +66,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 122
   m_CollisionDetection: 0
 --- !u!135 &2217059072624943317
 SphereCollider:
@@ -92,7 +93,7 @@ GameObject:
   - component: {fileID: 3306211085616338495}
   - component: {fileID: 3306211085616338480}
   - component: {fileID: 3306211085616338481}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

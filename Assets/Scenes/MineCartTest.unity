@@ -170,6 +170,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.9990001
+      objectReference: {fileID: 0}
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
       value: 35
@@ -1458,6 +1462,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5045d1fd8262df45bc2605837827d4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUsing: 0
+  data:
+    groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+    appearanceStage: 0
+    tier: 0
+    element: 0
+    damage: 0
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: 
+    specialEffectIndex: 0
+    combineCost: 0
+    sellCost: 0
+    textureName: 
 --- !u!65 &789192197
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2381,8 +2405,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8027749db19f86642b16a488f1dc6344, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHP: 0
+  maxStamina: 0
+  staminaRecoveryPerSec: 0
+  sprintStaminaConsumptionPerSec: 0
+  jumpStaminaConsumption: 0
+  dodgeStaminaConsumption: 0
+  hangStaminaConsumptionPerSec: 0
+  chargeStaminaConsumptionPerSec: 0
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
+  isDead: 0
+  isRecoveringStamina: 0
 --- !u!1 &1611918112
 GameObject:
   m_ObjectHideFlags: 0
@@ -2485,6 +2519,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataList:
   - {fileID: 11400000, guid: e224b2e752136af43a4cf605ac6ae898, type: 2}
+  - {fileID: 11400000, guid: 872d3f2f4674a0946a2c79b6dbeffcd7, type: 2}
+  - {fileID: 11400000, guid: 2223109af0079f648a7d0078a633c57d, type: 2}
+  - {fileID: 11400000, guid: 458f46be428eaef41996a7f5a483fe97, type: 2}
 --- !u!4 &1668626731
 Transform:
   m_ObjectHideFlags: 0
@@ -2512,8 +2549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5113aa185930e374096038e5f5e175a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataList:
-  - {fileID: 11400000, guid: e224b2e752136af43a4cf605ac6ae898, type: 2}
 --- !u!1001 &1712251312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2859,6 +2894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2102581994}
   - component: {fileID: 2102581993}
+  - component: {fileID: 2102581995}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -2943,6 +2979,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &2102581995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2102581992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &2103550532
 GameObject:
   m_ObjectHideFlags: 0

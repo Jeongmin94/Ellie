@@ -11,14 +11,16 @@ namespace Assets.Scripts.UI.Inventory
         public void SetItem(BaseItem item)
         {
             slot.SlotItemData = item;
-            slot.InvokeEquipmentFrameAction(new InventoryEventPayload() { slot = slot });
+            GroupType _groupType = slot.SlotItemData.itemData.groupType;
+            slot.InvokeEquipmentFrameAction(new InventoryEventPayload() { slot = slot, groupType = _groupType });
         }
 
         // 슬롯에 있는 아이템 제거
         public void ClearItem()
         {
+            GroupType _groupType = slot.SlotItemData.itemData.groupType;
             slot.SlotItemData = null;
-            slot.InvokeEquipmentFrameAction(new InventoryEventPayload() { slot = slot });
+            slot.InvokeEquipmentFrameAction(new InventoryEventPayload() { slot = slot, groupType = _groupType });
         }
     }
 }

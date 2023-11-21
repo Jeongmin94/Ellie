@@ -37,6 +37,8 @@ namespace Assets.Scripts.UI.Inventory
         // for Equipment Frame
         private Action<InventoryEventPayload> equipmentFrameAction;
 
+
+
         private void Awake()
         {
             Init();
@@ -199,6 +201,12 @@ namespace Assets.Scripts.UI.Inventory
         public void InvokeEquipmentFrameAction(InventoryEventPayload payload)
         {
             equipmentFrameAction?.Invoke(payload);
+            //0번 인덱스에 대해서만 추가적인 invoke
+            if(payload.slot.Index == 0 && SlotType == SlotAreaType.Equipment)
+            {
+                payload.eventType = InventoryEventType.SendMessageToPlayer;
+                slotInventoryAction.Invoke(payload);
+            }
         }
 
         private void OnDestroy()

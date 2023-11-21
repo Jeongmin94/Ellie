@@ -5,7 +5,7 @@ namespace Assets.Scripts.Channels.Item
 {
     public enum StoneEventType
     {
-        RequestStone,
+        ShootStone,
         MineStone,
     }
     public class StoneEventPayload : IBaseEventPayload

@@ -1,11 +1,8 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Data.Quest;
-using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
-using Codice.CM.Common;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPCs
