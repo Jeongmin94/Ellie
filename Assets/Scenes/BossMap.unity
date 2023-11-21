@@ -5766,7 +5766,7 @@ MonoBehaviour:
   player: {fileID: 1062887270}
   terrapupaMapObjects: {fileID: 1891697169}
   fallCheckLatency: 5
-  isActiveTerrapupa: 1
+  isActiveTerrapupa: 0
   isActiveTerra: 0
   isActivePupa: 0
   isActiveMinions: 0
@@ -7759,6 +7759,7 @@ MonoBehaviour:
   - {fileID: 945105548}
   - {fileID: 1948797703}
   - {fileID: 1557871202}
+  monsters: {fileID: 0}
   curStage: 1
 --- !u!4 &1235677887
 Transform:
@@ -8858,7 +8859,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4008788663092322689, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 7.75
+      value: 7.86
       objectReference: {fileID: 0}
     - target: {fileID: 4008788663092322689, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
       propertyPath: m_LocalPosition.y
