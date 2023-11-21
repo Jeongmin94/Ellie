@@ -1,9 +1,7 @@
 ﻿using Assets.Scripts.Data.Quest;
-using Codice.Client.BaseCommands.BranchExplorer;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Progress;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {

@@ -22,9 +22,9 @@ namespace Assets.Scripts.Player.States
                 Controller.isFalling = true;
             Controller.SetTimeScale(Controller.zoomMultiplier);
             //Controller.AimingAnimLayerWeight = 0f;
+            //Controller.GrabSlingshotLeather();
             Controller.TurnOnSlingshot();
             Controller.TurnSlingshotLineRenderer(true);
-
         }
 
         public override void OnExitState()
@@ -39,7 +39,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
-            Controller.GrabSlingshotLeather();
+           // Controller.GrabSlingshotLeather();
             Controller.Aim();
             Controller.LookAimTarget();
             Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Aiming, 1f);
