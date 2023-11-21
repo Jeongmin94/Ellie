@@ -1,7 +1,7 @@
-using Assets.Scripts.Item;
 using Assets.Scripts.StatusEffects;
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
@@ -53,27 +53,27 @@ namespace Assets.Scripts.Data.GoogleSheet
                 try
                 {
                     data.groupType = UI.Inventory.GroupType.Stone;
-                    //ÀÎµ¦½º
+                    //ï¿½Îµï¿½ï¿½ï¿½
                     data.index = int.Parse(entries[0].Trim());
-                    //ÀÌ¸§
+                    //ï¿½Ì¸ï¿½
                     data.name = entries[1].Trim();
                     //Description
                     data.description = entries[2].Trim();
-                    //Ã³À½ µîÀåÇÏ´Â ½ºÅ×ÀÌÁö
+                    //Ã³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     data.appearanceStage = int.Parse(entries[3].Trim());
-                    //Æ¼¾î
+                    //Æ¼ï¿½ï¿½
                     data.tier = int.Parse(entries[4].Trim());
-                    //¼Ó¼º
+                    //ï¿½Ó¼ï¿½
                     data.element = (Element)Enum.Parse(typeof(Element), entries[5].Trim());
-                    //µ¥¹ÌÁö
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     data.damage = int.Parse(entries[6].Trim());
-                    //À¯¹ßÇÏ´Â »óÅÂÀÌ»ó
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½
                     data.statusEffect = (StatusEffectName)Enum.Parse(typeof(StatusEffectName), entries[7].Trim());
-                    //»óÅÂÀÌ»óÀÇ Áö¼Ó½Ã°£
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ì»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ó½Ã°ï¿½
                     data.statusEffectDuration = float.Parse(entries[8].Trim());
-                    //À¯¹ßÇÏ´Â µð¹öÇÁ
+                    //ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
                     data.debuff = (StatusEffectName)Enum.Parse(typeof(StatusEffectName), entries[9].Trim());
-                    //Æ¯¼ö È¿°ú°¡ ¹ß»ýÇÏ´Â Á¶°ÇÀÇ list
+                    //Æ¯ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ list
                     string[] conditions = entries[10].Trim().Split(',');
                     if (entries[10] != "None")
                     {
@@ -82,15 +82,15 @@ namespace Assets.Scripts.Data.GoogleSheet
                             data.conditions.Add(int.Parse(condition.Trim()));
                         }
                     }
-                    //Æ¯¼ö È¿°ú ÀÌ¸§
+                    //Æ¯ï¿½ï¿½ È¿ï¿½ï¿½ ï¿½Ì¸ï¿½
                     data.specialEffectName = entries[11].Trim();
-                    //Æ¯¼ö È¿°úÀÇ ÀÎµ¦½º
+                    //Æ¯ï¿½ï¿½ È¿ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
                     data.specialEffectIndex = int.Parse(entries[12].Trim());
-                    //Á¶ÇÕ ºñ¿ë
+                    //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
                     data.combineCost = int.Parse(entries[13].Trim());
-                    //»óÀÎ ÆÇ¸Å ºñ¿ë
+                    //ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¸ï¿½ ï¿½ï¿½ï¿½
                     data.sellCost = int.Parse(entries[14].Trim());
-                    //ÀÌ¹ÌÁö ÀÌ¸§ -> externÀÇ ÇØ´ç Æú´õ Ã£¾Æ°¡¼­ °¡Á®¿À±â
+                    //ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½ -> externï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã£ï¿½Æ°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
                     data.imageName = "UI/Item/Stone/" + entries[15].Trim();
                     //
                     data.textureName = entries[16].Trim();
