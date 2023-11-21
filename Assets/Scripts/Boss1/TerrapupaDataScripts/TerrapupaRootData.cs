@@ -18,7 +18,7 @@ public class TerrapupaRootData : BaseBTData
     [Tooltip("구르기")] public bool rollUsable = true;
     [Tooltip("돌 던지기")] public bool stoneUsable = true;
     [Tooltip("땅 뒤집기")] public bool earthQuakeUsable = true;
-    [Tooltip("하단 공격")] public bool lowAttackQuakeUsable = true;
+    [Tooltip("하단 공격")] public bool lowAttackUsable = true;
 
     [Header("공격 감지 범위")]
     [Tooltip("장거리 공격")] public float LongRangeDetectionDistance = 25.0f;
@@ -50,7 +50,7 @@ public class TerrapupaRootData : BaseBTData
         SetBlackboardValue<bool>("canRoll", rollUsable, tree);
         SetBlackboardValue<bool>("canThrowStone", stoneUsable, tree);
         SetBlackboardValue<bool>("canEarthQuake", earthQuakeUsable, tree);
-        SetBlackboardValue<bool>("canLowAttack", lowAttackQuakeUsable, tree);
+        SetBlackboardValue<bool>("canLowAttack", lowAttackUsable, tree);
         SetBlackboardValue<float>("longRangeDetectionDistance", LongRangeDetectionDistance, tree);
         SetBlackboardValue<float>("midRangeDetectionDistance", MidRangeDetectionDistance, tree);
         SetBlackboardValue<float>("shortRangeDetectionDistance", ShortRangeDetectionDistance, tree);

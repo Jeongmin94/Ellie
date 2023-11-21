@@ -13,9 +13,6 @@ namespace Assets.Scripts.Monsters.Others
         private void Awake()
         {
             collider = GetComponent<SphereCollider>();
-            if (collider == null)
-                Debug.Log("[DistanceDetectedAI] : Collider is Null");
-
         }
         public void SetDetectDistance(float playerDetectDistance)
         {

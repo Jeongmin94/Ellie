@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
+﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
@@ -14,7 +15,7 @@ namespace Assets.Scripts.Item
         public StoneData data = null;
         
         public StoneHatchery hatchery { get; set; }
-        
+
         private new Rigidbody rigidbody;
 
         public Rigidbody StoneRigidBody

@@ -14,8 +14,8 @@ public class CheckPlayerIsNear : ActionNode
     }
 
     protected override State OnUpdate() {
-        //if(playerDistance.Value<context.agent.stoppingDistance)
-        if (playerDistance.Value < context.agent.stoppingDistance * context.agent.stoppingDistance)
+        Debug.Log(playerDistance.Value);
+        if (playerDistance.Value < 4.0f)
         {
             return State.Success;
         }

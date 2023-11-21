@@ -22,6 +22,7 @@ namespace Assets.Scripts.Data
 
         public float maxHP;
         public float movementSpeed;
+        public float returnSpeed;
         public float rotationSpeed;
         public float detectPlayerDistance;
         public float chasePlayerDistance;

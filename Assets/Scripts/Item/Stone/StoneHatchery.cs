@@ -12,12 +12,12 @@ namespace Assets.Scripts.Item.Stone
 {
     public class StoneHatchery : MonoBehaviour
     {
-
         private const int STONEIDXSTART = 4000;
         private TicketMachine ticketMachine;
         private Pool stonePool;
         [SerializeField] Mesh[] stoneMeshes;
         [SerializeField] Material[] materials;
+        [SerializeField] BaseStoneEffect[] stoneEffects;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
@@ -28,14 +28,17 @@ namespace Assets.Scripts.Item.Stone
             string resourcePath = "Materials/StoneMaterials";
             materials = Resources.LoadAll<Material>(resourcePath);
         }
+
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
             ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
         private void InitStonePool()
         {
+            //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
             stonePool = PoolManager.Instance.CreatePool(stone, initialPoolSize);
         }
 
@@ -54,7 +57,36 @@ namespace Assets.Scripts.Item.Stone
             obj.gameObject.GetComponent<MeshCollider>().sharedMesh = stoneMeshes[idx];
             int matIdx = obj.GetComponent<BaseStone>().data.index % STONEIDXSTART;
             obj.gameObject.GetComponent<MeshRenderer>().material = materials[matIdx];
+            AddStoneEffect(obj, stoneIdx);
+            
             return obj;
+        }
+
+        public void AddStoneEffect(Poolable obj, int stoneIdx)
+        {
+            BaseStoneEffect currentEffect = obj.GetComponent<BaseStoneEffect>();
+            if (currentEffect != null)
+            {
+                Destroy(currentEffect);
+            }
+
+            BaseStoneEffect effect;
+            // 추후 enum + 데이터테이블 + 딕셔너리로 수정
+            switch (stoneIdx)
+            {
+                case 4020:
+                    effect = obj.gameObject.AddComponent<MagicStone>();
+                    break;
+                default:
+                    effect = obj.gameObject.AddComponent<NormalStone>();
+                    break;
+            }
+
+            StonePrefab prefab = obj.GetComponent<StonePrefab>();
+
+            prefab.StoneEffect = effect;
+            effect.InitData(prefab.data);
+            effect.SubscribeAction(prefab.OccurEffect);
         }
 
         public void CollectStone(BaseStone stone)
@@ -64,14 +96,14 @@ namespace Assets.Scripts.Item.Stone
 
         public void StoneEvent(IBaseEventPayload payload)
         {
-            StoneEventPayload stonePayload = payload as StoneEventPayload;
-            StonePrefab stone = GetStone(stonePayload.StoneIdx) as StonePrefab;
-            Vector3 startPos = stonePayload.StoneSpawnPos;
-            Vector3 direction = stonePayload.StoneDirection;
-            Vector3 force = stonePayload.StoneForce;
-            float strength = stonePayload.StoneStrength;
-           
-            if (stonePayload.Type == StoneEventType.ShootStone)
+            StoneEventPayload itemPayload = payload as StoneEventPayload;
+            BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
+            Vector3 startPos = itemPayload.StoneSpawnPos;
+            Vector3 direction = itemPayload.StoneDirection;
+            Vector3 force = itemPayload.StoneForce;
+            float strength = itemPayload.StoneStrength;
+            stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
+            if (itemPayload.Type == StoneEventType.ShootStone)
             {
                 ReleaseStone(stone, startPos, direction, strength);
                 //UI 페이로드 작성
@@ -84,19 +116,19 @@ namespace Assets.Scripts.Item.Stone
                 };
                 ticketMachine.SendMessage(ChannelType.UI, uIPayload);
             }
-            else if (stonePayload.Type == StoneEventType.MineStone)
+            else if (itemPayload.Type == StoneEventType.MineStone)
             {
                 MineStone(stone, startPos, force);
             }
         }
         
-        private void MineStone(StonePrefab stone, Vector3 position, Vector3 force)
+        private void MineStone(BaseStone stone, Vector3 position, Vector3 force)
         {
             stone.transform.position = position;
             stone.GetComponent<Rigidbody>().AddForce(force * 4f, ForceMode.Impulse);
         }
 
-        private void ReleaseStone(StonePrefab stone, Vector3 startPos, Vector3 direction, float strength)
+        private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
         {
             stone.SetPosition(startPos);
             stone.MoveStone(direction, strength);

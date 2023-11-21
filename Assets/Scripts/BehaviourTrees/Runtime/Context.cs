@@ -23,6 +23,10 @@ namespace TheKiwiCoder {
         public CharacterController characterController;
 
         public MonsterController controller;
+        public MonsterAudioController audioController;
+        public MonsterParticleController particleController;
+        public AudioSource audioSource;
+
         public BehaviourTreeController btController;
         public TicketMachine ticketMachine;
 
@@ -41,6 +45,10 @@ namespace TheKiwiCoder {
 
             // Add whatever else you need here...
             context.controller = gameObject.GetComponent<MonsterController>();
+            context.audioController = gameObject.GetComponent<MonsterAudioController>();
+            context.particleController = gameObject.GetComponent<MonsterParticleController>();
+            context.audioSource = gameObject.GetComponent<AudioSource>();
+
             context.btController = gameObject.GetComponent<BehaviourTreeController>();
             context.ticketMachine = gameObject.GetComponent<TicketMachine>();
 

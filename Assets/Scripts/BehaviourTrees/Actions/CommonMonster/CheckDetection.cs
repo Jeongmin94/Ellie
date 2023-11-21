@@ -20,9 +20,10 @@ public class CheckDetection : ActionNode
         DistanceDetectedAI detect = detectAI.Value.GetComponent<DistanceDetectedAI>();
         if (detect.IsDetected)
         {
+            Debug.Log(detect + "Successed");
             return State.Success;
         }
-
+        Debug.Log(detect + "Failed");
         return State.Failure;
     }
 }

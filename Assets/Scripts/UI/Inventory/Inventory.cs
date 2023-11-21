@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Item;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
@@ -62,6 +62,8 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionImageArea,
         }
 
+        [SerializeField] private UITransformData consumptionTransformData;
+        [SerializeField] private UITransformData stoneTransformData;
         [SerializeField] private GameGoods goods;
 
         // GameObject
@@ -502,10 +504,9 @@ namespace Assets.Scripts.UI.Inventory
             consumptionCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
             consumptionCanvas.FrameWidth = 86.0f;
             consumptionCanvas.FrameHeight = 86.0f;
-            consumptionCanvas.FramePanelRect = EquipmentConst.ConsumptionPanelRect;
             consumptionCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/ConsumptionFrameRotated");
 
-            consumptionCanvas.InitFrameCanvas();
+            consumptionCanvas.InitFrameCanvas(consumptionTransformData);
 
             Vector2[] directions =
             {
@@ -528,10 +529,9 @@ namespace Assets.Scripts.UI.Inventory
             stoneCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
             stoneCanvas.FrameWidth = 113.0f;
             stoneCanvas.FrameHeight = 113.0f;
-            stoneCanvas.FramePanelRect = EquipmentConst.StonePanelRect;
             stoneCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/StoneFrame");
 
-            stoneCanvas.InitFrameCanvas();
+            stoneCanvas.InitFrameCanvas(stoneTransformData);
 
             const float INF = 9999.0f;
             Vector2[] directions =

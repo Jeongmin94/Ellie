@@ -1,17 +1,28 @@
-﻿using Channels.Boss;
+﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Utils;
+using Channels.Boss;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using UnityEngine;
 
 namespace Boss.Objects
 {
     public class ManaFountain : MonoBehaviour
     {
-        public TerrapupaAttackType banBossAttackType;
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
+
+        public TerrapupaAttackType banBossAttackType;
         public Transform spawnPosition;
+        public GameObject hitEffect;
 
         private bool isCooldown;
         private bool isBroken;
+
+        private const int NORMALSTONE_INDEX = 4000;
+        private const int MAGICSTONE_INDEX = 4020;
+        private TicketMachine ticketMachine;
 
         public bool IsCooldown
         {
@@ -25,9 +36,14 @@ namespace Boss.Objects
             set { isBroken = value; }
         }
 
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if(!isBroken)
+            if (!isBroken)
             {
                 if (other.transform.CompareTag("Stone") && !isCooldown)
                 {
@@ -36,12 +52,22 @@ namespace Boss.Objects
                     isCooldown = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
-                        new BossEventPayload 
-                        { 
-                            TransformValue1 = transform, 
-                            TransformValue2 = spawnPosition 
+                        new BossEventPayload
+                        {
+                            TransformValue1 = transform,
                         });
-                    
+
+
+                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
+                    ticketMachine.SendMessage(ChannelType.Stone,
+                        new StoneEventPayload
+                        {
+                            Type = StoneEventType.MineStone,
+                            StoneSpawnPos = spawnPosition.position,
+                            StoneForce = GetRandVector(),
+                            StoneIdx = MAGICSTONE_INDEX,
+                        });
+
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {
@@ -50,12 +76,27 @@ namespace Boss.Objects
                     isBroken = true;
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
-                        new BossEventPayload 
-                        { 
-                            TransformValue1 = transform, 
+                        new BossEventPayload
+                        {
+                            PrefabValue = hitEffect,
+                            TransformValue1 = transform,
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform.root,
                         });
+
+                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ticketMachine.SendMessage(ChannelType.Stone,
+                            new StoneEventPayload
+                            {
+                                Type = StoneEventType.MineStone,
+                                StoneSpawnPos = spawnPosition.position,
+                                StoneForce = GetRandVector(),
+                                StoneIdx = NORMALSTONE_INDEX,
+                            });
+                    }
+
                 }
                 else if (other.transform.CompareTag("BattleObject"))
                 {
@@ -67,13 +108,32 @@ namespace Boss.Objects
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
                         new BossEventPayload
                         {
+                            PrefabValue = hitEffect,
                             TransformValue1 = transform,
                             TransformValue2 = other.transform,
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform,
                         });
+
+                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
+                    for (int i = 0; i < 3; i++)
+                    {
+                        ticketMachine.SendMessage(ChannelType.Stone,
+                            new StoneEventPayload
+                            {
+                                Type = StoneEventType.MineStone,
+                                StoneSpawnPos = spawnPosition.position,
+                                StoneForce = GetRandVector(),
+                                StoneIdx = NORMALSTONE_INDEX,
+                            });
+                    }
                 }
             }
+        }
+        private Vector3 GetRandVector()
+        {
+            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+            return vec.normalized;
         }
     }
 }
