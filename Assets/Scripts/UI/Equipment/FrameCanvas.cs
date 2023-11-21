@@ -93,10 +93,10 @@ namespace Assets.Scripts.UI.Equipment
 
         private void InitObjects(UITransformData transformData)
         {
-            SetTransform(transformData.actionRect.Value);
+            SetRect(transformData.actionRect.Value);
         }
 
-        private void SetTransform(Rect rect)
+        private void SetRect(Rect rect)
         {
             AnchorPresets.SetAnchorPreset(panelRect, AnchorPresets.MiddleCenter);
             panelRect.sizeDelta = rect.GetSize();
@@ -112,11 +112,11 @@ namespace Assets.Scripts.UI.Equipment
         {
         }
 
-        private void Update()
+        private void LateUpdate()
         {
 #if UNITY_EDITOR
             if (rectQueue.Any())
-                SetTransform(rectQueue.Dequeue());
+                SetRect(rectQueue.Dequeue());
             if (scaleQueue.Any())
                 SetScale(scaleQueue.Dequeue());
 #endif
