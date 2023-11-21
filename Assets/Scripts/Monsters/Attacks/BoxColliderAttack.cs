@@ -37,6 +37,11 @@ namespace Assets.Scripts.Monsters.Attacks
             collider.size = data.size;
             gameObject.transform.localPosition = data.offset;
             collider.enabled = false;
+
+            if (audioController == null)
+                audioController = transform.parent.GetComponent<MonsterAudioController>();
+            if (particleController == null)
+                particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public override void ActivateAttack()

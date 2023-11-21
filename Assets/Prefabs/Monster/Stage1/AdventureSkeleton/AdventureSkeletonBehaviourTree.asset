@@ -108,6 +108,9 @@ MonoBehaviour:
   - rid: 6937830705275600923
   - rid: 6937830705275600924
   - rid: 6937830866574114816
+  - rid: 6937830886797737986
+  - rid: 6937830886797737987
+  - rid: 6937830886797737988
   treeState: 0
   blackboard:
     keys:
@@ -135,8 +138,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542871
-  viewPosition: {x: 1456, y: -211.5, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: -1924.5, y: -427.5, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -228,7 +231,7 @@ MonoBehaviour:
         description: 
         drawGizmos: 0
         children:
-        - rid: 5827610086317228034
+        - rid: 6937830886797737986
         - rid: 5827610086317228048
         - rid: 5827610086317228062
     - rid: 5827610086317228034
@@ -237,7 +240,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fdc5cff4db3a84fa48f982b76a45a3c7
-        position: {x: -2085, y: 435}
+        position: {x: -2025, y: 570}
         blackboard:
           keys: []
         description: Attacks
@@ -252,7 +255,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e52811ae9daed4e1eb83d1290970ec3d
-        position: {x: -3285, y: 570}
+        position: {x: -3225, y: 705}
         blackboard:
           keys: []
         description: RunToPlayer
@@ -269,7 +272,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 66312dc16c5ab4f63ac0cbda231190be
-        position: {x: -3675, y: 705}
+        position: {x: -3615, y: 840}
         blackboard:
           keys: []
         description: 
@@ -296,7 +299,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 5eb7fdc77efdb4848a31a0da9f39c3ac
-        position: {x: -3135, y: 705}
+        position: {x: -3075, y: 840}
         blackboard:
           keys: []
         description: 
@@ -311,7 +314,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d4fbf4534dcd34430ad214f2879e66cf
-        position: {x: -1035, y: 570}
+        position: {x: -975, y: 705}
         blackboard:
           keys: []
         description: MeleeAttack
@@ -329,7 +332,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e97593efb4bd34a9288b132a303fc66d
-        position: {x: -1455, y: 705}
+        position: {x: -1395, y: 840}
         blackboard:
           keys: []
         description: 
@@ -356,7 +359,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 5cc5555f37fb94b67baf5caa4c84622d
-        position: {x: -765, y: 705}
+        position: {x: -705, y: 840}
         blackboard:
           keys: []
         description: 
@@ -389,7 +392,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d1990df555ada475fa1fd11b382e4e54
-        position: {x: -105, y: 570}
+        position: {x: -15, y: 570}
         blackboard:
           keys: []
         description: Overtravel
@@ -406,7 +409,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ef0451705f79d4dae816a50c63109a29
-        position: {x: -465, y: 705}
+        position: {x: -375, y: 705}
         blackboard:
           keys: []
         description: 
@@ -425,7 +428,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4bd518e3f91b84ddf9e9364aa1398886
-        position: {x: 45, y: 705}
+        position: {x: 135, y: 705}
         blackboard:
           keys: []
         description: 
@@ -448,7 +451,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 921d8f9ba8b3c4305ab7b1a1820c5e0f
-        position: {x: 2880, y: 570}
+        position: {x: 3180, y: 570}
         blackboard:
           keys: []
         description: chase player
@@ -464,7 +467,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 23c30829cbfea47aba5243f9fba549d1
-        position: {x: 2565, y: 705}
+        position: {x: 2865, y: 705}
         blackboard:
           keys: []
         description: 
@@ -479,7 +482,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 33b471d8aa8df47afbd23fabade598cc
-        position: {x: 3075, y: 705}
+        position: {x: 3375, y: 705}
         blackboard:
           keys: []
         description: 
@@ -498,7 +501,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 1dc16f4cfb33d48c8b531ba0efd1d23f
-        position: {x: 3630, y: 570}
+        position: {x: 4065, y: 570}
         blackboard:
           keys: []
         description: patrol
@@ -532,7 +535,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d1eadb522bfd34422985f99b72ce2831
-        position: {x: 3630, y: 705}
+        position: {x: 4065, y: 705}
         blackboard:
           keys: []
         description: 
@@ -555,7 +558,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 02a3eb526be53414490038d0f9110dfa
-        position: {x: 4965, y: 435}
+        position: {x: 5400, y: 435}
         blackboard:
           keys: []
         description: no detection
@@ -569,7 +572,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 83a9e3a0856ed4851b7a5b69a4bd044c
-        position: {x: 5490, y: 705}
+        position: {x: 5925, y: 705}
         blackboard:
           keys: []
         description: 
@@ -684,7 +687,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ece34730a17164befb361341de1f28b0
-        position: {x: 2205, y: 570}
+        position: {x: 2295, y: 570}
         blackboard:
           keys: []
         description: NearPlayer
@@ -692,6 +695,7 @@ MonoBehaviour:
         children:
         - rid: 5827610088829878276
         - rid: 6937830705275600916
+        - rid: 6937830886797737988
         - rid: 5827610181934514201
     - rid: 5827610088829878276
       type: {class: CheckPlayerIsNear, ns: , asm: Assembly.Ellie}
@@ -714,7 +718,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6f63282c7932247338647b5b3c4cac9a
-        position: {x: 4590, y: 570}
+        position: {x: 5025, y: 570}
         blackboard:
           keys: []
         description: return spawn position
@@ -732,7 +736,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 58f2ff95ca3c847e397a98d751e23407
-        position: {x: 4815, y: 705}
+        position: {x: 5250, y: 705}
         blackboard:
           keys: []
         description: 
@@ -767,7 +771,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 006e4839221c04387b0b888a91909e5e
-        position: {x: 4305, y: 705}
+        position: {x: 4740, y: 705}
         blackboard:
           keys: []
         description: 
@@ -837,7 +841,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: b95d580304da0403891399fb7b898cd9
-        position: {x: 3120, y: 705}
+        position: {x: 3555, y: 705}
         blackboard:
           keys: []
         description: 
@@ -852,7 +856,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9e8421b9478ee498db3e0eb23307d68e
-        position: {x: -1275, y: 705}
+        position: {x: -1215, y: 840}
         blackboard:
           keys: []
         description: 
@@ -863,7 +867,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bb46c627243974245a81ab56605ea555
-        position: {x: -615, y: 705}
+        position: {x: -555, y: 840}
         blackboard:
           keys: []
         description: 
@@ -897,7 +901,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c12c2c1bc70e44000b95a2bf9bf1c5b1
-        position: {x: 4140, y: 705}
+        position: {x: 4575, y: 705}
         blackboard:
           keys: []
         description: 
@@ -916,7 +920,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3ff18f65cd91145a6923f6adc2b049aa
-        position: {x: -3495, y: 705}
+        position: {x: -3435, y: 840}
         blackboard:
           keys: []
         description: 
@@ -935,7 +939,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a9b72822e58e5455ea148fb29c4f1348
-        position: {x: -2985, y: 705}
+        position: {x: -2925, y: 840}
         blackboard:
           keys: []
         description: 
@@ -954,7 +958,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: afb2edf6513894559b8482e96ac10960
-        position: {x: -975, y: 705}
+        position: {x: -915, y: 840}
         blackboard:
           keys: []
         description: 
@@ -973,7 +977,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e83473da33f6b49f1b507998da0b3ffc
-        position: {x: -315, y: 705}
+        position: {x: -225, y: 705}
         blackboard:
           keys: []
         description: 
@@ -992,7 +996,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9ef67ad741b3c46cf804656b92c629e7
-        position: {x: 210, y: 705}
+        position: {x: 300, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1011,7 +1015,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 1e619e626f01b4f108507f185ca20cc4
-        position: {x: 2355, y: 705}
+        position: {x: 2535, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1030,7 +1034,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 46aef5806bf7b4792b204e34ab1c7a23
-        position: {x: 2715, y: 705}
+        position: {x: 3015, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1068,7 +1072,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 5f38246f353b34fc49072360540b3338
-        position: {x: 3270, y: 705}
+        position: {x: 3705, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1087,7 +1091,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4993f90d264664b7e811b09df6b3fa5b
-        position: {x: 3780, y: 705}
+        position: {x: 4215, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1106,7 +1110,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 616257ec6f16f4b959808f1911c31771
-        position: {x: 4455, y: 705}
+        position: {x: 4890, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1125,7 +1129,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c116d4fed53f0472bab0f113e7b1727a
-        position: {x: 4980, y: 705}
+        position: {x: 5415, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1144,7 +1148,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f4a1e396ad2c241b69dbdd36c7a1b615
-        position: {x: 5190, y: 705}
+        position: {x: 5625, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1314,7 +1318,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 0a5f4f189e45c468ba1ad5d71b31ecad
-        position: {x: -2085, y: 570}
+        position: {x: -2025, y: 705}
         blackboard:
           keys: []
         description: FanshapeAttack
@@ -1334,7 +1338,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ceb16d0c0e18b4c3d8005f59dd7e136a
-        position: {x: -2745, y: 705}
+        position: {x: -2685, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1361,7 +1365,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 84c84e742430f4d57835e3c8f1248b0a
-        position: {x: -1755, y: 705}
+        position: {x: -1695, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1376,7 +1380,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4df951dc2e2064e7682448dfad126464
-        position: {x: -2565, y: 705}
+        position: {x: -2505, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1387,7 +1391,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: caee5bd066f2f48f89b4be95300417be
-        position: {x: -1605, y: 705}
+        position: {x: -1545, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1403,7 +1407,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a2436a824bf44410cbf9669c99e4b4cf
-        position: {x: -2265, y: 705}
+        position: {x: -2205, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1486,7 +1490,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 848770402d5c847e784d688d9a690d47
-        position: {x: 5640, y: 705}
+        position: {x: 6075, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1509,7 +1513,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 8278296fbe7a64278a32371551e038e1
-        position: {x: 5565, y: 570}
+        position: {x: 6000, y: 570}
         blackboard:
           keys: []
         description: 
@@ -1523,7 +1527,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 5d3cd833443ee45d2845f23278da4d64
-        position: {x: 4590, y: 840}
+        position: {x: 5025, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1546,7 +1550,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f856c53630d0d40eea8f34e894e6a68b
-        position: {x: 4665, y: 705}
+        position: {x: 5100, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1560,7 +1564,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a57d910cf7620414ca2f92809eb1ecd6
-        position: {x: 4740, y: 840}
+        position: {x: 5175, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1583,7 +1587,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ff2bb14a262744a748bd5b6a2e7aca1b
-        position: {x: 3405, y: 840}
+        position: {x: 3840, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1606,7 +1610,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 39d3f524e53434362bfc2dd34f7a5906
-        position: {x: 3480, y: 705}
+        position: {x: 3915, y: 705}
         blackboard:
           keys: []
         description: MoveAudio
@@ -1620,7 +1624,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f1938766a1bd44da6a3a3ddd4e154a47
-        position: {x: 3555, y: 840}
+        position: {x: 3990, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1643,7 +1647,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 20b450f11b3e54e6488d85a5a70735b3
-        position: {x: 3990, y: 705}
+        position: {x: 4425, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1657,7 +1661,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ca7e57ebc657f4f199c236217a2a4b00
-        position: {x: 3915, y: 840}
+        position: {x: 4350, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1680,7 +1684,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 50c4adf00452a4366bdde9afcdf95868
-        position: {x: 4065, y: 840}
+        position: {x: 4500, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1703,7 +1707,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c8ff213f2de564167a7ae332acbe0e34
-        position: {x: 3000, y: 840}
+        position: {x: 3300, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1726,7 +1730,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 28c470bbbd2d244728b4fe6bfaeed3ad
-        position: {x: 2850, y: 840}
+        position: {x: 3150, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1749,7 +1753,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 57c1386fc98774767a6bb7dea17682ab
-        position: {x: 2925, y: 705}
+        position: {x: 3225, y: 705}
         blackboard:
           keys: []
         description: MoveAudio
@@ -1823,7 +1827,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3b926f49310074bf58c7daeb48ab0e9f
-        position: {x: -30, y: 840}
+        position: {x: 60, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1846,7 +1850,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bfa86b4bbc51444289bb5501a9fcfdab
-        position: {x: -180, y: 840}
+        position: {x: -90, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1869,7 +1873,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: de2d6f436689d424b943534a7ab88be6
-        position: {x: -105, y: 705}
+        position: {x: -15, y: 705}
         blackboard:
           keys: []
         description: 
@@ -1883,7 +1887,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ec4c1a22611444447b7cf025061ce326
-        position: {x: -1125, y: 705}
+        position: {x: -1065, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1906,7 +1910,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 35af60f69ed994119878876f808dec70
-        position: {x: -2415, y: 705}
+        position: {x: -2355, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1929,7 +1933,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9353076e0a9d84c52a9d5e981aaada3c
-        position: {x: -1905, y: 705}
+        position: {x: -1845, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1952,7 +1956,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 114485f7220bd4eaf98a65638601254f
-        position: {x: -3285, y: 705}
+        position: {x: -3225, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1975,7 +1979,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 7170416a797c04eeab0848233805b440
-        position: {x: -2055, y: 705}
+        position: {x: -1995, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1984,3 +1988,47 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 2
+    - rid: 6937830886797737986
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0f2b8c215943a481ebf651ba8f0b761d
+        position: {x: -2025, y: 435}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 6937830886797737987
+        - rid: 5827610086317228034
+    - rid: 6937830886797737987
+      type: {class: PlayerOnMonsterSight, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 9ef264bc5f04a45b9b199aabc63e1847
+        position: {x: -2295, y: 570}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        playerPos:
+          reference:
+            rid: 5827610086317228070
+          defaultValue: {x: 0, y: 0, z: 0}
+    - rid: 6937830886797737988
+      type: {class: MonsterLookPlayer, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c247cca536d7a439baad5819999f284d
+        position: {x: 2355, y: 705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        playerPos:
+          reference:
+            rid: 5827610086317228070
+          defaultValue: {x: 0, y: 0, z: 0}

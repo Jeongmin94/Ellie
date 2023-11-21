@@ -12,11 +12,13 @@ public class ReturnToPosition : ActionNode
 
     protected override void OnStart() {
         context.agent.stoppingDistance = 0.0f;
+        context.agent.speed = context.controller.monsterData.returnSpeed;
         context.agent.destination = spawnPosition.Value;
         isReturning.Value = true;
     }
 
     protected override void OnStop() {
+        context.agent.speed = context.controller.monsterData.movementSpeed;
     }
 
     protected override State OnUpdate()
