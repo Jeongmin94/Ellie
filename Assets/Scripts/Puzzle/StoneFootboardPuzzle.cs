@@ -11,16 +11,20 @@ namespace Assets.Scripts.Puzzle
         [SerializeField] private float rotationSpeed;
 
         private bool isPlayerTouching;
+        private bool isRigid;
 
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
             InitialPosition = transform.position;
+            isRigid = false;
         }
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Player"))
                 isPlayerTouching = true;
+            if(collision.gameObject.CompareTag("InteractionObject"))
+                isRigid = true;
         }
         private void OnCollisionExit(Collision collision)
         {
@@ -30,6 +34,12 @@ namespace Assets.Scripts.Puzzle
 
         private void Update()
         {
+            if (isRigid)
+            {
+                rigidbody.velocity = Vector3.zero;  
+                transform.position = InitialPosition;
+                return;
+            }
             Vector3 pos = transform.position;
             if (!isPlayerTouching)
             {

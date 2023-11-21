@@ -91,7 +91,6 @@ namespace Assets.Scripts.Player
         public GameObject shooter;
         public GameObject MeleeAttackCollider;
         [SerializeField] private int curStoneIdx;
-        [SerializeField] Transform AimObj;
         private Vector3 aimTarget;
         public Vector3 AimTarget
         {
@@ -205,6 +204,7 @@ namespace Assets.Scripts.Player
             ResetPlayerPos();
             SetMovingAnim();
             stateMachine?.UpdateState();
+            GrabSlingshotLeather();
         }
         private void FixedUpdate()
         {
@@ -551,11 +551,9 @@ namespace Assets.Scripts.Player
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
-            AimObj.position = AimTarget;
         }
         public void LookAimTarget()
         {
-            AimObj.gameObject.SetActive(true);
             Vector3 directionToTarget = AimTarget - PlayerObj.position;
             directionToTarget.y = 0;
 
@@ -606,12 +604,6 @@ namespace Assets.Scripts.Player
         public void TurnOffMeleeAttackCollider()
         {
             MeleeAttackCollider.SetActive(false);
-        }
-
-        public void AddForceSlingshotLeather()
-        {
-            Vector3 dir = slingshot.transform.position - slingshot.GetComponent<Slingshot>().leather.transform.position;
-            slingshot.GetComponent<Slingshot>().leather.GetComponent<Rigidbody>().AddForce(dir.normalized * 20f, ForceMode.Impulse);
         }
 
         public void GrabSlingshotLeather()
