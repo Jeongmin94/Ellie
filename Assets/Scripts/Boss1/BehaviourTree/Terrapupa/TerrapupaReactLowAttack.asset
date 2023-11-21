@@ -43,6 +43,10 @@ MonoBehaviour:
   - rid: 1683426247750189112
   - rid: 1683426247750189150
   - rid: 283011289884393473
+  - rid: 283011481676021766
+  - rid: 283011481676021767
+  - rid: 283011481676021768
+  - rid: 283011481676021769
   treeState: 0
   blackboard:
     keys:
@@ -59,8 +63,8 @@ MonoBehaviour:
     - rid: 1683426247750189104
     - rid: 1683426247750189151
     - rid: 283011291767373854
-  viewPosition: {x: -1264, y: 163, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: -924, y: -90.4, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -436,6 +440,126 @@ MonoBehaviour:
         typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
+    - rid: 283011481676021766
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 2ce788d1b604c694085e4a171c217d62
+        position: {x: 3405, y: 1050}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011481676021768
+        - rid: 283011481676021767
+        - rid: 283011481676021769
+    - rid: 283011481676021767
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 43f396af63bef1d4fbbb8f4393aced14
+        position: {x: 3375, y: 1245}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373854
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 4}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011481676021768
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f73cf174289e8fa458863dc527a28628
+        position: {x: 3135, y: 1245}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373854
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 4, y: 0, z: 2}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011481676021769
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 197f4b0f7cfd26f4db19e7b3b2191a9f
+        position: {x: 3615, y: 1245}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373854
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: -4, y: 0, z: 2}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -564,6 +688,7 @@ MonoBehaviour:
         - rid: 1683426247750189112
         - rid: 1683426247750189108
         - rid: 1683426247750189105
+        - rid: 283011481676021766
     - rid: 1683426247750189107
       type: {class: CheckRangeTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -615,6 +740,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1683426247750189104
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: 283011090204065867
