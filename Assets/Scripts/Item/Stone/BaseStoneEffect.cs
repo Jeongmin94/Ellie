@@ -13,7 +13,7 @@ namespace Assets.Scripts.Item.Stone
 
         private event Action<Transform> effectAction;
         protected StoneData data;
-
+        private int collisionCount = 1;
         private LayerMask layerMask;
 
         private void Start()
@@ -26,6 +26,7 @@ namespace Assets.Scripts.Item.Stone
         private void OnDisable()
         {
             effectAction = null;
+            collisionCount = 1;
         }
 
         public void InitData(StoneData data)
@@ -46,11 +47,16 @@ namespace Assets.Scripts.Item.Stone
 
         protected virtual void OnCollisionEnter(Collision collision)
         {
-            ParticleManager.Instance.GetParticle(data.hitParticle, new ParticlePayload
+            if(collisionCount > 0)
             {
-                Position = transform.position,
-                Rotation = transform.rotation,
-            });
+                ParticleManager.Instance.GetParticle(data.hitParticle, new ParticlePayload
+                {
+                    Position = transform.position,
+                    Rotation = transform.rotation,
+                });
+                collisionCount--;
+            }
+            
             foreach (ContactPoint contact in collision.contacts)
             {
                 GameObject hitObject = contact.otherCollider.gameObject;

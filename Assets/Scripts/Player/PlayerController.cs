@@ -214,7 +214,6 @@ namespace Assets.Scripts.Player
             {
                 GetPickaxeTest();
             }
-
         }
         private void FixedUpdate()
         {
@@ -644,6 +643,7 @@ namespace Assets.Scripts.Player
 
         private void OnNotifyAction(IBaseEventPayload payload)
         {
+            Debug.Log(payload.ToString());
             //UI페이로드 처리 로직입니다
             UIPayload uiPayload = payload as UIPayload;
             //인벤토리 닫는 이벤트일 경우
@@ -651,7 +651,7 @@ namespace Assets.Scripts.Player
             {
                 GetComponent<PlayerInventory>().OnInventoryToggle();
             }
-            if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
+            //if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
 
 

@@ -150,6 +150,8 @@ namespace Assets.Scripts.UI.Inventory
                 payload.eventType != InventoryEventType.UpdateEquipItem)
                 payload.groupType = type;
 
+            Debug.Log(payload.groupType);
+
             if (payload.eventType == InventoryEventType.CopyItemWithShortCut)
             {
                 var groupType = payload.baseSlotItem.SlotItemData.itemData.groupType;
@@ -216,7 +218,7 @@ namespace Assets.Scripts.UI.Inventory
             {
 
             }
-
+            Debug.Log("OnSlotAreaInventoryAction : " + payload.groupType);
             panelInventoryAction?.Invoke(payload);
         }
 
@@ -225,6 +227,7 @@ namespace Assets.Scripts.UI.Inventory
             if (slotAreas.TryGetValue(slotAreaType, out var area))
             {
                 area[(int)groupType].AddItem(payload);
+                Debug.Log("AddItem : " + groupType.ToString());
             }
         }
 

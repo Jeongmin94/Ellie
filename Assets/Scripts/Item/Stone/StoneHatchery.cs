@@ -114,14 +114,7 @@ namespace Assets.Scripts.Item.Stone
             stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
             if (itemPayload.Type == StoneEventType.ShootStone)
             {
-                ParticleManager.Instance.GetParticle(stoneTrailTest, new ParticlePayload
-                {
-                    Origin = stone.transform,
-                    IsLoop = true,
-                    IsFollowOrigin = true,
-                    Position = stone.transform.position,
-                    Rotation = stone.transform.rotation,
-                }); 
+                
                 ReleaseStone(stone, startPos, direction, strength);
                 //UI 페이로드 작성
                 UIPayload uIPayload = new()
