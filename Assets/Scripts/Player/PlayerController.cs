@@ -650,7 +650,7 @@ namespace Assets.Scripts.Player
             {
                 GetComponent<PlayerInventory>().OnInventoryToggle();
             }
-            //if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
+            if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
             switch (uiPayload.groupType)
             {
