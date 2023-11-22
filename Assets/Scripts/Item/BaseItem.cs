@@ -27,7 +27,6 @@ namespace Assets.Scripts.Item
         public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
         public readonly IDictionary<SlotAreaType, BaseSlotItem> slotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
         public readonly IDictionary<SlotAreaType, BaseSlotItem> equipmentSlotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
-        // !TODO baseItem을 참조하는 아이템 제거 처리해야 함
 
         public void ChangeSlot(SlotAreaType type, InventorySlot slot)
         {
