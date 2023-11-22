@@ -816,6 +816,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
   m_PrefabInstance: {fileID: 263391488}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &267577083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 267577068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6affbb72b17d351408e34d137f197a63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &283346889
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,21 +5113,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0858f4b1933e440b8c5f4608351459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    index: 0
-    name: 
-    description: 
-    isInteractable: 0
-    isTakingControl: 0
-    speechBubbleIdx: 0
-    questIdx: 0
-  isInteracting: 0
-  NPCObj: {fileID: 0}
-  NPCIndex: 6000
-  rotationSpeed: 10
-  curDialogIdx: 0
-  cleared: 0
-  hitCount: 0
 --- !u!114 &1576797211 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2892055828505711282, guid: 0c20d2e9a367b9a4b862024c59c261ff, type: 3}
