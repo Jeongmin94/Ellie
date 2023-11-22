@@ -643,7 +643,6 @@ namespace Assets.Scripts.Player
 
         private void OnNotifyAction(IBaseEventPayload payload)
         {
-            Debug.Log(payload.ToString());
             //UI페이로드 처리 로직입니다
             UIPayload uiPayload = payload as UIPayload;
             //인벤토리 닫는 이벤트일 경우
@@ -653,9 +652,6 @@ namespace Assets.Scripts.Player
             }
             //if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
-
-            Debug.Log("PlayerController recieved payload : " + uiPayload.groupType);
-            Debug.Log("PlyaerController recieved payload : " + uiPayload.actionType);
             switch (uiPayload.groupType)
             {
                 case UI.Inventory.GroupType.Consumption:
@@ -673,7 +669,6 @@ namespace Assets.Scripts.Player
                 case UI.Inventory.GroupType.Etc:
                     if (uiPayload.itemData != null && uiPayload.itemData.index >= 9000 && uiPayload.itemData.index < 9005)
                     {
-                        Debug.Log(uiPayload.itemData.index);
                         if (!isPickaxeAvailable)
                         {
                             isPickaxeAvailable = true;

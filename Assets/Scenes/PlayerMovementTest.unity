@@ -746,10 +746,6 @@ PrefabInstance:
       value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
-      propertyPath: m_Lens.FieldOfView
-      value: 51.28201
-      objectReference: {fileID: 0}
-    - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
       value: 36
       objectReference: {fileID: 0}
@@ -5105,8 +5101,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c0858f4b1933e440b8c5f4608351459, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    index: 0
+    name: 
+    description: 
+    isInteractable: 0
+    isTakingControl: 0
+    speechBubbleIdx: 0
+    questIdx: 0
+  isInteracting: 0
+  NPCObj: {fileID: 0}
   NPCIndex: 6000
   rotationSpeed: 10
+  curDialogIdx: 0
+  cleared: 0
+  hitCount: 0
 --- !u!114 &1576797211 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2892055828505711282, guid: 0c20d2e9a367b9a4b862024c59c261ff, type: 3}
@@ -6996,6 +7005,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d4debebac4d17d4898c9e09129cc2f1, type: 2}
   - {fileID: 11400000, guid: 872d3f2f4674a0946a2c79b6dbeffcd7, type: 2}
   - {fileID: 11400000, guid: 2223109af0079f648a7d0078a633c57d, type: 2}
+  - {fileID: 11400000, guid: 9d1444ac499a3f04681f23574212e9c6, type: 2}
+  - {fileID: 11400000, guid: 7b944e712e43e884dba60d3363178b99, type: 2}
 --- !u!4 &2140884676
 Transform:
   m_ObjectHideFlags: 0
