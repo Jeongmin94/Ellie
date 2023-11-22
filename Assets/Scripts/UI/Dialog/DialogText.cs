@@ -43,7 +43,6 @@ namespace Assets.Scripts.UI.Dialog
             dialogText = gameObject.FindChild<TextMeshProUGUI>(null, true);
         }
 
-        // !TODO: 큐를 이용한 넘기기 기능 추가
         public void InitTypography(DialogTypographyData typographyData)
         {
             dialogText.font = typographyData.fontAsset;
