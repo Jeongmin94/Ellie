@@ -1,5 +1,6 @@
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Particle;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Utils;
 using Channels.Boss;
@@ -18,11 +19,11 @@ namespace Boss.Terrapupa
 		[SerializeField] private int attackValue = 5;
 		[SerializeField] private LayerMask layerMask;
 
+		private GameObject effect;
 		private Transform owner;
 		private TicketMachine ticketMachine;
 		private SphereCollider sphereCollider;
 		private Rigidbody rb;
-
 
         public Transform Owner
 		{
@@ -43,8 +44,9 @@ namespace Boss.Terrapupa
 			rb.isKinematic = true;
         }
 
-        public void Init(Vector3 position, Vector3 scale, float speed, int attack, Transform sender, TicketMachine senderTicketMacine)
+        public void Init(Vector3 position, Vector3 scale, float speed, int attack, GameObject hitEffect, Transform sender, TicketMachine senderTicketMacine)
 		{
+            effect = hitEffect;
 			transform.position = position;
 			transform.localScale = scale;
 			movementSpeed = speed;
@@ -57,7 +59,13 @@ namespace Boss.Terrapupa
 		{
             if (collision.gameObject.CompareTag("Player"))
             {
-				ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
+                {
+                    Position = transform.position,
+                    Scale = new Vector3(0.7f, 0.7f, 0.7f),
+                });
+
+                ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
 				{
 					Attacker = owner,
 					Defender = collision.transform.root,
@@ -69,7 +77,13 @@ namespace Boss.Terrapupa
             }
             if (collision.gameObject.CompareTag("Wall"))
 			{
-				PoolManager.Instance.Push(this);
+                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
+                {
+                    Position = transform.position,
+                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
+                });
+
+                PoolManager.Instance.Push(this);
             }
         }
 
@@ -77,7 +91,13 @@ namespace Boss.Terrapupa
         {
             if (((1 << other.gameObject.layer) & layerMask) != 0 && other.transform.root != owner.transform.root)
             {
-				EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
+                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
+                {
+                    Position = transform.position,
+                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
+                });
+
+                EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
 				{
 					TransformValue1 = other.transform.root,
 				});

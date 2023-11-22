@@ -148,7 +148,7 @@ namespace Centers.Boss
             TerrapupaController actor = stonePayload.Sender.GetComponent<TerrapupaController>();
 
             Poolable stone = PoolManager.Instance.Pop(actor.Stone.gameObject, transform);
-            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.IntValue, stonePayload.Sender, actor.TicketMachine);
+            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.IntValue, stonePayload.PrefabValue, stonePayload.Sender, actor.TicketMachine);
             stone.GetComponent<TerrapupaStone>().MoveToTarget(stonePayload.TransformValue1);
 
             actor.Stone.gameObject.SetActive(false);
