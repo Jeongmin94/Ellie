@@ -236,8 +236,6 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
-        // !TODO 회전하는 슬롯에 대한 정의 필요
-        // 현재는 인벤토리에서 오픈된 type에 대해서 이동함
         public void MoveItem(SlotAreaType slotAreaType, UIPayload payload)
         {
             if (type == GroupType.Etc)
