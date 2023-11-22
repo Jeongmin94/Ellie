@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Data.GoogleSheet;
+﻿using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;

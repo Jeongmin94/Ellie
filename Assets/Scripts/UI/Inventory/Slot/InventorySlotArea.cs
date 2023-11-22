@@ -15,7 +15,7 @@ namespace Assets.Scripts.UI.Inventory
     {
         Item,
         Equipment,
-        Description
+        Description,
     }
 
     public enum SortType

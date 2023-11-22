@@ -350,7 +350,6 @@ namespace Assets.Scripts.UI.Inventory
                 return;
             }
             // !TODO : 플레이어 돌맹이 불 프로퍼티에 대한 로직 작성
-
         }
 
         private void MoveEquipmentSlot(UIPayload payload)
@@ -470,6 +469,8 @@ namespace Assets.Scripts.UI.Inventory
                         Debug.Log("Inventory: " + payload.slot.name);
                     
                     ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
+                    if (payload.slot != swapBuffer)
+                        ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
                 }
                     break;
 
@@ -484,19 +485,24 @@ namespace Assets.Scripts.UI.Inventory
             UIPayload uiPayload = new UIPayload();
             uiPayload.uiType = UIType.Notify;
             Debug.Log("GeneratePayloadToPlayer groupType : " +  payload.groupType);
-            if(payload.slot.SlotItemData != null)
+            if (payload.slot.SlotItemData != null)
                 uiPayload.itemData = payload.slot.SlotItemData.itemData;
             uiPayload.actionType = ActionType.SetPlayerProperty;
             uiPayload.groupType = payload.groupType;
-            if(payload.slot.SlotItemData == null)
+            if (payload.slot.SlotItemData == null)
+            {
                 uiPayload.isStoneNull = true;
+            }
             else
             {
                 //uiPayload.itemData = payload.slot.SlotItemData.itemData;
                 uiPayload.isStoneNull = false;
             }
+
+
             return uiPayload;
         }
+
         #endregion
 
         #region FrameCanvas

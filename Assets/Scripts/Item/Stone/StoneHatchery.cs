@@ -24,6 +24,7 @@ namespace Assets.Scripts.Item.Stone
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
+
         private void Awake()
         {
             SetTicketMachine();
@@ -43,6 +44,7 @@ namespace Assets.Scripts.Item.Stone
             //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
             ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
+
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
@@ -65,7 +67,7 @@ namespace Assets.Scripts.Item.Stone
             int matIdx = obj.GetComponent<BaseStone>().data.index % STONEIDXSTART;
             obj.gameObject.GetComponent<MeshRenderer>().material = materials[matIdx];
             AddStoneEffect(obj, stoneIdx);
-            
+
             return obj;
         }
 
@@ -131,7 +133,7 @@ namespace Assets.Scripts.Item.Stone
                 MineStone(stone, startPos, force);
             }
         }
-        
+
         private void MineStone(BaseStone stone, Vector3 position, Vector3 force)
         {
             stone.transform.position = position;

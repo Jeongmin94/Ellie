@@ -654,7 +654,8 @@ namespace Assets.Scripts.Player
             //if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
 
-
+            Debug.Log("PlayerController recieved payload : " + uiPayload.groupType);
+            Debug.Log("PlyaerController recieved payload : " + uiPayload.actionType);
             switch (uiPayload.groupType)
             {
                 case UI.Inventory.GroupType.Consumption:
@@ -663,7 +664,9 @@ namespace Assets.Scripts.Player
                     Debug.Log("!!");
                     hasStone = !uiPayload.isStoneNull;
                     if (uiPayload.itemData != null)
+                    {
                         curStoneIdx = uiPayload.itemData.index;
+                    }
                     else
                         curStoneIdx = 0;
                     break;

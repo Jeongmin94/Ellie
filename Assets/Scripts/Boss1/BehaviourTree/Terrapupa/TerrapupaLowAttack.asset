@@ -46,6 +46,10 @@ MonoBehaviour:
   - rid: 1683426247750189108
   - rid: 1683426247750189112
   - rid: 283011289884393472
+  - rid: 283011481676021760
+  - rid: 283011481676021761
+  - rid: 283011481676021762
+  - rid: 283011481676021763
   treeState: 0
   blackboard:
     keys:
@@ -58,10 +62,9 @@ MonoBehaviour:
     - rid: 283011090204065867
     - rid: 283011178275274844
     - rid: 1683426247750189089
-    - rid: 1683426247750189092
     - rid: 1683426247750189104
     - rid: 283011291767373850
-  viewPosition: {x: -779, y: 172, z: 0}
+  viewPosition: {x: -1634.4, y: -370.4, z: 0}
   viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
@@ -509,6 +512,126 @@ MonoBehaviour:
         typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
+    - rid: 283011481676021760
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f191da4959929ba49857b484a038cb0e
+        position: {x: 3510, y: 1215}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373850
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 4}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011481676021761
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8ce0d0ea838103d479b6c3a1cbca7005
+        position: {x: 3525, y: 1020}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011481676021762
+        - rid: 283011481676021760
+        - rid: 283011481676021763
+    - rid: 283011481676021762
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d66a0ddb08e5d634dad95e1494b95273
+        position: {x: 3270, y: 1215}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373850
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 4, y: 0, z: 2}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011481676021763
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f1722269750ed5c4cbcc7073dc129016
+        position: {x: 3735, y: 1215}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373850
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: -4, y: 0, z: 2}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -550,14 +673,6 @@ MonoBehaviour:
           reference:
             rid: 1683426247750189089
           defaultValue: {fileID: 0}
-    - rid: 1683426247750189092
-      type: {class: ListTransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: list
-        typeName: System.Collections.Generic.List`1[[UnityEngine.Transform, UnityEngine.CoreModule,
-          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-          Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: []
     - rid: 1683426247750189093
       type: {class: AddConeRangeToTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -609,7 +724,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 52bf1a57d27d0a44d834b61879550c14
-        position: {x: 3030, y: 1110}
+        position: {x: 2805, y: 1185}
         blackboard:
           keys: []
         description: 
@@ -637,13 +752,14 @@ MonoBehaviour:
         - rid: 1683426247750189112
         - rid: 1683426247750189108
         - rid: 1683426247750189105
+        - rid: 283011481676021761
     - rid: 1683426247750189107
       type: {class: CheckRangeTarget, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 0e4b47fd872630b4f932acc3b678056d
-        position: {x: 2370, y: 1110}
+        position: {x: 2145, y: 1185}
         blackboard:
           keys: []
         description: 
@@ -676,7 +792,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d7e4c75e5b442f4408747a29bd141a0e
-        position: {x: 2820, y: 1110}
+        position: {x: 2595, y: 1185}
         blackboard:
           keys: []
         description: 
@@ -688,6 +804,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1683426247750189104
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: 283011090204065867
@@ -736,7 +856,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: aa1354a4a9f2a624b912271d8acf973b
-        position: {x: 2580, y: 1110}
+        position: {x: 2355, y: 1185}
         blackboard:
           keys: []
         description: 
