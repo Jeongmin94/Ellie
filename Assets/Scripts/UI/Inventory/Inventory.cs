@@ -351,7 +351,7 @@ namespace Assets.Scripts.UI.Inventory
             }
             // !TODO : 플레이어 돌맹이 불 프로퍼티에 대한 로직 작성
         }
-
+        
         private void MoveEquipmentSlot(UIPayload payload)
         {
             buttonPanel.MoveItem(payload.slotAreaType, payload);
