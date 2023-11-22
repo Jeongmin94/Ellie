@@ -1,4 +1,4 @@
-﻿using LitJson;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +17,9 @@ namespace Assets.Scripts.Managers
 
     public class TestSavePayload : IBaseEventPayload
     {
-
+        public string Name { get; set; }
+        public int Index { get; set; }
+        public List<Vector3> VectorList { get; set; } 
     }
 
     public class InventorySavePayload : IBaseEventPayload
@@ -43,13 +45,20 @@ namespace Assets.Scripts.Managers
         private Dictionary<SaveLoadType, Delegate> loadAction = new Dictionary<SaveLoadType, Delegate>();
         private Dictionary<SaveLoadType, IBaseEventPayload> payloadTable = new Dictionary<SaveLoadType, IBaseEventPayload>();
 
+        public override void Awake()
+        {
+            base.Awake();
+
+            path = Application.persistentDataPath + "/";
+        }
+
         public void SubscribeSaveEvent(Action listener)
         {
             saveAction -= listener;
             saveAction += listener;
         }
 
-        public void SubscribeLoadEvent<IBaseEventPayload>(SaveLoadType eventName, Action<IBaseEventPayload> listener)
+        public void SubscribeLoadEvent(SaveLoadType eventName, Action<IBaseEventPayload> listener)
         {
             if (!loadAction.ContainsKey(eventName))
                 loadAction[eventName] = null;
@@ -102,17 +111,17 @@ namespace Assets.Scripts.Managers
                 case SaveLoadType.Test:
                     {
                         TestEventPayload payload = payloadTable[type] as TestEventPayload;
-                        return JsonUtility.ToJson(payload);
+                        return JsonConvert.SerializeObject(payload);
                     }
                 case SaveLoadType.Inventory:
                     {
                         InventorySavePayload payload = payloadTable[type] as InventorySavePayload;
-                        return JsonUtility.ToJson(payload);
+                        return JsonConvert.SerializeObject(payload);
                     }
                 case SaveLoadType.Quest:
                     {
                         QuestSavePayload payload = payloadTable[type] as QuestSavePayload;
-                        return JsonUtility.ToJson(payload);
+                        return JsonConvert.SerializeObject(payload);
                     }
 
                 default:
@@ -151,17 +160,17 @@ namespace Assets.Scripts.Managers
                 case SaveLoadType.Test:
                     {
                         string data = File.ReadAllText(path + filename + index.ToString());
-                        return JsonUtility.FromJson<TestEventPayload>(data);
+                        return JsonConvert.DeserializeObject<TestSavePayload>(data);
                     }
                 case SaveLoadType.Inventory:
                     {
                         string data = File.ReadAllText(path + filename + index.ToString());
-                        return JsonUtility.FromJson<InventorySavePayload>(data);
+                        return JsonConvert.DeserializeObject<InventorySavePayload>(data);
                     }
                 case SaveLoadType.Quest:
                     {
                         string data = File.ReadAllText(path + filename + index.ToString());
-                        return JsonUtility.FromJson<QuestSavePayload>(data);
+                        return JsonConvert.DeserializeObject<QuestSavePayload>(data);
                     }
                 default:
                     return null;

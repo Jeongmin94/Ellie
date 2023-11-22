@@ -1,61 +1,57 @@
-﻿using System.Collections;
-using System.IO;
+﻿using Channels.UI;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
-    class TestData
-    {
-        public string nickname;
-        public int level;
-        public int coin;
-        public bool skill;
-    }
-
     public class TestSaveData : MonoBehaviour
     {
-        private string path;
-        private string filename = "EllieTest";
-
-        private TestData player = new TestData()
-        {
-            nickname = "플레이어",
-            level = 5,
-            coin = 200,
-            skill = true,
-        };
+        private TestSavePayload test;
+        private SaveLoadType saveloadType = SaveLoadType.Test;
 
         private void Awake()
         {
-            // 경로 설정
-            path = Application.persistentDataPath + "/";
-
+            SaveLoadManager.Instance.SubscribeSaveEvent(Save);
+            SaveLoadManager.Instance.SubscribeLoadEvent(saveloadType, Load);
         }
 
-        private void Start()
+        private void Update()
         {
-            SaveData();
-            LoadData();
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log("Save");
+                SaveLoadManager.Instance.SaveData();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log("Load");
+                SaveLoadManager.Instance.LoadData();
+            }
         }
 
-        public void SaveData()
+        public void Save()
         {
-            string jsonData = JsonUtility.ToJson(player);
-            Debug.Log(jsonData);
+            // 원래 저장된 값을 불러와서 갱신시키기
+            test = new TestSavePayload
+            {
+                Name = "test",
+                Index = 2023,
+                VectorList = new List<Vector3>() { new Vector3(3, 3, 3), new Vector3(2, 2, 2) }
+            };
 
-            // 자동 생성 경로
-            Debug.Log(path);
-            File.WriteAllText(path + filename, jsonData);
+            SaveLoadManager.Instance.AddPayloadTable(saveloadType, test);
         }
 
-        public void LoadData()
+        public void Load(IBaseEventPayload payload)
         {
-            string data = File.ReadAllText(path + filename);
-            TestData player2 = JsonUtility.FromJson<TestData>(data);
-            Debug.Log(player2.nickname);
-            Debug.Log(player2.level);
-            Debug.Log(player2.coin);
-            Debug.Log(player2.skill);
+            TestSavePayload testPayload = payload as TestSavePayload;
+
+            Debug.Log(testPayload.Name);
+            Debug.Log(testPayload.Index);
+            foreach (var vector in testPayload.VectorList)
+            {
+                Debug.Log(vector);
+            }
         }
     }
 }
