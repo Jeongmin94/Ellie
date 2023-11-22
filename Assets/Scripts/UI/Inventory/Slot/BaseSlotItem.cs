@@ -104,7 +104,6 @@ namespace Assets.Scripts.UI.Inventory
                 // 장착 + 우클릭 -> 장착 해제
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Equipment)
                 {
-                    // !TODO: 장착 해제할 때, FrameCanvas에서도 해제해야 함
                     SlotItemData.ClearSlot(SlotAreaType.Equipment);
                     SlotItemData.DestroyItem(SlotAreaType.Equipment);
                     return;
