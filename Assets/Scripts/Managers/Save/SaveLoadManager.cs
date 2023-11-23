@@ -21,6 +21,7 @@ namespace Assets.Scripts.Managers
             base.Awake();
 
             path = Application.persistentDataPath + "/";
+            Debug.Log($"등록 경로 :: {path}");
         }
 
         public void SubscribeSaveEvent(Action listener)
@@ -64,7 +65,7 @@ namespace Assets.Scripts.Managers
                 // payloadTable에서 해당 타입의 페이로드를 확인
                 if (!payloadTable.ContainsKey(type) || payloadTable[type] == null)
                 {
-                    Debug.LogError($"{type} 세이브 실패");
+                    Debug.LogWarning($"{type} 세이브 실패");
                     continue;
                 }
 
@@ -113,7 +114,7 @@ namespace Assets.Scripts.Managers
                 string filePath = path + filename + i.ToString();
                 if (!File.Exists(filePath))
                 {
-                    Debug.LogError($"{type} 로드 실패");
+                    Debug.LogWarning($"{type} 로드 실패");
                     continue;
                 }
 
@@ -122,7 +123,7 @@ namespace Assets.Scripts.Managers
 
                 if (payload == null)
                 {
-                    Debug.LogError($"{type} 변환 실패");
+                    Debug.LogWarning($"{type} 로드 실패");
                     continue;
                 }
 

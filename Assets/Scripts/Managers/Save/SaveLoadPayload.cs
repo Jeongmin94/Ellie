@@ -20,6 +20,7 @@ namespace Assets.Scripts.Managers
         public string Name { get; set; }
         public int Index { get; set; }
         public List<SerializableVector3> VectorList { get; set; }
+        public SerializableVector3 Position { get; set; }
     }
 
     public class InventorySavePayload : IBaseEventPayload

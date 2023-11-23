@@ -7,8 +7,9 @@ namespace Assets.Scripts.Managers
 {
     public class TestSaveData : MonoBehaviour
     {
+        public Transform player;
+
         private TestSavePayload testPayload;
-        private SerializableVector3 positionPayload;
         private SaveLoadType saveloadType = SaveLoadType.Test;
 
         private void Awake()
@@ -35,17 +36,15 @@ namespace Assets.Scripts.Managers
         {
             Debug.Log("세이브 호출은 되니?");
             // 원래 저장된 값을 불러와서 갱신시키기
+
+            Vector3 playerPosition = player.position;
             testPayload = new TestSavePayload
             {
                 Name = "test",
                 Index = 2023,
                 VectorList = new List<SerializableVector3>() { new SerializableVector3(new Vector3(3, 3, 3)), new SerializableVector3(new Vector3(2, 2, 2)) },
+                Position = new SerializableVector3(playerPosition),
             };
-
-            positionPayload = new MapSavePayload
-            {
-                Position = new SerializableVector3()
-            }
 
             Debug.Log(testPayload.Name);
             Debug.Log(testPayload.Index);
@@ -67,6 +66,8 @@ namespace Assets.Scripts.Managers
             {
                 Debug.Log(vector);
             }
+
+            player.position = testPayload.Position.ToVector3();
         }
     }
 }
