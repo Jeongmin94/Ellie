@@ -42,11 +42,11 @@ namespace Boss.Terrapupa
         protected override void Awake()
         {
             base.Awake();
-            InitTicketMachine();
-            SubscribeEvent();
-
             terrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
+
+            InitTicketMachine();
+            SubscribeEvent();
         }
 
         private void Start()

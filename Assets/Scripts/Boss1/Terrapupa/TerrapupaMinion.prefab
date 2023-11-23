@@ -68,11 +68,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourTreeInstance: {fileID: 4008788663092322688}
-  rootTreeData: {fileID: 11400000, guid: 6dcc1bdf9d70fa6459a59e16f4262d30, type: 2}
+  rootTreeData: {fileID: 11400000, guid: 44f1b24c3313c904dae3b9e9d7134203, type: 2}
   settingList: []
   minionData: {fileID: 0}
   healthBar: {fileID: 4008788663092322693}
-  weakPoint: {fileID: 2375293090062716798}
+  weakPoints: []
 --- !u!54 &4008788663092322690
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d272579a7920be49b84e9ae5bf8773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 6dcc1bdf9d70fa6459a59e16f4262d30, type: 2}
+  data: {fileID: 11400000, guid: 44f1b24c3313c904dae3b9e9d7134203, type: 2}
   scaleFactor: 0.003
 --- !u!1 &4008788663347610839
 GameObject:
@@ -287,6 +287,18 @@ CapsuleCollider:
   m_Height: 0.18511271
   m_Direction: 1
   m_Center: {x: 0.0016466583, y: -0.025836855, z: -0.0011307895}
+--- !u!114 &5866878096468871446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646283575895831952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be9bb1c0cfe17b4fb335e921bcb5be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5646283575895831964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8789255107767498076, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
@@ -306,7 +318,7 @@ CapsuleCollider:
   m_Height: 0.34002548
   m_Direction: 1
   m_Center: {x: -0.009721637, y: 0.18073902, z: 0}
---- !u!114 &2375293090062716798
+--- !u!114 &5621984854706730417
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -12,16 +12,9 @@ public class TerrapupaMinionController : BehaviourTreeController
 {
     [HideInInspector] public TerrapupaMinionRootData minionData;
     [SerializeField] private TerrapupaMinionHealthBar healthBar;
-    [SerializeField] private TerrapupaMinionWeakPoint weakPoint;
-
-    BlackboardKey<int> currentHP;
+    [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
     private TicketMachine ticketMachine;
-    public TerrapupaMinionWeakPoint WeakPoint
-    {
-        get { return weakPoint; }
-        set { weakPoint = value; }
-    }
 
     public TicketMachine TicketMachine
     {
@@ -36,12 +29,12 @@ public class TerrapupaMinionController : BehaviourTreeController
     protected override void Awake()
     {
         base.Awake();
-        InitTicketMachine();
-        SubscribeEvent();
-
         minionData = rootTreeData as TerrapupaMinionRootData;
         healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
-        weakPoint = GetComponentInChildren<TerrapupaMinionWeakPoint>();
+        weakPoints = GetComponentsInChildren<TerrapupaMinionWeakPoint>();
+
+        InitTicketMachine();
+        SubscribeEvent();
     }
 
     private void Start()
@@ -51,7 +44,10 @@ public class TerrapupaMinionController : BehaviourTreeController
 
     private void SubscribeEvent()
     {
-        weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+        foreach (var weakPoint in weakPoints) 
+        { 
+            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+        }
     }
 
     private void InitTicketMachine()
@@ -63,8 +59,6 @@ public class TerrapupaMinionController : BehaviourTreeController
     private void InitStatus()
     {
         healthBar.InitData(minionData);
-
-        currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
     }
 
     private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
@@ -76,12 +70,13 @@ public class TerrapupaMinionController : BehaviourTreeController
         int damage = combatPayload.Damage;
 
         GetDamaged(damage);
-        Debug.Log($"{damage} 데미지 입음 : {currentHP.Value}");
+        Debug.Log($"{damage} 데미지 입음 : {minionData.currentHP.Value}");
     }
 
     public void GetDamaged(int damageValue)
     {
-        currentHP.Value -= damageValue;
-        healthBar.RenewHealthBar(currentHP.value);
+        minionData.currentHP.Value -= damageValue;
+        healthBar.RenewHealthBar(minionData.currentHP.value);
+        minionData.isHit.Value = true;
     }
 }

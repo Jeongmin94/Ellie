@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TerrapupaMinionHealthBar : MonoBehaviour
 {
-    [SerializeField] private TerrapupaMinionRootData data;
+    private TerrapupaMinionRootData data;
 
     public float scaleFactor = 0.003f;
 
