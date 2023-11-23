@@ -662,7 +662,6 @@ namespace Assets.Scripts.Player
                 case UI.Inventory.GroupType.Consumption:
                     break;
                 case UI.Inventory.GroupType.Stone:
-                    Debug.Log("!!");
                     hasStone = !uiPayload.isStoneNull;
                     if (uiPayload.itemData != null)
                     {
