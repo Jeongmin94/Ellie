@@ -9,21 +9,25 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 {
     public class BaseNPC : MonoBehaviour, IInteractiveObject
     {
+        //NPC 및 퀘스트 데이터
         protected NPCData npcData;
         protected Dictionary<int, QuestData> questDataDict;
         protected QuestData curQuestData;
+
         protected bool isInteracting;
+
+        //NPC 오브젝트
         private Transform NPCObj;
+
+        //플레이어 참조
         private PlayerQuest player;
+        
 
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
 
         WaitForEndOfFrame wff = new WaitForEndOfFrame();
 
-        //대사 출력
-        
-        // !TODO : GetComponent로 플레이어 컴포넌트 참조하는 로직을 채널 이용한 중개자 패턴으로 변경
         private void Awake()
         {
             if (transform.childCount > 0)
@@ -33,11 +37,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void Start()
         {
             //npc데이터 초기화
-            Init();
+            StartCoroutine(Init());
         }
 
-        private void Init()
+        private IEnumerator Init()
         {
+            yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
             questDataDict = new();
             foreach(int dataIdx in npcData.questList)
@@ -57,7 +62,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             while (true)
             {
-                Vector3 direction = player.transform.position - NPCObj.transform.position;
+                Vector3 direction = player.gameObject.transform.position - NPCObj.transform.position;
                 direction.y = 0;
 
                 Quaternion rotation = Quaternion.LookRotation(direction);

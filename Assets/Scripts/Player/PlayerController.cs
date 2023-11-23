@@ -103,6 +103,8 @@ namespace Assets.Scripts.Player
             }
         }
 
+        public Transform aimTransform;
+
         public float zoomMultiplier;
 
         [SerializeField] private float recoilTime;
@@ -180,8 +182,9 @@ namespace Assets.Scripts.Player
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
 
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog);
             ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
+            ticketMachine.RegisterObserver(ChannelType.Dialog, GetComponent<PlayerQuest>().SetIsPlaying);
         }
 
         private void Start()
@@ -560,6 +563,8 @@ namespace Assets.Scripts.Player
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
+            aimTransform.position = AimTarget;
+            cinematicAimCam.LookAt = aimTransform;
         }
         public void LookAimTarget()
         {
