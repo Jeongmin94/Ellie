@@ -122,6 +122,7 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
             EventBus.Instance.Subscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
         }
 
         /// <summary>
@@ -544,6 +545,45 @@ namespace Centers.Boss
             Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
             minionController.minionData.canAttack.Value = true;
         }
+
+        private void OnApplySingleBossCooldown(BossEventPayload payload)
+        {
+            Debug.Log("ApplyBossAttackCooldown :: 쿨타임 적용");
+
+            TerrapupaController bossController = payload.Sender.GetComponent<TerrapupaController>();
+            TerrapupaAttackType banType = payload.AttackTypeValue;
+
+            switch (payload.AttackTypeValue)
+            {
+                case TerrapupaAttackType.ThrowStone:
+                    if (bossController.terrapupaData.stoneUsable) terrapupa.terrapupaData.canThrowStone.Value = payload.BoolValue;
+                    break;
+                case TerrapupaAttackType.EarthQuake:
+                    if (bossController.terrapupaData.earthQuakeUsable) terrapupa.terrapupaData.canEarthQuake.Value = payload.BoolValue;
+                    break;
+                case TerrapupaAttackType.Roll:
+                    if (bossController.terrapupaData.rollUsable) terrapupa.terrapupaData.canRoll.Value = payload.BoolValue;
+                    break;
+                case TerrapupaAttackType.LowAttack:
+                    if (bossController.terrapupaData.lowAttackUsable) terrapupa.terrapupaData.canLowAttack.Value = payload.BoolValue;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private IEnumerator TerrapupaAttackCooldown(BossEventPayload payload)
+        {
+            float cooldownValue = payload.FloatValue;
+            payload.BoolValue = false;
+            ApplyBossAttackCooldown(payload);
+
+            yield return new WaitForSeconds(cooldownValue);
+
+            payload.BoolValue = true;
+            ApplyBossAttackCooldown(payload);
+        }
+
 
         private void OnDestroyAllManaFountains()
         {
