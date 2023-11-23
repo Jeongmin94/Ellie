@@ -23,6 +23,8 @@ namespace Assets.Scripts.Data.GoogleSheet
         public int combineCost;
         public int sellCost;
         public string textureName;
+        public Material stoneMaterial;
+        public GameObject hitParticle;
     }
 
     [CreateAssetMenu(fileName = "StoneData", menuName = "GameData List/StoneData")]
@@ -95,6 +97,10 @@ namespace Assets.Scripts.Data.GoogleSheet
                     data.imageName = "UI/Item/Stone/" + entries[15].Trim();
                     //
                     data.textureName = entries[16].Trim();
+                    //머터리얼 추가
+                    data.stoneMaterial = Resources.Load<Material>("Materials/StoneMaterials/" + data.index.ToString());
+                    //힛 파티클 추가
+                    data.hitParticle = Resources.Load<GameObject>("Prefabs/StoneHitParticles/" + data.index.ToString());
                 }
                 catch (Exception e)
                 {

@@ -103,6 +103,8 @@ namespace Assets.Scripts.Player
             }
         }
 
+        public Transform aimTransform;
+
         public float zoomMultiplier;
 
         [SerializeField] private float recoilTime;
@@ -180,8 +182,9 @@ namespace Assets.Scripts.Player
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
 
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog);
             ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
+            ticketMachine.RegisterObserver(ChannelType.Dialog, GetComponent<PlayerQuest>().SetIsPlaying);
         }
 
         private void Start()
@@ -214,7 +217,6 @@ namespace Assets.Scripts.Player
             {
                 GetPickaxeTest();
             }
-
         }
         private void FixedUpdate()
         {
@@ -561,6 +563,8 @@ namespace Assets.Scripts.Player
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
+            aimTransform.position = AimTarget;
+            cinematicAimCam.LookAt = aimTransform;
         }
         public void LookAimTarget()
         {
@@ -653,8 +657,6 @@ namespace Assets.Scripts.Player
             }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             //hasStone = !uiPayload.isItemNull;
-
-
             switch (uiPayload.groupType)
             {
                 case UI.Inventory.GroupType.Consumption:
@@ -663,14 +665,15 @@ namespace Assets.Scripts.Player
                     Debug.Log("!!");
                     hasStone = !uiPayload.isStoneNull;
                     if (uiPayload.itemData != null)
+                    {
                         curStoneIdx = uiPayload.itemData.index;
+                    }
                     else
                         curStoneIdx = 0;
                     break;
                 case UI.Inventory.GroupType.Etc:
                     if (uiPayload.itemData != null && uiPayload.itemData.index >= 9000 && uiPayload.itemData.index < 9005)
                     {
-                        Debug.Log(uiPayload.itemData.index);
                         if (!isPickaxeAvailable)
                         {
                             isPickaxeAvailable = true;

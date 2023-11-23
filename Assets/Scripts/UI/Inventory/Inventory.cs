@@ -466,6 +466,8 @@ namespace Assets.Scripts.UI.Inventory
                 case InventoryEventType.SendMessageToPlayer:
                 {
                     // !TODO : UIChannel에 플레이어의 has 변수를 바꿔줄 이벤트 쏴야됨
+                        Debug.Log("Inventory: " + payload.groupType);
+                    
                     if (payload.slot != swapBuffer)
                         ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
                 }
@@ -481,6 +483,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             UIPayload uiPayload = new UIPayload();
             uiPayload.uiType = UIType.Notify;
+            Debug.Log("GeneratePayloadToPlayer groupType : " +  payload.groupType);
             if (payload.slot.SlotItemData != null)
                 uiPayload.itemData = payload.slot.SlotItemData.itemData;
             uiPayload.actionType = ActionType.SetPlayerProperty;

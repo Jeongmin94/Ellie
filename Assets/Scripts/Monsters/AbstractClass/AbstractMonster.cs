@@ -37,6 +37,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
+        private bool isHeadShot;
 
         public Dictionary<string, AbstractAttack> Attacks=new();
 
@@ -100,9 +101,15 @@ namespace Assets.Scripts.Monsters.AbstractClass
             UpdateHP(combatPayload.Damage);
         }
 
+        public void RecieveHeadShot()
+        {
+            isHeadShot = true;
+        }
+
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
+            if (isHeadShot) damage *= 1.5f;
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
             isDamaged.value = true;
@@ -115,6 +122,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
             {
                 audioController.PlayAudio(MonsterAudioType.Hit);
             }
+
+            isHeadShot = false;
         }
 
         private void MonsterDead()

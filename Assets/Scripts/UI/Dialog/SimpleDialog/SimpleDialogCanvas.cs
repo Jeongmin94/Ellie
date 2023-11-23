@@ -33,6 +33,10 @@ namespace Assets.Scripts.UI.Dialog
         {
             Init();
         }
+        private void Start()
+        {
+            simpleDialogPanel.gameObject.SetActive(false);
+        }
 
         protected override void Init()
         {
@@ -42,6 +46,7 @@ namespace Assets.Scripts.UI.Dialog
             InitObjects();
             InitTicketMachine();
         }
+
 
         private void Bind()
         {
@@ -75,8 +80,10 @@ namespace Assets.Scripts.UI.Dialog
 
         private void OnNotify(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload dialogPayload)
-                return;
+            if (payload is not DialogPayload dialogPayload) return;
+
+            if (dialogPayload.canvasType != DialogCanvasType.Simple ||
+                dialogPayload.canvasType != DialogCanvasType.SimpleRemaining) return;
 
             switch (dialogPayload.dialogAction)
             {
@@ -133,7 +140,8 @@ namespace Assets.Scripts.UI.Dialog
         {
             yield return dialogText.Play(payload.text, payload.interval, 1.0f);
 
-            Stop();
+            if(payload.canvasType == DialogCanvasType.Simple)
+                Stop();
         }
     }
 }

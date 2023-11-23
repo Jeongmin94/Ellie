@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.InteractiveObjects.NPCs;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -35,20 +34,20 @@ namespace Assets.Scripts.Player.States
             //y를 누르면 대화에서 탈출
             if(Input.GetKeyDown(KeyCode.Y))
             {
-                Controller.GetComponent<PlayerInteraction>().interactiveObject?.GetComponent<BaseNPC>().EndInteract();
+                //Controller.GetComponent<PlayerInteraction>().interactiveObject?.GetComponent<BaseNPC>().EndInteract();
                 Controller.EndConversation();
             }
             //대화 중에 g를 눌러 다음으로
             
             if (Input.GetKeyDown(KeyCode.G))
             {
-                Debug.Log("Press g in conversation state");
-                QuestNPC npc = null;
-                Controller.GetComponent<PlayerInteraction>().interactiveObject?.TryGetComponent(out npc);
-                if (npc)
-                {
-                    npc.Talk(Controller.GetComponent<PlayerQuest>().GetQuestStatus(npc.QuestIdx), Controller.gameObject);
-                }
+                //Debug.Log("Press g in conversation state");
+                //QuestNPC npc = null;
+                //Controller.GetComponent<PlayerInteraction>().interactiveObject?.TryGetComponent(out npc);
+                //if (npc)
+                //{
+                //    npc.Talk(Controller.GetComponent<PlayerQuest>().GetQuestStatus(npc.QuestIdx), Controller.gameObject);
+                //}
             }
         }
     }
