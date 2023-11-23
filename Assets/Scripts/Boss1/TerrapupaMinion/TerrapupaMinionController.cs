@@ -1,21 +1,27 @@
-using Assets.Scripts.Combat;
+using Assets.Scripts.Boss1.TerrapupaMinion;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
-using Boss.Terrapupa;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TheKiwiCoder;
+using Unity.Plastic.Antlr3.Runtime.Tree;
 using UnityEngine;
 
-public class TerrapupaMinionController : BehaviourTreeController, ICombatant
+public class TerrapupaMinionController : BehaviourTreeController
 {
-    [SerializeField] private TerrapupaMinionHealthBar healthBar;
     [HideInInspector] public TerrapupaMinionRootData minionData;
+    [SerializeField] private TerrapupaMinionHealthBar healthBar;
+    [SerializeField] private TerrapupaMinionWeakPoint weakPoint;
+
+    BlackboardKey<int> currentHP;
 
     private TicketMachine ticketMachine;
+    public TerrapupaMinionWeakPoint WeakPoint
+    {
+        get { return weakPoint; }
+        set { weakPoint = value; }
+    }
 
     public TicketMachine TicketMachine
     {
@@ -30,15 +36,22 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
     protected override void Awake()
     {
         base.Awake();
-
         InitTicketMachine();
+        SubscribeEvent();
+
         minionData = rootTreeData as TerrapupaMinionRootData;
         healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
+        weakPoint = GetComponentInChildren<TerrapupaMinionWeakPoint>();
     }
 
     private void Start()
     {
         InitStatus();
+    }
+
+    private void SubscribeEvent()
+    {
+        weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
     }
 
     private void InitTicketMachine()
@@ -50,14 +63,11 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
     private void InitStatus()
     {
         healthBar.InitData(minionData);
+
+        currentHP = behaviourTreeInstance.FindBlackboardKey<int>("currentHP");
     }
 
-    public void Attack(IBaseEventPayload payload)
-    {
-
-    }
-
-    public void ReceiveDamage(IBaseEventPayload payload)
+    private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
     {
         Debug.Log($"ReceiveDamage :: {payload}");
 
@@ -66,12 +76,12 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
         int damage = combatPayload.Damage;
 
         GetDamaged(damage);
-        Debug.Log($"{damage} 데미지 입음 : {minionData.currentHP.Value}");
+        Debug.Log($"{damage} 데미지 입음 : {currentHP.Value}");
     }
 
     public void GetDamaged(int damageValue)
     {
-        minionData.currentHP.Value -= damageValue;
-        healthBar.RenewHealthBar(minionData.currentHP.value);
+        currentHP.Value -= damageValue;
+        healthBar.RenewHealthBar(currentHP.value);
     }
 }

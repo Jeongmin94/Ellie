@@ -10,10 +10,10 @@ namespace Boss.Terrapupa
 {
     public class TerrapupaController : BehaviourTreeController
     {
+        [HideInInspector] public TerrapupaRootData terrapupaData;
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
         [SerializeField] private TerrapupaHealthBar healthBar;
-        [HideInInspector] public TerrapupaRootData terrapupaData;
         
         private TicketMachine ticketMachine;
 
@@ -42,9 +42,9 @@ namespace Boss.Terrapupa
         protected override void Awake()
         {
             base.Awake();
-
             InitTicketMachine();
             SubscribeEvent();
+
             terrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
         }

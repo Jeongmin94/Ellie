@@ -14,8 +14,6 @@ public class TerrapupaMinionRootData : BaseBTData
     [Tooltip("보스 이름")] public string bossName;
     [Tooltip("보스의 체력")] public int hp = 20;
 
-    public BlackboardKey<int> currentHP;
-
     public BlackboardKey<Transform> player;
     public BlackboardKey<bool> canAttack;
 
@@ -24,7 +22,6 @@ public class TerrapupaMinionRootData : BaseBTData
         SetBlackboardValue<int>("currentHP", hp, tree);
         SetBlackboardValue<bool>("canAttack", true, tree);
 
-        currentHP = FindBlackboardKey<int>("currentHP", tree);
         player = FindBlackboardKey<Transform>("player", tree);
         canAttack = FindBlackboardKey<bool>("canAttack", tree);
     }
