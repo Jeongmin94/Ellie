@@ -82,7 +82,7 @@ namespace Assets.Scripts.UI.Dialog
         {
             if (payload is not DialogPayload dialogPayload) return;
 
-            if (dialogPayload.canvasType != DialogCanvasType.Simple ||
+            if (dialogPayload.canvasType != DialogCanvasType.Simple &&
                 dialogPayload.canvasType != DialogCanvasType.SimpleRemaining) return;
 
             switch (dialogPayload.dialogAction)
@@ -125,6 +125,8 @@ namespace Assets.Scripts.UI.Dialog
 
         private void Play(DialogPayload payload)
         {
+            if (payload.canvasType == DialogCanvasType.Simple && dialogText.IsPlaying)
+                return;
             StartCoroutine(PlaySimpleDialog(payload));
         }
 

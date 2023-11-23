@@ -4,6 +4,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Assets.Scripts.Utils;
 using Channels.Components;
+using Channels.Dialog;
 using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,7 +58,7 @@ namespace Assets.Scripts.InteractiveObjects
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Stone);
+            ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog);
         }
 
         private IEnumerator InitOre()
@@ -199,7 +200,14 @@ namespace Assets.Scripts.InteractiveObjects
         public void Interact(GameObject obj)
         {
             PlayerController player = obj.GetComponent<PlayerController>();
-            if (!player.IsPickaxeAvailable) return;
+            if (!player.IsPickaxeAvailable)
+            {
+                DialogPayload payload = DialogPayload.Play("곡괭이가 있으면 돌멩이를 채광할 수 있을 것 같다..!");
+                payload.canvasType = DialogCanvasType.Simple;
+                ticketMachine.SendMessage(ChannelType.Dialog, payload);
+                
+                return;
+            }
             player.SetCurOre(this);
         }
     }

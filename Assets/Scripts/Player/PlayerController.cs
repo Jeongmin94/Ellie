@@ -5,6 +5,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
 using Channels.Components;
+using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Cinemachine;
@@ -698,6 +699,9 @@ namespace Assets.Scripts.Player
                 itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(9000)
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
+            DialogPayload dPayload = DialogPayload.Play("곡괭이를 얻었다!!");
+            dPayload.canvasType = DialogCanvasType.Simple;
+            ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
         }
     }
 }

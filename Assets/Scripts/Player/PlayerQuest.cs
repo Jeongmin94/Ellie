@@ -30,7 +30,7 @@ namespace Assets.Scripts.Player
             questStatusDic = new();
             StartCoroutine(InitPlayerQuest());
             //6100번 퀘스트 시작
-            //StartCoroutine(FirstDialogCoroutine());
+            StartCoroutine(FirstDialogCoroutine());
         }
 
         private IEnumerator InitPlayerQuest()
@@ -78,6 +78,7 @@ namespace Assets.Scripts.Player
                         Debug.Log("dialog end input");
                         questStatusDic[questDataList[QuestDataIdx].index] = QuestStatus.Accepted;
                         SendStopDialogPayload(DialogCanvasType.Default);
+                        SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                         yield break;
                     }
                 }
@@ -94,15 +95,15 @@ namespace Assets.Scripts.Player
             DialogPayload payload = DialogPayload.Play(text, 0.2f);
             switch (dialogData.speaker)
             {
-                case 0:
+                case DialogSpeaker.NPC:
                     SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                     speaker = npcName;
                     break;
-                case 1:
+                case DialogSpeaker.Player:
                     SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                     speaker = "엘리";
                     break;
-                case 2:
+                case DialogSpeaker.Narr:
                     SendStopDialogPayload(DialogCanvasType.Default);
                     payload.canvasType = DialogCanvasType.SimpleRemaining;
                     break;
@@ -110,6 +111,7 @@ namespace Assets.Scripts.Player
 
             payload.speaker = speaker;
             ticketMachine.SendMessage(ChannelType.Dialog, payload);
+            Debug.Log(payload.canvasType);
         }
 
         private void SendStopDialogPayload(DialogCanvasType type)
