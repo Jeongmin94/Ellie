@@ -17,7 +17,7 @@ namespace Assets.Scripts.UI.Opening
             TextPanel,
         }
 
-        private GameObject imagePanel;
+        protected GameObject imagePanel;
         private GameObject textPanel;
 
         private RectTransform rectTransform;
@@ -26,7 +26,7 @@ namespace Assets.Scripts.UI.Opening
 
         private TextMeshProUGUI textMeshProUGUI;
 
-        public void InitOpeningText()
+        public void InitText()
         {
             Init();
         }
@@ -35,6 +35,7 @@ namespace Assets.Scripts.UI.Opening
         {
             Bind();
             InitObjects();
+            BindEvents();
         }
 
         private void Bind()
@@ -51,7 +52,7 @@ namespace Assets.Scripts.UI.Opening
             textMeshProUGUI = textPanel.FindChild<TextMeshProUGUI>(null, true);
         }
 
-        private void InitObjects()
+        protected virtual void InitObjects()
         {
             AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.StretchAll);
             rectTransform.sizeDelta = Vector2.zero;
@@ -66,14 +67,19 @@ namespace Assets.Scripts.UI.Opening
             textPanelRect.localPosition = Vector3.zero;
         }
 
-        public void InitTypography(OpeningTextData typographyData)
+        protected virtual void BindEvents()
         {
-            textMeshProUGUI.font = typographyData.fontAsset;
-            textMeshProUGUI.fontSize = typographyData.fontSize;
-            textMeshProUGUI.lineSpacing = typographyData.lineSpacing;
-            textMeshProUGUI.color = typographyData.color;
-            textMeshProUGUI.alignment = typographyData.alignmentOptions;
-            textMeshProUGUI.enableAutoSizing = typographyData.enableAutoSizing;
+        }
+
+        public virtual void InitTypography(TextTypographyData typographyTypographyData)
+        {
+            textMeshProUGUI.font = typographyTypographyData.fontAsset;
+            textMeshProUGUI.fontSize = typographyTypographyData.fontSize;
+            textMeshProUGUI.lineSpacing = typographyTypographyData.lineSpacing;
+            textMeshProUGUI.color = typographyTypographyData.color;
+            textMeshProUGUI.alignment = typographyTypographyData.alignmentOptions;
+            textMeshProUGUI.enableAutoSizing = typographyTypographyData.enableAutoSizing;
+            textMeshProUGUI.text = typographyTypographyData.title;
         }
     }
 }

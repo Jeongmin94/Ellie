@@ -5,6 +5,7 @@ using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Inventory;
 using Data.UI.Opening;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.UI.Opening
 {
@@ -26,12 +27,16 @@ namespace Assets.Scripts.UI.Opening
 
         [SerializeField] private UITransformData titleTransformData;
         [SerializeField] private UITransformData menuTransformData;
-        [SerializeField] private OpeningTextData titleTypographyData;
+        [SerializeField] private TextTypographyData titleTypographyTypographyData;
+        [SerializeField] private TextTypographyData startButtonData;
+        [SerializeField] private TextTypographyData exitButtonData;
 
         private readonly TransformController titleController = new TransformController();
         private readonly TransformController menuController = new TransformController();
 
         private OpeningText title;
+        private BaseMenuButton startMenuButton;
+        private BaseMenuButton exitMenuButton;
 
         private void Awake()
         {
@@ -77,10 +82,26 @@ namespace Assets.Scripts.UI.Opening
             menuPanelRect.localPosition = menuTransformData.actionRect.Value.ToCanvasPos();
             menuPanelRect.localScale = menuTransformData.actionScale.Value;
 
-            title = UIManager.Instance.MakeSubItem<OpeningText>(titlePanelRect, OpeningText.Path);
+            InitTitle();
+            InitMenuButtons();
+        }
 
-            title.InitOpeningText();
-            title.InitTypography(titleTypographyData);
+        private void InitTitle()
+        {
+            title = UIManager.Instance.MakeSubItem<OpeningText>(titlePanelRect, OpeningText.Path);
+            title.InitText();
+            title.InitTypography(titleTypographyTypographyData);
+        }
+
+        private void InitMenuButtons()
+        {
+            startMenuButton = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
+            startMenuButton.InitText();
+            startMenuButton.InitTypography(startButtonData);
+
+            exitMenuButton = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
+            exitMenuButton.InitText();
+            exitMenuButton.InitTypography(exitButtonData);
         }
 
         private void LateUpdate()

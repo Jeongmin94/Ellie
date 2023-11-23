@@ -59,7 +59,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -117,7 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   titleTransformData: {fileID: 11400000, guid: 631afedf49837fb4b926287857b15c5a, type: 2}
   menuTransformData: {fileID: 11400000, guid: 0cd6983f7134d474f955637d86f459e5, type: 2}
-  titleTypographyData: {fileID: 11400000, guid: 7c44dc831196a924d81cf2b99e955dcd, type: 2}
+  titleTypographyTypographyData: {fileID: 11400000, guid: 7c44dc831196a924d81cf2b99e955dcd, type: 2}
+  menuTypographyTypographyData: {fileID: 11400000, guid: 0b24a1dabbc777f4aae0777954127764, type: 2}
 --- !u!1 &6242334088610288644
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,6 +206,7 @@ GameObject:
   - component: {fileID: 5177607839892848098}
   - component: {fileID: 8837401505039621488}
   - component: {fileID: 3917430872389669275}
+  - component: {fileID: 337849503795789143}
   m_Layer: 5
   m_Name: MenuPanel
   m_TagString: Untagged
@@ -270,3 +272,29 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &337849503795789143
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6591677762984076071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 1
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 0
+  m_ReverseArrangement: 0
