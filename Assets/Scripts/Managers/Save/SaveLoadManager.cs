@@ -7,36 +7,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
-    public enum SaveLoadType
-    {
-        Test,
-        Inventory,
-        Quest,
-
-        End,
-    }
-
-    public class TestSavePayload : IBaseEventPayload
-    {
-        public string Name { get; set; }
-        public int Index { get; set; }
-        public List<SerializableVector3> VectorList { get; set; }
-    }
-
-    public class InventorySavePayload : IBaseEventPayload
-    {
-        // 데이터 저장에 필요한 타입들 정의
-        // json에 2중 배열(크기 미지정)이나, Dictionary가 들어갈 수 있는지?
-        // json에 프로퍼티로 저장 가능하고 읽어올 수 있는지??
-        public List<List<int>> IndexItem { get; set; }
-    }
-
-    public class QuestSavePayload : IBaseEventPayload
-    {
-        // 데이터 저장에 필요한 타입들 정의
-        public int QuestIndex { get; set; }
-    }
-
     public class SaveLoadManager : Singleton<SaveLoadManager>
     {
         private string path;

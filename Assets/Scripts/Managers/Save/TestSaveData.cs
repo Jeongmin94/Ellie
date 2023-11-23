@@ -7,7 +7,8 @@ namespace Assets.Scripts.Managers
 {
     public class TestSaveData : MonoBehaviour
     {
-        private TestSavePayload test;
+        private TestSavePayload testPayload;
+        private SerializableVector3 positionPayload;
         private SaveLoadType saveloadType = SaveLoadType.Test;
 
         private void Awake()
@@ -34,20 +35,25 @@ namespace Assets.Scripts.Managers
         {
             Debug.Log("세이브 호출은 되니?");
             // 원래 저장된 값을 불러와서 갱신시키기
-            test = new TestSavePayload
+            testPayload = new TestSavePayload
             {
                 Name = "test",
                 Index = 2023,
                 VectorList = new List<SerializableVector3>() { new SerializableVector3(new Vector3(3, 3, 3)), new SerializableVector3(new Vector3(2, 2, 2)) },
             };
 
-            Debug.Log(test.Name);
-            Debug.Log(test.Index);
-            foreach (var vector in test.VectorList)
+            positionPayload = new MapSavePayload
+            {
+                Position = new SerializableVector3()
+            }
+
+            Debug.Log(testPayload.Name);
+            Debug.Log(testPayload.Index);
+            foreach (var vector in testPayload.VectorList)
             {
                 Debug.Log(vector);
             }
-            SaveLoadManager.Instance.AddPayloadTable(saveloadType, test);
+            SaveLoadManager.Instance.AddPayloadTable(saveloadType, testPayload);
         }
 
         public void Load(IBaseEventPayload payload)
@@ -57,7 +63,7 @@ namespace Assets.Scripts.Managers
 
             Debug.Log(testPayload.Name);
             Debug.Log(testPayload.Index);
-            foreach (var vector in test.VectorList)
+            foreach (var vector in this.testPayload.VectorList)
             {
                 Debug.Log(vector);
             }
