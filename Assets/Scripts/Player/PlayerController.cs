@@ -563,7 +563,7 @@ namespace Assets.Scripts.Player
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
-            aimTransform.position = AimTarget;
+            aimTransform.position = shootRay.origin + 5f * shootRay.direction.normalized;
             cinematicAimCam.LookAt = aimTransform;
         }
         public void LookAimTarget()

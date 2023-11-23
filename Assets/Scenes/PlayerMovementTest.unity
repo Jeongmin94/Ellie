@@ -755,11 +755,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.742
+      value: 0.7420001
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -5
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: Damping.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: CameraDistance
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927571766896384, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: DampingIntoCollision
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572231187841, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_IsActive
@@ -776,6 +788,10 @@ PrefabInstance:
     - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
@@ -851,15 +867,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.2420001
+      value: 0.44200003
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: -2
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116014, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_IsActive
@@ -899,15 +915,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: ShoulderOffset.x
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: ShoulderOffset.y
-      value: 0.2
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: ShoulderOffset.z
-      value: -1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4016927573549469097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: VerticalArmLength
