@@ -188,7 +188,13 @@ namespace Assets.Scripts.UI.Inventory
             SlotItemData.itemCount.Subscribe(OnItemCountChanged);
         }
 
-        public InventorySlot GetSlot() => slotItemPosition.slot;
+        public InventorySlot GetSlot()
+        {
+            if (slotItemPosition)
+                return slotItemPosition.slot;
+
+            return null;
+        }
 
         // 슬롯의 위치 이동
         public void MoveSlot(SlotItemPosition position, BaseItem data)

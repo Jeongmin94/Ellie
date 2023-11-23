@@ -351,5 +351,21 @@ namespace Assets.Scripts.UI.Inventory
         }
 
         #endregion
+
+        #region SaveLoad
+
+        public List<InventorySlot> GetSlotsWithItem()
+        {
+            List<InventorySlot> slotsWithItem = new List<InventorySlot>();
+
+            slots.ForEach(slot =>
+            {
+                if (slot.SlotItemData != null) slotsWithItem.Add(slot);
+            });
+
+            return slotsWithItem;
+        }
+
+        #endregion
     }
 }

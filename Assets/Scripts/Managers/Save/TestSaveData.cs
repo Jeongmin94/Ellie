@@ -42,10 +42,10 @@ namespace Assets.Scripts.Managers
                 VectorList = new List<SerializableVector3>() { new SerializableVector3(new Vector3(3, 3, 3)), new SerializableVector3(new Vector3(2, 2, 2)) },
             };
 
-            positionPayload = new MapSavePayload
-            {
-                Position = new SerializableVector3()
-            }
+            // positionPayload = new MapSavePayload
+            // {
+            //     Position = new SerializableVector3()
+            // }
 
             Debug.Log(testPayload.Name);
             Debug.Log(testPayload.Index);

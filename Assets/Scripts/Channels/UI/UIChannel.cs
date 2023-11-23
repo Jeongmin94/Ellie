@@ -28,7 +28,7 @@ namespace Channels.UI
         public ActionType actionType;
         public SlotAreaType slotAreaType;
         public GroupType groupType;
-        //ItemMetaData´Â UI¿¡ Ãâ·ÂÇÒ µ¥ÀÌÅÍµé¸¸ Æ÷ÇÔÇÕ´Ï´Ù
+        //ItemMetaDataëŠ” UIì— ì¶œë ¥í•  ë°ì´í„°ë“¤ë§Œ í¬í•¨í•©ë‹ˆë‹¤
         public ItemMetaData itemData;
         public Transform onDragParent;
         public bool isStoneNull;

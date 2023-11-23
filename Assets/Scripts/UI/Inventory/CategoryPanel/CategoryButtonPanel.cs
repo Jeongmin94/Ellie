@@ -49,6 +49,8 @@ namespace Assets.Scripts.UI.Inventory
             Init();
         }
 
+        public List<InventorySlotArea> GetSlotAreas(SlotAreaType slotAreaType) => slotAreas[slotAreaType];
+
         public InventorySlotArea GetSlotArea(SlotAreaType slotAreaType, GroupType groupType)
         {
             return slotAreas[slotAreaType][(int)groupType];
@@ -212,9 +214,8 @@ namespace Assets.Scripts.UI.Inventory
                     payload.slot = slot;
                 }
             }
-            else if(payload.eventType == InventoryEventType.SendMessageToPlayer)
+            else if (payload.eventType == InventoryEventType.SendMessageToPlayer)
             {
-
             }
 
             panelInventoryAction?.Invoke(payload);
@@ -246,6 +247,12 @@ namespace Assets.Scripts.UI.Inventory
                 area[(int)type].MoveItem(payload);
             }
         }
+
+        #endregion
+
+        #region SaveLoad
+
+        // public void MoveItem(UIPayload payload, )
 
         #endregion
     }
