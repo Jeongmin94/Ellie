@@ -14,9 +14,9 @@ using Assets.Scripts.Particle;
 
 namespace Centers.Boss
 {
-    public class TerrapupaCenter : BaseCenter
+    public class TerrapupaCenter : MonoBehaviour
     {
-        [SerializeField] private StoneHatchery hatchery;
+        //[SerializeField] private StoneHatchery hatchery;
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
         [SerializeField] private TerrapupaController pupa;
@@ -35,14 +35,11 @@ namespace Centers.Boss
 
         private void Awake()
         {
-            base.Init();
             SubscribeEvents();
         }
 
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
             CheckTickets();
             SetBossInfo();
         }
@@ -99,14 +96,14 @@ namespace Centers.Boss
 
         private void CheckTickets()
         {
-            CheckTicket(hatchery.gameObject);
-            CheckTicket(terrapupa.gameObject);
-            CheckTicket(terra.gameObject);
-            CheckTicket(pupa.gameObject);
-            CheckTicket(terrapupaMapObjects.gameObject);
+            //TicketManager.Instance.CheckTicket(hatchery.gameObject);
+            TicketManager.Instance.CheckTicket(terrapupa.gameObject);
+            TicketManager.Instance.CheckTicket(terra.gameObject);
+            TicketManager.Instance.CheckTicket(pupa.gameObject);
+            TicketManager.Instance.CheckTicket(terrapupaMapObjects.gameObject);
             foreach (var minion in minions)
             {
-                CheckTicket(minion.gameObject);
+                TicketManager.Instance.CheckTicket(minion.gameObject);
             }
         }
 
