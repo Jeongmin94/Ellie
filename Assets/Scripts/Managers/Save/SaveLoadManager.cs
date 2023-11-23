@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Assets.Scripts.Utils;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,7 +20,7 @@ namespace Assets.Scripts.Managers
     {
         public string Name { get; set; }
         public int Index { get; set; }
-        public List<Vector3> VectorList { get; set; } 
+        public List<SerializableVector3> VectorList { get; set; }
     }
 
     public class InventorySavePayload : IBaseEventPayload
@@ -88,13 +89,17 @@ namespace Assets.Scripts.Managers
 
             for (int i = 0; i < (int)SaveLoadType.End; i++)
             {
+                SaveLoadType type = (SaveLoadType)i;
+
+                // payloadTable에서 해당 타입의 페이로드를 확인
+                if (!payloadTable.ContainsKey(type) || payloadTable[type] == null)
+                {
+                    Debug.LogError($"{type} 세이브 실패");
+                    continue;
+                }
+
                 // 클래스를 json 변환
                 string jsonData = SaveFile(i);
-
-                if (jsonData == null)
-                {
-                    Debug.LogError($"{(SaveLoadType)i} 변환 실패");
-                }
 
                 // 자동 생성 경로에 파일로 저장
                 Debug.Log(path);
@@ -110,7 +115,7 @@ namespace Assets.Scripts.Managers
             {
                 case SaveLoadType.Test:
                     {
-                        TestEventPayload payload = payloadTable[type] as TestEventPayload;
+                        TestSavePayload payload = payloadTable[type] as TestSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
                 case SaveLoadType.Inventory:
@@ -123,7 +128,6 @@ namespace Assets.Scripts.Managers
                         QuestSavePayload payload = payloadTable[type] as QuestSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-
                 default:
                     return null;
             }
@@ -131,17 +135,28 @@ namespace Assets.Scripts.Managers
 
         public void LoadData()
         {
-            // 데이터 로드해서 딕셔너리에 저장
             for (int i = 0; i < (int)SaveLoadType.End; i++)
             {
+                SaveLoadType type = (SaveLoadType)i;
+
+                // 파일 경로 확인
+                string filePath = path + filename + i.ToString();
+                if (!File.Exists(filePath))
+                {
+                    Debug.LogError($"{type} 로드 실패");
+                    continue;
+                }
+
+                string data = File.ReadAllText(filePath);
                 IBaseEventPayload payload = LoadData(i);
 
                 if (payload == null)
                 {
-                    Debug.LogError($"{(SaveLoadType)i} 변환 실패");
+                    Debug.LogError($"{type} 변환 실패");
+                    continue;
                 }
 
-                payloadTable[(SaveLoadType)i] = payload;
+                payloadTable[type] = payload;
             }
 
             // 딕셔너리 돌면서 각 enum 타입에 맞는 payload들을 불러와서 Payload를 생성해서 인자로 연결된 함수에 전송
