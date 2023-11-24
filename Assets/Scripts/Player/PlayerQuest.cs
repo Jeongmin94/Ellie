@@ -94,7 +94,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
+        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, string NPCName, bool isAdditionalDialog = false)
         {
             int curDialogListIdx = 0;
             List<int> dialogList;
@@ -110,7 +110,7 @@ namespace Assets.Scripts.Player
             }
 
             //첫 대사 출력
-            SendPlayDialogPayload(dialogList[curDialogListIdx]);
+            SendPlayDialogPayload(dialogList[curDialogListIdx], NPCName);
 
             while(true)
             {
@@ -122,7 +122,7 @@ namespace Assets.Scripts.Player
                     if (!isPlaying)
                         curDialogListIdx++;
                     if (curDialogListIdx < dialogList.Count)
-                        SendPlayDialogPayload(dialogList[curDialogListIdx]);
+                        SendPlayDialogPayload(dialogList[curDialogListIdx], NPCName);
                 }
                 if (curDialogListIdx == dialogList.Count)
                 {
@@ -140,11 +140,8 @@ namespace Assets.Scripts.Player
                 yield return null;
             }
         }
-        public void PlayDialog(int questIdx, QuestStatus status)
-        {
-            StartCoroutine(DialogCoroutine(questIdx, status));
-        }
-        private void SendPlayDialogPayload(int dialogIdx, string npcName = "")
+        
+        private void SendPlayDialogPayload(int dialogIdx, string npcName = "???")
         {
             DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
             string text = dialogData.dialog;
