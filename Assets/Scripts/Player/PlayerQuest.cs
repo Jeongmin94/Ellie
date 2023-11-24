@@ -3,8 +3,10 @@ using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -13,11 +15,12 @@ namespace Assets.Scripts.Player
     {
         private PlayerController controller;
         private List<QuestData> questDataList;
-        private const int QuestDataIdx = 0;
+        private const int FirstQuestDataIdx = 0;
         private Dictionary<int, QuestStatus> questStatusDic;
 
+
         private TicketMachine ticketMachine;
-        private bool isPlaying;
+        public bool isPlaying;
 
         private void Awake()
         {
@@ -51,7 +54,13 @@ namespace Assets.Scripts.Player
         {
             yield return DataManager.Instance.CheckIsParseDone();
             int curDialogListIdx = 0;
-            List<int> dialogList = questDataList[QuestDataIdx].unAcceptedDialogList;
+            List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
+
+            if (dialogList == null)
+            {
+                Debug.Log("DialogList is Null");
+                yield break;
+            }
 
             SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
@@ -75,8 +84,49 @@ namespace Assets.Scripts.Player
                     //대화 출력이 끝나면 퀘스트 수락 상태로 변경
                     if (Input.GetKeyDown(KeyCode.G))
                     {
-                        Debug.Log("dialog end input");
-                        questStatusDic[questDataList[QuestDataIdx].index] = QuestStatus.Accepted;
+                        questStatusDic[questDataList[FirstQuestDataIdx].index] = QuestStatus.Accepted;
+                        SendStopDialogPayload(DialogCanvasType.Default);
+                        SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+                        yield break;
+                    }
+                }
+                yield return null;
+            }
+        }
+
+        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status)
+        {
+            int curDialogListIdx = 0;
+            List<int> dialogList = questDataList[questIdx].DialogListDic[status];
+            if (dialogList == null)
+            {
+                Debug.Log("DialogList is Null");
+                yield break;
+            }
+
+            //첫 대사 출력
+            SendPlayDialogPayload(dialogList[curDialogListIdx]);
+
+            while(true)
+            {
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    //다이얼로그 출력 로직
+                    //isPlaying일 때 페이로드를 보내면 next가 호출되게 함
+                    //isPlaying이 아닐 때 페이로드를 보내야 다음 대사가 출력
+                    if (!isPlaying)
+                        curDialogListIdx++;
+                    if (curDialogListIdx < dialogList.Count)
+                        SendPlayDialogPayload(dialogList[curDialogListIdx]);
+                }
+                if (curDialogListIdx == dialogList.Count)
+                {
+                    //player.EndConversation();
+                    //yield return ResetRotation();
+
+                    //대화 출력이 끝나면 퀘스트 수락 상태로 변경
+                    if (Input.GetKeyDown(KeyCode.G))
+                    {
                         SendStopDialogPayload(DialogCanvasType.Default);
                         SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                         yield break;
@@ -117,7 +167,7 @@ namespace Assets.Scripts.Player
         private void SendStopDialogPayload(DialogCanvasType type)
         {
             DialogPayload payload = DialogPayload.Stop();
-            payload.canvasType = type;  
+            payload.canvasType = type;
             ticketMachine.SendMessage(ChannelType.Dialog, payload);
         }
         public void StartConversation()
@@ -138,6 +188,61 @@ namespace Assets.Scripts.Player
             if (dialogPayload.dialogType != DialogType.NotifyToClient) return;
 
             isPlaying = dialogPayload.isPlaying;
+        }
+
+        public QuestStatus GetQuestStatus(int questIdx)
+        {
+            if (questStatusDic.TryGetValue(questIdx, out QuestStatus status))
+            {
+                return status;
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Quest status not found for quest index {questIdx}");
+            }
+        }
+        public void SetQuestStatus(int questIdx, QuestStatus newStatus)
+        {
+            if (questStatusDic.ContainsKey(questIdx))
+            {
+                questStatusDic[questIdx] = newStatus;
+            }
+            else
+            {
+                Debug.Log($"Quest status not found for quest index {questIdx}");
+            }
+        }
+        public void GetReward(int questIdx)
+        {
+            //해당 퀘스트의 데이터를 가져옴
+            QuestData selectedQuest = questDataList.FirstOrDefault(quest => quest.index == questIdx);
+            foreach (var itemTuple in selectedQuest.rewardList)
+            {
+                AcquireItem(itemTuple.Item1, itemTuple.Item2);
+            }
+        }
+
+        private void AcquireItem(int itemIdx, int count)
+        {
+            UIPayload payload = new();
+            payload.uiType = UIType.Notify;
+            //아이템 종류 : 돌멩이(4000~), 소모품 및 기타(4100~)
+            if (itemIdx >= 4100)
+            {
+                payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+                payload.actionType = ActionType.AddSlotItem;
+                payload.itemData = DataManager.Instance.GetIndexData<ItemData,ItemDataParsingInfo>(itemIdx);
+                payload.groupType = payload.itemData.groupType;
+            }
+            else if(itemIdx >= 4000)
+            {
+                payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+                payload.actionType = ActionType.AddSlotItem;
+                payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
+                payload.groupType = payload.itemData.groupType;
+            }
+            for(int i  = 0; i < count; i++) 
+                ticketMachine.SendMessage(ChannelType.UI, payload);
         }
     }
 }

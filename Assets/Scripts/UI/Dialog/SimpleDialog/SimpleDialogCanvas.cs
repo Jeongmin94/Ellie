@@ -36,6 +36,7 @@ namespace Assets.Scripts.UI.Dialog
         private void Start()
         {
             simpleDialogPanel.gameObject.SetActive(false);
+            dialogText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
         }
 
         protected override void Init()
@@ -88,34 +89,40 @@ namespace Assets.Scripts.UI.Dialog
             switch (dialogPayload.dialogAction)
             {
                 case DialogAction.Play:
-                {
-                    dialogText.gameObject.SetActive(true);
-                    Play(dialogPayload);
-                }
+                    {
+                        if (dialogText.IsPlaying)
+                        {
+                            //isPlaying일 때 다시 Play 요청이 들어오면 OnNext하도록
+                            dialogText.Next();
+                            break;
+                        }
+                        dialogText.gameObject.SetActive(true);
+                        Play(dialogPayload);
+                    }
                     break;
 
                 case DialogAction.Stop:
-                {
-                    Stop();
-                }
+                    {
+                        Stop();
+                    }
                     break;
 
                 case DialogAction.Resume:
-                {
-                    dialogText.SetPause(false);
-                }
+                    {
+                        dialogText.SetPause(false);
+                    }
                     break;
 
                 case DialogAction.Pause:
-                {
-                    dialogText.SetPause(true);
-                }
+                    {
+                        dialogText.SetPause(true);
+                    }
                     break;
 
                 case DialogAction.OnNext:
-                {
-                    dialogText.Next();
-                }
+                    {
+                        dialogText.Next();
+                    }
                     break;
 
                 default:
@@ -142,8 +149,19 @@ namespace Assets.Scripts.UI.Dialog
         {
             yield return dialogText.Play(payload.text, payload.interval, 1.0f);
 
-            if(payload.canvasType == DialogCanvasType.Simple)
+            if (payload.canvasType == DialogCanvasType.Simple)
                 Stop();
+        }
+
+        private void SendPayloadToClientEvent(bool _isPlaying)
+        {
+            Debug.Log("Send Dialog Payload to Player, isPlaying : " + _isPlaying);
+
+            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
+            {
+                dialogType = DialogType.NotifyToClient,
+                isPlaying = _isPlaying
+            });
         }
     }
 }

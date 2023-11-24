@@ -523,12 +523,12 @@ namespace Assets.Scripts.UI.Inventory
                 new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
             };
 
-            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
+            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Item);
             consumptionCanvas.InitFrame(directions, EquipmentFrame.DefaultPath);
             consumptionCanvas.RegisterObservers(consumptionArea.GetSlots());
-            consumptionCanvas.groupType = GroupType.Consumption;
+            consumptionCanvas.groupType = GroupType.Item;
 
-            frameCanvasMap.TryAdd(GroupType.Consumption, consumptionCanvas);
+            frameCanvasMap.TryAdd(GroupType.Item, consumptionCanvas);
         }
 
         private void InitStoneCanvas()

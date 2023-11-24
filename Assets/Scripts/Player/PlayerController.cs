@@ -82,6 +82,7 @@ namespace Assets.Scripts.Player
 
         [Header("Dodge")]
         [SerializeField] private float dodgeInvulnerableTime;
+        [SerializeField] private float timeToDodgeAfterDown;
 
         [Header("ActionData")]
         [SerializeField] private AimTargetData aimTargetData;
@@ -152,6 +153,7 @@ namespace Assets.Scripts.Player
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
         public float LandStateDuration { get { return landStateDuration; } }
         public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
+        public float TimeToDodgeAfterDown { get { return  timeToDodgeAfterDown; } }
         public Ore CurOre { get { return curOre; } }
         public float MiningTime { get { return miningTime; } }
         public bool IsPickaxeAvailable { get { return isPickaxeAvailable; } }
@@ -660,7 +662,7 @@ namespace Assets.Scripts.Player
             //hasStone = !uiPayload.isItemNull;
             switch (uiPayload.groupType)
             {
-                case UI.Inventory.GroupType.Consumption:
+                case UI.Inventory.GroupType.Item:
                     break;
                 case UI.Inventory.GroupType.Stone:
                     Debug.Log("!!");

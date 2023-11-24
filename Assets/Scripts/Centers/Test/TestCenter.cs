@@ -19,6 +19,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject DialogCanvas;
         public GameObject SimpleDialogCanvas;
 
+        public TestAttacker attacker;
 
         public int curStage = 1;
        
@@ -32,6 +33,7 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(hatchery.gameObject);
+            CheckTicket(attacker.gameObject);
             foreach (Ore ore in ores)
             {
                 Debug.Log($"{ore.name} checked");

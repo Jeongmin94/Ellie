@@ -20,7 +20,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private Transform NPCObj;
 
         //플레이어 참조
-        private PlayerQuest player;
+        protected PlayerQuest player;
         
 
         [SerializeField] private int NPCIndex;
@@ -78,48 +78,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 yield return wff;
             }
         }
-
-        protected IEnumerator PlayDialog(int questIdx, QuestStatus status)
-        {
-            int curDialogIdx = 0;
-            List<int> dialogList = new();
-            switch(status)
-            {
-                case QuestStatus.CantAccept:
-                    dialogList = questDataDict[questIdx].cantAcceptDialogList;
-                    break;
-                case QuestStatus.Unaccepted:
-                    dialogList = questDataDict[questIdx].unAcceptedDialogList;
-                    break;
-                case QuestStatus.Accepted:
-                    dialogList = questDataDict[questIdx].AcceptedDialogList;
-                    break;
-                case QuestStatus.Done:
-                    dialogList = questDataDict[questIdx].doneDialogList;
-                    break;
-                case QuestStatus.End:
-                    dialogList = questDataDict[questIdx].endDialogList;
-                    break;
-                default:
-                    Debug.Log("없음");
-                    break;
-            }
-
-            while(true)
-            {
-                if(Input.GetKeyDown(KeyCode.G))
-                {
-                    //다이얼로그 출력 로직
-                    curDialogIdx++;
-                }
-                if(curDialogIdx == dialogList.Count)
-                {
-                    player.EndConversation();
-                    yield return ResetRotation();
-                }
-                yield return wff;
-            }
-        }
+        
         private IEnumerator ResetRotation()
         {
             while (Quaternion.Angle(NPCObj.transform.rotation, Quaternion.identity) > 1.0f)

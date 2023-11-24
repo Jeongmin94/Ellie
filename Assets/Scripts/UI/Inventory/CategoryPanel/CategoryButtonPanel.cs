@@ -10,7 +10,7 @@ namespace Assets.Scripts.UI.Inventory
 {
     public enum GroupType
     {
-        Consumption,
+        Item,
         Stone,
         Etc
     }
@@ -37,7 +37,7 @@ namespace Assets.Scripts.UI.Inventory
         private RectTransform rect;
         private ToggleGroup toggleGroup;
         private CategoryToggleController[] toggles;
-        private GroupType type = GroupType.Consumption;
+        private GroupType type = GroupType.Item;
         private ActivateButtonPanelHandler activateButtonPanelHandler;
 
         private readonly IDictionary<SlotAreaType, List<InventorySlotArea>> slotAreas = new Dictionary<SlotAreaType, List<InventorySlotArea>>();

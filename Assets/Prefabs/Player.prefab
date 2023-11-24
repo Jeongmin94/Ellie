@@ -138,7 +138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.999, y: 0.4419999, z: -4.52}
+  m_LocalPosition: {x: 0.999, y: 0.44200003, z: -4.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -243,7 +243,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7419996, z: -5}
+  m_LocalPosition: {x: 0, y: 0.7420001, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6980,7 +6980,7 @@ MonoBehaviour:
   ShoulderOffset: {x: 0, y: 0, z: 0}
   VerticalArmLength: 0.7
   CameraSide: 0.5
-  CameraDistance: 5
+  CameraDistance: 7
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 256
@@ -7058,7 +7058,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572231187841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7419996, z: -5}
+  m_LocalPosition: {x: 0, y: 0.7420001, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7225,6 +7225,7 @@ MonoBehaviour:
   chargeStaminaConsumptionPerSec: 5
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
+  invulnerableTimeAfterHit: 1.5
   isDead: 0
   isRecoveringStamina: 0
 --- !u!114 &6030200240847392581
@@ -7272,6 +7273,7 @@ MonoBehaviour:
   lowerRayLength: 0.2
   upperRayLength: 0.3
   dodgeInvulnerableTime: 0.5
+  timeToDodgeAfterDown: 1
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
@@ -7484,6 +7486,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6affbb72b17d351408e34d137f197a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPlaying: 0
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
@@ -7509,7 +7512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572422116014}
   m_LocalRotation: {x: 0.123005815, y: -0.035375133, z: 0.0043874756, w: 0.99176556}
-  m_LocalPosition: {x: 1, y: 0.5419998, z: -2}
+  m_LocalPosition: {x: 1, y: 0.54200006, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
