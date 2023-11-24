@@ -28,6 +28,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         WaitForEndOfFrame wff = new WaitForEndOfFrame();
 
+        private Coroutine _LookAtPlayer;
+
         private void Awake()
         {
             if (transform.childCount > 0)
@@ -55,11 +57,16 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         public virtual void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
-            StartCoroutine(LookAtPlayerCoroutine());
+            LookAtPlayer();
         }
 
+        protected void LookAtPlayer()
+        {
+            _LookAtPlayer = StartCoroutine(LookAtPlayerCoroutine());
+        }
         private IEnumerator LookAtPlayerCoroutine()
         {
+            if (player == null) yield break;
             while (true)
             {
                 Vector3 direction = player.gameObject.transform.position - NPCObj.transform.position;
@@ -72,13 +79,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
                 if (angleDifference <= 1.0f)
                 {
-                    player.StartConversation();
+                    //player.StartConversation();
                     yield break;
                 }
                 yield return wff;
             }
         }
         
+        public void EndInteract()
+        {
+            if(_LookAtPlayer != null)
+                StopCoroutine(_LookAtPlayer);
+            StartCoroutine(ResetRotation());
+        }
         private IEnumerator ResetRotation()
         {
             while (Quaternion.Angle(NPCObj.transform.rotation, Quaternion.identity) > 1.0f)

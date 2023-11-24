@@ -94,10 +94,15 @@ namespace Assets.Scripts.Player
             }
         }
 
-        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status)
+        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
         {
             int curDialogListIdx = 0;
-            List<int> dialogList = questDataList[questIdx].DialogListDic[status];
+            List<int> dialogList;
+
+            if (isAdditionalDialog)
+                dialogList = questDataList[questIdx % 6100].additionalConditionDialogList;
+            else
+                dialogList = questDataList[questIdx % 6100].DialogListDic[status];
             if (dialogList == null)
             {
                 Debug.Log("DialogList is Null");
@@ -135,7 +140,10 @@ namespace Assets.Scripts.Player
                 yield return null;
             }
         }
-
+        public void PlayDialog(int questIdx, QuestStatus status)
+        {
+            StartCoroutine(DialogCoroutine(questIdx, status));
+        }
         private void SendPlayDialogPayload(int dialogIdx, string npcName = "")
         {
             DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
@@ -243,6 +251,30 @@ namespace Assets.Scripts.Player
             }
             for(int i  = 0; i < count; i++) 
                 ticketMachine.SendMessage(ChannelType.UI, payload);
+        }
+
+        public void GetBackToNPC(Transform dest)
+        {
+
+            //방향 돌리고
+            Vector3 direction = dest.position - controller.PlayerObj.position;
+            direction.y = 0;
+            controller.PlayerObj.rotation = Quaternion.LookRotation(direction);
+
+            //앞쪽으로 1만큼만 이동(테스트)
+            controller.transform.Translate(direction.normalized * 1f);
+        }
+
+        public void LockPlayerMovement()
+        {
+            controller.canMove = false;
+            controller.canTurn = false;
+        }
+
+        public void UnlockPlayerMovement()
+        {
+            controller.canMove = true;
+            controller.canTurn = true;
         }
     }
 }
