@@ -19,6 +19,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject DialogCanvas;
         public GameObject SimpleDialogCanvas;
 
+        public GameObject SkullSecondTrap;
         public TestAttacker attacker;
 
         public int curStage = 1;
@@ -49,6 +50,7 @@ namespace Assets.Scripts.Centers.Test
             }
             CheckTicket(DialogCanvas.gameObject);
             CheckTicket(SimpleDialogCanvas.gameObject);
+            CheckTicket(SkullSecondTrap.gameObject);
         }
     }
 }

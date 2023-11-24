@@ -252,16 +252,33 @@ namespace Assets.Scripts.Player
 
         public void GetBackToNPC(Transform dest)
         {
-
-            //방향 돌리고
             Vector3 direction = dest.position - controller.PlayerObj.position;
-            direction.y = 0;
-            controller.PlayerObj.rotation = Quaternion.LookRotation(direction);
-
+            //방향 돌리고
+            StartCoroutine(GetBackToNPCCoroutine(dest));
             //앞쪽으로 1만큼만 이동(테스트)
             controller.transform.Translate(direction.normalized * 1f);
         }
 
+        private IEnumerator GetBackToNPCCoroutine(Transform dest)
+        {
+            if (dest == null) yield break;
+            while(true)
+            {
+                Vector3 direction = dest.position - controller.PlayerObj.position;
+                direction.y = 0;
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                controller.PlayerObj.rotation = Quaternion.Slerp(controller.PlayerObj.rotation, rotation, Time.deltaTime * 10f);
+
+                float angleDifference = Quaternion.Angle(controller.PlayerObj.rotation, rotation);
+
+                if(angleDifference <=1.0f) 
+                {
+                    yield break;
+                }
+                yield return null;
+            }
+            
+        }
         public void LockPlayerMovement()
         {
             controller.canMove = false;

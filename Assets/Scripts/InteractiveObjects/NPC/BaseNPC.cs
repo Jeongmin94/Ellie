@@ -11,7 +11,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
     {
         //NPC 및 퀘스트 데이터
         protected NPCData npcData;
-        protected Dictionary<int, QuestData> questDataDict;
+        //protected Dictionary<int, QuestData> questDataDict;
         protected QuestData curQuestData;
 
         protected bool isInteracting;
@@ -20,7 +20,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private Transform NPCObj;
 
         //플레이어 참조
-        protected PlayerQuest player;
+        public PlayerQuest player;
         
 
         [SerializeField] private int NPCIndex;
@@ -38,26 +38,29 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void Start()
         {
-            //npc데이터 초기화
-            StartCoroutine(Init());
+            
         }
 
-        private IEnumerator Init()
+        protected void Init()
+        {
+            StartCoroutine(InitCoroutine());
+        }
+        private IEnumerator InitCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
-            questDataDict = new();
-            foreach(int dataIdx in npcData.questList)
-            {
-                QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
-                questDataDict.Add(dataIdx, data);
-            }
-            curQuestData = questDataDict[npcData.questList[0]];
+            //questDataDict = new();
+            //foreach(int dataIdx in npcData.questList)
+            //{
+            //    QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
+            //    questDataDict.Add(dataIdx, data);
+            //}
+            //curQuestData = questDataDict[npcData.questList[0]];
         }
         public virtual void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
-            LookAtPlayer();
+            //LookAtPlayer();
         }
 
         protected void LookAtPlayer()
