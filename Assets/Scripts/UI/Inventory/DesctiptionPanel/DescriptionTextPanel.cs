@@ -1,5 +1,6 @@
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
+using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
 
@@ -49,6 +50,16 @@ namespace Assets.Scripts.UI.Inventory
             descText.fontSize = fontSize;
             descText.alignment = TextAlignmentOptions.TopLeft;
             descText.lineSpacing = lineHeight;
+        }
+        
+        public void SetTypographyData(TextTypographyData data)
+        {
+            descText.font = data.fontAsset;
+            descText.color = data.color;
+            descText.fontSize = data.fontSize;
+            descText.alignment = data.alignmentOptions;
+            descText.lineSpacing = data.lineSpacing;
+            descText.text = data.title;
         }
 
         public void SetDescriptionText(string text)

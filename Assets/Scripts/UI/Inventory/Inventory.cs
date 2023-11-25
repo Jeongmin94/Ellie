@@ -11,6 +11,7 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.UI;
 using Vector2 = UnityEngine.Vector2;
@@ -61,6 +62,11 @@ namespace Assets.Scripts.UI.Inventory
         {
             DescriptionImageArea,
         }
+
+        [Header("폰트 설정 데이터")] 
+        
+        [SerializeField] private TextTypographyData descriptionData;
+        [SerializeField] private TextTypographyData descriptionNameData;
 
         [SerializeField] private UITransformData consumptionTransformData;
         [SerializeField] private UITransformData stoneTransformData;
@@ -228,9 +234,15 @@ namespace Assets.Scripts.UI.Inventory
         {
             // description panel
             descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
+            
+            // descriptionNamePanel.SetTypographyData(descriptionNameData);
+            
             descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
 
             descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
+            
+            // descriptionTextPanel.SetTypographyData(descriptionData);
+            
             descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
 
             descriptionSlot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);
