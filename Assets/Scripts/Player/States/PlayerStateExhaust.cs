@@ -32,6 +32,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnFixedUpdateState()
         {
+            // !TODO : 탈진 상태에서 움직일 때와 아닐 때에 대한 애니메이션 처리를 진행해야 합니다
             Controller.MovePlayer(moveSpeed);
         }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
@@ -10,7 +11,8 @@ namespace Assets.Scripts.UI.Dialog
 {
     public class DialogText : MonoBehaviour
     {
-        private bool IsPlaying { get; set; } = false;
+        public bool IsPlaying { get; set; } = false;
+        private Action<bool> isPlayingAction;
         private bool OnNext { get; set; } = false;
 
         private IEnumerator playingEnumerator;
@@ -104,6 +106,9 @@ namespace Assets.Scripts.UI.Dialog
             StopCoroutine(blinkEnumerator);
 
             IsPlaying = true;
+
+            //여기서 페이로드 쏘기
+            PublishIsPlayingAction(true);
             currentText = text;
             currentInterval = interval;
 
@@ -125,6 +130,8 @@ namespace Assets.Scripts.UI.Dialog
             }
 
             IsPlaying = false;
+            //여기서 페이로드 쏘기
+            PublishIsPlayingAction(false);
             OnNext = false;
             onPause = false;
             dialogText.text = text;
@@ -167,5 +174,17 @@ namespace Assets.Scripts.UI.Dialog
 
             onBlink = false;
         }
+
+        public void SubscribeIsPlayingAction(Action<bool> listener)
+        {
+            isPlayingAction -= listener;
+            isPlayingAction += listener;
+        }
+        
+        private void PublishIsPlayingAction(bool b)
+        {
+            isPlayingAction?.Invoke(b);
+        }
     }
+
 }

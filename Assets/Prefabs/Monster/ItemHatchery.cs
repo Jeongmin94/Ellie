@@ -45,7 +45,7 @@ using UnityEngine;
         public Poolable DropItem(int itemIndex)
         {
             Poolable obj = itemPool.Pop();
-            obj.GetComponent<TestItemDrop>().data = DataManager.Instance.GetIndexData<ConsumableItemData, ConsumableItemDataParsingInfo>(itemIndex);
+            obj.GetComponent<TestItemDrop>().data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIndex);
 
             return obj;
         }
