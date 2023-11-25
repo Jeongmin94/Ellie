@@ -215,11 +215,6 @@ namespace Assets.Scripts.Player
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
-            //=>for pickaxe loot test
-            if(Input.GetKeyDown(KeyCode.U))
-            {
-                GetPickaxeTest();
-            }
         }
         private void FixedUpdate()
         {
@@ -659,7 +654,6 @@ namespace Assets.Scripts.Player
                 GetComponent<PlayerInventory>().OnInventoryToggle();
             }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
-            //hasStone = !uiPayload.isItemNull;
             switch (uiPayload.groupType)
             {
                 case UI.Inventory.GroupType.Item:
@@ -675,22 +669,13 @@ namespace Assets.Scripts.Player
                         curStoneIdx = 0;
                     break;
                 case UI.Inventory.GroupType.Etc:
-                    if (uiPayload.itemData != null && uiPayload.itemData.index >= 9000 && uiPayload.itemData.index < 9005)
-                    {
-                        if (!isPickaxeAvailable)
-                        {
-                            isPickaxeAvailable = true;
-                        }
-                        curPickaxeTier = (Pickaxe.Tier)uiPayload.itemData.index;
-                        pickaxe.LoadPickaxeData((Pickaxe.Tier)uiPayload.itemData.index);
-                    }
                     break;
                 default:
                     break;
             }
         }
 
-        private void GetPickaxeTest()
+        public void GetPickaxe(int pickaxeIdx)
         {
             UIPayload payload = new()
             {
@@ -698,12 +683,17 @@ namespace Assets.Scripts.Player
                 groupType = UI.Inventory.GroupType.Etc,
                 slotAreaType = UI.Inventory.SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(9000)
+                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx)
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
+
             DialogPayload dPayload = DialogPayload.Play("곡괭이를 얻었다!!");
             dPayload.canvasType = DialogCanvasType.Simple;
+
             ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+            isPickaxeAvailable = true;
+            curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
+            pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
         }
     }
 }

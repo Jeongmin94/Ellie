@@ -290,5 +290,10 @@ namespace Assets.Scripts.Player
             controller.canMove = true;
             controller.canTurn = true;
         }
+
+        public void GetPickaxe(int pickaxeIdx)
+        {
+            controller.GetPickaxe(pickaxeIdx);
+        }
     }
 }

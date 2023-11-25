@@ -20,7 +20,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private Transform NPCObj;
 
         //플레이어 참조
-        public PlayerQuest player;
+        protected PlayerQuest player;
         
 
         [SerializeField] private int NPCIndex;

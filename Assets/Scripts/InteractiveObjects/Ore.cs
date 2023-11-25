@@ -1,11 +1,14 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.InteractiveObjects.NPC;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,6 +45,9 @@ namespace Assets.Scripts.InteractiveObjects
         public float regenerationTime = 4f;
         public bool canMine;
 
+        //npc 이벤트
+        private Action firstMineAction;
+        private bool isFirstMine = true;
         private void Awake()
         {
             InitTicketMachine();
@@ -101,6 +107,11 @@ namespace Assets.Scripts.InteractiveObjects
                 Debug.Log("during mining");
                 DropStone(data.whileMiningDropItemList);
                 idx--;
+                if(isFirstMine)
+                {
+                    Publish();
+                    isFirstMine = false;
+                }
             }
 
             if (hp <= 0)
@@ -136,7 +147,7 @@ namespace Assets.Scripts.InteractiveObjects
 
         private void DropStone(List<(int, float)> dropItemList)
         {
-            float rand = Random.Range(0f, 1.0f);
+            float rand = UnityEngine.Random.Range(0f, 1.0f);
             float accChance = 0f;
             foreach (var item in dropItemList)
             {
@@ -160,7 +171,7 @@ namespace Assets.Scripts.InteractiveObjects
                             List<StoneData> tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().
                                 stones.Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
                             if (tempStones.Count <= 0) continue;
-                            int randIndex = Random.Range(0, tempStones.Count);
+                            int randIndex = UnityEngine.Random.Range(0, tempStones.Count);
                             MineStone(tempStones[randIndex].index);
                         }
                     }
@@ -184,7 +195,7 @@ namespace Assets.Scripts.InteractiveObjects
 
         private Vector3 GetRandVector()
         {
-            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+            Vector3 vec = new(UnityEngine.Random.Range(-1.0f, 1.0f), 0.5f, 0);
             return vec.normalized;
         }
 
@@ -209,6 +220,20 @@ namespace Assets.Scripts.InteractiveObjects
                 return;
             }
             player.SetCurOre(this);
+        }
+
+        public void SubscribeFirstMineAction(Action listener)
+        {
+            firstMineAction -= listener;
+            firstMineAction += listener;
+        }
+        public void UnSubscribeFirstMineAction(Action listener)
+        {
+            firstMineAction -= listener;
+        }
+        private void Publish()
+        {
+            firstMineAction?.Invoke();
         }
     }
 }
