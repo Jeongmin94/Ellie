@@ -60,7 +60,7 @@ namespace Assets.Scripts.Player
         private Vector3 launchDirection;
         private float chargingTime = 0.0f;
         private float chargingRatio = 0.0f;
-       
+
         private void OnEnable()
         {
             SubscribeAction();
@@ -94,6 +94,7 @@ namespace Assets.Scripts.Player
                 }
             }
         }
+
         public void Shoot(TicketMachine ticketMachine, int stoneIdx)
         {
             //해처리로 이벤트 보내기
@@ -112,7 +113,6 @@ namespace Assets.Scripts.Player
                 uiType = UIType.Notify,
                 actionType = ActionType.ConsumeSlotItem,
                 groupType = UI.Inventory.GroupType.Stone
-
             };
             lineRenderer.enabled = false;
             chargingTime = 0.0f;
@@ -147,6 +147,7 @@ namespace Assets.Scripts.Player
             //    chargingData.ChargingValue.Value = 0.0f;
             //}
         }
+
         //public void Shoot(Poolable obj)
         //{
         //    // !TODO : SendMessage를 통해 StoneHatchery가 지정된 위치에서 돌 생성, 돌 발사 로직 실행
