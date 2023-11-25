@@ -122,7 +122,7 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
             EventBus.Instance.Subscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
-            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
+            EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
         }
 
         /// <summary>
@@ -576,12 +576,12 @@ namespace Centers.Boss
         {
             float cooldownValue = payload.FloatValue;
             payload.BoolValue = false;
-            ApplyBossAttackCooldown(payload);
+            OnApplySingleBossCooldown(payload);
 
             yield return new WaitForSeconds(cooldownValue);
 
             payload.BoolValue = true;
-            ApplyBossAttackCooldown(payload);
+            OnApplySingleBossCooldown(payload);
         }
 
 
