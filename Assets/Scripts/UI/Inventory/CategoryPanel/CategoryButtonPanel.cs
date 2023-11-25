@@ -1,10 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Channels.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using static Assets.Scripts.Managers.InventorySavePayload;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -253,20 +255,31 @@ namespace Assets.Scripts.UI.Inventory
 
         #region SaveLoad
 
-        public void MoveItemToTargetSlot(UIPayload payload, SlotAreaType targetSlotAreaType, int targetIdx)
+        public void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
         {
-            if (slotAreas.TryGetValue(targetSlotAreaType, out var areas))
+            // 1. 특정 슬롯 인덱스에 아이템 추가 및 수량 반영
+            if (slotAreas.TryGetValue(SlotAreaType.Item, out var areas))
             {
-                areas[(int)payload.groupType].MoveItemToTargetSlot(payload, targetIdx);
+                var area = areas[(int)saveInfo.groupType];
+                area.LoadItem(saveInfo, payload);
+                area.UpdateItem(saveInfo); // 수량 업데이트
+
+                // 2. 장착된 아이템이면 해당 장착 슬롯에 아이템 장착
+                if (saveInfo.equipmentSlotIndex != ItemSaveInfo.InvalidIndex)
+                {
+                    InventoryEventPayload eventPayload = new InventoryEventPayload();
+                    eventPayload.eventType = InventoryEventType.CopyItemWithDrag;
+
+                    // baseSlotItem + targetSlot
+                    var equipmentArea = slotAreas[SlotAreaType.Equipment][(int)saveInfo.groupType];
+                    var targetSlot = equipmentArea.GetSlots()[saveInfo.equipmentSlotIndex];
+                    eventPayload.slot = targetSlot;
+
+                    eventPayload.baseSlotItem = area.GetSlots()[saveInfo.itemSlotIndex].GetBaseSlotItem();
+
+                    panelInventoryAction?.Invoke(eventPayload);
+                }
             }
-        }
-
-        public void UnEquipItem(UIPayload payload)
-        {
-        }
-
-        public void UpdateItem(UIPayload uiPayload, int count)
-        {
         }
 
         #endregion

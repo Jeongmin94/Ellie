@@ -501,7 +501,6 @@ namespace Assets.Scripts.UI.Inventory
                 uiPayload.isStoneNull = false;
             }
 
-
             return uiPayload;
         }
 
@@ -643,47 +642,18 @@ namespace Assets.Scripts.UI.Inventory
                 }
 
                 UIPayload uiPayload = new UIPayload();
-                uiPayload.uiType = UIType.Notify;
-                uiPayload.actionType = ActionType.AddSlotItem;
-                uiPayload.groupType = type;
-                uiPayload.onDragParent = transform;
-
                 uiPayload.itemData = metaData;
-
-                // 아이템 추가
-                AddItem(uiPayload);
-
-                // 이동
-                MoveItem(uiPayload, SlotAreaType.Item, info.itemSlotIndex);
-
-                // 장착 여부 확인
-                if (info.equipmentSlotIndex == ItemSaveInfo.InvalidIndex)
-                {
-                    UnEquipItem(uiPayload);
-                }
-                else
-                {
-                    MoveItem(uiPayload, SlotAreaType.Equipment, info.equipmentSlotIndex);
-                }
-
-                // 수량 업데이트
-                UpdateItem(uiPayload, info.itemCount);
+                uiPayload.onDragParent = transform;
+                
+                LoadItem(info, uiPayload);
             }
         }
 
-        // 아이템 위치 이동
-        private void MoveItem(UIPayload payload, SlotAreaType targetSlotAreaType, int targetIdx)
+        private void LoadItem(ItemSaveInfo saveInfo, UIPayload payload) 
         {
-            buttonPanel.MoveItemToTargetSlot(payload, targetSlotAreaType, targetIdx);
+            buttonPanel.LoadItem(saveInfo, payload);
         }
 
-        private void UnEquipItem(UIPayload payload)
-        {
-        }
-
-        private void UpdateItem(UIPayload uiPayload, int count)
-        {
-        }
 
         #endregion
     }
