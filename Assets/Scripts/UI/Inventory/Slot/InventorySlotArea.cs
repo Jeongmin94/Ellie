@@ -368,9 +368,10 @@ namespace Assets.Scripts.UI.Inventory
             return slotsWithItem;
         }
 
-        #endregion
-
-        #region SaveLoad
+        public void ClearSlot()
+        {
+            slots.ForEach(slot => slot.SlotItemData?.Reset());
+        }
 
         public void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
         {

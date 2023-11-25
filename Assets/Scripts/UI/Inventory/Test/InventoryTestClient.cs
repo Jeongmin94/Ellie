@@ -1,4 +1,3 @@
-using System.Collections;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
@@ -6,6 +5,7 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -52,6 +52,18 @@ namespace Assets.Scripts.UI.Inventory.Test
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                Debug.Log($"세이브 인벤토리");
+                SaveLoadManager.Instance.SaveData();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                Debug.Log($"로드 인벤토리");
+                SaveLoadManager.Instance.LoadData();
+            }
+
             // 인벤토리 On/Off
             if (Input.GetKeyDown(KeyCode.I))
             {

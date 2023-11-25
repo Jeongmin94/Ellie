@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Item;
@@ -585,11 +586,14 @@ namespace Assets.Scripts.UI.Inventory
 
                     // 아이템 슬롯 인덱스
                     saveInfo.itemSlotIndex = slot.Index;
-                    var equipmentSlot = slotItem.equipmentSlotItems[SlotAreaType.Equipment].GetSlot();
-                    if (equipmentSlot)
+                    if (slotItem.slots.TryGetValue(SlotAreaType.Equipment, out var equipmentSlot))
+                    {
                         saveInfo.equipmentSlotIndex = equipmentSlot.Index;
+                    }
                     else
+                    {
                         saveInfo.equipmentSlotIndex = ItemSaveInfo.InvalidIndex;
+                    }
 
                     savePayload.AddItemSaveInfo(saveInfo);
                 }
@@ -608,6 +612,10 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (payload is not InventorySavePayload savePayload)
                 return;
+
+            // 로드전 초기화
+            Debug.Log($"Inventory Load");
+            buttonPanel.ClearSlotAreas();
 
             goods.gold.Value = savePayload.goodsSaveInfo.goldAmount;
             goods.stonePiece.Value = savePayload.goodsSaveInfo.stoneAmount;
@@ -644,16 +652,15 @@ namespace Assets.Scripts.UI.Inventory
                 UIPayload uiPayload = new UIPayload();
                 uiPayload.itemData = metaData;
                 uiPayload.onDragParent = transform;
-                
+
                 LoadItem(info, uiPayload);
             }
         }
 
-        private void LoadItem(ItemSaveInfo saveInfo, UIPayload payload) 
+        private void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
         {
             buttonPanel.LoadItem(saveInfo, payload);
         }
-
 
         #endregion
     }

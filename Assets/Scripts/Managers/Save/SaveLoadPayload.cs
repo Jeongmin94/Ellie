@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.Utils;
-using System.Collections;
+﻿using System;
+using Assets.Scripts.Utils;
 using System.Collections.Generic;
 using Assets.Scripts.UI.Inventory;
-using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
@@ -29,7 +28,7 @@ namespace Assets.Scripts.Managers
         public struct ItemSaveInfo
         {
             public const int InvalidIndex = -1;
-            
+
             public GroupType groupType;
             public int itemIndex;
             public int itemCount;
@@ -44,7 +43,7 @@ namespace Assets.Scripts.Managers
             public int stoneAmount;
         }
 
-        private readonly List<ItemSaveInfo> saveInfos = new List<ItemSaveInfo>();
+        public readonly List<ItemSaveInfo> saveInfos = new List<ItemSaveInfo>();
         public GoodsSaveInfo goodsSaveInfo;
 
         public void AddItemSaveInfo(ItemSaveInfo info) => saveInfos.Add(info);

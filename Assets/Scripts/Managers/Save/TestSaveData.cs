@@ -18,11 +18,12 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 Debug.Log("Save");
                 SaveLoadManager.Instance.SaveData();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 Debug.Log("Load");
@@ -52,6 +53,7 @@ namespace Assets.Scripts.Managers
             {
                 Debug.Log(vector);
             }
+
             SaveLoadManager.Instance.AddPayloadTable(saveloadType, testPayload);
         }
 
@@ -67,12 +69,5 @@ namespace Assets.Scripts.Managers
                 Debug.Log(vector);
             }
         }
-
-        #region Inventory
-
-        
-
-        #endregion
-        
     }
 }

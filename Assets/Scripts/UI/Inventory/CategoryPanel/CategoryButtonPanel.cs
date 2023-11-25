@@ -1,9 +1,8 @@
-using System;
-using System.Collections.Generic;
-using Assets.Scripts.Item;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Channels.UI;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Assets.Scripts.Managers.InventorySavePayload;
@@ -254,6 +253,14 @@ namespace Assets.Scripts.UI.Inventory
         #endregion
 
         #region SaveLoad
+
+        public void ClearSlotAreas()
+        {
+            foreach (var areas in slotAreas.Values)
+            {
+                areas.ForEach(area => area.ClearSlot());
+            }
+        }
 
         public void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
         {

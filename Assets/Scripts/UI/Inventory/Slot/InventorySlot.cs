@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
@@ -7,6 +5,8 @@ using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
 using Channels.UI;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -42,7 +42,7 @@ namespace Assets.Scripts.UI.Inventory
             if (SlotItemData == null)
                 return null;
 
-            return itemImage.GetComponent<BaseSlotItem>();
+            return SlotItemData.slotItems[SlotType];
         }
 
         private void Awake()

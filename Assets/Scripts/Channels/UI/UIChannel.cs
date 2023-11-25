@@ -20,7 +20,6 @@ namespace Channels.UI
         MoveCounterClockwise,
         SetPlayerProperty,
         ClickCloseButton,
-        LoadItem
     }
 
     public class UIPayload : IBaseEventPayload
