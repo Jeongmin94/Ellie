@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Utils;
-using Channels.UI;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -68,5 +67,12 @@ namespace Assets.Scripts.Managers
                 Debug.Log(vector);
             }
         }
+
+        #region Inventory
+
+        
+
+        #endregion
+        
     }
 }

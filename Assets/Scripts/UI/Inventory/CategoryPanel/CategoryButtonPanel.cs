@@ -237,14 +237,15 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
+
         public void MoveItem(SlotAreaType slotAreaType, UIPayload payload)
         {
-            if (type == GroupType.Etc)
-                return;
-
-            if (slotAreas.TryGetValue(slotAreaType, out var area))
+            if (slotAreaType != SlotAreaType.Description)
             {
-                area[(int)type].MoveItem(payload);
+                if (slotAreas.TryGetValue(slotAreaType, out var area))
+                {
+                    area[(int)payload.groupType].MoveItem(payload);
+                }
             }
         }
 
@@ -252,7 +253,21 @@ namespace Assets.Scripts.UI.Inventory
 
         #region SaveLoad
 
-        // public void MoveItem(UIPayload payload, )
+        public void MoveItemToTargetSlot(UIPayload payload, SlotAreaType targetSlotAreaType, int targetIdx)
+        {
+            if (slotAreas.TryGetValue(targetSlotAreaType, out var areas))
+            {
+                areas[(int)payload.groupType].MoveItemToTargetSlot(payload, targetIdx);
+            }
+        }
+
+        public void UnEquipItem(UIPayload payload)
+        {
+        }
+
+        public void UpdateItem(UIPayload uiPayload, int count)
+        {
+        }
 
         #endregion
     }

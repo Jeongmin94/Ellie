@@ -655,6 +655,8 @@ namespace Assets.Scripts.UI.Inventory
 
                 // 이동
                 MoveItem(uiPayload, SlotAreaType.Item, info.itemSlotIndex);
+
+                // 장착 여부 확인
                 if (info.equipmentSlotIndex == ItemSaveInfo.InvalidIndex)
                 {
                     UnEquipItem(uiPayload);
@@ -669,8 +671,10 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
+        // 아이템 위치 이동
         private void MoveItem(UIPayload payload, SlotAreaType targetSlotAreaType, int targetIdx)
         {
+            buttonPanel.MoveItemToTargetSlot(payload, targetSlotAreaType, targetIdx);
         }
 
         private void UnEquipItem(UIPayload payload)

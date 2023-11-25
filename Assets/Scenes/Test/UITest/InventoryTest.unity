@@ -207,6 +207,50 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &437930325
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 437930327}
+  - component: {fileID: 437930326}
+  m_Layer: 0
+  m_Name: SaveLoadTestClient
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &437930326
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437930325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 604924f29f51e4e4c9059240bda18dea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &437930327
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 437930325}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1440.916, y: 369.81467, z: -1.7992219}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &900775020
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   consumableItemDataParsingInfo: {fileID: 11400000, guid: 2223109af0079f648a7d0078a633c57d, type: 2}
+  stoneDataParsingInfo: {fileID: 11400000, guid: 872d3f2f4674a0946a2c79b6dbeffcd7, type: 2}
   gameGoods: {fileID: 11400000, guid: a0101c60cb2252647a2e44d0c3c85951, type: 2}
 --- !u!114 &900775023
 MonoBehaviour:
@@ -261,7 +306,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 900775020}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3db165872bed4f4a9d507085ed03faec, type: 3}
   m_Name: 
@@ -602,7 +647,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dataList:
   - {fileID: 11400000, guid: 2223109af0079f648a7d0078a633c57d, type: 2}
-  - {fileID: 11400000, guid: 8d04e0f3c7f3fa34386b54ae0d6b841f, type: 2}
+  - {fileID: 11400000, guid: 872d3f2f4674a0946a2c79b6dbeffcd7, type: 2}
 --- !u!1001 &999298873095217048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -798,6 +843,10 @@ PrefabInstance:
     - target: {fileID: 8241341964973389146, guid: 7e56ad0c97ddc7c449fe49b7e97f5b0b, type: 3}
       propertyPath: m_Name
       value: DialogCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8241341964973389146, guid: 7e56ad0c97ddc7c449fe49b7e97f5b0b, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e56ad0c97ddc7c449fe49b7e97f5b0b, type: 3}

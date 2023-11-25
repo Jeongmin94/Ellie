@@ -367,5 +367,18 @@ namespace Assets.Scripts.UI.Inventory
         }
 
         #endregion
+
+        #region SaveLoad
+
+        public void MoveItemToTargetSlot(UIPayload payload, int targetIdx)
+        {
+            var curSlot = FindSlot(payload.itemData.index);
+            if (curSlot == null)
+                return;
+            
+            
+        }
+
+        #endregion
     }
 }
