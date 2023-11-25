@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
+
+
 using System.Collections;
 using UnityEngine;
 
@@ -82,8 +84,23 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             //6015퀘스트를 받을 수 있는 경우
             if(player.GetQuestStatus((int)SecondSkullQuest.Quest6105) == QuestStatus.Unaccepted)
             {
+                LookAtPlayer();
+                player.StartConversation();
+
+                StartCoroutine(Quest6105Coroutine1());
+            }
+
+            //6105퀘스트 완료 후 말걸기
+
+            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6105) == QuestStatus.Done)
+            {
+                LookAtPlayer();
+                player.StartConversation();
+
+                StartCoroutine(Quest6105Coroutine2());
 
             }
+
         }
 
         private IEnumerator Quest6103Coroutine1()
@@ -159,6 +176,39 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetQuestStatus((int)SecondSkullQuest.Quest6104, QuestStatus.End);
             player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.Unaccepted);
         }
+
+        private IEnumerator Quest6105Coroutine1()
+        {
+            if (player == null)
+            {
+                Debug.Log("Player is Null");
+                yield break;
+            }
+            yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Unaccepted, npcData.name));
+            player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.Done);
+
+            EndInteract();
+            player.EndConversation();
+        }
+
+        private IEnumerator Quest6105Coroutine2()
+        {
+            if (player == null)
+            {
+                Debug.Log("Player is Null");
+                yield break;
+            }
+            yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Done, npcData.name));
+            player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.End);
+
+            player.GetReward((int)SecondSkullQuest.Quest6105);
+
+            EndInteract();
+            player.EndConversation();
+
+            gameObject.SetActive(false);
+        }
+
 
         private void CheckTrap()
         {
