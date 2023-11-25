@@ -50,7 +50,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected Vector3 spawnPosition;
 
-        protected MonsterAudioController audioController;
+        protected MonsterAudioController audioController;        
 
         public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {
@@ -115,6 +115,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
             isDamaged.value = true;
             if (currentHP <= 0)
             {
+                DropItem();
                 isDead.value = true;
                 MonsterDead();
             }
@@ -143,7 +144,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
             yield return new WaitForSeconds(monsterRespawnTime);
 
             GetComponent<Collider>().enabled = true;
-            ReturnSpawnLocation();
             animator.Play("IdleAttack");
             isDamaged.value = false;
             currentHP = monsterData.maxHP;
@@ -154,6 +154,25 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public virtual void ReturnSpawnLocation()
         { }
+
+        public void DropItem()
+        {
+            //Debug.Log("Entered Function");
+            //foreach (DropItem a in dropableItem.items)
+            //{
+            //    Debug.Log("Entered Foreach");
+            //    float random = Random.Range(0.0f, 1.0f);
+            //    if (random < a.dropChance)
+            //    {
+            //        Debug.Log("Item Droped");
+            //        Vector3 itemLocation = transform.position;
+            //        itemLocation.y += 1.0f;
+            //        Instantiate(a, itemLocation,transform.rotation);
+            //        break;
+            //    }
+            //}
+            //Debug.Log("Finish Foreach");
+        }
     }
 
 }
