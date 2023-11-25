@@ -12,20 +12,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-// !TODO: 대화창 UI 종류
-// 1. 이름 + 대화
-//      - 배경이 비쳐 보이는 이름과 대사창
-//      - 넘기기 버튼으로 대사 넘기기 가능(스킵 없음)
-//      - 플레이어의 조작권 회수 여부
-// 2. 대화
-//      - 대사창이 없는 상태로 대사를 출력
-//      - 일정 시간이 지나면 자동으로 사라짐
-//      - 조작권은 플레이어에게 있음
-
-// !TODO: 대사 출력 방법
-//      - 대사는 앞에서부터 순차적으로 출력
-//      - 대사의 발화자가 바뀌거나, 대사창을 초과하는 경우에는 넘기기 버튼을 클릭할 때까지 대기
-//      - 말풍선은 캐릭터의 머리 위로 투명도가 낮은 흰색 말풍선 사용
 namespace Assets.Scripts.UI.Dialog
 {
     public class DialogCanvas : UIPopup
@@ -83,7 +69,11 @@ namespace Assets.Scripts.UI.Dialog
             InitObjects();
             InitTicketMachine();
         }
-
+        private void Start()
+        {
+            dialogPanel.gameObject.SetActive(false);
+            dialogContextText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
+        }
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
@@ -102,6 +92,9 @@ namespace Assets.Scripts.UI.Dialog
 
             dialogTitle = GetText((int)Texts.DialogTitle);
             dialogNext = GetText((int)Texts.DialogNext);
+
+            //contextText의 정보를 페이로드통해 송신하기 위한 이벤트 구독
+            
         }
 
         private void InitObjects()
@@ -135,50 +128,71 @@ namespace Assets.Scripts.UI.Dialog
 
         private void OnNotify(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload dialogPayload)
-                return;
+            if (payload is not DialogPayload dialogPayload) return;
+
+            if (dialogPayload.dialogType != DialogType.Notify) return;
+
+            if (dialogPayload.canvasType != DialogCanvasType.Default) return;
 
             switch (dialogPayload.dialogAction)
             {
                 case DialogAction.Play:
-                {
-                    dialogPanel.gameObject.SetActive(true);
+                    {
+                        if (dialogContextText.IsPlaying)
+                        {
+                            //isPlaying일 때 다시 Play 요청이 들어오면 OnNext하도록
+                            dialogContextText.Next();
 
-                    dialogTitle.text = dialogPayload.speaker;
-                    dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
-                }
+                            break;
+                        }
+                        dialogPanel.gameObject.SetActive(true);
+
+                        dialogTitle.text = dialogPayload.speaker;
+                        dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
+                    }
                     break;
 
                 case DialogAction.Stop:
-                {
-                    if (dialogContextText.Stop())
                     {
-                        dialogPanel.gameObject.SetActive(false);
+                        if (dialogContextText.Stop())
+                        {
+                            dialogPanel.gameObject.SetActive(false);
+                        }
                     }
-                }
                     break;
 
                 case DialogAction.Resume:
-                {
-                    dialogContextText.SetPause(false);
-                }
+                    {
+                        dialogContextText.SetPause(false);
+                    }
                     break;
 
                 case DialogAction.Pause:
-                {
-                    dialogContextText.SetPause(true);
-                }
+                    {
+                        dialogContextText.SetPause(true);
+                    }
                     break;
 
                 case DialogAction.OnNext:
-                {
-                    dialogContextText.Next();
-                }
+                    {
+                        dialogContextText.Next();
+                    }
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void SendPayloadToClientEvent(bool _isPlaying)
+        {
+            Debug.Log("Send Dialog Payload to Player, isPlaying : " + _isPlaying);
+
+            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
+            {
+                dialogType = DialogType.NotifyToClient,
+                isPlaying = _isPlaying
+            });
         }
     }
 }

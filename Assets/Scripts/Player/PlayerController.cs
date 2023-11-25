@@ -5,6 +5,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
 using Assets.Scripts.Utils;
 using Channels.Components;
+using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Cinemachine;
@@ -81,6 +82,7 @@ namespace Assets.Scripts.Player
 
         [Header("Dodge")]
         [SerializeField] private float dodgeInvulnerableTime;
+        [SerializeField] private float timeToDodgeAfterDown;
 
         [Header("ActionData")]
         [SerializeField] private AimTargetData aimTargetData;
@@ -102,6 +104,8 @@ namespace Assets.Scripts.Player
                 aimTarget = value;
             }
         }
+
+        public Transform aimTransform;
 
         public float zoomMultiplier;
 
@@ -149,6 +153,7 @@ namespace Assets.Scripts.Player
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
         public float LandStateDuration { get { return landStateDuration; } }
         public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
+        public float TimeToDodgeAfterDown { get { return  timeToDodgeAfterDown; } }
         public Ore CurOre { get { return curOre; } }
         public float MiningTime { get { return miningTime; } }
         public bool IsPickaxeAvailable { get { return isPickaxeAvailable; } }
@@ -180,8 +185,9 @@ namespace Assets.Scripts.Player
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
 
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog);
             ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
+            ticketMachine.RegisterObserver(ChannelType.Dialog, GetComponent<PlayerQuest>().SetIsPlaying);
         }
 
         private void Start()
@@ -209,12 +215,6 @@ namespace Assets.Scripts.Player
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
-            //=>for pickaxe loot test
-            if(Input.GetKeyDown(KeyCode.U))
-            {
-                GetPickaxeTest();
-            }
-
         }
         private void FixedUpdate()
         {
@@ -561,6 +561,8 @@ namespace Assets.Scripts.Player
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
+            aimTransform.position = shootRay.origin + 5f * shootRay.direction.normalized;
+            cinematicAimCam.LookAt = aimTransform;
         }
         public void LookAimTarget()
         {
@@ -652,39 +654,28 @@ namespace Assets.Scripts.Player
                 GetComponent<PlayerInventory>().OnInventoryToggle();
             }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
-            //hasStone = !uiPayload.isItemNull;
-
-
             switch (uiPayload.groupType)
             {
-                case UI.Inventory.GroupType.Consumption:
+                case UI.Inventory.GroupType.Item:
                     break;
                 case UI.Inventory.GroupType.Stone:
                     Debug.Log("!!");
                     hasStone = !uiPayload.isStoneNull;
                     if (uiPayload.itemData != null)
+                    {
                         curStoneIdx = uiPayload.itemData.index;
+                    }
                     else
                         curStoneIdx = 0;
                     break;
                 case UI.Inventory.GroupType.Etc:
-                    if (uiPayload.itemData != null && uiPayload.itemData.index >= 9000 && uiPayload.itemData.index < 9005)
-                    {
-                        Debug.Log(uiPayload.itemData.index);
-                        if (!isPickaxeAvailable)
-                        {
-                            isPickaxeAvailable = true;
-                        }
-                        curPickaxeTier = (Pickaxe.Tier)uiPayload.itemData.index;
-                        pickaxe.LoadPickaxeData((Pickaxe.Tier)uiPayload.itemData.index);
-                    }
                     break;
                 default:
                     break;
             }
         }
 
-        private void GetPickaxeTest()
+        public void GetPickaxe(int pickaxeIdx)
         {
             UIPayload payload = new()
             {
@@ -692,9 +683,17 @@ namespace Assets.Scripts.Player
                 groupType = UI.Inventory.GroupType.Etc,
                 slotAreaType = UI.Inventory.SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(9000)
+                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx)
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
+
+            DialogPayload dPayload = DialogPayload.Play("곡괭이를 얻었다!!");
+            dPayload.canvasType = DialogCanvasType.Simple;
+
+            ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+            isPickaxeAvailable = true;
+            curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
+            pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
         }
     }
 }

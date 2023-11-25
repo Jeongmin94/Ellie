@@ -350,7 +350,6 @@ namespace Assets.Scripts.UI.Inventory
                 return;
             }
             // !TODO : 플레이어 돌맹이 불 프로퍼티에 대한 로직 작성
-
         }
 
         private void MoveEquipmentSlot(UIPayload payload)
@@ -467,8 +466,10 @@ namespace Assets.Scripts.UI.Inventory
                 case InventoryEventType.SendMessageToPlayer:
                 {
                     // !TODO : UIChannel에 플레이어의 has 변수를 바꿔줄 이벤트 쏴야됨
+                        Debug.Log("Inventory: " + payload.groupType);
                     
-                    ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
+                    if (payload.slot != swapBuffer)
+                        ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
                 }
                     break;
 
@@ -482,19 +483,25 @@ namespace Assets.Scripts.UI.Inventory
         {
             UIPayload uiPayload = new UIPayload();
             uiPayload.uiType = UIType.Notify;
-            if(payload.slot.SlotItemData != null)
+            Debug.Log("GeneratePayloadToPlayer groupType : " +  payload.groupType);
+            if (payload.slot.SlotItemData != null)
                 uiPayload.itemData = payload.slot.SlotItemData.itemData;
             uiPayload.actionType = ActionType.SetPlayerProperty;
             uiPayload.groupType = payload.groupType;
-            if(payload.slot.SlotItemData == null)
+            if (payload.slot.SlotItemData == null)
+            {
                 uiPayload.isStoneNull = true;
+            }
             else
             {
                 //uiPayload.itemData = payload.slot.SlotItemData.itemData;
                 uiPayload.isStoneNull = false;
             }
+
+
             return uiPayload;
         }
+
         #endregion
 
         #region FrameCanvas
@@ -516,12 +523,12 @@ namespace Assets.Scripts.UI.Inventory
                 new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
             };
 
-            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
+            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Item);
             consumptionCanvas.InitFrame(directions, EquipmentFrame.DefaultPath);
             consumptionCanvas.RegisterObservers(consumptionArea.GetSlots());
-            consumptionCanvas.groupType = GroupType.Consumption;
+            consumptionCanvas.groupType = GroupType.Item;
 
-            frameCanvasMap.TryAdd(GroupType.Consumption, consumptionCanvas);
+            frameCanvasMap.TryAdd(GroupType.Item, consumptionCanvas);
         }
 
         private void InitStoneCanvas()

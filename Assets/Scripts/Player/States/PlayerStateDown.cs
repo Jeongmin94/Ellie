@@ -50,6 +50,10 @@ namespace Assets.Scripts.Player.States
         public override void OnUpdateState()
         {
             curTime += Time.deltaTime;
+            if (curTime >= Controller.TimeToDodgeAfterDown && Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                Controller.ChangeState(PlayerStateName.Dodge);
+            }
             if (curTime >= duration)
             {
                 Controller.ChangeState(PlayerStateName.GetUp);

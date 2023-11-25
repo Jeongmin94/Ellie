@@ -74,6 +74,7 @@ MonoBehaviour:
   - rid: 1683426247750189142
   - rid: 1683426247750189153
   - rid: 283011313877123073
+  - rid: 283011481676021765
   treeState: 0
   blackboard:
     keys:
@@ -95,8 +96,8 @@ MonoBehaviour:
     - rid: 1683426247750189154
     - rid: 283011291767373852
     - rid: 283011291767373853
-  viewPosition: {x: 3015, y: 397, z: 0}
-  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  viewPosition: {x: 2035.2, y: 419.2, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -360,7 +361,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 44b332547ec774a4bace54c5280559b2
-        position: {x: -2370, y: -60}
+        position: {x: -2415, y: -60}
         blackboard:
           keys: []
         description: 
@@ -377,13 +378,14 @@ MonoBehaviour:
           reference:
             rid: 283011198868258855
           defaultValue: 5
+        reverse: 0
     - rid: 283011198868258848
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: bd308942fbc0a9246ae6ff1bad14f8ab
-        position: {x: -2250, y: -375}
+        position: {x: -2295, y: -375}
         blackboard:
           keys: []
         description: 
@@ -403,7 +405,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 0d634ba2c57c9c7478e86579af72210e
-        position: {x: -2175, y: -60}
+        position: {x: -2220, y: -60}
         blackboard:
           keys: []
         description: 
@@ -418,7 +420,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 39ddd8349522bb84ab6cc62b877681af
-        position: {x: -2250, y: -255}
+        position: {x: -2295, y: -255}
         blackboard:
           keys: []
         description: 
@@ -527,6 +529,41 @@ MonoBehaviour:
         restartOnFailure: 1
         maxRepeats: 0
         repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011481676021765
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 624631bc7471e60429658a08c87233db
+        position: {x: -1980, y: 15}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373852
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 0.5, y: 0.5, z: 0.5}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 1, z: 0}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
           reference:
             rid: -2
           defaultValue: 0
@@ -802,6 +839,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1683426247750189135
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: 283011090204065834
@@ -1252,12 +1293,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fcd4865b65cf0584289beb1429664da9
-        position: {x: -1620, y: -180}
+        position: {x: -1725, y: -195}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
+        - rid: 283011481676021765
         - rid: 8619125044285014017
         - rid: 8619125030485229595
     - rid: 8619125030485229609

@@ -12,7 +12,7 @@ namespace Assets.Scripts.Player.States
         // !TODO : 쏘고 난 후의 애니메이션 필요함
         private float recoilTime;
         private float curTime;
-        
+
         public PlayerStateShoot(PlayerController controller) : base(controller)
         {
             recoilTime = controller.RecoilTime;
@@ -23,16 +23,15 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsShooting", true);
             Controller.SetTimeScale(1f);
             curTime = 0;
-            if(Controller.CurStoneIdx != 0)
+            if (Controller.CurStoneIdx != 0)
             {
                 Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine, Controller.CurStoneIdx);
-
-
             }
+
             Controller.TurnOnSlingshot();
             Controller.TurnSlingshotLineRenderer(false);
         }
-        
+
 
         public override void OnExitState()
         {
@@ -52,7 +51,6 @@ namespace Assets.Scripts.Player.States
             curTime += Time.deltaTime;
             if (curTime >= recoilTime)
             {
-
                 if (Controller.isGrounded)
                 {
                     Controller.ChangeState(PlayerStateName.Idle);
