@@ -2357,6 +2357,10 @@ PrefabInstance:
       propertyPath: weakPoint
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4008788663092322691, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
+      propertyPath: rootTreeData
+      value: 
+      objectReference: {fileID: 11400000, guid: 44f1b24c3313c904dae3b9e9d7134203, type: 2}
     - target: {fileID: 4008788663092322692, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
       propertyPath: m_Name
       value: TerrapupaMinion (2)
@@ -5451,24 +5455,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4008788663092322691, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
-      propertyPath: weakPoint
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4008788663092322691, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
-      propertyPath: rootTreeData
-      value: 
-      objectReference: {fileID: 11400000, guid: ad8d5520e0abf2c4d846e618444271fa, type: 2}
     - target: {fileID: 4008788663092322692, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
       propertyPath: m_Name
       value: TerrapupaMinion (1)
       objectReference: {fileID: 0}
-    - target: {fileID: 4008788663092322693, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
-      propertyPath: data
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 7017302335990707418, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 347aba30e1ffa1a4b9ced7d975c242b7, type: 3}
 --- !u!114 &853793467 stripped
 MonoBehaviour:
@@ -10697,7 +10688,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -1
+      value: -0.9
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11253,25 +11244,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4358872970538757724, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
-      propertyPath: data
-      value: 
-      objectReference: {fileID: 11400000, guid: 34b43620a70425b4699b416d6ee1ad8a, type: 2}
     - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
       propertyPath: m_RootOrder
       value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11317,10 +11292,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Pupa
       objectReference: {fileID: 0}
-    - target: {fileID: 4691484792249310863, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
-      propertyPath: rootTreeData
-      value: 
-      objectReference: {fileID: 11400000, guid: 34b43620a70425b4699b416d6ee1ad8a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
 --- !u!1 &1878622992

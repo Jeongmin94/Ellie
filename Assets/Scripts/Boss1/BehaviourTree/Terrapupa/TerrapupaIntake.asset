@@ -35,7 +35,6 @@ MonoBehaviour:
   - rid: 1683426247750189186
   - rid: 283011291767373838
   - rid: 283011291767373840
-  - rid: 283011470369751062
   - rid: 283011470369751063
   treeState: 0
   blackboard:
@@ -47,8 +46,8 @@ MonoBehaviour:
     - rid: 283011090204065829
     - rid: 283011090204065879
     - rid: 1401849442858696713
-  viewPosition: {x: 1869.6, y: 453.6, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 1455.2, y: 366.4, z: 0}
+  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
     RefIds:
@@ -162,22 +161,6 @@ MonoBehaviour:
           reference:
             rid: 283011090204065825
           defaultValue: 
-    - rid: 283011470369751062
-      type: {class: WaitWithTimeOut, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 27a61a2205c106340b2df4be2fd5c347
-        position: {x: -2561.037, y: -750.52484}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        timeValue:
-          reference:
-            rid: -2
-          defaultValue: 0
-        duration: 1
     - rid: 283011470369751063
       type: {class: WaitWithTimeOut, ns: , asm: Assembly.Ellie}
       data:
@@ -337,6 +320,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849442858696713
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: 283011090204065879

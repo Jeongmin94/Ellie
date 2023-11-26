@@ -1,9 +1,13 @@
 ﻿using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
+using Channels.Boss;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
+using Codice.Client.Common.GameUI;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Boss.Terrapupa
@@ -14,6 +18,8 @@ namespace Boss.Terrapupa
         [SerializeField] private Transform stone;
         [SerializeField] private TerrapupaWeakPoint weakPoint;
         [SerializeField] private TerrapupaHealthBar healthBar;
+
+        private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown = new Dictionary<TerrapupaAttackType, Coroutine>();
         
         private TicketMachine ticketMachine;
 
@@ -37,6 +43,11 @@ namespace Boss.Terrapupa
         public TerrapupaHealthBar HealthBar
         { 
             get { return healthBar; }
+        }
+
+        public Dictionary<TerrapupaAttackType, Coroutine> AttackCooldown
+        {
+            get { return attackCooldown; }
         }
 
         protected override void Awake()
@@ -88,6 +99,46 @@ namespace Boss.Terrapupa
             else 
             {
                 Debug.Log("기절 상태가 아님");
+            }
+        }
+
+        public void Cooldown(float cooldown, TerrapupaAttackType type)
+        {
+            // 마나의 샘 공격 봉인 겹치는거 방지용 딕셔너리 설정
+            attackCooldown[type] = StartCoroutine(ApplyCooldown(cooldown, type));
+        }
+
+        private IEnumerator ApplyCooldown(float cooldown, TerrapupaAttackType type)
+        {
+            Debug.Log($"{gameObject} {cooldown}초 Cooldown 시작 : {type} 공격 봉인 적용");
+            ApplyAttackAvailable(type, false);
+
+            yield return new WaitForSeconds(cooldown);
+            Debug.Log($"{gameObject} {cooldown}초 Cooldown 해제 : {type} 공격 봉인 해제");
+
+            // 마나의 샘 공격 봉인 겹치는거 방지용 딕셔너리 설정
+            attackCooldown[type] = null;
+            ApplyAttackAvailable(type, true);
+        }
+
+        public void ApplyAttackAvailable(TerrapupaAttackType type, bool isCooldownDone)
+        {
+            switch (type)
+            {
+                case TerrapupaAttackType.ThrowStone:
+                    if (terrapupaData.stoneUsable) terrapupaData.canThrowStone.Value = isCooldownDone;
+                    break;
+                case TerrapupaAttackType.EarthQuake:
+                    if (terrapupaData.earthQuakeUsable) terrapupaData.canEarthQuake.Value = isCooldownDone;
+                    break;
+                case TerrapupaAttackType.Roll:
+                    if (terrapupaData.rollUsable) terrapupaData.canRoll.Value = isCooldownDone;
+                    break;
+                case TerrapupaAttackType.LowAttack:
+                    if (terrapupaData.lowAttackUsable) terrapupaData.canLowAttack.Value = isCooldownDone;
+                    break;
+                default:
+                    break;
             }
         }
 

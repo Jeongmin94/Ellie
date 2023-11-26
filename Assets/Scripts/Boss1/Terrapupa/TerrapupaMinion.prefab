@@ -68,7 +68,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourTreeInstance: {fileID: 4008788663092322688}
-  rootTreeData: {fileID: 11400000, guid: 44f1b24c3313c904dae3b9e9d7134203, type: 2}
+  rootTreeData: {fileID: 11400000, guid: ad8d5520e0abf2c4d846e618444271fa, type: 2}
   settingList: []
   minionData: {fileID: 0}
   healthBar: {fileID: 4008788663092322693}
@@ -101,8 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d272579a7920be49b84e9ae5bf8773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: 44f1b24c3313c904dae3b9e9d7134203, type: 2}
-  scaleFactor: 0.003
+  scaleFactor: 0.002
 --- !u!1 &4008788663347610839
 GameObject:
   m_ObjectHideFlags: 0
@@ -147,15 +146,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalPosition.x

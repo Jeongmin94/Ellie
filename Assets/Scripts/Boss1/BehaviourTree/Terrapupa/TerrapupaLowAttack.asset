@@ -50,6 +50,9 @@ MonoBehaviour:
   - rid: 283011481676021761
   - rid: 283011481676021762
   - rid: 283011481676021763
+  - rid: 1683426562437021701
+  - rid: 1683426562437021704
+  - rid: 1683426562437021705
   treeState: 0
   blackboard:
     keys:
@@ -64,8 +67,10 @@ MonoBehaviour:
     - rid: 1683426247750189089
     - rid: 1683426247750189104
     - rid: 283011291767373850
-  viewPosition: {x: -1634.4, y: -370.4, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 1683426562437021702
+    - rid: 1683426562437021703
+  viewPosition: {x: -980, y: 173.6, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -85,6 +90,7 @@ MonoBehaviour:
         children:
         - rid: 283011018610442279
         - rid: 283011018610442280
+        - rid: 1683426562437021701
         - rid: 283011018610442288
     - rid: 283011018610442277
       type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -92,7 +98,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 22de29c5ef930d24f8ebd11745c196f6
-        position: {x: 2010, y: 345}
+        position: {x: 1635, y: 360}
         blackboard:
           keys: []
         description: 
@@ -107,7 +113,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6629574fb7630dc4fa064dcd6b9ac080
-        position: {x: 2205, y: 345}
+        position: {x: 1830, y: 360}
         blackboard:
           keys: []
         description: 
@@ -122,7 +128,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: eb370044e73c428468f9c0aad8e938ce
-        position: {x: 2160, y: 180}
+        position: {x: 1635, y: 195}
         blackboard:
           keys: []
         description: 
@@ -139,7 +145,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: df18f19c6765fd246890b22c41192f7c
-        position: {x: 2805, y: 240}
+        position: {x: 2325, y: 240}
         blackboard:
           keys: []
         description: 
@@ -159,7 +165,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 404e9ae248b0378488f9f8b5131e571c
-        position: {x: 2775, y: 345}
+        position: {x: 2295, y: 345}
         blackboard:
           keys: []
         description: 
@@ -365,7 +371,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 793e57bfbfabd9748873cd25863be691
-        position: {x: 2400, y: 345}
+        position: {x: 2025, y: 360}
         blackboard:
           keys: []
         description: 
@@ -414,7 +420,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2c087ac986c6a4746971bb3a9cb4b8d6
-        position: {x: 2415, y: -240}
+        position: {x: 2415, y: -315}
         blackboard:
           keys: []
         description: 
@@ -428,7 +434,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bbe6cf768df91b24da844d4fa000b335
-        position: {x: 1830, y: -75}
+        position: {x: 1830, y: -150}
         blackboard:
           keys: []
         description: 
@@ -442,7 +448,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9aaf12bc7bb0f8840b2b479be80b187d
-        position: {x: 1710, y: 75}
+        position: {x: 1710, y: 15}
         blackboard:
           keys: []
         description: 
@@ -458,7 +464,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 1f05857fd2e72a34aa5d3d4c2f0a84d4
-        position: {x: 1935, y: 75}
+        position: {x: 1935, y: 15}
         blackboard:
           keys: []
         description: 
@@ -492,7 +498,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ce2fd4e9075bdc34f8c8a59fd419b25e
-        position: {x: 1560, y: 345}
+        position: {x: 1185, y: 360}
         blackboard:
           keys: []
         description: 
@@ -638,7 +644,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: 2415, y: -420}
+        position: {x: 2415, y: -495}
         blackboard:
           keys: []
         description: "\uD558\uB2E8 \uACF5\uACA9"
@@ -679,7 +685,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fbe4ae1d587bae3448df51c58fa0a66a
-        position: {x: 1740, y: 345}
+        position: {x: 1365, y: 360}
         blackboard:
           keys: []
         description: 
@@ -883,3 +889,97 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+    - rid: 1683426562437021701
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 4811a70d50a7ddb439d79a4d674ff9ad
+        position: {x: 2700, y: 195}
+        blackboard:
+          keys: []
+        description: "\uCFE8\uD0C0\uC784 \uC801\uC6A9"
+        drawGizmos: 0
+        children:
+        - rid: 1683426562437021705
+        - rid: 1683426562437021704
+    - rid: 1683426562437021702
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: cooldown
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1683426562437021703
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: cooldownPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 1683426562437021704
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 55822c3af6fc82d4abc6036c0ed03204
+        position: {x: 2775, y: 360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 17
+        baseEventPayload:
+          reference:
+            rid: 1683426562437021703
+    - rid: 1683426562437021705
+      type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 9dfd27342510147428c97ee0ab053a5d
+        position: {x: 2565, y: 360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isInit:
+          reference:
+            rid: -2
+          defaultValue: 1
+        bossPayload:
+          reference:
+            rid: 1683426562437021703
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        intValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        floatValue:
+          reference:
+            rid: 1683426562437021702
+          defaultValue: 0
+        vector3Value:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        transformValue1:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        transformValue2:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        transformValue3:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        attackTypeValue:
+          reference:
+            rid: -2
+          defaultValue: 4
