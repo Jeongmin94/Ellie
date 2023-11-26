@@ -8,12 +8,9 @@ using Assets.Scripts.Managers;
 using Channels.Type;
 using Channels.Combat;
 using Assets.Scripts.StatusEffects;
-using Assets.Scripts.Item.Stone;
 using System.Collections.Generic;
 using Assets.Scripts.Particle;
 using Channels.Components;
-using static PlasticPipe.Server.MonitorStats;
-using Channels.UI;
 
 namespace Centers.Boss
 {
@@ -76,7 +73,6 @@ namespace Centers.Boss
             pupa.terrapupaData.player.Value = player.transform;
             foreach (var minion in minions)
             {
-                Debug.Log("확인");
                 minion.minionData.player.Value = player.transform;
             }
 
@@ -93,7 +89,6 @@ namespace Centers.Boss
         }
         private void CheckTickets()
         {
-            //TicketManager.Instance.CheckTicket(hatchery.gameObject);
             TicketManager.Instance.CheckTicket(terrapupa.gameObject);
             TicketManager.Instance.CheckTicket(terra.gameObject);
             TicketManager.Instance.CheckTicket(pupa.gameObject);
@@ -186,54 +181,23 @@ namespace Centers.Boss
                 Debug.Log($"Raycast distance: {hit.distance}");
                 if (!isJumping)
                 {
-                    Debug.Log($"플레이어 피해 {attack} 입음");
-                    
                     TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-                    bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                    {
-                        Attacker = boss,
-                        Defender = playerTransform,
-                        Damage = payload.IntValue,
-                        PlayerStatusEffectName = StatusEffectName.KnockedAirborne,
-                        statusEffectduration = 1.0f,
-                        force = 15.0f,
-                    });
 
-                    ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
-                    {
-                        Position = playerTransform.position,
-                        Rotation = playerTransform.rotation,
-                        Scale = new Vector3(0.5f, 0.5f, 0.5f),
-                    });
+                    HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
+                    ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
                 }
             }
             if (manaTransform != null)
             {
-                // 해당 마나의 샘 쿨타임 적용, 삭제
-                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
-                manaFountain.IsBroken = true;
-
-                EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                    new BossEventPayload
-                    {
-                        PrefabValue = hitEffect,
-                        Sender = payload.Sender,
-                        TransformValue1 = manaTransform,
-                        AttackTypeValue = manaFountain.banBossAttackType,
-                    });
+                HitedManaFountaine(boss, manaTransform, hitEffect);
             }
             if(bossTransform != null)
             {
                 // 보스 체크
                 TerrapupaRootData target = bossTransform.GetComponent<TerrapupaController>().terrapupaData;
-                target.hitEarthQuake.Value = true;
 
-                ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
-                {
-                    Position = bossTransform.position,
-                    Rotation = bossTransform.rotation,
-                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
-                });
+                target.hitEarthQuake.Value = true;
+                ParticleManager.Instance.GetParticle(hitEffect, bossTransform, 1.0f);
             }
         }
         private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)
@@ -329,35 +293,16 @@ namespace Centers.Boss
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
             Transform boss = payload.Sender;
-            int attack = payload.IntValue;
+            int attackValue = payload.IntValue;
 
             if (playerTransform != null)
             {
-                Debug.Log($"플레이어 피해 {attack} 입음");
-
                 TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-                bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                {
-                    Attacker = boss,
-                    Defender = playerTransform,
-                    Damage = payload.IntValue,
-                    PlayerStatusEffectName = StatusEffectName.WeakRigidity,
-                    statusEffectduration = 0.05f,
-                });
+                HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
             }
             if (manaTransform != null)
             {
-                // 해당 마나의 샘 쿨타임 적용, 삭제
-                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
-                manaFountain.IsBroken = true;
-
-                EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                    new BossEventPayload
-                    {
-                        Sender = payload.Sender,
-                        TransformValue1 = manaTransform,
-                        AttackTypeValue = manaFountain.banBossAttackType,
-                    });
+                HitedManaFountaine(boss, manaTransform);
             }
         }
         private void OnBossLowAttack(IBaseEventPayload bossPayload)
@@ -373,10 +318,6 @@ namespace Centers.Boss
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
             Transform boss = payload.Sender;
-            int attack = payload.IntValue;
-
-            Debug.Log(playerTransform);
-            Debug.Log(manaTransform);
 
             float jumpCheckValue = 1.0f;
 
@@ -390,34 +331,14 @@ namespace Centers.Boss
 
                 Debug.Log($"Raycast distance: {hit.distance}");
                 if (!isJumping)
-                {
-                    Debug.Log($"플레이어 피해 {attack} 입음");
-
+                { 
                     TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-                    bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                    {
-                        Attacker = boss,
-                        Defender = playerTransform,
-                        Damage = payload.IntValue,
-                        PlayerStatusEffectName = StatusEffectName.Down,
-                        statusEffectduration = 0.5f,
-                        force = 10.0f,
-                    });
+                    HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
                 }
             }
             if (manaTransform != null)
             {
-                // 해당 마나의 샘 쿨타임 적용, 삭제
-                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
-                manaFountain.IsBroken = true;
-
-                EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                    new BossEventPayload
-                    {
-                        Sender = payload.Sender,
-                        TransformValue1 = manaTransform,
-                        AttackTypeValue = manaFountain.banBossAttackType,
-                    });
+                HitedManaFountaine(payload.Sender, manaTransform);
             }
         }
         private void OnBossMinionAttack(IBaseEventPayload bossPayload)
@@ -433,24 +354,19 @@ namespace Centers.Boss
 
             Transform playerTransform = payload.TransformValue1;
             Transform minion = payload.Sender;
-            int attack = payload.IntValue;
+            int attackValue = payload.IntValue;
 
             Debug.Log(playerTransform);
 
             if (playerTransform != null)
             {
-                Debug.Log($"플레이어 피해 {attack} 입음");
-
                 TerrapupaMinionController minionController = minion.GetComponent<TerrapupaMinionController>();
-                minionController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                HitedPlayer(minionController.TicketMachine, minion, playerTransform, new CombatPayload
                 {
-                    Attacker = minion,
-                    Defender = playerTransform,
-                    Damage = payload.IntValue,
+                    Damage = attackValue,
                     PlayerStatusEffectName = StatusEffectName.WeakRigidity,
                     statusEffectduration = 0.05f,
                 });
-
             }
 
             StartCoroutine(MinionAttackCooldown(payload));
@@ -509,13 +425,15 @@ namespace Centers.Boss
         #endregion
         
         #region 4. 기타 함수
-        private void HitedPlayer(TicketMachine ticketMachine ,CombatPayload payload)
+        private void HitedPlayer(TicketMachine ticketMachine, Transform attacker, Transform player, CombatPayload payload)
         {
             Debug.Log($"플레이어 피해 {payload.Damage} 입음");
+            payload.Attacker = attacker;
+            payload.Defender = player;
 
             ticketMachine.SendMessage(ChannelType.Combat, payload);
         }
-        private void HitedManaFountaine(Transform attacker, Transform manaTransform)
+        private void HitedManaFountaine(Transform attacker, Transform manaTransform, GameObject hitEffect = null)
         {
             ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
             manaFountain.IsBroken = true;
@@ -523,6 +441,7 @@ namespace Centers.Boss
             EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
                 new BossEventPayload
                 {
+                    PrefabValue = hitEffect,
                     Sender = attacker,
                     TransformValue1 = manaTransform,
                     AttackTypeValue = manaFountain.banBossAttackType,

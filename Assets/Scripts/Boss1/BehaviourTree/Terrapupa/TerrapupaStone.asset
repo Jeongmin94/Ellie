@@ -68,7 +68,8 @@ MonoBehaviour:
     - rid: 283011291767373845
     - rid: 1683426562437021720
     - rid: 1683426562437021721
-  viewPosition: {x: 2821.6, y: 698.4, z: 0}
+    - rid: 1683426562437021877
+  viewPosition: {x: 2318.4, y: 561.6, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -155,6 +156,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: 1683426562437021877
     - rid: 283011090204065843
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -229,6 +233,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 283011153473568811
       type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -645,6 +652,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1683426562437021720
       type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -655,6 +665,12 @@ MonoBehaviour:
       type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         name: cooldownPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 1683426562437021877
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
     - rid: 8619125029124177924

@@ -69,8 +69,9 @@ MonoBehaviour:
     - rid: 283011291767373850
     - rid: 1683426562437021702
     - rid: 1683426562437021703
-  viewPosition: {x: -421.6, y: 418.4, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 1683426562437021873
+  viewPosition: {x: -848, y: -138.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -842,6 +843,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: 1683426562437021873
     - rid: 1683426247750189110
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -983,3 +987,12 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 4
+        combatPayload:
+          reference:
+            rid: -2
+    - rid: 1683426562437021873
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: combatPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null

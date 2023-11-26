@@ -63,7 +63,8 @@ MonoBehaviour:
     - rid: 1683426247750189104
     - rid: 1683426247750189151
     - rid: 283011291767373854
-  viewPosition: {x: -340.8, y: 333.6, z: 0}
+    - rid: 1683426562437021874
+  viewPosition: {x: -833.6, y: -53.6, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -772,6 +773,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: 1683426562437021874
     - rid: 1683426247750189110
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -847,3 +851,9 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
+    - rid: 1683426562437021874
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: combatPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
