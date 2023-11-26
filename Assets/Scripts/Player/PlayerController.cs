@@ -3,6 +3,7 @@ using Assets.Scripts.Equipments;
 using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
+using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
@@ -120,6 +121,9 @@ namespace Assets.Scripts.Player
         public bool isPickaxeAvailable = false;
         public Pickaxe.Tier curPickaxeTier;
 
+        [Header("Inventory")]
+        private PlayerInventory playerInventory;
+
 
         [Header("Boolean Properties")]
         public bool isGrounded;
@@ -215,6 +219,12 @@ namespace Assets.Scripts.Player
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
+
+            //test
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                GetConsumalbeItemTest();
+            }
         }
         private void FixedUpdate()
         {
@@ -242,7 +252,7 @@ namespace Assets.Scripts.Player
             Pickaxe.gameObject.SetActive(false);
             TurnOffSlingshot();
             TurnOffMeleeAttackCollider();
-
+            playerInventory = GetComponent<PlayerInventory>();
         }
         private void SetMovingAnim()
         {
@@ -651,24 +661,34 @@ namespace Assets.Scripts.Player
             //인벤토리 닫는 이벤트일 경우
             if (uiPayload.actionType == ActionType.ClickCloseButton)
             {
-                GetComponent<PlayerInventory>().OnInventoryToggle();
+                playerInventory.OnInventoryToggle();
             }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             switch (uiPayload.groupType)
             {
-                case UI.Inventory.GroupType.Item:
+                case GroupType.Item:
+                    Debug.Log("소모품 들어옴, " + uiPayload.equipmentSlotIdx);
+                    playerInventory.consumableEquipmentSlot[uiPayload.equipmentSlotIdx] = uiPayload.itemData;
                     break;
-                case UI.Inventory.GroupType.Stone:
-                    Debug.Log("!!");
-                    hasStone = !uiPayload.isStoneNull;
-                    if (uiPayload.itemData != null)
+                case GroupType.Stone:
+                    if(uiPayload.itemData == null)
                     {
-                        curStoneIdx = uiPayload.itemData.index;
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            hasStone = false;
+                            curStoneIdx = 0;
+                        }
                     }
                     else
-                        curStoneIdx = 0;
+                    {
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            hasStone = true;
+                            curStoneIdx = curStoneIdx = uiPayload.itemData.index;
+                        }
+                    }
                     break;
-                case UI.Inventory.GroupType.Etc:
+                case GroupType.Etc:
                     break;
                 default:
                     break;
@@ -694,6 +714,19 @@ namespace Assets.Scripts.Player
             isPickaxeAvailable = true;
             curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
+        }
+
+        private void GetConsumalbeItemTest()
+        {
+            UIPayload payload = new()
+            {
+                uiType = UIType.Notify,
+                groupType = UI.Inventory.GroupType.Item,
+                slotAreaType = UI.Inventory.SlotAreaType.Item,
+                actionType = ActionType.AddSlotItem,
+                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100)
+            };
+            ticketMachine.SendMessage(ChannelType.UI, payload);
         }
     }
 }

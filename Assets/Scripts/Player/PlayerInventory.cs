@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Item;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Inventory;
@@ -11,10 +12,12 @@ namespace Assets.Scripts.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
+        private const int CONSUMABLEEQUIPMENTSLOTCOUNT = 4;
         private PlayerController controller;
         private TicketMachine ticketMachine;
         private Inventory inventory;
         public Inventory Inventory { get { return inventory; } }
+        public ItemMetaData[] consumableEquipmentSlot = new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
         [SerializeField] private GameGoods gameGoods;
 
         public bool isOpen;
@@ -58,6 +61,13 @@ namespace Assets.Scripts.Player
             if(Input.GetKeyDown(KeyCode.Q))
             {
                 ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest());
+            }
+
+            if(Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+                ticketMachine.SendMessage(ChannelType.UI, GenerateConsumeItemPayload(0));
+
             }
 
         }
@@ -120,5 +130,15 @@ namespace Assets.Scripts.Player
             return payload;
         }
 
+        private UIPayload GenerateConsumeItemPayload(int equipmentSlotIdx)
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.ConsumeSlotItem;
+            payload.slotAreaType = SlotAreaType.Item;
+            payload.groupType = GroupType.Item;
+            payload.itemData = consumableEquipmentSlot[equipmentSlotIdx];
+            return payload;
+        }
     }
 }
