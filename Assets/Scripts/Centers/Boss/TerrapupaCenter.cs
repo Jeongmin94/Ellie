@@ -11,6 +11,9 @@ using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Item.Stone;
 using System.Collections.Generic;
 using Assets.Scripts.Particle;
+using Channels.Components;
+using static PlasticPipe.Server.MonitorStats;
+using Channels.UI;
 
 namespace Centers.Boss
 {
@@ -148,8 +151,6 @@ namespace Centers.Boss
             TerrapupaAttackType type = payload.AttackTypeValue;
             bool isCooldownDone = payload.BoolValue;
 
-
-
             // 봉인 적용
             terrapupa.ApplyAttackAvailable(type, isCooldownDone);
             terra.ApplyAttackAvailable(type, isCooldownDone);
@@ -157,7 +158,7 @@ namespace Centers.Boss
         }
         private void OnStartEarthQuake(IBaseEventPayload earthQuakePayload)
         {
-            Debug.Log($"OnStartEarthQuake");
+            Debug.Log($"OnStartEarthQuake :: 내려찍기 공격 피격 체크");
             BossEventPayload payload = earthQuakePayload as BossEventPayload;
 
             if(payload == null)
@@ -171,10 +172,6 @@ namespace Centers.Boss
             Transform bossTransform = payload.TransformValue3;
             Transform boss = payload.Sender;
             int attack = payload.IntValue;
-
-            Debug.Log(playerTransform);
-            Debug.Log(manaTransform);
-            Debug.Log(bossTransform);
 
             float jumpCheckValue = 1.0f;
 
@@ -276,8 +273,6 @@ namespace Centers.Boss
             {
                 Destroy(_magicStone.gameObject);
             }
-
-            //magicStone = null;
         }
         private void OnBossDeath(IBaseEventPayload bossPayload)
         {
@@ -335,9 +330,6 @@ namespace Centers.Boss
             Transform manaTransform = payload.TransformValue2;
             Transform boss = payload.Sender;
             int attack = payload.IntValue;
-
-            Debug.Log(playerTransform);
-            Debug.Log(manaTransform);
 
             if (playerTransform != null)
             {
@@ -517,6 +509,25 @@ namespace Centers.Boss
         #endregion
         
         #region 4. 기타 함수
+        private void HitedPlayer(TicketMachine ticketMachine ,CombatPayload payload)
+        {
+            Debug.Log($"플레이어 피해 {payload.Damage} 입음");
+
+            ticketMachine.SendMessage(ChannelType.Combat, payload);
+        }
+        private void HitedManaFountaine(Transform attacker, Transform manaTransform)
+        {
+            ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
+            manaFountain.IsBroken = true;
+
+            EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
+                new BossEventPayload
+                {
+                    Sender = attacker,
+                    TransformValue1 = manaTransform,
+                    AttackTypeValue = manaFountain.banBossAttackType,
+                });
+        }
         private void SpawnTerraAndPupa()
         {
             Debug.Log("SpawnTerraAndPupa :: 테라, 푸파 소환");

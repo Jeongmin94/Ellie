@@ -12,7 +12,7 @@ public class RunAwayTarget : ActionNode
     private LayerMask groundLayer;
 
     protected override void OnStart() {
-        groundLayer = LayerMask.GetMask("Ground");
+        groundLayer = LayerMask.GetMask("Ground", "InteractionObject");
     }
 
     protected override void OnStop() {
