@@ -1,4 +1,3 @@
-using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Data.UI.Opening;
 using UnityEngine;

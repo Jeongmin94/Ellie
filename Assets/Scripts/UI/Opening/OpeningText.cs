@@ -4,6 +4,7 @@ using Assets.Scripts.Utils;
 using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Opening
 {
@@ -17,8 +18,12 @@ namespace Assets.Scripts.UI.Opening
             TextPanel,
         }
 
+        [SerializeField] private Sprite panelSprite;
+
         protected GameObject imagePanel;
         private GameObject textPanel;
+
+        private Image image;
 
         private RectTransform rectTransform;
         private RectTransform imagePanelRect;
@@ -49,6 +54,8 @@ namespace Assets.Scripts.UI.Opening
             imagePanelRect = imagePanel.GetComponent<RectTransform>();
             textPanelRect = textPanel.GetComponent<RectTransform>();
 
+            image = imagePanel.GetComponent<Image>();
+
             textMeshProUGUI = textPanel.FindChild<TextMeshProUGUI>(null, true);
         }
 
@@ -65,6 +72,13 @@ namespace Assets.Scripts.UI.Opening
             AnchorPresets.SetAnchorPreset(textPanelRect, AnchorPresets.StretchAll);
             textPanelRect.sizeDelta = Vector2.zero;
             textPanelRect.localPosition = Vector3.zero;
+
+            var textRect = textMeshProUGUI.GetComponent<RectTransform>();
+            AnchorPresets.SetAnchorPreset(textRect, AnchorPresets.StretchAll);
+            textRect.sizeDelta = Vector2.zero;
+            textRect.localPosition = Vector3.zero;
+
+            image.sprite = panelSprite;
         }
 
         protected virtual void BindEvents()

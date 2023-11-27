@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
@@ -5,7 +6,6 @@ using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Inventory;
 using Data.UI.Opening;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Assets.Scripts.UI.Opening
 {
@@ -28,8 +28,9 @@ namespace Assets.Scripts.UI.Opening
         [SerializeField] private UITransformData titleTransformData;
         [SerializeField] private UITransformData menuTransformData;
         [SerializeField] private TextTypographyData titleTypographyTypographyData;
-        [SerializeField] private TextTypographyData startButtonData;
-        [SerializeField] private TextTypographyData exitButtonData;
+
+        [Header("Menu Button Data")]
+        [SerializeField] private TextTypographyData[] buttonsData;
 
         private readonly TransformController titleController = new TransformController();
         private readonly TransformController menuController = new TransformController();
@@ -37,6 +38,8 @@ namespace Assets.Scripts.UI.Opening
         private OpeningText title;
         private BaseMenuButton startMenuButton;
         private BaseMenuButton exitMenuButton;
+
+        private readonly List<BaseMenuButton> menuButtons = new List<BaseMenuButton>();
 
         private void Awake()
         {
@@ -95,13 +98,14 @@ namespace Assets.Scripts.UI.Opening
 
         private void InitMenuButtons()
         {
-            startMenuButton = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
-            startMenuButton.InitText();
-            startMenuButton.InitTypography(startButtonData);
-
-            exitMenuButton = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
-            exitMenuButton.InitText();
-            exitMenuButton.InitTypography(exitButtonData);
+            for (int i = 0; i < buttonsData.Length; i++)
+            {
+                var button = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
+                button.InitText();
+                button.InitTypography(buttonsData[i]);
+                
+                menuButtons.Add(button);
+            }
         }
 
         private void LateUpdate()
