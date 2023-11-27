@@ -30,7 +30,8 @@ namespace Assets.Scripts.UI.Opening
         [SerializeField] private TextTypographyData titleTypographyTypographyData;
 
         [Header("Menu Button Data")]
-        [SerializeField] private TextTypographyData[] buttonsData;
+        [SerializeField]
+        private TextTypographyData[] buttonsData;
 
         private readonly TransformController titleController = new TransformController();
         private readonly TransformController menuController = new TransformController();
@@ -101,9 +102,10 @@ namespace Assets.Scripts.UI.Opening
             for (int i = 0; i < buttonsData.Length; i++)
             {
                 var button = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
+                button.name += $"#{buttonsData[i].title}";
                 button.InitText();
                 button.InitTypography(buttonsData[i]);
-                
+
                 menuButtons.Add(button);
             }
         }

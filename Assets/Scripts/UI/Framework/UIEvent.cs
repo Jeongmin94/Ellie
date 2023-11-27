@@ -9,6 +9,8 @@ namespace Assets.Scripts.UI.Framework
         Drag,
         EndDrag,
         PointOver,
-        Drop
+        Drop,
+        PointEnter,
+        PointExit,
     }
 }

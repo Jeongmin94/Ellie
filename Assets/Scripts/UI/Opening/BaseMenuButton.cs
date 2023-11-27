@@ -1,3 +1,4 @@
+using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Data.UI.Opening;
 using UnityEngine;
@@ -22,6 +23,8 @@ namespace Assets.Scripts.UI.Opening
         protected override void BindEvents()
         {
             imagePanel.BindEvent(OnClickButton);
+            imagePanel.BindEvent(OnPointerEnter, UIEvent.PointEnter);
+            imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
 
         public override void InitTypography(TextTypographyData typographyTypographyData)
@@ -41,6 +44,16 @@ namespace Assets.Scripts.UI.Opening
         {
             //!TODO 버튼 클릭 동작 구현
             Debug.Log($"{name} 버튼 클릭됨");
+        }
+
+        protected virtual void OnPointerEnter(PointerEventData data)
+        {
+            Debug.Log($"{name} 마우스 호버");
+        }
+
+        protected virtual void OnPointerExit(PointerEventData data)
+        {
+            Debug.Log($"{name} 마우스 호버 exit");
         }
     }
 }
