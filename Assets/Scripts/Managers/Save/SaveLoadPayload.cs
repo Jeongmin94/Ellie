@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Utils;
-using System.Collections;
+﻿using System;
+using Assets.Scripts.Utils;
 using System.Collections.Generic;
-using UnityEngine;
+using Assets.Scripts.UI.Inventory;
 
 namespace Assets.Scripts.Managers
 {
@@ -26,7 +26,29 @@ namespace Assets.Scripts.Managers
     public class InventorySavePayload : IBaseEventPayload
     {
         // 데이터 저장에 필요한 타입들 정의
+        public struct ItemSaveInfo
+        {
+            public const int InvalidIndex = -1;
 
+            public GroupType groupType;
+            public int itemIndex;
+            public int itemCount;
+
+            public int itemSlotIndex;
+            public int equipmentSlotIndex;
+        }
+
+        public struct GoodsSaveInfo
+        {
+            public int goldAmount;
+            public int stoneAmount;
+        }
+
+        public readonly List<ItemSaveInfo> saveInfos = new List<ItemSaveInfo>();
+        public GoodsSaveInfo goodsSaveInfo;
+
+        public void AddItemSaveInfo(ItemSaveInfo info) => saveInfos.Add(info);
+        public List<ItemSaveInfo> GetItemSaveInfos() => saveInfos;
     }
 
     public class QuestSavePayload : IBaseEventPayload
@@ -39,5 +61,4 @@ namespace Assets.Scripts.Managers
     {
         public SerializableVector3 Position { get; set; }
     }
-
 }

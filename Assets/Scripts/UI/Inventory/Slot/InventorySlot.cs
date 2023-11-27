@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
@@ -7,6 +5,8 @@ using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
 using Channels.UI;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -37,6 +37,13 @@ namespace Assets.Scripts.UI.Inventory
         // for Equipment Frame
         private Action<InventoryEventPayload> equipmentFrameAction;
 
+        public BaseSlotItem GetBaseSlotItem()
+        {
+            if (SlotItemData == null)
+                return null;
+
+            return SlotItemData.slotItems[SlotType];
+        }
 
         private void Awake()
         {
@@ -150,7 +157,7 @@ namespace Assets.Scripts.UI.Inventory
             InvokeCopyOrMove(baseSlotItem);
         }
 
-        public void CreateSlotItem(UIPayload payload)
+        private InventorySlotItem CreateOrigin(UIPayload payload)
         {
             BaseItem baseItem = new BaseItem();
             baseItem.itemData = payload.itemData;
@@ -165,7 +172,12 @@ namespace Assets.Scripts.UI.Inventory
             baseItem.slotItems[SlotType] = origin;
             baseItem.slots[SlotType] = this;
 
-            InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, origin);
+            return origin;
+        }
+
+        public void CreateSlotItem(UIPayload payload)
+        {
+            InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, CreateOrigin(payload));
         }
 
         public void InvokeEquipmentFrameEvent(InventoryEventType eventType, GroupType groupType, BaseSlotItem baseSlotItem)
@@ -214,5 +226,14 @@ namespace Assets.Scripts.UI.Inventory
             slotInventoryAction = null;
             equipmentFrameAction = null;
         }
+
+        #region SaveLoad
+
+        public void LoadItem(UIPayload payload)
+        {
+            CreateOrigin(payload);
+        }
+
+        #endregion
     }
 }
