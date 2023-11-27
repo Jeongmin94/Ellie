@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Data.UI.Opening;
@@ -11,7 +13,10 @@ namespace Assets.Scripts.UI.Opening
     {
         public new static readonly string Path = "Opening/MenuText";
 
+        [SerializeField] private float blinkInterval = 1.0f;
+
         private ColorBlock colorBlock;
+        private bool isBlink = false;
 
         protected override void BindEvents()
         {
@@ -30,20 +35,55 @@ namespace Assets.Scripts.UI.Opening
             colorBlock.disabledColor = typographyTypographyData.disabledColor;
         }
 
+        // 클릭하면 새로운 UI Popup
         protected virtual void OnClickButton(PointerEventData data)
         {
-            //!TODO 버튼 클릭 동작 구현
             Debug.Log($"{name} 버튼 클릭됨");
         }
 
         protected virtual void OnPointerEnter(PointerEventData data)
         {
-            // Debug.Log($"{name} - 호버");
-            
+            StartCoroutine(BlinkPanelImage());
         }
 
         protected virtual void OnPointerExit(PointerEventData data)
         {
+            isBlink = false;
+        }
+
+        private IEnumerator BlinkPanelImage()
+        {
+            isBlink = true;
+            Color color = OriginColor();
+            color.a = 0.0f;
+            imageColor.Value = color;
+
+            bool toRight = true;
+            float timeAcc = 0.0f;
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            while (isBlink)
+            {
+                yield return wfef;
+
+                float alpha = Mathf.Lerp(0.0f, 1.0f, timeAcc / blinkInterval);
+                color.a = alpha;
+                imageColor.Value = color;
+
+                if (toRight)
+                {
+                    timeAcc += Time.deltaTime;
+                }
+                else
+                {
+                    timeAcc -= Time.deltaTime;
+                }
+
+                if (timeAcc > blinkInterval)
+                    toRight = false;
+                else if (timeAcc <= 0.0f)
+                    toRight = true;
+            }
+
             ResetImageColor();
         }
     }
