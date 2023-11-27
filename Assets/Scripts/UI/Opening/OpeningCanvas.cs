@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
@@ -18,13 +19,16 @@ namespace Assets.Scripts.UI.Opening
         {
             TitlePanel,
             MenuPanel,
+            OuterRim
         }
 
         private GameObject titlePanel;
         private GameObject menuPanel;
+        private GameObject outerRim;
 
         private RectTransform titlePanelRect;
         private RectTransform menuPanelRect;
+        private RectTransform outerRimRect;
 
         [SerializeField] private UITransformData titleTransformData;
         [SerializeField] private UITransformData menuTransformData;
@@ -41,10 +45,9 @@ namespace Assets.Scripts.UI.Opening
         private BlinkMenuButton startMenuButton;
         private BlinkMenuButton exitMenuButton;
 
+        // !TODO: 메뉴 버튼 별로 관리
         private readonly List<BlinkMenuButton> menuButtons = new List<BlinkMenuButton>();
-
-        // !TODO: PopupMenuType 별로 팝업 캔버스 관리
-        private BasePopupCanvas popupCanvas;
+        private readonly List<BasePopupCanvas> popupCanvasList = new List<BasePopupCanvas>();
 
         private void Awake()
         {
@@ -65,9 +68,11 @@ namespace Assets.Scripts.UI.Opening
 
             titlePanel = GetGameObject((int)GameObjects.TitlePanel);
             menuPanel = GetGameObject((int)GameObjects.MenuPanel);
+            outerRim = GetGameObject((int)GameObjects.OuterRim);
 
             titlePanelRect = titlePanel.GetComponent<RectTransform>();
             menuPanelRect = menuPanel.GetComponent<RectTransform>();
+            outerRimRect = outerRim.GetComponent<RectTransform>();
         }
 
         private void InitObjects()
@@ -92,8 +97,7 @@ namespace Assets.Scripts.UI.Opening
 
             InitTitle();
             InitMenuButtons();
-
-            popupCanvas = UIManager.Instance.MakePopup<BasePopupCanvas>(BasePopupCanvas.Path);
+            InitPopupCanvas();
         }
 
         private void InitTitle()
@@ -103,16 +107,37 @@ namespace Assets.Scripts.UI.Opening
             title.InitTypography(titleTypographyTypographyData);
         }
 
+        // 로드, 시작, 설정, 종료
         private void InitMenuButtons()
         {
+            var popupTypes = Enum.GetValues(typeof(PopupType));
             for (int i = 0; i < buttonsData.Length; i++)
             {
+                var type = (PopupType)popupTypes.GetValue(i);
                 var button = UIManager.Instance.MakeSubItem<BlinkMenuButton>(menuPanelRect, BlinkMenuButton.Path);
                 button.name += $"#{buttonsData[i].title}";
                 button.InitText();
                 button.InitTypography(buttonsData[i]);
+                button.Subscribe(OnBlinkButtonAction);
+                button.PopupType = type;
 
                 menuButtons.Add(button);
+            }
+        }
+
+        // 로드, 시작, 설정, 종료
+        private void InitPopupCanvas()
+        {
+            var popupTypes = Enum.GetValues(typeof(PopupType));
+            for (int i = 0; i < popupTypes.Length; i++)
+            {
+                var type = (PopupType)popupTypes.GetValue(i);
+                var popup = UIManager.Instance.MakeSubItem<BasePopupCanvas>(outerRimRect, BasePopupCanvas.Path);
+                popup.InitPopupCanvas(type);
+                popup.Subscribe(OnPopupCanvasAction);
+
+                popup.gameObject.SetActive(false);
+                popupCanvasList.Add(popup);
             }
         }
 
@@ -123,5 +148,34 @@ namespace Assets.Scripts.UI.Opening
             menuController.CheckQueue(menuPanelRect);
 #endif
         }
+
+        #region MenuButton
+
+        private void OnBlinkButtonAction(PopupPayload payload)
+        {
+            int idx = (int)payload.popupType;
+            popupCanvasList[idx].gameObject.SetActive(true);
+        }
+
+        #endregion
+
+        #region PopupEvent
+
+        private void OnPopupCanvasAction(PopupPayload payload)
+        {
+            int idx = (int)payload.popupType;
+            switch (payload.buttonType)
+            {
+                case ButtonType.Yes:
+                    break;
+                case ButtonType.No:
+                    popupCanvasList[idx].gameObject.SetActive(false);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #endregion
     }
 }

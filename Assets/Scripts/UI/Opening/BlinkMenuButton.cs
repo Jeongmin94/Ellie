@@ -1,10 +1,10 @@
+using System;
 using System.Collections;
 using Assets.Scripts.UI.Framework;
+using Assets.Scripts.UI.PopupMenu;
 using Assets.Scripts.Utils;
-using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Opening
 {
@@ -14,8 +14,21 @@ namespace Assets.Scripts.UI.Opening
 
         [SerializeField] private float blinkInterval = 1.0f;
 
-        private ColorBlock colorBlock;
+        public PopupType PopupType { get; set; }
+
         private bool isBlink = false;
+        private Action<PopupPayload> blinkMenuAction;
+
+        public void Subscribe(Action<PopupPayload> listener)
+        {
+            blinkMenuAction -= listener;
+            blinkMenuAction += listener;
+        }
+
+        private void OnDestroy()
+        {
+            blinkMenuAction = null;
+        }
 
         protected override void Init()
         {
@@ -34,20 +47,13 @@ namespace Assets.Scripts.UI.Opening
             imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
 
-        public override void InitTypography(TextTypographyData typographyTypographyData)
-        {
-            base.InitTypography(typographyTypographyData);
-
-            colorBlock.highlightedColor = typographyTypographyData.highlightedColor;
-            colorBlock.pressedColor = typographyTypographyData.pressedColor;
-            colorBlock.selectedColor = typographyTypographyData.selectedColor;
-            colorBlock.disabledColor = typographyTypographyData.disabledColor;
-        }
-
         // 클릭하면 새로운 UI Popup
         protected virtual void OnClickButton(PointerEventData data)
         {
             Debug.Log($"{name} 버튼 클릭됨");
+            var payload = new PopupPayload();
+            payload.popupType = PopupType;
+            blinkMenuAction?.Invoke(payload);
         }
 
         protected virtual void OnPointerEnter(PointerEventData data)

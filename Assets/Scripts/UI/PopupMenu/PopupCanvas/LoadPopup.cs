@@ -1,6 +1,8 @@
+using UnityEngine;
+
 namespace Assets.Scripts.UI.PopupMenu
 {
-    public class StartPopup : BasePopupCanvas
+    public class LoadPopup : PopupCanvas
     {
         
     }

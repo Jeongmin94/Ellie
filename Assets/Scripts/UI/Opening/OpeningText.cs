@@ -108,6 +108,9 @@ namespace Assets.Scripts.UI.Opening
         protected void ResetImageColor() => image.color = originImageColor;
         protected Color OriginColor() => originImageColor;
 
+        protected void SetImageSprite(Sprite sprite) => image.sprite = sprite;
+        protected void ResetImageSprite() => image.sprite = panelSprite;
+
         private void OnImageColorChanged(Color value)
         {
             image.color = value;
