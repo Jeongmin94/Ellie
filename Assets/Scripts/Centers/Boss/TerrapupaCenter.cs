@@ -12,27 +12,67 @@ using System.Collections.Generic;
 using Assets.Scripts.Particle;
 using Channels.Components;
 using Assets.Scripts.Item.Stone;
+using Sirenix.OdinInspector;
 
 namespace Centers.Boss
 {
     public class TerrapupaCenter : MonoBehaviour
     {
-        //[SerializeField] private StoneHatchery hatchery;
+        [Title("테라푸파 보스전 객체")]
+        [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
         [SerializeField] private TerrapupaController pupa;
-        [SerializeField] private List<TerrapupaMinionController> minions;
         [SerializeField] private PlayerController player;
-        [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
+        [SerializeField] private List<TerrapupaMinionController> minions;
 
-        public float fallCheckLatency = 5.0f;
+        [Title("현재 페이즈 상태 체크용")]
+        [ReadOnly][SerializeField] private int currentLevel = 1;        // 1페이즈, 2페이즈 체크용
+        [ReadOnly][SerializeField] private int minionDeathCheck = 4;    // 3페이즈 미니언 4마리 체크
+        [ReadOnly][SerializeField] private int currentMinionSpawnIndex = 0;
+        [ReadOnly][SerializeField] private float fallCheckLatency = 5.0f;
+
+        [Title("보스몬스터 생성 여부")]
+        [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")]
         public bool isActiveTerrapupa = true;
         public bool isActiveTerra = false;
         public bool isActivePupa = false;
         public bool isActiveMinions = false;
 
-        public int currentLevel = 1;   // 1페이즈, 2페이즈 체크용
-        public int minionDeathCheck = 4;
+        #region 0. 치트키
+        [Title("치트키")]
+        [Button("1페이즈 스킵", ButtonSizes.Large)]
+        public void KillTerrapupa()
+        {
+            Debug.Log("테라푸파 사망 치트");
+            Vector3 pos = terrapupa.transform.position;
+
+            terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
+            terrapupa.terrapupaData.currentHP.Value = 0;
+        }
+        [Button("2페이즈 스킵", ButtonSizes.Large)]
+        public void KillTerraAndPupa()
+        {
+            Debug.Log("테라, 푸파 사망 치트");
+            Vector3 pos1 = terra.transform.position;
+            Vector3 pos2 = pupa.transform.position;
+
+            terra.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
+            pupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
+            terra.terrapupaData.currentHP.Value = 0;
+            pupa.terrapupaData.currentHP.Value = 0;
+        }
+        [Button("3페이즈 스킵", ButtonSizes.Large)]
+        public void KillMinions()
+        {
+            Debug.Log("테, 라, 푸, 파 사망 치트");
+
+            foreach (var minion in minions)
+            {
+                minion.minionData.currentHP.Value = 0;
+            }
+        }
+        #endregion
 
         private void Awake()
         {
@@ -40,30 +80,9 @@ namespace Centers.Boss
         }
         private void Start()
         {
+            ShuffleMinions();
             CheckTickets();
             SetBossInfo();
-        }
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Debug.Log("테라푸파 사망 치트");
-                Vector3 pos = terrapupa.transform.position;
-
-                terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
-                terrapupa.terrapupaData.currentHP.Value = 0;
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Debug.Log("테라, 푸파 사망 치트");
-                Vector3 pos1 = terra.transform.position;
-                Vector3 pos2 = pupa.transform.position;
-
-                terrapupa.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
-                terrapupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
-                terra.terrapupaData.currentHP.Value = 0;
-                pupa.terrapupaData.currentHP.Value = 0;
-            }
         }
 
         #region 1. 초기화 함수
@@ -116,6 +135,17 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
+        }
+        private void ShuffleMinions()
+        {
+            // 미니언 리스트 랜덤 셔플
+            for(int i = 0; i < minions.Count; i++)
+            {
+                int randomIndex = Random.Range(i, minions.Count);
+                TerrapupaMinionController temp = minions[i];
+                minions[i] = minions[randomIndex];
+                minions[randomIndex] = temp;
+            }
         }
         #endregion
 
@@ -277,9 +307,9 @@ namespace Centers.Boss
                 payload.Sender.gameObject.SetActive(false);
             }
 
-            if(minionDeathCheck == 0)
+            if(minionDeathCheck == 2 || minionDeathCheck == 0)
             {
-                Debug.Log("보스 클리어");
+                Debug.Log("골렘의 눈 드랍");
             }
         }
         private void OnHitStone(BossEventPayload bossPayload)
@@ -384,20 +414,11 @@ namespace Centers.Boss
                 case 1:
                     currentLevel++;
                     Debug.Log("테라푸파 사망, 즉사");
-                    Vector3 pos = terrapupa.transform.position;
-                    
-                    terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
-                    terrapupa.terrapupaData.currentHP.Value = 0;
+                    KillTerrapupa();
                     break;
                 case 2:
                     Debug.Log("테라, 푸파 사망, 즉사");
-                    Vector3 pos1 = terra.transform.position;
-                    Vector3 pos2 = pupa.transform.position;
-
-                    terrapupa.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
-                    terrapupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
-                    terra.terrapupaData.currentHP.Value = 0;
-                    pupa.terrapupaData.currentHP.Value = 0;
+                    KillTerraAndPupa();
                     break;
             }
         }
@@ -481,18 +502,18 @@ namespace Centers.Boss
 
             for (int i = 0; i < 2; i++)
             {
-                int index = Random.Range(0, minions.Count);
-                TerrapupaMinionController minion = minions[index];
+                TerrapupaMinionController minion = minions[currentMinionSpawnIndex];
 
                 minion.gameObject.SetActive(true);
-
                 minion.transform.position = position;
                 minion.minionData.player.Value = player.transform;
 
-                minions.RemoveAt(index);
+                // 미니언 인덱스 갱신 ( +1 )
+                currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;
             }
         }
         #endregion
+
         private void OnGUI()
         {
             int boxWidth = 200;

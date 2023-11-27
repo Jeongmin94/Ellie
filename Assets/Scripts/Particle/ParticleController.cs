@@ -38,6 +38,13 @@ namespace Assets.Scripts.Particle
             ps.Play();
         }
 
+        public void Stop()
+        {
+            var main = ps.main;
+            main.loop = false;
+            ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+        }
+
         private void OnParticleSystemStopped()
         {
             Debug.Log("종료 확인");

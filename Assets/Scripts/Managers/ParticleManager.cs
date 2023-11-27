@@ -59,5 +59,14 @@ namespace Assets.Scripts.Particle
                 Scale = new Vector3(scale, scale, scale),
             });
         }
+
+        public GameObject GetParticle(GameObject prefab, Vector3 position, float scale)
+        {
+            return GetParticle(prefab, new ParticlePayload
+            {
+                Position = position,
+                Scale = new Vector3(scale, scale, scale),
+            });
+        }
     }
 }

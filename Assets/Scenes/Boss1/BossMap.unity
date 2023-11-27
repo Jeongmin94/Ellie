@@ -4141,6 +4141,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.999
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.442
       objectReference: {fileID: 0}
@@ -4158,23 +4162,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: field of view
-      value: 51.28201
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 1346398097, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_FocalLength
-      value: 25
+      value: 54.1285
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.999
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.742
+      value: 0.442
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -3.345995
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
@@ -4190,7 +4194,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4
+      value: -3.4459934
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
@@ -4254,7 +4258,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.442
+      value: 0.542
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5232,7 +5236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4290592259550087223, guid: 9606a202e9d79a34693f3689f4e8eab6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.99999857
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4290592259550087223, guid: 9606a202e9d79a34693f3689f4e8eab6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6173,23 +6177,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7a5598f75812ff4f8ae92fa69fc2b47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  terrapupaMapObjects: {fileID: 1891697169}
   terrapupa: {fileID: 201454068}
   terra: {fileID: 1415753513}
   pupa: {fileID: 469320383}
+  player: {fileID: 616139399}
   minions:
   - {fileID: 853793467}
   - {fileID: 161012760}
   - {fileID: 3265875}
   - {fileID: 1432661267}
-  player: {fileID: 616139399}
-  terrapupaMapObjects: {fileID: 1891697169}
+  currentLevel: 1
+  minionDeathCheck: 4
+  currentMinionSpawnIndex: 0
   fallCheckLatency: 5
   isActiveTerrapupa: 0
   isActiveTerra: 1
   isActivePupa: 1
   isActiveMinions: 0
-  currentLevel: 1
-  minionDeathCheck: 4
 --- !u!4 &952424627
 Transform:
   m_ObjectHideFlags: 0
@@ -9806,7 +9811,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh25888
+  m_Name: pb_Mesh63158
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -10760,15 +10765,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.3
+      value: -0.63
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.9
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 12.3
+      value: 8.54
       objectReference: {fileID: 0}
     - target: {fileID: 8979523351519513280, guid: 74337f0f45695a7459bf11eaa4a32cd2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11334,7 +11339,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.99999857
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 4691484792249310849, guid: a65b5657034c4fe4fa337f2bf4b9074f, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11569,7 +11574,7 @@ MonoBehaviour:
   numberOfSector: 3
   stalactitePerSector: 3
   fieldRadius: 20
-  fieldHeight: 8
+  fieldHeight: 12
   respawnManaFountainTime: 30
   regenerateManaStoneTime: 10
 --- !u!1 &1894779597 stripped

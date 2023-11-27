@@ -75,6 +75,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
                 Vector3 position = GenerateRandomPositionInSector(i);
                 GameObject stalactite = Instantiate(magicStalactitePrefab, position, Quaternion.identity, transform);
                 MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
+                instantStalactite.SetLineRendererPosition();
                 instantStalactite.MyIndex = i;
                 sectorList.Add(instantStalactite);
                 instantStalactite.respawnValue = regenerateStalactiteTime;
