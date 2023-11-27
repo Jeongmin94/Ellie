@@ -30,11 +30,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public List<(int, int)> rewardList = new();
         public string playableText;
         public List<int> speechBubbleList = new();
-        public List<int> cantAcceptDialogList = new();
-        public List<int> unAcceptedDialogList = new();
-        public List<int> AcceptedDialogList = new();
-        public List<int> doneDialogList = new();
-        public List<int> endDialogList = new();
+        public Dictionary<QuestStatus, List<int>> DialogListDic = new();
         public List<int> additionalConditionDialogList = new();
         public int acceptanceTerm;
     }
@@ -113,10 +109,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                         if (entries[10].Trim() != "-1")
                         {
                             string[] subEntries = entries[10].Split(";");
+                            List<int> cantAcceptDialogList = new();
                             foreach (string subEntry in subEntries)
                             {
-                                data.cantAcceptDialogList.Add(int.Parse(subEntry.Trim()));
+                                cantAcceptDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+                            data.DialogListDic.Add(QuestStatus.CantAccept, cantAcceptDialogList);
                         }
                     }
                     //수락할 수 있을 때 리스트
@@ -124,10 +122,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                         if (entries[11].Trim() != "-1")
                         {
                             string[] subEntries = entries[11].Split(";");
+                            List<int> unAcceptedDialogList = new();
                             foreach (string subEntry in subEntries)
                             {
-                                data.unAcceptedDialogList.Add(int.Parse(subEntry.Trim()));
+                                unAcceptedDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+                            data.DialogListDic.Add(QuestStatus.Unaccepted, unAcceptedDialogList);
                         }
                     }
                     //진행중 대화 리스트
@@ -135,10 +135,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                         if (entries[12].Trim() != "-1")
                         {
                             string[] subEntries = entries[12].Split(";");
+                            List<int> AcceptedDialogList = new();
                             foreach (string subEntry in subEntries)
                             {
-                                data.AcceptedDialogList.Add(int.Parse(subEntry.Trim()));
+                                AcceptedDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+                            data.DialogListDic.Add(QuestStatus.Accepted, AcceptedDialogList);
                         }
                     }
                     //완료 대화 리스트
@@ -146,10 +148,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                         if (entries[13].Trim() != "-1")
                         {
                             string[] subEntries = entries[13].Split(";");
+                            List<int> doneDialogList = new();
                             foreach (string subEntry in subEntries)
                             {
-                                data.doneDialogList.Add(int.Parse(subEntry.Trim()));
+                                doneDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+                            data.DialogListDic.Add(QuestStatus.Done , doneDialogList);
                         }
                     }
                     //종료 후 대화 리스트
@@ -157,10 +161,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                         if (entries[14].Trim() != "-1")
                         {
                             string[] subEntries = entries[14].Split(";");
+                            List<int> endDialogList = new();
                             foreach (string subEntry in subEntries)
                             {
-                                data.endDialogList.Add(int.Parse(subEntry.Trim()));
+                                endDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+                            data.DialogListDic.Add(QuestStatus.End , endDialogList);    
                         }
                     }
                     //부가 조건 대화 리스트

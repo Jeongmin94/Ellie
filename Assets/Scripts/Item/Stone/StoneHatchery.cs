@@ -138,12 +138,14 @@ namespace Assets.Scripts.Item.Stone
         {
             stone.transform.position = position;
             stone.GetComponent<Rigidbody>().AddForce(force * 4f, ForceMode.Impulse);
+            stone.GetComponent<Rigidbody>().AddTorque(2f* Random.onUnitSphere);
         }
 
         private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
         {
             stone.SetPosition(startPos);
             stone.MoveStone(direction, strength);
+            stone.GetComponent<Rigidbody>().AddTorque(2f*Random.onUnitSphere);
         }
     }
 }

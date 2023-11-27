@@ -5,7 +5,7 @@ using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 [Serializable]
-public class ConsumableItemData : ItemMetaData
+public class ItemData : ItemMetaData
 {
     public int appearanceStage;
 
@@ -14,14 +14,14 @@ public class ConsumableItemData : ItemMetaData
     public int increasePercent;
 }
 
-[CreateAssetMenu(fileName = "ConsumableItemData", menuName = "GameData List/ConsumableItemData")]
-public class ConsumableItemDataParsingInfo : DataParsingInfo
+[CreateAssetMenu(fileName = "ItemData", menuName = "GameData List/ItemData")]
+public class ItemDataParsingInfo : DataParsingInfo
 {
-    public List<ConsumableItemData> items = new List<ConsumableItemData>();
+    public List<ItemData> items = new List<ItemData>();
 
     public override T GetIndexData<T>(int index) where T : class
     {
-        if (typeof(T) == typeof(ConsumableItemData))
+        if (typeof(T) == typeof(ItemData))
         {
             return items.Find(m => m.index == index) as T;
         }
@@ -41,11 +41,11 @@ public class ConsumableItemDataParsingInfo : DataParsingInfo
 
             string[] entries = lines[i].Split('\t');
 
-            ConsumableItemData data = new ConsumableItemData();
+            ItemData data = new ItemData();
 
             try
             {
-                data.groupType = GroupType.Consumption;
+                data.groupType = GroupType.Item;
                 //인덱스
                 data.index = int.Parse(entries[0].Trim());
                 //이름

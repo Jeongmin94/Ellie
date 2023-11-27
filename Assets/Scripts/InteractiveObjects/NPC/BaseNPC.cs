@@ -11,7 +11,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
     {
         //NPC 및 퀘스트 데이터
         protected NPCData npcData;
-        protected Dictionary<int, QuestData> questDataDict;
+        //protected Dictionary<int, QuestData> questDataDict;
         protected QuestData curQuestData;
 
         protected bool isInteracting;
@@ -20,13 +20,15 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private Transform NPCObj;
 
         //플레이어 참조
-        private PlayerQuest player;
+        protected PlayerQuest player;
         
 
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
 
         WaitForEndOfFrame wff = new WaitForEndOfFrame();
+
+        private Coroutine _LookAtPlayer;
 
         private void Awake()
         {
@@ -36,30 +38,38 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void Start()
         {
-            //npc데이터 초기화
-            StartCoroutine(Init());
+            
         }
 
-        private IEnumerator Init()
+        protected void Init()
+        {
+            StartCoroutine(InitCoroutine());
+        }
+        private IEnumerator InitCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
-            questDataDict = new();
-            foreach(int dataIdx in npcData.questList)
-            {
-                QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
-                questDataDict.Add(dataIdx, data);
-            }
-            curQuestData = questDataDict[npcData.questList[0]];
+            //questDataDict = new();
+            //foreach(int dataIdx in npcData.questList)
+            //{
+            //    QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
+            //    questDataDict.Add(dataIdx, data);
+            //}
+            //curQuestData = questDataDict[npcData.questList[0]];
         }
         public virtual void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
-            StartCoroutine(LookAtPlayerCoroutine());
+            //LookAtPlayer();
         }
 
+        protected void LookAtPlayer()
+        {
+            _LookAtPlayer = StartCoroutine(LookAtPlayerCoroutine());
+        }
         private IEnumerator LookAtPlayerCoroutine()
         {
+            if (player == null) yield break;
             while (true)
             {
                 Vector3 direction = player.gameObject.transform.position - NPCObj.transform.position;
@@ -72,53 +82,18 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
                 if (angleDifference <= 1.0f)
                 {
-                    player.StartConversation();
+                    //player.StartConversation();
                     yield break;
                 }
                 yield return wff;
             }
         }
-
-        protected IEnumerator PlayDialog(int questIdx, QuestStatus status)
+        
+        public void EndInteract()
         {
-            int curDialogIdx = 0;
-            List<int> dialogList = new();
-            switch(status)
-            {
-                case QuestStatus.CantAccept:
-                    dialogList = questDataDict[questIdx].cantAcceptDialogList;
-                    break;
-                case QuestStatus.Unaccepted:
-                    dialogList = questDataDict[questIdx].unAcceptedDialogList;
-                    break;
-                case QuestStatus.Accepted:
-                    dialogList = questDataDict[questIdx].AcceptedDialogList;
-                    break;
-                case QuestStatus.Done:
-                    dialogList = questDataDict[questIdx].doneDialogList;
-                    break;
-                case QuestStatus.End:
-                    dialogList = questDataDict[questIdx].endDialogList;
-                    break;
-                default:
-                    Debug.Log("없음");
-                    break;
-            }
-
-            while(true)
-            {
-                if(Input.GetKeyDown(KeyCode.G))
-                {
-                    //다이얼로그 출력 로직
-                    curDialogIdx++;
-                }
-                if(curDialogIdx == dialogList.Count)
-                {
-                    player.EndConversation();
-                    yield return ResetRotation();
-                }
-                yield return wff;
-            }
+            if(_LookAtPlayer != null)
+                StopCoroutine(_LookAtPlayer);
+            StartCoroutine(ResetRotation());
         }
         private IEnumerator ResetRotation()
         {

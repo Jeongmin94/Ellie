@@ -6,10 +6,14 @@ namespace Assets.Scripts.Player
 {
     public class PlayerAnimationEventHandler : MonoBehaviour
     {
+        private PlayerController controller;
+        private PlayerInventory inventory;
         private Pickaxe pickaxe;
         private void Awake()
         {
             pickaxe = GetComponent<PlayerController>().Pickaxe;
+            controller = GetComponent<PlayerController>();
+            inventory = GetComponent<PlayerInventory>();
         }
         public void HandleSmithingAnimationEvent()
         {
@@ -20,17 +24,22 @@ namespace Assets.Scripts.Player
         {
             if (GetComponent<PlayerStatus>().Stamina <= 10.0f)
             {
-                GetComponent<PlayerController>().ChangeState(PlayerStateName.Exhaust);
+                controller.ChangeState(PlayerStateName.Exhaust);
             }
             else
             {
-                GetComponent<PlayerController>().ChangeState(PlayerStateName.Idle);
+                controller.ChangeState(PlayerStateName.Idle);
             }
         }
 
         public void HandleMeleeAttackColliderOnEvent()
         {
-            GetComponent<PlayerController>().TurnOnMeleeAttackCollider();
+            controller.TurnOnMeleeAttackCollider();
+        }
+
+        public void HandleConsumingItemEvent()
+        {
+            inventory.ConsumeItemEvent();
         }
     }
 }

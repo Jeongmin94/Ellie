@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Item;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Inventory;
@@ -11,10 +12,19 @@ namespace Assets.Scripts.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
+        public struct ConsumableItemData
+        {
+            public int HPRecoveryAmount;
+            // !TODO : 추가될 소모품의 효과들에 대한 정의가 필요
+        }
+        private const int CONSUMABLEEQUIPMENTSLOTCOUNT = 4;
         private PlayerController controller;
+        private PlayerStatus playerStatus;
         private TicketMachine ticketMachine;
         private Inventory inventory;
         public Inventory Inventory { get { return inventory; } }
+        public ItemMetaData[] consumableEquipmentSlot = new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
+        public int curSlotIdx;
         [SerializeField] private GameGoods gameGoods;
 
         public bool isOpen;
@@ -27,6 +37,7 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             controller = GetComponent<PlayerController>();
+            playerStatus = GetComponent<PlayerStatus>();    
             ticketMachine = controller.TicketMachine;
             isOpen = false;
         }
@@ -48,16 +59,65 @@ namespace Assets.Scripts.Player
                 ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
             }
 
-            if(Input.GetKeyDown(KeyCode.Escape) && Inventory.IsOpened)
+            if (Input.GetKeyDown(KeyCode.Escape) && Inventory.IsOpened)
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
                 OnInventoryToggle();
             }
 
             //for test
-            if(Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
                 ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest());
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+                if (consumableEquipmentSlot[0] == null) return;
+                if (controller.GetCurState() == PlayerStateName.Idle ||
+                    controller.GetCurState() == PlayerStateName.Walk ||
+                    controller.GetCurState() == PlayerStateName.Sprint)
+                {
+                    curSlotIdx = 0;
+                    controller.ChangeState(PlayerStateName.ConsumingItem);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+                if (consumableEquipmentSlot[1] == null) return;
+                if (controller.GetCurState() == PlayerStateName.Idle ||
+                    controller.GetCurState() == PlayerStateName.Walk ||
+                    controller.GetCurState() == PlayerStateName.Sprint)
+                {
+                    curSlotIdx = 1;
+                    controller.ChangeState(PlayerStateName.ConsumingItem);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+                if (consumableEquipmentSlot[2] == null) return;
+                if (controller.GetCurState() == PlayerStateName.Idle ||
+                    controller.GetCurState() == PlayerStateName.Walk ||
+                    controller.GetCurState() == PlayerStateName.Sprint)
+                {
+                    curSlotIdx = 2;
+                    controller.ChangeState(PlayerStateName.ConsumingItem);
+                }
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+                if (consumableEquipmentSlot[3] == null) return;
+                if (controller.GetCurState() == PlayerStateName.Idle ||
+                    controller.GetCurState() == PlayerStateName.Walk ||
+                    controller.GetCurState() == PlayerStateName.Sprint)
+                {
+                    curSlotIdx = 3;
+                    controller.ChangeState(PlayerStateName.ConsumingItem);
+                }
             }
 
         }
@@ -92,7 +152,7 @@ namespace Assets.Scripts.Player
 
         public void OnInventoryToggle()
         {
-            if(Inventory.IsOpened)
+            if (Inventory.IsOpened)
             {
                 controller.canAttack = false;
                 Cursor.lockState = CursorLockMode.None;
@@ -120,5 +180,28 @@ namespace Assets.Scripts.Player
             return payload;
         }
 
+        public void ConsumeItemEvent()
+        {
+            ticketMachine.SendMessage(ChannelType.UI, GenerateConsumeItemPayload());
+            ItemData data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(consumableEquipmentSlot[curSlotIdx].index);
+            playerStatus.ApplyConsumableItemEffect(GenerateConsumableItemData(data));
+        }
+
+        private ConsumableItemData GenerateConsumableItemData(ItemData data)
+        {
+            ConsumableItemData consumableItemData = new ConsumableItemData();
+            consumableItemData.HPRecoveryAmount = data.increasePoint;
+            return consumableItemData;
+        }
+        private UIPayload GenerateConsumeItemPayload()
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.ConsumeSlotItem;
+            payload.slotAreaType = SlotAreaType.Item;
+            payload.groupType = GroupType.Item;
+            payload.itemData = consumableEquipmentSlot[curSlotIdx];
+            return payload;
+        }
     }
 }

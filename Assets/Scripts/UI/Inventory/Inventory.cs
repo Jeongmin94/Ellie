@@ -41,6 +41,7 @@ namespace Assets.Scripts.UI.Inventory
         public BaseSlotItem baseSlotItem; // 슬롯 아이템 정보
         public InventorySlot slot;        // 슬롯 위치
         public BaseItem baseItem;         // 아이템 정보
+        public int equipmentSlotIdx;               // slotAreaType이 Equipment일 경우 Equipment창에서의 아이템의 index
     }
 
     public class Inventory : UIPopup
@@ -483,20 +484,33 @@ namespace Assets.Scripts.UI.Inventory
         {
             UIPayload uiPayload = new UIPayload();
             uiPayload.uiType = UIType.Notify;
-            Debug.Log("GeneratePayloadToPlayer groupType : " +  payload.groupType);
-            if (payload.slot.SlotItemData != null)
-                uiPayload.itemData = payload.slot.SlotItemData.itemData;
             uiPayload.actionType = ActionType.SetPlayerProperty;
             uiPayload.groupType = payload.groupType;
-            if (payload.slot.SlotItemData == null)
+
+
+            //equipment 슬롯의 아이템 데이터가 null이 아니라면 데이터와 인덱스 담아서 보내기
+            uiPayload.equipmentSlotIdx = payload.slot.Index;
+
+            if (payload.slot.SlotItemData != null)
             {
-                uiPayload.isStoneNull = true;
+                uiPayload.itemData = payload.slot.SlotItemData.itemData;
             }
-            else
-            {
-                //uiPayload.itemData = payload.slot.SlotItemData.itemData;
-                uiPayload.isStoneNull = false;
-            }
+            //null이 됐을 경우
+            //else
+            //{
+            //    //아이템과 돌멩이로 분기처리
+
+            //}
+            //돌멩이 장비창의 0번 인덱스의 아이템 데이터가 null이 됐을 경우
+            //if (payload.groupType == GroupType.Stone && payload.slot.SlotItemData == null)
+            //{
+            //    uiPayload.isStoneNull = true;
+            //}
+            //else
+            //{
+            //    //uiPayload.itemData = payload.slot.SlotItemData.itemData;
+            //    uiPayload.isStoneNull = false;
+            //}
 
 
             return uiPayload;
@@ -523,12 +537,12 @@ namespace Assets.Scripts.UI.Inventory
                 new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
             };
 
-            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Consumption);
+            var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Item);
             consumptionCanvas.InitFrame(directions, EquipmentFrame.DefaultPath);
             consumptionCanvas.RegisterObservers(consumptionArea.GetSlots());
-            consumptionCanvas.groupType = GroupType.Consumption;
+            consumptionCanvas.groupType = GroupType.Item;
 
-            frameCanvasMap.TryAdd(GroupType.Consumption, consumptionCanvas);
+            frameCanvasMap.TryAdd(GroupType.Item, consumptionCanvas);
         }
 
         private void InitStoneCanvas()

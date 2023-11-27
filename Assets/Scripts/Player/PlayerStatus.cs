@@ -2,12 +2,8 @@
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.StatusEffects;
-using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.UI.Framework.Images;
-using Assets.Scripts.Utils;
 using Channels.Combat;
-using Channels.Components;
-using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -31,6 +27,8 @@ namespace Assets.Scripts.Player
         [Header("Combat")]
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
+        [SerializeField] private float invulnerableTimeAfterHit;
+        private Coroutine invulnerableCoroutine;
 
         public int MaxHP { get { return maxHP; } }
         public int MaxStamina { get { return maxStamina; } }
@@ -98,13 +96,11 @@ namespace Assets.Scripts.Player
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
-            playerStatusEffects.Add(StatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
+            //playerStatusEffects.Add(StatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
             playerStatusEffects.Add(StatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
             playerStatusEffects.Add(StatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
             playerStatusEffects.Add(StatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
             playerStatusEffects.Add(StatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
-
-
         }
 
         private void RecoverStamina()
@@ -175,6 +171,8 @@ namespace Assets.Scripts.Player
             }
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
+            //무적 처리 로직
+            SetPlayerInvulnerable(invulnerableTimeAfterHit);   
         }
 
         private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)
@@ -184,6 +182,29 @@ namespace Assets.Scripts.Player
             info.effectDuration = payload.statusEffectduration;
             info.effectForce = payload.force;
             return info;
+        }
+
+        public void SetPlayerInvulnerable(float time)
+        {
+            if (invulnerableCoroutine != null)
+                StopCoroutine(invulnerableCoroutine);
+            invulnerableCoroutine = StartCoroutine(SetPlayerInvulnerableCoroutine(time));
+        }
+
+        private IEnumerator SetPlayerInvulnerableCoroutine(float time)
+        {
+            gameObject.tag = "Untagged";
+            yield return new WaitForSeconds(time);
+            gameObject.tag = "Player";
+        }
+
+        public void ApplyConsumableItemEffect(PlayerInventory.ConsumableItemData data)
+        {
+            int HPRecoveryAmount = data.HPRecoveryAmount;
+            if (HP + HPRecoveryAmount >= maxHP)
+                HP = maxHP;
+            else
+                HP += HPRecoveryAmount;
         }
     }
 }
