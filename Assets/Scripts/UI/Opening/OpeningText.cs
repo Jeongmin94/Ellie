@@ -1,3 +1,4 @@
+using Assets.Scripts.ActionData;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.Utils;
@@ -24,12 +25,15 @@ namespace Assets.Scripts.UI.Opening
         private GameObject textPanel;
 
         private Image image;
+        private Color originImageColor;
 
         private RectTransform rectTransform;
         private RectTransform imagePanelRect;
         private RectTransform textPanelRect;
 
         private TextMeshProUGUI textMeshProUGUI;
+
+        protected readonly Data<Color> imageColor = new Data<Color>();
 
         public void InitText()
         {
@@ -57,6 +61,8 @@ namespace Assets.Scripts.UI.Opening
             image = imagePanel.GetComponent<Image>();
 
             textMeshProUGUI = textPanel.FindChild<TextMeshProUGUI>(null, true);
+
+            imageColor.Subscribe(OnImageColorChanged);
         }
 
         protected virtual void InitObjects()
@@ -79,6 +85,8 @@ namespace Assets.Scripts.UI.Opening
             textRect.localPosition = Vector3.zero;
 
             image.sprite = panelSprite;
+            originImageColor = image.color;
+            imageColor.Value = originImageColor;
         }
 
         protected virtual void BindEvents()
@@ -94,6 +102,13 @@ namespace Assets.Scripts.UI.Opening
             textMeshProUGUI.alignment = typographyTypographyData.alignmentOptions;
             textMeshProUGUI.enableAutoSizing = typographyTypographyData.enableAutoSizing;
             textMeshProUGUI.text = typographyTypographyData.title;
+        }
+
+        protected void ResetImageColor() => image.color = originImageColor;
+
+        private void OnImageColorChanged(Color value)
+        {
+            image.color = value;
         }
     }
 }

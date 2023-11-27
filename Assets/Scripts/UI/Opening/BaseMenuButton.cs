@@ -11,14 +11,7 @@ namespace Assets.Scripts.UI.Opening
     {
         public new static readonly string Path = "Opening/MenuText";
 
-        private Button menuButton;
-
-        protected override void InitObjects()
-        {
-            base.InitObjects();
-
-            menuButton = imagePanel.GetComponent<Button>();
-        }
+        private ColorBlock colorBlock;
 
         protected override void BindEvents()
         {
@@ -31,13 +24,10 @@ namespace Assets.Scripts.UI.Opening
         {
             base.InitTypography(typographyTypographyData);
 
-            var colorBlock = menuButton.colors;
             colorBlock.highlightedColor = typographyTypographyData.highlightedColor;
             colorBlock.pressedColor = typographyTypographyData.pressedColor;
             colorBlock.selectedColor = typographyTypographyData.selectedColor;
             colorBlock.disabledColor = typographyTypographyData.disabledColor;
-
-            menuButton.colors = colorBlock;
         }
 
         protected virtual void OnClickButton(PointerEventData data)
@@ -48,12 +38,13 @@ namespace Assets.Scripts.UI.Opening
 
         protected virtual void OnPointerEnter(PointerEventData data)
         {
-            Debug.Log($"{name} 마우스 호버");
+            // Debug.Log($"{name} - 호버");
+            
         }
 
         protected virtual void OnPointerExit(PointerEventData data)
         {
-            Debug.Log($"{name} 마우스 호버 exit");
+            ResetImageColor();
         }
     }
 }
