@@ -2,12 +2,8 @@
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.StatusEffects;
-using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.UI.Framework.Images;
-using Assets.Scripts.Utils;
 using Channels.Combat;
-using Channels.Components;
-using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -200,6 +196,15 @@ namespace Assets.Scripts.Player
             gameObject.tag = "Untagged";
             yield return new WaitForSeconds(time);
             gameObject.tag = "Player";
+        }
+
+        public void ApplyConsumableItemEffect(PlayerInventory.ConsumableItemData data)
+        {
+            int HPRecoveryAmount = data.HPRecoveryAmount;
+            if (HP + HPRecoveryAmount >= maxHP)
+                HP = maxHP;
+            else
+                HP += HPRecoveryAmount;
         }
     }
 }

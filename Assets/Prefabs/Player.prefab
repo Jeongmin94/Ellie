@@ -7258,6 +7258,7 @@ MonoBehaviour:
   pickaxe: {fileID: 2136787205}
   isPickaxeAvailable: 0
   curPickaxeTier: 0
+  playerInventory: {fileID: 0}
   isGrounded: 0
   isSprinting: 0
   isFalling: 0
@@ -7419,6 +7420,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ac7b9f0eda0304ca0d33b10a55017c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  consumableEquipmentSlot:
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  curSlotIdx: 0
   gameGoods: {fileID: 11400000, guid: a0101c60cb2252647a2e44d0c3c85951, type: 2}
   isOpen: 0
 --- !u!114 &1523587299

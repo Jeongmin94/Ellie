@@ -30,7 +30,8 @@ namespace Assets.Scripts.Player
         {
             Base,
             Aiming,
-            Mining
+            Mining,
+            Consuming
         }
         [Header("Player references")]
         [SerializeField] private Transform playerObj;
@@ -122,7 +123,7 @@ namespace Assets.Scripts.Player
         public Pickaxe.Tier curPickaxeTier;
 
         [Header("Inventory")]
-        private PlayerInventory playerInventory;
+        public PlayerInventory playerInventory;
 
 
         [Header("Boolean Properties")]
@@ -223,7 +224,12 @@ namespace Assets.Scripts.Player
             //test
             if(Input.GetKeyDown(KeyCode.U))
             {
-                GetConsumalbeItemTest();
+                GetConsumalbeItemTest(4100);
+            }
+            if(Input.GetKeyDown(KeyCode.J))
+            {
+                GetConsumalbeItemTest(4101);
+
             }
         }
         private void FixedUpdate()
@@ -331,6 +337,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Conversation, playerStateConversation);
             PlayerStateMeleeAttack playerStateMeleeAttack = new(this);
             stateMachine.AddState(PlayerStateName.MeleeAttack, playerStateMeleeAttack);
+            PlayerStateConsumingItem playerStateConsumingItem = new(this);
+            stateMachine.AddState(PlayerStateName.ConsumingItem, playerStateConsumingItem);
 
         }
         public void MovePlayer(float moveSpeed)
@@ -716,7 +724,7 @@ namespace Assets.Scripts.Player
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
         }
 
-        private void GetConsumalbeItemTest()
+        private void GetConsumalbeItemTest(int idx)
         {
             UIPayload payload = new()
             {
@@ -724,7 +732,7 @@ namespace Assets.Scripts.Player
                 groupType = UI.Inventory.GroupType.Item,
                 slotAreaType = UI.Inventory.SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100)
+                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(idx)
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
         }

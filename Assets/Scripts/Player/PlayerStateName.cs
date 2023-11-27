@@ -20,6 +20,7 @@
         KnockedAirborne,
         GetUp,
         Conversation,
+        ConsumingItem,
         Dead
     }
 }
