@@ -51,7 +51,8 @@ namespace Boss.Terrapupa
 			transform.position = position;
 			transform.localScale = scale;
 			movementSpeed = speed;
-			attackValue = hitPayload.Damage;
+			combatPayload = hitPayload;
+            attackValue = hitPayload.Damage;
 			owner = sender;
 			ticketMachine = senderTicketMacine;
         }
@@ -60,11 +61,7 @@ namespace Boss.Terrapupa
 		{
             if (collision.gameObject.CompareTag("Player"))
             {
-                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
-                {
-                    Position = transform.position,
-                    Scale = new Vector3(0.7f, 0.7f, 0.7f),
-                });
+				ParticleManager.Instance.GetParticle(effect, transform, 0.7f);
 
 				combatPayload.Attacker = owner;
 				combatPayload.Defender = collision.transform.root;

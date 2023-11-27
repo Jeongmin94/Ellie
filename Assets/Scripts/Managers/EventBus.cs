@@ -22,6 +22,7 @@ public enum EventBusEvents
     BossMinionAttack,
     DestroyAllManaFountain,
     ApplySingleBossCooldown,
+    StartIntakeMagicStone,
 }
 
 public interface IBaseEventPayload

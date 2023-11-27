@@ -36,6 +36,9 @@ MonoBehaviour:
   - rid: 283011291767373838
   - rid: 283011291767373840
   - rid: 283011470369751063
+  - rid: 1683426582401646595
+  - rid: 1683426582401646596
+  - rid: 1683426582401646597
   treeState: 0
   blackboard:
     keys:
@@ -46,8 +49,9 @@ MonoBehaviour:
     - rid: 283011090204065829
     - rid: 283011090204065879
     - rid: 1401849442858696713
-  viewPosition: {x: 1223.2, y: 356, z: 0}
-  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
+    - rid: 1683426582401646594
+  viewPosition: {x: 2599.2, y: 294.4, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -74,7 +78,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e2328ed0329f6f242b8b672efff3889d
-        position: {x: -3210, y: -105}
+        position: {x: -3585, y: -75}
         blackboard:
           keys: []
         description: 
@@ -128,7 +132,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d1b38dfd3e3fd5a44abd2a8887e5f534
-        position: {x: -2685, y: -210}
+        position: {x: -2685, y: -255}
         blackboard:
           keys: []
         description: 
@@ -217,7 +221,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f52611adbca66e24fb7940c19ae3241a
-        position: {x: -3450, y: -105}
+        position: {x: -3810, y: -75}
         blackboard:
           keys: []
         description: 
@@ -352,6 +356,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849447854899212
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -396,7 +403,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 814b355d6af926a4e8d19eeee1936360
-        position: {x: -3210, y: -285}
+        position: {x: -3570, y: -255}
         blackboard:
           keys: []
         description: 
@@ -411,7 +418,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ea5e60a3a2121f942ad182f2fb6b43f3
-        position: {x: -3000, y: -105}
+        position: {x: -3360, y: -75}
         blackboard:
           keys: []
         description: 
@@ -446,6 +453,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 1683426094593605651
+        - rid: 1683426582401646597
         - rid: 283011291767373838
         - rid: 1401849447854899204
     - rid: 1683426247750189181
@@ -483,3 +491,94 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+    - rid: 1683426582401646594
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: IntakeStartPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 1683426582401646595
+      type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c6aaf1e878007ee4a82bcfc2eae9f629
+        position: {x: -3180, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isInit:
+          reference:
+            rid: -2
+          defaultValue: 1
+        bossPayload:
+          reference:
+            rid: 1683426582401646594
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        intValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        floatValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        vector3Value:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        transformValue1:
+          reference:
+            rid: 283011090204065915
+          defaultValue: {fileID: 0}
+        transformValue2:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        transformValue3:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        attackTypeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        combatPayload:
+          reference:
+            rid: 1683426582401646594
+    - rid: 1683426582401646596
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: cd9c5ee32c2ff004493d0a0ca397bab3
+        position: {x: -3015, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 18
+        baseEventPayload:
+          reference:
+            rid: 1683426582401646594
+    - rid: 1683426582401646597
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 009ef7f5a3caaf4458f332cfb0c43578
+        position: {x: -3090, y: -255}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1683426582401646595
+        - rid: 1683426582401646596

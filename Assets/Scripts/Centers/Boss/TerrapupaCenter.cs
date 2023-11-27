@@ -11,6 +11,7 @@ using Assets.Scripts.StatusEffects;
 using System.Collections.Generic;
 using Assets.Scripts.Particle;
 using Channels.Components;
+using Assets.Scripts.Item.Stone;
 
 namespace Centers.Boss
 {
@@ -114,6 +115,7 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
             EventBus.Instance.Subscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
         }
         #endregion
 
@@ -203,19 +205,28 @@ namespace Centers.Boss
         {
             Debug.Log($"OnBossAtrractedByMagicStone :: 보스 마법 돌맹이를 추적 시작");
 
-            TerrapupaController actor = magicStonePayload.TransformValue2.GetComponent<TerrapupaController>();
-            actor.terrapupaData.isTempted.Value = true;
-            actor.terrapupaData.isIntake.Value = false;
-            actor.terrapupaData.magicStoneTransform.Value = magicStonePayload.TransformValue1;
+            Transform magicStone = magicStonePayload.TransformValue1;
+            Transform target = magicStonePayload.TransformValue2;
+            if (target)
+            {
+                TerrapupaController actor = target.GetComponent<TerrapupaController>();
+                actor.terrapupaData.isTempted.Value = true;
+                actor.terrapupaData.isIntake.Value = false;
+                actor.terrapupaData.magicStoneTransform.Value = magicStone;
+            }
         }
         private void OnBossUnattractedByMagicStone(BossEventPayload magicStonePayload)
         {
             Debug.Log($"OnBossUnattractedByMagicStone :: 보스 마법 돌맹이를 추적 종료");
 
-            TerrapupaController actor = magicStonePayload.TransformValue2.GetComponent<TerrapupaController>();
-            actor.terrapupaData.isTempted.Value = false;
-            actor.terrapupaData.isIntake.Value = false;
-            actor.terrapupaData.magicStoneTransform.Value = null;
+            Transform target = magicStonePayload.TransformValue2;
+            if (target)
+            {
+                TerrapupaController actor = target.GetComponent<TerrapupaController>();
+                actor.terrapupaData.isTempted.Value = false;
+                actor.terrapupaData.isIntake.Value = false;
+                actor.terrapupaData.magicStoneTransform.Value = null;
+            }
         }
         private void OnIntakeMagicStoneByBoss1(IBaseEventPayload bossPayload)
         {
@@ -400,6 +411,15 @@ namespace Centers.Boss
             TerrapupaAttackType banType = payload.AttackTypeValue;
 
             bossController.Cooldown(cooldown, banType);
+        }
+        private void OnStartIntakeMagicStone(IBaseEventPayload bossPayload)
+        {
+            BossEventPayload payload = bossPayload as BossEventPayload;
+
+            Transform magicStone = payload.TransformValue1;
+
+            // 지속시간 체크 정지
+            magicStone.GetComponent<MagicStone>().StopCheckDuration();
         }
         #endregion
 
