@@ -38,6 +38,7 @@ MonoBehaviour:
     - rid: 1683426562437021796
     - rid: 1683426562437021793
     - rid: 1683426562437021819
+    - rid: 1683426571690704903
   viewPosition: {x: -68, y: 61.6, z: 0}
   viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
@@ -50,7 +51,7 @@ MonoBehaviour:
       data:
         name: rotationSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 283011090204065863
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -155,7 +156,7 @@ MonoBehaviour:
       data:
         name: movementSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 1683426562437021801
       type: {class: CheckRayCastForward, ns: , asm: Assembly.Ellie}
       data:
@@ -169,7 +170,7 @@ MonoBehaviour:
         drawGizmos: 0
         rayCastLength:
           reference:
-            rid: -2
+            rid: 1683426571690704903
           defaultValue: 1
         targetTag:
           reference:
@@ -330,3 +331,9 @@ MonoBehaviour:
         children:
         - rid: 1683426562437021823
         - rid: 1683426562437021812
+    - rid: 1683426571690704903
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: raycastDistance
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1

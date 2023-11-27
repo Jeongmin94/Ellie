@@ -12,7 +12,14 @@ public class TerrapupaMinionRootData : BaseBTData
 
     [Header("기본 수치")]
     [Tooltip("보스 이름")] public string bossName;
-    [Tooltip("보스의 체력")] public int hp = 20;
+    [Tooltip("보스의 체력")] public int hp = 5;
+
+    [Header("미니언 특성")]
+    [Tooltip("패턴 전환 시간")] public float transferTime = 2.0f;
+    [Tooltip("골렘의 핵 드롭 여부")] public bool isDropGolemCore = false;
+
+    [Header("공격 감지 범위")]
+    [Tooltip("감지 범위")] public float attackDetectionDistance = 4.0f;
 
     public BlackboardKey<Transform> player;
     public BlackboardKey<int> currentHP;
@@ -22,6 +29,10 @@ public class TerrapupaMinionRootData : BaseBTData
     public override void Init(BehaviourTree tree)
     {
         SetBlackboardValue<int>("currentHP", hp, tree);
+        SetBlackboardValue<bool>("isDropGolemCore", isDropGolemCore, tree);
+        SetBlackboardValue<float>("transferTime", transferTime, tree);
+        SetBlackboardValue<float>("attackDetectionDistance", attackDetectionDistance, tree);
+
         SetBlackboardValue<bool>("canAttack", true, tree);
         SetBlackboardValue<bool>("isHit", false, tree);
 

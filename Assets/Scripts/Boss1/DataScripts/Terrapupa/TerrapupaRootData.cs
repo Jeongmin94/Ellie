@@ -26,9 +26,6 @@ public class TerrapupaRootData : BaseBTData
     [Tooltip("단거리 공격")] public float ShortRangeDetectionDistance = 5.0f;
 
     public BlackboardKey<int> currentHP;
-    public BlackboardKey<float> longRangeDetectionDistance;
-    public BlackboardKey<float> midRangeDetectionDistance;
-    public BlackboardKey<float> shortRangeDetectionDistance;
 
     public BlackboardKey<Transform> player;
     public BlackboardKey<Transform> objectTransform;
@@ -56,9 +53,6 @@ public class TerrapupaRootData : BaseBTData
         SetBlackboardValue<float>("shortRangeDetectionDistance", ShortRangeDetectionDistance, tree);
 
         currentHP = FindBlackboardKey<int>("currentHP", tree);
-        longRangeDetectionDistance = FindBlackboardKey<float>("longRangeDetectionDistance", tree);
-        midRangeDetectionDistance = FindBlackboardKey<float>("midRangeDetectionDistance", tree);
-        shortRangeDetectionDistance = FindBlackboardKey<float>("shortRangeDetectionDistance", tree);
 
         player = FindBlackboardKey<Transform>("player", tree);
         objectTransform = FindBlackboardKey<Transform>("objectTransform", tree);

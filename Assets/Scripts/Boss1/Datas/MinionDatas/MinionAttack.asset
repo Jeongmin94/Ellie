@@ -9,15 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 52faf2ed93b59ba41acc34325dcacdfc, type: 3}
-  m_Name: TerrapupaSpinningAttack
+  m_Script: {fileID: 11500000, guid: f730082876c46bf4db7c51735730f518, type: 3}
+  m_Name: MinionAttack
   m_EditorClassIdentifier: 
-  dataName: TerrapupaSpinningAttack
-  spinningAttackEffect1: {fileID: 3878187956673098388, guid: 566424d09f5143c47988868eb8b8ed75, type: 3}
+  dataName: TerrapupaMinionAttack
+  attackEffect1: {fileID: 2805291560145305143, guid: cfff15a792dc8a3459d071561c0f3a99, type: 3}
+  cooldown: 5
   rotationSpeed: 2
-  movementSpeed: 1
-  effectiveRadius: 7
-  attackValue: 3
+  attackDistance: 5
+  attackValue: 2
   statusEffect: 1
-  statusEffectDuration: 0.2
+  statusEffectDuration: 0.5
   statusEffectForce: 0

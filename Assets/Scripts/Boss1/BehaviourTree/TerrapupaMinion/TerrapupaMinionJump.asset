@@ -43,11 +43,12 @@ MonoBehaviour:
     keys:
     - rid: 1401849418967941121
     - rid: 283011090204065863
+    - rid: 1683426571690704901
     - rid: 283011090204065862
     - rid: 1683426562437021751
     - rid: 1683426562437021765
-  viewPosition: {x: -45.6, y: 51.2, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 130.4, y: 159.2, z: 0}
+  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
   references:
     version: 2
     RefIds:
@@ -56,9 +57,9 @@ MonoBehaviour:
     - rid: 283011090204065862
       type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
-        name: movementSpeed
+        name: rushSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 5
+        value: 4
     - rid: 283011090204065863
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -130,7 +131,7 @@ MonoBehaviour:
         drawGizmos: 0
         jumpPower:
           reference:
-            rid: -2
+            rid: 1683426571690704901
           defaultValue: 5
     - rid: 1683426562437021738
       type: {class: CheckRaycastDown, ns: , asm: Assembly.Ellie}
@@ -495,3 +496,9 @@ MonoBehaviour:
         name: 
         typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
         value: 0
+    - rid: 1683426571690704901
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: jumpPower
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 3

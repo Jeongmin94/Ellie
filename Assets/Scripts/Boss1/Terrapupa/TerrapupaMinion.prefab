@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4008788663092322691}
   - component: {fileID: 4008788663092322690}
   - component: {fileID: 4008788663092322693}
+  - component: {fileID: 2865219159835221847}
   m_Layer: 10
   m_Name: TerrapupaMinion
   m_TagString: Boss
@@ -69,7 +70,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   behaviourTreeInstance: {fileID: 4008788663092322688}
   rootTreeData: {fileID: 11400000, guid: ad8d5520e0abf2c4d846e618444271fa, type: 2}
-  settingList: []
+  settingList:
+  - {fileID: 11400000, guid: b5f95f1ab53e484439690aad8c274640, type: 2}
+  - {fileID: 11400000, guid: 85feaf96c2706b741b04f113a1d6fb4d, type: 2}
+  - {fileID: 11400000, guid: fc96f4a472ffbad4aaeeadd3412fda2e, type: 2}
+  - {fileID: 11400000, guid: 63475ebee65b79b47a39a8516b3a2c6d, type: 2}
+  - {fileID: 11400000, guid: 52f59fc9b6bbf7845b4375d9119b3f2a, type: 2}
   minionData: {fileID: 0}
   healthBar: {fileID: 4008788663092322693}
   weakPoints: []
@@ -102,6 +108,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scaleFactor: 0.002
+--- !u!114 &2865219159835221847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008788663092322692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af5815368e0b4348a6d97b280bcb2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4008788663347610839
 GameObject:
   m_ObjectHideFlags: 0

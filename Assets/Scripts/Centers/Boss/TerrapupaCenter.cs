@@ -134,7 +134,7 @@ namespace Centers.Boss
             TerrapupaController actor = stonePayload.Sender.GetComponent<TerrapupaController>();
 
             Poolable stone = PoolManager.Instance.Pop(actor.Stone.gameObject, transform);
-            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.IntValue, stonePayload.PrefabValue, stonePayload.Sender, actor.TicketMachine);
+            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.CombatPayload, stonePayload.PrefabValue, stonePayload.Sender, actor.TicketMachine);
             stone.GetComponent<TerrapupaStone>().MoveToTarget(stonePayload.TransformValue1);
 
             actor.Stone.gameObject.SetActive(false);
@@ -166,7 +166,6 @@ namespace Centers.Boss
             Transform manaTransform = payload.TransformValue2;
             Transform bossTransform = payload.TransformValue3;
             Transform boss = payload.Sender;
-            int attack = payload.IntValue;
 
             float jumpCheckValue = 1.0f;
 
@@ -354,19 +353,13 @@ namespace Centers.Boss
 
             Transform playerTransform = payload.TransformValue1;
             Transform minion = payload.Sender;
-            int attackValue = payload.IntValue;
 
             Debug.Log(playerTransform);
 
             if (playerTransform != null)
             {
                 TerrapupaMinionController minionController = minion.GetComponent<TerrapupaMinionController>();
-                HitedPlayer(minionController.TicketMachine, minion, playerTransform, new CombatPayload
-                {
-                    Damage = attackValue,
-                    PlayerStatusEffectName = StatusEffectName.WeakRigidity,
-                    statusEffectduration = 0.05f,
-                });
+                HitedPlayer(minionController.TicketMachine, minion, playerTransform, payload.CombatPayload);
             }
 
             StartCoroutine(MinionAttackCooldown(payload));
@@ -417,7 +410,7 @@ namespace Centers.Boss
             Debug.Log($"{minionController} 공격 봉인");
             minionController.minionData.canAttack.Value = false;
 
-            yield return new WaitForSeconds(5.0f);
+            yield return new WaitForSeconds(payload.FloatValue);
 
             Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
             minionController.minionData.canAttack.Value = true;

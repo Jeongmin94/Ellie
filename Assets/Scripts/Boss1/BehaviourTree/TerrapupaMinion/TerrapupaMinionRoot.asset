@@ -57,8 +57,8 @@ MonoBehaviour:
     - rid: 283011522970517506
     - rid: 1683426562437021725
     - rid: 1683426562437021814
-  viewPosition: {x: 1565.6, y: 502.4, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 2896, y: 284, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
@@ -87,20 +87,21 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: TerrapupaMinionSelfDestruct
     - rid: 283011457391001601
       type: {class: RandomSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 0cbefb6963270db4f97898fa82b16007
-        position: {x: -1995, y: -300}
+        position: {x: -1950, y: -270}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
         - rid: 1683426562437021727
+        - rid: 283011457391001638
         - rid: 1683426562437021731
         - rid: 1683426562437021807
     - rid: 283011457391001602
@@ -189,7 +190,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: TerrapupaMinionMove
     - rid: 283011457391001610
       type: {class: Timeout, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -224,7 +225,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: TerrapupaMinionAttack
     - rid: 283011457391001613
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -340,7 +341,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: TerrapupaMinionRetreat
     - rid: 283011470369751058
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -483,7 +484,7 @@ MonoBehaviour:
       data:
         name: attackDetectionDistance
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 4
+        value: 0
     - rid: 1683426562437021726
       type: {class: CheckTargetDistance, ns: , asm: Assembly.Ellie}
       data:
@@ -538,7 +539,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: TerrapupaMinionJump
     - rid: 1683426562437021775
       type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -555,7 +556,7 @@ MonoBehaviour:
         controllerNames:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: TerrapupaMinionMove
     - rid: 1683426562437021781
       type: {class: Timeout, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -597,7 +598,7 @@ MonoBehaviour:
       data:
         name: transferTime
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 1683426562437021826
       type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
