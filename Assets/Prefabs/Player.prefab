@@ -6983,7 +6983,7 @@ MonoBehaviour:
   CameraDistance: 7
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 264
   IgnoreTag: Player
   CameraRadius: 0.1
   DampingIntoCollision: 0
@@ -7042,7 +7042,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4016927572231187847}
   - component: {fileID: 4016927572231187846}
-  - component: {fileID: 4016927572231187844}
   m_Layer: 2
   m_Name: Cinematic Main Cam
   m_TagString: Untagged
@@ -7104,36 +7103,6 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 4016927571766896387}
---- !u!114 &4016927572231187844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4016927572231187841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e501d18bb52cf8c40b1853ca4904654f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_CollideAgainst:
-    serializedVersion: 2
-    m_Bits: 0
-  m_IgnoreTag: Player
-  m_TransparentLayers:
-    serializedVersion: 2
-    m_Bits: 264
-  m_MinimumDistanceFromTarget: 0.01
-  m_AvoidObstacles: 1
-  m_DistanceLimit: 0
-  m_MinimumOcclusionTime: 0
-  m_CameraRadius: 1
-  m_Strategy: 1
-  m_MaximumEffort: 1
-  m_SmoothingTime: 0.06
-  m_Damping: 0.61
-  m_DampingWhenOccluded: 0.31
-  m_OptimalTargetDistance: 0
 --- !u!1 &4016927572337565216
 GameObject:
   m_ObjectHideFlags: 0
@@ -7289,6 +7258,7 @@ MonoBehaviour:
   pickaxe: {fileID: 2136787205}
   isPickaxeAvailable: 0
   curPickaxeTier: 0
+  playerInventory: {fileID: 0}
   isGrounded: 0
   isSprinting: 0
   isFalling: 0
@@ -7450,6 +7420,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4ac7b9f0eda0304ca0d33b10a55017c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  consumableEquipmentSlot:
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  - groupType: 1
+    index: 0
+    name: 
+    description: 
+    imageName: 
+  curSlotIdx: 0
   gameGoods: {fileID: 11400000, guid: a0101c60cb2252647a2e44d0c3c85951, type: 2}
   isOpen: 0
 --- !u!114 &1523587299
