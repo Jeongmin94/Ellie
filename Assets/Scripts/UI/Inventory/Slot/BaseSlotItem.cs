@@ -4,6 +4,7 @@ using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
+using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -23,25 +24,19 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
+        [SerializeField] private TextTypographyData itemCountData;
+
         public BaseItem SlotItemData { get; set; }
 
         private Image raycastImage;
         private RectTransform rect;
 
         // Item
-        protected Image itemImage;
-        protected TextMeshProUGUI itemText;
+        private Image itemImage;
+        private TextMeshProUGUI itemText;
 
-        // itemCount.lineSpacing = lineHeight;
-        // itemCount.fontSize = fontSize;
-        // itemCount.color = Color.white;
-        // itemCount.alignment = TextAlignmentOptions.MidlineRight;
-        // itemCount.text = string.Empty;
-        //
-        // defaultSprite = itemImage.sprite;
-
-        protected Transform onDragParent;
-        protected SlotItemPosition slotItemPosition;
+        private Transform onDragParent;
+        private SlotItemPosition slotItemPosition;
         private bool isDropped;
 
         public virtual void InitBaseSlotItem()
@@ -73,6 +68,12 @@ namespace Assets.Scripts.UI.Inventory
         private void InitObjects()
         {
             slotItemPosition = null;
+
+            itemText.font = itemCountData.fontAsset;
+            itemText.fontSize = itemCountData.fontSize;
+            itemText.color = itemCountData.color;
+            itemText.alignment = itemCountData.alignmentOptions;
+            itemText.lineSpacing = itemCountData.lineSpacing;
         }
 
         private void BindEvents()

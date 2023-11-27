@@ -16,10 +16,6 @@ namespace Assets.Scripts.UI.Inventory
         private RectTransform rect;
         private TextMeshProUGUI descNameText;
 
-        private readonly Color fontColor = new Color(217, 209, 209);
-        private readonly int fontSize = 31;
-        private readonly float lineHeight = 79.95f;
-
         private void Awake()
         {
             Init();
@@ -45,21 +41,16 @@ namespace Assets.Scripts.UI.Inventory
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
             rect.sizeDelta = InventoryConst.DescNameRect.GetSize();
             rect.localPosition = InventoryConst.DescNameRect.ToCanvasPos();
-
-            descNameText.color = fontColor;
-            descNameText.fontSize = fontSize;
-            descNameText.alignment = TextAlignmentOptions.Top;
-            descNameText.lineSpacing = lineHeight;
         }
 
         public void SetTypographyData(TextTypographyData data)
         {
-            descNameText.font = data.fontAsset;
             descNameText.color = data.color;
             descNameText.fontSize = data.fontSize;
             descNameText.alignment = data.alignmentOptions;
             descNameText.lineSpacing = data.lineSpacing;
-            descNameText.text = data.title;
+            
+            descNameText.font = data.fontAsset;
         }
 
         public void SetDescriptionName(string descName)

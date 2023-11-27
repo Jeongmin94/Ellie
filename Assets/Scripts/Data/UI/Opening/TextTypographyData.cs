@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Data.UI.Opening
 {
-    [CreateAssetMenu(fileName = "TextData", menuName = "UI/Opening/TextData")]
+    [CreateAssetMenu(fileName = "TextData", menuName = "UI/TextData")]
     public class TextTypographyData : DialogTypographyData
     {
         [SerializeField] public TextAlignmentOptions alignmentOptions;

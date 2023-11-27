@@ -1,5 +1,6 @@
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
+using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,6 +10,9 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class CategoryToggleController : ToggleController
     {
+        [SerializeField] private TextTypographyData enabledPanelData;
+        [SerializeField] private TextTypographyData disabledPanelData;
+
         private ActivateButtonPanelHandler activateButtonPanelCallback;
 
         public string toggleTitle;
@@ -50,13 +54,15 @@ namespace Assets.Scripts.UI.Inventory
         private void OnDownHandler(PointerEventData data)
         {
             checkMark.color = pressedColor;
-            text.color = InventoryConst.ToggleOffFontColor;
+            // text.color = InventoryConst.ToggleOffFontColor;
+            text.color = disabledPanelData.color;
         }
 
         private void OnUpHandler(PointerEventData data)
         {
             checkMark.color = normalColor;
-            text.color = InventoryConst.ToggleOnFontColor;
+            // text.color = InventoryConst.ToggleOnFontColor;
+            text.color = enabledPanelData.color;
         }
 
         public void Subscribe(ActivateButtonPanelHandler listener)
@@ -75,12 +81,14 @@ namespace Assets.Scripts.UI.Inventory
 
         private Color GetToggledColor(bool isOn)
         {
-            return isOn ? InventoryConst.ToggleOnFontColor : InventoryConst.ToggleOffFontColor;
+            // return isOn ? InventoryConst.ToggleOnFontColor : InventoryConst.ToggleOffFontColor;
+            return isOn ? enabledPanelData.color : disabledPanelData.color;
         }
 
         private int GetToggledSize(bool isOn)
         {
-            return isOn ? InventoryConst.ToggleOnFontSize : InventoryConst.ToggleOffFontSize;
+            // return isOn ? InventoryConst.ToggleOnFontSize : InventoryConst.ToggleOffFontSize;
+            return isOn ? (int)enabledPanelData.fontSize : (int)disabledPanelData.fontSize;
         }
 
         public void ActivateToggle(bool isOn)
