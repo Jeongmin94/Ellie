@@ -311,12 +311,15 @@ namespace Assets.Scripts.Player
         {
             controller.canMove = false;
             controller.canTurn = false;
+            controller.ChangeState(PlayerStateName.Conversation);
         }
 
         public void UnlockPlayerMovement()
         {
             controller.canMove = true;
             controller.canTurn = true;
+            controller.ChangeState(PlayerStateName.Idle);
+
         }
 
         public void GetPickaxe(int pickaxeIdx)
