@@ -4,6 +4,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Framework.Static;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.UI.PopupMenu;
 using Data.UI.Opening;
 using UnityEngine;
 
@@ -37,10 +38,13 @@ namespace Assets.Scripts.UI.Opening
         private readonly TransformController menuController = new TransformController();
 
         private OpeningText title;
-        private BaseMenuButton startMenuButton;
-        private BaseMenuButton exitMenuButton;
+        private BlinkMenuButton startMenuButton;
+        private BlinkMenuButton exitMenuButton;
 
-        private readonly List<BaseMenuButton> menuButtons = new List<BaseMenuButton>();
+        private readonly List<BlinkMenuButton> menuButtons = new List<BlinkMenuButton>();
+
+        // !TODO: PopupMenuType 별로 팝업 캔버스 관리
+        private BasePopupCanvas popupCanvas;
 
         private void Awake()
         {
@@ -88,6 +92,8 @@ namespace Assets.Scripts.UI.Opening
 
             InitTitle();
             InitMenuButtons();
+
+            popupCanvas = UIManager.Instance.MakePopup<BasePopupCanvas>(BasePopupCanvas.Path);
         }
 
         private void InitTitle()
@@ -101,7 +107,7 @@ namespace Assets.Scripts.UI.Opening
         {
             for (int i = 0; i < buttonsData.Length; i++)
             {
-                var button = UIManager.Instance.MakeSubItem<BaseMenuButton>(menuPanelRect, BaseMenuButton.Path);
+                var button = UIManager.Instance.MakeSubItem<BlinkMenuButton>(menuPanelRect, BlinkMenuButton.Path);
                 button.name += $"#{buttonsData[i].title}";
                 button.InitText();
                 button.InitTypography(buttonsData[i]);

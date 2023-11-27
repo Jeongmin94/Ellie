@@ -85,10 +85,7 @@ namespace Assets.Scripts.UI.Opening
             textRect.localPosition = Vector3.zero;
 
             image.sprite = panelSprite;
-
-            Color zeroAlpha = image.color;
-            zeroAlpha.a = 0.0f;
-            originImageColor = zeroAlpha;
+            originImageColor = image.color;
             imageColor.Value = originImageColor;
         }
 
@@ -106,7 +103,8 @@ namespace Assets.Scripts.UI.Opening
             textMeshProUGUI.enableAutoSizing = typographyTypographyData.enableAutoSizing;
             textMeshProUGUI.text = typographyTypographyData.title;
         }
-        
+
+        protected void SetOriginColor(Color color) => originImageColor = color;
         protected void ResetImageColor() => image.color = originImageColor;
         protected Color OriginColor() => originImageColor;
 
