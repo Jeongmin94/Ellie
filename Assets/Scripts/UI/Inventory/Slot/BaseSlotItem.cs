@@ -74,6 +74,12 @@ namespace Assets.Scripts.UI.Inventory
             itemText.color = itemCountData.color;
             itemText.alignment = itemCountData.alignmentOptions;
             itemText.lineSpacing = itemCountData.lineSpacing;
+
+            if (itemCountData.useOutline)
+            {
+                itemText.outlineColor = itemCountData.outlineColor;
+                itemText.outlineWidth = itemCountData.outlineThickness;
+            }
         }
 
         private void BindEvents()

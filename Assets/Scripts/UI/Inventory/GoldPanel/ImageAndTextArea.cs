@@ -55,6 +55,12 @@ namespace Assets.Scripts.UI.Inventory
             Text.fontSize = goodsData.fontSize;
             Text.lineSpacing = goodsData.lineSpacing;
             Text.alignment = goodsData.alignmentOptions;
+
+            if (goodsData.useOutline)
+            {
+                Text.outlineColor = goodsData.outlineColor;
+                Text.outlineWidth = goodsData.outlineThickness;
+            }
         }
 
         public void OnGoodsCountChanged(int value)

@@ -34,7 +34,6 @@ namespace Assets.Scripts.UI.Inventory
             descNameText = GetText((int)Texts.DescriptionNameText);
         }
 
-        // !TODO: 텍스트 폰트 설정(폰트가 미정)
         private void InitObjects()
         {
             rect = GetComponent<RectTransform>();

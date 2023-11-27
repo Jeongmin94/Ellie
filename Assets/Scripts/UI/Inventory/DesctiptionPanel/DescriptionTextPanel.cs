@@ -34,7 +34,6 @@ namespace Assets.Scripts.UI.Inventory
             descText = GetText((int)Texts.DescriptionText);
         }
 
-        // !TODO: 텍스트 폰트 설정(폰트가 미정)
         private void InitObjects()
         {
             rect = GetComponent<RectTransform>();
@@ -42,14 +41,15 @@ namespace Assets.Scripts.UI.Inventory
             rect.sizeDelta = InventoryConst.DescTextRect.GetSize();
             rect.localPosition = InventoryConst.DescTextRect.ToCanvasPos();
         }
-        
+
         public void SetTypographyData(TextTypographyData data)
         {
             descText.color = data.color;
             descText.fontSize = data.fontSize;
             descText.alignment = data.alignmentOptions;
             descText.lineSpacing = data.lineSpacing;
-            
+            descText.characterSpacing = data.characterSpacing;
+
             descText.font = data.fontAsset;
         }
 
