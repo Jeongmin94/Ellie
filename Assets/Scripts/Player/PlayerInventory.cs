@@ -23,7 +23,7 @@ namespace Assets.Scripts.Player
         private TicketMachine ticketMachine;
         private Inventory inventory;
         public Inventory Inventory { get { return inventory; } }
-        public ItemMetaData[] consumableEquipmentSlot = new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
+        public ItemMetaData[] consumableEquipmentSlot =  new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
         public int curSlotIdx;
         [SerializeField] private GameGoods gameGoods;
 
@@ -74,7 +74,7 @@ namespace Assets.Scripts.Player
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[0] == null) return;
+                if (consumableEquipmentSlot[0].groupType != GroupType.Item) return;
                 if (controller.GetCurState() == PlayerStateName.Idle ||
                     controller.GetCurState() == PlayerStateName.Walk ||
                     controller.GetCurState() == PlayerStateName.Sprint)
@@ -86,7 +86,7 @@ namespace Assets.Scripts.Player
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[1] == null) return;
+                if (consumableEquipmentSlot[1].groupType != GroupType.Item) return;
                 if (controller.GetCurState() == PlayerStateName.Idle ||
                     controller.GetCurState() == PlayerStateName.Walk ||
                     controller.GetCurState() == PlayerStateName.Sprint)
@@ -98,7 +98,7 @@ namespace Assets.Scripts.Player
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[2] == null) return;
+                if (consumableEquipmentSlot[2].groupType != GroupType.Item) return;
                 if (controller.GetCurState() == PlayerStateName.Idle ||
                     controller.GetCurState() == PlayerStateName.Walk ||
                     controller.GetCurState() == PlayerStateName.Sprint)
@@ -110,7 +110,7 @@ namespace Assets.Scripts.Player
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[3] == null) return;
+                if (consumableEquipmentSlot[3].groupType != GroupType.Item) return;
                 if (controller.GetCurState() == PlayerStateName.Idle ||
                     controller.GetCurState() == PlayerStateName.Walk ||
                     controller.GetCurState() == PlayerStateName.Sprint)

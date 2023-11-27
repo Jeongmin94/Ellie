@@ -34,8 +34,34 @@ namespace Assets.Scripts.Player
             StartCoroutine(InitPlayerQuest());
             //6100번 퀘스트 시작
             StartCoroutine(FirstDialogCoroutine());
+
+            //퀘스트 세이브 로드
+            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
+            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
         }
 
+        private void Update()
+        {
+            //퀘스트 상태 디버깅용
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                SaveLoadManager.Instance.SaveData();
+                DebugCurrentPlayerQuestDict();
+            }
+            if(Input.GetKeyDown(KeyCode.V))
+            {
+                SaveLoadManager.Instance.LoadData();
+                DebugCurrentPlayerQuestDict();
+            }
+        }
+
+        private void DebugCurrentPlayerQuestDict()
+        {
+            foreach(var item in questStatusDic)
+            {
+                Debug.Log($"{item.Key}번 째 퀘스트 상태 : {item.Value}");
+            }
+        }
         private IEnumerator InitPlayerQuest()
         {
             yield return DataManager.Instance.CheckIsParseDone();
@@ -294,6 +320,22 @@ namespace Assets.Scripts.Player
         public void GetPickaxe(int pickaxeIdx)
         {
             controller.GetPickaxe(pickaxeIdx);
+        }
+
+        private void SaveQuestData()
+        {
+            QuestSavePayload payload = new QuestSavePayload();
+            payload.questStatusSaveInfo = questStatusDic;
+
+            SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Quest, payload);
+        }
+
+        private void LoadQuestData(IBaseEventPayload payload)
+        {
+            if (payload is not QuestSavePayload questSavePayload) return;
+            questStatusDic.Clear();
+
+            questStatusDic = questSavePayload.questStatusSaveInfo;
         }
     }
 }

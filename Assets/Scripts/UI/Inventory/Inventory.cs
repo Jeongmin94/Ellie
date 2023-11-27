@@ -646,8 +646,8 @@ namespace Assets.Scripts.UI.Inventory
 
                 switch (type)
                 {
-                    case GroupType.Consumption:
-                        metaData = DataManager.Instance.GetIndexData<ConsumableItemData, ConsumableItemDataParsingInfo>(itemIdx);
+                    case GroupType.Item:
+                        metaData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
                         break;
                     case GroupType.Stone:
                         metaData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
