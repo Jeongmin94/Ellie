@@ -87,7 +87,7 @@ namespace Assets.Scripts.Player
                 Debug.Log("DialogList is Null");
                 yield break;
             }
-
+            LockPlayerMovement();
             SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
             while (true)
@@ -113,11 +113,13 @@ namespace Assets.Scripts.Player
                         questStatusDic[questDataList[FirstQuestDataIdx].index] = QuestStatus.Accepted;
                         SendStopDialogPayload(DialogCanvasType.Default);
                         SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+                        UnlockPlayerMovement();
                         yield break;
                     }
                 }
                 yield return null;
             }
+            
         }
 
         public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, string NPCName, bool isAdditionalDialog = false)
@@ -212,9 +214,7 @@ namespace Assets.Scripts.Player
 
         public void SetIsPlaying(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload) return;
-
-            DialogPayload dialogPayload = payload as DialogPayload;
+            if (payload is not DialogPayload dialogPayload) return;
 
             if (dialogPayload.dialogType != DialogType.NotifyToClient) return;
 
@@ -237,6 +237,8 @@ namespace Assets.Scripts.Player
             if (questStatusDic.ContainsKey(questIdx))
             {
                 questStatusDic[questIdx] = newStatus;
+                //퀘스트 갱신시마다 세이브
+                SaveLoadManager.Instance.SaveData();
             }
             else
             {

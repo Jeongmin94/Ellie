@@ -159,20 +159,19 @@ namespace Assets.Scripts.Player
         {
             Debug.Log("Player recieve Damage");
             CombatPayload combatPayload = payload as CombatPayload;
+            //hp처리 로직
+            ReduceHP(combatPayload.Damage);
             //상태이상 공격 처리 로직
-            if (combatPayload.PlayerStatusEffectName != StatusEffectName.None)
+            if (combatPayload.PlayerStatusEffectName != StatusEffectName.None && HP > 0)
             {
-                Debug.Log("Player : RecieveDamage");
                 playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
                 if (effect != null)
                 {
                     playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
                 }
             }
-            //hp처리 로직
-            ReduceHP(combatPayload.Damage);
             //무적 처리 로직
-            SetPlayerInvulnerable(invulnerableTimeAfterHit);   
+            SetPlayerInvulnerable(invulnerableTimeAfterHit);
         }
 
         private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)

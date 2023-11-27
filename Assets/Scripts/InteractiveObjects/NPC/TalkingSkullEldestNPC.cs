@@ -87,9 +87,11 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             //첫 조우 시 코루틴
             //돌맹이 많이 주웠다는 대사 출력
+            player.LockPlayerMovement();
             yield return StartCoroutine(player.DialogCoroutine(PLAYERFIRSTQUESTIDX, QuestStatus.Done, npcData.name));
             //보상 획득
             player.GetReward(PLAYERFIRSTQUESTIDX);
+            player.UnlockPlayerMovement();
             //isEncountered를 true로
             //다음 퀘스트를 UnAccepted 상태로 변경
             player.SetQuestStatus((int)EldestSkullQuest.quest6101, QuestStatus.Unaccepted);
@@ -99,8 +101,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             //6101의 unaccepted 상태의 대사들을 출력한 후, Accepted로 변경
             player.SetQuestStatus((int)EldestSkullQuest.quest6101, QuestStatus.Accepted);
+            player.LockPlayerMovement();
             LookAtPlayer();
             yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Unaccepted, npcData.name));
+            player.UnlockPlayerMovement();
         }
         private IEnumerator Quest6101Coroutine2()
         {
