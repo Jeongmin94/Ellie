@@ -17,7 +17,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
-        private const float monsterRespawnTime = 5.0f;
+        private const float monsterRespawnTime = 10.0f;
+        private const float monsterDisable = 5.0f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
 
@@ -27,6 +28,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         [SerializeField] public ProjectileAttackData projectileAttackData;
         [SerializeField] public FleeSkillData fleeSkilldata;
         [SerializeField] public FanShapeAttackData fanshapeAttackData;
+        [SerializeField] public MonsterDropableItemData dropableItemData;
 
         public BlackboardKey<bool> isDamaged;
         public BlackboardKey<bool> isDead;
@@ -141,37 +143,46 @@ namespace Assets.Scripts.Monsters.AbstractClass
             }
             animator.Play("Dead");
             GetComponent<Collider>().enabled = false;
-            yield return new WaitForSeconds(monsterRespawnTime);
 
+            billboard.scaleFactor = 0.0f;
+
+            yield return new WaitForSeconds(monsterDisable);
+
+            transform.position = new Vector3(999, 999, 999);
+            yield return new WaitForSeconds(monsterRespawnTime-monsterDisable);
+
+            ResetMonster();
+        }
+
+        private void ResetMonster()
+        {
+            ReturnSpawnLocation();
+            billboard.scaleFactor = 0.003f;
             GetComponent<Collider>().enabled = true;
             animator.Play("IdleAttack");
             isDamaged.value = false;
             currentHP = monsterData.maxHP;
             dataContainer.CurrentHp.Value = (int)currentHP;
-            yield return new WaitForSeconds(1.0f);
             isDead.value = false;
         }
+
 
         public virtual void ReturnSpawnLocation()
         { }
 
         public void DropItem()
         {
-            //Debug.Log("Entered Function");
-            //foreach (DropItem a in dropableItem.items)
-            //{
-            //    Debug.Log("Entered Foreach");
-            //    float random = Random.Range(0.0f, 1.0f);
-            //    if (random < a.dropChance)
-            //    {
-            //        Debug.Log("Item Droped");
-            //        Vector3 itemLocation = transform.position;
-            //        itemLocation.y += 1.0f;
-            //        Instantiate(a, itemLocation,transform.rotation);
-            //        break;
-            //    }
-            //}
-            //Debug.Log("Finish Foreach");
+            foreach (DropItem a in dropableItemData.items)
+            {
+                float random = Random.Range(0.0f, 1.0f);
+                if (random < a.dropChance)
+                {
+                    Vector3 itemLocation = transform.position;
+                    itemLocation.y += 1.0f;
+                    Instantiate(a, itemLocation, transform.rotation);
+                    break;
+                }
+            }
         }
     }
 

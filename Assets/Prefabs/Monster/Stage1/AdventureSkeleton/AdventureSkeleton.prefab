@@ -1685,7 +1685,6 @@ GameObject:
   - component: {fileID: 8131742662541749375}
   - component: {fileID: 1390045677}
   - component: {fileID: 1731138202}
-  - component: {fileID: 6982558165092051851}
   - component: {fileID: 7659240725079815480}
   - component: {fileID: 8543985638472674019}
   - component: {fileID: 2321734310753455670}
@@ -1739,6 +1738,7 @@ MonoBehaviour:
   projectileAttackData: {fileID: 0}
   fleeSkilldata: {fileID: 0}
   fanshapeAttackData: {fileID: 11400000, guid: 7fabdc495f9ea4b418b615f0f11894a4, type: 2}
+  dropableItemData: {fileID: 11400000, guid: 33a0b9c9921674386aa5f92667b655c5, type: 2}
   behaviourTreeInstance: {fileID: 0}
   player: {fileID: 0}
 --- !u!114 &1390045677
@@ -1767,18 +1767,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: b5eb79329df1549d3a18c06cb09e3c91, type: 2}
---- !u!114 &6982558165092051851
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4412197747154225357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c8b350f44b5c04f0b81c7393789fe547, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7659240725079815480
 MonoBehaviour:
   m_ObjectHideFlags: 0
