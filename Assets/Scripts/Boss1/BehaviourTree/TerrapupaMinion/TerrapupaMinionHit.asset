@@ -23,14 +23,16 @@ MonoBehaviour:
   - rid: 283011153473568802
   - rid: 283011522970517511
   - rid: 283011522970517513
+  - rid: 1683426582401646593
   treeState: 0
   blackboard:
     keys:
+    - rid: 1683426582401646592
     - rid: 283011090204065825
     - rid: 283011153473568826
     - rid: 283011522970517512
-  viewPosition: {x: 1328, y: 712, z: 0}
-  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
+  viewPosition: {x: 2223.2, y: 1112, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
@@ -48,7 +50,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f7ad4994951c9474f8c02cfd39bed571
-        position: {x: -2310, y: -915}
+        position: {x: -2250, y: -870}
         blackboard:
           keys: []
         description: 
@@ -63,7 +65,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 06751ad42cacd1a418e7dd9a6160b11d
-        position: {x: -2040, y: -750}
+        position: {x: -1860, y: -720}
         blackboard:
           keys: []
         description: 
@@ -82,7 +84,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 635241baba19d8c4086c8ff611c839d1
-        position: {x: -2010, y: -900}
+        position: {x: -1830, y: -870}
         blackboard:
           keys: []
         description: 
@@ -109,6 +111,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 283011153473568795
+        - rid: 1683426582401646593
         - rid: 283011153473568798
         - rid: 283011153473568802
     - rid: 283011153473568802
@@ -183,3 +186,29 @@ MonoBehaviour:
         drawGizmos: 0
         child:
           rid: 283011153473568799
+    - rid: 1683426582401646592
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: player
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 1683426582401646593
+      type: {class: LookAtPosition, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 89bc5c4c0112815419253a838302e163
+        position: {x: -2055, y: -870}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        targetTransform:
+          reference:
+            rid: 1683426582401646592
+          defaultValue: {fileID: 0}
