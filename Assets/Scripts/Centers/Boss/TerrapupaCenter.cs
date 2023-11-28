@@ -19,7 +19,7 @@ namespace Centers.Boss
 {
     public class TerrapupaCenter : MonoBehaviour
     {
-        [Title("테라푸파 보스전 객체")]
+        [Title("테라푸파 보스 객체")]
         [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
@@ -35,10 +35,10 @@ namespace Centers.Boss
 
         [Title("보스몬스터 생성 여부")]
         [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")]
-        [BoxGroup("1페이즈")] public bool isActiveTerrapupa = true;
-        [BoxGroup("2페이즈")] public bool isActiveTerra = false;
-        [BoxGroup("2페이즈")] public bool isActivePupa = false;
-        [BoxGroup("3페이즈")] public bool isActiveMinions = false;
+        public bool isActiveTerrapupa = true;
+        public bool isActiveTerra = false;
+        public bool isActivePupa = false;
+        public bool isActiveMinions = false;
 
         #region 0. 치트키
         [Title("치트키")]
