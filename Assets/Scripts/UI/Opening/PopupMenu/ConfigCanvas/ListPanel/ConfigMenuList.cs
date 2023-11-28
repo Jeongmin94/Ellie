@@ -1,6 +1,7 @@
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
-using Data.UI.Opening;
+using Data.UI.Config;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.PopupMenu
@@ -9,25 +10,26 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "Opening/ConfigMenuList";
 
-        [SerializeField] private TextTypographyData typographyData;
-
-        public ConfigType ConfigMenuType { get; set; }
+        [SerializeField] private IntegerOptionData[] integerOptionData;
+        [SerializeField] private Vector2OptionData[] vector2OptionData;
 
         private enum GameObjects
         {
-            ListPanel,
+            Content,
         }
-        
-        private GameObject listPanel;
-        
+
+        public ConfigType ConfigMenuType { get; set; }
+
+        private GameObject content;
+
         private RectTransform rect;
-        private RectTransform listPanelRect;
-        
+        private RectTransform contentRect;
+
         public void InitMenuList()
         {
             Init();
         }
-        
+
         protected override void Init()
         {
             Bind();
@@ -38,14 +40,37 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             Bind<GameObject>(typeof(GameObjects));
 
-            listPanel = GetGameObject((int)GameObjects.ListPanel);
+            content = GetGameObject((int)GameObjects.Content);
 
-            listPanelRect = listPanel.GetComponent<RectTransform>();
+            rect = gameObject.GetComponent<RectTransform>();
+            contentRect = content.GetComponent<RectTransform>();
         }
 
         private void InitObjects()
         {
-            AnchorPresets.SetAnchorPreset(listPanelRect, AnchorPresets.StretchAll);
+            AnchorPresets.SetAnchorPreset(rect, AnchorPresets.StretchAll);
+            rect.sizeDelta = Vector2.one;
+            rect.localPosition = Vector3.one;
+        }
+
+        public void InitConfigComponents(ConfigType configType)
+        {
+            ConfigMenuType = configType;
+
+            foreach (var data in integerOptionData)
+            {
+                if (data.IsSameType(configType))
+                {
+                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(rect, ConfigComponent.Path);
+                }
+            }
+
+            foreach (var data in vector2OptionData)
+            {
+                if (data.IsSameType(configType))
+                {
+                }
+            }
         }
     }
 }

@@ -10,7 +10,6 @@ namespace Assets.Scripts.UI.PopupMenu
         public ConfigToggleController ToggleController => toggleController;
         private ConfigToggleController toggleController;
 
-        // !TODO: 토글 텍스트 내부에서 토글 리스트 관리
         public void InitConfigToggleText(ToggleGroup toggleGroup)
         {
             InitText();

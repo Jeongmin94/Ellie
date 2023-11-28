@@ -46,11 +46,9 @@ namespace Assets.Scripts.UI.Opening
             imagePanel.BindEvent(OnPointerEnter, UIEvent.PointEnter);
             imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
-
-        // 클릭하면 새로운 UI Popup
+        
         protected virtual void OnClickButton(PointerEventData data)
         {
-            Debug.Log($"{name} 버튼 클릭됨");
             var payload = new PopupPayload();
             payload.popupType = PopupType;
             blinkMenuAction?.Invoke(payload);

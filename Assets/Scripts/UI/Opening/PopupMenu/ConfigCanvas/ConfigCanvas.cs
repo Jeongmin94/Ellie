@@ -116,8 +116,8 @@ namespace Assets.Scripts.UI.PopupMenu
                 var type = (ConfigType)configTypes.GetValue(i);
                 var menu = UIManager.Instance.MakeSubItem<ConfigMenuList>(listPanelRect, ConfigMenuList.Path);
                 menu.name += $"#{type}";
-                menu.ConfigMenuType = type;
                 menu.InitMenuList();
+                menu.InitConfigComponents(type);
                 menu.gameObject.SetActive(false);
 
                 menuList.Add(menu);
@@ -149,24 +149,6 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             int idx = (int)payload.configType;
             menuList[idx].gameObject.SetActive(payload.isOn);
-            
-            switch (payload.configType)
-            {
-                case ConfigType.Setting:
-                {
-                    Debug.Log($"세팅창");
-                }
-                    break;
-
-                case ConfigType.Controls:
-                {
-                    Debug.Log($"컨트롤창");
-                }
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
         }
 
         #endregion
