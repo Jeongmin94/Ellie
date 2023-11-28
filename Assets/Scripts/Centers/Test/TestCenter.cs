@@ -23,7 +23,7 @@ namespace Assets.Scripts.Centers.Test
         public TestAttacker attacker;
 
         public int curStage = 1;
-       
+
         private void Awake()
         {
             Init();
@@ -41,7 +41,8 @@ namespace Assets.Scripts.Centers.Test
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
             }
-            if(monsters != null)
+
+            if (monsters != null)
             {
                 foreach (Transform child in monsters.transform)
                 {

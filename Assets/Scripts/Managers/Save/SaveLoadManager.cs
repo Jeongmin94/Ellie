@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Utils;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -131,8 +130,11 @@ namespace Assets.Scripts.Managers
             }
 
             // 딕셔너리 돌면서 각 enum 타입에 맞는 payload들을 불러와서 Payload를 생성해서 인자로 연결된 함수에 전송
+
+            Debug.Log($"PayloadTable Size: {payloadTable.Values.Count}");
             foreach (var key in payloadTable.Keys)
             {
+                Debug.Log($"Key: {key}");
                 ((Action<IBaseEventPayload>)loadAction[key])(payloadTable[key]);
             }
         }

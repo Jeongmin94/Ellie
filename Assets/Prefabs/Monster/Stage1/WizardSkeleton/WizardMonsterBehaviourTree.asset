@@ -82,7 +82,6 @@ MonoBehaviour:
   - rid: 6937830598220185611
   - rid: 6937830598220185612
   - rid: 6937830598220185613
-  - rid: 6937830598220185614
   - rid: 6937830598220185616
   - rid: 6937830615371481088
   - rid: 6937830615371481089
@@ -123,6 +122,8 @@ MonoBehaviour:
   - rid: 6937830886797738008
   - rid: 6937830886797738009
   - rid: 6937830886797738011
+  - rid: 6937830983605944321
+  - rid: 6937830983605944322
   treeState: 0
   blackboard:
     keys:
@@ -147,8 +148,9 @@ MonoBehaviour:
     - rid: 6937830569823436819
     - rid: 6937830569823436825
     - rid: 6937830886797738005
-  viewPosition: {x: 2362, y: -1013, z: 0}
-  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
+    - rid: 6937830983605944324
+  viewPosition: {x: 1240.5, y: 214, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -1173,15 +1175,16 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 6937830569823436816
-        - rid: 6937830598220185616
         - rid: 6937830569823436818
+        - rid: 6937830983605944322
+        - rid: 6937830983605944321
     - rid: 6937830569823436816
       type: {class: BooleanAction, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 62be115de1ca249239e7866b7d300d7c
-        position: {x: -1065, y: 165}
+        position: {x: -1110, y: 165}
         blackboard:
           keys: []
         description: 
@@ -1200,7 +1203,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cea3836fb0a4b42548f4861a6d400582
-        position: {x: -615, y: 165}
+        position: {x: -960, y: 165}
         blackboard:
           keys: []
         description: 
@@ -1449,28 +1452,13 @@ MonoBehaviour:
           reference:
             rid: 6937830569823436819
           defaultValue: 0
-    - rid: 6937830598220185614
-      type: {class: OffsetPosition, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: dfcfad35c007d4a818e734397a86eea2
-        position: {x: -765, y: 165}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        offset:
-          reference:
-            rid: -2
-          defaultValue: {x: 0, y: -0.8, z: 0}
     - rid: 6937830598220185616
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 475290c2fe0014e58beb14e774629a9b
-        position: {x: -915, y: 165}
+        position: {x: -1035, y: 315}
         blackboard:
           keys: []
         description: 
@@ -2217,3 +2205,51 @@ MonoBehaviour:
           reference:
             rid: 5827610086317228070
           defaultValue: {x: 0, y: 0, z: 0}
+    - rid: 6937830983605944321
+      type: {class: ChangeBaseoffSet, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 11afc7befcd7843628ca5a31b75a7986
+        position: {x: -660, y: 165}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        offsetValue:
+          reference:
+            rid: 6937830983605944324
+          defaultValue: 0
+    - rid: 6937830983605944322
+      type: {class: MoveDown, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: ce91325562f804fe2aad2cd3d9717e5c
+        position: {x: -810, y: 165}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        speed:
+          reference:
+            rid: -2
+          defaultValue: 0.5
+        length:
+          reference:
+            rid: -2
+          defaultValue: 1
+        duration:
+          reference:
+            rid: -2
+          defaultValue: 5
+        offsetValue:
+          reference:
+            rid: 6937830983605944324
+          defaultValue: 0
+    - rid: 6937830983605944324
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: OffsetValue
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0

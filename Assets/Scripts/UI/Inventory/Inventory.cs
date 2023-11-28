@@ -1,5 +1,8 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Runtime.InteropServices.WindowsRuntime;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Item;
 using Assets.Scripts.Item.Goods;
@@ -13,6 +16,7 @@ using Channels.Type;
 using Channels.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using static Assets.Scripts.Managers.InventorySavePayload;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
@@ -127,6 +131,9 @@ namespace Assets.Scripts.UI.Inventory
             Bind();
             InitObjects();
             InitTicketMachine();
+
+            SaveLoadManager.Instance.SubscribeSaveEvent(Save);
+            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Inventory, Load);
         }
 
         private void Bind()
@@ -352,7 +359,7 @@ namespace Assets.Scripts.UI.Inventory
             }
             // !TODO : 플레이어 돌맹이 불 프로퍼티에 대한 로직 작성
         }
-        
+
         private void MoveEquipmentSlot(UIPayload payload)
         {
             buttonPanel.MoveItem(payload.slotAreaType, payload);
@@ -512,7 +519,6 @@ namespace Assets.Scripts.UI.Inventory
             //    uiPayload.isStoneNull = false;
             //}
 
-
             return uiPayload;
         }
 
@@ -572,6 +578,105 @@ namespace Assets.Scripts.UI.Inventory
             stoneCanvas.groupType = GroupType.Stone;
 
             frameCanvasMap.TryAdd(GroupType.Stone, stoneCanvas);
+        }
+
+        #endregion
+
+        #region SaveLoad
+
+        private void Save()
+        {
+            InventorySavePayload savePayload = new InventorySavePayload();
+
+            List<InventorySlotArea> slotAreas = buttonPanel.GetSlotAreas(SlotAreaType.Item);
+            foreach (var area in slotAreas)
+            {
+                List<InventorySlot> slots = area.GetSlotsWithItem();
+                foreach (var slot in slots)
+                {
+                    var slotItem = slot.SlotItemData;
+
+                    ItemSaveInfo saveInfo = new ItemSaveInfo();
+                    saveInfo.itemCount = slotItem.itemCount.Value;
+                    saveInfo.itemIndex = slotItem.ItemIndex;
+                    saveInfo.groupType = slotItem.itemData.groupType;
+
+                    // 아이템 슬롯 인덱스
+                    saveInfo.itemSlotIndex = slot.Index;
+                    if (slotItem.slots.TryGetValue(SlotAreaType.Equipment, out var equipmentSlot))
+                    {
+                        saveInfo.equipmentSlotIndex = equipmentSlot.Index;
+                    }
+                    else
+                    {
+                        saveInfo.equipmentSlotIndex = ItemSaveInfo.InvalidIndex;
+                    }
+
+                    savePayload.AddItemSaveInfo(saveInfo);
+                }
+            }
+
+            savePayload.goodsSaveInfo = new GoodsSaveInfo()
+            {
+                goldAmount = goods.gold.Value,
+                stoneAmount = goods.stonePiece.Value
+            };
+
+            SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Inventory, savePayload);
+        }
+
+        private void Load(IBaseEventPayload payload)
+        {
+            if (payload is not InventorySavePayload savePayload)
+                return;
+
+            // 로드전 초기화
+            Debug.Log($"Inventory Load");
+            buttonPanel.ClearSlotAreas();
+
+            goods.gold.Value = savePayload.goodsSaveInfo.goldAmount;
+            goods.stonePiece.Value = savePayload.goodsSaveInfo.stoneAmount;
+
+            var saveInfos = savePayload.GetItemSaveInfos();
+            foreach (var info in saveInfos)
+            {
+                GroupType type = info.groupType;
+                int itemIdx = info.itemIndex;
+                ItemMetaData metaData = null;
+
+                switch (type)
+                {
+                    case GroupType.Item:
+                        metaData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
+                        break;
+                    case GroupType.Stone:
+                        metaData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
+                        break;
+                    case GroupType.Etc:
+                        metaData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(itemIdx);
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+                if (metaData == null)
+                {
+                    string errorMsg = $"GetIndexData Error: {type}.{itemIdx}";
+                    Debug.LogError(errorMsg);
+                    throw new DataException(errorMsg);
+                }
+
+                UIPayload uiPayload = new UIPayload();
+                uiPayload.itemData = metaData;
+                uiPayload.onDragParent = transform;
+
+                LoadItem(info, uiPayload);
+            }
+        }
+
+        private void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
+        {
+            buttonPanel.LoadItem(saveInfo, payload);
         }
 
         #endregion

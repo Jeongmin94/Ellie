@@ -1,10 +1,11 @@
-using System;
-using System.Collections.Generic;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Channels.UI;
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static Assets.Scripts.Managers.InventorySavePayload;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -48,6 +49,8 @@ namespace Assets.Scripts.UI.Inventory
         {
             Init();
         }
+
+        public List<InventorySlotArea> GetSlotAreas(SlotAreaType slotAreaType) => slotAreas[slotAreaType];
 
         public InventorySlotArea GetSlotArea(SlotAreaType slotAreaType, GroupType groupType)
         {
@@ -215,9 +218,8 @@ namespace Assets.Scripts.UI.Inventory
                     payload.slot = slot;
                 }
             }
-            else if(payload.eventType == InventoryEventType.SendMessageToPlayer)
+            else if (payload.eventType == InventoryEventType.SendMessageToPlayer)
             {
-
             }
             Debug.Log("OnSlotAreaInventoryAction(bottom) : " + payload.groupType);
             panelInventoryAction?.Invoke(payload);
@@ -240,14 +242,54 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
+
         public void MoveItem(SlotAreaType slotAreaType, UIPayload payload)
         {
-            if (type == GroupType.Etc)
-                return;
-
-            if (slotAreas.TryGetValue(slotAreaType, out var area))
+            if (slotAreaType != SlotAreaType.Description)
             {
-                area[(int)type].MoveItem(payload);
+                if (slotAreas.TryGetValue(slotAreaType, out var area))
+                {
+                    area[(int)payload.groupType].MoveItem(payload);
+                }
+            }
+        }
+
+        #endregion
+
+        #region SaveLoad
+
+        public void ClearSlotAreas()
+        {
+            foreach (var areas in slotAreas.Values)
+            {
+                areas.ForEach(area => area.ClearSlot());
+            }
+        }
+
+        public void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
+        {
+            // 1. 특정 슬롯 인덱스에 아이템 추가 및 수량 반영
+            if (slotAreas.TryGetValue(SlotAreaType.Item, out var areas))
+            {
+                var area = areas[(int)saveInfo.groupType];
+                area.LoadItem(saveInfo, payload);
+                area.UpdateItem(saveInfo); // 수량 업데이트
+
+                // 2. 장착된 아이템이면 해당 장착 슬롯에 아이템 장착
+                if (saveInfo.equipmentSlotIndex != ItemSaveInfo.InvalidIndex)
+                {
+                    InventoryEventPayload eventPayload = new InventoryEventPayload();
+                    eventPayload.eventType = InventoryEventType.CopyItemWithDrag;
+
+                    // baseSlotItem + targetSlot
+                    var equipmentArea = slotAreas[SlotAreaType.Equipment][(int)saveInfo.groupType];
+                    var targetSlot = equipmentArea.GetSlots()[saveInfo.equipmentSlotIndex];
+                    eventPayload.slot = targetSlot;
+
+                    eventPayload.baseSlotItem = area.GetSlots()[saveInfo.itemSlotIndex].GetBaseSlotItem();
+
+                    panelInventoryAction?.Invoke(eventPayload);
+                }
             }
         }
 
