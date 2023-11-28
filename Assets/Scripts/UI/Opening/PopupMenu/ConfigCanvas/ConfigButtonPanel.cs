@@ -36,7 +36,7 @@ namespace Assets.Scripts.UI.PopupMenu
             foreach (var type in types)
             {
                 var toggle = UIManager.Instance.MakeSubItem<ConfigToggleText>(transform, ConfigToggleText.Path);
-                toggle.InitConfigToggleText();
+                toggle.InitConfigToggleText(toggleGroup);
 
                 int idx = (int)type;
                 switch (type)
@@ -57,6 +57,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
                 toggle.name += $"#{typographyData.title}";
                 toggle.InitTypography(typographyData);
+                
                 toggles.Add(toggle);
             }
         }
