@@ -107,7 +107,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-        DropStoneItem(mana.transform.position, mana.MAGICSTONE_INDEX);
+        DropStoneItem(mana.SpawnPosition, mana.MAGICSTONE_INDEX);
 
         StartCoroutine(ManaCooldown(manaPayload));
     }
@@ -134,7 +134,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
         // 돌맹이 3개 생성
         for (int i = 0; i < 3; i++)
         {
-            DropStoneItem(mana.transform.position, mana.NORMALSTONE_INDEX);
+            DropStoneItem(mana.SpawnPosition, mana.NORMALSTONE_INDEX);
         }
 
         // 파티클 적용

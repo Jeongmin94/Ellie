@@ -197,7 +197,7 @@ namespace Centers.Boss
             GameObject hitEffect = payload.PrefabValue;
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
-            Transform bossTransform = payload.TransformValue3;
+            Transform hitBossTransform = payload.TransformValue3;
             Transform boss = payload.Sender;
 
             float jumpCheckValue = 1.0f;
@@ -223,13 +223,13 @@ namespace Centers.Boss
             {
                 HitedManaFountaine(boss, manaTransform, hitEffect);
             }
-            if(bossTransform != null)
+            if(hitBossTransform != null)
             {
                 // 보스 체크
-                TerrapupaRootData target = bossTransform.GetComponent<TerrapupaController>().terrapupaData;
+                TerrapupaRootData target = hitBossTransform.GetComponent<TerrapupaController>().terrapupaData;
 
                 target.hitEarthQuake.Value = true;
-                ParticleManager.Instance.GetParticle(hitEffect, bossTransform, 1.0f);
+                ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
             }
         }
         private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)
