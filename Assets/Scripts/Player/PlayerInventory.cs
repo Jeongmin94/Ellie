@@ -68,7 +68,22 @@ namespace Assets.Scripts.Player
             //for test
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest());
+                for (int i = 0; i < 20; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
+                }
+                for (int i = 0; i < 3; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
+                }
+                for(int i = 0; i < 20; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -168,7 +183,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private UIPayload GenerateStoneAcquirePayloadTest()
+        private UIPayload GenerateStoneAcquirePayloadTest(int index)
         {
             //for test
             UIPayload payload = new UIPayload();
@@ -176,7 +191,7 @@ namespace Assets.Scripts.Player
             payload.actionType = ActionType.AddSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
             payload.groupType = GroupType.Stone;
-            payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(4000);
+            payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(index);
             return payload;
         }
 
