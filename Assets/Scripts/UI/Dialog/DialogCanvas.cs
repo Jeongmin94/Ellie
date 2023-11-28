@@ -69,7 +69,11 @@ namespace Assets.Scripts.UI.Dialog
             InitObjects();
             InitTicketMachine();
         }
-
+        private void Start()
+        {
+            dialogPanel.gameObject.SetActive(false);
+            dialogContextText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
+        }
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
@@ -88,6 +92,9 @@ namespace Assets.Scripts.UI.Dialog
 
             dialogTitle = GetText((int)Texts.DialogTitle);
             dialogNext = GetText((int)Texts.DialogNext);
+
+            //contextText의 정보를 페이로드통해 송신하기 위한 이벤트 구독
+            
         }
 
         private void InitObjects()
@@ -121,50 +128,71 @@ namespace Assets.Scripts.UI.Dialog
 
         private void OnNotify(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload dialogPayload)
-                return;
+            if (payload is not DialogPayload dialogPayload) return;
+
+            if (dialogPayload.dialogType != DialogType.Notify) return;
+
+            if (dialogPayload.canvasType != DialogCanvasType.Default) return;
 
             switch (dialogPayload.dialogAction)
             {
                 case DialogAction.Play:
-                {
-                    dialogPanel.gameObject.SetActive(true);
+                    {
+                        if (dialogContextText.IsPlaying)
+                        {
+                            //isPlaying일 때 다시 Play 요청이 들어오면 OnNext하도록
+                            dialogContextText.Next();
 
-                    dialogTitle.text = dialogPayload.speaker;
-                    dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
-                }
+                            break;
+                        }
+                        dialogPanel.gameObject.SetActive(true);
+
+                        dialogTitle.text = dialogPayload.speaker;
+                        dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
+                    }
                     break;
 
                 case DialogAction.Stop:
-                {
-                    if (dialogContextText.Stop())
                     {
-                        dialogPanel.gameObject.SetActive(false);
+                        if (dialogContextText.Stop())
+                        {
+                            dialogPanel.gameObject.SetActive(false);
+                        }
                     }
-                }
                     break;
 
                 case DialogAction.Resume:
-                {
-                    dialogContextText.SetPause(false);
-                }
+                    {
+                        dialogContextText.SetPause(false);
+                    }
                     break;
 
                 case DialogAction.Pause:
-                {
-                    dialogContextText.SetPause(true);
-                }
+                    {
+                        dialogContextText.SetPause(true);
+                    }
                     break;
 
                 case DialogAction.OnNext:
-                {
-                    dialogContextText.Next();
-                }
+                    {
+                        dialogContextText.Next();
+                    }
                     break;
 
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private void SendPayloadToClientEvent(bool _isPlaying)
+        {
+            Debug.Log("Send Dialog Payload to Player, isPlaying : " + _isPlaying);
+
+            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
+            {
+                dialogType = DialogType.NotifyToClient,
+                isPlaying = _isPlaying
+            });
         }
     }
 }

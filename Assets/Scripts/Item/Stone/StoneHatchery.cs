@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -17,7 +18,9 @@ namespace Assets.Scripts.Item.Stone
         private Pool stonePool;
         [SerializeField] Mesh[] stoneMeshes;
         [SerializeField] Material[] materials;
+        [SerializeField] GameObject[] stoneHitParticles;
         [SerializeField] BaseStoneEffect[] stoneEffects;
+        [SerializeField] GameObject stoneTrailTest;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
@@ -26,10 +29,14 @@ namespace Assets.Scripts.Item.Stone
         {
             SetTicketMachine();
             InitStonePool();
-            string resourcePath = "Materials/StoneMaterials";
-            materials = Resources.LoadAll<Material>(resourcePath);
         }
-
+        private void Start()
+        {
+            string stoneMaterialsPath = "Materials/StoneMaterials";
+            string stoneHitParticlesPath = "Prefabs/StoneHitParticles";
+            materials = Resources.LoadAll<Material>(stoneMaterialsPath);
+            stoneHitParticles = Resources.LoadAll<GameObject>(stoneHitParticlesPath);
+        }
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -83,6 +90,8 @@ namespace Assets.Scripts.Item.Stone
                     effect = obj.gameObject.AddComponent<NormalStone>();
                     break;
             }
+            ////힛 파티클을 붙여줌
+            //effect.hitParticle = stoneHitParticles[stoneIdx % STONEIDXSTART];
 
             StonePrefab prefab = obj.GetComponent<StonePrefab>();
 
@@ -107,6 +116,7 @@ namespace Assets.Scripts.Item.Stone
             stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
             if (itemPayload.Type == StoneEventType.ShootStone)
             {
+                
                 ReleaseStone(stone, startPos, direction, strength);
                 //UI 페이로드 작성
                 UIPayload uIPayload = new()
@@ -128,12 +138,14 @@ namespace Assets.Scripts.Item.Stone
         {
             stone.transform.position = position;
             stone.GetComponent<Rigidbody>().AddForce(force * 4f, ForceMode.Impulse);
+            stone.GetComponent<Rigidbody>().AddTorque(2f* Random.onUnitSphere);
         }
 
         private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
         {
             stone.SetPosition(startPos);
             stone.MoveStone(direction, strength);
+            stone.GetComponent<Rigidbody>().AddTorque(2f*Random.onUnitSphere);
         }
     }
 }

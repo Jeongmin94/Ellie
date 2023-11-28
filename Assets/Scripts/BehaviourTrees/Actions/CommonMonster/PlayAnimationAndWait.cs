@@ -15,7 +15,6 @@ public class PlayAnimationAndWait : ActionNode
     {
         context.animator.SetTrigger(animationTrigger.Value);
         accumTime = 0.0f;
-        Debug.Log("!!! AccumTime Reset");
     }
 
     protected override void OnStop()

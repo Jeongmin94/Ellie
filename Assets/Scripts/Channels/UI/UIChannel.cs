@@ -32,6 +32,7 @@ namespace Channels.UI
         public ItemMetaData itemData;
         public Transform onDragParent;
         public bool isStoneNull;
+        public int equipmentSlotIdx;
     }
 
     public class UIChannel : BaseEventChannel

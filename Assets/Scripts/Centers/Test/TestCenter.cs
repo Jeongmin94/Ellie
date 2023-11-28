@@ -16,6 +16,11 @@ namespace Assets.Scripts.Centers.Test
         public Inventory inventory;
         public Ore[] ores;
         public GameObject monsters;
+        public GameObject DialogCanvas;
+        public GameObject SimpleDialogCanvas;
+
+        public GameObject SkullSecondTrap;
+        public TestAttacker attacker;
 
         public int curStage = 1;
 
@@ -29,6 +34,7 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(hatchery.gameObject);
+            CheckTicket(attacker.gameObject);
             foreach (Ore ore in ores)
             {
                 Debug.Log($"{ore.name} checked");
@@ -43,6 +49,9 @@ namespace Assets.Scripts.Centers.Test
                     CheckTicket(child.gameObject);
                 }
             }
+            CheckTicket(DialogCanvas.gameObject);
+            CheckTicket(SimpleDialogCanvas.gameObject);
+            CheckTicket(SkullSecondTrap.gameObject);
         }
     }
 }

@@ -213,10 +213,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a2f1a7f540ee4084ae09420e2ce4bec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  patrolPoints:
-  - {fileID: 599345688}
-  - {fileID: 1597554981}
-  - {fileID: 396134559}
 --- !u!1 &1258672268
 GameObject:
   m_ObjectHideFlags: 0
@@ -908,7 +904,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6863236723056871730
 Transform:
   m_ObjectHideFlags: 0
@@ -1019,6 +1015,7 @@ MonoBehaviour:
   projectileAttackData: {fileID: 0}
   fleeSkilldata: {fileID: 11400000, guid: 17daa542049ae46c8a31be7f42c07f44, type: 2}
   fanshapeAttackData: {fileID: 0}
+  dropableItemData: {fileID: 0}
   behaviourTreeInstance: {fileID: 0}
   player: {fileID: 0}
 --- !u!54 &2119480398

@@ -160,7 +160,7 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             payload.slotAreaType = SlotAreaType;
-
+            Debug.Log("OnSlotInventoryAction : " + payload.groupType);
             slotAreaInventoryAction?.Invoke(payload);
         }
 
