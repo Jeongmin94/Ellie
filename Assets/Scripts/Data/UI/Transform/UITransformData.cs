@@ -38,7 +38,7 @@ namespace Assets.Scripts.Data.UI.Transform
     public class UITransformData : ScriptableObject, ISerializationCallbackReceiver
     {
         [Header("x, y, width, height")] public Rect rect;
-        [Header("x, y scale")] public Vector2 scale;
+        [Header("x, y scale")] public Vector2 scale = Vector2.one;
 
         public readonly Data<Rect> actionRect = new Data<Rect>();
         public readonly Data<Vector2> actionScale = new Data<Vector2>();
