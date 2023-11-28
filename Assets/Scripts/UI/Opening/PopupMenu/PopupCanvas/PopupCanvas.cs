@@ -13,12 +13,12 @@ namespace Assets.Scripts.UI.PopupMenu
             popupCanvasAction += listener;
         }
 
-        public void Invoke(PopupPayload payload)
+        public virtual void Invoke(PopupPayload payload)
         {
             popupCanvasAction?.Invoke(payload);
         }
-
-        private void OnDestroy()
+        
+        protected virtual void OnDestroy()
         {
             popupCanvasAction = null;
         }

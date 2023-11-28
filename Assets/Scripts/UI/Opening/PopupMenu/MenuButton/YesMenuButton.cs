@@ -4,6 +4,10 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public override void Click()
         {
+            PopupPayload payload = new PopupPayload();
+            payload.buttonType = ButtonType.Yes;
+
+            Invoke(payload);
         }
     }
 }

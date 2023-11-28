@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI.Opening
         private RectTransform imagePanelRect;
         private RectTransform textPanelRect;
 
-        private TextMeshProUGUI textMeshProUGUI;
+        protected TextMeshProUGUI textMeshProUGUI;
 
         protected readonly Data<Color> imageColor = new Data<Color>();
 
@@ -110,6 +110,13 @@ namespace Assets.Scripts.UI.Opening
 
         protected void SetImageSprite(Sprite sprite) => image.sprite = sprite;
         protected void ResetImageSprite() => image.sprite = panelSprite;
+
+        protected void SetImageAlpha(float value)
+        {
+            var color = imageColor.Value;
+            color.a = value;
+            imageColor.Value = color;
+        }
 
         private void OnImageColorChanged(Color value)
         {

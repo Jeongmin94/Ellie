@@ -48,6 +48,7 @@ namespace Assets.Scripts.UI.Opening
         // !TODO: 메뉴 버튼 별로 관리
         private readonly List<BlinkMenuButton> menuButtons = new List<BlinkMenuButton>();
         private readonly List<BasePopupCanvas> popupCanvasList = new List<BasePopupCanvas>();
+        private ConfigCanvas configCanvas;
 
         private void Awake()
         {
@@ -139,6 +140,9 @@ namespace Assets.Scripts.UI.Opening
                 popup.gameObject.SetActive(false);
                 popupCanvasList.Add(popup);
             }
+
+            configCanvas = UIManager.Instance.MakePopup<ConfigCanvas>(ConfigCanvas.Path);
+            configCanvas.gameObject.SetActive(false);
         }
 
         private void LateUpdate()
@@ -153,8 +157,15 @@ namespace Assets.Scripts.UI.Opening
 
         private void OnBlinkButtonAction(PopupPayload payload)
         {
-            int idx = (int)payload.popupType;
-            popupCanvasList[idx].gameObject.SetActive(true);
+            if (payload.popupType == PopupType.Config)
+            {
+                configCanvas.gameObject.SetActive(true);
+            }
+            else
+            {
+                int idx = (int)payload.popupType;
+                popupCanvasList[idx].gameObject.SetActive(true);
+            }
         }
 
         #endregion
@@ -169,7 +180,17 @@ namespace Assets.Scripts.UI.Opening
                 case ButtonType.Yes:
                     break;
                 case ButtonType.No:
-                    popupCanvasList[idx].gameObject.SetActive(false);
+                {
+                    if (payload.popupType == PopupType.Config)
+                    {
+                        configCanvas.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        popupCanvasList[idx].gameObject.SetActive(false);
+                    }
+                }
+                    
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

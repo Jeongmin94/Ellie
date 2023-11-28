@@ -10,6 +10,8 @@ namespace Assets.Scripts.UI.PopupMenu
 {
     public class ConfigCanvas : UIPopup
     {
+        public static readonly string Path = "ConfigPopupCanvas";
+        
         private enum GameObjects
         {
             ConfigButtonPanel,
@@ -95,7 +97,7 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             configToggleGroup = buttonPanel.GetOrAddComponent<ConfigButtonPanel>();
             configToggleGroup.InitConfigButtonPanel();
-            configToggleGroup.InitConfigTypes(configTypes);
+            configToggleGroup.InitConfigTypes(configTypes, buttonTypographyData);
         }
 
         private void LateUpdate()

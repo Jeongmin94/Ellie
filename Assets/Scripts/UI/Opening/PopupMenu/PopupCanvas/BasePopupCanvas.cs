@@ -82,7 +82,6 @@ namespace Assets.Scripts.UI.PopupMenu
                 case PopupType.Start:
                     popupCanvas = gameObject.GetOrAddComponent<StartPopup>();
                     break;
-                // !TODO: 환경설정 UI 추가
                 case PopupType.Config:
                     popupCanvas = gameObject.GetOrAddComponent<ConfigPopup>();
                     break;
@@ -139,7 +138,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
             var textRect = popupText.GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(textRect, AnchorPresets.StretchAll);
-            
+
             AnchorPresets.SetAnchorPreset(popupButtonGridPanelRect, AnchorPresets.MiddleCenter);
             popupButtonGridPanelRect.sizeDelta = popupButtonGridTransform.actionRect.Value.GetSize();
             popupButtonGridPanelRect.localPosition = popupButtonGridTransform.actionRect.Value.ToCanvasPos();
