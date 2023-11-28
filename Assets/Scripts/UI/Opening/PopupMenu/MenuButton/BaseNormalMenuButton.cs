@@ -48,10 +48,8 @@ namespace Assets.Scripts.UI.PopupMenu
             imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
 
-        // 클릭하면 새로운 UI Popup
         private void OnClickButton(PointerEventData data)
         {
-            Debug.Log($"{name} 버튼 클릭됨");
             menuButton.Click();
         }
 
