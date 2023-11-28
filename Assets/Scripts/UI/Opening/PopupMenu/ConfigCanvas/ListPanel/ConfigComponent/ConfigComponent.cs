@@ -2,9 +2,13 @@ using System;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.Utils;
+using Data.UI.Config;
 using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.PopupMenu
 {
@@ -14,8 +18,6 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private enum GameObjects
         {
-            NamePanel,
-            OptionPanel,
             OptionPrev,
             OptionNext,
         }
@@ -37,6 +39,9 @@ namespace Assets.Scripts.UI.PopupMenu
         private TextMeshProUGUI nameText;
         private TextMeshProUGUI optionValue;
 
+        private Image componentImage;
+        private Color imageColor;
+
         private Action<int> componentAction;
 
         private void Awake()
@@ -48,6 +53,7 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             Bind();
             InitObjects();
+            BindEvents();
         }
 
         private void Bind()
@@ -61,6 +67,8 @@ namespace Assets.Scripts.UI.PopupMenu
             nameText = GetText((int)Texts.NameText);
             optionValue = GetText((int)Texts.OptionValue);
 
+            componentImage = gameObject.GetComponent<Image>();
+
             rect = gameObject.GetComponent<RectTransform>();
         }
 
@@ -69,8 +77,36 @@ namespace Assets.Scripts.UI.PopupMenu
             rect.sizeDelta = transformData.actionRect.Value.GetSize();
             rect.localPosition = transformData.actionRect.Value.ToCanvasPos();
 
+            var left = optionPrev.GetOrAddComponent<OptionButton>();
+            left.InitOptionButton(-1);
+            left.Subscribe(OnButtonClick);
+
+            var right = optionNext.GetOrAddComponent<OptionButton>();
+            right.InitOptionButton(1);
+            right.Subscribe(OnButtonClick);
+
+            imageColor = componentImage.color;
+
             SetTypography(nameText, typographyData);
             SetTypography(optionValue, typographyData);
+        }
+
+        private void BindEvents()
+        {
+            gameObject.BindEvent(OnPointerEnter, UIEvent.PointEnter);
+            gameObject.BindEvent(OnPointerExit, UIEvent.PointExit);
+        }
+
+        private void OnPointerEnter(PointerEventData data)
+        {
+            imageColor.a = 1.0f;
+            componentImage.color = imageColor;
+        }
+
+        private void OnPointerExit(PointerEventData data)
+        {
+            imageColor.a = 0.0f;
+            componentImage.color = imageColor;
         }
 
         private void SetTypography(TextMeshProUGUI tmp, TextTypographyData data)
@@ -82,12 +118,15 @@ namespace Assets.Scripts.UI.PopupMenu
             tmp.lineSpacing = data.lineSpacing;
         }
 
-        public void SetConfigData(string configName, bool readOnly, Action<int> listener)
+        public void SetConfigData(string configName, bool readOnly, Action<int> onIndexChanged)
         {
+            optionPrev.SetActive(!readOnly);
+            optionNext.SetActive(!readOnly);
+
             nameText.text = configName;
 
-            componentAction -= listener;
-            componentAction += listener;
+            componentAction -= onIndexChanged;
+            componentAction += onIndexChanged;
         }
 
         private void OnDestroy()
@@ -95,13 +134,14 @@ namespace Assets.Scripts.UI.PopupMenu
             componentAction = null;
         }
 
-        // 1. prev(-1), next(+1) 버튼 클릭함
-        // 2. ConfigComponent로 이벤트 도착해서 idx 변경함
-        // 3. idx 변경 이벤트를 OptionData로 전파함
-        // 4. OptionData에서 idx 변경 이벤트 처리함
-        private void OnIndexChanged(int value)
+        private void OnButtonClick(int value)
         {
             componentAction?.Invoke(value);
+        }
+
+        public void OnOptionValueChanged(string value)
+        {
+            optionValue.text = value;
         }
     }
 }

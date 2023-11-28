@@ -12,6 +12,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
         [SerializeField] private IntegerOptionData[] integerOptionData;
         [SerializeField] private Vector2OptionData[] vector2OptionData;
+        [SerializeField] private StringOptionData[] stringOptionData;
 
         private enum GameObjects
         {
@@ -23,7 +24,6 @@ namespace Assets.Scripts.UI.PopupMenu
         private GameObject content;
 
         private RectTransform rect;
-        private RectTransform contentRect;
 
         public void InitMenuList()
         {
@@ -43,7 +43,6 @@ namespace Assets.Scripts.UI.PopupMenu
             content = GetGameObject((int)GameObjects.Content);
 
             rect = gameObject.GetComponent<RectTransform>();
-            contentRect = content.GetComponent<RectTransform>();
         }
 
         private void InitObjects()
@@ -61,8 +60,12 @@ namespace Assets.Scripts.UI.PopupMenu
             {
                 if (data.IsSameType(configType))
                 {
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(rect, ConfigComponent.Path);
+                    data.ClearAction();
+
+                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
+                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
+                    data.OnIndexChanged(0);
                 }
             }
 
@@ -70,6 +73,25 @@ namespace Assets.Scripts.UI.PopupMenu
             {
                 if (data.IsSameType(configType))
                 {
+                    data.ClearAction();
+
+                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
+                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
+                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
+                    data.OnIndexChanged(0);
+                }
+            }
+
+            foreach (var data in stringOptionData)
+            {
+                if (data.IsSameType(configType))
+                {
+                    data.ClearAction();
+
+                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
+                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
+                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
+                    data.OnIndexChanged(0);
                 }
             }
         }

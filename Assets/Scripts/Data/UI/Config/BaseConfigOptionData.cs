@@ -1,11 +1,11 @@
+using System;
 using System.Collections.Generic;
-using Assets.Scripts.ActionData;
 using Assets.Scripts.UI.PopupMenu;
 using UnityEngine;
 
 namespace Data.UI.Config
 {
-    public abstract class BaseConfigOptionData<T> : ScriptableObject, ISerializationCallbackReceiver
+    public abstract class BaseConfigOptionData<T> : ScriptableObject
     {
         [SerializeField] public ConfigType configType;
         [SerializeField] public bool readOnly;
@@ -13,31 +13,30 @@ namespace Data.UI.Config
         [SerializeField] public List<T> values;
         [SerializeField] public int currentIdx;
 
-        private readonly Data<T> actionValue = new Data<T>();
-        public readonly Data<int> actionIndex = new Data<int>();
+        private Action<string> valueChangeAction;
+
+        public void ClearAction() => valueChangeAction = null;
+
+        // !TODO: 옵션 설정값이 변경되면 설정값 변경에 대한 로직을 처리하는 클래스에서 구독해서 사용해야 함
+        public void SubscribeValueChangeAction(Action<string> listener)
+        {
+            valueChangeAction -= listener;
+            valueChangeAction += listener;
+        }
 
         public void OnIndexChanged(int value)
         {
-            if (value < 0)
-                value = 0;
-            if (value >= values.Count)
-                value = values.Count - 1;
+            int idx = currentIdx + value;
+            if (idx < 0)
+                idx = 0;
+            if (idx >= values.Count)
+                idx = values.Count - 1;
 
-            actionIndex.Value = value;
-            actionValue.Value = values[actionIndex.Value];
+            currentIdx = idx;
+            valueChangeAction?.Invoke(ValueString(values[currentIdx]));
         }
 
         public bool IsSameType(ConfigType type) => configType == type;
-        public abstract string ValueString(T value);
-
-        public virtual void OnBeforeSerialize()
-        {
-            currentIdx = actionIndex.Value;
-        }
-
-        public virtual void OnAfterDeserialize()
-        {
-            actionIndex.Value = currentIdx;
-        }
+        protected abstract string ValueString(T value);
     }
 }

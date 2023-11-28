@@ -5,7 +5,7 @@ namespace Data.UI.Config
     [CreateAssetMenu(fileName = "BooleanOptionData", menuName = "UI/Config/BooleanOptionData", order = 0)]
     public class BooleanOptionData : BaseConfigOptionData<bool>
     {
-        public override string ValueString(bool value)
+        protected override string ValueString(bool value)
         {
             return value.ToString();
         }
