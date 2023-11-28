@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Combat;
 using Assets.Scripts.Data.ActionData.Player;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Framework.Images;
@@ -199,6 +200,7 @@ namespace Assets.Scripts.Player
 
         public void ApplyConsumableItemEffect(PlayerInventory.ConsumableItemData data)
         {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound8");
             int HPRecoveryAmount = data.HPRecoveryAmount;
             if (HP + HPRecoveryAmount >= maxHP)
                 HP = maxHP;
