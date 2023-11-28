@@ -3,6 +3,7 @@ namespace Channels.Dialog
     public enum DialogType
     {
         Notify,
+        NotifyToClient,
     }
 
     public enum DialogAction
@@ -14,13 +15,23 @@ namespace Channels.Dialog
         OnNext,
     }
 
+    public enum DialogCanvasType
+    { 
+        Default,
+        Simple,
+        SimpleRemaining,
+    }
+
+
     public class DialogPayload : IBaseEventPayload
     {
         public DialogType dialogType;
         public DialogAction dialogAction;
+        public DialogCanvasType canvasType = DialogCanvasType.Default;
         public string text;
         public string speaker;
         public float interval;
+        public bool isPlaying;
 
         public static DialogPayload Play(string text, float interval = 0.01f)
         {
@@ -77,7 +88,8 @@ namespace Channels.Dialog
             if (payload is not DialogPayload dialogPayload)
                 return;
 
-            if (dialogPayload.dialogType == DialogType.Notify)
+            if (dialogPayload.dialogType == DialogType.Notify || 
+                dialogPayload.dialogType == DialogType.NotifyToClient)
                 Publish(payload);
         }
     }

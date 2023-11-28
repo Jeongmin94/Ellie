@@ -4,12 +4,18 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {
+    public enum DialogSpeaker
+    {
+        NPC,
+        Player,
+        Narr,
+    }
     [Serializable]
     public class DialogData
     {
         public int index;
         public string dialog;
-        public int speaker;
+        public DialogSpeaker speaker;
     }
 
     [CreateAssetMenu(fileName = "DialogData", menuName = "GameData List/DialogData")]
@@ -57,11 +63,11 @@ namespace Assets.Scripts.Data.GoogleSheet
                     string speaker = entries[2].Trim();
                     if (string.IsNullOrEmpty(speaker))
                     {
-                        data.speaker = InvalidValue;
+                        data.speaker = DialogSpeaker.Narr;
                     }
                     else
                     {
-                        data.speaker = int.Parse(entries[2].Trim());
+                        data.speaker = (DialogSpeaker)int.Parse(entries[2].Trim());
                     }
                 }
                 catch (Exception e)

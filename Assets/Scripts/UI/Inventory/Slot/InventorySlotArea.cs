@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
@@ -8,6 +9,7 @@ using Assets.Scripts.Utils;
 using Channels.UI;
 using UnityEngine;
 using UnityEngine.UI;
+using static Assets.Scripts.Managers.InventorySavePayload;
 
 namespace Assets.Scripts.UI.Inventory
 {
@@ -158,7 +160,7 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             payload.slotAreaType = SlotAreaType;
-
+            Debug.Log("OnSlotInventoryAction : " + payload.groupType);
             slotAreaInventoryAction?.Invoke(payload);
         }
 
@@ -348,6 +350,37 @@ namespace Assets.Scripts.UI.Inventory
                     emptySlot.InvokeCopyOrMove(baseSlotItem);
                 }
             }
+        }
+
+        #endregion
+
+        #region SaveLoad
+
+        public List<InventorySlot> GetSlotsWithItem()
+        {
+            List<InventorySlot> slotsWithItem = new List<InventorySlot>();
+
+            slots.ForEach(slot =>
+            {
+                if (slot.SlotItemData != null) slotsWithItem.Add(slot);
+            });
+
+            return slotsWithItem;
+        }
+
+        public void ClearSlot()
+        {
+            slots.ForEach(slot => slot.SlotItemData?.Reset());
+        }
+
+        public void LoadItem(ItemSaveInfo saveInfo, UIPayload payload)
+        {
+            slots[saveInfo.itemSlotIndex].LoadItem(payload);
+        }
+
+        public void UpdateItem(ItemSaveInfo saveInfo)
+        {
+            slots[saveInfo.itemSlotIndex].SlotItemData.itemCount.Value = saveInfo.itemCount;
         }
 
         #endregion

@@ -53,6 +53,7 @@ namespace Channels.Boss
         private Transform transformValue3;
         private TerrapupaAttackType attackTypeValue;
         private Transform sender;
+        private CombatPayload combatPayload;
 
         public BossEventPayload()
         {
@@ -65,6 +66,7 @@ namespace Channels.Boss
             transformValue2 = null;
             transformValue3 = null;
             attackTypeValue = TerrapupaAttackType.None;
+            combatPayload = null;
         }
 
         public GameObject PrefabValue
@@ -126,6 +128,11 @@ namespace Channels.Boss
             set { sender = value; }
         }
 
+        public CombatPayload CombatPayload
+        {
+            get { return combatPayload; }
+            set { combatPayload = value; }
+        }
     }
 
     public class TerrapupaChannel : BaseEventChannel

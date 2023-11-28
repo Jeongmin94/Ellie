@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4008788663092322691}
   - component: {fileID: 4008788663092322690}
   - component: {fileID: 4008788663092322693}
+  - component: {fileID: 2865219159835221847}
   m_Layer: 10
   m_Name: TerrapupaMinion
   m_TagString: Boss
@@ -68,10 +69,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   behaviourTreeInstance: {fileID: 4008788663092322688}
-  rootTreeData: {fileID: 11400000, guid: 6dcc1bdf9d70fa6459a59e16f4262d30, type: 2}
-  settingList: []
-  healthBar: {fileID: 4008788663092322693}
+  rootTreeData: {fileID: 11400000, guid: ad8d5520e0abf2c4d846e618444271fa, type: 2}
+  settingList:
+  - {fileID: 11400000, guid: b5f95f1ab53e484439690aad8c274640, type: 2}
+  - {fileID: 11400000, guid: 85feaf96c2706b741b04f113a1d6fb4d, type: 2}
+  - {fileID: 11400000, guid: fc96f4a472ffbad4aaeeadd3412fda2e, type: 2}
+  - {fileID: 11400000, guid: 63475ebee65b79b47a39a8516b3a2c6d, type: 2}
+  - {fileID: 11400000, guid: 52f59fc9b6bbf7845b4375d9119b3f2a, type: 2}
   minionData: {fileID: 0}
+  healthBar: {fileID: 4008788663092322693}
+  weakPoints: []
 --- !u!54 &4008788663092322690
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -100,8 +107,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d272579a7920be49b84e9ae5bf8773e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data: {fileID: 0}
-  scaleFactor: 0.003
+  scaleFactor: 0.002
+--- !u!114 &2865219159835221847
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008788663092322692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af5815368e0b4348a6d97b280bcb2a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4008788663347610839
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +144,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4008788663347610839}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.15, z: 1.47}
+  m_LocalPosition: {x: 0, y: 2.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -146,15 +164,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767396724, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -286,6 +304,18 @@ CapsuleCollider:
   m_Height: 0.18511271
   m_Direction: 1
   m_Center: {x: 0.0016466583, y: -0.025836855, z: -0.0011307895}
+--- !u!114 &5866878096468871446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646283575895831952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be9bb1c0cfe17b4fb335e921bcb5be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5646283575895831964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8789255107767498076, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
@@ -305,3 +335,15 @@ CapsuleCollider:
   m_Height: 0.34002548
   m_Direction: 1
   m_Center: {x: -0.009721637, y: 0.18073902, z: 0}
+--- !u!114 &5621984854706730417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5646283575895831964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6be9bb1c0cfe17b4fb335e921bcb5be5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

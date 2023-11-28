@@ -56,6 +56,9 @@ MonoBehaviour:
   - rid: 1683426247750189114
   - rid: 1683426247750189115
   - rid: 283011297055604740
+  - rid: 1683426562437021698
+  - rid: 1683426562437021699
+  - rid: 1683426562437021700
   treeState: 0
   blackboard:
     keys:
@@ -77,8 +80,11 @@ MonoBehaviour:
     - rid: 1683426247750189102
     - rid: 283011291767373846
     - rid: 283011470369751064
-  viewPosition: {x: 160, y: 423.2, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 1683426562437021696
+    - rid: 1683426562437021697
+    - rid: 1683426562437021872
+  viewPosition: {x: 837.6, y: 363.2, z: 0}
+  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
   references:
     version: 2
     RefIds:
@@ -273,6 +279,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: 1683426562437021872
     - rid: 283011163041824768
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -711,6 +720,109 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+    - rid: 1683426562437021696
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: cooldown
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1683426562437021697
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: cooldownPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 1683426562437021698
+      type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: cb377e45433b5344da47b4ba8b6acb08
+        position: {x: -1155, y: -510}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isInit:
+          reference:
+            rid: -2
+          defaultValue: 1
+        bossPayload:
+          reference:
+            rid: 1683426562437021697
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        intValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        floatValue:
+          reference:
+            rid: 1683426562437021696
+          defaultValue: 0
+        vector3Value:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        transformValue1:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        transformValue2:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        transformValue3:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        attackTypeValue:
+          reference:
+            rid: -2
+          defaultValue: 2
+        combatPayload:
+          reference:
+            rid: -2
+    - rid: 1683426562437021699
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0f763a1de184ec44792369e4cf73bad6
+        position: {x: -975, y: -510}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 17
+        baseEventPayload:
+          reference:
+            rid: 1683426562437021697
+    - rid: 1683426562437021700
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 9b803b95964a6044f835d3d9f77a071c
+        position: {x: -1035, y: -675}
+        blackboard:
+          keys: []
+        description: "\uCFE8\uD0C0\uC784 \uC801\uC6A9"
+        drawGizmos: 0
+        children:
+        - rid: 1683426562437021698
+        - rid: 1683426562437021699
+    - rid: 1683426562437021872
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: combatPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
     - rid: 8619125029124177949
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -731,6 +843,7 @@ MonoBehaviour:
         children:
         - rid: 8619125046743924758
         - rid: 8619125046743924759
+        - rid: 1683426562437021700
         - rid: 8619125046743924772
     - rid: 8619125046743924755
       type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -738,7 +851,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cc06d5e6385ef4f40ab0746094a3633a
-        position: {x: -1695, y: -525}
+        position: {x: -2055, y: -510}
         blackboard:
           keys: []
         description: 
@@ -753,7 +866,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 893916e0ae3836e49909bc03f482c6c6
-        position: {x: -1515, y: -525}
+        position: {x: -1875, y: -510}
         blackboard:
           keys: []
         description: 
@@ -769,7 +882,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 8ee29620940af9f41ada81aa1a2a66a6
-        position: {x: -1335, y: -525}
+        position: {x: -1695, y: -510}
         blackboard:
           keys: []
         description: 
@@ -784,7 +897,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 53e3f02ac13643041a3ae742122b8bae
-        position: {x: -1515, y: -675}
+        position: {x: -1875, y: -660}
         blackboard:
           keys: []
         description: 
@@ -799,7 +912,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 0024a9f359a413f448dd9eeee721c33b
-        position: {x: -1005, y: -645}
+        position: {x: -1425, y: -630}
         blackboard:
           keys: []
         description: 
@@ -819,7 +932,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 643053a973e02494bb98a2e0af5599f0
-        position: {x: -1035, y: -525}
+        position: {x: -1455, y: -510}
         blackboard:
           keys: []
         description: 

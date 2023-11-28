@@ -231,7 +231,7 @@ MonoBehaviour:
     - rid: 1401849379394682881
     - rid: 1401849379394682882
     - rid: 1401849442858696713
-  viewPosition: {x: 478, y: 332, z: 0}
+  viewPosition: {x: 1272.8, y: 129.6, z: 0}
   viewScale: {x: 0.25, y: 0.25, z: 1}
   references:
     version: 2
@@ -305,6 +305,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442275
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -395,6 +399,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442281
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -406,6 +414,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -441,6 +453,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442284
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -527,6 +543,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2
@@ -570,6 +590,7 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 4
+        reverse: 0
     - rid: 283011018610442294
       type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -669,6 +690,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -714,6 +739,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -804,6 +833,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2
@@ -819,6 +852,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2
@@ -871,6 +908,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849265356013609
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1061,10 +1102,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 50
-        angle:
-          reference:
-            rid: -2
-          defaultValue: 45
         isCheckWall:
           reference:
             rid: -2
@@ -1128,6 +1165,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849379394682882
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -1156,6 +1197,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849419498258448
       type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
       data:
@@ -1174,6 +1218,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849379394682882
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -1202,6 +1250,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849419498258449
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1292,10 +1343,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 50
-        angle:
-          reference:
-            rid: -2
-          defaultValue: 45
         isCheckWall:
           reference:
             rid: -2
@@ -1322,6 +1369,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849379394682882
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -1350,6 +1401,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849419498258458
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1679,6 +1733,10 @@ MonoBehaviour:
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849440881606691
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1868,6 +1926,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849442858696710
       type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2049,6 +2111,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849442858696713
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -2077,6 +2143,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849447854899212
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2181,6 +2250,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849447854899222
       type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2302,6 +2375,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 1401849442858696713
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -2330,6 +2407,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849447854899235
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2401,6 +2481,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125029124177926
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -2412,6 +2496,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -2454,6 +2542,7 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        reverse: 0
     - rid: 8619125029124177929
       type: {class: Parallel, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2491,6 +2580,7 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 1
+        reverse: 0
     - rid: 8619125029124177931
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2524,6 +2614,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125029124177947
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -2735,6 +2829,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125030485229583
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -2746,6 +2844,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -2794,6 +2896,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125030485229587
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -2805,6 +2911,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -2925,6 +3035,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125030485229600
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -3051,6 +3165,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125046743924740
       type: {class: CheckRayCastForward, ns: , asm: Assembly.Ellie}
       data:
@@ -3070,6 +3188,12 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: Wall
+        layerMask:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 0
     - rid: 8619125046743924748
       type: {class: CheckTargetDistance, ns: , asm: Assembly.Ellie}
       data:
@@ -3228,6 +3352,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125046743924760
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -3239,6 +3367,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -3275,6 +3407,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125046743924765
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -3317,6 +3453,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2
@@ -3500,6 +3640,7 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 4
+        reverse: 0
     - rid: 8619125051680882732
       type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
       data:
@@ -3613,6 +3754,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125051680882744
       type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
       data:
@@ -3624,6 +3769,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         animationName:
           reference:
             rid: -2
@@ -3659,6 +3808,10 @@ MonoBehaviour:
         restartOnSuccess: 0
         restartOnFailure: 1
         maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 8619125051680882747
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -3743,6 +3896,7 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 2
+        reverse: 0
     - rid: 8619125051680882762
       type: {class: MoveTowards, ns: , asm: Assembly.Ellie}
       data:
@@ -3816,6 +3970,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
         checkTimeValue:
           reference:
             rid: -2

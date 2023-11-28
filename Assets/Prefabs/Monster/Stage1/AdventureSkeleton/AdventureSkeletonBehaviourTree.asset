@@ -112,6 +112,8 @@ MonoBehaviour:
   - rid: 6937830886797737987
   - rid: 6937830886797737988
   - rid: 6937830886797737992
+  - rid: 6937831022925971456
+  - rid: 6937831022925971457
   treeState: 0
   blackboard:
     keys:
@@ -139,18 +141,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542871
-<<<<<<< HEAD
-  viewPosition: {x: -2543.5, y: -290, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
-=======
-<<<<<<< HEAD
-  viewPosition: {x: -3339, y: -357, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
-=======
-  viewPosition: {x: -2543.5, y: -290, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
->>>>>>> 74daa87018496632885d0bd74cdf9f82faf6e5be
->>>>>>> release/Sprint231122
+  viewPosition: {x: 1036, y: 570, z: 0}
+  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
   references:
     version: 2
     RefIds:
@@ -162,7 +154,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2ad0cac6-856c-42bc-a9c2-1766e6b46cd3
-        position: {x: -180, y: -480}
+        position: {x: -195, y: -660}
         blackboard:
           keys: []
         description: 
@@ -175,13 +167,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 99a1d707d695045cca27d1c76bc47dac
-        position: {x: -180, y: -345}
+        position: {x: -195, y: -525}
         blackboard:
           keys: []
         description: 
         drawGizmos: 1
         child:
-          rid: 6937830456686542859
+          rid: 6937831022925971456
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
@@ -2059,3 +2051,28 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+    - rid: 6937831022925971456
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 554bfa5f63980444c9bf098fedbcb135
+        position: {x: -195, y: -360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 6937831022925971457
+        - rid: 6937830456686542859
+    - rid: 6937831022925971457
+      type: {class: isLoading, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 1f77162aefe2b4145a31b68c2e34781f
+        position: {x: -720, y: -225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
