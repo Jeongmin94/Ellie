@@ -15,7 +15,7 @@ namespace Assets.Scripts.Data.GoogleSheet
     {
         public int index;
         public string dialog;
-        public DialogSpeaker speaker;
+        public int speaker;
     }
 
     [CreateAssetMenu(fileName = "DialogData", menuName = "GameData List/DialogData")]
@@ -63,11 +63,11 @@ namespace Assets.Scripts.Data.GoogleSheet
                     string speaker = entries[2].Trim();
                     if (string.IsNullOrEmpty(speaker))
                     {
-                        data.speaker = DialogSpeaker.Narr;
+                        data.speaker = 2;
                     }
                     else
                     {
-                        data.speaker = (DialogSpeaker)int.Parse(entries[2].Trim());
+                        data.speaker = int.Parse(entries[2].Trim());
                     }
                 }
                 catch (Exception e)

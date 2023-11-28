@@ -44,21 +44,35 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
+            //인벤토리 열고 닫기
             if (Input.GetKeyDown(KeyCode.I))
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
                 OnInventoryToggle();
             }
-            if (Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                ticketMachine.SendMessage(ChannelType.UI, MakeCCWPayload());
+                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCCWPayload());
             }
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
+                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCWPayload());
             }
+            Vector2 wheelInput = Input.mouseScrollDelta;
 
+            if (wheelInput != Vector2.zero)
+            {
+                if(wheelInput.y > 0)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, MakeStoneItemCCWPayload());
+                }
+                else
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, MakeStoneItemCWPayload());
+
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Escape) && Inventory.IsOpened)
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
@@ -66,7 +80,7 @@ namespace Assets.Scripts.Player
             }
 
             //for test
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.O))
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -164,7 +178,7 @@ namespace Assets.Scripts.Player
             return payload;
         }
 
-        private UIPayload MakeCCWPayload()
+        private UIPayload MakeConsumeItemCCWPayload()
         {
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
@@ -175,12 +189,34 @@ namespace Assets.Scripts.Player
             return payload;
         }
 
-        private UIPayload MakeCWPayload()
+        private UIPayload MakeConsumeItemCWPayload()
         {
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveClockwise;
             payload.groupType = GroupType.Item;
+            payload.slotAreaType = SlotAreaType.Equipment;
+
+            return payload;
+        }
+
+        private UIPayload MakeStoneItemCCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveCounterClockwise;
+            payload.groupType = GroupType.Stone;
+            payload.slotAreaType = SlotAreaType.Equipment;
+
+            return payload;
+        }
+
+        private UIPayload MakeStoneItemCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveClockwise;
+            payload.groupType = GroupType.Stone;
             payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;

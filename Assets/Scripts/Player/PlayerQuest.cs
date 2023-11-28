@@ -122,7 +122,7 @@ namespace Assets.Scripts.Player
             
         }
 
-        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, string NPCName, bool isAdditionalDialog = false)
+        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
         {
             int curDialogListIdx = 0;
             List<int> dialogList;
@@ -138,7 +138,7 @@ namespace Assets.Scripts.Player
             }
 
             //첫 대사 출력
-            SendPlayDialogPayload(dialogList[curDialogListIdx], NPCName);
+            SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
             while(true)
             {
@@ -150,7 +150,9 @@ namespace Assets.Scripts.Player
                     if (!isPlaying)
                         curDialogListIdx++;
                     if (curDialogListIdx < dialogList.Count)
-                        SendPlayDialogPayload(dialogList[curDialogListIdx], NPCName);
+                    {
+                        SendPlayDialogPayload(dialogList[curDialogListIdx]);
+                    }
                 }
                 if (curDialogListIdx == dialogList.Count)
                 {
@@ -169,7 +171,7 @@ namespace Assets.Scripts.Player
             }
         }
         
-        private void SendPlayDialogPayload(int dialogIdx, string npcName = "???")
+        private void SendPlayDialogPayload(int dialogIdx)
         {
             DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
             string text = dialogData.dialog;
@@ -178,17 +180,17 @@ namespace Assets.Scripts.Player
             DialogPayload payload = DialogPayload.Play(text, 0.2f);
             switch (dialogData.speaker)
             {
-                case DialogSpeaker.NPC:
-                    SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
-                    speaker = npcName;
-                    break;
-                case DialogSpeaker.Player:
+                case 1:
                     SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                     speaker = "엘리";
                     break;
-                case DialogSpeaker.Narr:
+                case 2:
                     SendStopDialogPayload(DialogCanvasType.Default);
                     payload.canvasType = DialogCanvasType.SimpleRemaining;
+                    break;
+                default:
+                    SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+                    speaker = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(dialogData.speaker).name;
                     break;
             }
 
