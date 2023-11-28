@@ -13,6 +13,7 @@ using Assets.Scripts.Particle;
 using Channels.Components;
 using Assets.Scripts.Item.Stone;
 using Sirenix.OdinInspector;
+using UnityEngine.UIElements;
 
 namespace Centers.Boss
 {
@@ -310,6 +311,9 @@ namespace Centers.Boss
             if(minionDeathCheck == 2 || minionDeathCheck == 0)
             {
                 Debug.Log("골렘의 눈 드랍");
+                Vector3 position = payload.Sender.position;
+
+                //terrapupaMapObjects.TicketMachine.SendMessage(ChannelType.Stone, new )
             }
         }
         private void OnHitStone(BossEventPayload bossPayload)

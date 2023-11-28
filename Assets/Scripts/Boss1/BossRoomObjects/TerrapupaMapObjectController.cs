@@ -1,3 +1,4 @@
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -27,8 +28,12 @@ public class TerrapupaMapObjectController : MonoBehaviour
     [Tooltip("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
 
     private TicketMachine ticketMachine;
-
     private int manaFountainCount;
+
+    public TicketMachine TicketMachine
+    {
+        get { return ticketMachine; }
+    }
 
     private void Awake()
     {
@@ -97,6 +102,9 @@ public class TerrapupaMapObjectController : MonoBehaviour
     private void OnHitMana(BossEventPayload manaPayload)
     {
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
+
+        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        DropStoneItem(transform.position, mana.NORMALSTONE_INDEX);
 
         StartCoroutine(ManaCooldown(manaPayload));
     }
@@ -223,6 +231,16 @@ public class TerrapupaMapObjectController : MonoBehaviour
     #endregion
 
     #region 4. 기타 함수
+    public void DropStoneItem(Vector3 position, int index)
+    {
+        ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload
+        {
+            Type = StoneEventType.MineStone,
+            StoneSpawnPos = position,
+            StoneForce = GetRandVector(),
+            StoneIdx = index,
+        });
+    }
     private Vector3 GenerateRandomPositionInSector(int sectorIndex)
     {
         float sectorAngleSize = 360f / numberOfSector;
@@ -237,6 +255,11 @@ public class TerrapupaMapObjectController : MonoBehaviour
             fieldHeight,
             Mathf.Sin(angle) * distance
         );
+    }
+    private Vector3 GetRandVector()
+    {
+        Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+        return vec.normalized;
     }
     #endregion
 }

@@ -71,18 +71,32 @@ namespace Assets.Scripts.Player
                 for (int i = 0; i < 20; i++)
                 {
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
-                }
-                for (int i = 0; i < 3; i++)
-                {
-                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
-                }
-                for(int i = 0; i < 20; i++)
-                {
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
                 }
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 5; i++)
                 {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
+                    {
+                        uiType = UIType.Notify,
+                        groupType = UI.Inventory.GroupType.Item,
+                        slotAreaType = UI.Inventory.SlotAreaType.Item,
+                        actionType = ActionType.AddSlotItem,
+                        itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100),
+                    });
+
+                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
+                    {
+                        uiType = UIType.Notify,
+                        groupType = UI.Inventory.GroupType.Item,
+                        slotAreaType = UI.Inventory.SlotAreaType.Item,
+                        actionType = ActionType.AddSlotItem,
+                        itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101),
+                    });
                 }
             }
 

@@ -20,8 +20,8 @@ namespace Boss.Objects
         private bool isCooldown;
         private bool isBroken;
 
-        private const int NORMALSTONE_INDEX = 4000;
-        private const int MAGICSTONE_INDEX = 4020;
+        public readonly int NORMALSTONE_INDEX = 4000;
+        public readonly int MAGICSTONE_INDEX = 4020;
         private TicketMachine ticketMachine;
 
         public bool IsCooldown
