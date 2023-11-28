@@ -57,16 +57,6 @@ namespace Boss.Objects
                             TransformValue1 = transform,
                         });
 
-                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
-                    ticketMachine.SendMessage(ChannelType.Stone,
-                        new StoneEventPayload
-                        {
-                            Type = StoneEventType.MineStone,
-                            StoneSpawnPos = spawnPosition.position,
-                            StoneForce = GetRandVector(),
-                            StoneIdx = MAGICSTONE_INDEX,
-                        });
-
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {
@@ -82,20 +72,6 @@ namespace Boss.Objects
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform.root,
                         });
-
-                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
-                    for (int i = 0; i < 3; i++)
-                    {
-                        ticketMachine.SendMessage(ChannelType.Stone,
-                            new StoneEventPayload
-                            {
-                                Type = StoneEventType.MineStone,
-                                StoneSpawnPos = spawnPosition.position,
-                                StoneForce = GetRandVector(),
-                                StoneIdx = NORMALSTONE_INDEX,
-                            });
-                    }
-
                 }
                 else if (other.transform.CompareTag("BattleObject"))
                 {

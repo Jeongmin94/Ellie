@@ -27,7 +27,7 @@ namespace Assets.Scripts.Monsters
 
         private TicketMachine ticketMachine;
 
-        //private List<TestIteamDrop> dropableIteam;
+        
 
 
         private void Awake()

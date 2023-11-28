@@ -6,6 +6,7 @@ using Boss.Terrapupa;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
+using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,16 +17,18 @@ public class TerrapupaMapObjectController : MonoBehaviour
     [SerializeField] private List<ManaFountain> manaFountains;
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
-    [Header("종마석")]
-    [Tooltip("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
-    [Tooltip("구역 갯수")] public int numberOfSector = 3;
-    [Tooltip("구역 당 종마석 갯수")] public int stalactitePerSector = 3;
-    [Tooltip("생성 구역 반지름")] public float fieldRadius = 25.0f;
-    [Tooltip("생성 높이")] public float fieldHeight = 8.0f;
+    [Title("종마석")]
+    [InfoBox("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
+    [InfoBox("구역 갯수")] public int numberOfSector = 3;
+    [InfoBox("구역 당 종마석 갯수")] public int stalactitePerSector = 3;
+    [InfoBox("생성 구역 반지름")] public float fieldRadius = 25.0f;
+    [InfoBox("생성 높이")] public float fieldHeight = 8.0f;
 
-    [Header("마나의 샘")]
-    [Tooltip("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
-    [Tooltip("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
+    [Title("마나의 샘")]
+    [InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
+    [InfoBox("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
+
+    public readonly int GOLEM_CORE_INDEX = 4021;
 
     private TicketMachine ticketMachine;
     private int manaFountainCount;
@@ -104,7 +107,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-        DropStoneItem(transform.position, mana.NORMALSTONE_INDEX);
+        DropStoneItem(mana.transform.position, mana.MAGICSTONE_INDEX);
 
         StartCoroutine(ManaCooldown(manaPayload));
     }
@@ -126,6 +129,12 @@ public class TerrapupaMapObjectController : MonoBehaviour
         {
             actor = manaPayload.Sender.GetComponent<TerrapupaStone>().Owner.GetComponent<TerrapupaController>();
             manaPayload.Sender = actor.transform;
+        }
+
+        // 돌맹이 3개 생성
+        for (int i = 0; i < 3; i++)
+        {
+            DropStoneItem(mana.transform.position, mana.NORMALSTONE_INDEX);
         }
 
         // 파티클 적용

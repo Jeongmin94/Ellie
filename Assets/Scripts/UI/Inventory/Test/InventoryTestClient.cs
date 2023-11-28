@@ -13,7 +13,7 @@ namespace Assets.Scripts.UI.Inventory.Test
 {
     public class InventoryTestClient : MonoBehaviour
     {
-        [SerializeField] private ItemDataParsingInfo itemDataParsingInfo;
+        [SerializeField] private ItemDataParsingInfo consumableItemDataParsingInfo;
         [SerializeField] private StoneDataParsingInfo stoneDataParsingInfo;
         [SerializeField] private GameGoods gameGoods;
 
