@@ -1,3 +1,4 @@
+using System;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Inventory;
@@ -35,6 +36,8 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private TextMeshProUGUI nameText;
         private TextMeshProUGUI optionValue;
+
+        private Action<int> componentAction;
 
         private void Awake()
         {
@@ -78,14 +81,27 @@ namespace Assets.Scripts.UI.PopupMenu
             tmp.alignment = data.alignmentOptions;
             tmp.lineSpacing = data.lineSpacing;
         }
-        
-        // 1. prev, next 버튼 클릭함
+
+        public void SetConfigData(string configName, bool readOnly, Action<int> listener)
+        {
+            nameText.text = configName;
+
+            componentAction -= listener;
+            componentAction += listener;
+        }
+
+        private void OnDestroy()
+        {
+            componentAction = null;
+        }
+
+        // 1. prev(-1), next(+1) 버튼 클릭함
         // 2. ConfigComponent로 이벤트 도착해서 idx 변경함
         // 3. idx 변경 이벤트를 OptionData로 전파함
         // 4. OptionData에서 idx 변경 이벤트 처리함
         private void OnIndexChanged(int value)
         {
-            
+            componentAction?.Invoke(value);
         }
     }
 }

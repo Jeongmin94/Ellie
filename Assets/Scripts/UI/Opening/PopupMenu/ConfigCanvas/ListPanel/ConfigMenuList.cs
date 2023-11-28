@@ -62,6 +62,7 @@ namespace Assets.Scripts.UI.PopupMenu
                 if (data.IsSameType(configType))
                 {
                     var component = UIManager.Instance.MakeSubItem<ConfigComponent>(rect, ConfigComponent.Path);
+                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                 }
             }
 
