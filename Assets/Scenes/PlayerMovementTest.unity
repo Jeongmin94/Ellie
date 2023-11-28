@@ -689,6 +689,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnValue: 10
+  hitEffect: {fileID: 0}
+  displayEffect: {fileID: 0}
+  material: {fileID: 0}
 --- !u!54 &192739460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3197,6 +3200,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnValue: 10
+  hitEffect: {fileID: 0}
+  displayEffect: {fileID: 0}
+  material: {fileID: 0}
 --- !u!54 &985010398
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3520,7 +3526,7 @@ MonoBehaviour:
   testDamage: 2
   testEffectDuration: 2
   testForce: 15
-  statusEffect: 4
+  statusEffect: 1
 --- !u!4 &1087416995
 Transform:
   m_ObjectHideFlags: 0
@@ -6568,6 +6574,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnValue: 10
+  hitEffect: {fileID: 0}
+  displayEffect: {fileID: 0}
+  material: {fileID: 0}
 --- !u!54 &1927304627
 Rigidbody:
   m_ObjectHideFlags: 0

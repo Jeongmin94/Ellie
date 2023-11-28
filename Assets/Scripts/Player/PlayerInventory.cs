@@ -169,6 +169,7 @@ namespace Assets.Scripts.Player
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveCounterClockwise;
+            payload.groupType = GroupType.Item;
             payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;
@@ -179,6 +180,7 @@ namespace Assets.Scripts.Player
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveClockwise;
+            payload.groupType = GroupType.Item;
             payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;

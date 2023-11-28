@@ -12,8 +12,13 @@ namespace Assets.Scripts.Managers
             Sfx,
             End
         }
-        //private IDictionary<>
-        private AudioSource[] audioSources = new AudioSource[(int)SoundType.End];
-        //Dictionary<string, AudioCilp> au
+
+        private Pool audioSourcePool;
+        private GameObject audioSource = new();
+        private void InitAudioSourcePool()
+        {
+            audioSource.AddComponent<AudioSource>();
+            audioSourcePool = PoolManager.Instance.CreatePool(audioSource, 10);
+        }
     }
 }
