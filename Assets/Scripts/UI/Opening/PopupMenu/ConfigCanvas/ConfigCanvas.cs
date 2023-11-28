@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
@@ -34,10 +35,6 @@ namespace Assets.Scripts.UI.PopupMenu
         [SerializeField]
         private TextTypographyData buttonTypographyData;
 
-        [Header("List Typography")]
-        [SerializeField]
-        private TextTypographyData listTypographyData;
-
         private readonly TransformController buttonPanelController = new TransformController();
         private readonly TransformController configListController = new TransformController();
 
@@ -47,9 +44,11 @@ namespace Assets.Scripts.UI.PopupMenu
         private RectTransform buttonPanelRect;
         private RectTransform listPanelRect;
 
-        private ConfigButtonPanel configToggleGroup;
-
         public Action<PopupPayload> configCanvasAction;
+
+        // 환경설정 UI 관리
+        private ConfigButtonPanel configToggleGroup;
+        private readonly List<ConfigMenuList> menuList = new List<ConfigMenuList>();
 
         private void Awake()
         {
@@ -98,6 +97,7 @@ namespace Assets.Scripts.UI.PopupMenu
             listPanelRect.localScale = configListTransform.actionScale.Value;
 
             InitButtonToggleGroup();
+            InitMenuList();
         }
 
         private void InitButtonToggleGroup()
@@ -105,6 +105,23 @@ namespace Assets.Scripts.UI.PopupMenu
             configToggleGroup = buttonPanel.GetOrAddComponent<ConfigButtonPanel>();
             configToggleGroup.InitConfigButtonPanel();
             configToggleGroup.InitConfigTypes(configTypes, buttonTypographyData);
+            configToggleGroup.Subscribe(OnButtonPanelAction);
+        }
+
+        private void InitMenuList()
+        {
+            var configTypes = Enum.GetValues(typeof(ConfigType));
+            for (int i = 0; i < configTypes.Length; i++)
+            {
+                var type = (ConfigType)configTypes.GetValue(i);
+                var menu = UIManager.Instance.MakeSubItem<ConfigMenuList>(listPanelRect, ConfigMenuList.Path);
+                menu.name += $"#{type}";
+                menu.ConfigMenuType = type;
+                menu.InitMenuList();
+                menu.gameObject.SetActive(false);
+
+                menuList.Add(menu);
+            }
         }
 
         private void OnEscapeAction()
@@ -125,5 +142,33 @@ namespace Assets.Scripts.UI.PopupMenu
             configListController.CheckQueue(listPanelRect);
 #endif
         }
+
+        #region ConfigToggleEvent
+
+        private void OnButtonPanelAction(PopupPayload payload)
+        {
+            int idx = (int)payload.configType;
+            menuList[idx].gameObject.SetActive(payload.isOn);
+            
+            switch (payload.configType)
+            {
+                case ConfigType.Setting:
+                {
+                    Debug.Log($"세팅창");
+                }
+                    break;
+
+                case ConfigType.Controls:
+                {
+                    Debug.Log($"컨트롤창");
+                }
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+
+        #endregion
     }
 }

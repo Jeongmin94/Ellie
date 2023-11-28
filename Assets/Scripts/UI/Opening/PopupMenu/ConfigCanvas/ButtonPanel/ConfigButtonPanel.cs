@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Data.UI.Opening;
+using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -16,12 +17,24 @@ namespace Assets.Scripts.UI.PopupMenu
 
     public class ConfigButtonPanel : UIBase
     {
-        public List<ConfigToggleText> Toggles => toggles;
+        public List<ConfigToggleController> Toggles => toggles;
 
-        private readonly List<ConfigToggleText> toggles = new List<ConfigToggleText>();
+        private readonly List<ConfigToggleController> toggles = new List<ConfigToggleController>();
 
         private RectTransform rect;
         private ToggleGroup toggleGroup;
+        private Action<PopupPayload> buttonPanelAction;
+
+        public void Subscribe(Action<PopupPayload> listener)
+        {
+            buttonPanelAction -= listener;
+            buttonPanelAction += listener;
+        }
+
+        private void OnDestroy()
+        {
+            buttonPanelAction = null;
+        }
 
         public void InitConfigButtonPanel()
         {
@@ -57,8 +70,19 @@ namespace Assets.Scripts.UI.PopupMenu
 
                 toggle.name += $"#{typographyData.title}";
                 toggle.InitTypography(typographyData);
-                
-                toggles.Add(toggle);
+                toggle.ToggleController.ToggleConfigType = type;
+
+                toggles.Add(toggle.ToggleController);
+            }
+
+            InitMenuList(toggles);
+        }
+
+        private void InitMenuList(List<ConfigToggleController> controllers)
+        {
+            foreach (var controller in controllers)
+            {
+                controller.Subscribe(OnToggleAction);
             }
         }
 
@@ -78,5 +102,14 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             toggleGroup.SetAllTogglesOff();
         }
+
+        #region ConfigToggleEvent
+
+        private void OnToggleAction(PopupPayload payload)
+        {
+            buttonPanelAction?.Invoke(payload);
+        }
+
+        #endregion
     }
 }

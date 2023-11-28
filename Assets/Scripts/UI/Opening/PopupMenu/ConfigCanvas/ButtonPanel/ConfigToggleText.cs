@@ -7,7 +7,7 @@ namespace Assets.Scripts.UI.PopupMenu
     public class ConfigToggleText : OpeningText
     {
         public new static readonly string Path = "Opening/ConfigToggleText";
-        
+        public ConfigToggleController ToggleController => toggleController;
         private ConfigToggleController toggleController;
 
         // !TODO: 토글 텍스트 내부에서 토글 리스트 관리

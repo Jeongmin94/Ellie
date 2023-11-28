@@ -23,7 +23,10 @@ namespace Assets.Scripts.UI.PopupMenu
     public struct PopupPayload
     {
         public PopupType popupType;
+        public ConfigType configType;
         public ButtonType buttonType;
+
+        public bool isOn;
     }
 
     public class BasePopupCanvas : UIBase
