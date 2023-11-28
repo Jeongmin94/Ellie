@@ -4,36 +4,34 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Managers
 {
-    public enum MouseEvent
-    {
-        Click,
-        Press
-    }
-
     public class InputManager : Singleton<InputManager>
     {
-        public Action OnKeyAction;
-        public Action OnMouseAction;
+        public Action keyAction;
+        public Action mouseAction;
+        public Action escapeAction;
 
         private bool isMousePressed = false;
 
         private void Update()
         {
+            if(Input.GetKeyDown(KeyCode.Escape))
+                escapeAction?.Invoke();
+            
             if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
                 return;
 
             if (Input.anyKey)
-                OnKeyAction?.Invoke();
+                keyAction?.Invoke();
 
             if (Input.GetMouseButton(0))
             {
-                OnMouseAction?.Invoke();
+                mouseAction?.Invoke();
                 isMousePressed = true;
             }
             else
             {
                 if (isMousePressed)
-                    OnMouseAction?.Invoke();
+                    mouseAction?.Invoke();
 
                 isMousePressed = false;
             }

@@ -1,4 +1,6 @@
+using System;
 using Assets.Scripts.Data.UI.Transform;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
@@ -11,7 +13,7 @@ namespace Assets.Scripts.UI.PopupMenu
     public class ConfigCanvas : UIPopup
     {
         public static readonly string Path = "ConfigPopupCanvas";
-        
+
         private enum GameObjects
         {
             ConfigButtonPanel,
@@ -47,6 +49,8 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private ConfigButtonPanel configToggleGroup;
 
+        public Action<PopupPayload> configCanvasAction;
+
         private void Awake()
         {
             Init();
@@ -55,6 +59,9 @@ namespace Assets.Scripts.UI.PopupMenu
         protected override void Init()
         {
             base.Init();
+
+            InputManager.Instance.escapeAction -= OnEscapeAction;
+            InputManager.Instance.escapeAction += OnEscapeAction;
 
             Bind();
             InitObjects();
@@ -98,6 +105,17 @@ namespace Assets.Scripts.UI.PopupMenu
             configToggleGroup = buttonPanel.GetOrAddComponent<ConfigButtonPanel>();
             configToggleGroup.InitConfigButtonPanel();
             configToggleGroup.InitConfigTypes(configTypes, buttonTypographyData);
+        }
+
+        private void OnEscapeAction()
+        {
+            if (gameObject.activeSelf)
+            {
+                PopupPayload payload = new PopupPayload();
+                payload.buttonType = ButtonType.No;
+                payload.popupType = PopupType.Config;
+                configCanvasAction?.Invoke(payload);
+            }
         }
 
         private void LateUpdate()

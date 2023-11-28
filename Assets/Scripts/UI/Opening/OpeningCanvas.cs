@@ -108,7 +108,6 @@ namespace Assets.Scripts.UI.Opening
             title.InitTypography(titleTypographyTypographyData);
         }
 
-        // 로드, 시작, 설정, 종료
         private void InitMenuButtons()
         {
             var popupTypes = Enum.GetValues(typeof(PopupType));
@@ -126,7 +125,6 @@ namespace Assets.Scripts.UI.Opening
             }
         }
 
-        // 로드, 시작, 설정, 종료
         private void InitPopupCanvas()
         {
             var popupTypes = Enum.GetValues(typeof(PopupType));
@@ -136,12 +134,14 @@ namespace Assets.Scripts.UI.Opening
                 var popup = UIManager.Instance.MakeSubItem<BasePopupCanvas>(outerRimRect, BasePopupCanvas.Path);
                 popup.InitPopupCanvas(type);
                 popup.Subscribe(OnPopupCanvasAction);
-
+                popup.name = $"#{buttonsData[i].title}";
                 popup.gameObject.SetActive(false);
                 popupCanvasList.Add(popup);
             }
 
             configCanvas = UIManager.Instance.MakePopup<ConfigCanvas>(ConfigCanvas.Path);
+            configCanvas.configCanvasAction -= OnPopupCanvasAction;
+            configCanvas.configCanvasAction += OnPopupCanvasAction;
             configCanvas.gameObject.SetActive(false);
         }
 
@@ -178,7 +178,10 @@ namespace Assets.Scripts.UI.Opening
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
+                {
+                }
                     break;
+
                 case ButtonType.No:
                 {
                     if (payload.popupType == PopupType.Config)
@@ -190,7 +193,6 @@ namespace Assets.Scripts.UI.Opening
                         popupCanvasList[idx].gameObject.SetActive(false);
                     }
                 }
-                    
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

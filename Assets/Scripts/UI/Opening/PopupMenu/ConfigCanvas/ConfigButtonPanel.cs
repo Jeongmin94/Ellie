@@ -37,7 +37,7 @@ namespace Assets.Scripts.UI.PopupMenu
             {
                 var toggle = UIManager.Instance.MakeSubItem<ConfigToggleText>(transform, ConfigToggleText.Path);
                 toggle.InitConfigToggleText();
-                
+
                 int idx = (int)type;
                 switch (type)
                 {
@@ -55,6 +55,7 @@ namespace Assets.Scripts.UI.PopupMenu
                         throw new ArgumentOutOfRangeException();
                 }
 
+                toggle.name += $"#{typographyData.title}";
                 toggle.InitTypography(typographyData);
                 toggles.Add(toggle);
             }
