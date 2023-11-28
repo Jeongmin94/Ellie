@@ -14,7 +14,14 @@ using UnityEngine.AI;
 
 namespace Assets.Scripts.Monsters.AbstractClass
 {
-
+    public enum MonsterNumber
+    {
+        NormalSkeleton = 1000,
+        AdventureSkeleton=1001,
+        WizardSkeleton=1002,
+        CaveBat=1003,
+        GuildguardSkeleton = 1004,
+    }
     public abstract class AbstractMonster : MonoBehaviour, ICombatant
     {
         private const float monsterRespawnTime = 10.0f;

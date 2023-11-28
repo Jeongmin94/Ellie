@@ -1682,6 +1682,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1068597257678563727}
+  - component: {fileID: 75047580125934228}
   - component: {fileID: 8131742662541749375}
   - component: {fileID: 1390045677}
   - component: {fileID: 1731138202}
@@ -1719,6 +1720,43 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &75047580125934228
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412197747154225357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 748f79fe9d2c14a3c9b648ecd5d49b0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData:
+    index: 0
+    monsterName: 
+    maxHP: 0
+    movementSpeed: 0
+    returnSpeed: 0
+    rotationSpeed: 0
+    detectPlayerDistance: 0
+    chasePlayerDistance: 0
+    overtravelDistance: 0
+    stopDistance: 0
+    weakRatio: 0
+    itemDropTable: 0
+    element: 0
+    type: 0
+    turnType: 0
+  runToPlayerData: {fileID: 0}
+  meleeAttackData: {fileID: 0}
+  weaponAttackData: {fileID: 0}
+  projectileAttackData: {fileID: 0}
+  fleeSkilldata: {fileID: 0}
+  fanshapeAttackData: {fileID: 0}
+  dropableItemData: {fileID: 0}
+  behaviourTreeInstance: {fileID: 0}
+  player: {fileID: 0}
 --- !u!114 &8131742662541749375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1731,7 +1769,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ea758fc79144779ad000b17ece2c8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 9f591f613d6974261834a7af79b56119, type: 2}
+  monsterData:
+    index: 0
+    monsterName: 
+    maxHP: 0
+    movementSpeed: 0
+    returnSpeed: 0
+    rotationSpeed: 0
+    detectPlayerDistance: 0
+    chasePlayerDistance: 0
+    overtravelDistance: 0
+    stopDistance: 0
+    weakRatio: 0
+    itemDropTable: 0
+    element: 0
+    type: 2
+    turnType: 0
   runToPlayerData: {fileID: 11400000, guid: 4f79b9be81dae4adb9e3d9c1c2e4d111, type: 2}
   meleeAttackData: {fileID: 11400000, guid: 0d740a15ef6f246bea944ea5c6787197, type: 2}
   weaponAttackData: {fileID: 0}
