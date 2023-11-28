@@ -229,7 +229,6 @@ namespace Assets.Scripts.Player
             if(Input.GetKeyDown(KeyCode.J))
             {
                 GetConsumalbeItemTest(4101);
-
             }
         }
         private void FixedUpdate()
@@ -675,7 +674,6 @@ namespace Assets.Scripts.Player
             switch (uiPayload.groupType)
             {
                 case GroupType.Item:
-                    Debug.Log("소모품 들어옴, " + uiPayload.equipmentSlotIdx);
                     playerInventory.consumableEquipmentSlot[uiPayload.equipmentSlotIdx] = uiPayload.itemData;
                     break;
                 case GroupType.Stone:
