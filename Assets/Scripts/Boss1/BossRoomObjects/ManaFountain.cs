@@ -12,16 +12,16 @@ namespace Boss.Objects
     {
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
-
         public TerrapupaAttackType banBossAttackType;
-        public Transform spawnPosition;
-        public GameObject hitEffect;
+
+        [SerializeField] private Transform spawnPosition;
+        [SerializeField] private GameObject hitEffect;
 
         private bool isCooldown;
         private bool isBroken;
 
-        private const int NORMALSTONE_INDEX = 4000;
-        private const int MAGICSTONE_INDEX = 4020;
+        public readonly int NORMALSTONE_INDEX = 4000;
+        public readonly int MAGICSTONE_INDEX = 4020;
         private TicketMachine ticketMachine;
 
         public bool IsCooldown
@@ -56,7 +56,6 @@ namespace Boss.Objects
                         {
                             TransformValue1 = transform,
                         });
-
 
                     Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
                     ticketMachine.SendMessage(ChannelType.Stone,

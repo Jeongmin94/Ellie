@@ -68,7 +68,36 @@ namespace Assets.Scripts.Player
             //for test
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest());
+                for (int i = 0; i < 20; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
+                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
+                    {
+                        uiType = UIType.Notify,
+                        groupType = UI.Inventory.GroupType.Item,
+                        slotAreaType = UI.Inventory.SlotAreaType.Item,
+                        actionType = ActionType.AddSlotItem,
+                        itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100),
+                    });
+
+                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
+                    {
+                        uiType = UIType.Notify,
+                        groupType = UI.Inventory.GroupType.Item,
+                        slotAreaType = UI.Inventory.SlotAreaType.Item,
+                        actionType = ActionType.AddSlotItem,
+                        itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101),
+                    });
+                }
             }
 
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -173,7 +202,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private UIPayload GenerateStoneAcquirePayloadTest()
+        private UIPayload GenerateStoneAcquirePayloadTest(int index)
         {
             //for test
             UIPayload payload = new UIPayload();
@@ -181,7 +210,7 @@ namespace Assets.Scripts.Player
             payload.actionType = ActionType.AddSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
             payload.groupType = GroupType.Stone;
-            payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(4000);
+            payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(index);
             return payload;
         }
 

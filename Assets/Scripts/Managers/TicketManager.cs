@@ -4,6 +4,7 @@ using Channels;
 using Channels.Components;
 using Channels.Type;
 using Channels.Utils;
+using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
@@ -31,6 +32,18 @@ namespace Assets.Scripts.Managers
         public void Ticket(TicketMachine machine)
         {
             machine.Ticket(channels);
+        }
+
+        public void CheckTicket(GameObject go)
+        {
+            var machines = go.GetComponentsInChildren<TicketMachine>();
+            if (machines.Length == 0)
+                return;
+
+            foreach (var machine in machines)
+            {
+                machine.Ticket(channels);
+            }
         }
     }
 }

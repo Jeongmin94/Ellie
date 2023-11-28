@@ -1,19 +1,18 @@
-using Assets.Scripts.Combat;
+using Assets.Scripts.Boss1.TerrapupaMinion;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
-using Boss.Terrapupa;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TheKiwiCoder;
+using Unity.Plastic.Antlr3.Runtime.Tree;
 using UnityEngine;
 
-public class TerrapupaMinionController : BehaviourTreeController, ICombatant
+public class TerrapupaMinionController : BehaviourTreeController
 {
-    [SerializeField] private TerrapupaMinionHealthBar healthBar;
     [HideInInspector] public TerrapupaMinionRootData minionData;
+    [SerializeField] private TerrapupaMinionHealthBar healthBar;
+    [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
     private TicketMachine ticketMachine;
 
@@ -30,15 +29,25 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
     protected override void Awake()
     {
         base.Awake();
-
-        InitTicketMachine();
         minionData = rootTreeData as TerrapupaMinionRootData;
         healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
+        weakPoints = GetComponentsInChildren<TerrapupaMinionWeakPoint>();
+
+        InitTicketMachine();
+        SubscribeEvent();
     }
 
     private void Start()
     {
         InitStatus();
+    }
+
+    private void SubscribeEvent()
+    {
+        foreach (var weakPoint in weakPoints) 
+        { 
+            weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
+        }
     }
 
     private void InitTicketMachine()
@@ -52,12 +61,7 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
         healthBar.InitData(minionData);
     }
 
-    public void Attack(IBaseEventPayload payload)
-    {
-
-    }
-
-    public void ReceiveDamage(IBaseEventPayload payload)
+    private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
     {
         Debug.Log($"ReceiveDamage :: {payload}");
 
@@ -73,5 +77,6 @@ public class TerrapupaMinionController : BehaviourTreeController, ICombatant
     {
         minionData.currentHP.Value -= damageValue;
         healthBar.RenewHealthBar(minionData.currentHP.value);
+        minionData.isHit.Value = true;
     }
 }

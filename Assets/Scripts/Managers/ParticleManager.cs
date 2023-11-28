@@ -49,5 +49,24 @@ namespace Assets.Scripts.Particle
 
             return particle.gameObject;
         }
+
+        public GameObject GetParticle(GameObject prefab, Transform target, float scale)
+        {
+            return GetParticle(prefab, new ParticlePayload
+            {
+                Position = target.position,
+                Rotation = target.rotation,
+                Scale = new Vector3(scale, scale, scale),
+            });
+        }
+
+        public GameObject GetParticle(GameObject prefab, Vector3 position, float scale)
+        {
+            return GetParticle(prefab, new ParticlePayload
+            {
+                Position = position,
+                Scale = new Vector3(scale, scale, scale),
+            });
+        }
     }
 }

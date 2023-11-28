@@ -46,7 +46,7 @@ public abstract class BaseRange : MonoBehaviour
         isFollowOrigin = payload.IsFollowOrigin;
         Original = payload.Original;
 
-        if(Original == null)
+        if (Original == null)
         {
             InitTransformByValue(rangeObject, payload);
         }

@@ -1,3 +1,4 @@
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -27,8 +28,12 @@ public class TerrapupaMapObjectController : MonoBehaviour
     [Tooltip("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
 
     private TicketMachine ticketMachine;
-
     private int manaFountainCount;
+
+    public TicketMachine TicketMachine
+    {
+        get { return ticketMachine; }
+    }
 
     private void Awake()
     {
@@ -40,17 +45,13 @@ public class TerrapupaMapObjectController : MonoBehaviour
         manaFountainCount = manaFountains.Count;
     }
 
-    /// <summary>
-    /// Init BossRoom Objects
-    /// </summary>
-
+    #region 1. 초기화 함수
     private void SubscribeEvents()
     {
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
     }
-
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -69,7 +70,6 @@ public class TerrapupaMapObjectController : MonoBehaviour
             }
         }
     }
-
     private void SpawnStalactites()
     {
         for (int i = 0; i < numberOfSector; i++)
@@ -80,6 +80,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
                 Vector3 position = GenerateRandomPositionInSector(i);
                 GameObject stalactite = Instantiate(magicStalactitePrefab, position, Quaternion.identity, transform);
                 MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
+                instantStalactite.SetLineRendererPosition();
                 instantStalactite.MyIndex = i;
                 sectorList.Add(instantStalactite);
                 instantStalactite.respawnValue = regenerateStalactiteTime;
@@ -87,23 +88,6 @@ public class TerrapupaMapObjectController : MonoBehaviour
             stalactites.Add(sectorList);
         }
     }
-
-    private Vector3 GenerateRandomPositionInSector(int sectorIndex)
-    {
-        float sectorAngleSize = 360f / numberOfSector;
-        float minAngle = sectorAngleSize * sectorIndex;
-        float maxAngle = minAngle + sectorAngleSize;
-
-        float angle = Random.Range(minAngle, maxAngle) * Mathf.Deg2Rad;
-        float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * fieldRadius;
-
-        return new Vector3(
-            Mathf.Cos(angle) * distance,
-            fieldHeight,
-            Mathf.Sin(angle) * distance
-        );
-    }
-
     public void InitManaFountains()
     {
         foreach (var mana in manaFountains)
@@ -112,42 +96,31 @@ public class TerrapupaMapObjectController : MonoBehaviour
             mana.respawnValue = respawnManaFountainTime;
         }
     }
+    #endregion
 
-    /// <summary>
-    /// BossRoom Objects Event Handler
-    /// </summary>
-
+    #region 2. 이벤트 핸들러
     private void OnHitMana(BossEventPayload manaPayload)
     {
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
+        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        DropStoneItem(transform.position, mana.NORMALSTONE_INDEX);
+
         StartCoroutine(ManaCooldown(manaPayload));
     }
-
-    private IEnumerator ManaCooldown(BossEventPayload manaPayload)
-    {
-        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-        mana.IsCooldown = true;
-
-        yield return new WaitForSeconds(mana.coolDownValue);
-
-        Debug.Log($"{mana.name} 쿨타임 완료");
-        mana.IsCooldown = false;
-    }
-
     private void OnDestroyedMana(BossEventPayload manaPayload)
     {
         Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} 공격 타입 봉인");
-        manaPayload.BoolValue = false;
 
-        GameObject hitEffect = manaPayload.PrefabValue;
-        Transform manaTransform = manaPayload.TransformValue1;
-
+        // 보스의 돌에 맞았을 경우, 돌 삭제
         if (manaPayload.TransformValue2 != null)
         {
             Destroy(manaPayload.TransformValue2.gameObject);
         }
 
+        // 공격한 보스 정보 갱신
+        Transform manaTransform = manaPayload.TransformValue1;
+        ManaFountain mana = manaTransform.GetComponent<ManaFountain>();
         TerrapupaController actor = manaPayload.Sender.GetComponent<TerrapupaController>();
         if (actor == null)
         {
@@ -155,7 +128,9 @@ public class TerrapupaMapObjectController : MonoBehaviour
             manaPayload.Sender = actor.transform;
         }
 
-        if(hitEffect != null)
+        // 파티클 적용
+        GameObject hitEffect = manaPayload.PrefabValue;
+        if (hitEffect != null)
         {
             ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
             {
@@ -166,36 +141,20 @@ public class TerrapupaMapObjectController : MonoBehaviour
             });
         }
 
+        // 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
+        TerrapupaAttackType type = mana.banBossAttackType;
+        if (actor.AttackCooldown.ContainsKey(type) && actor.AttackCooldown[type] != null)
+        {
+            Debug.Log($"{actor}의 쿨타임 중복 적용");
+            actor.StopCoroutine(actor.AttackCooldown[type]);
+        }
+
+        // 공격 봉인 적용
+        manaPayload.BoolValue = false;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
 
         StartCoroutine(ManaRespawn(manaPayload));
     }
-
-    private IEnumerator ManaRespawn(BossEventPayload manaPayload)
-    {
-        manaFountainCount--;
-        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-        mana.IsBroken = true;
-        mana.gameObject.SetActive(false);
-
-        if(manaFountainCount == 0)
-        {
-            EventBus.Instance.Publish(EventBusEvents.DestroyAllManaFountain);
-        }
-
-        yield return new WaitForSeconds(mana.respawnValue);
-
-        Debug.Log($"{mana.name} 리스폰 완료");
-        manaPayload.BoolValue = true;
-
-        manaFountainCount++;
-        mana.gameObject.SetActive(true);
-        mana.IsBroken = false;
-        mana.IsCooldown = false;
-
-        EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
-    }
-
     private void OnDropMagicStalactite(BossEventPayload stalactitePayload)
     {
         Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
@@ -221,7 +180,19 @@ public class TerrapupaMapObjectController : MonoBehaviour
 
         StartCoroutine(RespawnMagicStalactite(stalactitePayload));
     }
+    #endregion
 
+    #region 3. 코루틴 함수
+    private IEnumerator ManaCooldown(BossEventPayload manaPayload)
+    {
+        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        mana.IsCooldown = true;
+
+        yield return new WaitForSeconds(mana.coolDownValue);
+
+        Debug.Log($"{mana.name} 쿨타임 완료");
+        mana.IsCooldown = false;
+    }
     private IEnumerator RespawnMagicStalactite(BossEventPayload payload)
     {
         float respawnTime = payload.FloatValue;
@@ -233,4 +204,62 @@ public class TerrapupaMapObjectController : MonoBehaviour
         payload.TransformValue1.position = position;
         payload.TransformValue1.gameObject.SetActive(true);
     }
+    private IEnumerator ManaRespawn(BossEventPayload manaPayload)
+    {
+        manaFountainCount--;
+        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        mana.IsBroken = true;
+        mana.gameObject.SetActive(false);
+
+        if (manaFountainCount == 0)
+        {
+            EventBus.Instance.Publish(EventBusEvents.DestroyAllManaFountain);
+        }
+
+        yield return new WaitForSeconds(mana.respawnValue);
+
+        Debug.Log($"{mana.name} 리스폰 완료");
+
+        manaFountainCount++;
+        mana.gameObject.SetActive(true);
+        mana.IsBroken = false;
+        mana.IsCooldown = false;
+
+        manaPayload.BoolValue = true;
+        EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
+    }
+    #endregion
+
+    #region 4. 기타 함수
+    public void DropStoneItem(Vector3 position, int index)
+    {
+        ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload
+        {
+            Type = StoneEventType.MineStone,
+            StoneSpawnPos = position,
+            StoneForce = GetRandVector(),
+            StoneIdx = index,
+        });
+    }
+    private Vector3 GenerateRandomPositionInSector(int sectorIndex)
+    {
+        float sectorAngleSize = 360f / numberOfSector;
+        float minAngle = sectorAngleSize * sectorIndex;
+        float maxAngle = minAngle + sectorAngleSize;
+
+        float angle = Random.Range(minAngle, maxAngle) * Mathf.Deg2Rad;
+        float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * fieldRadius;
+
+        return new Vector3(
+            Mathf.Cos(angle) * distance,
+            fieldHeight,
+            Mathf.Sin(angle) * distance
+        );
+    }
+    private Vector3 GetRandVector()
+    {
+        Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+        return vec.normalized;
+    }
+    #endregion
 }
