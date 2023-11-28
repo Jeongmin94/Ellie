@@ -212,9 +212,8 @@ namespace Assets.Scripts.UI.Inventory
                     payload.slot = slot;
                 }
             }
-            else if(payload.eventType == InventoryEventType.SendMessageToPlayer)
+            else if (payload.eventType == InventoryEventType.SendMessageToPlayer)
             {
-
             }
 
             panelInventoryAction?.Invoke(payload);

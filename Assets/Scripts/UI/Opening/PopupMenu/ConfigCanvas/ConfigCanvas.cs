@@ -1,8 +1,9 @@
-using System;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.Utils;
+using Data.UI.Opening;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.PopupMenu
@@ -15,8 +16,23 @@ namespace Assets.Scripts.UI.PopupMenu
             ConfigListPanel,
         }
 
-        [SerializeField] private UITransformData buttonPanelTransform;
+        [Header("Config List")]
+        [SerializeField]
+        private ConfigType[] configTypes;
+
+        [Header("UI Transform")]
+        [SerializeField]
+        private UITransformData buttonPanelTransform;
+
         [SerializeField] private UITransformData configListTransform;
+
+        [Header("Button Typography")]
+        [SerializeField]
+        private TextTypographyData buttonTypographyData;
+
+        [Header("List Typography")]
+        [SerializeField]
+        private TextTypographyData listTypographyData;
 
         private readonly TransformController buttonPanelController = new TransformController();
         private readonly TransformController configListController = new TransformController();
@@ -26,6 +42,8 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private RectTransform buttonPanelRect;
         private RectTransform listPanelRect;
+
+        private ConfigButtonPanel configToggleGroup;
 
         private void Awake()
         {
@@ -69,6 +87,15 @@ namespace Assets.Scripts.UI.PopupMenu
             listPanelRect.sizeDelta = configListTransform.actionRect.Value.GetSize();
             listPanelRect.localPosition = configListTransform.actionRect.Value.ToCanvasPos();
             listPanelRect.localScale = configListTransform.actionScale.Value;
+
+            InitButtonToggleGroup();
+        }
+
+        private void InitButtonToggleGroup()
+        {
+            configToggleGroup = buttonPanel.GetOrAddComponent<ConfigButtonPanel>();
+            configToggleGroup.InitConfigButtonPanel();
+            configToggleGroup.InitConfigTypes(configTypes);
         }
 
         private void LateUpdate()
