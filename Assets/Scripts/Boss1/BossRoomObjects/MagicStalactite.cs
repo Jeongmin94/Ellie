@@ -114,7 +114,6 @@ namespace Boss.Objects
                             FloatValue = respawnValue,
                             TransformValue1 = transform,
                             TransformValue2 = other.transform.root,
-                            Sender = other.transform.root,
                         });
 
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 1.0f);
