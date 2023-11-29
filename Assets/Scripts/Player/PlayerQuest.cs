@@ -33,7 +33,7 @@ namespace Assets.Scripts.Player
             questStatusDic = new();
             StartCoroutine(InitPlayerQuest());
             //6100번 퀘스트 시작
-            //StartCoroutine(FirstDialogCoroutine());
+            StartCoroutine(FirstDialogCoroutine());
 
             //퀘스트 세이브 로드
             SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
