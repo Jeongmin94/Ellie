@@ -36,8 +36,7 @@ namespace Assets.Scripts.Player.States
             duration = info.stateDuration;
             curTime = 0;
             int soundIdx = UnityEngine.Random.Range(0, ellieRigiditySound.Length);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieRigiditySound[soundIdx]);
-            
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieRigiditySound[soundIdx], Controller.transform.position);
         }
 
 

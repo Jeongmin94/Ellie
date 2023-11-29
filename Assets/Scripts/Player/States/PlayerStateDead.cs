@@ -15,7 +15,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", Controller.PlayerObj.position);
             Controller.Anim.SetTrigger("Dead");
             Controller.canTurn = false;
         }

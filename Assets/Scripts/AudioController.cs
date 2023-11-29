@@ -19,6 +19,7 @@ namespace Assets.Scripts
         }
         public void SetClip(AudioClip clip)
         {
+            this.clip = clip;
             audioSource.clip = clip;
         }
 
@@ -60,9 +61,7 @@ namespace Assets.Scripts
 
         public void Activate3DEffect()
         {
-            audioSource.spatialBlend = 0.5f;
-            audioSource.minDistance = 2f;
-            audioSource.maxDistance = 5f;
+            audioSource.spatialBlend = 1f;
         }
 
         public void Deactivate3DEffect()

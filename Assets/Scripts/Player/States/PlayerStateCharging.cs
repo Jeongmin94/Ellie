@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Managers;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
@@ -17,6 +18,7 @@ namespace Assets.Scripts.Player.States
             Controller.canTurn = false;
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.TurnOnSlingshot();
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound1", Controller.transform.position);
 
         }
 

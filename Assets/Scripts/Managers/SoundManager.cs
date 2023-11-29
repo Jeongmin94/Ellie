@@ -15,7 +15,7 @@ namespace Assets.Scripts.Managers
             End
         }
         //풀 생성 후, 플레이하고자 하는 bgm을 딕셔너리에서 찾아서 오디오 소스에 붙여서 해당 위치로 이동시킨 후 플레이
-        private Pool audioSourcePool;
+        private Pool audioControllerPool;
 
         private AudioController audioControllerPrefab;
         //오디오 클립들이 담긴 딕셔너리
@@ -26,6 +26,7 @@ namespace Assets.Scripts.Managers
         private bool isBgmPlaying = false;
         private bool isBgmPaused = false;
 
+        private List<AudioController> nowPlayingSfxAudioControllerList = new();
         private Coroutine nowPlayingUISfxCoroutine;
 
         //volmues
@@ -53,7 +54,7 @@ namespace Assets.Scripts.Managers
         }
         private void InitAudioSourcePool()
         {
-            audioSourcePool = PoolManager.Instance.CreatePool(audioControllerPrefab.gameObject, 10);
+            audioControllerPool = PoolManager.Instance.CreatePool(audioControllerPrefab.gameObject, 10);
         }
 
         public void PlaySound(SoundType type, string name, Vector3 playingPos = default(Vector3), float pitch = 1.0f)
@@ -63,14 +64,14 @@ namespace Assets.Scripts.Managers
                 case SoundType.Bgm:
                     if (AudioClips.TryGetValue(name, out AudioClip bgmClip))
                     {
-                        AudioController audioController = audioSourcePool.Pop() as AudioController;
+                        AudioController audioController = audioControllerPool.Pop() as AudioController;
 
                         //플레이 중인 Bgm이 이미 존재한다면
                         if (isBgmPlaying && nowPlayingBgmCoroutine != null)
                         {
                             StopCoroutine(nowPlayingBgmCoroutine);
                             nowPlayingBgmController.Stop();
-                            audioSourcePool.Push(nowPlayingBgmController);
+                            audioControllerPool.Push(nowPlayingBgmController);
                         }
                         isBgmPlaying = true;
                         nowPlayingBgmController = audioController;
@@ -85,10 +86,12 @@ namespace Assets.Scripts.Managers
                 case SoundType.Sfx:
                     if (AudioClips.TryGetValue(name, out AudioClip sfxClip))
                     {
-                        AudioController audioController = audioSourcePool.Pop() as AudioController;
+                        AudioController audioController = audioControllerPool.Pop() as AudioController;
                         //audioController의 위치를 해당 위치로
                         audioController.Activate3DEffect();
                         audioController.transform.position = playingPos;
+
+                        nowPlayingSfxAudioControllerList.Add(audioController);
                         StartCoroutine(PlaySoundCoroutine(type, name, audioController, sfxClip, pitch));
                     }
                     else
@@ -108,7 +111,7 @@ namespace Assets.Scripts.Managers
 
                     if (AudioClips.TryGetValue(name, out AudioClip uiSfxClip))
                     {
-                        AudioController audioController = audioSourcePool.Pop() as AudioController;
+                        AudioController audioController = audioControllerPool.Pop() as AudioController;
 
                         nowPlayingUISfxCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, uiSfxClip, pitch));
                     }
@@ -141,8 +144,9 @@ namespace Assets.Scripts.Managers
 
         private void StopSound(string name, AudioController nowPlayingAudioController)
         {
+            nowPlayingSfxAudioControllerList.Remove(nowPlayingAudioController);
             nowPlayingAudioController.Deactivate3DEffect();
-            audioSourcePool.Push(nowPlayingAudioController);
+            audioControllerPool.Push(nowPlayingAudioController);
         }
 
         public void StopBgm()
@@ -154,7 +158,7 @@ namespace Assets.Scripts.Managers
             nowPlayingBgmController.Stop();
             StopCoroutine(nowPlayingBgmCoroutine);
 
-            audioSourcePool.Push(nowPlayingBgmController);
+            audioControllerPool.Push(nowPlayingBgmController);
         }
 
         public void PauseBgm()
@@ -166,6 +170,17 @@ namespace Assets.Scripts.Managers
         public void ResumeBgm()
         {
             isBgmPaused = false;
+        }
+
+        public void StopSfx(string clipName)
+        {
+            foreach(var controller in nowPlayingSfxAudioControllerList)
+            {
+                if (controller.clip.name == clipName)
+                {
+                    controller.Stop();
+                }
+            }
         }
         private IEnumerator PlaySoundCoroutine(SoundType type, string name, AudioController audioController, AudioClip clip, float pitch)
         {

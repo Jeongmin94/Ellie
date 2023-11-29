@@ -56,9 +56,14 @@ namespace Assets.Scripts.Item.Stone
                     Rotation = transform.rotation,
                 });
                 collisionCount--;
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3", collision.transform.position);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3", transform.position);
             }
-            
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound4", transform.position);
+
+            }
+
             foreach (ContactPoint contact in collision.contacts)
             {
                 GameObject hitObject = contact.otherCollider.gameObject;

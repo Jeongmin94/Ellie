@@ -22,7 +22,7 @@ namespace Assets.Scripts.Player.States
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.JumpStaminaConsumption);
             Controller.SetColliderHeight(1f);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound10");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound10", Controller.PlayerObj.position);
         }
 
         public override void OnExitState()
