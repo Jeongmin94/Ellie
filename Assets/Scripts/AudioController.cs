@@ -57,5 +57,17 @@ namespace Assets.Scripts
                 isPaused = false;
             }
         }
+
+        public void Activate3DEffect()
+        {
+            audioSource.spatialBlend = 0.5f;
+            audioSource.minDistance = 2f;
+            audioSource.maxDistance = 5f;
+        }
+
+        public void Deactivate3DEffect()
+        {
+            audioSource.spatialBlend = 0;
+        }
     }
 }

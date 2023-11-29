@@ -87,6 +87,7 @@ namespace Assets.Scripts.Managers
                     {
                         AudioController audioController = audioSourcePool.Pop() as AudioController;
                         //audioController의 위치를 해당 위치로
+                        audioController.Activate3DEffect();
                         audioController.transform.position = playingPos;
                         StartCoroutine(PlaySoundCoroutine(type, name, audioController, sfxClip, pitch));
                     }
@@ -142,6 +143,7 @@ namespace Assets.Scripts.Managers
 
         private void StopSound(string name, AudioController nowPlayingAudioController)
         {
+            nowPlayingAudioController.Deactivate3DEffect();
             audioSourcePool.Push(nowPlayingAudioController);
         }
 
