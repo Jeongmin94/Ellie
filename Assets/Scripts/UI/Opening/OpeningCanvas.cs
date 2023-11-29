@@ -42,10 +42,7 @@ namespace Assets.Scripts.UI.Opening
         private readonly TransformController menuController = new TransformController();
 
         private OpeningText title;
-        private BlinkMenuButton startMenuButton;
-        private BlinkMenuButton exitMenuButton;
 
-        // !TODO: 메뉴 버튼 별로 관리
         private readonly List<BlinkMenuButton> menuButtons = new List<BlinkMenuButton>();
         private readonly List<BasePopupCanvas> popupCanvasList = new List<BasePopupCanvas>();
         private ConfigCanvas configCanvas;

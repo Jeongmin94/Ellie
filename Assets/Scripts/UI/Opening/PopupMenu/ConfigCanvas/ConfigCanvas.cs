@@ -65,14 +65,6 @@ namespace Assets.Scripts.UI.PopupMenu
             InitObjects();
         }
 
-        private void OnDestroy()
-        {
-            if (InputManager.Instance)
-            {
-                InputManager.Instance.UnSubscribe(InputType.Escape, OnEscapeAction);
-            }
-        }
-
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));

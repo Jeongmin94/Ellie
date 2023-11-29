@@ -19,24 +19,6 @@ namespace Assets.Scripts.Managers
 
         private bool isMousePressed = false;
 
-        public void UnSubscribe(InputType type, Action listener)
-        {
-            switch (type)
-            {
-                case InputType.Key:
-                    keyAction -= listener;
-                    break;
-                case InputType.Mouse:
-                    mouseAction -= listener;
-                    break;
-                case InputType.Escape:
-                    escapeAction -= listener;
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
-        }
-
         public void Subscribe(InputType type, Action listener)
         {
             switch (type)
@@ -82,6 +64,13 @@ namespace Assets.Scripts.Managers
 
                 isMousePressed = false;
             }
+        }
+
+        public override void ClearAction()
+        {
+            keyAction = null;
+            mouseAction = null;
+            escapeAction = null;
         }
     }
 }

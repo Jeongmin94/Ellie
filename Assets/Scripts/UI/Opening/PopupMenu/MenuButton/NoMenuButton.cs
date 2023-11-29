@@ -9,16 +9,6 @@ namespace Assets.Scripts.UI.PopupMenu
             InputManager.Instance.Subscribe(InputType.Escape, OnEscapeAction);
         }
 
-        protected override void OnDestroy()
-        {
-            if (InputManager.Instance)
-            {
-                InputManager.Instance.UnSubscribe(InputType.Escape, OnEscapeAction);
-            }
-
-            base.OnDestroy();
-        }
-
         private void OnEscapeAction()
         {
             if (gameObject.activeSelf)
