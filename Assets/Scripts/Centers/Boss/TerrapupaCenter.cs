@@ -7,13 +7,11 @@ using UnityEngine;
 using Assets.Scripts.Managers;
 using Channels.Type;
 using Channels.Combat;
-using Assets.Scripts.StatusEffects;
 using System.Collections.Generic;
 using Assets.Scripts.Particle;
 using Channels.Components;
 using Assets.Scripts.Item.Stone;
 using Sirenix.OdinInspector;
-using UnityEngine.UIElements;
 
 namespace Centers.Boss
 {
