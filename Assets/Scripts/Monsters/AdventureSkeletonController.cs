@@ -31,11 +31,8 @@ namespace Assets.Scripts.Monsters
             //temp, will change with gamecenter
             player = GameObject.Find("Player");
 
-            
-
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
-            audioController = GetComponent<MonsterAudioController>();
-            
+            audioController = GetComponent<MonsterAudioController>();            
             
             SetSkills();
             SetTicketMachine();
