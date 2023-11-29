@@ -9,11 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 868169e8890f4eb99cfa90dee0440c59, type: 3}
-  m_Name: DialogContextData
+  m_Script: {fileID: 11500000, guid: df9ba86c371b4388848ce8c6d2a9b881, type: 3}
+  m_Name: DodgeString
   m_EditorClassIdentifier: 
-  fontAsset: {fileID: 11400000, guid: c2ff610336ec05f489d67abb7c9ba812, type: 2}
-  color: {r: 0, g: 0, b: 0, a: 1}
-  maxLength: 0
-  fontSize: 41
-  lineSpacing: 49
+  configType: 1
+  readOnly: 1
+  configName: "\uAD6C\uB974\uAE30"
+  values:
+  - LEFT CTRL
+  currentIdx: 0
