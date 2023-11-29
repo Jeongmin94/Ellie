@@ -14,6 +14,7 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.UI;
 using static Assets.Scripts.Managers.InventorySavePayload;
@@ -67,8 +68,15 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionImageArea,
         }
 
+        [Header("Description Text")]
+        [SerializeField] private TextTypographyData descriptionData;
+        [SerializeField] private TextTypographyData descriptionNameData;
+
+        [Header("UI Transform Data")]
         [SerializeField] private UITransformData consumptionTransformData;
         [SerializeField] private UITransformData stoneTransformData;
+        
+        [Header("Game Goods")]
         [SerializeField] private GameGoods goods;
 
         // GameObject
@@ -236,9 +244,13 @@ namespace Assets.Scripts.UI.Inventory
         {
             // description panel
             descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
+
+            descriptionNamePanel.SetTypographyData(descriptionNameData);
             descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
 
             descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
+
+            descriptionTextPanel.SetTypographyData(descriptionData);
             descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
 
             descriptionSlot = UIManager.Instance.MakeSubItem<InventorySlot>(transform, UIManager.InventorySlot);

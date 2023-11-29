@@ -74,6 +74,7 @@ namespace Boss.Terrapupa
         private void InitStatus()
         {
             healthBar.InitData(terrapupaData);
+            GetHealed(1);
         }
 
         private void SubscribeEvent()
@@ -144,18 +145,20 @@ namespace Boss.Terrapupa
 
         public void GetDamaged(int damageValue)
         {
+            healthBar.RenewHealthBar(terrapupaData.currentHP.Value - damageValue);
             terrapupaData.currentHP.Value -= damageValue;
-            healthBar.RenewHealthBar(terrapupaData.currentHP.value);
         }
 
         public void GetHealed(int healValue)
         {
+            healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
             terrapupaData.currentHP.Value += healValue;
+
             if(terrapupaData.currentHP.value > terrapupaData.hp)
             {
                 terrapupaData.currentHP.Value = terrapupaData.hp;
+                healthBar.RenewHealthBar(terrapupaData.currentHP.value);
             }
-            healthBar.RenewHealthBar(terrapupaData.currentHP.value);
         }
     }
 }

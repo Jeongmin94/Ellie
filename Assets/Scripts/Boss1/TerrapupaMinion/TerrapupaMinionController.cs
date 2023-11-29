@@ -15,7 +15,7 @@ public class TerrapupaMinionController : BehaviourTreeController
     [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
     private TicketMachine ticketMachine;
-
+    
     public TicketMachine TicketMachine
     {
         get { return ticketMachine; }
@@ -59,6 +59,7 @@ public class TerrapupaMinionController : BehaviourTreeController
     private void InitStatus()
     {
         healthBar.InitData(minionData);
+        GetHealed(1);
     }
 
     private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
@@ -75,8 +76,25 @@ public class TerrapupaMinionController : BehaviourTreeController
 
     public void GetDamaged(int damageValue)
     {
+        healthBar.RenewHealthBar(minionData.currentHP.value - damageValue);
         minionData.currentHP.Value -= damageValue;
-        healthBar.RenewHealthBar(minionData.currentHP.value);
+        if (minionData.currentHP.value <= 0)
+        {
+            minionData.currentHP.Value = 0;
+            healthBar.RenewHealthBar(0);
+        }
         minionData.isHit.Value = true;
+    }
+
+    public void GetHealed(int healValue)
+    {
+        healthBar.RenewHealthBar(minionData.currentHP.value + healValue);
+        minionData.currentHP.Value += healValue;
+
+        if (minionData.currentHP.value > minionData.hp)
+        {
+            minionData.currentHP.Value = minionData.hp;
+            healthBar.RenewHealthBar(minionData.currentHP.value);
+        }
     }
 }

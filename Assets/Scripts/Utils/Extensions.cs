@@ -31,7 +31,7 @@ namespace Assets.Scripts.Utils
             if (recursive)
             {
                 return go.GetComponentsInChildren<T>()
-                    .FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name.Equals(name));
+                         .FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name.Equals(name));
             }
 
             for (int i = 0; i < go.transform.childCount; i++)
@@ -109,6 +109,21 @@ namespace Assets.Scripts.Utils
                     handler.upHandlerAction += action;
                 }
                     break;
+
+                case UIEvent.PointEnter:
+                {
+                    handler.pointerEnterAction -= action;
+                    handler.pointerEnterAction += action;
+                }
+                    break;
+
+                case UIEvent.PointExit:
+                {
+                    handler.pointerExitAction -= action;
+                    handler.pointerExitAction += action;
+                }
+                    break;
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }

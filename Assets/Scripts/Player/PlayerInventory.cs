@@ -25,6 +25,8 @@ namespace Assets.Scripts.Player
         public Inventory Inventory { get { return inventory; } }
         public ItemMetaData[] consumableEquipmentSlot = new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
         public int curSlotIdx;
+        public bool canUseConsumable;
+        public int itemIdx;
         [SerializeField] private GameGoods gameGoods;
 
         public bool isOpen;
@@ -37,28 +39,42 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             controller = GetComponent<PlayerController>();
-            playerStatus = GetComponent<PlayerStatus>();    
+            playerStatus = GetComponent<PlayerStatus>();
             ticketMachine = controller.TicketMachine;
             isOpen = false;
         }
 
         private void Update()
         {
+            //인벤토리 열고 닫기
             if (Input.GetKeyDown(KeyCode.I))
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
                 OnInventoryToggle();
             }
-            if (Input.GetKeyDown(KeyCode.N))
+            if (Input.GetKeyDown(KeyCode.Q))
             {
-                ticketMachine.SendMessage(ChannelType.UI, MakeCCWPayload());
+                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCWPayload());
             }
 
-            if (Input.GetKeyDown(KeyCode.M))
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
+                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCCWPayload());
             }
+            Vector2 wheelInput = Input.mouseScrollDelta;
 
+            if (wheelInput != Vector2.zero)
+            {
+                if(wheelInput.y > 0)
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, MakeStoneItemCCWPayload());
+                }
+                else
+                {
+                    ticketMachine.SendMessage(ChannelType.UI, MakeStoneItemCWPayload());
+
+                }
+            }
             if (Input.GetKeyDown(KeyCode.Escape) && Inventory.IsOpened)
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
@@ -66,7 +82,7 @@ namespace Assets.Scripts.Player
             }
 
             //for test
-            if (Input.GetKeyDown(KeyCode.Q))
+            if (Input.GetKeyDown(KeyCode.O))
             {
                 for (int i = 0; i < 20; i++)
                 {
@@ -100,54 +116,74 @@ namespace Assets.Scripts.Player
                 }
             }
 
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            if(Input.GetKeyDown(KeyCode.R))
             {
-                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[0] == null) return;
+                if(itemIdx == 0)
+                {
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "ellie_sound9");
+                    return;
+                }
                 if (controller.GetCurState() == PlayerStateName.Idle ||
                     controller.GetCurState() == PlayerStateName.Walk ||
                     controller.GetCurState() == PlayerStateName.Sprint)
                 {
-                    curSlotIdx = 0;
                     controller.ChangeState(PlayerStateName.ConsumingItem);
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[1] == null) return;
-                if (controller.GetCurState() == PlayerStateName.Idle ||
-                    controller.GetCurState() == PlayerStateName.Walk ||
-                    controller.GetCurState() == PlayerStateName.Sprint)
-                {
-                    curSlotIdx = 1;
-                    controller.ChangeState(PlayerStateName.ConsumingItem);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[2] == null) return;
-                if (controller.GetCurState() == PlayerStateName.Idle ||
-                    controller.GetCurState() == PlayerStateName.Walk ||
-                    controller.GetCurState() == PlayerStateName.Sprint)
-                {
-                    curSlotIdx = 2;
-                    controller.ChangeState(PlayerStateName.ConsumingItem);
-                }
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-                if (consumableEquipmentSlot[3] == null) return;
-                if (controller.GetCurState() == PlayerStateName.Idle ||
-                    controller.GetCurState() == PlayerStateName.Walk ||
-                    controller.GetCurState() == PlayerStateName.Sprint)
-                {
-                    curSlotIdx = 3;
-                    controller.ChangeState(PlayerStateName.ConsumingItem);
-                }
-            }
+
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //{
+            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+            //    if (consumableEquipmentSlot[0] == null ||
+            //        consumableEquipmentSlot[0].groupType != GroupType.Item) return;
+            //    if (controller.GetCurState() == PlayerStateName.Idle ||
+            //        controller.GetCurState() == PlayerStateName.Walk ||
+            //        controller.GetCurState() == PlayerStateName.Sprint)
+            //    {
+            //        curSlotIdx = 0;
+            //        controller.ChangeState(PlayerStateName.ConsumingItem);
+            //    }
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //{
+            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+            //    if (consumableEquipmentSlot[1] == null ||
+            //        consumableEquipmentSlot[1].groupType != GroupType.Item) return;
+
+            //    if (controller.GetCurState() == PlayerStateName.Idle ||
+            //        controller.GetCurState() == PlayerStateName.Walk ||
+            //        controller.GetCurState() == PlayerStateName.Sprint)
+            //    {
+            //        curSlotIdx = 1;
+            //        controller.ChangeState(PlayerStateName.ConsumingItem);
+            //    }
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha3))
+            //{
+            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+            //    if (consumableEquipmentSlot[2] == null ||
+            //        consumableEquipmentSlot[2].groupType != GroupType.Item) return;
+            //    if (controller.GetCurState() == PlayerStateName.Idle ||
+            //        controller.GetCurState() == PlayerStateName.Walk ||
+            //        controller.GetCurState() == PlayerStateName.Sprint)
+            //    {
+            //        curSlotIdx = 2;
+            //        controller.ChangeState(PlayerStateName.ConsumingItem);
+            //    }
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha4))
+            //{
+            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
+            //    if (consumableEquipmentSlot[3] == null ||
+            //        consumableEquipmentSlot[3].groupType != GroupType.Item) return;
+            //    if (controller.GetCurState() == PlayerStateName.Idle ||
+            //        controller.GetCurState() == PlayerStateName.Walk ||
+            //        controller.GetCurState() == PlayerStateName.Sprint)
+            //    {
+            //        curSlotIdx = 3;
+            //        controller.ChangeState(PlayerStateName.ConsumingItem);
+            //    }
+            //}
 
         }
         private UIPayload MakeInventoryOpenPayload()
@@ -159,21 +195,45 @@ namespace Assets.Scripts.Player
             return payload;
         }
 
-        private UIPayload MakeCCWPayload()
+        private UIPayload MakeConsumeItemCCWPayload()
         {
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveCounterClockwise;
+            payload.groupType = GroupType.Item;
             payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;
         }
 
-        private UIPayload MakeCWPayload()
+        private UIPayload MakeConsumeItemCWPayload()
         {
             var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveClockwise;
+            payload.groupType = GroupType.Item;
+            payload.slotAreaType = SlotAreaType.Equipment;
+
+            return payload;
+        }
+
+        private UIPayload MakeStoneItemCCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveCounterClockwise;
+            payload.groupType = GroupType.Stone;
+            payload.slotAreaType = SlotAreaType.Equipment;
+
+            return payload;
+        }
+
+        private UIPayload MakeStoneItemCWPayload()
+        {
+            var payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.MoveClockwise;
+            payload.groupType = GroupType.Stone;
             payload.slotAreaType = SlotAreaType.Equipment;
 
             return payload;
@@ -211,9 +271,9 @@ namespace Assets.Scripts.Player
 
         public void ConsumeItemEvent()
         {
-            ticketMachine.SendMessage(ChannelType.UI, GenerateConsumeItemPayload());
-            ItemData data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(consumableEquipmentSlot[curSlotIdx].index);
+            ItemData data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
             playerStatus.ApplyConsumableItemEffect(GenerateConsumableItemData(data));
+            ticketMachine.SendMessage(ChannelType.UI, GenerateConsumeItemPayload());
         }
 
         private ConsumableItemData GenerateConsumableItemData(ItemData data)
@@ -229,7 +289,7 @@ namespace Assets.Scripts.Player
             payload.actionType = ActionType.ConsumeSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
             payload.groupType = GroupType.Item;
-            payload.itemData = consumableEquipmentSlot[curSlotIdx];
+            payload.itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
             return payload;
         }
     }

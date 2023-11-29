@@ -1,4 +1,6 @@
 using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -6,6 +8,7 @@ using Boss.Terrapupa;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
+using Codice.Client.Common.GameUI;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,9 +16,16 @@ using UnityEngine;
 
 public class TerrapupaMapObjectController : MonoBehaviour
 {
+    [Title("테라푸파 보스전 오브젝트 객체")]
     [SerializeField] private GameObject magicStalactitePrefab;
     [SerializeField] private List<ManaFountain> manaFountains;
+    [SerializeField] private BossRoomDoorKnob leftDoor;
+    [SerializeField] private BossRoomDoorKnob rightDoor;
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
+
+    [Title("상태 체크")]
+    [ReadOnly][SerializeField] private int golemCoreCount = 0;
+    [ReadOnly][SerializeField] private int manaFountainCount = 4;
 
     [Title("종마석")]
     [InfoBox("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
@@ -28,10 +38,13 @@ public class TerrapupaMapObjectController : MonoBehaviour
     [InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
     [InfoBox("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
 
+    [Title("보스방 문")]
+    [InfoBox("열리는 시간")] public float openSpeedTime = 3.0f;
+    [InfoBox("열리는 각도")] public float openAngle = 120.0f;
+
     public readonly int GOLEM_CORE_INDEX = 4021;
 
     private TicketMachine ticketMachine;
-    private int manaFountainCount;
 
     public TicketMachine TicketMachine
     {
@@ -54,6 +67,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
+        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
     }
     private void InitTicketMachine()
     {
@@ -137,7 +151,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
             DropStoneItem(mana.SpawnPosition, mana.NORMALSTONE_INDEX);
         }
 
-        // 파티클 적용
+        // 히트 이펙트 생성
         GameObject hitEffect = manaPayload.PrefabValue;
         if (hitEffect != null)
         {
@@ -150,7 +164,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
             });
         }
 
-        // 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
+        // 보스의 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
         TerrapupaAttackType type = mana.banBossAttackType;
         if (actor.AttackCooldown.ContainsKey(type) && actor.AttackCooldown[type] != null)
         {
@@ -158,7 +172,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
             actor.StopCoroutine(actor.AttackCooldown[type]);
         }
 
-        // 공격 봉인 적용
+        // 돌맹이를 날린 보스 공격 쿨타임 적용
         manaPayload.BoolValue = false;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
 
@@ -188,6 +202,25 @@ public class TerrapupaMapObjectController : MonoBehaviour
         }
 
         StartCoroutine(RespawnMagicStalactite(stalactitePayload));
+    }
+    private void OnBossRoomDoorOpen(BossEventPayload payload)
+    {
+        Debug.Log($"OnBossRoomDoorOpen :: 보스방 문 열림 체크");
+        GolemCoreStone core = payload.TransformValue1.GetComponent<GolemCoreStone>();
+        if(core == null)
+        {
+            return;
+        }
+        BossRoomDoorKnob knob = payload.Sender.GetComponent<BossRoomDoorKnob>();
+
+        knob.Init(core.transform);
+        golemCoreCount++;
+
+        if(golemCoreCount == 2)
+        {
+            // 문 개방
+            OpenDoor();
+        }
     }
     #endregion
 
@@ -269,6 +302,11 @@ public class TerrapupaMapObjectController : MonoBehaviour
     {
         Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
         return vec.normalized;
+    }
+    private void OpenDoor()
+    {
+        leftDoor.OpenDoor(-openAngle, openSpeedTime);
+        rightDoor.OpenDoor(openAngle, openSpeedTime);
     }
     #endregion
 }

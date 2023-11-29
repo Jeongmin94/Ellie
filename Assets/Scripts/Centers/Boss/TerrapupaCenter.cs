@@ -7,19 +7,17 @@ using UnityEngine;
 using Assets.Scripts.Managers;
 using Channels.Type;
 using Channels.Combat;
-using Assets.Scripts.StatusEffects;
 using System.Collections.Generic;
 using Assets.Scripts.Particle;
 using Channels.Components;
 using Assets.Scripts.Item.Stone;
 using Sirenix.OdinInspector;
-using UnityEngine.UIElements;
 
 namespace Centers.Boss
 {
     public class TerrapupaCenter : MonoBehaviour
     {
-        [Title("테라푸파 보스전 객체")]
+        [Title("테라푸파 보스 객체")]
         [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
@@ -35,10 +33,10 @@ namespace Centers.Boss
 
         [Title("보스몬스터 생성 여부")]
         [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")]
-        [BoxGroup("1페이즈")] public bool isActiveTerrapupa = true;
-        [BoxGroup("2페이즈")] public bool isActiveTerra = false;
-        [BoxGroup("2페이즈")] public bool isActivePupa = false;
-        [BoxGroup("3페이즈")] public bool isActiveMinions = false;
+        public bool isActiveTerrapupa = true;
+        public bool isActiveTerra = false;
+        public bool isActivePupa = false;
+        public bool isActiveMinions = false;
 
         #region 0. 치트키
         [Title("치트키")]
@@ -210,13 +208,19 @@ namespace Centers.Boss
                 LayerMask groundLayer = 1 << LayerMask.NameToLayer("Ground");
                 bool isJumping = !Physics.Raycast(playerTransform.position + Vector3.up * 0.1f, -Vector3.up, out hit, jumpCheckValue + 0.1f, groundLayer);
 
-                Debug.Log($"Raycast distance: {hit.distance}");
+                if (hit.collider != null)
+                {
+                    Debug.Log($"Raycast distance: {hit.distance}");
+                }
+
                 if (!isJumping)
                 {
                     TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-
-                    HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
-                    ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
+                    if (bossController != null)
+                    {
+                        HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
+                        ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
+                    }
                 }
             }
             if (manaTransform != null)
@@ -226,10 +230,12 @@ namespace Centers.Boss
             if(hitBossTransform != null)
             {
                 // 보스 체크
-                TerrapupaRootData target = hitBossTransform.GetComponent<TerrapupaController>().terrapupaData;
-
-                target.hitEarthQuake.Value = true;
-                ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
+                TerrapupaController hitBossController = hitBossTransform.GetComponent<TerrapupaController>();
+                if (hitBossController?.terrapupaData != null)
+                {
+                    hitBossController.terrapupaData.hitEarthQuake.Value = true;
+                    ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
+                }
             }
         }
         private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)
@@ -465,6 +471,9 @@ namespace Centers.Boss
         #region 4. 기타 함수
         private void HitedPlayer(TicketMachine ticketMachine, Transform attacker, Transform player, CombatPayload payload)
         {
+            if (payload == null)
+                return;
+
             Debug.Log($"플레이어 피해 {payload.Damage} 입음");
             payload.Attacker = attacker;
             payload.Defender = player;
