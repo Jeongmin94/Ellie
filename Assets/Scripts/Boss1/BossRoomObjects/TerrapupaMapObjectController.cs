@@ -151,7 +151,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
             DropStoneItem(mana.SpawnPosition, mana.NORMALSTONE_INDEX);
         }
 
-        // 파티클 적용
+        // 히트 이펙트 생성
         GameObject hitEffect = manaPayload.PrefabValue;
         if (hitEffect != null)
         {
@@ -164,7 +164,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
             });
         }
 
-        // 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
+        // 보스의 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
         TerrapupaAttackType type = mana.banBossAttackType;
         if (actor.AttackCooldown.ContainsKey(type) && actor.AttackCooldown[type] != null)
         {
@@ -172,7 +172,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
             actor.StopCoroutine(actor.AttackCooldown[type]);
         }
 
-        // 공격 봉인 적용
+        // 돌맹이를 날린 보스 공격 쿨타임 적용
         manaPayload.BoolValue = false;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
 

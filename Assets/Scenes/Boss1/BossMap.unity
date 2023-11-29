@@ -5222,6 +5222,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 267577083, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.999
@@ -6304,9 +6308,9 @@ MonoBehaviour:
   currentMinionSpawnIndex: 0
   fallCheckLatency: 5
   isActiveTerrapupa: 0
-  isActiveTerra: 1
-  isActivePupa: 1
-  isActiveMinions: 0
+  isActiveTerra: 0
+  isActivePupa: 0
+  isActiveMinions: 1
 --- !u!4 &952424627
 Transform:
   m_ObjectHideFlags: 0
@@ -13771,6 +13775,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3d4debebac4d17d4898c9e09129cc2f1, type: 2}
   - {fileID: 11400000, guid: 872d3f2f4674a0946a2c79b6dbeffcd7, type: 2}
   - {fileID: 11400000, guid: 2223109af0079f648a7d0078a633c57d, type: 2}
+  - {fileID: 11400000, guid: 7b944e712e43e884dba60d3363178b99, type: 2}
+  - {fileID: 11400000, guid: 8d04e0f3c7f3fa34386b54ae0d6b841f, type: 2}
 --- !u!4 &2085989589
 Transform:
   m_ObjectHideFlags: 0

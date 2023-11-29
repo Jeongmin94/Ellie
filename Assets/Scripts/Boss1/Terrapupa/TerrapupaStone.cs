@@ -46,6 +46,11 @@ namespace Boss.Terrapupa
 			rb.isKinematic = true;
         }
 
+        private void Update()
+        {
+			rb.AddForce(direction * movementSpeed, ForceMode.Force);
+        }
+
         public void Init(Vector3 position, Vector3 scale, float speed, CombatPayload hitPayload, GameObject hitEffect, Transform sender, TicketMachine senderTicketMacine)
 		{
             effect = hitEffect;

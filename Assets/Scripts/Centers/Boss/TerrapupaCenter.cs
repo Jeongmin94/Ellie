@@ -210,13 +210,19 @@ namespace Centers.Boss
                 LayerMask groundLayer = 1 << LayerMask.NameToLayer("Ground");
                 bool isJumping = !Physics.Raycast(playerTransform.position + Vector3.up * 0.1f, -Vector3.up, out hit, jumpCheckValue + 0.1f, groundLayer);
 
-                Debug.Log($"Raycast distance: {hit.distance}");
+                if (hit.collider != null)
+                {
+                    Debug.Log($"Raycast distance: {hit.distance}");
+                }
+
                 if (!isJumping)
                 {
                     TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-
-                    HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
-                    ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
+                    if (bossController != null)
+                    {
+                        HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
+                        ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
+                    }
                 }
             }
             if (manaTransform != null)
@@ -226,10 +232,12 @@ namespace Centers.Boss
             if(hitBossTransform != null)
             {
                 // 보스 체크
-                TerrapupaRootData target = hitBossTransform.GetComponent<TerrapupaController>().terrapupaData;
-
-                target.hitEarthQuake.Value = true;
-                ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
+                TerrapupaController hitBossController = hitBossTransform.GetComponent<TerrapupaController>();
+                if (hitBossController?.terrapupaData != null)
+                {
+                    hitBossController.terrapupaData.hitEarthQuake.Value = true;
+                    ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
+                }
             }
         }
         private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)
@@ -465,6 +473,9 @@ namespace Centers.Boss
         #region 4. 기타 함수
         private void HitedPlayer(TicketMachine ticketMachine, Transform attacker, Transform player, CombatPayload payload)
         {
+            if (payload == null)
+                return;
+
             Debug.Log($"플레이어 피해 {payload.Damage} 입음");
             payload.Attacker = attacker;
             payload.Defender = player;
