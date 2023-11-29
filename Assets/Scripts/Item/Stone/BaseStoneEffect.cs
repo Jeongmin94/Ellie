@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using System;
 using UnityEngine;
@@ -55,6 +56,7 @@ namespace Assets.Scripts.Item.Stone
                     Rotation = transform.rotation,
                 });
                 collisionCount--;
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3", collision.transform.position);
             }
             
             foreach (ContactPoint contact in collision.contacts)
@@ -71,6 +73,7 @@ namespace Assets.Scripts.Item.Stone
                 {
                     Debug.Log($"NormalStone OnCollisionEnter :: ICombatant OK {collision.gameObject.name}");
                     OccurEffect(hitObject.transform);
+                    //SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3");
 
                     break;
                 }

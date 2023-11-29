@@ -2,6 +2,7 @@
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.Data.GoogleSheet;
 
 namespace Assets.Scripts.Managers
 {
@@ -54,7 +55,8 @@ namespace Assets.Scripts.Managers
     public class QuestSavePayload : IBaseEventPayload
     {
         // 데이터 저장에 필요한 타입들 정의
-        public int QuestIndex { get; set; }
+        //public int QuestIndex { get; set; }
+        public Dictionary<int, QuestStatus> questStatusSaveInfo = new();
     }
 
     public class MapSavePayload : IBaseEventPayload

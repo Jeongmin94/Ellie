@@ -689,6 +689,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnValue: 10
+  hitEffect: {fileID: 0}
+  displayEffect: {fileID: 0}
+  material: {fileID: 0}
 --- !u!54 &192739460
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -717,6 +720,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.99900055
+      objectReference: {fileID: 0}
+    - target: {fileID: 1118065664, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.44200003
+      objectReference: {fileID: 0}
     - target: {fileID: 1118065665, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
       value: 1
@@ -735,15 +746,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.54200006
+      value: 0.7420001
       objectReference: {fileID: 0}
     - target: {fileID: 1346398098, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2
+      value: -7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: shootingPower
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1833054888, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: calculatingTime
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.x
@@ -752,6 +771,10 @@ PrefabInstance:
     - target: {fileID: 4016927572231187846, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.y
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572231187847, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7420001
       objectReference: {fileID: 0}
     - target: {fileID: 4016927572337565216, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Name
@@ -808,6 +831,10 @@ PrefabInstance:
     - target: {fileID: 4016927572422116012, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
       propertyPath: m_Lens.m_SensorSize.y
       value: 24
+      objectReference: {fileID: 0}
+    - target: {fileID: 4016927572422116013, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.54200006
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 24af405b7fd2e884fad826c0c835c212, type: 3}
@@ -3189,6 +3216,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnValue: 10
+  hitEffect: {fileID: 0}
+  displayEffect: {fileID: 0}
+  material: {fileID: 0}
 --- !u!54 &985010398
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3512,7 +3542,7 @@ MonoBehaviour:
   testDamage: 2
   testEffectDuration: 2
   testForce: 15
-  statusEffect: 4
+  statusEffect: 1
 --- !u!4 &1087416995
 Transform:
   m_ObjectHideFlags: 0
@@ -6560,6 +6590,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnValue: 10
+  hitEffect: {fileID: 0}
+  displayEffect: {fileID: 0}
+  material: {fileID: 0}
 --- !u!54 &1927304627
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4226798618855274019}
   - component: {fileID: 4226798618855274016}
+  - component: {fileID: 5952947841234592369}
   m_Layer: 2
   m_Name: SkullSecondBackPack
   m_TagString: Interactive
@@ -41,11 +42,23 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4226798618855274018}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5952947841234592369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4226798618855274018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ffe3635020c8d44b9a12ba859b4447a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4226798618993324707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -115,6 +128,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4b47771508d5f54fb9d6423d52f414b, type: 3}
+--- !u!1 &8296486805826636155 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5299487957247753176, guid: e4b47771508d5f54fb9d6423d52f414b, type: 3}
+  m_PrefabInstance: {fileID: 4226798618993324707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &826325506
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8296486805826636155}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 1311562301650623411, guid: 35b5bfec1350dbd4bb1de6dbc4a9c5f8, type: 3}
 --- !u!4 &8676424820389532609 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4809915408671187298, guid: e4b47771508d5f54fb9d6423d52f414b, type: 3}
