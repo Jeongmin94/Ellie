@@ -104,6 +104,8 @@ namespace Assets.Scripts.UI.Opening
             textMeshProUGUI.text = typographyTypographyData.title;
         }
 
+        protected Rect GetRect() => rectTransform.rect;
+
         protected void SetOriginColor(Color color) => originImageColor = color;
         protected void ResetImageColor() => image.color = originImageColor;
         protected Color OriginColor() => originImageColor;

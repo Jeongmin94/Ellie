@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.UI.PopupMenu;
 using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,9 +28,11 @@ namespace Assets.Scripts.UI.InGame
         [SerializeField] private UITransformData escapeTransformData;
         [SerializeField] private UITransformData escapeImageTransformData;
 
+        [SerializeField] private TextTypographyData pauseMenuTypographyData;
         [SerializeField] private TextTypographyData escapeTypographyData;
 
         [Header("메뉴 이름")] [SerializeField] private string[] menuTitles;
+        [Header("팝업 타입")] [SerializeField] private PopupType[] popupTypes;
 
         private GameObject buttonPanel;
         private GameObject escapePanel;
@@ -38,6 +43,8 @@ namespace Assets.Scripts.UI.InGame
 
         private Image escapeImage;
 
+        private readonly List<PauseMenuButton> menuButtons = new List<PauseMenuButton>();
+
         private void Awake()
         {
             Init();
@@ -45,6 +52,8 @@ namespace Assets.Scripts.UI.InGame
 
         protected override void Init()
         {
+            base.Init();
+
             Bind();
             InitObjects();
         }
@@ -66,17 +75,6 @@ namespace Assets.Scripts.UI.InGame
 
         private void InitObjects()
         {
-            // !TODO Odin Inspector 오류 수정 필요
-            buttonPanelTransformData.actionRect.Value = new Rect(173, 540, 383, 111 * menuTitles.Length);
-            buttonPanelTransformData.actionScale.Value = Vector2.one;
-
-            escapeTransformData.actionRect.Value = new Rect(1691, 922, 130, 70);
-            escapeTransformData.actionScale.Value = Vector2.one;
-
-            escapeImageTransformData.actionRect.Value = new Rect(1632, 925, 71, 61);
-            escapeImageTransformData.actionScale.Value = Vector2.one;
-            //
-
             AnchorPresets.SetAnchorPreset(buttonPanelRect, AnchorPresets.MiddleCenter);
             buttonPanelRect.sizeDelta = buttonPanelTransformData.actionRect.Value.GetSize();
             buttonPanelRect.localPosition = buttonPanelTransformData.actionRect.Value.ToCanvasPos();
@@ -91,6 +89,40 @@ namespace Assets.Scripts.UI.InGame
             escapeImageRect.sizeDelta = escapeImageTransformData.actionRect.Value.GetSize();
             escapeImageRect.localPosition = escapeImageTransformData.actionRect.Value.ToCanvasPos();
             escapeImageRect.localScale = escapeTransformData.actionScale.Value;
+
+            InitPauseMenuButtons();
+        }
+
+        private void InitPauseMenuButtons()
+        {
+            // menu
+            int idx = 0;
+            foreach (var title in menuTitles)
+            {
+                var button = UIManager.Instance.MakeSubItem<PauseMenuButton>(buttonPanelRect, PauseMenuButton.Path);
+
+                pauseMenuTypographyData.title = title;
+                button.name += $"#{title}";
+                button.InitText();
+                button.InitTypography(pauseMenuTypographyData);
+                button.InitPauseMenuButton(popupTypes[idx++]);
+                menuButtons.Add(button);
+            }
+
+            // escape
+            var escapeButton = UIManager.Instance.MakeSubItem<PauseMenuButton>(escapePanelRect, PauseMenuButton.Path);
+            escapeButton.name += $"#{escapeTypographyData.title}";
+            escapeButton.InitText();
+            escapeButton.InitTypography(escapeTypographyData);
+            escapeButton.InitPauseMenuButton(PopupType.Escape);
+        }
+
+        private void OnButtonClicked(PopupPayload payload)
+        {
+            if (payload.buttonType == ButtonType.No)
+            {
+                gameObject.SetActive(false);
+            }
         }
     }
 }

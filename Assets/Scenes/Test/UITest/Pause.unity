@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 1322447050}
   - component: {fileID: 1322447049}
   - component: {fileID: 1322447048}
+  - component: {fileID: 1322447051}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -207,6 +208,39 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1322447051
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1322447047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
 --- !u!1001 &1366927884
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -215,9 +249,17 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 532395042, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
-      propertyPath: escapeTransformData
-      value: 
-      objectReference: {fileID: 11400000, guid: f9ef5522e0ced4b4fb02f346b58fb9e3, type: 2}
+      propertyPath: popupTypes.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 532395042, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
+      propertyPath: popupTypes.Array.data[1]
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 532395042, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
+      propertyPath: popupTypes.Array.data[2]
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5104706258619149961, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -305,14 +347,6 @@ PrefabInstance:
     - target: {fileID: 5104706258619150005, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
       propertyPath: m_Name
       value: PauseCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 5104706258619150007, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
-      propertyPath: m_ReferenceResolution.x
-      value: 3840
-      objectReference: {fileID: 0}
-    - target: {fileID: 5104706258619150007, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
-      propertyPath: m_ReferenceResolution.y
-      value: 2160
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}

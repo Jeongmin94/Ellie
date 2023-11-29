@@ -17,7 +17,9 @@ namespace Assets.Scripts.UI.PopupMenu
         Load,
         Start,
         Config,
-        Exit
+        Exit,
+        Main,
+        Escape
     }
 
     public struct PopupPayload
