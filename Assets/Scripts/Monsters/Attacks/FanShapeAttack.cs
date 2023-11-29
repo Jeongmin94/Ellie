@@ -79,7 +79,6 @@ namespace Assets.Scripts.Monsters.Attacks
                             particle = particleController.GetParticle(MonsterParticleType.WeaponHit);
                         }
                         audioSource.Play();
-                        Debug.Log("!!!Particle " + particle);
                         particle.transform.position = target.position;
                         particle.Play();
                         SetAndAttack(attackData, target);

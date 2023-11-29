@@ -158,10 +158,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf8b870d1c8660a49959005e2a25cf76, type: 2}
   - {fileID: 11400000, guid: 44b083a90fce3164fbc841180fc0acfe, type: 2}
   - {fileID: 11400000, guid: c954d1a9b8c3fc5479212c5e4460a7fc, type: 2}
+  terrapupaData: {fileID: 0}
   stone: {fileID: 3623519102850700817}
   weakPoint: {fileID: 3540787206911723075}
   healthBar: {fileID: 5739336596423150777}
-  terrapupaData: {fileID: 0}
 --- !u!54 &8979523351519513295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -191,6 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: a4189abdd4b7ce546a91d5e9f68d38c6, type: 2}
+  scaleFactor: 0.003
 --- !u!1001 &2128096367104428211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1294,7 +1295,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a02b0784f6204e247aa47e56207e7e73, type: 2}
     - target: {fileID: 9500000, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
       propertyPath: m_UpdateMode
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
       propertyPath: m_CullingMode

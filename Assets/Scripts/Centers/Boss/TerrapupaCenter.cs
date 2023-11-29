@@ -8,72 +8,85 @@ using Assets.Scripts.Managers;
 using Channels.Type;
 using Channels.Combat;
 using Assets.Scripts.StatusEffects;
-using Assets.Scripts.Item.Stone;
 using System.Collections.Generic;
 using Assets.Scripts.Particle;
+using Channels.Components;
+using Assets.Scripts.Item.Stone;
+using Sirenix.OdinInspector;
+using UnityEngine.UIElements;
 
 namespace Centers.Boss
 {
-    public class TerrapupaCenter : BaseCenter
+    public class TerrapupaCenter : MonoBehaviour
     {
-        [SerializeField] private StoneHatchery hatchery;
+        [Title("테라푸파 보스전 객체")]
+        [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
         [SerializeField] private TerrapupaController terrapupa;
         [SerializeField] private TerrapupaController terra;
         [SerializeField] private TerrapupaController pupa;
-        [SerializeField] private List<TerrapupaMinionController> minions;
         [SerializeField] private PlayerController player;
-        [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
+        [SerializeField] private List<TerrapupaMinionController> minions;
 
-        public float fallCheckLatency = 5.0f;
-        public bool isActiveTerrapupa = true;
-        public bool isActiveTerra = false;
-        public bool isActivePupa = false;
-        public bool isActiveMinions = false;
+        [Title("현재 페이즈 상태 체크용")]
+        [ReadOnly][SerializeField] private int currentLevel = 1;        // 1페이즈, 2페이즈 체크용
+        [ReadOnly][SerializeField] private int minionDeathCheck = 4;    // 3페이즈 미니언 4마리 체크
+        [ReadOnly][SerializeField] private int currentMinionSpawnIndex = 0;
+        [ReadOnly][SerializeField] private float fallCheckLatency = 5.0f;
 
-        public int currentLevel = 1;   // 1페이즈, 2페이즈 체크용
-        public int minionDeathCheck = 4;
+        [Title("보스몬스터 생성 여부")]
+        [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")]
+        [BoxGroup("1페이즈")] public bool isActiveTerrapupa = true;
+        [BoxGroup("2페이즈")] public bool isActiveTerra = false;
+        [BoxGroup("2페이즈")] public bool isActivePupa = false;
+        [BoxGroup("3페이즈")] public bool isActiveMinions = false;
+
+        #region 0. 치트키
+        [Title("치트키")]
+        [Button("1페이즈 스킵", ButtonSizes.Large)]
+        public void KillTerrapupa()
+        {
+            Debug.Log("테라푸파 사망 치트");
+            Vector3 pos = terrapupa.transform.position;
+
+            terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
+            terrapupa.terrapupaData.currentHP.Value = 0;
+        }
+        [Button("2페이즈 스킵", ButtonSizes.Large)]
+        public void KillTerraAndPupa()
+        {
+            Debug.Log("테라, 푸파 사망 치트");
+            Vector3 pos1 = terra.transform.position;
+            Vector3 pos2 = pupa.transform.position;
+
+            terra.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
+            pupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
+            terra.terrapupaData.currentHP.Value = 0;
+            pupa.terrapupaData.currentHP.Value = 0;
+        }
+        [Button("3페이즈 스킵", ButtonSizes.Large)]
+        public void KillMinions()
+        {
+            Debug.Log("테, 라, 푸, 파 사망 치트");
+
+            foreach (var minion in minions)
+            {
+                minion.minionData.currentHP.Value = 0;
+            }
+        }
+        #endregion
 
         private void Awake()
         {
-            base.Init();
             SubscribeEvents();
         }
-
-        protected override void Start()
+        private void Start()
         {
-            base.Start();
-
+            ShuffleMinions();
             CheckTickets();
             SetBossInfo();
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Debug.Log("테라푸파 사망 치트");
-                Vector3 pos = terrapupa.transform.position;
-
-                terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
-                terrapupa.terrapupaData.currentHP.Value = 0;
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Debug.Log("테라, 푸파 사망 치트");
-                Vector3 pos1 = terra.transform.position;
-                Vector3 pos2 = pupa.transform.position;
-
-                terrapupa.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
-                terrapupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
-                terra.terrapupaData.currentHP.Value = 0;
-                pupa.terrapupaData.currentHP.Value = 0;
-            }
-        }
-
-        /// <summary>
-        /// Init Boss Center
-        /// </summary>
-
+        #region 1. 초기화 함수
         private void SetBossInfo()
         {
             terrapupa.terrapupaData.player.Value = player.transform;
@@ -81,7 +94,6 @@ namespace Centers.Boss
             pupa.terrapupaData.player.Value = player.transform;
             foreach (var minion in minions)
             {
-                Debug.Log("확인");
                 minion.minionData.player.Value = player.transform;
             }
 
@@ -96,20 +108,17 @@ namespace Centers.Boss
             // 1, 2페이즈 체크 (임시)
             currentLevel = isActiveTerrapupa ? 1 : 2;
         }
-
         private void CheckTickets()
         {
-            CheckTicket(hatchery.gameObject);
-            CheckTicket(terrapupa.gameObject);
-            CheckTicket(terra.gameObject);
-            CheckTicket(pupa.gameObject);
-            CheckTicket(terrapupaMapObjects.gameObject);
+            TicketManager.Instance.CheckTicket(terrapupa.gameObject);
+            TicketManager.Instance.CheckTicket(terra.gameObject);
+            TicketManager.Instance.CheckTicket(pupa.gameObject);
+            TicketManager.Instance.CheckTicket(terrapupaMapObjects.gameObject);
             foreach (var minion in minions)
             {
-                CheckTicket(minion.gameObject);
+                TicketManager.Instance.CheckTicket(minion.gameObject);
             }
         }
-
         private void SubscribeEvents()
         {
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
@@ -125,12 +134,23 @@ namespace Centers.Boss
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
             EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
             EventBus.Instance.Subscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
+            EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
         }
+        private void ShuffleMinions()
+        {
+            // 미니언 리스트 랜덤 셔플
+            for(int i = 0; i < minions.Count; i++)
+            {
+                int randomIndex = Random.Range(i, minions.Count);
+                TerrapupaMinionController temp = minions[i];
+                minions[i] = minions[randomIndex];
+                minions[randomIndex] = temp;
+            }
+        }
+        #endregion
 
-        /// <summary>
-        /// Boss Event Handler
-        /// </summary>
-
+        #region 2. 이벤트 핸들러
         private void OnSpawnStone(IBaseEventPayload payload)
         {
             Debug.Log("OnSpawnStone :: 보스의 돌맹이 줍기");
@@ -139,7 +159,6 @@ namespace Centers.Boss
 
             actor.Stone.gameObject.SetActive(true);
         }
-
         private void OnThrowStone(IBaseEventPayload payload)
         {
             Debug.Log("OnThrowStone :: 보스의 돌맹이 던지기");
@@ -148,46 +167,26 @@ namespace Centers.Boss
             TerrapupaController actor = stonePayload.Sender.GetComponent<TerrapupaController>();
 
             Poolable stone = PoolManager.Instance.Pop(actor.Stone.gameObject, transform);
-            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.IntValue, stonePayload.PrefabValue, stonePayload.Sender, actor.TicketMachine);
+            stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.CombatPayload, stonePayload.PrefabValue, stonePayload.Sender, actor.TicketMachine);
             stone.GetComponent<TerrapupaStone>().MoveToTarget(stonePayload.TransformValue1);
 
             actor.Stone.gameObject.SetActive(false);
         }
-
         private void OnBossApplyAttackCooldown(BossEventPayload payload)
         {
             Debug.Log("OnBossApplyAttackCooldown :: 쿨타임 적용");
 
-            switch (payload.AttackTypeValue)
-            {
-                case TerrapupaAttackType.ThrowStone:
-                    if (terrapupa.terrapupaData.stoneUsable) terrapupa.terrapupaData.canThrowStone.Value = payload.BoolValue;
-                    if (terra.terrapupaData.stoneUsable) terra.terrapupaData.canThrowStone.Value = payload.BoolValue;
-                    if (pupa.terrapupaData.stoneUsable) pupa.terrapupaData.canThrowStone.Value = payload.BoolValue;
-                    break;
-                case TerrapupaAttackType.EarthQuake:
-                    if (terrapupa.terrapupaData.earthQuakeUsable) terrapupa.terrapupaData.canEarthQuake.Value = payload.BoolValue;
-                    if (terra.terrapupaData.earthQuakeUsable) terra.terrapupaData.canEarthQuake.Value = payload.BoolValue;
-                    if (pupa.terrapupaData.earthQuakeUsable) pupa.terrapupaData.canEarthQuake.Value = payload.BoolValue;
-                    break;
-                case TerrapupaAttackType.Roll:
-                    if (terrapupa.terrapupaData.rollUsable) terrapupa.terrapupaData.canRoll.Value = payload.BoolValue;
-                    if (terra.terrapupaData.rollUsable) terra.terrapupaData.canRoll.Value = payload.BoolValue;
-                    if (pupa.terrapupaData.rollUsable) pupa.terrapupaData.canRoll.Value = payload.BoolValue;
-                    break;
-                case TerrapupaAttackType.LowAttack:
-                    if (terrapupa.terrapupaData.lowAttackUsable) terrapupa.terrapupaData.canLowAttack.Value = payload.BoolValue;
-                    if (terra.terrapupaData.lowAttackUsable) terra.terrapupaData.canLowAttack.Value = payload.BoolValue;
-                    if (pupa.terrapupaData.lowAttackUsable) pupa.terrapupaData.canLowAttack.Value = payload.BoolValue;
-                    break;
-                default:
-                    break;
-            }
-        }
+            TerrapupaAttackType type = payload.AttackTypeValue;
+            bool isCooldownDone = payload.BoolValue;
 
+            // 봉인 적용
+            terrapupa.ApplyAttackAvailable(type, isCooldownDone);
+            terra.ApplyAttackAvailable(type, isCooldownDone);
+            pupa.ApplyAttackAvailable(type, isCooldownDone);
+        }
         private void OnStartEarthQuake(IBaseEventPayload earthQuakePayload)
         {
-            Debug.Log($"OnStartEarthQuake");
+            Debug.Log($"OnStartEarthQuake :: 내려찍기 공격 피격 체크");
             BossEventPayload payload = earthQuakePayload as BossEventPayload;
 
             if(payload == null)
@@ -198,13 +197,8 @@ namespace Centers.Boss
             GameObject hitEffect = payload.PrefabValue;
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
-            Transform bossTransform = payload.TransformValue3;
+            Transform hitBossTransform = payload.TransformValue3;
             Transform boss = payload.Sender;
-            int attack = payload.IntValue;
-
-            Debug.Log(playerTransform);
-            Debug.Log(manaTransform);
-            Debug.Log(bossTransform);
 
             float jumpCheckValue = 1.0f;
 
@@ -219,77 +213,52 @@ namespace Centers.Boss
                 Debug.Log($"Raycast distance: {hit.distance}");
                 if (!isJumping)
                 {
-                    Debug.Log($"플레이어 피해 {attack} 입음");
-                    
                     TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-                    bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                    {
-                        Attacker = boss,
-                        Defender = playerTransform,
-                        Damage = payload.IntValue,
-                        PlayerStatusEffectName = StatusEffectName.KnockedAirborne,
-                        statusEffectduration = 1.0f,
-                        force = 15.0f,
-                    });
 
-                    ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
-                    {
-                        Position = playerTransform.position,
-                        Rotation = playerTransform.rotation,
-                        Scale = new Vector3(0.5f, 0.5f, 0.5f),
-                    });
+                    HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
+                    ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
                 }
             }
             if (manaTransform != null)
             {
-                // 해당 마나의 샘 쿨타임 적용, 삭제
-                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
-                manaFountain.IsBroken = true;
-
-                EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                    new BossEventPayload
-                    {
-                        PrefabValue = hitEffect,
-                        Sender = payload.Sender,
-                        TransformValue1 = manaTransform,
-                        AttackTypeValue = manaFountain.banBossAttackType,
-                    });
+                HitedManaFountaine(boss, manaTransform, hitEffect);
             }
-            if(bossTransform != null)
+            if(hitBossTransform != null)
             {
                 // 보스 체크
-                TerrapupaRootData target = bossTransform.GetComponent<TerrapupaController>().terrapupaData;
-                target.hitEarthQuake.Value = true;
+                TerrapupaRootData target = hitBossTransform.GetComponent<TerrapupaController>().terrapupaData;
 
-                ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
-                {
-                    Position = bossTransform.position,
-                    Rotation = bossTransform.rotation,
-                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
-                });
+                target.hitEarthQuake.Value = true;
+                ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
             }
         }
-
         private void OnBossAtrractedByMagicStone(BossEventPayload magicStonePayload)
         {
             Debug.Log($"OnBossAtrractedByMagicStone :: 보스 마법 돌맹이를 추적 시작");
 
-            TerrapupaController actor = magicStonePayload.TransformValue2.GetComponent<TerrapupaController>();
-            actor.terrapupaData.isTempted.Value = true;
-            actor.terrapupaData.isIntake.Value = false;
-            actor.terrapupaData.magicStoneTransform.Value = magicStonePayload.TransformValue1;
+            Transform magicStone = magicStonePayload.TransformValue1;
+            Transform target = magicStonePayload.TransformValue2;
+            if (target)
+            {
+                TerrapupaController actor = target.GetComponent<TerrapupaController>();
+                actor.terrapupaData.isTempted.Value = true;
+                actor.terrapupaData.isIntake.Value = false;
+                actor.terrapupaData.magicStoneTransform.Value = magicStone;
+            }
         }
-
         private void OnBossUnattractedByMagicStone(BossEventPayload magicStonePayload)
         {
             Debug.Log($"OnBossUnattractedByMagicStone :: 보스 마법 돌맹이를 추적 종료");
 
-            TerrapupaController actor = magicStonePayload.TransformValue2.GetComponent<TerrapupaController>();
-            actor.terrapupaData.isTempted.Value = false;
-            actor.terrapupaData.isIntake.Value = false;
-            actor.terrapupaData.magicStoneTransform.Value = null;
+            Transform target = magicStonePayload.TransformValue2;
+            if (target)
+            {
+                TerrapupaController actor = target.GetComponent<TerrapupaController>();
+                actor.terrapupaData.isTempted.Value = false;
+                actor.terrapupaData.isIntake.Value = false;
+                actor.terrapupaData.magicStoneTransform.Value = null;
+            }
         }
-
         private void OnIntakeMagicStoneByBoss1(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnIntakeMagicStoneByBoss1 :: 보스가 마법 돌맹이를 섭취함");
@@ -309,10 +278,7 @@ namespace Centers.Boss
             {
                 Destroy(_magicStone.gameObject);
             }
-
-            //magicStone = null;
         }
-
         private void OnBossDeath(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnBossDeath :: 보스가 사망");
@@ -342,46 +308,14 @@ namespace Centers.Boss
                 payload.Sender.gameObject.SetActive(false);
             }
 
-            if(minionDeathCheck == 0)
+            if(minionDeathCheck == 2 || minionDeathCheck == 0)
             {
-                Debug.Log("보스 클리어");
+                Debug.Log("골렘의 눈 드랍");
+                Vector3 position = payload.Sender.position;
+
+                terrapupaMapObjects.DropStoneItem(position, terrapupaMapObjects.GOLEM_CORE_INDEX);
             }
         }
-
-        private void SpawnTerraAndPupa()
-        {
-            Debug.Log("SpawnTerraAndPupa :: 테라, 푸파 소환");
-
-            terra.gameObject.SetActive(true);
-            pupa.gameObject.SetActive(true);
-
-            terra.transform.position = terrapupa.transform.position;
-            pupa.transform.position = terrapupa.transform.position;
-
-            terra.terrapupaData.player.Value = player.transform;
-            pupa.terrapupaData.player.Value = player.transform;
-        }
-
-        private void SpawnMinions(Transform obj)
-        {
-            Debug.Log("SpawnMinions :: 테, 라, 푸, 파 랜덤 2마리 소환");
-
-            Vector3 position = obj.position;
-
-            for(int i = 0; i < 2; i++)
-            {
-                int index = Random.Range(0, minions.Count);
-                TerrapupaMinionController minion = minions[index];
-
-                minion.gameObject.SetActive(true);
-
-                minion.transform.position = position;
-                minion.minionData.player.Value = player.transform;
-
-                minions.RemoveAt(index);
-            }
-        }
-
         private void OnHitStone(BossEventPayload bossPayload)
         {
             Debug.Log($"OnHitStone :: 보스가 돌에 맞음");
@@ -389,7 +323,6 @@ namespace Centers.Boss
             TerrapupaRootData target = bossPayload.TransformValue1.GetComponent<TerrapupaController>().terrapupaData;
             target.hitThrowStone.Value = true;
         }
-
         private void OnBossMeleeAttack(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnMeleeAttack :: 보스의 근접 공격");
@@ -404,41 +337,18 @@ namespace Centers.Boss
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
             Transform boss = payload.Sender;
-            int attack = payload.IntValue;
-
-            Debug.Log(playerTransform);
-            Debug.Log(manaTransform);
+            int attackValue = payload.IntValue;
 
             if (playerTransform != null)
             {
-                Debug.Log($"플레이어 피해 {attack} 입음");
-
                 TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-                bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                {
-                    Attacker = boss,
-                    Defender = playerTransform,
-                    Damage = payload.IntValue,
-                    PlayerStatusEffectName = StatusEffectName.WeakRigidity,
-                    statusEffectduration = 0.05f,
-                });
+                HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
             }
             if (manaTransform != null)
             {
-                // 해당 마나의 샘 쿨타임 적용, 삭제
-                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
-                manaFountain.IsBroken = true;
-
-                EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                    new BossEventPayload
-                    {
-                        Sender = payload.Sender,
-                        TransformValue1 = manaTransform,
-                        AttackTypeValue = manaFountain.banBossAttackType,
-                    });
+                HitedManaFountaine(boss, manaTransform);
             }
         }
-
         private void OnBossLowAttack(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnLowAttack");
@@ -452,10 +362,6 @@ namespace Centers.Boss
             Transform playerTransform = payload.TransformValue1;
             Transform manaTransform = payload.TransformValue2;
             Transform boss = payload.Sender;
-            int attack = payload.IntValue;
-
-            Debug.Log(playerTransform);
-            Debug.Log(manaTransform);
 
             float jumpCheckValue = 1.0f;
 
@@ -469,37 +375,16 @@ namespace Centers.Boss
 
                 Debug.Log($"Raycast distance: {hit.distance}");
                 if (!isJumping)
-                {
-                    Debug.Log($"플레이어 피해 {attack} 입음");
-
+                { 
                     TerrapupaController bossController = boss.GetComponent<TerrapupaController>();
-                    bossController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                    {
-                        Attacker = boss,
-                        Defender = playerTransform,
-                        Damage = payload.IntValue,
-                        PlayerStatusEffectName = StatusEffectName.Down,
-                        statusEffectduration = 0.5f,
-                        force = 10.0f,
-                    });
+                    HitedPlayer(bossController.TicketMachine, boss, playerTransform, payload.CombatPayload);
                 }
             }
             if (manaTransform != null)
             {
-                // 해당 마나의 샘 쿨타임 적용, 삭제
-                ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
-                manaFountain.IsBroken = true;
-
-                EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                    new BossEventPayload
-                    {
-                        Sender = payload.Sender,
-                        TransformValue1 = manaTransform,
-                        AttackTypeValue = manaFountain.banBossAttackType,
-                    });
+                HitedManaFountaine(payload.Sender, manaTransform);
             }
         }
-
         private void OnBossMinionAttack(IBaseEventPayload bossPayload)
         {
             Debug.Log($"OnMinionAttack :: 보스 미니언의 공격");
@@ -513,41 +398,17 @@ namespace Centers.Boss
 
             Transform playerTransform = payload.TransformValue1;
             Transform minion = payload.Sender;
-            int attack = payload.IntValue;
 
             Debug.Log(playerTransform);
 
             if (playerTransform != null)
             {
-                Debug.Log($"플레이어 피해 {attack} 입음");
-
                 TerrapupaMinionController minionController = minion.GetComponent<TerrapupaMinionController>();
-                minionController.TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                {
-                    Attacker = minion,
-                    Defender = playerTransform,
-                    Damage = payload.IntValue,
-                    PlayerStatusEffectName = StatusEffectName.WeakRigidity,
-                    statusEffectduration = 0.05f,
-                });
-
+                HitedPlayer(minionController.TicketMachine, minion, playerTransform, payload.CombatPayload);
             }
 
             StartCoroutine(MinionAttackCooldown(payload));
         }
-
-        private IEnumerator MinionAttackCooldown(BossEventPayload payload)
-        {
-            TerrapupaMinionController minionController = payload.Sender.GetComponent<TerrapupaMinionController>();
-            Debug.Log($"{minionController} 공격 봉인");
-            minionController.minionData.canAttack.Value = false;
-
-            yield return new WaitForSeconds(5.0f);
-
-            Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
-            minionController.minionData.canAttack.Value = true;
-        }
-
         private void OnDestroyAllManaFountains()
         {
             Debug.Log($"OnDestroyAllManaFountains :: 보스 즉사");
@@ -557,23 +418,105 @@ namespace Centers.Boss
                 case 1:
                     currentLevel++;
                     Debug.Log("테라푸파 사망, 즉사");
-                    Vector3 pos = terrapupa.transform.position;
-                    
-                    terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
-                    terrapupa.terrapupaData.currentHP.Value = 0;
+                    KillTerrapupa();
                     break;
                 case 2:
                     Debug.Log("테라, 푸파 사망, 즉사");
-                    Vector3 pos1 = terra.transform.position;
-                    Vector3 pos2 = pupa.transform.position;
-
-                    terrapupa.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
-                    terrapupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
-                    terra.terrapupaData.currentHP.Value = 0;
-                    pupa.terrapupaData.currentHP.Value = 0;
+                    KillTerraAndPupa();
                     break;
             }
         }
+        private void OnApplySingleBossCooldown(IBaseEventPayload cooldownPayload)
+        {
+            Debug.Log("ApplyBossAttackCooldown :: 쿨타임 적용");
+            BossEventPayload payload = cooldownPayload as BossEventPayload;
+
+            TerrapupaController bossController = payload.Sender.GetComponent<TerrapupaController>();
+            float cooldown = payload.FloatValue;
+            TerrapupaAttackType banType = payload.AttackTypeValue;
+
+            bossController.Cooldown(cooldown, banType);
+        }
+        private void OnStartIntakeMagicStone(IBaseEventPayload bossPayload)
+        {
+            BossEventPayload payload = bossPayload as BossEventPayload;
+
+            Transform magicStone = payload.TransformValue1;
+
+            // 지속시간 체크 정지
+            magicStone.GetComponent<MagicStone>().StopCheckDuration();
+        }
+        #endregion
+
+        #region 3. 코루틴 함수
+        private IEnumerator MinionAttackCooldown(BossEventPayload payload)
+        {
+            TerrapupaMinionController minionController = payload.Sender.GetComponent<TerrapupaMinionController>();
+            Debug.Log($"{minionController} 공격 봉인");
+            minionController.minionData.canAttack.Value = false;
+
+            yield return new WaitForSeconds(payload.FloatValue);
+
+            Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
+            minionController.minionData.canAttack.Value = true;
+        }
+        #endregion
+        
+        #region 4. 기타 함수
+        private void HitedPlayer(TicketMachine ticketMachine, Transform attacker, Transform player, CombatPayload payload)
+        {
+            Debug.Log($"플레이어 피해 {payload.Damage} 입음");
+            payload.Attacker = attacker;
+            payload.Defender = player;
+
+            ticketMachine.SendMessage(ChannelType.Combat, payload);
+        }
+        private void HitedManaFountaine(Transform attacker, Transform manaTransform, GameObject hitEffect = null)
+        {
+            ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
+            manaFountain.IsBroken = true;
+
+            EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
+                new BossEventPayload
+                {
+                    PrefabValue = hitEffect,
+                    Sender = attacker,
+                    TransformValue1 = manaTransform,
+                    AttackTypeValue = manaFountain.banBossAttackType,
+                });
+        }
+        private void SpawnTerraAndPupa()
+        {
+            Debug.Log("SpawnTerraAndPupa :: 테라, 푸파 소환");
+
+            terra.gameObject.SetActive(true);
+            pupa.gameObject.SetActive(true);
+
+            terra.transform.position = terrapupa.transform.position;
+            pupa.transform.position = terrapupa.transform.position;
+
+            terra.terrapupaData.player.Value = player.transform;
+            pupa.terrapupaData.player.Value = player.transform;
+        }
+        private void SpawnMinions(Transform obj)
+        {
+            Debug.Log("SpawnMinions :: 테, 라, 푸, 파 랜덤 2마리 소환");
+
+            Vector3 position = obj.position;
+
+            for (int i = 0; i < 2; i++)
+            {
+                TerrapupaMinionController minion = minions[currentMinionSpawnIndex];
+
+                minion.gameObject.SetActive(true);
+                minion.transform.position = position;
+                minion.minionData.player.Value = player.transform;
+
+                // 미니언 인덱스 갱신 ( +1 )
+                currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;
+            }
+        }
+        #endregion
 
         private void OnGUI()
         {

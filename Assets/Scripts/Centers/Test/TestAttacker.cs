@@ -53,10 +53,10 @@ namespace Assets.Scripts.Centers.Test
             {
                 Type = CombatType.Melee,
                 Attacker = transform,
-                Defender = playerStatus.transform,
+                Defender = playerStatus.gameObject.transform,
                 AttackDirection = Vector3.zero,
                 AttackStartPosition = transform.position,
-                AttackPosition = playerStatus.transform.position,
+                AttackPosition = playerStatus.gameObject.transform.position,
                 PlayerStatusEffectName = statusEffect,
                 statusEffectduration = testEffectDuration,
                 force = testForce,

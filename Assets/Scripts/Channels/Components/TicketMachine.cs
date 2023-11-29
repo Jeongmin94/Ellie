@@ -78,6 +78,7 @@ namespace Channels.Components
             {
                 foreach (var channelType in tickets.Keys)
                 {
+                    Debug.Log(channelType + " 채널 구독 : " + gameObject.name);
                     tickets[channelType].Subscribe(channels[channelType]);
                 }
             }

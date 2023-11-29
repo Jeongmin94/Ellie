@@ -27,8 +27,10 @@ MonoBehaviour:
     - rid: 283011090204065863
     - rid: 283011090204065861
     - rid: 283011090204065862
-  viewPosition: {x: -124, y: 281.6, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 1683426562437021805
+    - rid: 1683426562437021806
+  viewPosition: {x: -339.2, y: 212, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -39,13 +41,13 @@ MonoBehaviour:
       data:
         name: rotationSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 283011090204065862
       type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         name: movementSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 283011090204065863
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -58,7 +60,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: 1095, y: -300}
+        position: {x: 930, y: -135}
         blackboard:
           keys: []
         description: "\uCD94\uC801"
@@ -71,7 +73,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 41f2109e5024d154784184f4e0d7f91c
-        position: {x: 1095, y: -180}
+        position: {x: 930, y: 0}
         blackboard:
           keys: []
         description: 
@@ -86,7 +88,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3f5a332b14474aa4aa80127bff58fe29
-        position: {x: 885, y: 15}
+        position: {x: 720, y: 195}
         blackboard:
           keys: []
         description: 
@@ -101,7 +103,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6531107f71650944b9952548f92bcbeb
-        position: {x: 1305, y: 15}
+        position: {x: 1140, y: 195}
         blackboard:
           keys: []
         description: 
@@ -117,13 +119,25 @@ MonoBehaviour:
         typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
+    - rid: 1683426562437021805
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: canAttack
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1683426562437021806
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: attackDetectionDistance
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
     - rid: 8619125029124177928
       type: {class: SmoothLookAt, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: f0c96dcf03b89ef4abe4c8747e4ee0b1
-        position: {x: 1095, y: 15}
+        position: {x: 930, y: 195}
         blackboard:
           keys: []
         description: 

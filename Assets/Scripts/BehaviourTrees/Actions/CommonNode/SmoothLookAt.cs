@@ -32,7 +32,7 @@ public class SmoothLookAt : ActionNode
 
         direction.y = 0;
 
-        if (direction.sqrMagnitude < 0.001f)
+        if (direction.sqrMagnitude < 0.01f)
         {
             return State.Success;
         }

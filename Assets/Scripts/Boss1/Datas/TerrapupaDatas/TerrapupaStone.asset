@@ -15,6 +15,10 @@ MonoBehaviour:
   dataName: TerrapupaStone
   stoneEffect1: {fileID: 2805291560145305143, guid: cfff15a792dc8a3459d071561c0f3a99, type: 3}
   stoneEffect2: {fileID: 3372370307966123708, guid: 88f6f28357b07434ebd2bc95e14f6cfd, type: 3}
-  stoneRotationSpeed: 3
-  stoneMovementSpeed: 15
-  stoneAttackValue: 5
+  cooldown: 10
+  rotationSpeed: 2
+  movementSpeed: 15
+  attackValue: 5
+  statusEffect: 3
+  statusEffectDuration: 0.5
+  statusEffectForce: 10

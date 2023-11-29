@@ -4,6 +4,12 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {
+    public enum DialogSpeaker
+    {
+        NPC,
+        Player,
+        Narr,
+    }
     [Serializable]
     public class DialogData
     {
@@ -57,7 +63,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                     string speaker = entries[2].Trim();
                     if (string.IsNullOrEmpty(speaker))
                     {
-                        data.speaker = InvalidValue;
+                        data.speaker = 2;
                     }
                     else
                     {

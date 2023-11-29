@@ -16,6 +16,7 @@ namespace Assets.Scripts.Item
         public StoneHatchery hatchery { get; set; }
 
         private new Rigidbody rigidbody;
+        
 
         public Rigidbody StoneRigidBody
         {
@@ -74,5 +75,6 @@ namespace Assets.Scripts.Item
             payload.itemData = data;
             return payload;
         }
+
     }
 }
