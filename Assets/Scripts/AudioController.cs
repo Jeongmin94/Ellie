@@ -12,6 +12,7 @@ namespace Assets.Scripts
 
         private AudioSource audioSource;
 
+        public bool isPlaying = false;
         public bool isPaused = false;
         private void OnEnable()
         {
@@ -29,6 +30,7 @@ namespace Assets.Scripts
         }
         public void Play(float pitch, SoundType type)
         {
+            isPlaying = true;
             audioSource.pitch = pitch;
             if(type == SoundType.Bgm)
             {
@@ -42,6 +44,7 @@ namespace Assets.Scripts
             audioSource.loop = false;
             audioSource.Stop();
             audioSource.pitch = 1.0f;
+            isPlaying = false;
         }
 
         public void Pause()

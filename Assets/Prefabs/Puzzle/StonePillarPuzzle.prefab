@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7476517087948658992}
   - component: {fileID: 7476517087948658995}
-  - component: {fileID: 7476517087948658994}
+  - component: {fileID: 1868064932077289131}
   m_Layer: 0
   m_Name: StonePillarPuzzle
   m_TagString: Untagged
@@ -49,7 +49,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7476517087948658994
+--- !u!114 &1868064932077289131
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -62,15 +62,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   center: {x: 0, y: 0, z: 0}
-  size: {x: 1, y: 1, z: 1}
+  size: {x: 0, y: 0, z: 0}
   count: 0
-  pillar1: {fileID: 0}
-  pillar2: {fileID: 0}
-  pillar3: {fileID: 0}
+  pillar1: {fileID: 7476517088261830002}
+  pillar2: {fileID: 7476517088242264819}
+  pillar3: {fileID: 7476517086811059438}
   pillar1Height: 0
   pillar2Height: 0
   pillar3Height: 0
-  raisingSpeed: 1
+  waitTime: 0
+  raisingSpeed: 0
 --- !u!1001 &7476517086811094680
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -144,6 +145,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
+--- !u!1 &7476517086811059438 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100982, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
+  m_PrefabInstance: {fileID: 7476517086811094680}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7476517086811144978 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 474506, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
@@ -222,6 +228,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
+--- !u!1 &7476517088242264819 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100982, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
+  m_PrefabInstance: {fileID: 7476517088242229381}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7476517088242687247 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 474506, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
@@ -300,6 +311,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
+--- !u!1 &7476517088261830002 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100982, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}
+  m_PrefabInstance: {fileID: 7476517088261734148}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7476517088261915278 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 474506, guid: a37f20b3eec081743b82e27ff600c7cf, type: 3}

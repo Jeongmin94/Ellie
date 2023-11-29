@@ -122,7 +122,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = consumableItemDataParsingInfo.items[0];
-            testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
 
@@ -134,7 +133,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             var ret = MakeAddItemPayload();
 
             ret.itemData = consumableItemDataParsingInfo.items[1];
-            ret.itemData.imageName = "UI/Item/ItemDefaultWhite";
 
             return ret;
         }
@@ -147,7 +145,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = consumableItemDataParsingInfo.items[0];
-            testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
 

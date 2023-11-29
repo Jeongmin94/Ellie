@@ -19,7 +19,6 @@ namespace Assets.Scripts.Player.States
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.TurnOnSlingshot();
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound1", Controller.transform.position);
-
         }
 
         public override void OnExitState()
