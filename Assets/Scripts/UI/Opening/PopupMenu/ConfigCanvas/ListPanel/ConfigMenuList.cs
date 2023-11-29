@@ -63,6 +63,7 @@ namespace Assets.Scripts.UI.PopupMenu
                     data.ClearAction();
 
                     var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
+                    component.name += $"#{data.configName}";
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
                     data.OnIndexChanged(0);
@@ -76,6 +77,8 @@ namespace Assets.Scripts.UI.PopupMenu
                     data.ClearAction();
 
                     var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
+                    component.name += $"#{data.configName}";
+
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
                     data.OnIndexChanged(0);
@@ -89,6 +92,8 @@ namespace Assets.Scripts.UI.PopupMenu
                     data.ClearAction();
 
                     var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
+                    component.name += $"#{data.configName}";
+
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
                     data.OnIndexChanged(0);

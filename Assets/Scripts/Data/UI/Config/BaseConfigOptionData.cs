@@ -15,7 +15,9 @@ namespace Data.UI.Config
 
         private Action<string> valueChangeAction;
 
+        // !TODO: 씬이 전환될 때마다 ClearAction을 호출해야 함
         public void ClearAction() => valueChangeAction = null;
+
 
         // !TODO: 옵션 설정값이 변경되면 설정값 변경에 대한 로직을 처리하는 클래스에서 구독해서 사용해야 함
         public void SubscribeValueChangeAction(Action<string> listener)

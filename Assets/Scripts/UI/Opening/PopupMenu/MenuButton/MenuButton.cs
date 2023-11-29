@@ -13,7 +13,7 @@ namespace Assets.Scripts.UI.PopupMenu
             menuButtonAction += listener;
         }
 
-        private void OnDestroy()
+        protected virtual void OnDestroy()
         {
             menuButtonAction = null;
         }

@@ -59,11 +59,18 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             base.Init();
 
-            InputManager.Instance.escapeAction -= OnEscapeAction;
-            InputManager.Instance.escapeAction += OnEscapeAction;
+            InputManager.Instance.Subscribe(InputType.Escape, OnEscapeAction);
 
             Bind();
             InitObjects();
+        }
+
+        private void OnDestroy()
+        {
+            if (InputManager.Instance)
+            {
+                InputManager.Instance.UnSubscribe(InputType.Escape, OnEscapeAction);
+            }
         }
 
         private void Bind()

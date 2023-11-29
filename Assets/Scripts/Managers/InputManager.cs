@@ -4,6 +4,13 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Managers
 {
+    public enum InputType
+    {
+        Key,
+        Mouse,
+        Escape,
+    }
+
     public class InputManager : Singleton<InputManager>
     {
         public Action keyAction;
@@ -12,11 +19,51 @@ namespace Assets.Scripts.Managers
 
         private bool isMousePressed = false;
 
+        public void UnSubscribe(InputType type, Action listener)
+        {
+            switch (type)
+            {
+                case InputType.Key:
+                    keyAction -= listener;
+                    break;
+                case InputType.Mouse:
+                    mouseAction -= listener;
+                    break;
+                case InputType.Escape:
+                    escapeAction -= listener;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+        public void Subscribe(InputType type, Action listener)
+        {
+            switch (type)
+            {
+                case InputType.Key:
+                    keyAction -= listener;
+                    keyAction += listener;
+                    break;
+                case InputType.Mouse:
+                    mouseAction -= listener;
+                    mouseAction += listener;
+                    break;
+                case InputType.Escape:
+                    escapeAction -= listener;
+                    escapeAction += listener;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.Escape))
                 escapeAction?.Invoke();
-            
+
             if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
                 return;
 

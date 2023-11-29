@@ -118,7 +118,9 @@ namespace Assets.Scripts.UI.PopupMenu
             tmp.lineSpacing = data.lineSpacing;
         }
 
-        public void SetConfigData(string configName, bool readOnly, Action<int> onIndexChanged)
+        public void SetConfigData(string configName,
+                                  bool readOnly,
+                                  Action<int> onIndexChanged)
         {
             optionPrev.SetActive(!readOnly);
             optionNext.SetActive(!readOnly);
@@ -129,11 +131,6 @@ namespace Assets.Scripts.UI.PopupMenu
             componentAction += onIndexChanged;
         }
 
-        private void OnDestroy()
-        {
-            componentAction = null;
-        }
-
         private void OnButtonClick(int value)
         {
             componentAction?.Invoke(value);
@@ -142,6 +139,11 @@ namespace Assets.Scripts.UI.PopupMenu
         public void OnOptionValueChanged(string value)
         {
             optionValue.text = value;
+        }
+
+        private void OnDestroy()
+        {
+            componentAction = null;
         }
     }
 }
