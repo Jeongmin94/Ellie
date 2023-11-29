@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
+using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
@@ -31,7 +32,7 @@ namespace Assets.Scripts.UI.PopupMenu
         public bool isOn;
     }
 
-    public class BasePopupCanvas : UIBase
+    public class BasePopupCanvas : UIPopup
     {
         public static readonly string Path = "PopupMenuCanvas";
 
@@ -47,7 +48,7 @@ namespace Assets.Scripts.UI.PopupMenu
         [SerializeField] private UITransformData popupButtonGridTransform;
         [SerializeField] private TextTypographyData popupTitleTypography;
         [SerializeField] private TextTypographyData popupButtonTypography;
-        [SerializeField] private string[] titles;
+        [SerializeField] private PopupData popupData;
 
         private readonly TransformController popupBackgroundController = new TransformController();
         private readonly TransformController popupTextPanelController = new TransformController();
@@ -75,27 +76,13 @@ namespace Assets.Scripts.UI.PopupMenu
 
         public void InitPopupCanvas(PopupType type)
         {
+            base.Init();
+            
             Init();
 
             popupType = type;
-            SetTitle(titles[(int)type]);
-            switch (type)
-            {
-                case PopupType.Load:
-                    popupCanvas = gameObject.GetOrAddComponent<LoadPopup>();
-                    break;
-                case PopupType.Start:
-                    popupCanvas = gameObject.GetOrAddComponent<StartPopup>();
-                    break;
-                case PopupType.Config:
-                    popupCanvas = gameObject.GetOrAddComponent<ConfigPopup>();
-                    break;
-                case PopupType.Exit:
-                    popupCanvas = gameObject.GetOrAddComponent<ExitPopup>();
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
-            }
+            SetTitle(popupData.GetTitle(type));
+            popupCanvas = gameObject.AddPopupCanvas(type);
         }
 
         protected override void Init()

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
@@ -31,8 +32,9 @@ namespace Assets.Scripts.UI.InGame
         [SerializeField] private TextTypographyData pauseMenuTypographyData;
         [SerializeField] private TextTypographyData escapeTypographyData;
 
-        [Header("메뉴 이름")] [SerializeField] private string[] menuTitles;
         [Header("팝업 타입")] [SerializeField] private PopupType[] popupTypes;
+
+        [SerializeField] private string[] buttonNames;
 
         private GameObject buttonPanel;
         private GameObject escapePanel;
@@ -43,7 +45,10 @@ namespace Assets.Scripts.UI.InGame
 
         private Image escapeImage;
 
-        private readonly List<PauseMenuButton> menuButtons = new List<PauseMenuButton>();
+        private ConfigCanvas configCanvas;
+
+        private readonly IDictionary<PopupType, PauseMenuButton> menuButtonMap = new Dictionary<PopupType, PauseMenuButton>();
+        private readonly IDictionary<PopupType, BasePopupCanvas> popupCanvasMap = new Dictionary<PopupType, BasePopupCanvas>();
 
         private void Awake()
         {
@@ -53,6 +58,8 @@ namespace Assets.Scripts.UI.InGame
         protected override void Init()
         {
             base.Init();
+
+            InputManager.Instance.Subscribe(InputType.Escape, OnEscapeAction);
 
             Bind();
             InitObjects();
@@ -90,23 +97,44 @@ namespace Assets.Scripts.UI.InGame
             escapeImageRect.localPosition = escapeImageTransformData.actionRect.Value.ToCanvasPos();
             escapeImageRect.localScale = escapeTransformData.actionScale.Value;
 
+            configCanvas = UIManager.Instance.MakePopup<ConfigCanvas>(ConfigCanvas.Path);
+            configCanvas.configCanvasAction -= OnPopupCanvasAction;
+            configCanvas.configCanvasAction += OnPopupCanvasAction;
+            configCanvas.gameObject.SetActive(false);
+
+            InitPopupCanvas();
             InitPauseMenuButtons();
+        }
+
+        private void InitPopupCanvas()
+        {
+            foreach (var type in popupTypes)
+            {
+                var popup = UIManager.Instance.MakePopup<BasePopupCanvas>(BasePopupCanvas.Path);
+                popup.InitPopupCanvas(type);
+                popup.Subscribe(OnPopupCanvasAction);
+                popup.name += $"#{type}";
+                popup.gameObject.SetActive(false);
+
+                popupCanvasMap[type] = popup;
+            }
         }
 
         private void InitPauseMenuButtons()
         {
             // menu
-            int idx = 0;
-            foreach (var title in menuTitles)
+            for (int i = 0; i < buttonNames.Length; i++)
             {
                 var button = UIManager.Instance.MakeSubItem<PauseMenuButton>(buttonPanelRect, PauseMenuButton.Path);
 
+                string title = buttonNames[i];
                 pauseMenuTypographyData.title = title;
                 button.name += $"#{title}";
                 button.InitText();
                 button.InitTypography(pauseMenuTypographyData);
-                button.InitPauseMenuButton(popupTypes[idx++]);
-                menuButtons.Add(button);
+                button.InitPauseMenuButton(popupTypes[i], OnButtonClicked);
+
+                menuButtonMap[popupTypes[i]] = button;
             }
 
             // escape
@@ -114,14 +142,71 @@ namespace Assets.Scripts.UI.InGame
             escapeButton.name += $"#{escapeTypographyData.title}";
             escapeButton.InitText();
             escapeButton.InitTypography(escapeTypographyData);
-            escapeButton.InitPauseMenuButton(PopupType.Escape);
+            escapeButton.InitPauseMenuButton(PopupType.Escape, OnButtonClicked);
+
+            menuButtonMap[PopupType.Escape] = escapeButton;
+        }
+
+        private void OnEscapeAction()
+        {
+            if (!gameObject.activeSelf)
+            {
+                gameObject.SetActive(true);
+            }
+            else
+            {
+                bool allPopupClosed = true;
+                foreach (var popup in popupCanvasMap.Values)
+                {
+                    if (popup.gameObject.activeSelf)
+                        allPopupClosed = false;
+                }
+
+                if (allPopupClosed)
+                    gameObject.SetActive(false);
+            }
         }
 
         private void OnButtonClicked(PopupPayload payload)
         {
-            if (payload.buttonType == ButtonType.No)
+            if (payload.popupType == PopupType.Config)
+            {
+                configCanvas.gameObject.SetActive(true);
+            }
+            else if (payload.popupType == PopupType.Escape)
             {
                 gameObject.SetActive(false);
+            }
+            else
+            {
+                popupCanvasMap[payload.popupType].gameObject.SetActive(true);
+            }
+        }
+
+        private void OnPopupCanvasAction(PopupPayload payload)
+        {
+            switch (payload.buttonType)
+            {
+                case ButtonType.Yes:
+                {
+                    // !TODO
+                }
+                    break;
+
+                case ButtonType.No:
+                {
+                    if (payload.popupType == PopupType.Config)
+                    {
+                        configCanvas.gameObject.SetActive(false);
+                    }
+                    else
+                    {
+                        popupCanvasMap[payload.popupType].gameObject.SetActive(false);
+                    }
+                }
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
     }

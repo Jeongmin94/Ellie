@@ -30,12 +30,22 @@ namespace Assets.Scripts.UI.InGame
         private RectTransform hoverPanelRect;
         private Image hoverPanelImage;
 
-        public void InitPauseMenuButton(PopupType popupType)
-        {
-            PauseButtonPopupType = popupType;
+        private Action<PopupPayload> pauseMenuButtonAction;
 
+        public void InitPauseMenuButton(PopupType popupType, Action<PopupPayload> listener)
+        {
             BindHoverPanel();
             InitHoverPanel();
+
+            PauseButtonPopupType = popupType;
+
+            pauseMenuButtonAction -= listener;
+            pauseMenuButtonAction += listener;
+        }
+
+        private void OnDestroy()
+        {
+            pauseMenuButtonAction = null;
         }
 
         private void BindHoverPanel()
@@ -73,15 +83,24 @@ namespace Assets.Scripts.UI.InGame
 
         private void OnButtonClicked(PointerEventData data)
         {
+            PopupPayload payload = new PopupPayload();
+            payload.popupType = PauseButtonPopupType;
+            pauseMenuButtonAction?.Invoke(payload);
         }
 
         private void OnPointerEnter(PointerEventData data)
         {
+            if (PauseButtonPopupType == PopupType.Escape)
+                return;
+
             hoverPanel.gameObject.SetActive(true);
         }
 
         private void OnPointerExit(PointerEventData data)
         {
+            if (PauseButtonPopupType == PopupType.Escape)
+                return;
+
             hoverPanel.gameObject.SetActive(false);
         }
     }

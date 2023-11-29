@@ -1,6 +1,7 @@
 using Assets.Scripts.UI.Framework;
 using System;
 using System.Linq;
+using Assets.Scripts.UI.PopupMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
@@ -135,6 +136,36 @@ namespace Assets.Scripts.Utils
             offset.top = value;
             offset.left = value;
             offset.right = value;
+        }
+
+        public static PopupCanvas AddPopupCanvas(this GameObject go, PopupType popupType)
+        {
+            PopupCanvas popupCanvas = null;
+            switch (popupType)
+            {
+                case PopupType.Load:
+                    popupCanvas = go.GetOrAddComponent<LoadPopup>();
+                    break;
+                case PopupType.Start:
+                    popupCanvas = go.GetOrAddComponent<StartPopup>();
+                    break;
+                case PopupType.Config:
+                    popupCanvas = go.GetOrAddComponent<ConfigPopup>();
+                    break;
+                case PopupType.Exit:
+                    popupCanvas = go.GetOrAddComponent<ExitPopup>();
+                    break;
+                case PopupType.Main:
+                    popupCanvas = go.GetOrAddComponent<MainPopup>();
+                    break;
+                case PopupType.Escape:
+                    popupCanvas = go.GetOrAddComponent<EscapePopup>();
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(popupType), popupType, null);
+            }
+
+            return popupCanvas;
         }
 
         #endregion
