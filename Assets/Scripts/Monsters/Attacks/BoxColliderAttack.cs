@@ -15,7 +15,7 @@ namespace Assets.Scripts.Monsters.Attacks
     public class BoxColliderAttack : AbstractAttack
     {
         private BoxCollider collider;
-        private BoxColliderAttackData attackData;
+        private MonsterAttackData attackData;
         private ParticleSystem particle;
 
         private void Awake()
@@ -23,10 +23,10 @@ namespace Assets.Scripts.Monsters.Attacks
             SetTicketMachine();   
         }
 
-        public override void InitializeBoxCollider(BoxColliderAttackData data)
+        public override void InitializeBoxCollider(MonsterAttackData data)
         {
             attackData = data;
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            InitializedBase(data);
 
             if (collider == null)
             {
@@ -77,7 +77,7 @@ namespace Assets.Scripts.Monsters.Attacks
             }
         }
 
-        private void SetAndAttack(BoxColliderAttackData data, Transform otherTransform)
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
             CombatPayload payload = new();
             payload.Type = data.combatType;

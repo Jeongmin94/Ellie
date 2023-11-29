@@ -23,6 +23,8 @@ namespace Assets.Scripts.Monsters.Utility
         }
         public enum AttackSkill
         {
+            RunToPlayer,
+            Flee,
             BoxCollider,
             SphereCollider,
             ProjectileAttack,

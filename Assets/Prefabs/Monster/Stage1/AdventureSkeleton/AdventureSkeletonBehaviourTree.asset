@@ -114,6 +114,7 @@ MonoBehaviour:
   - rid: 6937830886797737992
   - rid: 6937831022925971456
   - rid: 6937831022925971457
+  - rid: 6937831075080830976
   treeState: 0
   blackboard:
     keys:
@@ -141,8 +142,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542871
-  viewPosition: {x: 552.5, y: 250.5, z: 0}
-  viewScale: {x: 0.28426248, y: 0.28426248, z: 1}
+  viewPosition: {x: 2329, y: -144, z: 0}
+  viewScale: {x: 0.6575163, y: 0.6575163, z: 1}
   references:
     version: 2
     RefIds:
@@ -326,6 +327,7 @@ MonoBehaviour:
         - rid: 5827610086317228044
         - rid: 5827610129303863303
         - rid: 6937830705275600921
+        - rid: 6937831075080830976
         - rid: 6937830886797737992
         - rid: 5827610181934514197
         - rid: 5827610086317228046
@@ -363,15 +365,15 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 5cc5555f37fb94b67baf5caa4c84622d
-        position: {x: -555, y: 840}
+        position: {x: -405, y: 840}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
-        skillName:
+        skillType:
           reference:
             rid: -2
-          defaultValue: MeleeAttack
+          defaultValue: 2
     - rid: 5827610086317228048
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -871,7 +873,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bb46c627243974245a81ab56605ea555
-        position: {x: -405, y: 840}
+        position: {x: -255, y: 840}
         blackboard:
           keys: []
         description: 
@@ -962,7 +964,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: afb2edf6513894559b8482e96ac10960
-        position: {x: -765, y: 840}
+        position: {x: -615, y: 840}
         blackboard:
           keys: []
         description: 
@@ -1374,10 +1376,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        skillName:
+        skillType:
           reference:
             rid: -2
-          defaultValue: WeaponAttack
+          defaultValue: 7
     - rid: 6937830456686542853
       type: {class: Stop, ns: , asm: Assembly.Ellie}
       data:
@@ -2042,7 +2044,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a51a8eda799ef42caaeb7e4338d0c5ee
-        position: {x: -915, y: 840}
+        position: {x: -765, y: 840}
         blackboard:
           keys: []
         description: 
@@ -2076,3 +2078,19 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
+    - rid: 6937831075080830976
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 527c949b7391346f0a96d5af309f6b97
+        position: {x: -915, y: 840}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        duration: 0.1

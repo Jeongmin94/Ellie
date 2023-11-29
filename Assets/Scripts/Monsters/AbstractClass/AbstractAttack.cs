@@ -28,13 +28,12 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public abstract void ActivateAttack();
 
-        protected void InitializedBase(float attackValue, float durationTime
-            , float attackInterval, float attackRange)
+        protected void InitializedBase(MonsterAttackData attackData)
         {
-            this.attackValue = attackValue;
-            this.durationTime = durationTime;
-            AttackInterval = attackInterval;
-            AttackableDistance = attackRange;
+            this.attackValue = attackData.attackValue;
+            this.durationTime = attackData.attackDuration;
+            AttackInterval = attackData.attackInterval;
+            AttackableDistance = attackData.attackableDistance;
 
             IsAttackReady = true;
             owner = transform.parent.gameObject.tag;
@@ -42,22 +41,22 @@ namespace Assets.Scripts.Monsters.AbstractClass
             particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
-        public virtual void InitializeBoxCollider(BoxColliderAttackData data)
+        public virtual void InitializeBoxCollider(MonsterAttackData data)
         { }
 
-        public virtual void InitializeSphereCollider(SphereColliderAttackData data)
+        public virtual void InitializeSphereCollider(MonsterAttackData data)
         { }
 
-        public virtual void InitializeProjectile(ProjectileAttackData data)
+        public virtual void InitializeProjectile(MonsterAttackData data)
         { }
 
-        public virtual void InitializeWeapon(WeaponAttackData data)
+        public virtual void InitializeWeapon(MonsterAttackData data)
         { }
 
-        public virtual void InitializeAOE(AOEAttackData data)
+        public virtual void InitializeAOE(MonsterAttackData data)
         { }
 
-        public virtual void InitializeFanShape(FanShapeAttackData data)
+        public virtual void InitializeFanShape(MonsterAttackData data)
         { }
 
         public virtual void ReceiveDamage(IBaseEventPayload payload)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
+using static Assets.Scripts.Monsters.Utility.Enums;
 
 [System.Serializable]
 public class RunToPlayer : ActionNode
@@ -11,7 +12,7 @@ public class RunToPlayer : ActionNode
     private float accumTime;
     protected override void OnStart()
     {
-        context.agent.speed = context.controller.runToPlayerData.movementSpeed;
+        context.agent.speed = context.controller.attackData[(int)AttackSkill.RunToPlayer].movementSpeed;
         accumTime = 0.0f;
     }
 
@@ -24,7 +25,7 @@ public class RunToPlayer : ActionNode
     {
         context.agent.destination = player.Value.transform.position;
         float distance = Vector3.SqrMagnitude(context.agent.destination - context.transform.position);
-        if (accumTime < context.controller.runToPlayerData.attackDuration)
+        if (accumTime < context.controller.attackData[(int)AttackSkill.RunToPlayer].attackDuration)
         {
             if (distance < context.agent.stoppingDistance * context.agent.stoppingDistance)
             {

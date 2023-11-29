@@ -11,6 +11,7 @@ using Channels.Combat;
 using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.AI;
+using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters.AbstractClass
 {
@@ -27,15 +28,17 @@ namespace Assets.Scripts.Monsters.AbstractClass
         private const float monsterRespawnTime = 10.0f;
         private const float monsterDisable = 5.0f;
 
-        [SerializeField] public SkeletonMonsterData monsterData;
 
-        [SerializeField] public RunToPlayerAttackData runToPlayerData;
-        [SerializeField] public BoxColliderAttackData meleeAttackData;
-        [SerializeField] public WeaponAttackData weaponAttackData;
-        [SerializeField] public ProjectileAttackData projectileAttackData;
-        [SerializeField] public FleeSkillData fleeSkilldata;
-        [SerializeField] public FanShapeAttackData fanshapeAttackData;
-        [SerializeField] public MonsterDropableItemData dropableItemData;
+        [SerializeField] public SkeletonMonsterData monsterData;
+        public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
+
+        //[SerializeField] public RunToPlayerAttackData runToPlayerData;
+        //[SerializeField] public BoxColliderAttackData meleeAttackData;
+        //[SerializeField] public WeaponAttackData weaponAttackData;
+        //[SerializeField] public ProjectileAttackData projectileAttackData;
+        //[SerializeField] public FleeSkillData fleeSkilldata;
+        //[SerializeField] public FanShapeAttackData fanshapeAttackData;
+        //[SerializeField] public MonsterDropableItemData dropableItemData;
 
         public BlackboardKey<bool> isDamaged;
         public BlackboardKey<bool> isDead;
@@ -118,7 +121,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
-            if (isHeadShot) damage *= 1.5f;
+            if (isHeadShot) damage *= monsterData.weakRatio;
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
             isDamaged.value = true;
@@ -179,17 +182,17 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void DropItem()
         {
-            foreach (DropItem a in dropableItemData.items)
-            {
-                float random = Random.Range(0.0f, 1.0f);
-                if (random < a.dropChance)
-                {
-                    Vector3 itemLocation = transform.position;
-                    itemLocation.y += 1.0f;
-                    Instantiate(a, itemLocation, transform.rotation);
-                    break;
-                }
-            }
+            //foreach (DropItem a in dropableItemData.items)
+            //{
+            //    float random = Random.Range(0.0f, 1.0f);
+            //    if (random < a.dropChance)
+            //    {
+            //        Vector3 itemLocation = transform.position;
+            //        itemLocation.y += 1.0f;
+            //        Instantiate(a, itemLocation, transform.rotation);
+            //        break;
+            //    }
+            //}
         }
     }
 

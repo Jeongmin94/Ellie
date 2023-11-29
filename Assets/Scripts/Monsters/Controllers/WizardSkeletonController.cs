@@ -17,13 +17,16 @@ using Channels.Type;
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
 using System.Collections.Generic;
+using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters
 {
-    public class AdventureSkeletonController : AbstractMonster, ICombatant
+
+    public class WizardSkeletonController : AbstractMonster, ICombatant
     {
         //Temp
         public GameObject player;
+
         private TicketMachine ticketMachine;
 
         private void Awake()
@@ -32,50 +35,78 @@ namespace Assets.Scripts.Monsters
             player = GameObject.Find("Player");
 
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
-            audioController = GetComponent<MonsterAudioController>();            
+            audioController = GetComponent<MonsterAudioController>();
+
             
-            SetSkills();
             SetTicketMachine();
             InitUI();
-            
+
         }
 
         private void Start()
         {
             StartCoroutine(InitParsingData());
-            
         }
 
         private IEnumerator InitParsingData()
         {
             yield return DataManager.Instance.CheckIsParseDone();
-            monsterData = DataManager.Instance.GetIndexData<SkeletonMonsterData, SkeletonMonsterDataParsingInfo>(((int)MonsterNumber.AdventureSkeleton));
+            monsterData = DataManager.Instance.GetIndexData<SkeletonMonsterData, SkeletonMonsterDataParsingInfo>(((int)MonsterNumber.WizardSkeleton));
+
+            SetSkills();
+            InitData();
             SetNavMesh();
             SetBehaviourTreeInstance();
         }
         private void SetSkills()
         {
-            if(meleeAttackData!=null)
+            for (int i = 0; i < (int)AttackSkill.End; i++)
             {
-                AddSkills(meleeAttackData.attackName, Enums.AttackSkill.BoxCollider);
-                Attacks[meleeAttackData.attackName].InitializeBoxCollider(meleeAttackData);
+                attackData[i] = null;
             }
-            if(weaponAttackData!=null)
+
+            attackData[(int)AttackSkill.Flee] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2008);
+            attackData[(int)AttackSkill.ProjectileAttack]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2009);
+
+            for (int i = 0; i < (int)AttackSkill.End; i++)
             {
-                GameObject obj = Functions.FindChildByName(gameObject, weaponAttackData.weaponName);
-                weaponAttackData.weapon = obj;
-                AddSkills(weaponAttackData.attackName, Enums.AttackSkill.WeaponAttack);
-                Attacks[weaponAttackData.attackName].InitializeWeapon(weaponAttackData);
-            }
-            if(projectileAttackData!=null)
-            {
-                AddSkills(projectileAttackData.attackName, Enums.AttackSkill.ProjectileAttack);
-                Attacks[projectileAttackData.attackName].InitializeProjectile(projectileAttackData);
-            }
-            if(fanshapeAttackData!=null)
-            {
-                AddSkills(fanshapeAttackData.attackName, Enums.AttackSkill.FanshapeAttack);
-                Attacks[fanshapeAttackData.attackName].InitializeFanShape(fanshapeAttackData);
+                MonsterAttackData temp = attackData[i];
+                if (temp == null) continue;
+
+                AbstractAttack tempAttack = AddSkills(temp.attackName, temp.attackType);
+                Debug.Log(temp.attackName);
+
+                switch (temp.attackType)
+                {
+                    case AttackSkill.RunToPlayer:
+                        behaviourTreeInstance.SetBlackboardValue<float>("RunAttackMinimumDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("RunAttackInterval", temp.attackInterval);
+                        break;
+                    case AttackSkill.Flee:
+                        behaviourTreeInstance.SetBlackboardValue<float>("ActivatableFleeDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("ActivateFleeInterval", temp.attackInterval);
+                        behaviourTreeInstance.SetBlackboardValue<float>("FleeDistance", temp.fleeDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("FleeSpeed", temp.movementSpeed);
+                        break;
+                    case AttackSkill.BoxCollider:
+                        tempAttack.InitializeBoxCollider(temp);
+                        behaviourTreeInstance.SetBlackboardValue<float>("MeleeAnimationHold", temp.animationHold);
+                        behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackableDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackInterval", temp.attackInterval);
+                        break;
+                    case AttackSkill.ProjectileAttack:
+                        tempAttack.InitializeProjectile(temp);
+                        behaviourTreeInstance.SetBlackboardValue<float>("ProjectimeAnimationHold", temp.animationHold);
+                        behaviourTreeInstance.SetBlackboardValue<float>("projectileAttackableDistance", temp.attackableMinimumDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("ProjectileAttackInterval", temp.attackInterval);
+                        break;
+                    case AttackSkill.FanshapeAttack:
+                        tempAttack.InitializeFanShape(temp);
+                        behaviourTreeInstance.SetBlackboardValue<float>("FanshapeAnimationHold", temp.animationHold);
+                        behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackableDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackInterval", temp.attackInterval);
+                        break;
+                }
             }
         }
 
@@ -131,43 +162,6 @@ namespace Assets.Scripts.Monsters
             isReturning = behaviourTreeInstance.FindBlackboardKey<bool>("IsReturning");
             isDead.value = false;
             isDamaged.value = false;
-
-            if (meleeAttackData != null)
-            {
-                behaviourTreeInstance.SetBlackboardValue<float>("MeleeAnimationHold", meleeAttackData.animationHold);
-                behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackableDistance", meleeAttackData.attackableDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackInterval", meleeAttackData.attackInterval);
-            }
-            if (weaponAttackData != null)
-            {
-                behaviourTreeInstance.SetBlackboardValue<float>("WeaponAnimationHold", weaponAttackData.animationHold);
-                behaviourTreeInstance.SetBlackboardValue<float>("WeaponAttackableDistance", weaponAttackData.attackableDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("WeaponAttackInterval", weaponAttackData.attackInterval);
-            }
-            if (projectileAttackData != null)
-            {
-                behaviourTreeInstance.SetBlackboardValue<float>("ProjectimeAnimationHold", projectileAttackData.animationHold);
-                behaviourTreeInstance.SetBlackboardValue<float>("projectileAttackableDistance", projectileAttackData.attackableMinimumDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("ProjectileAttackInterval", projectileAttackData.attackInterval);
-            }
-            if (runToPlayerData != null)
-            {
-                behaviourTreeInstance.SetBlackboardValue<float>("RunAttackMinimumDistance", runToPlayerData.activateMinimumDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("RunAttackInterval", runToPlayerData.attackInterval);
-            }
-            if (fleeSkilldata != null)
-            {
-                behaviourTreeInstance.SetBlackboardValue<float>("ActivatableFleeDistance", fleeSkilldata.activatableDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("ActivateFleeInterval", fleeSkilldata.activateInterval);
-                behaviourTreeInstance.SetBlackboardValue<float>("FleeDistance", fleeSkilldata.fleeDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("FleeSpeed", fleeSkilldata.fleeSpeed);
-            }
-            if(fanshapeAttackData!=null)
-            {
-                behaviourTreeInstance.SetBlackboardValue<float>("FanshapeAnimationHold", fanshapeAttackData.animationHold);
-                behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackableDistance", fanshapeAttackData.attackableDistance);
-                behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackInterval", fanshapeAttackData.attackInterval);
-            }
         }
 
         private void SetNavMesh()
@@ -181,7 +175,7 @@ namespace Assets.Scripts.Monsters
 
         public void ChangeEffectState(StatusEffectName effect)
         {
-            
+
         }
         public override void ReturnSpawnLocation()
         {
