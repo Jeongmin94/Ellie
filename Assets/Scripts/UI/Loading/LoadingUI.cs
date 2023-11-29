@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Centers.Test;
-using Assets.Scripts.Loading;
 using Assets.Scripts.Managers;
 using TMPro;
 using UnityEngine;
@@ -12,10 +11,10 @@ using UnityEditor.SearchService;
 
 public class LoadingUI : MonoBehaviour
 {
-    public static readonly string ImagePath = "UI/Load/Loading";
+    public static readonly string ImagePath = "UI/Load/LoadingImages/Loading";
 
     [SerializeField] private Slider loadingSlider;
-    [SerializeField] private TextMeshProUGUI tipText;
+    [SerializeField] private Text tipText;
     [SerializeField] private Image loadingImage;
 
     [SerializeField] private TipsParshingInfo data;
@@ -28,8 +27,8 @@ public class LoadingUI : MonoBehaviour
 
     private float barSpeed;
 
-    const int imageQuantity = 4;
-    const int tipQuantity = 3;
+    const int imageQuantity = 8;
+    const int tipQuantity = 10;
 
     private void Start()
     {
@@ -40,6 +39,7 @@ public class LoadingUI : MonoBehaviour
     void UpdateImageTip()
     {
         string imagePath = ImagePath + Random.Range(0, imageQuantity).ToString();
+        Debug.Log("IMAGE NAME : " + imagePath);
         loadingImage.sprite = ResourceManager.Instance.LoadSprite(imagePath);
         string tip = data.datas[Random.Range(0, tipQuantity)].tip;
         tipText.text = tip;
