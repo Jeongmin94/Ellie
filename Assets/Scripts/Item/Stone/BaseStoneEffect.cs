@@ -51,22 +51,6 @@ namespace Assets.Scripts.Item.Stone
 
         protected virtual void OnCollisionEnter(Collision collision)
         {
-            if(collisionCount > 0)
-            {
-                ParticleManager.Instance.GetParticle(data.hitParticle, new ParticlePayload
-                {
-                    Position = transform.position,
-                    Rotation = transform.rotation,
-                });
-                collisionCount--;
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3", transform.position);
-            }
-            else
-            {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound4", transform.position);
-
-            }
-
             foreach (ContactPoint contact in collision.contacts)
             {
                 GameObject hitObject = contact.otherCollider.gameObject;
@@ -85,16 +69,25 @@ namespace Assets.Scripts.Item.Stone
                     break;
                 }
             }
-
-            if (collisionCount > 0)
+            if(collisionCount > 0)
             {
                 ParticleManager.Instance.GetParticle(data.hitParticle, new ParticlePayload
                 {
                     Position = transform.position,
                     Rotation = transform.rotation,
+
                 });
                 collisionCount--;
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3", transform.position);
             }
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound4", transform.position);
+
+            }
+
+
+            
         }
 
         
