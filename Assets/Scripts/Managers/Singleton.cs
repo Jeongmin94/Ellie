@@ -37,5 +37,9 @@ namespace Assets.Scripts.Managers
                 Destroy(gameObject);
             }
         }
+
+        public virtual void ClearAction()
+        {
+        }
     }
 }

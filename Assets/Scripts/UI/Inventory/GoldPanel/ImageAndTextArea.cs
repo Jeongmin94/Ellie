@@ -1,4 +1,5 @@
 using Assets.Scripts.UI.Framework;
+using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,13 +21,11 @@ namespace Assets.Scripts.UI.Inventory
             Text
         }
 
+        [SerializeField] private TextTypographyData goodsData;
+
         public RectTransform Rect { get; private set; }
         public Image Image { get; private set; }
         public TextMeshProUGUI Text { get; private set; }
-
-        private readonly Color fontColor = Color.white;
-        private readonly int fontSize = 20;
-        private readonly float lineHeight = 25;
 
         private void Awake()
         {
@@ -51,10 +50,17 @@ namespace Assets.Scripts.UI.Inventory
 
         private void InitObjects()
         {
-            Text.color = fontColor;
-            Text.fontSize = fontSize;
-            Text.lineSpacing = lineHeight;
-            Text.alignment = TextAlignmentOptions.Bottom;
+            Text.font = goodsData.fontAsset;
+            Text.color = goodsData.color;
+            Text.fontSize = goodsData.fontSize;
+            Text.lineSpacing = goodsData.lineSpacing;
+            Text.alignment = goodsData.alignmentOptions;
+
+            if (goodsData.useOutline)
+            {
+                Text.outlineColor = goodsData.outlineColor;
+                Text.outlineWidth = goodsData.outlineThickness;
+            }
         }
 
         public void OnGoodsCountChanged(int value)

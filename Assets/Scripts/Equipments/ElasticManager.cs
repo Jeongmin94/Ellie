@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 /*
     This script will help to shorten or lengthen the size of the elastic when the MasterSlingshot's scale needs to be changed.

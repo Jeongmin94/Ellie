@@ -30,6 +30,7 @@ namespace Assets.Scripts.Player.States
 
             Controller.TurnOnSlingshot();
             Controller.TurnSlingshotLineRenderer(false);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound2");
         }
 
 
