@@ -137,8 +137,6 @@ namespace Assets.Scripts.Managers
                 default:
                     break;
             }
-
-            this.BGMVolume = volume;
         }
 
         private void StopSound(string name, AudioController nowPlayingAudioController)
