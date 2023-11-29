@@ -26,9 +26,8 @@ public class TerrapupaMinionController : BehaviourTreeController
         get { return healthBar; }
     }
 
-    protected override void Awake()
+    private void Awake()
     {
-        base.Awake();
         minionData = rootTreeData as TerrapupaMinionRootData;
         healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
         weakPoints = GetComponentsInChildren<TerrapupaMinionWeakPoint>();

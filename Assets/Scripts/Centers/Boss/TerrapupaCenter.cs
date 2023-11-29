@@ -15,7 +15,7 @@ using Sirenix.OdinInspector;
 
 namespace Centers.Boss
 {
-    public class TerrapupaCenter : MonoBehaviour
+    public class TerrapupaCenter : SerializedMonoBehaviour
     {
         [Title("테라푸파 보스 객체")]
         [SerializeField] private TerrapupaMapObjectController terrapupaMapObjects;
@@ -82,8 +82,8 @@ namespace Centers.Boss
             ShuffleMinions();
             CheckTickets();
             SetBossInfo();
+            StartCoroutine(FallCheck());
         }
-
         #region 1. 초기화 함수
         private void SetBossInfo()
         {
@@ -466,8 +466,23 @@ namespace Centers.Boss
             Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
             minionController.minionData.canAttack.Value = true;
         }
+        private IEnumerator FallCheck()
+        {
+            while (true)
+            {
+                CheckFalling(terrapupa.transform);
+                CheckFalling(terra.transform);
+                CheckFalling(pupa.transform);
+                foreach (var minion in minions)
+                {
+                    CheckFalling(minion.transform);
+                }
+
+                yield return new WaitForSeconds(fallCheckLatency);
+            }
+        }
         #endregion
-        
+
         #region 4. 기타 함수
         private void HitedPlayer(TicketMachine ticketMachine, Transform attacker, Transform player, CombatPayload payload)
         {
@@ -523,6 +538,24 @@ namespace Centers.Boss
 
                 // 미니언 인덱스 갱신 ( +1 )
                 currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;
+            }
+        }
+        private void CheckFalling(Transform target)
+        {
+            LayerMask groundMask = LayerMask.GetMask("Ground");
+            float checkDistance = 30.0f;
+            float rayStartOffset = 10.0f;
+
+            RaycastHit hit;
+
+            Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
+
+            bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
+
+            if (!hitGround)
+            {
+                Debug.Log("추락 방지, 포지션 초기화");
+                target.position = transform.position;
             }
         }
         #endregion

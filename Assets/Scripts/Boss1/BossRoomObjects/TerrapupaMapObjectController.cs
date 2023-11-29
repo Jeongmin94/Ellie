@@ -14,14 +14,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TerrapupaMapObjectController : MonoBehaviour
+public class TerrapupaMapObjectController : SerializedMonoBehaviour
 {
     [Title("테라푸파 보스전 오브젝트 객체")]
     [SerializeField] private GameObject magicStalactitePrefab;
     [SerializeField] private List<ManaFountain> manaFountains;
+    [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
     [SerializeField] private BossRoomDoorKnob leftDoor;
     [SerializeField] private BossRoomDoorKnob rightDoor;
-    [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
     [Title("상태 체크")]
     [ReadOnly][SerializeField] private int golemCoreCount = 0;
@@ -42,7 +42,7 @@ public class TerrapupaMapObjectController : MonoBehaviour
     [InfoBox("열리는 시간")] public float openSpeedTime = 3.0f;
     [InfoBox("열리는 각도")] public float openAngle = 120.0f;
 
-    public readonly int GOLEM_CORE_INDEX = 4021;
+    [HideInInspector] public readonly int GOLEM_CORE_INDEX = 4021;
 
     private TicketMachine ticketMachine;
 
@@ -95,7 +95,8 @@ public class TerrapupaMapObjectController : MonoBehaviour
             for (int j = 0; j < stalactitePerSector; j++)
             {
                 Vector3 position = GenerateRandomPositionInSector(i);
-                GameObject stalactite = Instantiate(magicStalactitePrefab, position, Quaternion.identity, transform);
+                GameObject stalactite = Instantiate(magicStalactitePrefab, Vector3.zero, Quaternion.identity, transform);
+                stalactite.transform.localPosition = position;
                 MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
                 instantStalactite.SetLineRendererPosition();
                 instantStalactite.MyIndex = i;

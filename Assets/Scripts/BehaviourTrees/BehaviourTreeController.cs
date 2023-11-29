@@ -53,35 +53,35 @@ public class BehaviourTreeController : MonoBehaviour
     [SerializeField] protected BaseBTData rootTreeData;
     [SerializeField] private List<BaseBTData> settingList;
 
-    protected virtual void Awake()
-    {
-        StartCoroutine(FallCheck());
-    }
+    //protected virtual void Awake()
+    //{
+    //    StartCoroutine(FallCheck());
+    //}
 
-    private IEnumerator FallCheck()
-    {
-        LayerMask groundMask = LayerMask.GetMask("Ground");
-        float checkDistance = 30.0f;
-        float fallCheckLatency = 5.0f;
-        float rayStartOffset = 10.0f;
+    //private IEnumerator FallCheck()
+    //{
+    //    LayerMask groundMask = LayerMask.GetMask("Ground");
+    //    float checkDistance = 30.0f;
+    //    float fallCheckLatency = 5.0f;
+    //    float rayStartOffset = 10.0f;
 
-        while (true)
-        {
-            RaycastHit hit;
+    //    while (true)
+    //    {
+    //        RaycastHit hit;
 
-            Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
+    //        Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
 
-            bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
+    //        bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
 
-            if (!hitGround)
-            {
-                Debug.Log("추락 방지, 포지션 초기화");
-                transform.position = Vector3.zero;
-            }
+    //        if (!hitGround)
+    //        {
+    //            Debug.Log("추락 방지, 포지션 초기화");
+    //            transform.position = Vector3.zero;
+    //        }
 
-            yield return new WaitForSeconds(fallCheckLatency);
-        }
-    }
+    //        yield return new WaitForSeconds(fallCheckLatency);
+    //    }
+    //}
 
     public void InitRootTree(BehaviourTree tree)
     {

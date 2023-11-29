@@ -50,9 +50,8 @@ namespace Boss.Terrapupa
             get { return attackCooldown; }
         }
 
-        protected override void Awake()
+        private void Awake()
         {
-            base.Awake();
             terrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
 
