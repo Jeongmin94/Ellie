@@ -46,7 +46,7 @@ namespace Assets.Scripts.UI.Opening
             imagePanel.BindEvent(OnPointerEnter, UIEvent.PointEnter);
             imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
-        
+
         protected virtual void OnClickButton(PointerEventData data)
         {
             var payload = new PopupPayload();

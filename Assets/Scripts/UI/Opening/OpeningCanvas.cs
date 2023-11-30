@@ -125,10 +125,10 @@ namespace Assets.Scripts.UI.Opening
         private void InitPopupCanvas()
         {
             var popupTypes = Enum.GetValues(typeof(PopupType));
-            for (int i = 0; i < popupTypes.Length; i++)
+            for (int i = 0; i < buttonsData.Length; i++)
             {
                 var type = (PopupType)popupTypes.GetValue(i);
-                var popup = UIManager.Instance.MakeSubItem<BasePopupCanvas>(outerRimRect, BasePopupCanvas.Path);
+                var popup = UIManager.Instance.MakePopup<BasePopupCanvas>(BasePopupCanvas.Path);
                 popup.InitPopupCanvas(type);
                 popup.Subscribe(OnPopupCanvasAction);
                 popup.name = $"#{buttonsData[i].title}";
@@ -176,6 +176,7 @@ namespace Assets.Scripts.UI.Opening
             {
                 case ButtonType.Yes:
                 {
+                    // !TODO
                 }
                     break;
 
