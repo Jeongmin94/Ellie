@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI.Opening
         private RectTransform imagePanelRect;
         private RectTransform textPanelRect;
 
-        private TextMeshProUGUI textMeshProUGUI;
+        protected TextMeshProUGUI textMeshProUGUI;
 
         protected readonly Data<Color> imageColor = new Data<Color>();
 

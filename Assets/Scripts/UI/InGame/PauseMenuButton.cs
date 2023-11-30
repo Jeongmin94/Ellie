@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
@@ -6,6 +7,7 @@ using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.UI.Opening;
 using Assets.Scripts.UI.PopupMenu;
 using Assets.Scripts.Utils;
+using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -21,10 +23,11 @@ namespace Assets.Scripts.UI.InGame
             HoverPanel,
         }
 
+        [SerializeField] private TextTypographyData hoverTypography;
         [SerializeField] private UITransformData hoverPanelTransform;
         [SerializeField] private Sprite hoverImage;
 
-        public PopupType PauseButtonPopupType { get; set; }
+        private PopupType PauseButtonPopupType { get; set; }
 
         private GameObject hoverPanel;
         private RectTransform hoverPanelRect;
@@ -36,6 +39,9 @@ namespace Assets.Scripts.UI.InGame
         {
             BindHoverPanel();
             InitHoverPanel();
+
+            textMeshProUGUI.outlineColor = hoverTypography.outlineColor;
+            textMeshProUGUI.outlineWidth = hoverTypography.outlineThickness;
 
             PauseButtonPopupType = popupType;
 
@@ -77,9 +83,12 @@ namespace Assets.Scripts.UI.InGame
         protected override void BindEvents()
         {
             gameObject.BindEvent(OnButtonClicked);
+            gameObject.BindEvent(OnPointerDown, UIEvent.Down);
+            gameObject.BindEvent(OnPointerUp, UIEvent.Up);
             gameObject.BindEvent(OnPointerEnter, UIEvent.PointEnter);
             gameObject.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
+
 
         private void OnButtonClicked(PointerEventData data)
         {
@@ -91,16 +100,26 @@ namespace Assets.Scripts.UI.InGame
         private void OnPointerEnter(PointerEventData data)
         {
             if (PauseButtonPopupType == PopupType.Escape)
+            {
+                textMeshProUGUI.color = hoverTypography.highlightedColor;
                 return;
+            }
 
             hoverPanel.gameObject.SetActive(true);
         }
 
+        private void OnPointerDown(PointerEventData data)
+        {
+            textMeshProUGUI.color = hoverTypography.pressedColor;
+        }
+
+        private void OnPointerUp(PointerEventData data)
+        {
+            textMeshProUGUI.color = hoverTypography.disabledColor;
+        }
+
         private void OnPointerExit(PointerEventData data)
         {
-            if (PauseButtonPopupType == PopupType.Escape)
-                return;
-
             hoverPanel.gameObject.SetActive(false);
         }
     }

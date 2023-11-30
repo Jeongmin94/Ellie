@@ -4,6 +4,7 @@ using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Opening;
 using Assets.Scripts.Utils;
+using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -27,6 +28,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
         [SerializeField] private Sprite hoverSprite;
         [SerializeField] private float blinkInterval = 0.5f;
+        [SerializeField] private TextTypographyData hoverTypography;
 
         private Image hoverImage;
         private RectTransform hoverImageRect;
@@ -71,6 +73,8 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             imagePanel.BindEvent(OnClickButton);
             imagePanel.BindEvent(OnPointerEnter, UIEvent.PointEnter);
+            imagePanel.BindEvent(OnPointerDown, UIEvent.Down);
+            imagePanel.BindEvent(OnPointerUp, UIEvent.Up);
             imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
 
@@ -82,6 +86,16 @@ namespace Assets.Scripts.UI.PopupMenu
         private void OnPointerEnter(PointerEventData data)
         {
             StartCoroutine(blinkEnumerator);
+        }
+
+        private void OnPointerDown(PointerEventData data)
+        {
+            textMeshProUGUI.color = hoverTypography.pressedColor;
+        }
+
+        private void OnPointerUp(PointerEventData data)
+        {
+            textMeshProUGUI.color = hoverTypography.disabledColor;
         }
 
         private void OnPointerExit(PointerEventData data)

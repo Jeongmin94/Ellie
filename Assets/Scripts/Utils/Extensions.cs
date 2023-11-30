@@ -62,6 +62,7 @@ namespace Assets.Scripts.Utils
         public static void BindEvent(this GameObject go, Action<PointerEventData> action, UIEvent type = UIEvent.Click)
         {
             var handler = go.GetOrAddComponent<UIEventHandler>();
+            handler.events.Add(type);
 
             switch (type)
             {
