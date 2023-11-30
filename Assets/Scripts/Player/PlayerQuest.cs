@@ -8,6 +8,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static PlasticGui.WorkspaceWindow.CodeReview.Summary.CommentSummaryData;
 
 namespace Assets.Scripts.Player
 {
@@ -82,6 +83,7 @@ namespace Assets.Scripts.Player
             int curDialogListIdx = 0;
             List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
 
+            SendClearQuestMessage();
             if (dialogList == null)
             {
                 Debug.Log("DialogList is Null");
@@ -114,7 +116,7 @@ namespace Assets.Scripts.Player
                     //대화 출력이 끝나면 퀘스트 수락 상태로 변경
                     if (Input.GetKeyDown(KeyCode.G))
                     {
-                        questStatusDic[questDataList[FirstQuestDataIdx].index] = QuestStatus.Accepted;
+                        SetQuestStatus(questDataList[FirstQuestDataIdx].index, QuestStatus.Accepted);
                         SendStopDialogPayload(DialogCanvasType.Default);
                         SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                         UnlockPlayerMovement();
@@ -256,11 +258,61 @@ namespace Assets.Scripts.Player
                 questStatusDic[questIdx] = newStatus;
                 //퀘스트 갱신시마다 세이브
                 SaveLoadManager.Instance.SaveData();
+                //ui채널에 보내기
+                QuestData data = questDataList[questIdx % 6100];
+                //newStatus 가 end 이면 clear하고 아무것도 안함
+                //그 이외의 status면 clear하고 다시 띄워주기
+                if (newStatus == QuestStatus.End)
+                {
+                    SendClearQuestMessage();
+                }
+                else
+                {
+                    SendClearQuestMessage();
+                    SendDisplayQuestMessage(data);
+                }
+
             }
             else
             {
                 Debug.Log($"Quest status not found for quest index {questIdx}");
             }
+        }
+
+        private void SendClearQuestMessage()
+        {
+            controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.ClearQuest,
+            });
+        }
+
+        private void SendDisplayQuestMessage(QuestData data)
+        {
+            QuestInfo info = new();
+
+            // !TODO : 이미지를 추가해야 합니다
+            info.questName = data.name;
+            info.questDesc = data.playableText;
+            controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.SetQuestName,
+                questInfo = info,
+            }); ;
+            controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.SetQuestDesc,
+                questInfo = info,
+            });
+            //controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
+            //{
+            //    uiType = UIType.Notify,
+            //    actionType = ActionType.SetQuestIcon,
+            //    questInfo = info,
+            //});
         }
         public void GetReward(int questIdx)
         {
@@ -359,5 +411,6 @@ namespace Assets.Scripts.Player
 
             questStatusDic = questSavePayload.questStatusSaveInfo;
         }
+
     }
 }

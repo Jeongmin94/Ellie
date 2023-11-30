@@ -18,7 +18,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             quest6101 = 6101,
             quest6102,
         }
-
+        // !TODO : NPC 로드하여 npc현재 active 상태를 판단하여 저장
         private void Start()
         {
             Init();
@@ -164,7 +164,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             EndInteract();
             player.EndConversation();
             player.GetReward((int)EldestSkullQuest.quest6102);
-            //player.SetQuestStatus((int)EldestSkullQuest.quest6102, QuestStatus.End);
+            player.SetQuestStatus((int)EldestSkullQuest.quest6102, QuestStatus.Done);
+            player.SetQuestStatus(6103, QuestStatus.CantAccept);
             this.gameObject.SetActive(false);
         }
         private void Update()

@@ -111,9 +111,9 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 yield break;
             }
             player.SetQuestStatus(REQUIREDQUESTIDX, QuestStatus.End);
+            player.SetQuestStatus((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted);
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted));
             //6013 퀘스트를 Accepted 상태로 변경
-            player.SetQuestStatus((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted);
             EndInteract();
             //player.EndConversation();
         }
@@ -200,7 +200,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Done));
             //player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.End);
-
+            player.SetQuestStatus(6106, QuestStatus.CantAccept);
             player.GetReward((int)SecondSkullQuest.Quest6105);
 
             EndInteract();

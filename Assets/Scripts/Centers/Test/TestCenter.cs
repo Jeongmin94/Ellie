@@ -18,6 +18,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject monsters;
         public GameObject DialogCanvas;
         public GameObject SimpleDialogCanvas;
+        public GameObject QuestCanvas;
 
         public GameObject SkullSecondTrap;
         public TestAttacker attacker;
@@ -51,6 +52,8 @@ namespace Assets.Scripts.Centers.Test
             }
             CheckTicket(DialogCanvas.gameObject);
             CheckTicket(SimpleDialogCanvas.gameObject);
+            CheckTicket(QuestCanvas.gameObject);
+
             CheckTicket(SkullSecondTrap.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
