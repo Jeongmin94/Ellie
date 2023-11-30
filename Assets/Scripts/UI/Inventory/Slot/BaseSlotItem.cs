@@ -24,6 +24,8 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
+        private static readonly string SoundClick = "inven2";
+
         [SerializeField] private TextTypographyData itemCountData;
 
         public BaseItem SlotItemData { get; set; }
@@ -113,12 +115,16 @@ namespace Assets.Scripts.UI.Inventory
                 {
                     SlotItemData.ClearSlot(SlotAreaType.Equipment);
                     SlotItemData.DestroyItem(SlotAreaType.Equipment);
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClick);
+
                     return;
                 }
 
                 // 아이템 + 우클릭 -> 장착에 등록
                 payload.eventType = InventoryEventType.CopyItemWithShortCut;
             }
+
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClick);
 
             payload.baseSlotItem = this;
             slotItemPosition.slot.InvokeSlotItemEvent(payload);
