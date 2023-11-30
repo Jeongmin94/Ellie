@@ -16,7 +16,7 @@ public class MonsterAttackData
 
     public int attackValue;
     public int attackInterval;
-    public int attackableDistance;
+    public float attackableDistance;
     public float animationHold;
     public float attackDuration;
     public Vector3 offset;
@@ -71,7 +71,7 @@ public class MonsterAttackDataparsingInfo : DataParsingInfo
                 data.attackType = (AttackSkill)Enum.Parse(typeof(AttackSkill), entries[3].Trim());
                 data.attackValue = int.Parse(entries[4]);
                 data.attackInterval = int.Parse(entries[5]);
-                data.attackableDistance = int.Parse(entries[6]);
+                data.attackableDistance = float.Parse(entries[6]);
                 data.animationHold = float.Parse(entries[9]);
                 data.attackDuration = float.Parse(entries[10]);
                 data.offset.x = float.Parse(entries[11]);
