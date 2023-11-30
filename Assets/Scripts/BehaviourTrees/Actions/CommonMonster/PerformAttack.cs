@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 using Assets.Scripts.Monsters.AbstractClass;
+using static Assets.Scripts.Monsters.Utility.Enums;
 
 [System.Serializable]
 public class PerformAttack : ActionNode
 {
-    public NodeProperty<string> skillName;
+    public NodeProperty<AttackSkill> skillType;
 
     protected override void OnStart() {
     }
@@ -17,7 +18,7 @@ public class PerformAttack : ActionNode
 
     protected override State OnUpdate()
     {
-        if(context.controller.Attacks.TryGetValue(skillName.Value, out AbstractAttack atk))
+        if(context.controller.Attacks.TryGetValue(context.controller.attackData[(int)skillType.Value].attackName, out AbstractAttack atk))
         {
             atk.ActivateAttack();
             return State.Success;

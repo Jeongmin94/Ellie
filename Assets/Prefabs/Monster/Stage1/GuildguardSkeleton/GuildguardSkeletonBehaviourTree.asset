@@ -112,6 +112,8 @@ MonoBehaviour:
   - rid: 6937830886797737987
   - rid: 6937830886797737988
   - rid: 6937830886797737992
+  - rid: 6937831077302239233
+  - rid: 6937831077302239234
   treeState: 0
   blackboard:
     keys:
@@ -139,8 +141,8 @@ MonoBehaviour:
     - rid: 6937830456686542857
     - rid: 6937830456686542858
     - rid: 6937830456686542871
-  viewPosition: {x: -2543.5, y: -290, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: 700, y: 557.5, z: 0}
+  viewScale: {x: 0.86956525, y: 0.86956525, z: 1}
   references:
     version: 2
     RefIds:
@@ -152,7 +154,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 2ad0cac6-856c-42bc-a9c2-1766e6b46cd3
-        position: {x: -180, y: -480}
+        position: {x: -180, y: -645}
         blackboard:
           keys: []
         description: 
@@ -165,13 +167,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 99a1d707d695045cca27d1c76bc47dac
-        position: {x: -180, y: -345}
+        position: {x: -180, y: -510}
         blackboard:
           keys: []
         description: 
         drawGizmos: 1
         child:
-          rid: 6937830456686542859
+          rid: 6937831077302239234
         restartOnSuccess: 1
         restartOnFailure: 1
         maxRepeats: 0
@@ -366,10 +368,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        skillName:
+        skillType:
           reference:
             rid: -2
-          defaultValue: MeleeAttack
+          defaultValue: 7
     - rid: 5827610086317228048
       type: {class: Selector, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -1372,10 +1374,10 @@ MonoBehaviour:
           keys: []
         description: 
         drawGizmos: 0
-        skillName:
+        skillType:
           reference:
             rid: -2
-          defaultValue: WeaponAttack
+          defaultValue: 7
     - rid: 6937830456686542853
       type: {class: Stop, ns: , asm: Assembly.Ellie}
       data:
@@ -2049,3 +2051,28 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+    - rid: 6937831077302239233
+      type: {class: isLoading, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: aec0c41b1b0d84d54b37af4e1fd4ef8e
+        position: {x: -465, y: -225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+    - rid: 6937831077302239234
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 46cf53de42ead46d0a14db561f6026d2
+        position: {x: -180, y: -360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 6937831077302239233
+        - rid: 6937830456686542859

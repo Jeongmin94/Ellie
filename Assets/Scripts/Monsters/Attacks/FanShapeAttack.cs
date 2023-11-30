@@ -8,7 +8,10 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class FanShapeAttack : AbstractAttack
     {
-        private FanShapeAttackData attackData;
+        private const float angle = 90.0f;
+        private const float radius = 2.0f;
+
+        private MonsterAttackData attackData;
         [SerializeField] private Transform target;
         private AudioSource audioSource;
         private ParticleSystem particle;
@@ -25,7 +28,7 @@ namespace Assets.Scripts.Monsters.Attacks
             audioSource.maxDistance = 50.0f;
         }
 
-        public override void InitializeFanShape(FanShapeAttackData data)
+        public override void InitializeFanShape(MonsterAttackData data)
         {
             target = GameObject.Find("Player").transform;
             attackData = data;
@@ -44,10 +47,10 @@ namespace Assets.Scripts.Monsters.Attacks
             float theta = Mathf.Acos(dot);
             float degree = Mathf.Rad2Deg * theta;
 
-            if (degree <= attackData.angleRange / 2.0f)
+            if (degree <= angle / 2.0f)
             {
                 interV.y = 0;
-                if (interV.sqrMagnitude <= attackData.radius * attackData.radius)
+                if (interV.sqrMagnitude <= radius * radius)
                 {
                     return true;
                 }
@@ -90,7 +93,7 @@ namespace Assets.Scripts.Monsters.Attacks
             }
         }
 
-        private void SetAndAttack(FanShapeAttackData data, Transform otherTransform)
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
             Debug.Log("SetPayloadAttack");
             CombatPayload payload = new();
@@ -109,8 +112,8 @@ namespace Assets.Scripts.Monsters.Attacks
         private void OnDrawGizmos()
         {
             Handles.color = Color.red;
-            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, attackData.angleRange / 2, attackData.radius);
-            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -attackData.angleRange / 2, attackData.radius);
+            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, radius);
+            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angle / 2, radius);
         }
 #endif
     }

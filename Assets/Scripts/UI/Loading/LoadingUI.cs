@@ -1,9 +1,9 @@
 using System.Collections;
-using Assets.Scripts.Centers.Test;
 using Assets.Scripts.Managers;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Assets.Scripts.Centers;
+using UnityEngine.SceneManagement;
 
 public class LoadingUI : MonoBehaviour
 {
@@ -29,7 +29,7 @@ public class LoadingUI : MonoBehaviour
     private void Start()
     {
         UpdateImageTip();
-        StartCoroutine(LoadLevelAsync(TestCenterWithScene.Instance.CurrentScene));
+        StartCoroutine(LoadLevelAsync(SceneCenter.Instance.CurrentScene));
     }
 
     void UpdateImageTip()
@@ -89,7 +89,7 @@ public class LoadingUI : MonoBehaviour
         yield return new WaitForSeconds(spareTimeToLoad);
 
         loadingSlider.value = 0.0f;
-        TestCenterWithScene.Instance.FinishLoading();
+        SceneCenter.Instance.FinishLoading();
 
         SceneManager.UnloadSceneAsync((int)SceneName.LoadingScene);
     }

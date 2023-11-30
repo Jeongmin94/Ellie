@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters;
+using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -10,7 +11,7 @@ using UnityEngine;
 
 public class MonsterHeadShot : MonoBehaviour, ICombatant
 {
-    [SerializeField] private MonsterController controller;
+    [SerializeField] private AbstractMonster controller;
     private TicketMachine ticketMachine;
 
     private void Awake()
@@ -31,6 +32,7 @@ public class MonsterHeadShot : MonoBehaviour, ICombatant
 
     public void ReceiveDamage(IBaseEventPayload payload)
     {
+        Debug.Log("HEAD SHOTTT");
         controller.RecieveHeadShot();
         CombatPayload combatPayload = payload as CombatPayload;
         controller.UpdateHP(combatPayload.Damage);

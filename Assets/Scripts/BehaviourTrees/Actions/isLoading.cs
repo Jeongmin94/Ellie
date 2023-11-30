@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 using Assets.Scripts.Centers.Test;
+using Assets.Scripts.Centers;
 
 [System.Serializable]
 public class isLoading : ActionNode
@@ -14,7 +15,7 @@ public class isLoading : ActionNode
     }
 
     protected override State OnUpdate() {
-        if (TestCenterWithScene.Instance.IsLoading)
+        if (SceneCenter.Instance.IsLoading)
         {
             return State.Failure;
         }

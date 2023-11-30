@@ -9,9 +9,9 @@ namespace Assets.Scripts.Monsters.Utility
     {
         //Monster
         //Monster Type
-        public enum MonsterKind
+        public enum MonsterElement
         {
-            Human, Skeleton, Ghost, Insect, Beast, FlyingBeast, Golem, End
+            Normal, Fire, Water, Grass, Earth, Light, Dark
         }
         public enum MovementType
         {
@@ -23,6 +23,8 @@ namespace Assets.Scripts.Monsters.Utility
         }
         public enum AttackSkill
         {
+            RunToPlayer,
+            Flee,
             BoxCollider,
             SphereCollider,
             ProjectileAttack,
