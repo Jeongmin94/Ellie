@@ -1,12 +1,8 @@
 using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Centers.Test;
 using Assets.Scripts.Managers;
-using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Centers;
-using UnityEditor.SearchService;
 using UnityEngine.SceneManagement;
 
 public class LoadingUI : MonoBehaviour
