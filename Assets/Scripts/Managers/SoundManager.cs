@@ -49,8 +49,8 @@ namespace Assets.Scripts.Managers
         }
         private void InitAudioDict()
         {
-            audioControllerPrefab = Resources.Load<AudioController>("Sounds/AudioController");
-            AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");
+            audioControllerPrefab = Resources.Load<AudioController>("Extern/Sounds/AudioController");
+            AudioClip[] clips = Resources.LoadAll<AudioClip>("Extern/Sounds");
             foreach (AudioClip clip in clips)
             {
                 AudioClips.Add(clip.name, clip);
