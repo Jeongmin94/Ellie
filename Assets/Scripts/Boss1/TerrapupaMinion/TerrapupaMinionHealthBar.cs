@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class TerrapupaMinionHealthBar : MonoBehaviour
 {
-    [SerializeField] private TerrapupaMinionRootData data;
+    private TerrapupaMinionRootData data;
 
     public float scaleFactor = 0.003f;
 
@@ -32,6 +32,9 @@ public class TerrapupaMinionHealthBar : MonoBehaviour
         dataContainer.MaxHp = data.hp;
         dataContainer.CurrentHp.Value = (int)Mathf.Ceil(data.hp);
         dataContainer.Name = data.bossName;
+
+        RenewHealthBar(dataContainer.CurrentHp.Value - 1);
+        RenewHealthBar(dataContainer.CurrentHp.Value + 1);
 
         billboard.InitData(dataContainer);
     }

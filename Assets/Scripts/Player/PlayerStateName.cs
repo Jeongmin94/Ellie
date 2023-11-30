@@ -2,6 +2,7 @@
 {
     public enum PlayerStateName
     {
+        Start,
         Idle,
         Walk,
         Sprint,
@@ -20,6 +21,7 @@
         KnockedAirborne,
         GetUp,
         Conversation,
+        ConsumingItem,
         Dead
     }
 }

@@ -24,6 +24,8 @@ namespace Boss.Terrapupa
 		private TicketMachine ticketMachine;
 		private SphereCollider sphereCollider;
 		private Rigidbody rb;
+		private CombatPayload combatPayload;
+		private Vector3 direction;
 
         public Transform Owner
 		{
@@ -44,13 +46,19 @@ namespace Boss.Terrapupa
 			rb.isKinematic = true;
         }
 
-        public void Init(Vector3 position, Vector3 scale, float speed, int attack, GameObject hitEffect, Transform sender, TicketMachine senderTicketMacine)
+        private void Update()
+        {
+			rb.AddForce(direction * movementSpeed, ForceMode.Force);
+        }
+
+        public void Init(Vector3 position, Vector3 scale, float speed, CombatPayload hitPayload, GameObject hitEffect, Transform sender, TicketMachine senderTicketMacine)
 		{
             effect = hitEffect;
 			transform.position = position;
 			transform.localScale = scale;
 			movementSpeed = speed;
-			attackValue = attack;
+			combatPayload = hitPayload;
+            attackValue = hitPayload.Damage;
 			owner = sender;
 			ticketMachine = senderTicketMacine;
         }
@@ -59,30 +67,15 @@ namespace Boss.Terrapupa
 		{
             if (collision.gameObject.CompareTag("Player"))
             {
-                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
-                {
-                    Position = transform.position,
-                    Scale = new Vector3(0.7f, 0.7f, 0.7f),
-                });
+				ParticleManager.Instance.GetParticle(effect, transform, 0.7f);
 
-                ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-				{
-					Attacker = owner,
-					Defender = collision.transform.root,
-					Damage = attackValue,
-					statusEffectduration = 1.0f,
-					PlayerStatusEffectName = StatusEffectName.Down,
-
-                });
+				combatPayload.Attacker = owner;
+				combatPayload.Defender = collision.transform.root;
+				ticketMachine.SendMessage(ChannelType.Combat, combatPayload);
             }
             if (collision.gameObject.CompareTag("Wall"))
 			{
-                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
-                {
-                    Position = transform.position,
-                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
-                });
-
+				ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
                 PoolManager.Instance.Push(this);
             }
         }
@@ -91,11 +84,7 @@ namespace Boss.Terrapupa
         {
             if (((1 << other.gameObject.layer) & layerMask) != 0 && other.transform.root != owner.transform.root)
             {
-                ParticleManager.Instance.GetParticle(effect, new ParticlePayload
-                {
-                    Position = transform.position,
-                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
-                });
+                ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
 
                 EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
 				{
@@ -108,7 +97,7 @@ namespace Boss.Terrapupa
 
         public void MoveToTarget(Transform target)
 		{
-			Vector3 direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
+			direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
 			direction.Normalize();
 
 			SphereCollider sphereCollider = GetComponent<SphereCollider>();

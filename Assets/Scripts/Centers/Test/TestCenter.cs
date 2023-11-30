@@ -13,7 +13,6 @@ namespace Assets.Scripts.Centers.Test
     {
         public GameObject player;
         public StoneHatchery hatchery;
-        public Inventory inventory;
         public Ore[] ores;
         public GameObject monsters;
         public GameObject DialogCanvas;
@@ -23,7 +22,7 @@ namespace Assets.Scripts.Centers.Test
         public TestAttacker attacker;
 
         public int curStage = 1;
-       
+
         private void Awake()
         {
             Init();
@@ -41,7 +40,8 @@ namespace Assets.Scripts.Centers.Test
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
             }
-            if(monsters != null)
+
+            if (monsters != null)
             {
                 foreach (Transform child in monsters.transform)
                 {
@@ -51,6 +51,19 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(DialogCanvas.gameObject);
             CheckTicket(SimpleDialogCanvas.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM1");
+        }
+
+        private void Update()
+        {
+            if(Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
+            }
+            if(Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                SoundManager.Instance.StopAmbient("cave 10");
+            }
         }
     }
 }

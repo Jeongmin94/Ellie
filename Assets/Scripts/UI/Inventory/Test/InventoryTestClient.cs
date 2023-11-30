@@ -54,45 +54,45 @@ namespace Assets.Scripts.UI.Inventory.Test
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
             }
 
-            //// 아이템 생성
-            //if (Input.GetKeyDown(KeyCode.A))
-            //{
-            //    //ticketMachine.SendMessage(ChannelType.UI, testPayload);
-            //    ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
-            //}
+            // 아이템 생성
+            if (Input.GetKeyDown(KeyCode.A))
+            {
+                //ticketMachine.SendMessage(ChannelType.UI, testPayload);
+                ticketMachine.SendMessage(ChannelType.UI, MakeAddItemPayload2());
+            }
 
-            //if (Input.GetKeyDown(KeyCode.Q))
-            //{
-            //    var payload = MakeAddItemPayload2();
-            //    var testItemInfo = consumableItemDataParsingInfo.items[Random.Range(1, consumableItemDataParsingInfo.items.Count)];
-            //    testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
-            //    payload.itemData = testItemInfo;
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                var payload = MakeAddItemPayload2();
+                var testItemInfo = consumableItemDataParsingInfo.items[Random.Range(1, consumableItemDataParsingInfo.items.Count)];
+                testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
+                payload.itemData = testItemInfo;
 
-            //    ticketMachine.SendMessage(ChannelType.UI, payload);
-            //}
+                ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
 
-            //// 아이템 소모
-            //if (Input.GetKeyDown(KeyCode.S))
-            //{
-            //    ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
-            //}
+            // 아이템 소모
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemPayload());
+            }
 
-            //if (Input.GetKeyDown(KeyCode.W))
-            //{
-            //    Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
-            //}
+            if (Input.GetKeyDown(KeyCode.W))
+            {
+                Debug.Log($"{testPayload.itemData.name}, {testPayload.itemData.description}");
+            }
 
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{
-            //    gameGoods.gold.Value--;
-            //    gameGoods.stonePiece.Value--;
-            //}
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                gameGoods.gold.Value--;
+                gameGoods.stonePiece.Value--;
+            }
 
-            //if (Input.GetKeyDown(KeyCode.X))
-            //{
-            //    gameGoods.gold.Value++;
-            //    gameGoods.stonePiece.Value++;
-            //}
+            if (Input.GetKeyDown(KeyCode.X))
+            {
+                gameGoods.gold.Value++;
+                gameGoods.stonePiece.Value++;
+            }
 
             if (Input.GetKeyDown(KeyCode.N))
             {
@@ -122,7 +122,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = consumableItemDataParsingInfo.items[0];
-            testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
 
@@ -134,7 +133,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             var ret = MakeAddItemPayload();
 
             ret.itemData = consumableItemDataParsingInfo.items[1];
-            ret.itemData.imageName = "UI/Item/ItemDefaultWhite";
 
             return ret;
         }
@@ -147,7 +145,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.slotAreaType = SlotAreaType.Item;
 
             var testItemInfo = consumableItemDataParsingInfo.items[0];
-            testItemInfo.imageName = "UI/Item/ItemDefaultRed";
 
             payload.itemData = testItemInfo;
 

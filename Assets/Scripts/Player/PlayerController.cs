@@ -3,6 +3,7 @@ using Assets.Scripts.Equipments;
 using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
+using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
@@ -11,6 +12,7 @@ using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -29,7 +31,8 @@ namespace Assets.Scripts.Player
         {
             Base,
             Aiming,
-            Mining
+            Mining,
+            Consuming
         }
         [Header("Player references")]
         [SerializeField] private Transform playerObj;
@@ -119,6 +122,9 @@ namespace Assets.Scripts.Player
         private Ore curOre = null;
         public bool isPickaxeAvailable = false;
         public Pickaxe.Tier curPickaxeTier;
+
+        [Header("Inventory")]
+        public PlayerInventory playerInventory;
 
 
         [Header("Boolean Properties")]
@@ -215,6 +221,16 @@ namespace Assets.Scripts.Player
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
+
+            //test
+            if(Input.GetKeyDown(KeyCode.U))
+            {
+                GetConsumalbeItemTest(4100);
+            }
+            if(Input.GetKeyDown(KeyCode.J))
+            {
+                GetConsumalbeItemTest(4101);
+            }
         }
         private void FixedUpdate()
         {
@@ -242,7 +258,7 @@ namespace Assets.Scripts.Player
             Pickaxe.gameObject.SetActive(false);
             TurnOffSlingshot();
             TurnOffMeleeAttackCollider();
-
+            playerInventory = GetComponent<PlayerInventory>();
         }
         private void SetMovingAnim()
         {
@@ -284,9 +300,11 @@ namespace Assets.Scripts.Player
         }
         private void InitStateMachine()
         {
-            PlayerStateIdle playerStateIdle = new(this);
-            stateMachine = new PlayerStateMachine(PlayerStateName.Idle, playerStateIdle);
+            PlayerStateStart playerStateStart = new(this);
+            stateMachine = new PlayerStateMachine(PlayerStateName.Start, playerStateStart);
 
+            PlayerStateIdle playerStateIdle = new(this);
+            stateMachine.AddState(PlayerStateName.Idle, playerStateIdle);
             PlayerStateWalk playerStateWalk = new(this);
             stateMachine.AddState(PlayerStateName.Walk, playerStateWalk);
             PlayerStateSprint playerStateSprint = new(this);
@@ -321,6 +339,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.Conversation, playerStateConversation);
             PlayerStateMeleeAttack playerStateMeleeAttack = new(this);
             stateMachine.AddState(PlayerStateName.MeleeAttack, playerStateMeleeAttack);
+            PlayerStateConsumingItem playerStateConsumingItem = new(this);
+            stateMachine.AddState(PlayerStateName.ConsumingItem, playerStateConsumingItem);
 
         }
         public void MovePlayer(float moveSpeed)
@@ -651,24 +671,49 @@ namespace Assets.Scripts.Player
             //인벤토리 닫는 이벤트일 경우
             if (uiPayload.actionType == ActionType.ClickCloseButton)
             {
-                GetComponent<PlayerInventory>().OnInventoryToggle();
+                playerInventory.OnInventoryToggle();
             }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             switch (uiPayload.groupType)
             {
-                case UI.Inventory.GroupType.Item:
-                    break;
-                case UI.Inventory.GroupType.Stone:
-                    Debug.Log("!!");
-                    hasStone = !uiPayload.isStoneNull;
-                    if (uiPayload.itemData != null)
+                case GroupType.Item:
+                    //playerInventory.consumableEquipmentSlot[uiPayload.equipmentSlotIdx] = uiPayload.itemData;
+                    if (uiPayload.itemData == null)
                     {
-                        curStoneIdx = uiPayload.itemData.index;
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            playerInventory.canUseConsumable = false;
+                            playerInventory.itemIdx = 0;
+                        }
                     }
                     else
-                        curStoneIdx = 0;
+                    {
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            playerInventory.canUseConsumable = true;
+                            playerInventory.itemIdx = uiPayload.itemData.index;
+                        }
+                    }
                     break;
-                case UI.Inventory.GroupType.Etc:
+                case GroupType.Stone:
+                    if(uiPayload.itemData == null)
+                    {
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            hasStone = false;
+                            curStoneIdx = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            hasStone = true;
+                            curStoneIdx = uiPayload.itemData.index;
+                        }
+                    }
+                    break;
+                case GroupType.Etc:
                     break;
                 default:
                     break;
@@ -694,6 +739,19 @@ namespace Assets.Scripts.Player
             isPickaxeAvailable = true;
             curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
+        }
+
+        private void GetConsumalbeItemTest(int idx)
+        {
+            UIPayload payload = new()
+            {
+                uiType = UIType.Notify,
+                groupType = UI.Inventory.GroupType.Item,
+                slotAreaType = UI.Inventory.SlotAreaType.Item,
+                actionType = ActionType.AddSlotItem,
+                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(idx)
+            };
+            ticketMachine.SendMessage(ChannelType.UI, payload);
         }
     }
 }

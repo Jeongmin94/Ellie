@@ -1,6 +1,7 @@
-﻿using Channels.Boss;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Particle;
+using Channels.Boss;
 using Channels.Components;
-using System.Collections;
 using UnityEngine;
 
 namespace Boss.Objects
@@ -8,10 +9,14 @@ namespace Boss.Objects
     public class MagicStalactite : MonoBehaviour
     {
         public float respawnValue = 10.0f;
+        public GameObject hitEffect;
+        public GameObject displayEffect;
+        public Material material;
 
         private Rigidbody rb;
         private LineRenderer lineRenderer;
         private TicketMachine ticketMachine;
+        private ParticleController particle;
 
         private int myIndex;
         private bool isFallen = false;
@@ -22,20 +27,27 @@ namespace Boss.Objects
             set { myIndex = value; }
         }
 
-        private void Start()
+        private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.1f;
-            lineRenderer.endWidth = 0.1f;
-            lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
-            lineRenderer.startColor = Color.white;
-            lineRenderer.endColor = Color.magenta;
+            InitLineRenderer();
         }
 
-        private void OnDisable()
+        private void OnEnable()
         {
             rb.isKinematic = true;
+            SetLineRendererPosition();
+            lineRenderer.enabled = true;
+        }
+
+        private void InitLineRenderer()
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+            lineRenderer.startWidth = 0.5f;
+            lineRenderer.endWidth = 0.5f;
+            lineRenderer.material = material;
+            lineRenderer.startColor = Color.white;
+            lineRenderer.endColor = Color.white;
         }
 
         public void InitTicketMachine(TicketMachine ticketMachine)
@@ -43,26 +55,32 @@ namespace Boss.Objects
             this.ticketMachine = ticketMachine;
         }
 
-        private void Update()
+        public void SetLineRendererPosition()
         {
             RaycastHit hit;
-            // 광선을 아래 방향으로 발사
-            if (Physics.Raycast(transform.position, -Vector3.up, out hit))
+            int layerMask = LayerMask.GetMask("Ground");
+
+            if(particle != null)
             {
-                if (hit.collider.CompareTag("Ground"))
+                PoolManager.Instance.Push(particle);
+            }
+
+            if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity, layerMask))
+            {
+                lineRenderer.enabled = true;
+                lineRenderer.SetPosition(0, transform.position);
+                lineRenderer.SetPosition(1, hit.point);
+
+                particle = ParticleManager.Instance.GetParticle(displayEffect, new ParticlePayload
                 {
-                    lineRenderer.enabled = true;
-                    lineRenderer.SetPosition(0, transform.position);
-                    lineRenderer.SetPosition(1, hit.point);
-                }
-                else
-                {
-                    lineRenderer.enabled = false;
-                }
+                    Position = hit.point + new Vector3(0.0f, 0.1f, 0.0f),
+                    Scale = new Vector3(1.0f, 1.0f, 1.0f),
+                    IsLoop = true,
+                }).GetComponent<ParticleController>();
             }
             else
             {
-                lineRenderer.enabled = false;
+                lineRenderer.enabled = true;
             }
         }
 
@@ -75,18 +93,16 @@ namespace Boss.Objects
                 rb.useGravity = true;
                 rb.isKinematic = false;
                 isFallen = true;
+                particle.Stop();
+                particle = null;
             }
-            ////puzzle test
-            //if(collision.transform.CompareTag("Ground"))
-            //{
-            //    gameObject.SetActive(false);
-            //}
         }
 
         private void OnTriggerEnter(Collider other)
         {
             if (isFallen)
             {
+                // 보스와 충돌
                 if (other.transform.CompareTag("Boss"))
                 {
                     Debug.Log($"{other} 충돌!");
@@ -101,11 +117,11 @@ namespace Boss.Objects
                             Sender = other.transform.root,
                         });
 
-                    rb.useGravity = false;
-                    rb.velocity = Vector3.zero;
-                    isFallen = false;
-                    gameObject.SetActive(false);
+                    ParticleManager.Instance.GetParticle(hitEffect, transform, 1.0f);
+
+                    HitedObject();
                 }
+                // 땅이나 다른 오브젝트에 충돌
                 else if (other.transform.CompareTag("Ground") || other.transform.CompareTag("InteractionObject"))
                 {
                     Debug.Log($"{other} 충돌!");
@@ -118,12 +134,20 @@ namespace Boss.Objects
                             TransformValue1 = transform,
                         });
 
-                    rb.useGravity = false;
-                    rb.velocity = Vector3.zero;
-                    isFallen = false;
-                    gameObject.SetActive(false);
+                    ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
+
+                    HitedObject();
                 } 
             }
+        }
+
+        private void HitedObject()
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            isFallen = false;
+            lineRenderer.enabled = false;
+            gameObject.SetActive(false);
         }
     }
 }

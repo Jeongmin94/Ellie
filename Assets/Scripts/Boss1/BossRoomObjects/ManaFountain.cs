@@ -12,17 +12,22 @@ namespace Boss.Objects
     {
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
-
         public TerrapupaAttackType banBossAttackType;
-        public Transform spawnPosition;
-        public GameObject hitEffect;
+
+        [SerializeField] private Transform spawnPosition;
+        [SerializeField] private GameObject hitEffect;
 
         private bool isCooldown;
         private bool isBroken;
 
-        private const int NORMALSTONE_INDEX = 4000;
-        private const int MAGICSTONE_INDEX = 4020;
+        public readonly int NORMALSTONE_INDEX = 4000;
+        public readonly int MAGICSTONE_INDEX = 4020;
         private TicketMachine ticketMachine;
+
+        public Vector3 SpawnPosition
+        {
+            get { return spawnPosition.position; }
+        }
 
         public bool IsCooldown
         {
@@ -57,17 +62,6 @@ namespace Boss.Objects
                             TransformValue1 = transform,
                         });
 
-
-                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
-                    ticketMachine.SendMessage(ChannelType.Stone,
-                        new StoneEventPayload
-                        {
-                            Type = StoneEventType.MineStone,
-                            StoneSpawnPos = spawnPosition.position,
-                            StoneForce = GetRandVector(),
-                            StoneIdx = MAGICSTONE_INDEX,
-                        });
-
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {
@@ -83,20 +77,6 @@ namespace Boss.Objects
                             AttackTypeValue = banBossAttackType,
                             Sender = other.transform.root,
                         });
-
-                    Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
-                    for (int i = 0; i < 3; i++)
-                    {
-                        ticketMachine.SendMessage(ChannelType.Stone,
-                            new StoneEventPayload
-                            {
-                                Type = StoneEventType.MineStone,
-                                StoneSpawnPos = spawnPosition.position,
-                                StoneForce = GetRandVector(),
-                                StoneIdx = NORMALSTONE_INDEX,
-                            });
-                    }
-
                 }
                 else if (other.transform.CompareTag("BattleObject"))
                 {

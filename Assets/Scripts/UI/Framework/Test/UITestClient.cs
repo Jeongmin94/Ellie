@@ -59,8 +59,8 @@ namespace Assets.Scripts.UI.Framework
 
         private void OnEnable()
         {
-            InputManager.Instance.OnKeyAction -= OnKeyAction;
-            InputManager.Instance.OnKeyAction += OnKeyAction;
+            InputManager.Instance.keyAction -= OnKeyAction;
+            InputManager.Instance.keyAction += OnKeyAction;
         }
 
         private const string PrefixExclamationPath = "UI/Inven/Exclamation/";

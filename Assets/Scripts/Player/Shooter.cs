@@ -77,8 +77,8 @@ namespace Assets.Scripts.Player
         {
             chargingData.ChargingValue.Subscribe(OnChangeChargingValue);
 
-            InputManager.Instance.OnMouseAction -= OnMouseAction;
-            InputManager.Instance.OnMouseAction += OnMouseAction;
+            InputManager.Instance.mouseAction -= OnMouseAction;
+            InputManager.Instance.mouseAction += OnMouseAction;
 
             aimTargetData.TargetPosition.Subscribe(OnChangeAimTarget);
         }

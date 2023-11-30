@@ -1,6 +1,7 @@
 using UnityEngine;
 using TheKiwiCoder;
 using Channels.Boss;
+using Channels.Combat;
 
 [System.Serializable]
 public class SetBossEvent : ActionNode
@@ -16,6 +17,7 @@ public class SetBossEvent : ActionNode
     public NodeProperty<Transform> transformValue2;
     public NodeProperty<Transform> transformValue3;
     public NodeProperty<TerrapupaAttackType> attackTypeValue;
+    public NodeProperty<IBaseEventPayload> combatPayload;
 
     protected override void OnStart() {
         if(isInit.Value)
@@ -41,6 +43,7 @@ public class SetBossEvent : ActionNode
             payload.TransformValue2 = transformValue2.Value;
             payload.TransformValue3 = transformValue3.Value;
             payload.AttackTypeValue = attackTypeValue.Value;
+            payload.CombatPayload = combatPayload.Value as CombatPayload;
         }
         else
         {
@@ -53,6 +56,7 @@ public class SetBossEvent : ActionNode
             if (transformValue2.Value != null) payload.TransformValue2 = transformValue2.Value;
             if (transformValue3.Value != null) payload.TransformValue3 = transformValue3.Value;
             if (attackTypeValue.Value != TerrapupaAttackType.None) payload.AttackTypeValue = attackTypeValue.Value;
+            if (combatPayload.Value != null) payload.CombatPayload = combatPayload.Value as CombatPayload;
         }
 
         payload.Sender = context.transform;

@@ -70,7 +70,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void Attack(IBaseEventPayload payload)
         {
-            Debug.Log(ticketMachine);
             ticketMachine.SendMessage(ChannelType.Combat, payload);
         }
     }

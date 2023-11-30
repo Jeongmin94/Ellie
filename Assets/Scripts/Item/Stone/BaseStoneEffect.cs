@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using System;
 using UnityEngine;
@@ -42,21 +43,14 @@ namespace Assets.Scripts.Item.Stone
 
         public virtual void OccurEffect(Transform transform)
         {
-            effectAction?.Invoke(transform);
+            if(collisionCount > 0)
+            {
+                effectAction?.Invoke(transform);
+            }
         }
 
         protected virtual void OnCollisionEnter(Collision collision)
         {
-            if(collisionCount > 0)
-            {
-                ParticleManager.Instance.GetParticle(data.hitParticle, new ParticlePayload
-                {
-                    Position = transform.position,
-                    Rotation = transform.rotation,
-                });
-                collisionCount--;
-            }
-            
             foreach (ContactPoint contact in collision.contacts)
             {
                 GameObject hitObject = contact.otherCollider.gameObject;
@@ -75,6 +69,25 @@ namespace Assets.Scripts.Item.Stone
                     break;
                 }
             }
+            if(collisionCount > 0)
+            {
+                ParticleManager.Instance.GetParticle(data.hitParticle, new ParticlePayload
+                {
+                    Position = transform.position,
+                    Rotation = transform.rotation,
+
+                });
+                collisionCount--;
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound3", transform.position);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound4", transform.position);
+
+            }
+
+
+            
         }
 
         

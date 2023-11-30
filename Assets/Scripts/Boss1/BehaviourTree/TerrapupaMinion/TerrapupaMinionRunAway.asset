@@ -20,6 +20,7 @@ MonoBehaviour:
   - rid: 1401849265356013612
   - rid: 283011470369751047
   - rid: 283011470369751051
+  - rid: 1683426562437021815
   treeState: 0
   blackboard:
     keys:
@@ -28,8 +29,8 @@ MonoBehaviour:
     - rid: 283011090204065861
     - rid: 283011090204065862
     - rid: 283011470369751048
-  viewPosition: {x: -172.8, y: 295.2, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: -609.6, y: 182.4, z: 0}
+  viewScale: {x: 1, y: 1, z: 1}
   references:
     version: 2
     RefIds:
@@ -40,13 +41,13 @@ MonoBehaviour:
       data:
         name: rotationSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 283011090204065862
       type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         name: movementSpeed
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 2
+        value: 0
     - rid: 283011090204065863
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -59,7 +60,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c31f60d2cc752b64fbbbde5e4af4d869
-        position: {x: 1275, y: 30}
+        position: {x: 1290, y: 300}
         blackboard:
           keys: []
         description: 
@@ -81,14 +82,14 @@ MonoBehaviour:
       data:
         name: rayDistance
         typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 3
+        value: 1
     - rid: 283011470369751051
       type: {class: SmoothLookAt, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 22552b2080cb7474ca9c20ef71a3ad66
-        position: {x: 1095, y: 30}
+        position: {x: 1095, y: 300}
         blackboard:
           keys: []
         description: 
@@ -112,20 +113,20 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: 1095, y: -300}
+        position: {x: 1095, y: -165}
         blackboard:
           keys: []
         description: "\uCD94\uC801"
         drawGizmos: 0
         child:
-          rid: 1401849265356013609
+          rid: 1683426562437021815
     - rid: 1401849265356013609
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 41f2109e5024d154784184f4e0d7f91c
-        position: {x: 1095, y: -180}
+        position: {x: 1095, y: 105}
         blackboard:
           keys: []
         description: 
@@ -140,7 +141,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3f5a332b14474aa4aa80127bff58fe29
-        position: {x: 900, y: 30}
+        position: {x: 900, y: 300}
         blackboard:
           keys: []
         description: 
@@ -156,3 +157,23 @@ MonoBehaviour:
         typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
           Culture=neutral, PublicKeyToken=null
         value: {fileID: 0}
+    - rid: 1683426562437021815
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 43c47887162170d438a2872b113c1997
+        position: {x: 1095, y: -30}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 1401849265356013609
+        restartOnSuccess: 1
+        restartOnFailure: 0
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0

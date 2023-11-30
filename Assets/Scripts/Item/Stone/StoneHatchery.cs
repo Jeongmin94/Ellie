@@ -86,6 +86,9 @@ namespace Assets.Scripts.Item.Stone
                 case 4020:
                     effect = obj.gameObject.AddComponent<MagicStone>();
                     break;
+                case 4021:
+                    effect = obj.gameObject.AddComponent<GolemCoreStone>();
+                    break;
                 default:
                     effect = obj.gameObject.AddComponent<NormalStone>();
                     break;

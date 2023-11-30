@@ -9706,7 +9706,6 @@ MonoBehaviour:
   channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
   player: {fileID: 1440799382}
   hatchery: {fileID: 957769149}
-  inventory: {fileID: 0}
   ores: []
   monsters: {fileID: 1690280945}
   DialogCanvas: {fileID: 0}
@@ -17501,7 +17500,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6860538853240187878, guid: 9bfcdf65613c4478d833460aa194c908, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6863236723056871730, guid: 9bfcdf65613c4478d833460aa194c908, type: 3}
       propertyPath: m_RootOrder
@@ -18428,7 +18427,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4412197747154225357, guid: ef1dd0845aa6a4cef9e999043447d039, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ef1dd0845aa6a4cef9e999043447d039, type: 3}
@@ -67820,7 +67819,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea29370f9ebc8417eab1c95da472f4bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reload: {fileID: 0}
 --- !u!4 &1492892624
 Transform:
   m_ObjectHideFlags: 0
@@ -69811,6 +69809,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4395068cced2bb44ba6c8434df14f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   dataList:
   - {fileID: 11400000, guid: 6dd270afd876d49ea97bb52641ed8c11, type: 2}
   - {fileID: 11400000, guid: 5fafecf161d844d519093d63a540834b, type: 2}

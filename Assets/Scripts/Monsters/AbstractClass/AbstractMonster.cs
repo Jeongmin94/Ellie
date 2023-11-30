@@ -95,7 +95,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
                     attack = newSkill.AddComponent<FanShapeAttack>();
                     break;
             }
-            Debug.Log("ATTACK : " + attack);
             if (attack != null)
             {
                 Attacks.Add(skillName, attack);
