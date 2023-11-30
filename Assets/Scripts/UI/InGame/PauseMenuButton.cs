@@ -1,6 +1,6 @@
 using System;
-using System.Collections;
 using Assets.Scripts.Data.UI.Transform;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
@@ -17,6 +17,10 @@ namespace Assets.Scripts.UI.InGame
     public class PauseMenuButton : OpeningText
     {
         public new static readonly string Path = "Pause/PauseMenuButton";
+
+        private static readonly string SoundEnter = "pause2";
+        private static readonly string SoundClick = "pause3";
+        private static readonly string SoundEscape = "pause4";
 
         private enum HoverObject
         {
@@ -92,6 +96,15 @@ namespace Assets.Scripts.UI.InGame
 
         private void OnButtonClicked(PointerEventData data)
         {
+            if (PauseButtonPopupType == PopupType.Escape)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEscape);
+            }
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClick);
+            }
+
             PopupPayload payload = new PopupPayload();
             payload.popupType = PauseButtonPopupType;
             pauseMenuButtonAction?.Invoke(payload);
@@ -102,6 +115,7 @@ namespace Assets.Scripts.UI.InGame
             if (PauseButtonPopupType == PopupType.Escape)
                 return;
 
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEnter);
             hoverPanel.gameObject.SetActive(true);
         }
 
