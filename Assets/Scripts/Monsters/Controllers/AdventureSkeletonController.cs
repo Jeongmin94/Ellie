@@ -50,7 +50,6 @@ namespace Assets.Scripts.Monsters
         private void Start()
         {
             StartCoroutine(InitParsingData());
-
         }
 
         private IEnumerator InitParsingData()
