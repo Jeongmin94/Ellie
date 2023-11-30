@@ -29,6 +29,8 @@ namespace Assets.Scripts.Player.States
 
             Controller.PlayerStatus.isRecoveringStamina = true;
 
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_move5", Controller.transform.position);
+
         }
 
         public override void OnExitState()

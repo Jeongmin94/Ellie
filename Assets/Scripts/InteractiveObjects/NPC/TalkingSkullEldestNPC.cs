@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using System.Collections;
 using System.Collections.Generic;
@@ -180,6 +181,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         public void HitOnStone()
         {
             if (player == null || player.GetQuestStatus((int)EldestSkullQuest.quest6101) != QuestStatus.Accepted) return;
+            if (hitCount < 3)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "NPC1", transform.position);
+            }
             hitCount++;
         }
     }

@@ -5,6 +5,7 @@ using Assets.Scripts.Player;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.UI.Inventory.Test;
 using Centers;
+using Centers.Boss;
 using UnityEngine;
 
 namespace Assets.Scripts.Centers.Test
@@ -51,19 +52,20 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(DialogCanvas.gameObject);
             CheckTicket(SimpleDialogCanvas.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM1");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
         }
 
         private void Update()
         {
-            if(Input.GetKeyDown(KeyCode.Alpha0))
-            {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
-            }
-            if(Input.GetKeyDown(KeyCode.Alpha9))
-            {
-                SoundManager.Instance.StopAmbient("cave 10");
-            }
+            //if(Input.GetKeyDown(KeyCode.Alpha0))
+            //{
+            //    SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
+            //}
+            //if(Input.GetKeyDown(KeyCode.Alpha9))
+            //{
+            //    SoundManager.Instance.StopAmbient("cave 10");
+            //}
         }
     }
 }

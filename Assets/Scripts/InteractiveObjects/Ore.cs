@@ -116,11 +116,15 @@ namespace Assets.Scripts.InteractiveObjects
 
             if (hp <= 0)
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "rock_destruction2", transform.position);
                 canMine = false;
-                Debug.Log("mining complete");
                 //아이템 뱉기
                 DropStone(data.miningEndDropItemList);
                 StartCoroutine(Regenerate());
+            }
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "rock_destruction1", transform.position);
             }
         }
 

@@ -154,6 +154,10 @@ namespace Assets.Scripts.Player
         public float WalkSpeed { get { return walkSpeed; } }
         public float SprintSpeed { get { return sprintSpeed; } }
         public float DodgeSpeed { get { return dodgeSpeed; } }
+
+        public float PlayerHeight { get { return playerHeight; } }  
+        
+        public LayerMask GroundLayer { get { return groundLayer; } }
         public float AdditionalJumpForce { get { return additionalJumpForce; } }
         public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
@@ -185,6 +189,8 @@ namespace Assets.Scripts.Player
             playerStatus = GetComponent<PlayerStatus>();
             InitTicketMachine();
             //stateMachine.CurrentState.
+            playerInventory = GetComponent<PlayerInventory>();
+
         }
 
         private void InitTicketMachine()
@@ -258,7 +264,6 @@ namespace Assets.Scripts.Player
             Pickaxe.gameObject.SetActive(false);
             TurnOffSlingshot();
             TurnOffMeleeAttackCollider();
-            playerInventory = GetComponent<PlayerInventory>();
         }
         private void SetMovingAnim()
         {
@@ -438,9 +443,10 @@ namespace Assets.Scripts.Player
         private void CheckGround()
         {
             if (isRigid) return;
-            // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
             bool curIsGrounded = Physics.Raycast(transform.position,
                 Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
+            // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
+
 
             if (curIsGrounded != isGrounded)
             {
@@ -630,6 +636,7 @@ namespace Assets.Scripts.Player
 
         public void TurnOnMeleeAttackCollider()
         {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound5", transform.position);
             MeleeAttackCollider.SetActive(true);
         }
 

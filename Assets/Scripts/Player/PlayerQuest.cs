@@ -100,7 +100,11 @@ namespace Assets.Scripts.Player
                     if (!isPlaying)
                         curDialogListIdx++;
                     if (curDialogListIdx < dialogList.Count)
+                    {
+                        SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "dialogue1");
+
                         SendPlayDialogPayload(dialogList[curDialogListIdx]);
+                    }
                 }
                 if (curDialogListIdx == dialogList.Count)
                 {
@@ -151,6 +155,8 @@ namespace Assets.Scripts.Player
                         curDialogListIdx++;
                     if (curDialogListIdx < dialogList.Count)
                     {
+                        SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "dialogue1");
+
                         SendPlayDialogPayload(dialogList[curDialogListIdx]);
                     }
                 }
@@ -171,13 +177,14 @@ namespace Assets.Scripts.Player
             }
         }
         
-        private void SendPlayDialogPayload(int dialogIdx)
+        private void SendPlayDialogPayload(int dialogIdx, bool first = false)
         {
             DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
             string text = dialogData.dialog;
             string speaker = "";
 
-            DialogPayload payload = DialogPayload.Play(text, 0.2f);
+            DialogPayload payload = DialogPayload.Play(text, 0.5f);
+
             switch (dialogData.speaker)
             {
                 case 1:
@@ -195,8 +202,8 @@ namespace Assets.Scripts.Player
             }
 
             payload.speaker = speaker;
+
             ticketMachine.SendMessage(ChannelType.Dialog, payload);
-            Debug.Log(payload.canvasType);
         }
 
         private void SendStopDialogPayload(DialogCanvasType type)
@@ -221,6 +228,14 @@ namespace Assets.Scripts.Player
             if (dialogPayload.dialogType != DialogType.NotifyToClient) return;
 
             isPlaying = dialogPayload.isPlaying;
+            if(isPlaying)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "dialogue2", transform.position);
+            }
+            else
+            {
+                SoundManager.Instance.StopSfx("dialogue2");
+            }
         }
 
         public QuestStatus GetQuestStatus(int questIdx)
