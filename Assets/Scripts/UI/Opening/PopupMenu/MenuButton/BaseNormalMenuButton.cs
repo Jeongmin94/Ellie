@@ -1,9 +1,12 @@
 using System;
+using System.Collections;
 using Assets.Scripts.UI.Framework;
+using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Opening;
 using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.PopupMenu
 {
@@ -17,9 +20,20 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public new static readonly string Path = "Opening/NormalMenuText";
 
+        private enum Images
+        {
+            HoverImage,
+        }
+
         [SerializeField] private Sprite hoverSprite;
+        [SerializeField] private float blinkInterval = 0.5f;
+
+        private Image hoverImage;
+        private RectTransform hoverImageRect;
+        private Color originHoverImageColor;
 
         private MenuButton menuButton;
+        private IEnumerator blinkEnumerator;
 
         public void Subscribe(Action<PopupPayload> listener)
         {
@@ -28,6 +42,18 @@ namespace Assets.Scripts.UI.PopupMenu
 
         public void InitMenuButton(ButtonType buttonType)
         {
+            Bind<Image>(typeof(Images));
+            hoverImage = GetImage((int)Images.HoverImage);
+            hoverImageRect = hoverImage.GetComponent<RectTransform>();
+            hoverImage.sprite = hoverSprite;
+            originHoverImageColor = hoverImage.color;
+
+            AnchorPresets.SetAnchorPreset(hoverImageRect, AnchorPresets.StretchAll);
+            hoverImageRect.sizeDelta = Vector2.zero;
+            hoverImageRect.localPosition = Vector3.zero;
+
+
+            blinkEnumerator = BlinkImage();
             switch (buttonType)
             {
                 case ButtonType.Yes:
@@ -55,12 +81,47 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private void OnPointerEnter(PointerEventData data)
         {
-            SetImageSprite(hoverSprite);
+            StartCoroutine(blinkEnumerator);
         }
 
         private void OnPointerExit(PointerEventData data)
         {
-            ResetImageSprite();
+            StopCoroutine(blinkEnumerator);
+            hoverImage.color = originHoverImageColor;
+        }
+
+        private IEnumerator BlinkImage()
+        {
+            bool isBlink = true;
+            Color color = originHoverImageColor;
+            color.a = 1.0f;
+            hoverImage.color = color;
+
+            bool toRight = true;
+            float timeAcc = 0.0f;
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            while (isBlink)
+            {
+                yield return wfef;
+
+                float alpha = Mathf.Lerp(0.0f, 1.0f, timeAcc / blinkInterval);
+                color.a = alpha;
+                hoverImage.color = color;
+
+                if (toRight)
+                {
+                    timeAcc += Time.deltaTime;
+                }
+                else
+                {
+                    timeAcc -= Time.deltaTime;
+                }
+
+                if (timeAcc > blinkInterval)
+                    toRight = false;
+                else if (timeAcc <= 0.0f)
+                    toRight = true;
+            }
         }
     }
 }
