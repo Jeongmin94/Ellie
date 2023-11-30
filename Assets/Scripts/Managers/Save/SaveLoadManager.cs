@@ -139,6 +139,12 @@ namespace Assets.Scripts.Managers
                 {
                     throw new TimeoutException("로드 작업이 시간 초과로 취소되었습니다.");
                 }
+
+                Debug.Log($"PayloadTable Size: {payloadTable.Values.Count}");
+                foreach (var key in payloadTable.Keys)
+                {
+                    ((Action<IBaseEventPayload>)loadAction[key])(payloadTable[key]);
+                }
             }
             catch (TimeoutException ex)
             {
@@ -199,8 +205,8 @@ namespace Assets.Scripts.Managers
             {
                 if (!File.Exists(filePath))
                 {
-                    Debug.Log($"{type} - 파일이 존재하지 않습니다 : {filePath}");
-                    return;
+                    Debug.LogWarning($"{type} - 파일이 존재하지 않습니다 : {filePath}");
+                    return; // 파일이 없으면 로드 작업 건너뛰기
                 }
 
                 string data = await File.ReadAllTextAsync(filePath);
@@ -209,15 +215,20 @@ namespace Assets.Scripts.Managers
                 if (payload != null)
                 {
                     payloadTable[type] = payload;
+                    Debug.Log($"{(SaveLoadType)index} - Load Done");
                 }
-
-                Debug.Log($"{(SaveLoadType)index} - Load Done");
+                else
+                {
+                    Debug.LogWarning($"{type} - 역직렬화 실패 : {filePath}");
+                }
             }
             catch (Exception e)
             {
                 Debug.LogError($"{type} - Load Error : {e.Message}");
+                // 여기서 오류 발생해도 다른 파일 로드 작업은 계속 진행
             }
         }
+
         #endregion
 
         private string SaveFile(int index)
@@ -236,11 +247,11 @@ namespace Assets.Scripts.Managers
                         QuestSavePayload payload = payloadTable[type] as QuestSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                //case SaveLoadType.Map:
-                //    {
-                //        MapSavePayload payload = payloadTable[type] as MapSavePayload;
-                //        return JsonConvert.SerializeObject(payload);
-                //    }
+                case SaveLoadType.Map:
+                    {
+                        MapSavePayload payload = payloadTable[type] as MapSavePayload;
+                        return JsonConvert.SerializeObject(payload);
+                    }
                 case SaveLoadType.Test:
                     {
                         TestSavePayload payload = payloadTable[type] as TestSavePayload;
@@ -259,8 +270,8 @@ namespace Assets.Scripts.Managers
                     return JsonConvert.DeserializeObject<InventorySavePayload>(data);
                 case SaveLoadType.Quest:
                     return JsonConvert.DeserializeObject<QuestSavePayload>(data);
-                //case SaveLoadType.Map:
-                //    return JsonConvert.DeserializeObject<MapSavePayload>(data);
+                case SaveLoadType.Map:
+                    return JsonConvert.DeserializeObject<MapSavePayload>(data);
                 case SaveLoadType.Test:
                     return JsonConvert.DeserializeObject<TestSavePayload>(data);
                 default:
