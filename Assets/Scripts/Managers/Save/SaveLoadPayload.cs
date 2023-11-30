@@ -10,7 +10,7 @@ namespace Assets.Scripts.Managers
     {
         Inventory,
         Quest,
-        Map,
+        //Map,
         Test,
 
         End,

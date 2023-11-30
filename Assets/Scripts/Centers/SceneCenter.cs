@@ -11,6 +11,8 @@ namespace Assets.Scripts.Centers
         Boss,
         Closing,
         LoadingScene,
+        Test,
+        Test2,
     }
 
     public class SceneCenter : Singleton<SceneCenter>
@@ -25,7 +27,7 @@ namespace Assets.Scripts.Centers
 
             //로딩 화면이 필요한 경우 if 문에 추	
                 //opening -> ingame, death->restart, savefileload 시 로드 필요 *기획
-            if (CurrentScene == SceneName.InGame)
+            if (CurrentScene == SceneName.InGame || CurrentScene == SceneName.Test || CurrentScene == SceneName.Test2)
             {
                 SceneManager.LoadScene((int)SceneName.LoadingScene);
             }
@@ -59,6 +61,14 @@ namespace Assets.Scripts.Centers
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 LoadScene(SceneName.Closing);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                LoadScene(SceneName.Test);
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                LoadScene(SceneName.Test2);
             }
         }
     }
