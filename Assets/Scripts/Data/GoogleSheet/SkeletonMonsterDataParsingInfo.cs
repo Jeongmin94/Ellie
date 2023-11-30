@@ -81,7 +81,7 @@ public class SkeletonMonsterDataParsingInfo : DataParsingInfo
                 data.returnSpeed = float.Parse(entries[9]);
                 data.stopDistance = float.Parse(entries[10]);
                 data.weakRatio = float.Parse(entries[15]);
-                data.itemDropTable = int.Parse(entries[16]);
+                //data.itemDropTable = int.Parse(entries[16]);
             }
             catch(Exception ex)
             {

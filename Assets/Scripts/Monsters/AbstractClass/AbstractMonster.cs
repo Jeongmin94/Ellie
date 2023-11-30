@@ -124,7 +124,9 @@ namespace Assets.Scripts.Monsters.AbstractClass
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
             isDamaged.value = true;
-            if (currentHP <= 0)
+
+            Debug.Log("CURRENT HP : " + currentHP);
+            if (currentHP < 1)
             {
                 DropItem();
                 isDead.value = true;
