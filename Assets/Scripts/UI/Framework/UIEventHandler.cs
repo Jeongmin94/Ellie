@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +9,8 @@ namespace Assets.Scripts.UI.Framework
     // https://docs.unity.cn/Packages/com.unity.ugui@1.0/api/UnityEngine.EventSystems.html
     public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
+        public List<UIEvent> events = new List<UIEvent>();
+        
         // UIManager의 UIEvent 종류에 맞게 생성
         public Action<PointerEventData> clickHandlerAction;
         public Action<PointerEventData> downHandlerAction;
