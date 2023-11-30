@@ -14,6 +14,7 @@ using Assets.Scripts.Item.Stone;
 using Sirenix.OdinInspector;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Channels.Item;
+using System;
 
 public class TerrapupaController : SerializedMonoBehaviour
 {
@@ -145,7 +146,7 @@ public class TerrapupaController : SerializedMonoBehaviour
         // 미니언 리스트 랜덤 셔플
         for (int i = 0; i < minions.Count; i++)
         {
-            int randomIndex = Random.Range(i, minions.Count);
+            int randomIndex = UnityEngine.Random.Range(i, minions.Count);
             TerrapupaMinionBTController temp = minions[i];
             minions[i] = minions[randomIndex];
             minions[randomIndex] = temp;
@@ -203,12 +204,12 @@ public class TerrapupaController : SerializedMonoBehaviour
         Transform hitBossTransform = payload.TransformValue3;
         Transform boss = payload.Sender;
 
-        float jumpCheckValue = 1.0f;
-
+        // 1. 플레이어 피격
         if (playerTransform != null)
         {
             // 플레이어 아래 광선을 쏴서 점프 체크
             RaycastHit hit;
+            float jumpCheckValue = 1.0f;
 
             LayerMask groundLayer = 1 << LayerMask.NameToLayer("Ground");
             bool isJumping = !Physics.Raycast(playerTransform.position + Vector3.up * 0.1f, -Vector3.up, out hit, jumpCheckValue + 0.1f, groundLayer);
@@ -220,25 +221,23 @@ public class TerrapupaController : SerializedMonoBehaviour
 
             if (!isJumping)
             {
-                TerrapupaBTController bossController = boss.GetComponent<TerrapupaBTController>();
-                if (bossController != null)
-                {
-                    HitedPlayer(boss, playerTransform, payload.CombatPayload);
-                    ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
-                }
+                HitedPlayer(boss, playerTransform, payload.CombatPayload);
+                ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
             }
         }
+        // 2. 마나의 샘 피격
         if (manaTransform != null)
         {
             HitedManaFountaine(boss, manaTransform, hitEffect);
         }
+        // 3. 타 보스 피격
         if (hitBossTransform != null)
         {
-            // 보스 체크
-            TerrapupaBTController hitBossController = hitBossTransform.GetComponent<TerrapupaBTController>();
-            if (hitBossController?.terrapupaData != null)
+            hitBossTransform = hitBossTransform.GetComponent<TerrapupaDetection>().MyTerrapupa;
+            TerrapupaBTController hitBossControllers = hitBossTransform.GetComponent<TerrapupaBTController>();
+            if (hitBossControllers?.terrapupaData != null)
             {
-                hitBossController.terrapupaData.hitEarthQuake.Value = true;
+                hitBossControllers.terrapupaData.hitEarthQuake.Value = true;
                 ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform, 1.0f);
             }
         }
@@ -352,7 +351,6 @@ public class TerrapupaController : SerializedMonoBehaviour
 
         if (playerTransform != null)
         {
-            TerrapupaBTController bossController = boss.GetComponent<TerrapupaBTController>();
             HitedPlayer(boss, playerTransform, payload.CombatPayload);
         }
         if (manaTransform != null)
@@ -414,7 +412,6 @@ public class TerrapupaController : SerializedMonoBehaviour
 
         if (playerTransform != null)
         {
-            TerrapupaMinionBTController minionController = minion.GetComponent<TerrapupaMinionBTController>();
             HitedPlayer(minion, playerTransform, payload.CombatPayload);
         }
 
@@ -422,18 +419,18 @@ public class TerrapupaController : SerializedMonoBehaviour
     }
     private void OnDestroyAllManaFountains()
     {
-        Debug.Log($"OnDestroyAllManaFountains :: 보스 즉사");
+        Debug.Log($"OnDestroyAllManaFountains :: 모든 보스 기절");
 
         switch (currentLevel)
         {
             case 1:
-                currentLevel++;
-                Debug.Log("테라푸파 사망, 즉사");
-                KillTerrapupa();
+                Debug.Log("테라푸파 기절");
+                StunBoss(terrapupa);
                 break;
             case 2:
-                Debug.Log("테라, 푸파 사망, 즉사");
-                KillTerraAndPupa();
+                Debug.Log("테라, 푸파 기절");
+                StunBoss(terra);
+                StunBoss(pupa);
                 break;
         }
     }
@@ -518,6 +515,14 @@ public class TerrapupaController : SerializedMonoBehaviour
                 });
         }
     }
+    private void StunBoss(TerrapupaBTController target)
+    {
+        Debug.Log($"{target.name} 보스 기절");
+
+        target.terrapupaData.isStuned.Value = true;
+        target.terrapupaData.isTempted.Value = false;
+        target.terrapupaData.isIntake.Value = false;
+    }
     private void SpawnTerraAndPupa()
     {
         Debug.Log("SpawnTerraAndPupa :: 테라, 푸파 소환");
@@ -579,7 +584,7 @@ public class TerrapupaController : SerializedMonoBehaviour
     }
     private Vector3 GetRandVector()
     {
-        Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
+        Vector3 vec = new(UnityEngine.Random.Range(-1.0f, 1.0f), 0.5f, 0);
         return vec.normalized;
     }
     #endregion
