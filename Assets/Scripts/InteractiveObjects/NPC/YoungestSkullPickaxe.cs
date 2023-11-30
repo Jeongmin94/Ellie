@@ -18,6 +18,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.GetPickaxe(PickaxeIndex);
 
             Publish();
+            obj.GetComponent<PlayerInteraction>().interactiveObject = null;
             gameObject.SetActive(false);
         }
 

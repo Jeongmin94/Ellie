@@ -1,5 +1,6 @@
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
+using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
 
@@ -14,10 +15,6 @@ namespace Assets.Scripts.UI.Inventory
 
         private RectTransform rect;
         private TextMeshProUGUI descText;
-
-        private readonly Color fontColor = Color.black;
-        private readonly int fontSize = 18;
-        private readonly float lineHeight = 25;
 
         private void Awake()
         {
@@ -37,18 +34,23 @@ namespace Assets.Scripts.UI.Inventory
             descText = GetText((int)Texts.DescriptionText);
         }
 
-        // !TODO: 텍스트 폰트 설정(폰트가 미정)
         private void InitObjects()
         {
             rect = GetComponent<RectTransform>();
             AnchorPresets.SetAnchorPreset(rect, AnchorPresets.MiddleCenter);
             rect.sizeDelta = InventoryConst.DescTextRect.GetSize();
             rect.localPosition = InventoryConst.DescTextRect.ToCanvasPos();
+        }
 
-            descText.color = fontColor;
-            descText.fontSize = fontSize;
-            descText.alignment = TextAlignmentOptions.TopLeft;
-            descText.lineSpacing = lineHeight;
+        public void SetTypographyData(TextTypographyData data)
+        {
+            descText.color = data.color;
+            descText.fontSize = data.fontSize;
+            descText.alignment = data.alignmentOptions;
+            descText.lineSpacing = data.lineSpacing;
+            descText.characterSpacing = data.characterSpacing;
+
+            descText.font = data.fontAsset;
         }
 
         public void SetDescriptionText(string text)

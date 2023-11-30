@@ -1,0 +1,209 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9cb0f7fc84e614e1da05685ce69c47df, type: 3}
+  m_Name: MonsterAttackData
+  m_EditorClassIdentifier: 
+  url: https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/edit#gid=0
+  startCell: B7
+  endColumn: AC
+  tsv: "2000\t\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4\t\uD314 \uB0B4\uB824\uCE58\uAE30\tBoxCollider\t1\t1\t3\t0\t1\t1.3\t0.5\t0\t0\t0.5\t1\t1\t1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t2\t-1\tMelee\r\n2001\t\uBAA8\uD5D8\uAC00
+    \uC2A4\uCF08\uB808\uD1A4\t\uD314 \uB0B4\uB824\uCE58\uAE30\tBoxCollider\t1\t1\t3\t0\t1\t1.3\t0.5\t0\t0\t0.5\t2\t2\t2\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t2\t-1\tMelee\r\n2002\t\uACF5\uB300\uC6D0
+    \uC2A4\uCF08\uB808\uD1A4\t\uD314 \uB0B4\uB824\uCE58\uAE30\tBoxCollider\t2\t1\t3\t0\t1\t1.3\t0.5\t0\t0\t0.5\t2\t2\t2\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t2\t-1\tMelee\r\n2003\t\uBAA8\uD5D8\uAC00
+    \uC2A4\uCF08\uB808\uD1A4\t\uD749\uAE30 \uD718\uB450\uB974\uAE30\tFanshapeAttack\t1\t2\t2\t0\t1.5\t0.9\t0.5\t0\t0\t1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t2\t-1\tWeapon\r\n2004\t\uACF5\uB300\uC6D0
+    \uC2A4\uCF08\uB808\uD1A4\t\uD749\uAE30 \uD718\uB450\uB974\uAE30\tFanshapeAttack\t2\t2\t2\t0\t1.5\t0.9\t0.5\t0\t0\t1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t2\t-1\tWeapon\r\n2005\t\uD3C9\uBC94\uD55C
+    \uC2A4\uCF08\uB808\uD1A4\t\uB2EC\uB824\uB4E4\uAE30\tRunToPlayer\t0\t5\t8\t0\t1\t-1\t2\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t6\t-1\t2\t2\t5\tMovement\r\n2006\t\uBAA8\uD5D8\uAC00
+    \uC2A4\uCF08\uB808\uD1A4\t\uB2EC\uB824\uB4E4\uAE30\tRunToPlayer\t0\t5\t8\t0\t1\t-1\t2\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t7\t-1\t2\t2\t5\tMovement\r\n2007\t\uACF5\uB300\uC6D0
+    \uC2A4\uCF08\uB808\uD1A4\t\uB2EC\uB824\uB4E4\uAE30\tRunToPlayer\t0\t5\t8\t0\t1\t-1\t2\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t7\t-1\t2\t2\t5\tMovement\r\n2008\t\uB9C8\uBC95\uC0AC
+    \uC2A4\uCF08\uB808\uD1A4\t\uB0A0\uC544\uAC00\uAE30\tFlee\t0\t3\t8\t0\t1\t-1\t2\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t-1\t15\t12\t-1\t10\t10\tMovement\r\n2009\t\uB9C8\uBC95\uC0AC
+    \uC2A4\uCF08\uB808\uD1A4\t\uBD88\uB369\uC774 \uBC1C\uC0AC\tProjectileAttack\t1\t1\t12\t2\t1\t2\t-1\t0\t1\t0\t1\t1\t1\t5\t15\tTRUE\tMONSTER\tFALSE\t-1\t-1\t-1\t10\t-1\tProjectile\r\n2010\t\uB3D9\uAD74
+    \uBC15\uC950\t\uB0A0\uC544\uC11C \uAE68\uBB3C\uAE30\tBoxCollider\t1\t2\t6\t2\t1\t2\t1\t0\t0\t0.5\t1\t1\t1\t-1\t-1\t-1\t-1\t-1\t8\t2\t-1\t1.5\t3\tMelee"
+  datas:
+  - index: 2000
+    monsterName: "\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uD314 \uB0B4\uB824\uCE58\uAE30"
+    attackType: 2
+    attackValue: 1
+    attackInterval: 1
+    attackableDistance: 3
+    animationHold: 1.3
+    attackDuration: 0.5
+    offset: {x: 0, y: 0, z: 0.5}
+    size: {x: 1, y: 1, z: 1}
+    movementSpeed: -1
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: -1
+    combatType: 0
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2001
+    monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uD314 \uB0B4\uB824\uCE58\uAE30"
+    attackType: 2
+    attackValue: 1
+    attackInterval: 1
+    attackableDistance: 3
+    animationHold: 1.3
+    attackDuration: 0.5
+    offset: {x: 0, y: 0, z: 0.5}
+    size: {x: 2, y: 2, z: 2}
+    movementSpeed: -1
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: -1
+    combatType: 0
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2002
+    monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uD314 \uB0B4\uB824\uCE58\uAE30"
+    attackType: 2
+    attackValue: 2
+    attackInterval: 1
+    attackableDistance: 3
+    animationHold: 1.3
+    attackDuration: 0.5
+    offset: {x: 0, y: 0, z: 0.5}
+    size: {x: 2, y: 2, z: 2}
+    movementSpeed: -1
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: -1
+    combatType: 0
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2003
+    monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uD749\uAE30 \uD718\uB450\uB974\uAE30"
+    attackType: 7
+    attackValue: 1
+    attackInterval: 2
+    attackableDistance: 2
+    animationHold: 0.9
+    attackDuration: 0.5
+    offset: {x: 0, y: 0, z: 1}
+    size: {x: -1, y: -1, z: -1}
+    movementSpeed: -1
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: -1
+    combatType: 1
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2004
+    monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uD749\uAE30 \uD718\uB450\uB974\uAE30"
+    attackType: 7
+    attackValue: 2
+    attackInterval: 2
+    attackableDistance: 2
+    animationHold: 0.9
+    attackDuration: 0.5
+    offset: {x: 0, y: 0, z: 1}
+    size: {x: -1, y: -1, z: -1}
+    movementSpeed: -1
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: -1
+    combatType: 1
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2005
+    monsterName: "\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uB2EC\uB824\uB4E4\uAE30"
+    attackType: 0
+    attackValue: 0
+    attackInterval: 5
+    attackableDistance: 8
+    animationHold: -1
+    attackDuration: 2
+    offset: {x: -1, y: -1, z: -1}
+    size: {x: -1, y: -1, z: -1}
+    movementSpeed: 6
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: 5
+    combatType: 3
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2006
+    monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uB2EC\uB824\uB4E4\uAE30"
+    attackType: 0
+    attackValue: 0
+    attackInterval: 5
+    attackableDistance: 8
+    animationHold: -1
+    attackDuration: 2
+    offset: {x: -1, y: -1, z: -1}
+    size: {x: -1, y: -1, z: -1}
+    movementSpeed: 7
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: 5
+    combatType: 3
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2007
+    monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uB2EC\uB824\uB4E4\uAE30"
+    attackType: 0
+    attackValue: 0
+    attackInterval: 5
+    attackableDistance: 8
+    animationHold: -1
+    attackDuration: 2
+    offset: {x: -1, y: -1, z: -1}
+    size: {x: -1, y: -1, z: -1}
+    movementSpeed: 7
+    fleeDistance: -1
+    stopDistance: 2
+    attackableMinimumDistance: 5
+    combatType: 3
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2008
+    monsterName: "\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uB0A0\uC544\uAC00\uAE30"
+    attackType: 1
+    attackValue: 0
+    attackInterval: 3
+    attackableDistance: 8
+    animationHold: -1
+    attackDuration: 2
+    offset: {x: -1, y: -1, z: -1}
+    size: {x: -1, y: -1, z: -1}
+    movementSpeed: 15
+    fleeDistance: 12
+    stopDistance: 10
+    attackableMinimumDistance: 10
+    combatType: 3
+    weaponName: 
+    projectilePrefab: {fileID: 0}
+  - index: 2009
+    monsterName: "\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4"
+    attackName: "\uBD88\uB369\uC774 \uBC1C\uC0AC"
+    attackType: 4
+    attackValue: 1
+    attackInterval: 1
+    attackableDistance: 12
+    animationHold: 2
+    attackDuration: -1
+    offset: {x: 0, y: 1, z: 0}
+    size: {x: 1, y: 1, z: 1}
+    movementSpeed: -1
+    fleeDistance: -1
+    stopDistance: 10
+    attackableMinimumDistance: -1
+    combatType: 2
+    weaponName: 
+    projectilePrefab: {fileID: 0}

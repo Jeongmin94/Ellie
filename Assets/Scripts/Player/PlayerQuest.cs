@@ -34,8 +34,34 @@ namespace Assets.Scripts.Player
             StartCoroutine(InitPlayerQuest());
             //6100번 퀘스트 시작
             StartCoroutine(FirstDialogCoroutine());
+
+            //퀘스트 세이브 로드
+            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
+            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
         }
 
+        private void Update()
+        {
+            //퀘스트 상태 디버깅용
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                SaveLoadManager.Instance.SaveData();
+                DebugCurrentPlayerQuestDict();
+            }
+            if(Input.GetKeyDown(KeyCode.V))
+            {
+                SaveLoadManager.Instance.LoadData();
+                DebugCurrentPlayerQuestDict();
+            }
+        }
+
+        private void DebugCurrentPlayerQuestDict()
+        {
+            foreach(var item in questStatusDic)
+            {
+                Debug.Log($"{item.Key}번 째 퀘스트 상태 : {item.Value}");
+            }
+        }
         private IEnumerator InitPlayerQuest()
         {
             yield return DataManager.Instance.CheckIsParseDone();
@@ -61,7 +87,7 @@ namespace Assets.Scripts.Player
                 Debug.Log("DialogList is Null");
                 yield break;
             }
-
+            LockPlayerMovement();
             SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
             while (true)
@@ -87,14 +113,16 @@ namespace Assets.Scripts.Player
                         questStatusDic[questDataList[FirstQuestDataIdx].index] = QuestStatus.Accepted;
                         SendStopDialogPayload(DialogCanvasType.Default);
                         SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+                        UnlockPlayerMovement();
                         yield break;
                     }
                 }
                 yield return null;
             }
+            
         }
 
-        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, string NPCName, bool isAdditionalDialog = false)
+        public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
         {
             int curDialogListIdx = 0;
             List<int> dialogList;
@@ -110,7 +138,7 @@ namespace Assets.Scripts.Player
             }
 
             //첫 대사 출력
-            SendPlayDialogPayload(dialogList[curDialogListIdx], NPCName);
+            SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
             while(true)
             {
@@ -122,7 +150,9 @@ namespace Assets.Scripts.Player
                     if (!isPlaying)
                         curDialogListIdx++;
                     if (curDialogListIdx < dialogList.Count)
-                        SendPlayDialogPayload(dialogList[curDialogListIdx], NPCName);
+                    {
+                        SendPlayDialogPayload(dialogList[curDialogListIdx]);
+                    }
                 }
                 if (curDialogListIdx == dialogList.Count)
                 {
@@ -141,7 +171,7 @@ namespace Assets.Scripts.Player
             }
         }
         
-        private void SendPlayDialogPayload(int dialogIdx, string npcName = "???")
+        private void SendPlayDialogPayload(int dialogIdx)
         {
             DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
             string text = dialogData.dialog;
@@ -150,17 +180,17 @@ namespace Assets.Scripts.Player
             DialogPayload payload = DialogPayload.Play(text, 0.2f);
             switch (dialogData.speaker)
             {
-                case DialogSpeaker.NPC:
-                    SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
-                    speaker = npcName;
-                    break;
-                case DialogSpeaker.Player:
+                case 1:
                     SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
                     speaker = "엘리";
                     break;
-                case DialogSpeaker.Narr:
+                case 2:
                     SendStopDialogPayload(DialogCanvasType.Default);
                     payload.canvasType = DialogCanvasType.SimpleRemaining;
+                    break;
+                default:
+                    SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+                    speaker = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(dialogData.speaker).name;
                     break;
             }
 
@@ -186,9 +216,7 @@ namespace Assets.Scripts.Player
 
         public void SetIsPlaying(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload) return;
-
-            DialogPayload dialogPayload = payload as DialogPayload;
+            if (payload is not DialogPayload dialogPayload) return;
 
             if (dialogPayload.dialogType != DialogType.NotifyToClient) return;
 
@@ -211,6 +239,8 @@ namespace Assets.Scripts.Player
             if (questStatusDic.ContainsKey(questIdx))
             {
                 questStatusDic[questIdx] = newStatus;
+                //퀘스트 갱신시마다 세이브
+                SaveLoadManager.Instance.SaveData();
             }
             else
             {
@@ -283,17 +313,36 @@ namespace Assets.Scripts.Player
         {
             controller.canMove = false;
             controller.canTurn = false;
+            controller.ChangeState(PlayerStateName.Conversation);
         }
 
         public void UnlockPlayerMovement()
         {
             controller.canMove = true;
             controller.canTurn = true;
+            controller.ChangeState(PlayerStateName.Idle);
+
         }
 
         public void GetPickaxe(int pickaxeIdx)
         {
             controller.GetPickaxe(pickaxeIdx);
+        }
+
+        private void SaveQuestData()
+        {
+            QuestSavePayload payload = new QuestSavePayload();
+            payload.questStatusSaveInfo = questStatusDic;
+
+            SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Quest, payload);
+        }
+
+        private void LoadQuestData(IBaseEventPayload payload)
+        {
+            if (payload is not QuestSavePayload questSavePayload) return;
+            questStatusDic.Clear();
+
+            questStatusDic = questSavePayload.questStatusSaveInfo;
         }
     }
 }

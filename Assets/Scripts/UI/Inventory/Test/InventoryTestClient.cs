@@ -1,11 +1,10 @@
-using Assets.Scripts.Data.GoogleSheet;
+using System.Collections;
 using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using System.Collections;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -14,7 +13,6 @@ namespace Assets.Scripts.UI.Inventory.Test
     public class InventoryTestClient : MonoBehaviour
     {
         [SerializeField] private ItemDataParsingInfo consumableItemDataParsingInfo;
-        [SerializeField] private StoneDataParsingInfo stoneDataParsingInfo;
         [SerializeField] private GameGoods gameGoods;
 
         private TicketMachine ticketMachine;
@@ -44,26 +42,12 @@ namespace Assets.Scripts.UI.Inventory.Test
         private IEnumerator CheckParse()
         {
             yield return DataManager.Instance.CheckIsParseDone();
-
-            Debug.Log($"{stoneDataParsingInfo} 파싱 완료");
-
+            Debug.Log($"{consumableItemDataParsingInfo} 파싱 완료");
             testPayload = MakeAddItemPayload();
         }
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-            {
-                Debug.Log($"세이브 인벤토리");
-                SaveLoadManager.Instance.SaveData();
-            }
-
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                Debug.Log($"로드 인벤토리");
-                SaveLoadManager.Instance.LoadData();
-            }
-
             // 인벤토리 On/Off
             if (Input.GetKeyDown(KeyCode.I))
             {
@@ -80,7 +64,8 @@ namespace Assets.Scripts.UI.Inventory.Test
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 var payload = MakeAddItemPayload2();
-                var testItemInfo = stoneDataParsingInfo.stones[Random.Range(1, stoneDataParsingInfo.stones.Count)];
+                var testItemInfo = consumableItemDataParsingInfo.items[Random.Range(1, consumableItemDataParsingInfo.items.Count)];
+                testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
                 payload.itemData = testItemInfo;
 
                 ticketMachine.SendMessage(ChannelType.UI, payload);
@@ -111,13 +96,11 @@ namespace Assets.Scripts.UI.Inventory.Test
 
             if (Input.GetKeyDown(KeyCode.N))
             {
-                Debug.Log("MakeCCWPayload");
                 ticketMachine.SendMessage(ChannelType.UI, MakeCCWPayload());
             }
 
             if (Input.GetKeyDown(KeyCode.M))
             {
-                Debug.Log("MakeCWPayload");
                 ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
             }
         }
@@ -138,7 +121,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.actionType = ActionType.AddSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
 
-            var testItemInfo = stoneDataParsingInfo.stones[0];
+            var testItemInfo = consumableItemDataParsingInfo.items[0];
 
             payload.itemData = testItemInfo;
 
@@ -149,7 +132,7 @@ namespace Assets.Scripts.UI.Inventory.Test
         {
             var ret = MakeAddItemPayload();
 
-            ret.itemData = stoneDataParsingInfo.stones[1];
+            ret.itemData = consumableItemDataParsingInfo.items[1];
 
             return ret;
         }
@@ -161,7 +144,7 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.actionType = ActionType.ConsumeSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
 
-            var testItemInfo = stoneDataParsingInfo.stones[0];
+            var testItemInfo = consumableItemDataParsingInfo.items[0];
 
             payload.itemData = testItemInfo;
 
@@ -174,7 +157,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveCounterClockwise;
             payload.slotAreaType = SlotAreaType.Equipment;
-            payload.groupType = GroupType.Stone;
 
             return payload;
         }
@@ -185,7 +167,6 @@ namespace Assets.Scripts.UI.Inventory.Test
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.MoveClockwise;
             payload.slotAreaType = SlotAreaType.Equipment;
-            payload.groupType = GroupType.Stone;
 
             return payload;
         }

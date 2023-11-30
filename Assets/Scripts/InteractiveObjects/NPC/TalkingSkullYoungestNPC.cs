@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -83,7 +82,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             player.SetQuestStatus(REQUIREDQUESTIDX, QuestStatus.End);
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6106, QuestStatus.Unaccepted);
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106, QuestStatus.Unaccepted, npcData.name));
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106, QuestStatus.Unaccepted));
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6106, QuestStatus.Done);
             EndInteract();
             player.EndConversation();
@@ -96,7 +95,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106, QuestStatus.Done, npcData.name));
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106, QuestStatus.Done));
             player.GetReward((int)YoungestSkullQuest.Quest6106);
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6106, QuestStatus.End);
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6107, QuestStatus.Unaccepted);
@@ -111,7 +110,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Unaccepted, npcData.name));
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Unaccepted));
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6107, QuestStatus.Accepted);
             EndInteract();
             player.EndConversation();
@@ -124,7 +123,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Accepted, npcData.name));
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Accepted));
             EndInteract();
             player.EndConversation();
         }
@@ -136,7 +135,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Done, npcData.name));
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Done));
             player.GetReward((int)YoungestSkullQuest.Quest6107);
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6107, QuestStatus.End);
             EndInteract();

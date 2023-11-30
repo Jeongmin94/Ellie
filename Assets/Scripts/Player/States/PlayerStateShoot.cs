@@ -30,6 +30,10 @@ namespace Assets.Scripts.Player.States
 
             Controller.TurnOnSlingshot();
             Controller.TurnSlingshotLineRenderer(false);
+            SoundManager.Instance.StopSfx("slingshot_sound1");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound2", Controller.PlayerObj.position);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound2", Controller.PlayerObj.position);
+
         }
 
 

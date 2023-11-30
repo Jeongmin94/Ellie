@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Managers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Player.States
             moveSpeed = Controller.WalkSpeed * 0.5f;
             Controller.PlayerStatus.isRecoveringStamina = true;
             Controller.Anim.SetBool("IsExhausted", true);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound7");
         }
 
         public override void OnExitState()

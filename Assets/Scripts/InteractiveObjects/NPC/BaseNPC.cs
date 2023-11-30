@@ -72,13 +72,13 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             if (player == null) yield break;
             while (true)
             {
-                Vector3 direction = player.gameObject.transform.position - NPCObj.transform.position;
+                Vector3 direction = player.gameObject.transform.position - transform.position;
                 direction.y = 0;
 
                 Quaternion rotation = Quaternion.LookRotation(direction);
-                NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, rotation, Time.deltaTime * rotationSpeed);
+                NPCObj.rotation = Quaternion.Slerp(NPCObj.rotation, rotation, Time.deltaTime * rotationSpeed);
 
-                float angleDifference = Quaternion.Angle(NPCObj.transform.rotation, rotation);
+                float angleDifference = Quaternion.Angle(NPCObj.rotation, rotation);
 
                 if (angleDifference <= 1.0f)
                 {
@@ -93,18 +93,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             if(_LookAtPlayer != null)
                 StopCoroutine(_LookAtPlayer);
-            StartCoroutine(ResetRotation());
+            //StartCoroutine(ResetRotation());
         }
         private IEnumerator ResetRotation()
         {
-            while (Quaternion.Angle(NPCObj.transform.rotation, Quaternion.identity) > 1.0f)
+            Quaternion targetRotation = Quaternion.Euler(0, 0, 0);
+            while (Quaternion.Angle(NPCObj.rotation, targetRotation) > 1.0f)
             {
-                NPCObj.transform.rotation = Quaternion.Slerp(NPCObj.transform.rotation, Quaternion.identity, Time.deltaTime * rotationSpeed);
+                NPCObj.rotation = Quaternion.Slerp(NPCObj.rotation, targetRotation, Time.deltaTime * rotationSpeed);
                 yield return null;
             }
 
             // 회전을 초기값으로 되돌린 후 코루틴 종료
-            transform.rotation = Quaternion.identity;
+            NPCObj.rotation = targetRotation;
         }
     }
 }

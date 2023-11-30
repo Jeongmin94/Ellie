@@ -1,8 +1,9 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
-    public class Singleton<T> : MonoBehaviour where T : Component
+    public class Singleton<T> : SerializedMonoBehaviour where T : Component
     {
         private static T instance;
 
@@ -36,6 +37,10 @@ namespace Assets.Scripts.Managers
             {
                 Destroy(gameObject);
             }
+        }
+
+        public virtual void ClearAction()
+        {
         }
     }
 }

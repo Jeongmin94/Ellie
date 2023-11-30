@@ -24,6 +24,11 @@ namespace Boss.Objects
         public readonly int MAGICSTONE_INDEX = 4020;
         private TicketMachine ticketMachine;
 
+        public Vector3 SpawnPosition
+        {
+            get { return spawnPosition.position; }
+        }
+
         public bool IsCooldown
         {
             get { return isCooldown; }

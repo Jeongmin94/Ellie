@@ -1,34 +1,28 @@
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.AbstractClass;
-using Assets.Scripts.Monsters.Utility;
-using Assets.Scripts.Player;
 using Channels.Combat;
-using TheKiwiCoder;
 using UnityEngine;
-
-
 
 namespace Assets.Scripts.Monsters.Attacks
 {
     public class WeaponAttack : AbstractAttack
     {
         private Collider collider;
-        private WeaponAttackData attackData;
+        private MonsterAttackData attackData;
 
         private void Awake()
         {
             SetTicketMachine();
         }
 
-        public override void InitializeWeapon(WeaponAttackData data)
+        public override void InitializeWeapon(MonsterAttackData data)
         {
             attackData = data;
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            InitializedBase(data);
             if(collider==null)
             {
-                collider = data.weapon.GetComponent<Collider>();
+                //collider = data.weapon.GetComponent<Collider>();
                 if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
                 collider.isTrigger = true;
             }
@@ -70,7 +64,7 @@ namespace Assets.Scripts.Monsters.Attacks
             }
         }
 
-        private void SetAndAttack(WeaponAttackData data, Transform otherTransform)
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
             Debug.Log("SetPayloadAttack");
             CombatPayload payload = new();

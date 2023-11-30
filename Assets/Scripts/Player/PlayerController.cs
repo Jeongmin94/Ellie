@@ -12,6 +12,7 @@ using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -229,7 +230,6 @@ namespace Assets.Scripts.Player
             if(Input.GetKeyDown(KeyCode.J))
             {
                 GetConsumalbeItemTest(4101);
-
             }
         }
         private void FixedUpdate()
@@ -300,9 +300,11 @@ namespace Assets.Scripts.Player
         }
         private void InitStateMachine()
         {
-            PlayerStateIdle playerStateIdle = new(this);
-            stateMachine = new PlayerStateMachine(PlayerStateName.Idle, playerStateIdle);
+            PlayerStateStart playerStateStart = new(this);
+            stateMachine = new PlayerStateMachine(PlayerStateName.Start, playerStateStart);
 
+            PlayerStateIdle playerStateIdle = new(this);
+            stateMachine.AddState(PlayerStateName.Idle, playerStateIdle);
             PlayerStateWalk playerStateWalk = new(this);
             stateMachine.AddState(PlayerStateName.Walk, playerStateWalk);
             PlayerStateSprint playerStateSprint = new(this);
@@ -675,8 +677,23 @@ namespace Assets.Scripts.Player
             switch (uiPayload.groupType)
             {
                 case GroupType.Item:
-                    Debug.Log("소모품 들어옴, " + uiPayload.equipmentSlotIdx);
-                    playerInventory.consumableEquipmentSlot[uiPayload.equipmentSlotIdx] = uiPayload.itemData;
+                    //playerInventory.consumableEquipmentSlot[uiPayload.equipmentSlotIdx] = uiPayload.itemData;
+                    if (uiPayload.itemData == null)
+                    {
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            playerInventory.canUseConsumable = false;
+                            playerInventory.itemIdx = 0;
+                        }
+                    }
+                    else
+                    {
+                        if (uiPayload.equipmentSlotIdx == 0)
+                        {
+                            playerInventory.canUseConsumable = true;
+                            playerInventory.itemIdx = uiPayload.itemData.index;
+                        }
+                    }
                     break;
                 case GroupType.Stone:
                     if(uiPayload.itemData == null)
@@ -692,7 +709,7 @@ namespace Assets.Scripts.Player
                         if (uiPayload.equipmentSlotIdx == 0)
                         {
                             hasStone = true;
-                            curStoneIdx = curStoneIdx = uiPayload.itemData.index;
+                            curStoneIdx = uiPayload.itemData.index;
                         }
                     }
                     break;

@@ -13,12 +13,12 @@ namespace Assets.Scripts.Monsters.Attacks
         private Vector3 offset;
         private float damageInterval;
 
-        public override void InitializeAOE(AOEAttackData data)
+        public override void InitializeAOE(MonsterAttackData data)
         {
-            InitializedBase(data.attackValue, data.durationTime, data.attackInterval, data.attackableDistance);
+            InitializedBase(data);
             Debug.Log("ParameterOBJ : " + prefabObject);
-            damageInterval = data.damageInterval;
-            prefabObject = data.prefabObject.GetComponent<AOE>();
+            damageInterval = data.attackInterval;
+            //prefabObject = data.prefabObject.GetComponent<AOE>();
             if (prefabObject == null)
                 Debug.Log("[AOEPrefabAttack] PrefabObject is Null");
         }
