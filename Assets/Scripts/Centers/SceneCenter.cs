@@ -1,14 +1,7 @@
-﻿using Assets.Scripts.InteractiveObjects;
-using Assets.Scripts.Item.Stone;
-using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.UI.Inventory.Test;
-using Centers;
+﻿using UnityEngine.SceneManagement;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-namespace Assets.Scripts.Centers.Test
+namespace Assets.Scripts.Centers
 {
     //Build세팅 할 때 Scene 넘버 확인해서 추가 / 수정
     public enum SceneName
@@ -20,7 +13,7 @@ namespace Assets.Scripts.Centers.Test
         LoadingScene,
     }
 
-    public class TestCenterWithScene : Singleton<TestCenterWithScene>
+    public class SceneCenter : Singleton<SceneCenter>
     {
         [SerializeField] public SceneName CurrentScene { get; private set; }
         public bool IsLoading { get; private set; }
@@ -48,6 +41,7 @@ namespace Assets.Scripts.Centers.Test
             IsLoading = false;
         }
 
+        //씬 전환을 위한 테스트용
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
