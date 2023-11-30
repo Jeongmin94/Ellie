@@ -100,6 +100,11 @@ namespace Assets.Scripts.UI.InGame
             configCanvas = UIManager.Instance.MakePopup<ConfigCanvas>(ConfigCanvas.Path);
             configCanvas.configCanvasAction -= OnPopupCanvasAction;
             configCanvas.configCanvasAction += OnPopupCanvasAction;
+
+            Color color = configCanvas.Background.color;
+            color.a = 0.7f;
+            configCanvas.Background.color = color;
+
             configCanvas.gameObject.SetActive(false);
 
             InitPopupCanvas();
@@ -161,6 +166,9 @@ namespace Assets.Scripts.UI.InGame
                     if (popup.gameObject.activeSelf)
                         allPopupClosed = false;
                 }
+
+                if (configCanvas.gameObject.activeSelf)
+                    allPopupClosed = false;
 
                 if (allPopupClosed)
                     gameObject.SetActive(false);

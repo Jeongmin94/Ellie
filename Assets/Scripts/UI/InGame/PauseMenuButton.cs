@@ -100,10 +100,7 @@ namespace Assets.Scripts.UI.InGame
         private void OnPointerEnter(PointerEventData data)
         {
             if (PauseButtonPopupType == PopupType.Escape)
-            {
-                textMeshProUGUI.color = hoverTypography.highlightedColor;
                 return;
-            }
 
             hoverPanel.gameObject.SetActive(true);
         }
