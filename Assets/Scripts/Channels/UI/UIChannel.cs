@@ -27,6 +27,9 @@ namespace Channels.UI
         SetQuestName,
         SetQuestDesc,
         SetQuestIcon,
+        
+        // Death
+        OpenDeathCanvas,
     }
 
     public struct QuestInfo
