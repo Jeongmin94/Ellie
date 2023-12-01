@@ -55,7 +55,13 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected Vector3 spawnPosition;
 
-        protected MonsterAudioController audioController;        
+        protected MonsterAudioController audioController;
+        protected GameObject player;
+
+        public void SetPlayer(GameObject ply)
+        {
+            player = ply;
+        }
 
         public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
         {

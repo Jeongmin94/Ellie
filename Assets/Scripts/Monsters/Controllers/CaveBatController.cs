@@ -1,52 +1,32 @@
 ﻿
 using UnityEngine;
 using System.Collections;
-
 using TheKiwiCoder;
 using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.Monsters.Others;
 using Assets.Scripts.Monsters.AbstractClass;
-
-
 using UnityEngine.AI;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Managers;
-using Channels.Components;
-using Assets.Scripts.Utils;
-using Channels.Type;
 using Assets.Scripts.Combat;
 using Assets.Scripts.StatusEffects;
-using System.Collections.Generic;
 using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters
 {
-
-
-
     public class CaveBatController : AbstractMonster, ICombatant
-    {
-        //Temp
-        public GameObject player;        
-
+    {        
         private void Awake()
         {
-            //temp, will change with gamecenter
-            player = GameObject.Find("Player");
-
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 
-            
             SetTicketMachine();
-            
-
         }
 
         private void Start()
         {
             StartCoroutine(InitParsingData());
-
         }
 
         private IEnumerator InitParsingData()

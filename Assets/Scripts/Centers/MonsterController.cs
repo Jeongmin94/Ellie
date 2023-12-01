@@ -15,6 +15,7 @@ public class MonsterController : MonoBehaviour, IMonster
 {
     private const int monsterDisableWait = 5;
 
+    [SerializeField] private GameObject player;
     [SerializeField] private GameObject monsters;
     [SerializeField] private BaseDropItem item;
     [SerializeField] private MonsterItemDropData itemData;
@@ -39,8 +40,8 @@ public class MonsterController : MonoBehaviour, IMonster
         }
         foreach (AbstractMonster mon in monster)
         {
-            Debug.Log(mon);
             mon.SetTicketMachine();
+            mon.SetPlayer(player);
         }
     }
 
