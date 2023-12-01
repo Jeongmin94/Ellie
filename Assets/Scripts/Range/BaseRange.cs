@@ -13,7 +13,7 @@ public abstract class BaseRange : MonoBehaviour
     public float RemainTime { get; set; }
 
     private const float RAYCAST_STARTPOS_OFFSET = 3.0f;
-    private const float POSITION_OFFSET = 0.2f;
+    private const float POSITION_OFFSET = 0.1f;
 
     private bool isFollowOrigin;
     private float initialYPosition;

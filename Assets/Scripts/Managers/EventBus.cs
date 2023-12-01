@@ -1,4 +1,5 @@
 using Channels.Combat;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 
@@ -23,6 +24,7 @@ public enum EventBusEvents
     DestroyAllManaFountain,
     ApplySingleBossCooldown,
     StartIntakeMagicStone,
+    BossRoomDoorOpen,
 }
 
 public interface IBaseEventPayload
@@ -32,7 +34,7 @@ public interface IBaseEventPayload
 
 public class EventBus : Singleton<EventBus>
 {
-    private Dictionary<EventBusEvents, Delegate> eventTable = new Dictionary<EventBusEvents, Delegate>();
+    [ShowInInspector][ReadOnly] private Dictionary<EventBusEvents, Delegate> eventTable = new Dictionary<EventBusEvents, Delegate>();
 
     public void Subscribe(EventBusEvents eventName, Action listener)
     {

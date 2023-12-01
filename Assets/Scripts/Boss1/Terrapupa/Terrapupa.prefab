@@ -41,8 +41,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3941696038287667104}
   - component: {fileID: 8146339630960665864}
+  - component: {fileID: 5822560401820216085}
   m_Layer: 6
-  m_Name: GameObject
+  m_Name: Detection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,6 +78,19 @@ CapsuleCollider:
   m_Height: 7
   m_Direction: 2
   m_Center: {x: 0, y: 0, z: -3}
+--- !u!114 &5822560401820216085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2692967630831231138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cce0226be343b354ea0a4df007f17bac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myTerrapupa: {fileID: 8979523351519513280}
 --- !u!1 &8979523351519513283
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,7 +1309,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: a02b0784f6204e247aa47e56207e7e73, type: 2}
     - target: {fileID: 9500000, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
       propertyPath: m_UpdateMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9500000, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
       propertyPath: m_CullingMode

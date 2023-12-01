@@ -30,12 +30,7 @@ namespace Boss.Objects
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
-            lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.5f;
-            lineRenderer.endWidth = 0.5f;
-            lineRenderer.material = material;
-            lineRenderer.startColor = Color.white;
-            lineRenderer.endColor = Color.white;
+            InitLineRenderer();
         }
 
         private void OnEnable()
@@ -43,6 +38,16 @@ namespace Boss.Objects
             rb.isKinematic = true;
             SetLineRendererPosition();
             lineRenderer.enabled = true;
+        }
+
+        private void InitLineRenderer()
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+            lineRenderer.startWidth = 0.5f;
+            lineRenderer.endWidth = 0.5f;
+            lineRenderer.material = material;
+            lineRenderer.startColor = Color.white;
+            lineRenderer.endColor = Color.white;
         }
 
         public void InitTicketMachine(TicketMachine ticketMachine)
@@ -97,6 +102,7 @@ namespace Boss.Objects
         {
             if (isFallen)
             {
+                // 보스와 충돌
                 if (other.transform.CompareTag("Boss"))
                 {
                     Debug.Log($"{other} 충돌!");
@@ -108,15 +114,13 @@ namespace Boss.Objects
                             FloatValue = respawnValue,
                             TransformValue1 = transform,
                             TransformValue2 = other.transform.root,
-                            Sender = other.transform.root,
                         });
 
-                    rb.useGravity = false;
-                    rb.velocity = Vector3.zero;
-                    isFallen = false;
-                    lineRenderer.enabled = false;
-                    gameObject.SetActive(false);
+                    ParticleManager.Instance.GetParticle(hitEffect, transform, 1.0f);
+
+                    HitedObject();
                 }
+                // 땅이나 다른 오브젝트에 충돌
                 else if (other.transform.CompareTag("Ground") || other.transform.CompareTag("InteractionObject"))
                 {
                     Debug.Log($"{other} 충돌!");
@@ -131,13 +135,18 @@ namespace Boss.Objects
 
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
 
-                    rb.useGravity = false;
-                    rb.velocity = Vector3.zero;
-                    isFallen = false;
-                    lineRenderer.enabled = false;
-                    gameObject.SetActive(false);
+                    HitedObject();
                 } 
             }
+        }
+
+        private void HitedObject()
+        {
+            rb.useGravity = false;
+            rb.velocity = Vector3.zero;
+            isFallen = false;
+            lineRenderer.enabled = false;
+            gameObject.SetActive(false);
         }
     }
 }
