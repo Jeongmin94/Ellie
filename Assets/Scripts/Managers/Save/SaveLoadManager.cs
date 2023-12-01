@@ -237,11 +237,11 @@ namespace Assets.Scripts.Managers
                         QuestSavePayload payload = payloadTable[type] as QuestSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                //case SaveLoadType.Map:
-                //    {
-                //        MapSavePayload payload = payloadTable[type] as MapSavePayload;
-                //        return JsonConvert.SerializeObject(payload);
-                //    }
+                case SaveLoadType.Map:
+                    {
+                        MapSavePayload payload = payloadTable[type] as MapSavePayload;
+                        return JsonConvert.SerializeObject(payload);
+                    }
                 case SaveLoadType.Test:
                     {
                         TestSavePayload payload = payloadTable[type] as TestSavePayload;
@@ -260,8 +260,8 @@ namespace Assets.Scripts.Managers
                     return JsonConvert.DeserializeObject<InventorySavePayload>(data);
                 case SaveLoadType.Quest:
                     return JsonConvert.DeserializeObject<QuestSavePayload>(data);
-                //case SaveLoadType.Map:
-                //    return JsonConvert.DeserializeObject<MapSavePayload>(data);
+                case SaveLoadType.Map:
+                    return JsonConvert.DeserializeObject<MapSavePayload>(data);
                 case SaveLoadType.Test:
                     return JsonConvert.DeserializeObject<TestSavePayload>(data);
                 default:
