@@ -13,6 +13,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private int hitCount = 0;
 
         private Coroutine Quest6101_2;
+        private TalkingSkullEldestTriggerCollider triggerCollider;
         private enum EldestSkullQuest
         {
             quest6101 = 6101,
@@ -22,6 +23,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void Start()
         {
             Init();
+            triggerCollider = transform.GetChild(1).GetComponent<TalkingSkullEldestTriggerCollider>();
+            triggerCollider.SubscribeFirstEncounterAction(OnFirstEncounterAction);
+            triggerCollider.SubscribeSecondEncounterAction(OnSecondEncounterAction);
+            triggerCollider.SubscribePlayerExitAction(OnPlayerExitAction);
         }
         public override void Interact(GameObject obj)
         {
@@ -38,6 +43,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 player.StartConversation();
                 if (Quest6101_2 != null)
                     StopCoroutine(Quest6101_2);
+
                 Quest6101_2 = StartCoroutine(Quest6101Coroutine2());
             }
             //6102 퀘스트라인
@@ -45,6 +51,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             {
                 LookAtPlayer();
                 player.StartConversation();
+
                 StartCoroutine(Quest6102Coroutine1());
             }
 
@@ -52,35 +59,40 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             {
                 LookAtPlayer();
                 player.StartConversation();
+
                 StartCoroutine(Quest6102Coroutine2());
             }
         }
 
-        private void OnTriggerEnter(Collider other)
+
+        private void OnFirstEncounterAction(Collider other)
         {
-            //처음 enter 했을 시 6100퀘스트를 클리어하고 보상을 줌
-            if (other.CompareTag("Player"))
+            player = other.gameObject.GetComponent<PlayerQuest>();
+            //6100퀘스트가 수락상태라면 Done으로 변경
+            if (player.GetQuestStatus(PLAYERFIRSTQUESTIDX) == QuestStatus.Accepted)
             {
-                player = other.gameObject.GetComponent<PlayerQuest>();
-                //6100퀘스트가 수락상태라면 Done으로 변경
-                if (player.GetQuestStatus(PLAYERFIRSTQUESTIDX) == QuestStatus.Accepted)
-                {
-                    player.SetQuestStatus(PLAYERFIRSTQUESTIDX, QuestStatus.Done);
-                    //보상 주기
-                    //player.PlayDialog(PLAYERFIRSTQUESTIDX, QuestStatus.Done);
-                    //dialogCoroutine = StartCoroutine(player.DialogCoroutine(PLAYERFIRSTQUESTIDX, QuestStatus.Done));
-                    StartCoroutine(FirstEncounterCoroutine());
-                    //player.GetReward(PLAYERFIRSTQUESTIDX);
-                }
+                player.SetQuestStatus(PLAYERFIRSTQUESTIDX, QuestStatus.Done);
+                //보상 주기
+                //player.PlayDialog(PLAYERFIRSTQUESTIDX, QuestStatus.Done);
+                //dialogCoroutine = StartCoroutine(player.DialogCoroutine(PLAYERFIRSTQUESTIDX, QuestStatus.Done));
+                StartCoroutine(FirstEncounterCoroutine());
+                //player.GetReward(PLAYERFIRSTQUESTIDX);
             }
         }
 
+        private void OnSecondEncounterAction()
+        {
+            StartCoroutine(Quest6101Coroutine1());
+        }
+
+        private void OnPlayerExitAction()
+        {
+            StartCoroutine(Quest6101Coroutine3());
+        }
         private void OnTriggerExit(Collider other)
         {
             //범위에서 나가면 다시 안으로 들어오게 하는 로직
-            if (!other.CompareTag("Player")) return;
-            if (player.GetQuestStatus((int)EldestSkullQuest.quest6101) <= QuestStatus.Accepted)
-                StartCoroutine(Quest6101Coroutine3());
+            
         }
 
 
@@ -90,6 +102,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             //돌맹이 많이 주웠다는 대사 출력
             player.LockPlayerMovement();
             yield return StartCoroutine(player.DialogCoroutine(PLAYERFIRSTQUESTIDX, QuestStatus.Done));
+            player.ActivateInteractiveUI();
+
             //보상 획득
             player.GetReward(PLAYERFIRSTQUESTIDX);
             player.UnlockPlayerMovement();
@@ -105,12 +119,16 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.LockPlayerMovement();
             LookAtPlayer();
             yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Unaccepted));
+            player.ActivateInteractiveUI();
+
             player.UnlockPlayerMovement();
         }
         private IEnumerator Quest6101Coroutine2()
         {
             //Accepted 상태의 대사들을 출력한 후, HitCount를 세고, 3번 이상 Hit했다면 그 다음 로직 실행
             yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Accepted));
+            player.ActivateInteractiveUI();
+
             //말 다 했으면 고개 다시 돌림
             EndInteract();
             //플레이어 움직일 수 있게 풀어줘야됨
@@ -129,6 +147,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetQuestStatus((int)EldestSkullQuest.quest6101, QuestStatus.Done);
             //대사 출력하고
             yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Done));
+            player.ActivateInteractiveUI();
+
             //보상주기
             player.GetReward((int)EldestSkullQuest.quest6101);
             //플레이어 움직일 수 있게 풀어줌
@@ -146,6 +166,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.GetBackToNPC(this.transform);
             player.LockPlayerMovement();
             yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Accepted, true));
+            player.ActivateInteractiveUI();
+
             player.UnlockPlayerMovement();
         }
 
@@ -153,6 +175,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private IEnumerator Quest6102Coroutine1()
         {
             yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6102, QuestStatus.Unaccepted));
+            player.ActivateInteractiveUI();
+
             EndInteract();
             player.EndConversation();
             player.SetQuestStatus((int)EldestSkullQuest.quest6102, QuestStatus.Done);
@@ -166,19 +190,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.GetReward((int)EldestSkullQuest.quest6102);
             player.SetQuestStatus((int)EldestSkullQuest.quest6102, QuestStatus.Done);
             player.SetQuestStatus(6103, QuestStatus.CantAccept);
+            player.SetInteractiveObjToNull();
+            //player.DeactivateInteractiveUI();
+
             this.gameObject.SetActive(false);
         }
-        private void Update()
-        {
-            if (player != null &&
-                player.GetQuestStatus((int)EldestSkullQuest.quest6101) == QuestStatus.Unaccepted &&
-                Vector3.Distance(player.transform.position, transform.position) < 7.0f)
-            {
-                //첫 보상을 받았고 NPC와 얼추 더 가까워졌을 때 대사 출력
-                StartCoroutine(Quest6101Coroutine1());
-            }
-        }
-
+        
         public void HitOnStone()
         {
             if (player == null || player.GetQuestStatus((int)EldestSkullQuest.quest6101) != QuestStatus.Accepted) return;

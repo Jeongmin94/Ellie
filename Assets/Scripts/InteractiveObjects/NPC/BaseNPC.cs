@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
+using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         //protected Dictionary<int, QuestData> questDataDict;
         protected QuestData curQuestData;
 
+        public InteractiveType interactiveType = InteractiveType.Chatting;
         protected bool isInteracting;
 
         //NPC 오브젝트
@@ -106,6 +108,11 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
             // 회전을 초기값으로 되돌린 후 코루틴 종료
             NPCObj.rotation = targetRotation;
+        }
+
+        public InteractiveType GetInteractiveType()
+        {
+            return interactiveType;
         }
     }
 }

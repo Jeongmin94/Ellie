@@ -146,6 +146,7 @@ namespace Assets.Scripts.Player
                 Debug.Log("DialogList is Null");
                 yield break;
             }
+            DeactivateInteractiveUI();
 
             //첫 대사 출력
             SendPlayDialogPayload(dialogList[curDialogListIdx]);
@@ -417,5 +418,18 @@ namespace Assets.Scripts.Player
             questStatusDic = questSavePayload.questStatusSaveInfo;
         }
 
+        public void ActivateInteractiveUI()
+        {
+            GetComponent<PlayerInteraction>().ActivateInteractiveUI();
+        }
+        public void DeactivateInteractiveUI()
+        {
+            GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
+        }
+
+        public void SetInteractiveObjToNull()
+        {
+            GetComponent<PlayerInteraction>().interactiveObject = null;
+        }
     }
 }

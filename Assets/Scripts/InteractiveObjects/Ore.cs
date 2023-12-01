@@ -7,6 +7,7 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using Channels.UI;
 using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using System;
 using System.Collections;
@@ -25,6 +26,7 @@ namespace Assets.Scripts.InteractiveObjects
             Tier1,
         }
 
+        public InteractiveType interactiveType = InteractiveType.Mining;
         [SerializeField] private GameObject stonePrefabTest;
         private Transform oreBody;
         private Transform stoneSpawnPos;
@@ -52,7 +54,10 @@ namespace Assets.Scripts.InteractiveObjects
         {
             InitTicketMachine();
         }
-
+        public InteractiveType GetInteractiveType()
+        {
+            return interactiveType;
+        }
         private void Start()
         {
             StartCoroutine(InitOre());

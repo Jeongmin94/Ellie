@@ -22,6 +22,7 @@ namespace Assets.Scripts.Player.States
             Controller.Pickaxe.gameObject.SetActive(true);
             Controller.Anim.SetBool("IsMining", true);
             Controller.GetComponent<PlayerInteraction>().isInteracting = true;
+            Controller.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
 
         public override void OnExitState()
@@ -30,6 +31,8 @@ namespace Assets.Scripts.Player.States
             Controller.Pickaxe.gameObject.SetActive(false);
             Controller.Anim.SetBool("IsMining", false);
             Controller.GetComponent<PlayerInteraction>().isInteracting = false;
+            Controller.GetComponent<PlayerInteraction>().ActivateInteractiveUI();
+
         }
 
         public override void OnFixedUpdateState()
