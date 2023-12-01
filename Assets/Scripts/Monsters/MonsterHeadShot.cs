@@ -32,7 +32,6 @@ public class MonsterHeadShot : MonoBehaviour, ICombatant
 
     public void ReceiveDamage(IBaseEventPayload payload)
     {
-        Debug.Log("HEAD SHOTTT");
         controller.RecieveHeadShot();
         CombatPayload combatPayload = payload as CombatPayload;
         controller.UpdateHP(combatPayload.Damage);

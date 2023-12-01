@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Data;
+using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.UI.Framework.Billboard;
 using Assets.Scripts.UI.Monster;
+using Assets.Scripts.Utils;
 using Channels.Combat;
+using Channels.Components;
+using Channels.Type;
 using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.AI;
@@ -23,22 +27,11 @@ namespace Assets.Scripts.Monsters.AbstractClass
         CaveBat=1003,
         GuildguardSkeleton = 1004,
     }
-    public abstract class AbstractMonster : MonoBehaviour, ICombatant
+    public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
     {
-        private const float monsterRespawnTime = 10.0f;
-        private const float monsterDisable = 5.0f;
-
-
         [SerializeField] public SkeletonMonsterData monsterData;
+        protected TicketMachine ticketMachine;
         public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
-
-        //[SerializeField] public RunToPlayerAttackData runToPlayerData;
-        //[SerializeField] public BoxColliderAttackData meleeAttackData;
-        //[SerializeField] public WeaponAttackData weaponAttackData;
-        //[SerializeField] public ProjectileAttackData projectileAttackData;
-        //[SerializeField] public FleeSkillData fleeSkilldata;
-        //[SerializeField] public FanShapeAttackData fanshapeAttackData;
-        //[SerializeField] public MonsterDropableItemData dropableItemData;
 
         public BlackboardKey<bool> isDamaged;
         public BlackboardKey<bool> isDead;
@@ -73,7 +66,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
             newSkill.transform.localPosition = Vector3.zero;
             newSkill.transform.localRotation = Quaternion.Euler(Vector3.zero);
             newSkill.transform.localScale = Vector3.one;
-
             switch (attackSkill)
             {
                 case Enums.AttackSkill.ProjectileAttack:
@@ -103,6 +95,11 @@ namespace Assets.Scripts.Monsters.AbstractClass
             return attack;
         }
 
+        public void SetTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Monster);
+        }
         public virtual void Attack(IBaseEventPayload payload)
         { }
 
@@ -124,13 +121,12 @@ namespace Assets.Scripts.Monsters.AbstractClass
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
             isDamaged.value = true;
-
-            Debug.Log("CURRENT HP : " + currentHP);
             if (currentHP < 1)
             {
+                SendTicket();
+                SetMonsterDead();
                 DropItem();
-                isDead.value = true;
-                MonsterDead();
+                isDead.Value = true;
             }
             else
             {
@@ -140,33 +136,20 @@ namespace Assets.Scripts.Monsters.AbstractClass
             isHeadShot = false;
         }
 
-        private void MonsterDead()
+        private void SetMonsterDead()
         {
             audioController.PlayAudio(MonsterAudioType.Dead);
-            StartCoroutine(DisableMonster());
-        }
-
-        private IEnumerator DisableMonster()
-        {
-            if(animator==null)
+            if (animator == null)
             {
                 animator = GetComponent<Animator>();
             }
             animator.Play("Dead");
             GetComponent<Collider>().enabled = false;
-
-            billboard.scaleFactor = 0.0f;
-
-            yield return new WaitForSeconds(monsterDisable);
-
-            transform.position = new Vector3(999, 999, 999);
-            yield return new WaitForSeconds(monsterRespawnTime-monsterDisable);
-
-            ResetMonster();
         }
 
-        private void ResetMonster()
+        public void ResetMonster()
         {
+            Debug.Log("Reset Monster");
             ReturnSpawnLocation();
             billboard.scaleFactor = 0.003f;
             GetComponent<Collider>().enabled = true;
@@ -194,6 +177,20 @@ namespace Assets.Scripts.Monsters.AbstractClass
             //        break;
             //    }
             //}
+        }
+
+        public void SendTicket()
+        {
+            MonsterPayload monsterPayload = new();
+            monsterPayload.RespawnTime = monsterData.respawnTime;
+            monsterPayload.Monster = transform;
+            monsterPayload.ItemDrop = monsterData.itemDropTable;
+            ticketMachine.SendMessage(ChannelType.Monster, monsterPayload);
+        }
+
+        public void MonsterDead(IBaseEventPayload payload)
+        {
+            throw new System.NotImplementedException();
         }
     }
 

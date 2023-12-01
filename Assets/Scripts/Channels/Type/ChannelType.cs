@@ -8,6 +8,7 @@ namespace Channels.Type
         BossInteraction,
         Terrapupa,
         Item,
-        Dialog
+        Dialog,
+        Monster
     }
 }

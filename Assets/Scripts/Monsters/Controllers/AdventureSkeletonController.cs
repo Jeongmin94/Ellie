@@ -21,16 +21,11 @@ using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters
 {
-
-
-
     public class AdventureSkeletonController : AbstractMonster, ICombatant
     {
         //Temp
         public GameObject player;
-
-
-        private TicketMachine ticketMachine;
+        
         
 
         private void Awake()
@@ -41,10 +36,7 @@ namespace Assets.Scripts.Monsters
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 
-            
             SetTicketMachine();
-            
-
         }
 
         private void Start()
@@ -115,11 +107,6 @@ namespace Assets.Scripts.Monsters
             }
         }
 
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTicket(ChannelType.Combat);
-        }
 
         private void InitUI()
         {
@@ -176,11 +163,6 @@ namespace Assets.Scripts.Monsters
             agent.angularSpeed = monsterData.rotationSpeed;
             agent.stoppingDistance = monsterData.stopDistance;
             agent.baseOffset = -0.1f;
-        }
-
-        public void ChangeEffectState(StatusEffectName effect)
-        {
-
         }
         public override void ReturnSpawnLocation()
         {

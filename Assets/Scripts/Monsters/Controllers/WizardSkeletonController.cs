@@ -27,8 +27,6 @@ namespace Assets.Scripts.Monsters
         //Temp
         public GameObject player;
 
-        private TicketMachine ticketMachine;
-
         private void Awake()
         {
             //temp, will change with gamecenter

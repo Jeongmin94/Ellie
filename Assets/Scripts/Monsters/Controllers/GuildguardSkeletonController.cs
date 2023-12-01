@@ -27,11 +27,7 @@ namespace Assets.Scripts.Monsters
     public class GuildguardSkeletonController : AbstractMonster, ICombatant
     {
         //Temp
-        public GameObject player;
-
-
-        private TicketMachine ticketMachine;
-        
+        public GameObject player;        
 
         private void Awake()
         {

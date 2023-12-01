@@ -21,6 +21,8 @@ namespace Assets.Scripts.Centers.Test
         public GameObject SkullSecondTrap;
         public TestAttacker attacker;
 
+        public GameObject monsterController;
+
         public int curStage = 1;
 
         private void Awake()
@@ -51,6 +53,7 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(DialogCanvas.gameObject);
             CheckTicket(SimpleDialogCanvas.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);
+            CheckTicket(monsterController.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM1");
         }
 

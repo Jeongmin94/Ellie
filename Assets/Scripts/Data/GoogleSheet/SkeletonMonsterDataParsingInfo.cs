@@ -30,7 +30,9 @@ public class SkeletonMonsterData
     public float overtravelDistance;
     public float stopDistance;
     public float weakRatio;
-    public int itemDropTable;
+    public List<int> itemDropTable;
+    public int respawnTime;
+
 
     public Enums.MonsterElement element;
     public Enums.MovementType type;
@@ -66,6 +68,7 @@ public class SkeletonMonsterDataParsingInfo : DataParsingInfo
             string[] entries = lines[i].Split('\t');
 
             SkeletonMonsterData data = new SkeletonMonsterData();
+            data.itemDropTable = new();
 
             try
             {
@@ -81,7 +84,16 @@ public class SkeletonMonsterDataParsingInfo : DataParsingInfo
                 data.returnSpeed = float.Parse(entries[9]);
                 data.stopDistance = float.Parse(entries[10]);
                 data.weakRatio = float.Parse(entries[15]);
-                //data.itemDropTable = int.Parse(entries[16]);
+
+                string[] dropableItem = entries[16].Trim().Split(',');
+                Debug.Log("DROP ITEM : " + dropableItem[0]);
+                for (int m = 0; m < dropableItem.Length; m++)
+                {
+                    int index = int.Parse(dropableItem[m].Trim());
+                    data.itemDropTable.Add(index);
+                }
+
+                data.respawnTime = int.Parse(entries[17]);
             }
             catch(Exception ex)
             {
