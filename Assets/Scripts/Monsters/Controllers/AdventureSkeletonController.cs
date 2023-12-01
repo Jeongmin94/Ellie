@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using TheKiwiCoder;
 using Assets.Scripts.Monsters.Utility;
