@@ -23,6 +23,8 @@ namespace Assets.Scripts.Player
         private TicketMachine ticketMachine;
         public bool isPlaying;
 
+        Sprite QuestUISprite;
+
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
@@ -36,6 +38,8 @@ namespace Assets.Scripts.Player
             //6100번 퀘스트 시작
             StartCoroutine(FirstDialogCoroutine());
 
+            //퀘스트 UI 스프라이트 로드
+            QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
             //퀘스트 세이브 로드
             SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
             SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
@@ -295,6 +299,7 @@ namespace Assets.Scripts.Player
             // !TODO : 이미지를 추가해야 합니다
             info.questName = data.name;
             info.questDesc = data.playableText;
+            info.questIcon = QuestUISprite;
             controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
                 uiType = UIType.Notify,
@@ -307,12 +312,12 @@ namespace Assets.Scripts.Player
                 actionType = ActionType.SetQuestDesc,
                 questInfo = info,
             });
-            //controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
-            //{
-            //    uiType = UIType.Notify,
-            //    actionType = ActionType.SetQuestIcon,
-            //    questInfo = info,
-            //});
+            controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.SetQuestIcon,
+                questInfo = info,
+            });
         }
         public void GetReward(int questIdx)
         {

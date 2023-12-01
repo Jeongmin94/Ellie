@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle
@@ -10,9 +11,10 @@ namespace Assets.Scripts.Puzzle
         [SerializeField] private float moveSpeed;
         [SerializeField] private float rotationSpeed;
 
-        private bool isPlayerTouching;
+        public bool isPlayerTouched;
         private bool isRigid;
 
+        private Coroutine returnToFirstHeightCoroutine;
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
@@ -21,50 +23,68 @@ namespace Assets.Scripts.Puzzle
         }
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.gameObject.CompareTag("Player"))
-                isPlayerTouching = true;
-            if(collision.gameObject.CompareTag("InteractionObject"))
-                isRigid = true;
-        }
-        private void OnCollisionExit(Collision collision)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-                isPlayerTouching = false;
-        }
-
-        private void Update()
-        {
-            if (isRigid)
+            if (collision.gameObject.CompareTag("Player") && !isPlayerTouched)
             {
-                rigidbody.velocity = Vector3.zero;  
-                transform.position = InitialPosition;
-                return;
-            }
-            Vector3 pos = transform.position;
-            if (!isPlayerTouching)
-            {
-                rigidbody.useGravity = false;
-                if(pos.y<InitialPosition.y)
+                if (!isRigid)
                 {
-                    pos.y += moveSpeed * Time.deltaTime;
-                    transform.position = pos;
+                    if(returnToFirstHeightCoroutine != null)
+                        StopCoroutine(returnToFirstHeightCoroutine);
+                    rigidbody.useGravity = true;
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle2_stone1");
+                    isPlayerTouched = true;
+                }
+                else
+                {
+                    //rigidbody.velocity = Vector3.zero;
                 }
             }
-            else
+            if(collision.gameObject.CompareTag("InteractionObject"))
             {
-                rigidbody.useGravity = true;
+                //rigidbody.velocity = Vector3.zero;
+                isRigid = true;
+                rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            }
+
+            if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                isPlayerTouched = false;
+                returnToFirstHeightCoroutine = StartCoroutine(OnPlayerExit());
             }
         }
-        private IEnumerator ResetPos()
-        {
-            Vector3 pos = transform.position;
-            while (pos.y < InitialPosition.y)
-            {
-                Debug.Log("Exit");
+        //private void OnCollisionExit(Collision collision)
+        //{
+        //    if (collision.gameObject.CompareTag("Player"))
                 
+        //}
+
+        private IEnumerator OnPlayerExit()
+        {
+            rigidbody.useGravity = false;
+            GetComponent<BoxCollider>().isTrigger = true;
+            while (transform.position.y < InitialPosition.y)
+            {
+                Vector3 pos = transform.position;
+                pos.y += moveSpeed * Time.deltaTime;
+                transform.position = pos;
                 yield return null;
             }
-            transform.position = InitialPosition;
+            GetComponent<BoxCollider>().isTrigger = false;
+
         }
+        private void FixedUpdate()
+        {
+            if(isPlayerTouched)
+            {
+                rigidbody.AddForce(-Vector3.up * 5f, ForceMode.Force);
+            }
+
+            if(transform.position.y > InitialPosition.y)
+            {
+                transform.position = InitialPosition;
+                rigidbody.velocity = Vector3.zero;
+            }
+
+        }
+
     }
 }
