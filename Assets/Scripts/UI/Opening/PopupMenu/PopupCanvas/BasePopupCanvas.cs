@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
@@ -74,10 +73,20 @@ namespace Assets.Scripts.UI.PopupMenu
             popupCanvas.Subscribe(listener);
         }
 
+        private void OnEnable()
+        {
+            popupButtons.ForEach(button => button.gameObject.SetActive(true));
+        }
+
+        private void OnDisable()
+        {
+            popupButtons.ForEach(button => button.gameObject.SetActive(false));
+        }
+
         public void InitPopupCanvas(PopupType type)
         {
             base.Init();
-            
+
             Init();
 
             popupType = type;
@@ -155,6 +164,8 @@ namespace Assets.Scripts.UI.PopupMenu
                 button.InitTypography(popupButtonTypography);
                 button.InitMenuButton(buttonTypes[i]);
                 button.Subscribe(OnButtonClicked);
+
+                button.gameObject.SetActive(false);
 
                 popupButtons.Add(button);
             }
