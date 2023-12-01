@@ -27,6 +27,10 @@ namespace Channels.UI
         SetQuestName,
         SetQuestDesc,
         SetQuestIcon,
+        
+        // AutoSave
+        OpenAutoSave,
+        CloseAutoSave,
     }
 
     public struct QuestInfo
