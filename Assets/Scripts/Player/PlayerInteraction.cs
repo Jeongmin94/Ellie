@@ -9,6 +9,7 @@ namespace Assets.Scripts.Player
         public bool isInteracting = false;
         private bool canInteract = false;
         
+        
         private void OnTriggerEnter(Collider other)
         {
             if (!other.gameObject.CompareTag("Interactive")) return;
