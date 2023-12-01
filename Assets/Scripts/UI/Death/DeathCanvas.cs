@@ -73,6 +73,8 @@ namespace Assets.Scripts.UI.Death
 
         private TicketMachine ticketMachine;
 
+        private bool onPlayingDeath = false;
+
         private void Awake()
         {
             Init();
@@ -150,12 +152,19 @@ namespace Assets.Scripts.UI.Death
 
             if (uiPayload.actionType == ActionType.OpenDeathCanvas)
             {
-                StartCoroutine(OpenDeathCanvas());
+                if (!onPlayingDeath)
+                {
+                    gameObject.SetActive(true);
+
+                    StartCoroutine(OpenDeathCanvas());
+                }
             }
         }
 
         private IEnumerator OpenDeathCanvas()
         {
+            onPlayingDeath = true;
+
             yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundStartColor, backgroundTargetColor, backgroundAppearTime));
 
             StartCoroutine(textAlphaController.ChangeAlpha(textStartColor, textTargetColor, textAppearTime));
@@ -167,8 +176,16 @@ namespace Assets.Scripts.UI.Death
             yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundTargetColor, backgroundStartColor, backgroundDisAppearTime));
 
             yield return StartCoroutine(FadeOut());
-            
+
             // !TODO Load Data
+
+            onPlayingDeath = false;
+            backgroundImage.color = backgroundStartColor;
+            deathText.color = textStartColor;
+            fadeOutImage.color = fadeOutOriginColor;
+            colorAdjustments.saturation.value = 0.0f;
+
+            gameObject.SetActive(false);
         }
 
         private IEnumerator ToGray()
