@@ -35,6 +35,9 @@ namespace Channels.UI
         // AutoSave
         OpenAutoSave,
         CloseAutoSave,
+        
+        // Death
+        OpenDeathCanvas,
     }
 
     public struct QuestInfo
