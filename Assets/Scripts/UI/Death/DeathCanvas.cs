@@ -14,6 +14,8 @@ using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 namespace Assets.Scripts.UI.Death
 {
@@ -23,11 +25,17 @@ namespace Assets.Scripts.UI.Death
         {
             BackgroundPanel,
             TextPanel,
+            VolumeProfile
         }
 
         private enum Texts
         {
             DeathText,
+        }
+
+        private enum Images
+        {
+            FadeOutImage
         }
 
         [SerializeField] private float grayScaleTime;
@@ -52,10 +60,18 @@ namespace Assets.Scripts.UI.Death
         private TextMeshProUGUI deathText;
         private Image backgroundImage;
 
-        private TicketMachine ticketMachine;
+        // grayscale
+        private Volume deathCanvasVolume;
+        private ColorAdjustments colorAdjustments;
+
+        // fade-out
+        private Image fadeOutImage;
+        private Color fadeOutOriginColor;
 
         private TextAlphaController textAlphaController;
         private ImageAlphaController imageAlphaController;
+
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -74,6 +90,7 @@ namespace Assets.Scripts.UI.Death
         {
             Bind<GameObject>(typeof(GameObjects));
             Bind<TextMeshProUGUI>(typeof(Texts));
+            Bind<Image>(typeof(Images));
 
             var gos = Enum.GetValues(typeof(GameObjects));
             for (int i = 0; i < gos.Length; i++)
@@ -83,11 +100,21 @@ namespace Assets.Scripts.UI.Death
                 rectTransforms.Add(go.GetComponent<RectTransform>());
             }
 
+            deathCanvasVolume = panels[(int)GameObjects.VolumeProfile].GetComponent<Volume>();
+
+            if (!deathCanvasVolume.profile.TryGet(out colorAdjustments))
+            {
+                Debug.LogError($"{name}의 Volume Profile 설정 오류 - type: {typeof(ColorAdjustments)}");
+            }
+
             deathText = GetText((int)Texts.DeathText);
             backgroundImage = panels[(int)GameObjects.BackgroundPanel].GetComponent<Image>();
 
             textAlphaController = deathText.gameObject.GetOrAddComponent<TextAlphaController>();
             imageAlphaController = panels[(int)GameObjects.BackgroundPanel].GetOrAddComponent<ImageAlphaController>();
+
+            fadeOutImage = GetImage((int)Images.FadeOutImage);
+            fadeOutOriginColor = fadeOutImage.color;
         }
 
         private void InitObjects()
@@ -131,7 +158,55 @@ namespace Assets.Scripts.UI.Death
         {
             yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundStartColor, backgroundTargetColor, backgroundAppearTime));
 
-            yield return StartCoroutine(textAlphaController.ChangeAlpha(textStartColor, textTargetColor, textAppearTime));
+            StartCoroutine(textAlphaController.ChangeAlpha(textStartColor, textTargetColor, textAppearTime));
+
+            yield return StartCoroutine(ToGray());
+
+            yield return StartCoroutine(textAlphaController.ChangeAlpha(textTargetColor, textStartColor, textDisappearTime));
+
+            yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundTargetColor, backgroundStartColor, backgroundDisAppearTime));
+
+            yield return StartCoroutine(FadeOut());
+            
+            // !TODO Load Data
+        }
+
+        private IEnumerator ToGray()
+        {
+            float timeAcc = 0.0f;
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+
+            float origin = 0.0f;
+            float min = -100.0f;
+
+            while (timeAcc <= grayScaleTime)
+            {
+                colorAdjustments.saturation.value = Mathf.Lerp(origin, min, timeAcc / grayScaleTime);
+                yield return wfef;
+                timeAcc += Time.deltaTime;
+            }
+
+            colorAdjustments.saturation.value = min;
+        }
+
+        private IEnumerator FadeOut()
+        {
+            float timeAcc = 0.0f;
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+
+            fadeOutImage.color = fadeOutOriginColor;
+
+            Color target = fadeOutOriginColor;
+            target.a = 1.0f;
+
+            while (timeAcc <= fadeOutTime)
+            {
+                fadeOutImage.color = Color.Lerp(fadeOutOriginColor, target, timeAcc / fadeOutTime);
+                yield return wfef;
+                timeAcc += Time.deltaTime;
+            }
+
+            fadeOutImage.color = target;
         }
     }
 }
