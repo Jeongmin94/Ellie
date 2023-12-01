@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.AbstractClass;
@@ -13,7 +14,10 @@ using UnityEngine;
 public class MonsterController : MonoBehaviour, IMonster
 {
     private const int monsterDisableWait = 5;
-    [SerializeField] GameObject monsters;
+
+    [SerializeField] private GameObject monsters;
+    [SerializeField] private BaseDropItem item;
+    [SerializeField] private MonsterItemDropData itemData;
     private List<AbstractMonster> monster = new();
     TicketMachine ticketMachine;
 
@@ -72,9 +76,9 @@ public class MonsterController : MonoBehaviour, IMonster
         for (int i = 0; i < table.Count; i++)
         {
             int draw = Random.Range(0, 100);
-            MonsterItemDropData itemData = DataManager.Instance.GetIndexData<MonsterItemDropData, MonsterItemDropDataParsingInfo>(table[i]);
+            itemData = DataManager.Instance.GetIndexData<MonsterItemDropData, MonsterItemDropDataParsingInfo>(table[i]);
             int j = 0;
-            for (; j < itemData.maximumDrop; j++)
+            for (; j <= itemData.maximumDrop; j++)
             {
                 if (draw < itemData.noDropChance + itemData.addDropChance * j)
                 {
@@ -82,13 +86,12 @@ public class MonsterController : MonoBehaviour, IMonster
                     break;
                 }
             }
-            Debug.Log("Stone Quant : " + j);
         }
 
         //Drop Item
         for (int i = 0; i < dropItem.Count; i++)
         {
-            if (dropItem[i].Item2<=4100) //Stone
+            if (dropItem[i].Item2<4100) //Stone
             {
                 StoneEventPayload payload = new()
                 {
@@ -104,9 +107,13 @@ public class MonsterController : MonoBehaviour, IMonster
             }
             else //other Items
             {
-                for(int j=0; j < dropItem[i].Item1;j++)
+                item.SetItemData(dropItem[i].Item2);
+                for (int j = 0; j < dropItem[i].Item1; j++)
                 {
-                    Instantiate()
+                    BaseDropItem obj = Instantiate(item, monster.position,monster.rotation);
+                    //obj.SetItemData(dropItem[i].Item2);
+                    obj.gameObject.GetComponent<Rigidbody>().AddForce(GetRandVector(), ForceMode.Impulse);
+                    obj.gameObject.GetComponent<Rigidbody>().AddTorque(2.0f * Random.onUnitSphere);
                 }
             }
         }
@@ -114,7 +121,7 @@ public class MonsterController : MonoBehaviour, IMonster
     
     private Vector3 GetRandVector()
     {
-        Vector3 vec = new(Random.Range(-0.1f, -0.1f), 0.1f, Random.Range(-0.1f, -0.1f));
+        Vector3 vec = new(UnityEngine.Random.Range(-0.05f, 0.05f), 0.1f, 0);
         return vec.normalized;
     }
 }

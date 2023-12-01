@@ -27,11 +27,7 @@ namespace Assets.Scripts.Monsters
     public class CaveBatController : AbstractMonster, ICombatant
     {
         //Temp
-        public GameObject player;
-
-
-        private TicketMachine ticketMachine;
-        
+        public GameObject player;        
 
         private void Awake()
         {
@@ -115,12 +111,6 @@ namespace Assets.Scripts.Monsters
                         break;
                 }
             }
-        }
-
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTicket(ChannelType.Combat);
         }
 
         private void InitUI()

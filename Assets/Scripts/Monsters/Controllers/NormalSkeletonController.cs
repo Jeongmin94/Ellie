@@ -28,9 +28,6 @@ namespace Assets.Scripts.Monsters
     {
         //Temp
         public GameObject player;
-
-
-        private TicketMachine ticketMachine;
         
 
         private void Awake()
@@ -111,12 +108,6 @@ namespace Assets.Scripts.Monsters
                         break;
                 }
             }
-        }
-
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTicket(ChannelType.Combat);
         }
 
         private void InitUI()

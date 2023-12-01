@@ -21,9 +21,6 @@ using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters
 {
-
-
-
     public class GuildguardSkeletonController : AbstractMonster, ICombatant
     {
         //Temp
@@ -37,10 +34,7 @@ namespace Assets.Scripts.Monsters
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 
-            
             SetTicketMachine();
-            
-
         }
 
         private void Start()
@@ -111,12 +105,6 @@ namespace Assets.Scripts.Monsters
                         break;
                 }
             }
-        }
-
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTicket(ChannelType.Combat);
         }
 
         private void InitUI()

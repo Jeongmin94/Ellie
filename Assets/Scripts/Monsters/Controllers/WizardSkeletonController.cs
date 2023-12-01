@@ -108,12 +108,6 @@ namespace Assets.Scripts.Monsters
             }
         }
 
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTicket(ChannelType.Combat);
-        }
-
         private void InitUI()
         {
             Transform billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
