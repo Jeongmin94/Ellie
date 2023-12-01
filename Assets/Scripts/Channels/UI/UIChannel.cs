@@ -31,6 +31,10 @@ namespace Channels.UI
         // Interactive UI
         PopupInteractive,
         CloseInteractive,
+        
+        // AutoSave
+        OpenAutoSave,
+        CloseAutoSave,
     }
 
     public struct QuestInfo
