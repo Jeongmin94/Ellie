@@ -79,5 +79,10 @@ namespace Assets.Scripts.Player
                 name = "null";
             GUI.Label(new Rect(10, 60, 200, 20), "Current Interactive Obj : " + name);
         }
+
+        public void SetCanInteract(bool b)
+        {
+            canInteract = b;
+        }
     }
 }

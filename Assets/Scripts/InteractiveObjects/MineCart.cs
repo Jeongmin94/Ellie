@@ -49,6 +49,7 @@ namespace Assets.Scripts.InteractiveObjects
             player = obj;
             isActivated = true;
             StartRailSystem();
+            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
         private void StartRailSystem()
         {
@@ -67,7 +68,7 @@ namespace Assets.Scripts.InteractiveObjects
             player.transform.position = playerEndPos.position;
             player.GetComponent<PlayerController>().canJump = true;
             Destroy(walker);
-
+            gameObject.tag = "Untagged";
         }
         private void LockPlayerPos()
         {

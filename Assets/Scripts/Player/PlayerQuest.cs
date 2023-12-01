@@ -430,6 +430,7 @@ namespace Assets.Scripts.Player
         public void SetInteractiveObjToNull()
         {
             GetComponent<PlayerInteraction>().interactiveObject = null;
+            GetComponent<PlayerInteraction>().SetCanInteract(false);
         }
     }
 }

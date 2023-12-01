@@ -82,6 +82,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void OnSecondEncounterAction()
         {
+
             StartCoroutine(Quest6101Coroutine1());
         }
 
@@ -140,6 +141,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             //세 번 맞춘 후 0.5초 세고
             yield return new WaitForSeconds(0.5f);
+            player.GetComponent<PlayerInteraction>().interactiveObject = this.gameObject;
             //플레이어 바라보고
             LookAtPlayer();
             player.StartConversation();
@@ -152,6 +154,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             //보상주기
             player.GetReward((int)EldestSkullQuest.quest6101);
             //플레이어 움직일 수 있게 풀어줌
+            player.DeactivateInteractiveUI();
             player.EndConversation();
             EndInteract();
 
