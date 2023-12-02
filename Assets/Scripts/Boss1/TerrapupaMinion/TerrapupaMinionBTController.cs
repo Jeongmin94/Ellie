@@ -3,9 +3,6 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
-using Channels.Type;
-using TheKiwiCoder;
-using Unity.Plastic.Antlr3.Runtime.Tree;
 using UnityEngine;
 
 public class TerrapupaMinionBTController : BehaviourTreeController
@@ -63,7 +60,7 @@ public class TerrapupaMinionBTController : BehaviourTreeController
         int damage = combatPayload.Damage;
 
         GetDamaged(damage);
-        Debug.Log($"{damage} µ¥¹ÌÁö ÀÔÀ½ : {minionData.currentHP.Value}");
+        Debug.Log($"{damage} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : {minionData.currentHP.Value}");
     }
 
     public void GetDamaged(int damageValue)
