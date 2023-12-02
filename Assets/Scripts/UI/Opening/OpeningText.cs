@@ -102,6 +102,12 @@ namespace Assets.Scripts.UI.Opening
             textMeshProUGUI.alignment = typographyTypographyData.alignmentOptions;
             textMeshProUGUI.enableAutoSizing = typographyTypographyData.enableAutoSizing;
             textMeshProUGUI.text = typographyTypographyData.title;
+
+            if (typographyTypographyData.useOutline)
+            {
+                textMeshProUGUI.outlineColor = typographyTypographyData.outlineColor;
+                textMeshProUGUI.outlineWidth = typographyTypographyData.outlineThickness;
+            }
         }
 
         protected Rect GetRect() => rectTransform.rect;
