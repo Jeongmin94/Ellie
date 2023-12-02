@@ -25,6 +25,8 @@ public enum EventBusEvents
     ApplySingleBossCooldown,
     StartIntakeMagicStone,
     BossRoomDoorOpen,
+    EnterBossRoom,
+    LeftBossRoom,
 }
 
 public interface IBaseEventPayload

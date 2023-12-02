@@ -7,6 +7,7 @@ using Boss.Terrapupa;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
+using Codice.Client.BaseCommands.TubeClient;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
     [SerializeField] private BossRoomDoorKnob leftDoor;
     [SerializeField] private BossRoomDoorKnob rightDoor;
+    [SerializeField] private BossRoomEnterTrigger enterTrigger;
 
     [Title("상태 체크")]
     [ReadOnly][SerializeField] private int golemCoreCount = 0;
@@ -106,6 +108,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     private void SubscribeEvents()
     {
+        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
@@ -114,6 +117,16 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     #endregion
 
     #region 2. 이벤트 핸들러
+    private void OnEnterBossRoom(BossEventPayload manaPayload)
+    {
+        Debug.Log("OnEnterBossRoom :: 보스방 진입 트리거");
+
+        GameObject trigger = manaPayload.TransformValue1.gameObject;
+        GameObject wall = manaPayload.TransformValue2.gameObject;
+
+        wall.SetActive(true);
+        trigger.SetActive(false);
+    }
     private void OnHitMana(BossEventPayload manaPayload)
     {
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
