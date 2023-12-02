@@ -8,11 +8,8 @@ namespace Assets.Scripts.Centers
     {
         Opening,
         InGame,
-        Boss,
         Closing,
         LoadingScene,
-        test,
-        test2,
     }
 
     public class SceneLoadManager : Singleton<SceneLoadManager>
