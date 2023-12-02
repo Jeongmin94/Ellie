@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Item;
 using Assets.Scripts.Item.Goods;
@@ -688,8 +689,7 @@ namespace Assets.Scripts.UI.Inventory
                         metaData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
                         break;
                     case GroupType.Etc:
-                        //metaData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(itemIdx);
-                        metaData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
+                        metaData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(itemIdx);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();
