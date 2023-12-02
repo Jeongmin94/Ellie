@@ -1,4 +1,3 @@
-using Codice.CM.Common;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -19,21 +18,21 @@ public class RunAwayTarget : ActionNode
     }
 
     protected override State OnUpdate() {
-        // ´ë»ó°úÀÇ ¹Ý´ë ¹æÇâ °è»ê
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         Vector3 direction = (context.transform.position - target.Value.position).normalized;
 
         RaycastHit hit;
-        // Á¤¸é ·¹ÀÌÄ³½ºÆ® ¹ß»ç
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½ß»ï¿½
         if (Physics.Raycast(context.transform.position, context.transform.forward, out hit, rayDistance.Value, groundLayer))
         {
-            // ·¹ÀÌÄ³½ºÆ®°¡ Ground ·¹ÀÌ¾î ¶Ç´Â Wall ÅÂ±×¿¡ ¸ÂÀ¸¸é ½ÇÆÐ ¹ÝÈ¯
+            // ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ®ï¿½ï¿½ Ground ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½Ç´ï¿½ Wall ï¿½Â±×¿ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
             if(hit.collider.CompareTag("Wall"))
             {
                 return State.Failure;
             }
         }
 
-        // ´ë»ó°ú ¹Ý´ë ¹æÇâÀ¸·Î ÀÌµ¿
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ý´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
         context.transform.position += direction * speed.Value * Time.deltaTime;
 
         return State.Success;

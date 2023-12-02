@@ -1,6 +1,5 @@
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Item.Stone;
-using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -8,7 +7,6 @@ using Boss.Terrapupa;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
-using Codice.Client.Common.GameUI;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,32 +14,32 @@ using UnityEngine;
 
 public class TerrapupaMapObjectController : SerializedMonoBehaviour
 {
-    [Title("Å×¶óÇªÆÄ º¸½ºÀü ¿ÀºêÁ§Æ® °´Ã¼")]
+    [Title("ï¿½×¶ï¿½Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Ã¼")]
     [SerializeField] private GameObject magicStalactitePrefab;
     [SerializeField] private List<ManaFountain> manaFountains;
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
     [SerializeField] private BossRoomDoorKnob leftDoor;
     [SerializeField] private BossRoomDoorKnob rightDoor;
 
-    [Title("»óÅÂ Ã¼Å©")]
+    [Title("ï¿½ï¿½ï¿½ï¿½ Ã¼Å©")]
     [ReadOnly][SerializeField] private int golemCoreCount = 0;
     [ReadOnly][SerializeField] private int manaFountainCount = 4;
 
-    [Title("Á¾¸¶¼®")]
-    [InfoBox("º¸½º°¡ Á¾¸¶¼® ¸Â°í ¼·ÃëÁß ¾Æ´Ï¿©µµ ±âÀýÇÏ´ÂÁöÀÇ ¿©ºÎ\n true¸é ¼·ÃëÁß ¾Æ´Ï¿©µµ ±âÀý")] public bool canBossStun = false;
-    [InfoBox("Àç»ý¼º ÄðÅ¸ÀÓ")] public float regenerateStalactiteTime = 10.0f;
-    [InfoBox("±¸¿ª °¹¼ö")] public int numberOfSector = 3;
-    [InfoBox("±¸¿ª ´ç Á¾¸¶¼® °¹¼ö")] public int stalactitePerSector = 3;
-    [InfoBox("»ý¼º ±¸¿ª ¹ÝÁö¸§")] public float fieldRadius = 25.0f;
-    [InfoBox("»ý¼º ³ôÀÌ")] public float fieldHeight = 8.0f;
+    [Title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")]
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Â°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½\n trueï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´Ï¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")] public bool canBossStun = false;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½")] public float regenerateStalactiteTime = 10.0f;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")] public int numberOfSector = 3;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")] public int stalactitePerSector = 3;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½")] public float fieldRadius = 25.0f;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")] public float fieldHeight = 8.0f;
 
-    [Title("¸¶³ªÀÇ »ù")]
-    [InfoBox("Àç»ý¼º ÄðÅ¸ÀÓ")] public float respawnManaFountainTime = 10.0f;
-    [InfoBox("¸¶¹ý µ¹¸ÍÀÌ Àç»ý¼º ÄðÅ¸ÀÓ")] public float regenerateManaStoneTime = 10.0f;
+    [Title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½")] public float respawnManaFountainTime = 10.0f;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½")] public float regenerateManaStoneTime = 10.0f;
 
-    [Title("º¸½º¹æ ¹®")]
-    [InfoBox("¿­¸®´Â ½Ã°£")] public float openSpeedTime = 3.0f;
-    [InfoBox("¿­¸®´Â °¢µµ")] public float openAngle = 120.0f;
+    [Title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½")]
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½")] public float openSpeedTime = 3.0f;
+    [InfoBox("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")] public float openAngle = 120.0f;
 
     private TicketMachine ticketMachine;
 
@@ -60,7 +58,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         manaFountainCount = manaFountains.Count;
     }
 
-    #region 1. ÃÊ±âÈ­ ÇÔ¼ö
+    #region 1. ï¿½Ê±ï¿½È­ ï¿½Ô¼ï¿½
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -115,10 +113,10 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     #endregion
 
-    #region 2. ÀÌº¥Æ® ÇÚµé·¯
+    #region 2. ï¿½Ìºï¿½Æ® ï¿½Úµé·¯
     private void OnHitMana(BossEventPayload manaPayload)
     {
-        Debug.Log("OnHitMana :: ¸¶³ªÀÇ »ù ÄðÅ¸ÀÓ Àû¿ë");
+        Debug.Log("OnHitMana :: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
         DropStoneItem(mana.SpawnPosition, mana.MAGICSTONE_INDEX);
@@ -127,15 +125,15 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     private void OnDestroyedMana(BossEventPayload manaPayload)
     {
-        Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} °ø°Ý Å¸ÀÔ ºÀÀÎ");
+        Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 
-        // º¸½ºÀÇ µ¹¿¡ ¸Â¾ÒÀ» °æ¿ì, µ¹ »èÁ¦
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Â¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if (manaPayload.TransformValue2 != null)
         {
             Destroy(manaPayload.TransformValue2.gameObject);
         }
 
-        // °ø°ÝÇÑ º¸½º Á¤º¸ °»½Å
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         Transform manaTransform = manaPayload.TransformValue1;
         ManaFountain mana = manaTransform.GetComponent<ManaFountain>();
         TerrapupaBTController actor = manaPayload.Sender.GetComponent<TerrapupaBTController>();
@@ -145,13 +143,13 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             manaPayload.Sender = actor.transform;
         }
 
-        // µ¹¸ÍÀÌ 3°³ »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < 3; i++)
         {
             DropStoneItem(mana.SpawnPosition, mana.NORMALSTONE_INDEX);
         }
 
-        // È÷Æ® ÀÌÆåÆ® »ý¼º
+        // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         GameObject hitEffect = manaPayload.PrefabValue;
         if (hitEffect != null)
         {
@@ -164,15 +162,15 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             });
         }
 
-        // º¸½ºÀÇ °³º° °ø°Ý ÄðÅ¸ÀÓ Àû¿ë ¸ØÃß°í, ÆÄ±« ÄðÅ¸ÀÓÀ¸·Î »õ·Î Àû¿ë½ÃÅ´
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß°ï¿½, ï¿½Ä±ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å´
         TerrapupaAttackType type = mana.banBossAttackType;
         if (actor.AttackCooldown.ContainsKey(type) && actor.AttackCooldown[type] != null)
         {
-            Debug.Log($"{actor}ÀÇ ÄðÅ¸ÀÓ Áßº¹ Àû¿ë");
+            Debug.Log($"{actor}ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ßºï¿½ ï¿½ï¿½ï¿½ï¿½");
             actor.StopCoroutine(actor.AttackCooldown[type]);
         }
 
-        // µ¹¸ÍÀÌ¸¦ ³¯¸° º¸½º °ø°Ý ÄðÅ¸ÀÓ Àû¿ë
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         manaPayload.BoolValue = false;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
 
@@ -180,7 +178,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     private void OnDropMagicStalactite(BossEventPayload stalactitePayload)
     {
-        Debug.Log($"OnDropMagicStalactite :: Á¾¸¶¼® µå¶ø");
+        Debug.Log($"OnDropMagicStalactite :: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½");
 
         Transform boss = stalactitePayload.TransformValue2;
         if (boss != null)
@@ -188,12 +186,12 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             TerrapupaBTController actor = boss.GetComponent<TerrapupaBTController>();
             if (stalactitePayload.TransformValue2 != null)
             {
-                Debug.Log("º¸½º Å¸°Ý");
+                Debug.Log("ï¿½ï¿½ï¿½ï¿½ Å¸ï¿½ï¿½");
 
                 // 
                 if (canBossStun == true || (canBossStun == false && actor.terrapupaData.isIntake.Value))
                 {
-                    Debug.Log("±âÀý");
+                    Debug.Log("ï¿½ï¿½ï¿½ï¿½");
 
                     actor.terrapupaData.isStuned.Value = true;
                     actor.terrapupaData.isTempted.Value = false;
@@ -206,7 +204,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     private void OnBossRoomDoorOpen(BossEventPayload payload)
     {
-        Debug.Log($"OnBossRoomDoorOpen :: º¸½º¹æ ¹® ¿­¸² Ã¼Å©");
+        Debug.Log($"OnBossRoomDoorOpen :: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¼Å©");
         GolemCoreStone core = payload.TransformValue1.GetComponent<GolemCoreStone>();
         if (core == null)
         {
@@ -219,13 +217,13 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         if (golemCoreCount == 2)
         {
-            // ¹® °³¹æ
+            // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             OpenDoor();
         }
     }
     #endregion
 
-    #region 3. ÄÚ·çÆ¾ ÇÔ¼ö
+    #region 3. ï¿½Ú·ï¿½Æ¾ ï¿½Ô¼ï¿½
     private IEnumerator ManaCooldown(BossEventPayload manaPayload)
     {
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
@@ -233,13 +231,13 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         yield return new WaitForSeconds(mana.coolDownValue);
 
-        Debug.Log($"{mana.name} ÄðÅ¸ÀÓ ¿Ï·á");
+        Debug.Log($"{mana.name} ï¿½ï¿½Å¸ï¿½ï¿½ ï¿½Ï·ï¿½");
         mana.IsCooldown = false;
     }
     private IEnumerator RespawnMagicStalactite(BossEventPayload payload)
     {
         float respawnTime = payload.FloatValue;
-        Debug.Log($"{respawnTime}ÃÊ ÀÌÈÄ Àç»ý¼º");
+        Debug.Log($"{respawnTime}ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½");
 
         yield return new WaitForSeconds(respawnTime);
 
@@ -261,7 +259,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         yield return new WaitForSeconds(mana.respawnValue);
 
-        Debug.Log($"{mana.name} ¸®½ºÆù ¿Ï·á");
+        Debug.Log($"{mana.name} ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½");
 
         manaFountainCount++;
         mana.gameObject.SetActive(true);
@@ -273,7 +271,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     #endregion
 
-    #region 4. ±âÅ¸ ÇÔ¼ö
+    #region 4. ï¿½ï¿½Å¸ ï¿½Ô¼ï¿½
     public void DropStoneItem(Vector3 position, int index)
     {
         ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload

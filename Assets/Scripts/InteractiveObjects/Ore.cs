@@ -1,13 +1,11 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.InteractiveObjects.NPC;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
-using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using System;
 using System.Collections;
 using System.Collections.Generic;

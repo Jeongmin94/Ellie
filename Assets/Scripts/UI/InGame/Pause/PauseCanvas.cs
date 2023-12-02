@@ -26,6 +26,9 @@ namespace Assets.Scripts.UI.InGame
             EscapeImage,
         }
 
+        private static readonly string SoundOpen = "pause1";
+
+
         [SerializeField] private UITransformData buttonPanelTransformData;
         [SerializeField] private UITransformData escapeTransformData;
         [SerializeField] private UITransformData escapeImageTransformData;
@@ -157,6 +160,7 @@ namespace Assets.Scripts.UI.InGame
         {
             if (!gameObject.activeSelf)
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundOpen);
                 gameObject.SetActive(true);
             }
             else

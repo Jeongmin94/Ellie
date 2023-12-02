@@ -1,3 +1,4 @@
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Data.UI.Opening;
@@ -10,6 +11,8 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class CategoryToggleController : ToggleController
     {
+        private static readonly string SoundClickPanel = "inven6";
+
         [SerializeField] private TextTypographyData enabledPanelData;
         [SerializeField] private TextTypographyData disabledPanelData;
 
@@ -77,6 +80,11 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnValueChanged(bool isOn)
         {
+            if (isOn)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClickPanel);
+            }
+
             text.fontSize = GetToggledSize(isOn);
             text.color = GetToggledColor(isOn);
             Interactable = !isOn;

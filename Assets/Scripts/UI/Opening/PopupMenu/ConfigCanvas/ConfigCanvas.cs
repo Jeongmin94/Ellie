@@ -16,6 +16,8 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "ConfigPopupCanvas";
 
+        private static readonly string SoundCancel = "click3";
+
         private enum GameObjects
         {
             ConfigButtonPanel,
@@ -140,6 +142,7 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             if (gameObject.activeSelf)
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundCancel);
                 PopupPayload payload = new PopupPayload();
                 payload.buttonType = ButtonType.No;
                 payload.popupType = PopupType.Config;

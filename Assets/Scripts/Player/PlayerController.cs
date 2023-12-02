@@ -12,7 +12,6 @@ using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
