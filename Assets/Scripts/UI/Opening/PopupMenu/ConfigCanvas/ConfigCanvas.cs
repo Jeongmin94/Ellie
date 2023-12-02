@@ -142,7 +142,7 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             if (gameObject.activeSelf)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundCancel);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundCancel, Vector3.zero);
                 PopupPayload payload = new PopupPayload();
                 payload.buttonType = ButtonType.No;
                 payload.popupType = PopupType.Config;

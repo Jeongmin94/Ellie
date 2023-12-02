@@ -43,7 +43,7 @@ namespace Data.UI.Config
             currentIdx = idx;
             if (!readOnly)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, optionChangeSoundName);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, optionChangeSoundName, Vector3.zero);
             }
 
             valueChangeAction?.Invoke(ValueString(values[currentIdx]));

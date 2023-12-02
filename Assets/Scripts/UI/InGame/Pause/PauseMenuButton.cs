@@ -98,11 +98,11 @@ namespace Assets.Scripts.UI.InGame
         {
             if (PauseButtonPopupType == PopupType.Escape)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEscape);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEscape, Vector3.zero);
             }
             else
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClick);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundClick, Vector3.zero);
             }
 
             PopupPayload payload = new PopupPayload();
@@ -115,7 +115,7 @@ namespace Assets.Scripts.UI.InGame
             if (PauseButtonPopupType == PopupType.Escape)
                 return;
 
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEnter);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEnter, Vector3.zero);
             hoverPanel.gameObject.SetActive(true);
         }
 
