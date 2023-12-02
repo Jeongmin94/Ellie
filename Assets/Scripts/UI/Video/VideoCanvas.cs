@@ -102,6 +102,7 @@ namespace Assets.Scripts.UI.Video
 
         private IEnumerator PlayVideo()
         {
+            InputManager.Instance.CanInput = false;
             IsEnd = false;
 
             videoPlayer.Play();
@@ -113,6 +114,8 @@ namespace Assets.Scripts.UI.Video
 
             gameObject.SetActive(false);
             SaveLoadManager.Instance.IsLoadData = true;
+            InputManager.Instance.CanInput = true;
+            PoolManager.Instance.DestroyAllPools();
             SceneLoadManager.Instance.LoadScene(videoData.playAfterScene);
         }
 

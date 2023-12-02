@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
+﻿using Assets.Scripts.Centers;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Managers;
 using Channels.Components;
@@ -28,6 +29,10 @@ namespace Assets.Scripts.Player
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
+
+            //퀘스트 세이브 로드
+            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
+            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
         }
 
         private void Start()
@@ -35,14 +40,16 @@ namespace Assets.Scripts.Player
             ticketMachine = controller.TicketMachine;
             questStatusDic = new();
             StartCoroutine(InitPlayerQuest());
-            //6100번 퀘스트 시작
-            StartCoroutine(FirstDialogCoroutine());
 
             //퀘스트 UI 스프라이트 로드
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
-            //퀘스트 세이브 로드
-            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
-            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
+
+            //6100번 퀘스트 시작
+            if(!SaveLoadManager.Instance.IsLoadData)
+            {
+                StartCoroutine(FirstDialogCoroutine());
+            }
+
         }
 
         private void Update()
@@ -84,6 +91,8 @@ namespace Assets.Scripts.Player
         private IEnumerator FirstDialogCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
+            yield return SceneLoadManager.Instance.CheckIsLoadDone();
+
             int curDialogListIdx = 0;
             List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
 

@@ -1,16 +1,24 @@
+using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EndingCanvas : MonoBehaviour
 {
+    public RectTransform whiteArea;
     public float extensionTime = 2.0f;
-    
-    private RectTransform whiteArea;
+
+    private TicketMachine ticketMachine;
 
     private void Awake()
     {
-        whiteArea = GetComponentInChildren<RectTransform>();
+        ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+
+        ticketMachine.AddTickets(ChannelType.UI);
     }
 
     private void Start()
@@ -32,7 +40,7 @@ public class EndingCanvas : MonoBehaviour
     private IEnumerator ScaleOverTime(float time)
     {
         Vector3 originalScale = whiteArea.localScale;
-        Vector3 targetScale = new Vector3(11.0f, 11.0f, 11.0f);
+        Vector3 targetScale = new Vector3(24.0f, 24.0f, 24.0f);
         float currentTime = 0.0f;
 
         do
@@ -44,5 +52,15 @@ public class EndingCanvas : MonoBehaviour
         while (currentTime <= time);
 
         whiteArea.localScale = targetScale;
+
+        SoundManager.Instance.StopAllSounds();
+
+        UIPayload payload = UIPayload.Notify();
+        payload.actionType = ActionType.PlayVideo;
+        ticketMachine.SendMessage(ChannelType.UI, payload);
+
+        yield return new WaitForSeconds(1.0f);
+
+        gameObject.SetActive(false);
     }
 }

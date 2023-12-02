@@ -1,5 +1,6 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections;
 
 namespace Assets.Scripts.Centers
 {
@@ -59,6 +60,16 @@ namespace Assets.Scripts.Centers
             //{
             //    LoadScene(SceneName.Closing);
             //}
+        }
+
+        public IEnumerator CheckIsLoadDone()
+        {
+            var wait = new WaitForSeconds(0.5f);
+            while (IsLoading)
+            {
+                yield return wait;
+            }
+            Debug.Log("씬 로드 완료");
         }
     }
 

@@ -130,13 +130,9 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     private void OnLeftBossRoom(BossEventPayload manaPayload)
     {
-        Debug.Log("OnEnterBossRoom :: 보스방 진입 트리거");
-
-        GameObject trigger = manaPayload.TransformValue1.gameObject;
-        GameObject wall = manaPayload.TransformValue2.gameObject;
+        Debug.Log("OnLeftBossRoom :: 엔딩 트리거");
 
         bossRoomLeftCanvas.gameObject.SetActive(true);
-
     }
     private void OnHitMana(BossEventPayload manaPayload)
     {
