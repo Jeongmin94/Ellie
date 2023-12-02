@@ -2,10 +2,7 @@
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.UI.Inventory.Test;
 using Centers;
-using Centers.Boss;
 using UnityEngine;
 
 namespace Assets.Scripts.Centers.Test
