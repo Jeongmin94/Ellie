@@ -33,6 +33,7 @@ namespace Assets.Scripts.Player.States
             SoundManager.Instance.StopSfx("slingshot_sound1");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound2", Controller.PlayerObj.position);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound2", Controller.PlayerObj.position);
+            Controller.ShakeCamera(1.0f, 0.2f);
 
         }
 

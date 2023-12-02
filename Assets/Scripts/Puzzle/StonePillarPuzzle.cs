@@ -1,7 +1,11 @@
 ﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
+using Channels.Components;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Channels.Type;
+using Assets.Scripts.Channels.Camera;
 
 namespace Assets.Scripts.Puzzle
 {
@@ -24,6 +28,14 @@ namespace Assets.Scripts.Puzzle
 
         private bool isDone;
         public float raisingSpeed;
+
+        private TicketMachine ticketMachine;
+
+        private void Awake()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Camera);
+        }
         private void Start()
         {
             center = transform.position;
@@ -63,6 +75,12 @@ namespace Assets.Scripts.Puzzle
                     StartCoroutine(RaisePillar(pillars[i], pillarsInitialHeight[i]));
                 }
                 isDone = true;
+                ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload
+                {
+                    type = CameraShakingEffectType.Start,
+                    shakeIntensity = 2.0f,
+                    shakeTime = 13.0f
+                });
             }
         }
 
