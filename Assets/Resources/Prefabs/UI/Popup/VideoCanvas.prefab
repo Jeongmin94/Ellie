@@ -66,7 +66,7 @@ VideoPlayer:
   m_EnabledAudioTracks: 01
   m_DirectAudioMutes: 00
   m_ControlledAudioTrackCount: 1
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_SkipOnDrop: 1
   m_Looping: 0
   m_WaitForFirstFrame: 1
@@ -84,6 +84,7 @@ GameObject:
   - component: {fileID: 2620129050418117639}
   - component: {fileID: 2620129050418117632}
   - component: {fileID: 2620129050418117633}
+  - component: {fileID: 1695365844}
   m_Layer: 5
   m_Name: VideoCanvas
   m_TagString: Untagged
@@ -174,6 +175,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 1056767
+--- !u!114 &1695365844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2620129050418117634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6e1c26372547b98ea0f6868a700ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  videoData: {fileID: 11400000, guid: 22800f1c9bc07c34ca6be57006cc45dd, type: 2}
 --- !u!1 &2620129051007169488
 GameObject:
   m_ObjectHideFlags: 0
@@ -207,10 +221,10 @@ RectTransform:
   m_Father: {fileID: 2620129050418117638}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2620129051007169493
 CanvasRenderer:
