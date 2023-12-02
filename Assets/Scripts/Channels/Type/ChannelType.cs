@@ -9,6 +9,7 @@ namespace Channels.Type
         Terrapupa,
         Item,
         Dialog,
-        Monster
+        Monster,
+        Camera
     }
 }

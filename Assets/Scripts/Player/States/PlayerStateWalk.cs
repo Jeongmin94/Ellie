@@ -99,7 +99,7 @@ namespace Assets.Scripts.Player.States
             
             if(accTime>=footPrintInterval)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, footprint[footprintIdx], Controller.transform.position);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, footprint[footprintIdx], Controller.transform.position, true, 3.0f);
                 if (footprintIdx == 1)
                     footprintIdx = 0;
                 else

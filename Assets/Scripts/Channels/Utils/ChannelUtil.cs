@@ -36,6 +36,9 @@ namespace Channels.Utils
                 case ChannelType.Monster:
                     channel = new MonsterChannel();
                     break;
+                case ChannelType.Camera:
+                    channel = new MonsterChannel();
+                    break;
             }
             return channel;
         }

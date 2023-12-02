@@ -20,7 +20,7 @@ namespace Assets.Scripts.Managers
         private AudioController audioControllerPrefab;
         //오디오 클립들이 담긴 딕셔너리
         private Dictionary<string, AudioClip> AudioClips = new();
-        
+
         private Coroutine nowPlayingBgmCoroutine;
         private AudioController nowPlayingBgmController;
         private bool isBgmPlaying = false;
@@ -36,6 +36,7 @@ namespace Assets.Scripts.Managers
         private float BGMVolume = 1.0f;
         private float SFXVolume = 1.0f;
         private float UISfxVolume = 1.0f;
+        private float AmbientVolume = 1.0f;
 
 
         public bool IsBgmPlaying() => isBgmPlaying;
@@ -148,20 +149,16 @@ namespace Assets.Scripts.Managers
                 case SoundType.Bgm:
                     BGMVolume = volume;
                     break;
-                case SoundType.Sfx:
-                    SFXVolume = volume;
-                    break;
-                case SoundType.UISfx:
-                    UISfxVolume = volume;
-                    break;
                 default:
+                    AmbientVolume = UISfxVolume = SFXVolume = volume;
                     break;
+
             }
         }
 
         private void StopSound(string name, AudioController nowPlayingAudioController)
         {
-            
+
             nowPlayingSfxAudioControllerList.Remove(nowPlayingAudioController);
             nowPlayingAudioController.Deactivate3DEffect();
             audioControllerPool.Push(nowPlayingAudioController);
@@ -206,7 +203,7 @@ namespace Assets.Scripts.Managers
 
         public void StopSfx(string clipName)
         {
-            foreach(var controller in nowPlayingSfxAudioControllerList)
+            foreach (var controller in nowPlayingSfxAudioControllerList)
             {
                 if (controller.clip.name == clipName)
                 {
@@ -218,7 +215,7 @@ namespace Assets.Scripts.Managers
         {
             audioController.SetClip(clip);
             audioController.Play(pitch, type);
-            if(type == SoundType.Bgm || type == SoundType.Ambient)
+            if (type == SoundType.Bgm || type == SoundType.Ambient)
             {
                 while (true)
                 {
@@ -236,20 +233,20 @@ namespace Assets.Scripts.Managers
                     yield return null;
                 }
             }
-            else 
+            else
             {
                 yield return new WaitForSeconds(clip.length);
                 if (type == SoundType.Sfx && loop)
                 {
-                    while(true)
+                    while (true)
                     {
                         if (!audioController.isPlaying) break;
                         audioController.Play(pitch, type);
                         yield return new WaitForSeconds(clip.length);
                     }
                 }
-                
-                if(type == SoundType.UISfx)
+
+                if (type == SoundType.UISfx)
                 {
                     nowPlayingUISfxCoroutine = null;
                 }
