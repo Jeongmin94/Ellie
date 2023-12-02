@@ -21,7 +21,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
     [SerializeField] private BossRoomDoorKnob leftDoor;
     [SerializeField] private BossRoomDoorKnob rightDoor;
-    [SerializeField] private BossRoomEnterTrigger enterTrigger;
+    [SerializeField] private Canvas bossRoomLeftCanvas;
 
     [Title("상태 체크")]
     [ReadOnly][SerializeField] private int golemCoreCount = 0;
@@ -109,6 +109,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     private void SubscribeEvents()
     {
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
+        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
@@ -126,6 +127,16 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         wall.SetActive(true);
         trigger.SetActive(false);
+    }
+    private void OnLeftBossRoom(BossEventPayload manaPayload)
+    {
+        Debug.Log("OnEnterBossRoom :: 보스방 진입 트리거");
+
+        GameObject trigger = manaPayload.TransformValue1.gameObject;
+        GameObject wall = manaPayload.TransformValue2.gameObject;
+
+        bossRoomLeftCanvas.gameObject.SetActive(true);
+
     }
     private void OnHitMana(BossEventPayload manaPayload)
     {
