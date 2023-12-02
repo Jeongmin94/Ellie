@@ -124,7 +124,7 @@ namespace Assets.Scripts.UI.Inventory
                 payload.eventType = InventoryEventType.CopyItemWithShortCut;
             }
 
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClick);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundClick, Vector3.zero);
 
             payload.baseSlotItem = this;
             slotItemPosition.slot.InvokeSlotItemEvent(payload);

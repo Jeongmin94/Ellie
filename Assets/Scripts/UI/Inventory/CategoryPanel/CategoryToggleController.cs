@@ -82,7 +82,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (isOn)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClickPanel);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundClickPanel, Vector3.zero);
             }
 
             text.fontSize = GetToggledSize(isOn);
