@@ -205,7 +205,7 @@ namespace Assets.Scripts.UI.InGame
                         if (payload.popupType == PopupType.Load)
                         {
                             SaveLoadManager.Instance.IsLoadData = true;
-                            SceneLoadManager.Instance.LoadScene(SceneName.test2);
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
                         }
                         // !TODO
                     }

@@ -16,6 +16,8 @@ namespace Assets.Scripts.Centers.Test
         public GameObject Canvases;
 
         public GameObject SkullSecondTrap;
+        public GameObject terrapupaController;
+        public GameObject terrapupaMapObjectController;
 
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
@@ -47,7 +49,8 @@ namespace Assets.Scripts.Centers.Test
                 }
             }
             
-
+            CheckTicket(terrapupaController.gameObject);
+            CheckTicket(terrapupaMapObjectController.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);
             CheckTicket(stonePillarPuzzle.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");

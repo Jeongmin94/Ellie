@@ -194,31 +194,31 @@ namespace Assets.Scripts.UI.Opening
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
-                {
-                    if (payload.popupType == PopupType.Start)
                     {
-                        SaveLoadManager.Instance.IsLoadData = false;
-                        SceneLoadManager.Instance.LoadScene(SceneName.test2);
+                        if (payload.popupType == PopupType.Start)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = false;
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                        }
+                        else if (payload.popupType == PopupType.Load)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = true;
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                        }
                     }
-                    else if (payload.popupType == PopupType.Load)
-                    {
-                        SaveLoadManager.Instance.IsLoadData = true;
-                        SceneLoadManager.Instance.LoadScene(SceneName.test2);
-                    }
-                }
                     break;
 
                 case ButtonType.No:
-                {
-                    if (payload.popupType == PopupType.Config)
                     {
-                        configCanvas.gameObject.SetActive(false);
+                        if (payload.popupType == PopupType.Config)
+                        {
+                            configCanvas.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            popupCanvasList[idx].gameObject.SetActive(false);
+                        }
                     }
-                    else
-                    {
-                        popupCanvasList[idx].gameObject.SetActive(false);
-                    }
-                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
