@@ -35,15 +35,25 @@ namespace Assets.Scripts.Player
             questStatusDic = new();
             StartCoroutine(InitPlayerQuest());
             //6100번 퀘스트 시작
-            StartCoroutine(FirstDialogCoroutine());
 
             //퀘스트 UI 스프라이트 로드
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
             //퀘스트 세이브 로드
-            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
-            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
+            StartCoroutine(FirstTimeSequenceCoroutine());
         }
 
+        private IEnumerator FirstTimeSequenceCoroutine()
+        {
+            while(SaveLoadManager.Instance.IsLoadData)
+            {
+                yield return null;
+            }
+
+            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
+            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
+            if (questStatusDic[6100] == QuestStatus.CantAccept)
+                StartCoroutine(FirstDialogCoroutine());
+        }
         private void Update()
         {
             //퀘스트 상태 디버깅용
