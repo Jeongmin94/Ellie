@@ -81,7 +81,7 @@ namespace Assets.Scripts.UI.Framework
             var canvas = UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
             canvas.InitData(canvasContainer);
 
-            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(transform, UIMonsterBillboard);
+            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billBoardPosition, UIMonsterBillboard);
             billboard.scaleFactor = 0.003f;
             billboard.InitBillboard(billBoardPosition);
             billboard.InitData(billboardContainer);
