@@ -16,8 +16,6 @@ namespace Assets.Scripts.UI.Opening
     {
         public static readonly string Path = "Opening/OpeningCanvas";
 
-        private static readonly string SoundCancel = "click3";
-
         private enum GameObjects
         {
             TitlePanel,

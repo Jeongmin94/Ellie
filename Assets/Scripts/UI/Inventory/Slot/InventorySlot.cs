@@ -20,9 +20,6 @@ namespace Assets.Scripts.UI.Inventory
             ItemImage
         }
 
-        private readonly int fontSize = 28;
-        private readonly float lineHeight = 25.0f;
-
         public int Index { get; set; }
         public BaseItem SlotItemData { get; set; }
         public SlotAreaType SlotType { get; set; }
