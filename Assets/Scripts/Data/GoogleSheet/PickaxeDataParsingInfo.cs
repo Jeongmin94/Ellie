@@ -12,6 +12,7 @@ public class PickaxeData : ItemMetaData
     public int maxSmithPower;
     public int upgradeCost;
     public float upgradeChance;
+    public int uiIdx;
 }
 
 [CreateAssetMenu(fileName = "PickaxeData", menuName = "GameData List/PickaxeData")]
@@ -64,6 +65,8 @@ public class PickaxeDataParsingInfo : DataParsingInfo
                 data.upgradeChance = float.Parse(entries[8].Trim());
                 //UI 이미지
                 data.imageName = entries[9].Trim();
+                //UI 인덱스
+                data.uiIdx = int.Parse(entries[10].Trim());
             }
             catch (Exception e)
             {

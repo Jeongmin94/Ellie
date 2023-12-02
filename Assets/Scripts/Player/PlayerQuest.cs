@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Dialog;
@@ -52,7 +53,7 @@ namespace Assets.Scripts.Player
                 SaveLoadManager.Instance.SaveData();
                 DebugCurrentPlayerQuestDict();
             }
-            if(Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.V))
             {
                 SaveLoadManager.Instance.LoadData();
                 DebugCurrentPlayerQuestDict();
@@ -61,7 +62,7 @@ namespace Assets.Scripts.Player
 
         private void DebugCurrentPlayerQuestDict()
         {
-            foreach(var item in questStatusDic)
+            foreach (var item in questStatusDic)
             {
                 Debug.Log($"{item.Key}번 째 퀘스트 상태 : {item.Value}");
             }
@@ -128,7 +129,7 @@ namespace Assets.Scripts.Player
                 }
                 yield return null;
             }
-            
+
         }
 
         public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
@@ -150,7 +151,7 @@ namespace Assets.Scripts.Player
             //첫 대사 출력
             SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
-            while(true)
+            while (true)
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
@@ -182,7 +183,7 @@ namespace Assets.Scripts.Player
                 yield return null;
             }
         }
-        
+
         private void SendPlayDialogPayload(int dialogIdx, bool first = false)
         {
             DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
@@ -234,7 +235,7 @@ namespace Assets.Scripts.Player
             if (dialogPayload.dialogType != DialogType.NotifyToClient) return;
 
             isPlaying = dialogPayload.isPlaying;
-            if(isPlaying)
+            if (isPlaying)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "dialogue2", transform.position);
             }
@@ -333,22 +334,30 @@ namespace Assets.Scripts.Player
         {
             UIPayload payload = new();
             payload.uiType = UIType.Notify;
-            //아이템 종류 : 돌멩이(4000~), 소모품 및 기타(4100~)
-            if (itemIdx >= 4100)
+            //아이템 종류 : 기타(4400~) 돌멩이(4000~), 소모품 및 기타(4100~)
+            if (itemIdx >= 4400)
             {
                 payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
                 payload.actionType = ActionType.AddSlotItem;
-                payload.itemData = DataManager.Instance.GetIndexData<ItemData,ItemDataParsingInfo>(itemIdx);
+                payload.itemData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(itemIdx);
                 payload.groupType = payload.itemData.groupType;
             }
-            else if(itemIdx >= 4000)
+            else if (itemIdx >= 4100)
+            {
+                payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+                payload.actionType = ActionType.AddSlotItem;
+                payload.itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
+                payload.groupType = payload.itemData.groupType;
+            }
+            else if (itemIdx >= 4000)
             {
                 payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
                 payload.actionType = ActionType.AddSlotItem;
                 payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
                 payload.groupType = payload.itemData.groupType;
             }
-            for(int i  = 0; i < count; i++) 
+            
+            for (int i = 0; i < count; i++)
                 ticketMachine.SendMessage(ChannelType.UI, payload);
         }
 
@@ -364,7 +373,7 @@ namespace Assets.Scripts.Player
         private IEnumerator GetBackToNPCCoroutine(Transform dest)
         {
             if (dest == null) yield break;
-            while(true)
+            while (true)
             {
                 Vector3 direction = dest.position - controller.PlayerObj.position;
                 direction.y = 0;
@@ -373,13 +382,13 @@ namespace Assets.Scripts.Player
 
                 float angleDifference = Quaternion.Angle(controller.PlayerObj.rotation, rotation);
 
-                if(angleDifference <=1.0f) 
+                if (angleDifference <= 1.0f)
                 {
                     yield break;
                 }
                 yield return null;
             }
-            
+
         }
         public void LockPlayerMovement()
         {

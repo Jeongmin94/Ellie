@@ -38,6 +38,9 @@ namespace Channels.UI
         
         // Death
         OpenDeathCanvas,
+        
+        // Video
+        PlayVideo,
     }
 
     public struct QuestInfo

@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Data.ActionData.Player;
+using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Environments;
 using Assets.Scripts.Equipments;
 using Assets.Scripts.InteractiveObjects;
@@ -243,12 +244,9 @@ namespace Assets.Scripts.Player
             //test
             if (Input.GetKeyDown(KeyCode.U))
             {
-                GetConsumalbeItemTest(4100);
+                GetPickaxe(9000);
             }
-            if (Input.GetKeyDown(KeyCode.J))
-            {
-                GetConsumalbeItemTest(4101);
-            }
+            
         }
         private void FixedUpdate()
         {
@@ -741,13 +739,14 @@ namespace Assets.Scripts.Player
 
         public void GetPickaxe(int pickaxeIdx)
         {
+            int pickaxeUiIdx = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx).uiIdx;
             UIPayload payload = new()
             {
                 uiType = UIType.Notify,
                 groupType = UI.Inventory.GroupType.Etc,
                 slotAreaType = UI.Inventory.SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx)
+                itemData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(pickaxeUiIdx),
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
 
@@ -755,6 +754,7 @@ namespace Assets.Scripts.Player
             dPayload.canvasType = DialogCanvasType.Simple;
 
             ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+            //!TODO 플레이어의 상태 세이브/로드 데이터에 해당 항목을 추가
             isPickaxeAvailable = true;
             curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
