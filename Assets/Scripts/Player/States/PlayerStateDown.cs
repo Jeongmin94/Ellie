@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.Managers;
-using log4net.Util;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
