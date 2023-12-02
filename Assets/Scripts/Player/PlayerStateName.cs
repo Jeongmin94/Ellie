@@ -2,6 +2,7 @@
 {
     public enum PlayerStateName
     {
+        Start,
         Idle,
         Walk,
         Sprint,

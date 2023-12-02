@@ -17,7 +17,6 @@ namespace Assets.Scripts.Monsters.Utility
         }
         public struct MonsterType
         {
-            public Enums.MonsterKind kind;
             public Enums.MovementType type;
             public Enums.AttackTurnType turnType;
         }

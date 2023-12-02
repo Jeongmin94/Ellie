@@ -9,9 +9,9 @@ namespace Assets.Scripts.Monsters.Attacks
     {
         private SphereCollider collider;
 
-        public override void InitializeSphereCollider(SphereColliderAttackData data)
+        public override void InitializeSphereCollider(MonsterAttackData data)
         {
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            InitializedBase(data);
             owner = gameObject.tag.ToString();
 
             if (collider == null)
@@ -21,7 +21,7 @@ namespace Assets.Scripts.Monsters.Attacks
                 collider.enabled = false;
             }
             gameObject.transform.localPosition = data.offset;
-            collider.radius = data.radius;
+            //collider.radius = data.radius;
         }
 
         public override void ActivateAttack()

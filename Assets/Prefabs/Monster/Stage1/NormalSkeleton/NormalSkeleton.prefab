@@ -523,7 +523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e096b59c7a8420c977887b8ea3a021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 2594655644297438153}
+  controller: {fileID: 8750205445993115799}
 --- !u!1 &2277639335033156077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3005,12 +3005,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5660498856279433209}
   - component: {fileID: 3947439814321282197}
+  - component: {fileID: 8750205445993115799}
   - component: {fileID: 6945183113641375808}
   - component: {fileID: 1286402916042674933}
   - component: {fileID: 3323000195311136147}
   - component: {fileID: 880554563}
   - component: {fileID: 3323000195417403496}
-  - component: {fileID: 2594655644297438153}
   - component: {fileID: 2156146737864194590}
   - component: {fileID: 1945422486}
   m_Layer: 10
@@ -3062,6 +3062,181 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8750205445993115799
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034515840355106491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 761735afef08b4b5eac0fa6f8b6d11a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsterData:
+    index: 0
+    monsterName: 
+    maxHP: 0
+    movementSpeed: 0
+    returnSpeed: 0
+    rotationSpeed: 0
+    detectPlayerDistance: 0
+    chasePlayerDistance: 0
+    overtravelDistance: 0
+    stopDistance: 0
+    weakRatio: 0
+    itemDropTable: 0
+    element: 0
+    type: 0
+    turnType: 0
+  attackData:
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  behaviourTreeInstance: {fileID: 0}
+  player: {fileID: 0}
 --- !u!54 &6945183113641375808
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3228,28 +3403,6 @@ MonoBehaviour:
   references:
     version: 2
     RefIds: []
---- !u!114 &2594655644297438153
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9034515840355106491}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ea758fc79144779ad000b17ece2c8e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 9e394a83e2a704ce5a0f24e5770ae66b, type: 2}
-  runToPlayerData: {fileID: 11400000, guid: c25d22fb7bcc644859d5d5bc8bd6c977, type: 2}
-  meleeAttackData: {fileID: 11400000, guid: 9f325a7f1673440a4bbba72652d485d6, type: 2}
-  weaponAttackData: {fileID: 0}
-  projectileAttackData: {fileID: 0}
-  fleeSkilldata: {fileID: 0}
-  fanshapeAttackData: {fileID: 0}
-  dropableItemData: {fileID: 0}
-  behaviourTreeInstance: {fileID: 0}
-  player: {fileID: 0}
 --- !u!114 &2156146737864194590
 MonoBehaviour:
   m_ObjectHideFlags: 0

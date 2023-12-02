@@ -47,7 +47,6 @@ namespace Assets.Scripts.Particle
 
         private void OnParticleSystemStopped()
         {
-            Debug.Log("종료 확인");
             PoolManager.Instance.Push(this);
         }
     }

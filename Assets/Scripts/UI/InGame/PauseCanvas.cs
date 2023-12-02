@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
@@ -32,7 +33,7 @@ namespace Assets.Scripts.UI.InGame
         [SerializeField] private TextTypographyData pauseMenuTypographyData;
         [SerializeField] private TextTypographyData escapeTypographyData;
 
-        [Header("팝업 타입")] [SerializeField] private PopupType[] popupTypes;
+        [Header("팝업 타입")][SerializeField] private PopupType[] popupTypes;
 
         [SerializeField] private string[] buttonNames;
 
@@ -196,22 +197,27 @@ namespace Assets.Scripts.UI.InGame
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
-                {
-                    // !TODO
-                }
+                    {
+                        if (payload.popupType == PopupType.Load)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = true;
+                            SceneCenter.Instance.LoadScene(SceneName.Test2);
+                        }
+                        // !TODO
+                    }
                     break;
 
                 case ButtonType.No:
-                {
-                    if (payload.popupType == PopupType.Config)
                     {
-                        configCanvas.gameObject.SetActive(false);
+                        if (payload.popupType == PopupType.Config)
+                        {
+                            configCanvas.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            popupCanvasMap[payload.popupType].gameObject.SetActive(false);
+                        }
                     }
-                    else
-                    {
-                        popupCanvasMap[payload.popupType].gameObject.SetActive(false);
-                    }
-                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

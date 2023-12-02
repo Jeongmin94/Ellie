@@ -12,6 +12,7 @@ using Channels.UI;
 using Cinemachine;
 using System.Collections;
 using System.Linq;
+using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -299,9 +300,11 @@ namespace Assets.Scripts.Player
         }
         private void InitStateMachine()
         {
-            PlayerStateIdle playerStateIdle = new(this);
-            stateMachine = new PlayerStateMachine(PlayerStateName.Idle, playerStateIdle);
+            PlayerStateStart playerStateStart = new(this);
+            stateMachine = new PlayerStateMachine(PlayerStateName.Start, playerStateStart);
 
+            PlayerStateIdle playerStateIdle = new(this);
+            stateMachine.AddState(PlayerStateName.Idle, playerStateIdle);
             PlayerStateWalk playerStateWalk = new(this);
             stateMachine.AddState(PlayerStateName.Walk, playerStateWalk);
             PlayerStateSprint playerStateSprint = new(this);

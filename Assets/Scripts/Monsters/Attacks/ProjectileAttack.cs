@@ -1,5 +1,6 @@
 using System.Collections;
 using Assets.Scripts.Combat;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Monsters.Others;
 using Channels.Combat;
@@ -10,9 +11,8 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class ProjectileAttack : AbstractAttack
     {
-        private Projectile projectile;
-        public ProjectileAttackData attackData;
-
+        [SerializeField] private GameObject projectile;
+        public MonsterAttackData attackData;
         private Vector3 offset;
 
         private void Awake()
@@ -20,19 +20,20 @@ namespace Assets.Scripts.Monsters.Attacks
             SetTicketMachine();
         }
 
-        public override void InitializeProjectile(ProjectileAttackData data)
+        public override void InitializeProjectile(MonsterAttackData data)
         {
             attackData = data;
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableMinimumDistance);
+            InitializedBase(data);
             offset = data.offset;
-            projectile = data.projectilePrefab.GetComponent<Projectile>();
+            projectile = ResourceManager.Instance.LoadExternResource<GameObject>(data.projectilePrefabPath);
             particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public override void ActivateAttack()
         {
-            Projectile obj = Instantiate(projectile, transform.position + offset, transform.rotation);
-            obj.spawner = gameObject.GetComponent<ProjectileAttack>();
+            GameObject obj = Instantiate(projectile, transform.position + offset, transform.rotation);
+
+            obj.GetComponent<Projectile>().spawner = gameObject.GetComponent<ProjectileAttack>();
             StartCoroutine(StartAttackReadyCount());
         }
 
@@ -52,7 +53,7 @@ namespace Assets.Scripts.Monsters.Attacks
             SetAndAttack(attackData, otherTransform);
         }
 
-        private void SetAndAttack(ProjectileAttackData data, Transform otherTransform)
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
             CombatPayload payload = new();
             payload.Type = data.combatType;

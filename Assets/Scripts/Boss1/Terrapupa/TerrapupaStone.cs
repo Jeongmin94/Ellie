@@ -25,6 +25,7 @@ namespace Boss.Terrapupa
 		private SphereCollider sphereCollider;
 		private Rigidbody rb;
 		private CombatPayload combatPayload;
+		private Vector3 direction;
 
         public Transform Owner
 		{
@@ -43,6 +44,11 @@ namespace Boss.Terrapupa
 
             sphereCollider.enabled = false;
 			rb.isKinematic = true;
+        }
+
+        private void Update()
+        {
+			rb.AddForce(direction * movementSpeed, ForceMode.Force);
         }
 
         public void Init(Vector3 position, Vector3 scale, float speed, CombatPayload hitPayload, GameObject hitEffect, Transform sender, TicketMachine senderTicketMacine)
@@ -76,14 +82,16 @@ namespace Boss.Terrapupa
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & layerMask) != 0 && other.transform.root != owner.transform.root)
+			TerrapupaDetection detection = other.GetComponent<TerrapupaDetection>();
+
+            if (((1 << other.gameObject.layer) & layerMask) != 0 && detection.MyTerrapupa != owner)
             {
                 ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
 
                 EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
 				{
-					TransformValue1 = other.transform.root,
-				});
+					TransformValue1 = detection.MyTerrapupa,
+                });
 
                 PoolManager.Instance.Push(this);
             }
@@ -91,7 +99,7 @@ namespace Boss.Terrapupa
 
         public void MoveToTarget(Transform target)
 		{
-			Vector3 direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
+			direction = (target.position + new Vector3(0.0f, 2.0f, 0.0f)) - transform.position;
 			direction.Normalize();
 
 			SphereCollider sphereCollider = GetComponent<SphereCollider>();

@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Centers;
 using Channels.Type;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Channels.Components
 {
-    public class TicketMachine : MonoBehaviour
+    public class TicketMachine : SerializedMonoBehaviour
     {
         private Action<TicketBox> addTicketAction;
 
-        private readonly IDictionary<ChannelType, Ticket> tickets =
+        [ShowInInspector][ReadOnly] private readonly IDictionary<ChannelType, Ticket> tickets =
             new Dictionary<ChannelType, Ticket>();
 
         private void Subscribe(Action<TicketBox> listener)
