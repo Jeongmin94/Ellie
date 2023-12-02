@@ -30,7 +30,7 @@ public class LoadingUI : MonoBehaviour
     private void Start()
     {
         UpdateImageTip();
-        StartCoroutine(LoadLevelAsync(SceneCenter.Instance.CurrentScene));
+        StartCoroutine(LoadLevelAsync(SceneLoadManager.Instance.CurrentScene));
     }
 
     void UpdateImageTip()
@@ -98,7 +98,7 @@ public class LoadingUI : MonoBehaviour
         SaveLoadManager.Instance.IsLoadData = false;
 
         loadingSlider.value = 0.0f;
-        SceneCenter.Instance.FinishLoading();
+        SceneLoadManager.Instance.FinishLoading();
 
         SceneManager.UnloadSceneAsync((int)SceneName.LoadingScene);
     }

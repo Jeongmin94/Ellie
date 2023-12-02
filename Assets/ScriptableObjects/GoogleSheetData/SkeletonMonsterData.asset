@@ -13,43 +13,92 @@ MonoBehaviour:
   m_Name: SkeletonMonsterData
   m_EditorClassIdentifier: Assembly.Ellie::SkeletonMonsterParsingInfo
   url: https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/edit#gid=120000851
-  startCell: B6
-  endColumn: R
-  tsv: "1000\t\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4\tNormal\t5\t5\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1.5\t5000\r\n1001\t\uBAA8\uD5D8\uAC00
-    \uC2A4\uCF08\uB808\uD1A4\tNormal\t8\t6\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1.5\t5000\r\n1002\t\uB9C8\uBC95\uC0AC
-    \uC2A4\uCF08\uB808\uD1A4\tNormal\t5\t5\t180\t30\t20\t60\t10\t12\tNULL\tNULL\tNULL\thead\t1.5\t5000\r\n1003\t\uB3D9\uAD74
-    \uBC15\uC950\tNormal\t2\t7\t180\t30\t20\t80\t10\t1.5\tNULL\tNULL\tNULL\tNULL\tNULL\t5002\r\n1004\t\uACF5\uB300\uC6D0
-    \uC2A4\uCF08\uB808\uD1A4\tNormal\t10\t6\t180\t30\t20\t60\t10\t1.5\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uBCC0\uACBD\uC810\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uC5D8\uB9AC
-    \uAC77\uAE30 \uC18D\uB3C4 3 \u2192 5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uB2EC\uB9AC\uAE30
-    \uC18D\uB3C4 5\u2192 8\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uC5D8\uB9AC \uACF5\uACA9
-    \uD310\uC815 1\uCD08 \uC774\uC0C1 \uCC28\uC9D5 \uD6C4\uB85C \uC124\uC815 \uD574\uC57C\uB420
-    \uAC83 \uAC19\uC2B5\uB2C8\uB2E4. (1\uCD08 \uC774\uC804\uC5D0 \uB9C8\uC6B0\uC2A4
-    \uB5FC \uC2DC \uACF5\uACA9 \uC548\uB098\uAC00\uAC8C \uB054 ( \uBD99\uC5B4\uC11C
-    \uC5F0\uC0AC \uC2DC \uD50C\uB808\uC774\uC5D0 \uBB38\uC81C \uB420 \uAC83 \uAC19\uC74C)\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uC5D8\uB9AC
-    \uC2DC\uAC04 \uB290\uB824\uC9C0\uB294\uAC70 0.2 \u2192 0.5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uCCB4\uACF5
-    \uC2DC \uC2DC\uAC04 \uB290\uB824\uC9C8 \uACBD\uC6B0   0.3\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uC2A4\uCF08\uB808\uD1A4
-    \uB3CC\uC9C4 \uC911\uAC04\uC5D0 1\uBBF8\uD130 \uB0B4\uB85C \uB4E4\uC5B4\uC624\uBA74
-    \uC790\uB3D9 \uC911\uB2E8 \uAE30\uB2A5 \uCD94\uAC00\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uD3C9\uBC94\uD55C
-    \uC2A4\uCF08\uB808\uD1A4\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n- Adventure Skeleton
-    Data\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nHP 3 \u2192 5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nMovement
-    Speed 2 \u2192 5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nOvertravelDistance 30 \u2192
-    50\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n- Adventure
-    Skeleton RunToPlayerData\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nMovement Speed 4
-    \u2192 6\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uBAA8\uD5D8\uAC00
-    \uC2A4\uCF08\uB808\uD1A4\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n- Adventure Skeleton
-    Data\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nMovement Speed 2 \u2192 6\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nOvertravelDistance
-    30 \u2192 50\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n-
-    Adventure Skeleton RunToPlayerData\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nMovement
-    Speed 4 \u2192 7\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uACF5\uB300\uC6D0
-    \uC2A4\uCF08\uB808\uD1A4\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n- Guildguard Skeleton
-    Data\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nMovement Speed 2 \u2192 6\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nOvertravelDistance
-    30 \u2192 50\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n-
-    Guildguard Skeleton RunToPlayerData\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nMovement
-    Speed 4 \u2192 7\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\uB9C8\uBC95\uC0AC
-    \uC2A4\uCF08\uB808\uD1A4\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n- Guildguard Skeleton
-    Data\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nHP 3 \u2192 5\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n-
-    WizardProjectileAttack\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nAttackInterval 3 \u2192
-    1\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\n- Flee
-    Skill data\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nActivateInterval  5 \u2192 3\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\r\nFleeSpeed
-    10 \u2192 20\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
-  monsters: []
+  startCell: B7
+  endColumn: S
+  tsv: "1000\t\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4\tNormal\t5\t5\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1.5\t4300\t10\r\n1001\t\uBAA8\uD5D8\uAC00
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t8\t6\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1.5\t4300,
+    4302, 4303\t10\r\n1002\t\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4\tNormal\t20\t5\t180\t30\t20\t60\t10\t12\tNULL\tNULL\tNULL\thead\t1.5\t4300,
+    4303\t10\r\n1003\t\uB3D9\uAD74 \uBC15\uC950\tNormal\t2\t7\t180\t30\t20\t80\t10\t2\tNULL\tNULL\tNULL\tNULL\t1\t4301\t10\r\n1004\t\uACF5\uB300\uC6D0
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t10\t6\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1\t4301,
+    4304\t10"
+  datas:
+  - index: 1000
+    monsterName: "\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 5
+    movementSpeed: 5
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 1.5
+    weakRatio: 1.5
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1001
+    monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 8
+    movementSpeed: 6
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 1.5
+    weakRatio: 1.5
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1002
+    monsterName: "\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 20
+    movementSpeed: 5
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 12
+    weakRatio: 1.5
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1003
+    monsterName: "\uB3D9\uAD74 \uBC15\uC950"
+    maxHP: 2
+    movementSpeed: 7
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 80
+    stopDistance: 2
+    weakRatio: 1
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1004
+    monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 10
+    movementSpeed: 6
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 1.5
+    weakRatio: 1
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0

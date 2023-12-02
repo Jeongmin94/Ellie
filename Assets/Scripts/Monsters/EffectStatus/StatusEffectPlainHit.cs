@@ -17,7 +17,6 @@ namespace Assets.Scripts.Monsters.EffectStatus
         private void MonsterStatusPlainHit(MonsterEffectStatusController controller)
         {
             controller.AddStatusEffect(this);
-            monsterController.ChangeEffectState(StatusEffectName.None);
         }
     }
 }

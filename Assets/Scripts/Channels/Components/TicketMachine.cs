@@ -28,8 +28,15 @@ namespace Channels.Components
 
         public void SendMessage(ChannelType type, IBaseEventPayload payload)
         {
+
             if (tickets.TryGetValue(type, out var ticket))
                 ticket.Publish(payload);
+        }
+
+        public void Notify(ChannelType type, IBaseEventPayload payload)
+        {
+            if (tickets.TryGetValue(type, out var ticket))
+                ticket.Notify(payload);
         }
 
         /// <summary>

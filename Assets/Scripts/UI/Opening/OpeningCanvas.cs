@@ -191,12 +191,12 @@ namespace Assets.Scripts.UI.Opening
                         if (payload.popupType == PopupType.Start)
                         {
                             SaveLoadManager.Instance.IsLoadData = false;
-                            SceneCenter.Instance.LoadScene(SceneName.Test2);
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
                         }
                         else if (payload.popupType == PopupType.Load)
                         {
                             SaveLoadManager.Instance.IsLoadData = true;
-                            SceneCenter.Instance.LoadScene(SceneName.Test2);
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
                         }
                     }
                     break;

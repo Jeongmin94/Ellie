@@ -66,7 +66,7 @@ namespace Assets.Scripts.UI.PopupMenu
                     component.name += $"#{data.configName}";
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.OnIndexChanged(0);
+                    data.InitData();
                 }
             }
 
@@ -81,7 +81,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.OnIndexChanged(0);
+                    data.InitData();
                 }
             }
 
@@ -96,7 +96,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
                     component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.OnIndexChanged(0);
+                    data.InitData();
                 }
             }
         }

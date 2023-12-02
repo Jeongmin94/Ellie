@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TheKiwiCoder;
 using Assets.Scripts.Monsters.AbstractClass;
 using static Assets.Scripts.Monsters.Utility.Enums;

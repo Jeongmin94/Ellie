@@ -29,7 +29,6 @@ namespace Assets.Scripts.UI.Framework
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private MonsterHealthData monsterHealthData;
         [SerializeField] private int damage = 1;
-        [SerializeField] private int staminaCost = 10;
 
         private UIStatusBar statusBar;
         private readonly MonsterDataContainer canvasContainer = new MonsterDataContainer();

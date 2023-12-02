@@ -27,6 +27,17 @@ namespace Channels.UI
         SetQuestName,
         SetQuestDesc,
         SetQuestIcon,
+        
+        // Interactive UI
+        PopupInteractive,
+        CloseInteractive,
+        
+        // AutoSave
+        OpenAutoSave,
+        CloseAutoSave,
+        
+        // Death
+        OpenDeathCanvas,
     }
 
     public struct QuestInfo
@@ -48,6 +59,13 @@ namespace Channels.UI
         }
     }
 
+    public enum InteractiveType
+    {
+        Chatting,
+        Mining,
+        Acquisition,
+    }
+
     public class UIPayload : IBaseEventPayload
     {
         public UIType uiType;
@@ -62,7 +80,18 @@ namespace Channels.UI
         public bool isStoneNull;
         public int equipmentSlotIdx;
 
+        // Quest
         public QuestInfo questInfo;
+        
+        // Interactive
+        public InteractiveType interactiveType;
+
+        public static UIPayload Notify()
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            return payload;
+        }
     }
 
     public class UIChannel : BaseEventChannel

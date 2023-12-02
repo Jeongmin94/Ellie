@@ -3086,7 +3086,8 @@ MonoBehaviour:
     overtravelDistance: 0
     stopDistance: 0
     weakRatio: 0
-    itemDropTable: 0
+    itemDropTable: 
+    respawnTime: 0
     element: 0
     type: 0
     turnType: 0
@@ -3236,7 +3237,6 @@ MonoBehaviour:
     weaponName: 
     projectilePrefabPath: 
   behaviourTreeInstance: {fileID: 0}
-  player: {fileID: 0}
 --- !u!54 &6945183113641375808
 Rigidbody:
   m_ObjectHideFlags: 0

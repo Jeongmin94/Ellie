@@ -21,7 +21,6 @@ namespace Assets.Scripts.UI.Equipment
         [SerializeField] private Sprite frameImage;
         [SerializeField] private float frameWidth = 86.0f;
         [SerializeField] private float frameHeight = 86.0f;
-        [SerializeField] private float spacing = 1.0f;
 
         public GroupType groupType;
         private UITransformData uiTransformData;

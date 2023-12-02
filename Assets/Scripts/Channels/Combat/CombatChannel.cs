@@ -51,7 +51,6 @@ namespace Channels.Combat
             Debug.Log("Recieve activate");
             CombatPayload combatPayload = payload as CombatPayload;
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
-            Debug.Log(combatant);
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
         }
 

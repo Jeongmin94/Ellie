@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;

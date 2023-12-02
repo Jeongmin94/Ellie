@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Player;
+using Channels.UI;
 using System;
 using UnityEngine;
 
@@ -10,6 +11,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private Action getPickaxeAction;
 
+        public InteractiveType interactiveType = InteractiveType.Acquisition;
+
+        public InteractiveType GetInteractiveType()
+        {
+            return interactiveType;
+        }
         public void Interact(GameObject obj)
         {
             if (!obj.CompareTag("Player")) return;
@@ -19,6 +26,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
             Publish();
             obj.GetComponent<PlayerInteraction>().interactiveObject = null;
+            obj.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
             gameObject.SetActive(false);
         }
 

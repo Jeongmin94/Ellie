@@ -32,7 +32,7 @@ namespace Assets.Scripts
         {
             isPlaying = true;
             audioSource.pitch = pitch;
-            if(type == SoundType.Bgm)
+            if(type == SoundType.Bgm || type == SoundType.Ambient)
             {
                 audioSource.loop = true;
             }
