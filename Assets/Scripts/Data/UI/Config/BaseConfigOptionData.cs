@@ -15,7 +15,7 @@ namespace Data.UI.Config
         [SerializeField] public int currentIdx;
         [SerializeField] public string optionChangeSoundName;
 
-        private Action<string> valueChangeAction;
+        protected Action<string> valueChangeAction;
 
         // !TODO: 씬이 전환될 때마다 ClearAction을 호출해야 함
         public void ClearAction() => valueChangeAction = null;

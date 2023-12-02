@@ -16,6 +16,8 @@ namespace Assets.Scripts.UI.Opening
     {
         public static readonly string Path = "Opening/OpeningCanvas";
 
+        private static readonly string SoundOpeningBGM = "BGM1";
+
         private enum GameObjects
         {
             TitlePanel,
@@ -51,6 +53,11 @@ namespace Assets.Scripts.UI.Opening
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, SoundOpeningBGM);
         }
 
         protected override void Init()
@@ -98,7 +105,7 @@ namespace Assets.Scripts.UI.Opening
             InitMenuButtons();
             InitPopupCanvas();
 
-            // 231130 Ãß°¡
+            // 231130 ï¿½ß°ï¿½
             CheckLoadFiles();
         }
 
@@ -148,7 +155,7 @@ namespace Assets.Scripts.UI.Opening
 
         private void CheckLoadFiles()
         {
-            if(!SaveLoadManager.Instance.IsSaveFilesExist())
+            if (!SaveLoadManager.Instance.IsSaveFilesExist())
             {
                 menuButtons[(int)PopupType.Load].gameObject.SetActive(false);
             }
@@ -187,31 +194,31 @@ namespace Assets.Scripts.UI.Opening
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
+                {
+                    if (payload.popupType == PopupType.Start)
                     {
-                        if (payload.popupType == PopupType.Start)
-                        {
-                            SaveLoadManager.Instance.IsLoadData = false;
-                            SceneLoadManager.Instance.LoadScene(SceneName.test2);
-                        }
-                        else if (payload.popupType == PopupType.Load)
-                        {
-                            SaveLoadManager.Instance.IsLoadData = true;
-                            SceneLoadManager.Instance.LoadScene(SceneName.test2);
-                        }
+                        SaveLoadManager.Instance.IsLoadData = false;
+                        SceneLoadManager.Instance.LoadScene(SceneName.test2);
                     }
+                    else if (payload.popupType == PopupType.Load)
+                    {
+                        SaveLoadManager.Instance.IsLoadData = true;
+                        SceneLoadManager.Instance.LoadScene(SceneName.test2);
+                    }
+                }
                     break;
 
                 case ButtonType.No:
+                {
+                    if (payload.popupType == PopupType.Config)
                     {
-                        if (payload.popupType == PopupType.Config)
-                        {
-                            configCanvas.gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            popupCanvasList[idx].gameObject.SetActive(false);
-                        }
+                        configCanvas.gameObject.SetActive(false);
                     }
+                    else
+                    {
+                        popupCanvasList[idx].gameObject.SetActive(false);
+                    }
+                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
