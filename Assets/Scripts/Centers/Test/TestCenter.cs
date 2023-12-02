@@ -21,6 +21,8 @@ namespace Assets.Scripts.Centers.Test
         public GameObject terrapupaMapObjectController;
         public GameObject SkullSecondTrap;
 
+        public GameObject monsterController;
+
         public int curStage = 1;
 
         private void Awake()
@@ -52,6 +54,7 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(SkullSecondTrap.gameObject);
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
+            CheckTicket(monsterController.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM1");
         }
 

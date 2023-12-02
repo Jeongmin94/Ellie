@@ -1722,7 +1722,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2104673137817031364}
-  - component: {fileID: 3560824618853950082}
+  - component: {fileID: 1371931736955270508}
   - component: {fileID: 1164236155}
   - component: {fileID: 5568415145192514984}
   - component: {fileID: 8766872684648812147}
@@ -1774,7 +1774,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3560824618853950082
+--- !u!114 &1371931736955270508
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1783,19 +1783,172 @@ MonoBehaviour:
   m_GameObject: {fileID: 3376117400652952454}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 91ea758fc79144779ad000b17ece2c8e, type: 3}
+  m_Script: {fileID: 11500000, guid: 1aef0aaee3f82498d8f806c1de3d74b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 2bdf950ed35ab42f386bec86a27f4f1d, type: 2}
-  runToPlayerData: {fileID: 0}
-  meleeAttackData: {fileID: 0}
-  weaponAttackData: {fileID: 0}
-  projectileAttackData: {fileID: 11400000, guid: ad2c80976584c4b58acc09b432753e3b, type: 2}
-  fleeSkilldata: {fileID: 11400000, guid: fe826698590194c699239464a9a21602, type: 2}
-  fanshapeAttackData: {fileID: 0}
-  dropableItemData: {fileID: 0}
+  monsterData:
+    index: 0
+    monsterName: 
+    maxHP: 0
+    movementSpeed: 0
+    returnSpeed: 0
+    rotationSpeed: 0
+    detectPlayerDistance: 0
+    chasePlayerDistance: 0
+    overtravelDistance: 0
+    stopDistance: 0
+    weakRatio: 0
+    itemDropTable: 
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  attackData:
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
+  - index: 0
+    monsterName: 
+    attackName: 
+    attackType: 0
+    attackValue: 0
+    attackInterval: 0
+    attackableDistance: 0
+    animationHold: 0
+    attackDuration: 0
+    offset: {x: 0, y: 0, z: 0}
+    size: {x: 0, y: 0, z: 0}
+    movementSpeed: 0
+    fleeDistance: 0
+    stopDistance: 0
+    attackableMinimumDistance: 0
+    combatType: 0
+    weaponName: 
+    projectilePrefabPath: 
   behaviourTreeInstance: {fileID: 0}
-  player: {fileID: 0}
 --- !u!114 &1164236155
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2837,7 +2990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2e096b59c7a8420c977887b8ea3a021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 3560824618853950082}
+  controller: {fileID: 1371931736955270508}
 --- !u!1 &4678864587132132836
 GameObject:
   m_ObjectHideFlags: 0

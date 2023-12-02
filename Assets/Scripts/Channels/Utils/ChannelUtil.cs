@@ -33,6 +33,9 @@ namespace Channels.Utils
                 case ChannelType.Dialog:
                     channel = new DialogChannel();
                     break;
+                case ChannelType.Monster:
+                    channel = new MonsterChannel();
+                    break;
             }
             return channel;
         }

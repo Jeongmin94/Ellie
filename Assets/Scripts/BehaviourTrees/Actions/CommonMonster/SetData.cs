@@ -15,7 +15,6 @@ public class SetData : ActionNode
 
     protected override void OnStart() {
         playerDistance.Value = Vector3.SqrMagnitude(player.Value.transform.position - context.transform.position);
-        DistanceDetectedAI detectAI = detectChaseAI.Value.GetComponent<DistanceDetectedAI>();
         playerPosition.Value = player.Value.transform.position;
     }
 

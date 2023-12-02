@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 using Assets.Scripts.Monsters;
 using Channels.Components;
+using Assets.Scripts.Monsters.AbstractClass;
 
 namespace TheKiwiCoder {
     // The context is a shared object every node has access to.
@@ -22,7 +23,7 @@ namespace TheKiwiCoder {
         public CapsuleCollider capsuleCollider;
         public CharacterController characterController;
 
-        public MonsterController controller;
+        public AbstractMonster controller;
         public MonsterAudioController audioController;
         public MonsterParticleController particleController;
         public AudioSource audioSource;
@@ -44,7 +45,7 @@ namespace TheKiwiCoder {
             context.characterController = gameObject.GetComponent<CharacterController>();
 
             // Add whatever else you need here...
-            context.controller = gameObject.GetComponent<MonsterController>();
+            context.controller = gameObject.GetComponent<AbstractMonster>();
             context.audioController = gameObject.GetComponent<MonsterAudioController>();
             context.particleController = gameObject.GetComponent<MonsterParticleController>();
             context.audioSource = gameObject.GetComponent<AudioSource>();
