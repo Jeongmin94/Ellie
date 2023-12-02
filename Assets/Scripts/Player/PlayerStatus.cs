@@ -200,7 +200,7 @@ namespace Assets.Scripts.Player
 
         public void ApplyConsumableItemEffect(PlayerInventory.ConsumableItemData data)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound8");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound8", transform.position);
             int HPRecoveryAmount = data.HPRecoveryAmount;
             if (HP + HPRecoveryAmount >= maxHP)
                 HP = maxHP;

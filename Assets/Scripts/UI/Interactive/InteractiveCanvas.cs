@@ -57,6 +57,10 @@ namespace Assets.Scripts.UI.Interactive
             Init();
         }
 
+        private void Start()
+        {
+            gameObject.SetActive(false);
+        }
         protected override void Init()
         {
             base.Init();

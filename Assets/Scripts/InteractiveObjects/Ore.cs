@@ -1,11 +1,14 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.InteractiveObjects.NPC;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using Channels.UI;
+using Codice.CM.WorkspaceServer.Tree.GameUI.Checkin.Updater;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -23,6 +26,7 @@ namespace Assets.Scripts.InteractiveObjects
             Tier1,
         }
 
+        public InteractiveType interactiveType = InteractiveType.Mining;
         [SerializeField] private GameObject stonePrefabTest;
         private Transform oreBody;
         private Transform stoneSpawnPos;
@@ -50,7 +54,10 @@ namespace Assets.Scripts.InteractiveObjects
         {
             InitTicketMachine();
         }
-
+        public InteractiveType GetInteractiveType()
+        {
+            return interactiveType;
+        }
         private void Start()
         {
             StartCoroutine(InitOre());
@@ -114,11 +121,15 @@ namespace Assets.Scripts.InteractiveObjects
 
             if (hp <= 0)
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "rock_destruction2", transform.position);
                 canMine = false;
-                Debug.Log("mining complete");
                 //아이템 뱉기
                 DropStone(data.miningEndDropItemList);
                 StartCoroutine(Regenerate());
+            }
+            else
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "rock_destruction1", transform.position);
             }
         }
 

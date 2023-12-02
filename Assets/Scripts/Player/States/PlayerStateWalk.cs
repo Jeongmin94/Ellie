@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -9,10 +10,18 @@ namespace Assets.Scripts.Player.States
         private float startMoveSpeed;
         private float interpolateTime;
         private float duration = 0.2f;
+        private float footPrintInterval = 0.6f;
+
+        private string[] footprint = new string[2];
+        private int footprintIdx = 0;
+        private float accTime;
         private readonly Rigidbody rb;
         public PlayerStateWalk(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
+
+            footprint[0] = "ellie_move1";
+            footprint[1] = "ellie_move2";
         }
 
         public override void OnEnterState()
@@ -27,7 +36,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
-
+            SoundManager.Instance.StopAmbient("ellie_move1");
         }
         public override void OnUpdateState()
         {
@@ -57,6 +66,7 @@ namespace Assets.Scripts.Player.States
                 else
                     Controller.ChangeState(PlayerStateName.MeleeAttack);
             }
+            PlayFootPrintSound();
         }
 
         public override void OnFixedUpdateState()
@@ -80,6 +90,21 @@ namespace Assets.Scripts.Player.States
             {
                 Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
                 rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
+            }
+        }
+
+        private void PlayFootPrintSound()
+        {
+            accTime += Time.deltaTime;
+            
+            if(accTime>=footPrintInterval)
+            {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, footprint[footprintIdx], Controller.transform.position);
+                if (footprintIdx == 1)
+                    footprintIdx = 0;
+                else
+                    footprintIdx = 1;
+                accTime = 0;
             }
         }
     }
