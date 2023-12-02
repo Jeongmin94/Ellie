@@ -18,6 +18,7 @@ namespace Assets.Scripts.Player.States
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", Controller.PlayerObj.position);
             Controller.Anim.SetTrigger("Dead");
             Controller.canTurn = false;
+            //Controller
         }
 
         public override void OnExitState()
