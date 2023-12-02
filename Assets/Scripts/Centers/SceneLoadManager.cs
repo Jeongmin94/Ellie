@@ -11,6 +11,8 @@ namespace Assets.Scripts.Centers
         Boss,
         Closing,
         LoadingScene,
+        test,
+        test2,
     }
 
     public class SceneLoadManager : Singleton<SceneLoadManager>

@@ -665,7 +665,8 @@ namespace Assets.Scripts.UI.Inventory
                         metaData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
                         break;
                     case GroupType.Etc:
-                        metaData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(itemIdx);
+                        //metaData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(itemIdx);
+                        metaData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

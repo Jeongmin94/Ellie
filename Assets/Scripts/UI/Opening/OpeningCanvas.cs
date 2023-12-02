@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
@@ -96,6 +97,9 @@ namespace Assets.Scripts.UI.Opening
             InitTitle();
             InitMenuButtons();
             InitPopupCanvas();
+
+            // 231130 Ãß°¡
+            CheckLoadFiles();
         }
 
         private void InitTitle()
@@ -142,6 +146,14 @@ namespace Assets.Scripts.UI.Opening
             configCanvas.gameObject.SetActive(false);
         }
 
+        private void CheckLoadFiles()
+        {
+            if(!SaveLoadManager.Instance.IsSaveFilesExist())
+            {
+                menuButtons[(int)PopupType.Load].gameObject.SetActive(false);
+            }
+        }
+
         private void LateUpdate()
         {
 #if UNITY_EDITOR
@@ -175,22 +187,31 @@ namespace Assets.Scripts.UI.Opening
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
-                {
-                    // !TODO
-                }
+                    {
+                        if (payload.popupType == PopupType.Start)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = false;
+                            SceneLoadManager.Instance.LoadScene(SceneName.test2);
+                        }
+                        else if (payload.popupType == PopupType.Load)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = true;
+                            SceneLoadManager.Instance.LoadScene(SceneName.test2);
+                        }
+                    }
                     break;
 
                 case ButtonType.No:
-                {
-                    if (payload.popupType == PopupType.Config)
                     {
-                        configCanvas.gameObject.SetActive(false);
+                        if (payload.popupType == PopupType.Config)
+                        {
+                            configCanvas.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            popupCanvasList[idx].gameObject.SetActive(false);
+                        }
                     }
-                    else
-                    {
-                        popupCanvasList[idx].gameObject.SetActive(false);
-                    }
-                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
