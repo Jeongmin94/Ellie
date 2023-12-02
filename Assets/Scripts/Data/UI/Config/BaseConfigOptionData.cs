@@ -32,7 +32,7 @@ namespace Data.UI.Config
             valueChangeAction += listener;
         }
 
-        public void OnIndexChanged(int value)
+        public virtual void OnIndexChanged(int value)
         {
             int idx = currentIdx + value;
             if (idx < 0)
