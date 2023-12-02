@@ -62,9 +62,8 @@ public class ItemDataParsingInfo : DataParsingInfo
                 // 증감 수치(float)
                 data.increasePercent = int.Parse(entries[6].Trim());
 
-                data.groupType = (GroupType)int.Parse(entries[7].Trim());
                 // ui 이미지
-                data.imageName = entries[10].Trim();
+                data.imageName = "UI/Item/Consumable/" + entries[10].Trim();
             }
             catch (Exception e)
             {

@@ -14,46 +14,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   url: https://docs.google.com/spreadsheets/d/1m8XT27AvWyf-EnIbF3EJLNJ3lFX0Tixh_Y8ip3eutsA/edit#gid=764653854
   startCell: A5
-  endColumn: J
+  endColumn: K
   tsv: "9000\tPickaxe_Tier5\t5\t20\t1\t2\t30\t0.7\r\n9001\tPickaxe_Tier4\t4\t22\t2\t3\t50\t0.6\r\n9002\tPickaxe_Tier3\t3\t24\t2\t4\t85\t0.5\r\n9003\tPickaxe_Tier2\t2\t26\t4\t5\t140\t0.4\r\n9004\tPickaxe_Tier1\t1\t28\t6\t7\t0\t0"
   pickaxes:
-  - index: 9000
+  - groupType: 2
+    index: 9000
     name: Pickaxe_Tier5
+    description: "5\uD2F0\uC5B4 \uACE1\uAD2D\uC774"
+    imageName: '-'
     tier: 5
     durability: 20
     minSmithPower: 1
     maxSmithPower: 2
     upgradeCost: 30
     upgradeChance: 0.7
-  - index: 9001
+    uiIdx: 0
+  - groupType: 2
+    index: 9001
     name: Pickaxe_Tier4
+    description: "4\uD2F0\uC5B4 \uACE1\uAD2D\uC774"
+    imageName: '-'
     tier: 4
     durability: 22
     minSmithPower: 2
     maxSmithPower: 3
     upgradeCost: 50
     upgradeChance: 0.6
-  - index: 9002
+    uiIdx: 0
+  - groupType: 2
+    index: 9002
     name: Pickaxe_Tier3
+    description: "3\uD2F0\uC5B4 \uACE1\uAD2D\uC774"
+    imageName: '-'
     tier: 3
     durability: 24
     minSmithPower: 2
     maxSmithPower: 4
     upgradeCost: 85
     upgradeChance: 0.5
-  - index: 9003
+    uiIdx: 0
+  - groupType: 2
+    index: 9003
     name: Pickaxe_Tier2
+    description: "2\uD2F0\uC5B4 \uACE1\uAD2D\uC774"
+    imageName: '-'
     tier: 2
     durability: 26
     minSmithPower: 4
     maxSmithPower: 5
     upgradeCost: 140
     upgradeChance: 0.4
-  - index: 9004
+    uiIdx: 0
+  - groupType: 2
+    index: 9004
     name: Pickaxe_Tier1
+    description: "1\uD2F0\uC5B4 \uACE1\uAD2D\uC774"
+    imageName: '-'
     tier: 1
     durability: 28
     minSmithPower: 6
     maxSmithPower: 7
     upgradeCost: 0
     upgradeChance: 0
+    uiIdx: 0
