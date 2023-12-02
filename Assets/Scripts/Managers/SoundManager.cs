@@ -78,6 +78,7 @@ namespace Assets.Scripts.Managers
                             audioControllerPool.Push(nowPlayingBgmController);
                         }
                         isBgmPlaying = true;
+                        audioController.SetVolume(BGMVolume);
                         nowPlayingBgmController = audioController;
                         nowPlayingBgmCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, bgmClip, pitch, loop));
                     }
@@ -94,6 +95,8 @@ namespace Assets.Scripts.Managers
                         //audioController의 위치를 해당 위치로
                         audioController.Activate3DEffect();
                         audioController.transform.position = playingPos;
+                        audioController.SetVolume(SFXVolume);
+
 
                         nowPlayingSfxAudioControllerList.Add(audioController);
                         StartCoroutine(PlaySoundCoroutine(type, name, audioController, sfxClip, pitch, loop));
@@ -116,7 +119,7 @@ namespace Assets.Scripts.Managers
                     if (AudioClips.TryGetValue(name, out AudioClip uiSfxClip))
                     {
                         AudioController audioController = audioControllerPool.Pop() as AudioController;
-
+                        audioController.SetVolume(UISfxVolume);
                         nowPlayingUISfxCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, uiSfxClip, pitch, loop));
                     }
                     else
@@ -129,6 +132,7 @@ namespace Assets.Scripts.Managers
                     if (AudioClips.TryGetValue(name, out AudioClip ambientClip))
                     {
                         AudioController audioController = audioControllerPool.Pop() as AudioController;
+                        audioController.SetVolume(AmbientVolume);
 
                         ambientDict.Add(name, audioController);
                         ambientCoroutines[name] = StartCoroutine(PlaySoundCoroutine(type, name, audioController, ambientClip, pitch, loop));
@@ -148,9 +152,14 @@ namespace Assets.Scripts.Managers
             {
                 case SoundType.Bgm:
                     BGMVolume = volume;
+                    nowPlayingBgmController.SetVolume(BGMVolume);
                     break;
                 default:
                     AmbientVolume = UISfxVolume = SFXVolume = volume;
+                    foreach(var controller in ambientDict.Values)
+                    {
+                        controller.SetVolume(AmbientVolume);
+                    }
                     break;
 
             }
