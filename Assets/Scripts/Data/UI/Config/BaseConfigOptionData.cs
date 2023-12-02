@@ -15,7 +15,7 @@ namespace Data.UI.Config
         [SerializeField] public int currentIdx;
         [SerializeField] public string optionChangeSoundName;
 
-        private Action<string> valueChangeAction;
+        protected Action<string> valueChangeAction;
 
         // !TODO: 씬이 전환될 때마다 ClearAction을 호출해야 함
         public void ClearAction() => valueChangeAction = null;
@@ -32,7 +32,7 @@ namespace Data.UI.Config
             valueChangeAction += listener;
         }
 
-        public void OnIndexChanged(int value)
+        public virtual void OnIndexChanged(int value)
         {
             int idx = currentIdx + value;
             if (idx < 0)
@@ -43,7 +43,7 @@ namespace Data.UI.Config
             currentIdx = idx;
             if (!readOnly)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, optionChangeSoundName);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, optionChangeSoundName, Vector3.zero);
             }
 
             valueChangeAction?.Invoke(ValueString(values[currentIdx]));

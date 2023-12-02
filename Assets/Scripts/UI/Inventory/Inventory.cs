@@ -427,7 +427,7 @@ namespace Assets.Scripts.UI.Inventory
                 // 아이템 이동
                 case InventoryEventType.MoveItem:
                 {
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundChangeSlot);
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundChangeSlot, Vector3.zero);
 
                     payload.baseSlotItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseSlotItem.SlotItemData);
                     payload.baseSlotItem.ChangeSlot(payload.slot.SlotType, payload.slot);
@@ -448,7 +448,7 @@ namespace Assets.Scripts.UI.Inventory
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
                     
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEquipment);
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
 
@@ -466,7 +466,7 @@ namespace Assets.Scripts.UI.Inventory
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
                     
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEquipment);
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
 
@@ -496,7 +496,7 @@ namespace Assets.Scripts.UI.Inventory
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
                     
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundEquipment);
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
 

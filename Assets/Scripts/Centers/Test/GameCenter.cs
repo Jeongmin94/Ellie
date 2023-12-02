@@ -12,13 +12,14 @@ namespace Assets.Scripts.Centers.Test
         public GameObject player;
         public StoneHatchery hatchery;
         public Ore[] ores;
-        public GameObject monsters;
+        public GameObject monsterController;
         public GameObject Canvases;
 
         public GameObject SkullSecondTrap;
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
 
+        public GameObject stonePillarPuzzle;
         public int curStage = 1;
 
         private void Awake()
@@ -38,13 +39,7 @@ namespace Assets.Scripts.Centers.Test
                 ore.curStage = curStage;
             }
 
-            if (monsters != null)
-            {
-                foreach (Transform child in monsters.transform)
-                {
-                    CheckTicket(child.gameObject);
-                }
-            }
+            CheckTicket(monsterController.gameObject);
 
             if (Canvases != null)
             {
@@ -57,6 +52,7 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);
+            CheckTicket(stonePillarPuzzle.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
         }

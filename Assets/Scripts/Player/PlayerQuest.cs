@@ -8,7 +8,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static PlasticGui.WorkspaceWindow.CodeReview.Summary.CommentSummaryData;
 
 namespace Assets.Scripts.Player
 {

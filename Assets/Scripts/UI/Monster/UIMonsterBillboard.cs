@@ -7,28 +7,24 @@ namespace Assets.Scripts.UI.Monster
     {
         public float scaleFactor = 0.001f;
 
+        private Transform target;
+        private Camera mainCamera;
+
         private void Awake()
         {
             Init();
-        }
 
-        protected override void Init()
-        {
-            base.Init();
-            var canvas = gameObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.WorldSpace;
+            mainCamera = Camera.main;
         }
 
         public void InitBillboard(Transform parent)
         {
-            transform.localScale *= scaleFactor;
-            transform.SetParent(parent);
-            transform.localPosition = Vector3.zero;
+            target = parent;
         }
 
         public void UpdateBillboard()
         {
-            transform.rotation = Camera.main.transform.rotation;
+            monsterPanelRect.position = mainCamera.WorldToScreenPoint(target.position);
         }
 
         private void Update()

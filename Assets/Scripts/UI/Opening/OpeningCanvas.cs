@@ -16,6 +16,8 @@ namespace Assets.Scripts.UI.Opening
     {
         public static readonly string Path = "Opening/OpeningCanvas";
 
+        private static readonly string SoundOpeningBGM = "BGM1";
+
         private enum GameObjects
         {
             TitlePanel,
@@ -51,6 +53,11 @@ namespace Assets.Scripts.UI.Opening
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, SoundOpeningBGM);
         }
 
         protected override void Init()
@@ -98,7 +105,7 @@ namespace Assets.Scripts.UI.Opening
             InitMenuButtons();
             InitPopupCanvas();
 
-            // 231130 Ãß°¡
+            // 231130 ï¿½ß°ï¿½
             CheckLoadFiles();
         }
 
@@ -148,7 +155,7 @@ namespace Assets.Scripts.UI.Opening
 
         private void CheckLoadFiles()
         {
-            if(!SaveLoadManager.Instance.IsSaveFilesExist())
+            if (!SaveLoadManager.Instance.IsSaveFilesExist())
             {
                 menuButtons[(int)PopupType.Load].gameObject.SetActive(false);
             }

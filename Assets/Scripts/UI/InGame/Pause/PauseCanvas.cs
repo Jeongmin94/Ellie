@@ -160,7 +160,7 @@ namespace Assets.Scripts.UI.InGame
         {
             if (!gameObject.activeSelf)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundOpen);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOpen, Vector3.zero);
                 gameObject.SetActive(true);
             }
             else

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -26,6 +27,7 @@ namespace Assets.Scripts.Player.States
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.DodgeStaminaConsumption);
             Controller.PlayerStatus.SetPlayerInvulnerable(Controller.DodgeInvulnerableTime);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound11", Controller.transform.position);
         }
 
         public override void OnExitState()

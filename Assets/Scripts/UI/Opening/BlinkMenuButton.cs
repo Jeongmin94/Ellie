@@ -55,13 +55,13 @@ namespace Assets.Scripts.UI.Opening
         {
             var payload = new PopupPayload();
             payload.popupType = PopupType;
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClick);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundClick, Vector3.zero);
             blinkMenuAction?.Invoke(payload);
         }
 
         protected virtual void OnPointerEnter(PointerEventData data)
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundHover);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundHover, Vector3.zero);
             StartCoroutine(BlinkPanelImage());
         }
 

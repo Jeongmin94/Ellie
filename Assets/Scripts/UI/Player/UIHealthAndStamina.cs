@@ -40,7 +40,7 @@ namespace Assets.Scripts.UI.Player
     public class UIHealthAndStamina : UIStatic
     {
         private const string UINameHealthImage = "HealthImage";
-        private const string UINameBarImage = "BarImage";
+        private const string UINameBarImage = "StaminaImage";
 
         [SerializeField] private UITransformData playerHealthTransformData;
         [SerializeField] private UITransformData playerStaminaTransformData;

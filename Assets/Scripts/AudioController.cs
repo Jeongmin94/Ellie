@@ -26,8 +26,9 @@ namespace Assets.Scripts
 
         public void SetVolume(float volume)
         {
-            this.volume = volume;
+            audioSource.volume = volume;
         }
+
         public void Play(float pitch, SoundType type)
         {
             isPlaying = true;

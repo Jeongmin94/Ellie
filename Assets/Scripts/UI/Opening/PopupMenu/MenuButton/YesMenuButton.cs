@@ -1,4 +1,5 @@
 using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.UI.PopupMenu
 {
@@ -8,7 +9,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
         public override void Click()
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundOk);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOk, Vector3.zero);
             PopupPayload payload = new PopupPayload();
             payload.buttonType = ButtonType.Yes;
 
