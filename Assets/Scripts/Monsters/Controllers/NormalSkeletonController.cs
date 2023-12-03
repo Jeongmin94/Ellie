@@ -37,9 +37,9 @@ namespace Assets.Scripts.Monsters
 
             SetSkills();
             InitUI();
-            InitData();
             SetNavMesh();
             SetBehaviourTreeInstance();
+            InitData();
         }
         private void SetSkills()
         {
@@ -104,6 +104,7 @@ namespace Assets.Scripts.Monsters
 
         private void InitData()
         {
+            Debug.Log(dataContainer.MaxHp);
             dataContainer.MaxHp = (int)monsterData.maxHP;
             currentHP = monsterData.maxHP;
             dataContainer.PrevHp = (int)currentHP;
