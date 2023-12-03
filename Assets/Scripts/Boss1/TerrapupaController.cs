@@ -48,20 +48,14 @@ public class TerrapupaController : SerializedMonoBehaviour
     public void KillTerrapupa()
     {
         Debug.Log("테라푸파 사망 치트");
-        Vector3 pos = terrapupa.transform.position;
 
-        terrapupa.transform.position = new Vector3(pos.x, -1.0f, pos.z);
         terrapupa.terrapupaData.currentHP.Value = 0;
     }
     [Button("2페이즈 스킵", ButtonSizes.Large)]
     public void KillTerraAndPupa()
     {
         Debug.Log("테라, 푸파 사망 치트");
-        Vector3 pos1 = terra.transform.position;
-        Vector3 pos2 = pupa.transform.position;
 
-        terra.transform.position = new Vector3(pos1.x, -1.0f, pos1.z);
-        pupa.transform.position = new Vector3(pos2.x, -1.0f, pos2.z);
         terra.terrapupaData.currentHP.Value = 0;
         pupa.terrapupaData.currentHP.Value = 0;
     }
@@ -125,6 +119,7 @@ public class TerrapupaController : SerializedMonoBehaviour
     }
     private void SubscribeEvents()
     {
+        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
@@ -155,6 +150,11 @@ public class TerrapupaController : SerializedMonoBehaviour
     #endregion
 
     #region 2. 이벤트 핸들러
+    private void OnEnterBossRoom(BossEventPayload payload)
+    {
+        terrapupa.terrapupaData.isStart.Value = true;
+    }
+
     private void OnSpawnStone(IBaseEventPayload payload)
     {
         Debug.Log("OnSpawnStone :: 보스의 돌맹이 줍기");
@@ -530,6 +530,9 @@ public class TerrapupaController : SerializedMonoBehaviour
         terra.gameObject.SetActive(true);
         pupa.gameObject.SetActive(true);
 
+        terra.terrapupaData.isStart.Value = true;
+        pupa.terrapupaData.isStart.Value = true;
+
         terra.transform.position = terrapupa.transform.position;
         pupa.transform.position = terrapupa.transform.position;
 
@@ -588,55 +591,4 @@ public class TerrapupaController : SerializedMonoBehaviour
         return vec.normalized;
     }
     #endregion
-
-    private void OnGUI()
-    {
-        int boxWidth = 200;
-        int boxHeight = 70; // 충분한 높이 설정
-        int offsetX = 10;
-        int offsetY = 10;
-
-        if (terrapupa)
-        {
-            offsetY = 10;
-            Vector3 directionToBoss = terrapupa.transform.position - player.transform.position;
-            float distance = directionToBoss.magnitude;
-            string distanceText = "Distance: " + distance.ToString("F2");
-            string hpText = "HP: " + terrapupa.terrapupaData.currentHP.value.ToString("F2");
-            string nameText = "Name: " + terrapupa.gameObject.name;
-
-            Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-            GUI.Box(boxRect, nameText);
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
-        }
-        if (terra)
-        {
-            offsetY = 90;
-            Vector3 directionToBoss = terra.transform.position - player.transform.position;
-            float distance = directionToBoss.magnitude;
-            string distanceText = "Distance: " + distance.ToString("F2");
-            string hpText = "HP: " + terra.terrapupaData.currentHP.value.ToString("F2");
-            string nameText = "Name: " + terra.gameObject.name;
-
-            Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-            GUI.Box(boxRect, nameText);
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
-        }
-        if (pupa)
-        {
-            offsetY = 170;
-            Vector3 directionToBoss = pupa.transform.position - player.transform.position;
-            float distance = directionToBoss.magnitude;
-            string distanceText = "Distance: " + distance.ToString("F2");
-            string hpText = "HP: " + pupa.terrapupaData.currentHP.value.ToString("F2");
-            string nameText = "Name: " + pupa.gameObject.name;
-
-            Rect boxRect = new Rect(Screen.width - boxWidth - offsetX, offsetY, boxWidth, boxHeight);
-            GUI.Box(boxRect, nameText);
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 25, boxWidth, boxHeight), distanceText);
-            GUI.Label(new Rect(boxRect.x + 20, boxRect.y + 45, boxWidth, boxHeight), hpText);
-        }
-    }
 }

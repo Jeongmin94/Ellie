@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
@@ -113,7 +114,7 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public async Task LoadData()
+        public async void LoadData()
         {
             if (IsCurrentSavingOrLoading())
             {
@@ -300,6 +301,26 @@ namespace Assets.Scripts.Managers
                 return true;
             }
             return false;
+        }
+
+        public IEnumerator CheckIsSaveDone()
+        {
+            var wait = new WaitForSeconds(0.5f);
+            while (isSaving)
+            {
+                yield return wait;
+            }
+            Debug.Log("데이터 세이브 완료");
+        }
+
+        public IEnumerator CheckIsLoadDone()
+        {
+            var wait = new WaitForSeconds(0.5f);
+            while (isLoading)
+            {
+                yield return wait;
+            }
+            Debug.Log("데이터 로드 완료");
         }
     }
 }

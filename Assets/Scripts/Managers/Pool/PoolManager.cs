@@ -99,7 +99,10 @@ namespace Assets.Scripts.Managers
         {
             if (!pools.ContainsKey(original.name))
                 CreatePool(original);
-            
+
+            if (parent == null)
+                parent = root;
+
             return pools[original.name].Pop(parent);
         }
 
