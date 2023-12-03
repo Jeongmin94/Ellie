@@ -7,15 +7,15 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 {
     public class NPCController : MonoBehaviour
     {
-        [SerializeField] private GameObject[] NPCs;
-
+        [SerializeField] private GameObject[] npcs;
+        
         private Dictionary<string, bool> NPCActiveDic = new Dictionary<string, bool>();
         private void Awake()
         {
             SaveLoadManager.Instance.SubscribeSaveEvent(SaveNPCData);
             SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.NPC, LoadNPCData);
 
-            foreach (var npc in NPCs)
+            foreach (var npc in npcs)
             {
                 npc.GetComponent<BaseNPC>().SubscribeOnDisableAction(OnNPCDisable);
             }
@@ -24,13 +24,14 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void OnNPCDisable(string name)
         {
             NPCActiveDic[name] = false;
+            
             SaveLoadManager.Instance.SaveData();
         }
 
         private void SaveNPCData()
         {
             NPCSavePayload payload = new NPCSavePayload();
-            payload.NPCActiveDic = NPCActiveDic;
+            payload.NPCActiveDic = NPCActiveDic; 
 
             Debug.Log("Saving NPC Data");
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.NPC, payload);
@@ -38,9 +39,9 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void LoadNPCData(IBaseEventPayload payload)
         {
-            Debug.Log("NPC Load");
+            Debug.Log("NPC Load"); 
             if (payload is not NPCSavePayload savePayload) return;
-
+            //여기서 리턴되는듯
             NPCActiveDic = savePayload.NPCActiveDic;
             if(NPCActiveDic.Count > 0)
                 SetNPCActive();
@@ -50,7 +51,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             foreach(var npcName in NPCActiveDic.Keys)
             {
-                foreach(var npc in NPCs)
+                foreach(var npc in npcs)
                 {
                     if(npc.GetComponent<BaseNPC>().GetData().name == npcName)
                     {

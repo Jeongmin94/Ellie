@@ -65,14 +65,14 @@ namespace Assets.Scripts.Managers
         public QuestDataSaveInfo questSaveInfo;
         public PickaxeDataSaveInfo pickaxeSaveInfo;
     }
+    public class NPCSavePayload : IBaseEventPayload
+    {
+        public Dictionary<string, bool> NPCActiveDic;
+    }
 
     public class PuzzleSavePayload : IBaseEventPayload
     {
 
     }
 
-    public class NPCSavePayload : IBaseEventPayload
-    {
-        public Dictionary<string, bool> NPCActiveDic;
-    }
 }

@@ -307,7 +307,7 @@ namespace Assets.Scripts.Player
                     SendClearQuestMessage();
                     SendDisplayQuestMessage(data);
                 }
-                SaveLoadManager.Instance.SaveData();
+                //SaveLoadManager.Instance.SaveData();
             }
             else
             {

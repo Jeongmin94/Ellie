@@ -818,7 +818,10 @@ namespace Assets.Scripts.Player
             PickaxeDataSaveInfo info = new();
 
             info.isPickaxeAvailable = isPickaxeAvailable;
-            info.pickaxeTier = (int)curPickaxeTier;
+            if(isPickaxeAvailable)
+                info.pickaxeTier = (int)curPickaxeTier;
+            else
+                info.pickaxeTier = 0;
 
             return info;
         }
@@ -826,11 +829,13 @@ namespace Assets.Scripts.Player
         public void LoadPickaxeData(PickaxeDataSaveInfo info)
         {
             isPickaxeAvailable = info.isPickaxeAvailable;
-            if(isPickaxeAvailable)
+            if (isPickaxeAvailable)
             {
                 curPickaxeTier = (Pickaxe.Tier)info.pickaxeTier;
                 pickaxe.LoadPickaxeData(curPickaxeTier);
             }
+            else
+                curPickaxeTier = 0;
         }
 
     }

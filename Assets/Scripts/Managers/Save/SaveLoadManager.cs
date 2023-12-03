@@ -243,11 +243,11 @@ namespace Assets.Scripts.Managers
                         NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                case SaveLoadType.Puzzle:
-                    {
-                        PuzzleSavePayload payload = payloadTable[type] as PuzzleSavePayload;
-                        return JsonConvert.SerializeObject(payload);
-                    }
+                //case SaveLoadType.Puzzle:
+                //    {
+                //        PuzzleSavePayload payload = payloadTable[type] as PuzzleSavePayload;
+                //        return JsonConvert.SerializeObject(payload);
+                //    }
                 default:
                     return null;
             }
@@ -263,8 +263,8 @@ namespace Assets.Scripts.Managers
                     return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
                 case SaveLoadType.NPC:
                     return JsonConvert.DeserializeObject<NPCSavePayload>(data);
-                case SaveLoadType.Puzzle:
-                    return JsonConvert.DeserializeObject<PuzzleSavePayload>(data);
+                //case SaveLoadType.Puzzle:
+                //    return JsonConvert.DeserializeObject<PuzzleSavePayload>(data);
 
                 default:
                     return null;
