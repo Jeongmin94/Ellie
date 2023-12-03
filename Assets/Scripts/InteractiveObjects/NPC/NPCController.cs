@@ -30,6 +30,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void SaveNPCData()
         {
+            Debug.Break();
             NPCSavePayload payload = new NPCSavePayload();
             payload.NPCActiveDic = NPCActiveDic; 
 
@@ -39,9 +40,11 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void LoadNPCData(IBaseEventPayload payload)
         {
-            Debug.Log("NPC Load"); 
+            Debug.LogError("NPC 로드 ㄱㄱㄱ"); 
             if (payload is not NPCSavePayload savePayload) return;
             //여기서 리턴되는듯
+
+            Debug.LogError("npc 로드 okokok");
             NPCActiveDic = savePayload.NPCActiveDic;
             if(NPCActiveDic.Count > 0)
                 SetNPCActive();

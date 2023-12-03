@@ -10,7 +10,7 @@ namespace Assets.Scripts.Managers
         Inventory,
         Player,
         NPC,
-        Puzzle,
+        //Puzzle,
 
         End,
     }

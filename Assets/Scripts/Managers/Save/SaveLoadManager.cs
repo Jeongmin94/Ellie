@@ -144,7 +144,7 @@ namespace Assets.Scripts.Managers
             }
             catch (Exception ex)
             {
-                Debug.LogError($"로드 중 오류 발생: {ex.Message}");
+                Debug.LogError($"LoadData 오류: {ex.Message}\n{ex.StackTrace}");
             }
             finally
             {
@@ -156,32 +156,37 @@ namespace Assets.Scripts.Managers
 
         private async Task SaveDataAsync(int index, CancellationToken cancellationToken)
         {
-            cancellationToken.ThrowIfCancellationRequested();
-
             try
             {
-                SaveLoadType type = (SaveLoadType)index;
+                cancellationToken.ThrowIfCancellationRequested();
 
-                // 경로 설정
+                SaveLoadType type = (SaveLoadType)index;
                 string filePath = path + filename + index.ToString();
 
-                // 파일이 이미 존재하면 삭제
-                if (File.Exists(filePath))
+                Debug.Log($"로드 시작: {type}, 파일 경로: {filePath}");
+
+                if (!File.Exists(filePath))
                 {
-                    File.Delete(filePath);
+                    Debug.LogWarning($"{type} - 파일이 존재하지 않습니다 : {filePath}");
+                    return; // 파일이 없으면 로드 작업 건너뛰기
                 }
 
-                // 클래스를 json 변환
-                string jsonData = SaveFile(index);
+                string data = await File.ReadAllTextAsync(filePath);
+                IBaseEventPayload payload = LoadFile(data, type);
 
-                // 자동 생성 경로에 파일로 저장
-                await File.WriteAllTextAsync(path + filename + index.ToString(), jsonData);
-
-                Debug.Log($"{(SaveLoadType)index} - Save Done");
+                if (payload != null)
+                {
+                    payloadTable[type] = payload;
+                    Debug.Log($"{(SaveLoadType)index} - Load Done");
+                }
+                else
+                {
+                    Debug.LogWarning($"{type} - 역직렬화 실패 : {filePath}");
+                }
             }
             catch (Exception e)
             {
-                Debug.LogError($"{(SaveLoadType)index} - Save Error : {e.Message}");
+                Debug.LogError($"LoadDataAsync 오류: {e.Message}\n{e.StackTrace}");
             }
         }
 

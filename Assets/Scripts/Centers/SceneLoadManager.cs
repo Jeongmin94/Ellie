@@ -72,6 +72,4 @@ namespace Assets.Scripts.Centers
             Debug.Log("씬 로드 완료");
         }
     }
-
-
 }
