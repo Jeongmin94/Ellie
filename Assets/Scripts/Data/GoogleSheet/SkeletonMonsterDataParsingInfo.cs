@@ -86,7 +86,6 @@ public class SkeletonMonsterDataParsingInfo : DataParsingInfo
                 data.weakRatio = float.Parse(entries[15]);
 
                 string[] dropableItem = entries[16].Trim().Split(',');
-                Debug.Log("DROP ITEM : " + dropableItem[0]);
                 for (int m = 0; m < dropableItem.Length; m++)
                 {
                     int index = int.Parse(dropableItem[m].Trim());

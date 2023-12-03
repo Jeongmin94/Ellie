@@ -12,8 +12,6 @@ public class isLoading : ActionNode
     }
 
     protected override State OnUpdate() {
-        Debug.Log("AA : "+SceneLoadManager.Instance.IsLoading);
-
         if (SceneLoadManager.Instance.IsLoading)
         {
             return State.Failure;
