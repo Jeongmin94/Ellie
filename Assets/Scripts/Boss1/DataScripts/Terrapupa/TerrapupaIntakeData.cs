@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
+﻿using System.Collections;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -11,9 +10,9 @@ public class TerrapupaIntakeData : BaseBTData
         dataName = "TerrapupaIntake";
     }
 
-    [Title("섭취 상태")]
-    [InfoBox("섭취 지속시간")] public float intakeDuration = 5.0f;
-    [InfoBox("섭취 시 체력 회복량")] public int intakeHealValue = 10;
+    [Header("섭취 상태")]
+    [Tooltip("섭취 지속시간")] public float intakeDuration = 5.0f;
+    [Tooltip("섭취 시 체력 회복량")] public int intakeHealValue = 10;
 
     public BlackboardKey<float> duration;
     public BlackboardKey<int> healValue;

@@ -18,9 +18,8 @@ namespace Boss.Terrapupa
 		[SerializeField] private float movementSpeed = 15.0f;
 		[SerializeField] private int attackValue = 5;
 		[SerializeField] private LayerMask layerMask;
-		[SerializeField] private string hitSound = "TerrapupaAttackHit";
 
-        private GameObject effect;
+		private GameObject effect;
 		private Transform owner;
 		private TicketMachine ticketMachine;
 		private SphereCollider sphereCollider;
@@ -72,13 +71,11 @@ namespace Boss.Terrapupa
 
 				combatPayload.Attacker = owner;
 				combatPayload.Defender = collision.transform.root;
-				SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
 				ticketMachine.SendMessage(ChannelType.Combat, combatPayload);
             }
             if (collision.gameObject.CompareTag("Wall"))
 			{
 				ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
                 PoolManager.Instance.Push(this);
             }
         }
@@ -90,7 +87,6 @@ namespace Boss.Terrapupa
             if (((1 << other.gameObject.layer) & layerMask) != 0 && detection.MyTerrapupa != owner)
             {
                 ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
 
                 EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
 				{
