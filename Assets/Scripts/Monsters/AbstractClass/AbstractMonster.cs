@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.EffectStatus;
@@ -26,6 +27,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
     }
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
     {
+        const float billboardScale = 0.003f;
+
         [SerializeField] public SkeletonMonsterData monsterData;
         protected TicketMachine ticketMachine;
         public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
@@ -46,6 +49,9 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected MonsterEffectStatusController statusController;
 
         protected UIMonsterBillboard billboard;
+        protected Transform billboardObject;
+        public bool isBillboardOn;
+
         protected readonly MonsterDataContainer dataContainer = new();
 
         protected float currentHP;
@@ -54,6 +60,12 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected MonsterAudioController audioController;
         protected GameObject player;
+        private Transform playerObj;
+
+        private void Update()
+        {
+            MonsterOnPlayerForward();
+        }
 
         public void SetPlayer(GameObject ply)
         {
@@ -120,16 +132,22 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
+            Debug.Log("Current HP : " + currentHP);
+            Debug.Log("max HP : " + monsterData.maxHP);
+            if (currentHP == monsterData.maxHP) ShowBillboard();
             if (isHeadShot) damage *= monsterData.weakRatio;
+
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
             isDamaged.value = true;
+
             if (currentHP < 1)
             {
                 SendTicket();
                 SetMonsterDead();
-                DropItem();
+                HideBillobard();
                 isDead.Value = true;
+                isBillboardOn = false;
             }
             else
             {
@@ -154,7 +172,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             Debug.Log("Reset Monster");
             ReturnSpawnLocation();
-            billboard.scaleFactor = 0.003f;
             GetComponent<Collider>().enabled = true;
             animator.Play("IdleAttack");
             isDamaged.value = false;
@@ -163,24 +180,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
             isDead.value = false;
         }
 
-
         public virtual void ReturnSpawnLocation()
         { }
-
-        public void DropItem()
-        {
-            //foreach (DropItem a in dropableItemData.items)
-            //{
-            //    float random = Random.Range(0.0f, 1.0f);
-            //    if (random < a.dropChance)
-            //    {
-            //        Vector3 itemLocation = transform.position;
-            //        itemLocation.y += 1.0f;
-            //        Instantiate(a, itemLocation, transform.rotation);
-            //        break;
-            //    }
-            //}
-        }
 
         public void SendTicket()
         {
@@ -195,6 +196,46 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             throw new System.NotImplementedException();
         }
+
+        protected void InitUI()
+        {
+            billboardObject = Functions.FindChildByName(gameObject, "Billboard").transform;
+            playerObj = player.transform.Find("PlayerObj");
+
+            billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardObject, UIManager.UIMonsterBillboard);
+            HideBillobard();
+            billboard.InitBillboard(billboardObject);
+        }
+
+        public void ShowBillboard()
+        {
+            billboardObject.transform.localScale = Vector3.one;
+            isBillboardOn = true;
+        }
+
+        public void HideBillobard()
+        {
+            billboardObject.transform.localScale = Vector3.zero;
+        }
+
+        public void MonsterOnPlayerForward()
+        {
+            if (isBillboardOn)
+            {
+                Vector3 direction = transform.position - player.transform.position;
+                float dot = Vector3.Dot(direction.normalized, playerObj.forward.normalized);
+
+                if(dot>0)
+                {
+                    ShowBillboard();
+                }
+                else
+                {
+                    HideBillobard();
+                }
+            }
+        }
+
     }
 
 }

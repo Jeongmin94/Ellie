@@ -90,16 +90,6 @@ namespace Assets.Scripts.Monsters
             }
         }
 
-
-        private void InitUI()
-        {
-            Transform billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
-
-            billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardPos, UIManager.UIMonsterBillboard);
-            billboard.scaleFactor = 0.003f;
-            billboard.InitBillboard(billboardPos);
-        }
-
         private void InitData()
         {
             dataContainer.MaxHp = (int)monsterData.maxHP;
@@ -113,9 +103,7 @@ namespace Assets.Scripts.Monsters
 
         private void SetBehaviourTreeInstance()
         {
-            //Temp
             behaviourTreeInstance.SetBlackboardValue<GameObject>("Player", player);
-            //<<
 
             GameObject obj = Functions.FindChildByName(gameObject, "ChasePlayer");
             behaviourTreeInstance.SetBlackboardValue<GameObject>("DetectChaseAI", obj);
