@@ -60,7 +60,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected MonsterAudioController audioController;
         protected GameObject player;
-        private Transform playerObj;
+        private Transform mainCamera;
 
         private void Update()
         {
@@ -200,7 +200,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected void InitUI()
         {
             billboardObject = Functions.FindChildByName(gameObject, "Billboard").transform;
-            playerObj = player.transform.Find("PlayerObj");
+            mainCamera = player.transform.Find("Main Camera");
 
             billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardObject, UIManager.UIMonsterBillboard);
             HideBillobard();
@@ -222,8 +222,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             if (isBillboardOn)
             {
-                Vector3 direction = transform.position - player.transform.position;
-                float dot = Vector3.Dot(direction.normalized, playerObj.forward.normalized);
+                Vector3 direction = transform.position - mainCamera.transform.position;
+                float dot = Vector3.Dot(direction.normalized, mainCamera.forward.normalized);
 
                 if(dot>0)
                 {
