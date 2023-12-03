@@ -48,10 +48,9 @@ namespace Assets.Scripts.Player
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
 
             //6100번 퀘스트 시작
-            if (!SaveLoadManager.Instance.IsLoadData)
-            {
+            
                 StartCoroutine(OnDataLoadedCoroutine());
-            }
+            
 
         }
 

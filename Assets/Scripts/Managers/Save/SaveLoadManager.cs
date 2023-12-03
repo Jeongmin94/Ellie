@@ -243,6 +243,11 @@ namespace Assets.Scripts.Managers
                         TestSavePayload payload = payloadTable[type] as TestSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
+                case SaveLoadType.NPC:
+                    {
+                        NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
+                        return JsonConvert.SerializeObject(payload);
+                    }
                 //case SaveLoadType.Map:
                 //    {
                 //        MapSavePayload payload = payloadTable[type] as MapSavePayload;

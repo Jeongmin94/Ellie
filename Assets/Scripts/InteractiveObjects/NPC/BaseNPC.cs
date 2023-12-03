@@ -2,6 +2,8 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Channels.UI;
+using PlasticGui.Configuration.CloudEdition.Welcome;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +14,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
     {
         //NPC 및 퀘스트 데이터
         protected NPCData npcData;
+        public NPCData GetData() => npcData;
         //protected Dictionary<int, QuestData> questDataDict;
         protected QuestData curQuestData;
 
@@ -23,7 +26,9 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         //플레이어 참조
         protected PlayerQuest player;
-        
+
+        //npc 로직 완료 후 비활성화 시 실행해줄 이벤트
+        protected Action<string> OnDisableAction;
 
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
@@ -113,6 +118,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         public InteractiveType GetInteractiveType()
         {
             return interactiveType;
+        }
+
+        public void SubscribeOnDisableAction(Action<string> listener)
+        {
+            OnDisableAction -= listener;
+            OnDisableAction += listener;
         }
     }
 }

@@ -148,7 +148,6 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
         {
-            Debug.Log("OnSlotAreaInventoryAction(top) : " + payload.groupType);
             if (payload.eventType != InventoryEventType.EquipItem &&
                 payload.eventType != InventoryEventType.UnEquipItem &&
                 payload.eventType != InventoryEventType.UpdateEquipItem &&
@@ -221,7 +220,6 @@ namespace Assets.Scripts.UI.Inventory
             else if (payload.eventType == InventoryEventType.SendMessageToPlayer)
             {
             }
-            Debug.Log("OnSlotAreaInventoryAction(bottom) : " + payload.groupType);
             panelInventoryAction?.Invoke(payload);
         }
 

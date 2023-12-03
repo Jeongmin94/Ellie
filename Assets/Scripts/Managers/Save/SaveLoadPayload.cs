@@ -82,7 +82,7 @@ namespace Assets.Scripts.Managers
 
     public class NPCSavePayload : IBaseEventPayload
     {
-
+        public Dictionary<string, bool> NPCActiveDic;
     }
     public class MapSavePayload : IBaseEventPayload
     {
