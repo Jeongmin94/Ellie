@@ -112,7 +112,6 @@ namespace Assets.Scripts.Managers
                     if (nowPlayingUISfxCoroutine != null)
                     {
                         //이미 재생중이라면 재생하지 않음
-                        Debug.Log("NowPlayingUISfxCoroutine이 null이 아님");
                         return;
                     }
 

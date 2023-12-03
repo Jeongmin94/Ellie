@@ -17,6 +17,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
 {
@@ -811,5 +812,26 @@ namespace Assets.Scripts.Player
                     break;
             }
         }
+
+        public PickaxeDataSaveInfo GetPickaxeDataSaveInfo()
+        {
+            PickaxeDataSaveInfo info = new();
+
+            info.isPickaxeAvailable = isPickaxeAvailable;
+            info.pickaxeTier = (int)curPickaxeTier;
+
+            return info;
+        }
+
+        public void LoadPickaxeData(PickaxeDataSaveInfo info)
+        {
+            isPickaxeAvailable = info.isPickaxeAvailable;
+            if(isPickaxeAvailable)
+            {
+                curPickaxeTier = (Pickaxe.Tier)info.pickaxeTier;
+                pickaxe.LoadPickaxeData(curPickaxeTier);
+            }
+        }
+
     }
 }

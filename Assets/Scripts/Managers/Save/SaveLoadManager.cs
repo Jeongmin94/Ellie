@@ -233,9 +233,9 @@ namespace Assets.Scripts.Managers
                         InventorySavePayload payload = payloadTable[type] as InventorySavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                case SaveLoadType.Quest:
+                case SaveLoadType.Player:
                     {
-                        QuestSavePayload payload = payloadTable[type] as QuestSavePayload;
+                        PlayerSavePayload payload = payloadTable[type] as PlayerSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
                 case SaveLoadType.Test:
@@ -259,8 +259,8 @@ namespace Assets.Scripts.Managers
             {
                 case SaveLoadType.Inventory:
                     return JsonConvert.DeserializeObject<InventorySavePayload>(data);
-                case SaveLoadType.Quest:
-                    return JsonConvert.DeserializeObject<QuestSavePayload>(data);
+                case SaveLoadType.Player:
+                    return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
                 case SaveLoadType.Test:
                     return JsonConvert.DeserializeObject<TestSavePayload>(data);
                 //case SaveLoadType.Map:
