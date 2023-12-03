@@ -30,6 +30,8 @@ namespace Assets.Scripts.Player
         public void LoadPlayerData(IBaseEventPayload payload)
         {
             if (payload is not PlayerSavePayload savePayload) return;
+
+            Debug.Log("Player Load");
             transform.position = savePayload.position.ToVector3();
             quest.LoadQuestData(savePayload.questSaveInfo);
             controller.LoadPickaxeData(savePayload.pickaxeSaveInfo);

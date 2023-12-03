@@ -238,21 +238,16 @@ namespace Assets.Scripts.Managers
                         PlayerSavePayload payload = payloadTable[type] as PlayerSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                case SaveLoadType.Test:
-                    {
-                        TestSavePayload payload = payloadTable[type] as TestSavePayload;
-                        return JsonConvert.SerializeObject(payload);
-                    }
                 case SaveLoadType.NPC:
                     {
                         NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                //case SaveLoadType.Map:
-                //    {
-                //        MapSavePayload payload = payloadTable[type] as MapSavePayload;
-                //        return JsonConvert.SerializeObject(payload);
-                //    }
+                case SaveLoadType.Puzzle:
+                    {
+                        PuzzleSavePayload payload = payloadTable[type] as PuzzleSavePayload;
+                        return JsonConvert.SerializeObject(payload);
+                    }
                 default:
                     return null;
             }
@@ -266,10 +261,11 @@ namespace Assets.Scripts.Managers
                     return JsonConvert.DeserializeObject<InventorySavePayload>(data);
                 case SaveLoadType.Player:
                     return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
-                case SaveLoadType.Test:
-                    return JsonConvert.DeserializeObject<TestSavePayload>(data);
-                //case SaveLoadType.Map:
-                    //return JsonConvert.DeserializeObject<MapSavePayload>(data);
+                case SaveLoadType.NPC:
+                    return JsonConvert.DeserializeObject<NPCSavePayload>(data);
+                case SaveLoadType.Puzzle:
+                    return JsonConvert.DeserializeObject<PuzzleSavePayload>(data);
+
                 default:
                     return null;
             }

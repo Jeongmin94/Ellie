@@ -8,20 +8,11 @@ namespace Assets.Scripts.Managers
     public enum SaveLoadType
     {
         Inventory,
-        Test,
         Player,
         NPC,
         Puzzle,
 
         End,
-    }
-
-    public class TestSavePayload : IBaseEventPayload
-    {
-        public string Name { get; set; }
-        public int Index { get; set; }
-        public List<SerializableVector3> VectorList { get; set; }
-        public SerializableVector3 Position { get; set; }
     }
 
     public class InventorySavePayload : IBaseEventPayload
@@ -83,9 +74,5 @@ namespace Assets.Scripts.Managers
     public class NPCSavePayload : IBaseEventPayload
     {
         public Dictionary<string, bool> NPCActiveDic;
-    }
-    public class MapSavePayload : IBaseEventPayload
-    {
-        public SerializableVector3 Position { get; set; }
     }
 }

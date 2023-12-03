@@ -13,7 +13,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void Awake()
         {
             SaveLoadManager.Instance.SubscribeSaveEvent(SaveNPCData);
-            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Player, LoadNPCData);
+            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.NPC, LoadNPCData);
 
             foreach (var npc in NPCs)
             {
@@ -25,7 +25,6 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             NPCActiveDic[name] = false;
             SaveLoadManager.Instance.SaveData();
-
         }
 
         private void SaveNPCData()
@@ -33,11 +32,13 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             NPCSavePayload payload = new NPCSavePayload();
             payload.NPCActiveDic = NPCActiveDic;
 
+            Debug.Log("Saving NPC Data");
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.NPC, payload);
         }
 
         private void LoadNPCData(IBaseEventPayload payload)
         {
+            Debug.Log("NPC Load");
             if (payload is not NPCSavePayload savePayload) return;
 
             NPCActiveDic = savePayload.NPCActiveDic;
