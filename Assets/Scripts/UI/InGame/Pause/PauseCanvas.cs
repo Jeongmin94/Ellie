@@ -165,6 +165,8 @@ namespace Assets.Scripts.UI.InGame
             if (!gameObject.activeSelf)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOpen, Vector3.zero);
+                Cursor.visible = true;
+                Cursor.lockState = CursorLockMode.None;
                 gameObject.SetActive(true);
             }
             else
@@ -180,7 +182,11 @@ namespace Assets.Scripts.UI.InGame
                     allPopupClosed = false;
 
                 if (allPopupClosed)
+                {
                     gameObject.SetActive(false);
+                    Cursor.visible = false;
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
             }
         }
 
