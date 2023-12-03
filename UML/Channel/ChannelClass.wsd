@@ -1,0 +1,76 @@
+@startuml
+
+abstract class BaseEventChannel {
+    - sendMessageAction: Action<IBaseEventPayload>
+
+    + {abstract} ReceiveMessage(IBaseEventPayload payload): void
+    + Subscribe(Action<IBaseEventPayload> listener): void
+
+    # Publish(IBaseEventPayload payload): void
+}
+
+class UIChannel
+class BossChannel
+class MonsterChannel
+
+BaseEventChannel <|-- UIChannel
+BaseEventChannel <|-- BossChannel
+BaseEventChannel <|-- MonsterChannel
+
+interface IBaseEventPayload {}
+class UIPayload {}
+class MonsterPayload {}
+class BossPayload {}
+
+IBaseEventPayload <|.. UIPayload
+IBaseEventPayload <|.. MonsterPayload
+IBaseEventPayload <|..BossPayload
+
+@enduml
+
+@startuml
+class TicketMachine {
+    - tickets: Dictionary<ChannelType, Ticket>
+
+    + AddTickets(params ChannelType[] types): void
+    + Ticket(BaseCenter center): void
+    + RegisterObserver(ChannelType type, Action<IBaseEventPayload> observer): void
+}
+@enduml
+
+@startuml
+
+class Ticket {
+    - sendMessageAction: Action<IBaseEventPayload>
+    - channelNotifyAction: Action<IBaseEventPayload>
+
+    + {static} RegisterObserver(Ticket ticket, Action<IBaseEventPayload> observer): void
+    + Subscribe(BaseEventChannel channel): void
+    + Publish(IBaseEventPayload payload): void
+    + Notify(IBaseEventPayload payload): void
+}
+
+@enduml
+
+@startuml
+
+abstract BaseEventChannel
+
+class SubChannel1
+class SubChannel2
+
+class TicketMachine
+
+class Ticket
+
+class GameObject
+
+BaseEventChannel "1" <--> "1" Ticket
+BaseEventChannel <|.. SubChannel1
+BaseEventChannel <|.. SubChannel2
+
+TicketMachine "1" *-- "n" Ticket
+
+GameObject "1" *-- "1" TicketMachine
+
+@enduml
