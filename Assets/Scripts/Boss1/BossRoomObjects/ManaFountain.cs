@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Components;
@@ -10,12 +11,13 @@ namespace Boss.Objects
 {
     public class ManaFountain : MonoBehaviour
     {
+        [SerializeField] private Transform spawnPosition;
+        [SerializeField] private GameObject hitEffect;
+        [SerializeField] private string manaHitSound = "ManaFountainHit";
+
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
         public TerrapupaAttackType banBossAttackType;
-
-        [SerializeField] private Transform spawnPosition;
-        [SerializeField] private GameObject hitEffect;
 
         private bool isCooldown;
         private bool isBroken;
@@ -55,6 +57,8 @@ namespace Boss.Objects
                     Debug.Log($"{other.name} 충돌");
 
                     isCooldown = true;
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, manaHitSound, transform.position);
 
                     EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
                         new BossEventPayload

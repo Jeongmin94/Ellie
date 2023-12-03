@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -10,20 +11,23 @@ public class TerrapupaRootData : BaseBTData
         dataName = "TerrapupaRoot";
     }
 
-    [Header("기본 수치")]
-    [Tooltip("보스 이름")] public string bossName;
-    [Tooltip("보스의 체력")] public int hp = 45;
+    [Title("사운드 설정")]
+    [InfoBox("일어날 때 소리")] public string sound1 = "TerrapupaGripStone";
 
-    [Header("패턴 사용 여부")]
-    [Tooltip("구르기")] public bool rollUsable = true;
-    [Tooltip("돌 던지기")] public bool stoneUsable = true;
-    [Tooltip("땅 뒤집기")] public bool earthQuakeUsable = true;
-    [Tooltip("하단 공격")] public bool lowAttackUsable = true;
+    [Title("기본 수치")]
+    [InfoBox("보스 이름")] public string bossName;
+    [InfoBox("보스의 체력")] public int hp = 20;
 
-    [Header("공격 감지 범위")]
-    [Tooltip("장거리 공격")] public float LongRangeDetectionDistance = 25.0f;
-    [Tooltip("중거리 공격")] public float MidRangeDetectionDistance = 15.0f;
-    [Tooltip("단거리 공격")] public float ShortRangeDetectionDistance = 5.0f;
+    [Title("패턴 사용 여부")]
+    [InfoBox("구르기")] public bool rollUsable = true;
+    [InfoBox("돌 던지기")] public bool stoneUsable = true;
+    [InfoBox("땅 뒤집기")] public bool earthQuakeUsable = true;
+    [InfoBox("하단 공격")] public bool lowAttackUsable = true;
+
+    [Title("공격 감지 범위")]
+    [InfoBox("장거리 공격")] public float LongRangeDetectionDistance = 25.0f;
+    [InfoBox("중거리 공격")] public float MidRangeDetectionDistance = 15.0f;
+    [InfoBox("단거리 공격")] public float ShortRangeDetectionDistance = 5.0f;
 
     public BlackboardKey<int> currentHP;
 
@@ -44,6 +48,7 @@ public class TerrapupaRootData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
+        SetBlackboardValue<string>("sound1", sound1, tree);
         SetBlackboardValue<int>("currentHP", hp, tree);
         SetBlackboardValue<bool>("canRoll", rollUsable, tree);
         SetBlackboardValue<bool>("canThrowStone", stoneUsable, tree);
