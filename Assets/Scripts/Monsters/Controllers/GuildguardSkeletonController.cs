@@ -57,7 +57,6 @@ namespace Assets.Scripts.Monsters
                 if (temp == null) continue;
 
                 AbstractAttack tempAttack = AddSkills(temp.attackName, temp.attackType);
-                Debug.Log(temp.attackName);
 
                 switch (temp.attackType)
                 {
@@ -120,7 +119,6 @@ namespace Assets.Scripts.Monsters
             //<<
 
             GameObject obj = Functions.FindChildByName(gameObject, "ChasePlayer");
-            Debug.Log("OBJ : : :" + obj);
             behaviourTreeInstance.SetBlackboardValue<GameObject>("DetectChaseAI", obj);
             obj.GetComponent<DistanceDetectedAI>().SetDetectDistance(monsterData.chasePlayerDistance);
 
