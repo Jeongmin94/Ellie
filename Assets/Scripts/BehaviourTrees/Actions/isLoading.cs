@@ -1,5 +1,6 @@
 using Assets.Scripts.Centers;
 using TheKiwiCoder;
+using UnityEngine;
 
 [System.Serializable]
 public class isLoading : ActionNode
@@ -11,6 +12,8 @@ public class isLoading : ActionNode
     }
 
     protected override State OnUpdate() {
+        Debug.Log("AA : "+SceneLoadManager.Instance.IsLoading);
+
         if (SceneLoadManager.Instance.IsLoading)
         {
             return State.Failure;
