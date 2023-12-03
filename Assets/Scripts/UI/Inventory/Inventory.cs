@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Item;
 using Assets.Scripts.Item.Goods;
@@ -46,7 +46,7 @@ namespace Assets.Scripts.UI.Inventory
         public BaseSlotItem baseSlotItem; // 슬롯 아이템 정보
         public InventorySlot slot;        // 슬롯 위치
         public BaseItem baseItem;         // 아이템 정보
-        public int equipmentSlotIdx;               // slotAreaType이 Equipment일 경우 Equipment창에서의 아이템의 index
+        public int equipmentSlotIdx;      // slotAreaType이 Equipment일 경우 Equipment창에서의 아이템의 index
     }
 
     public class Inventory : UIPopup
@@ -68,16 +68,27 @@ namespace Assets.Scripts.UI.Inventory
             DescriptionImageArea,
         }
 
+        private static readonly string SoundOpen = "inven1";
+        private static readonly string SoundClose = "inven5";
+
+        private static readonly string SoundChangeSlot = "inven3";
+        private static readonly string SoundEquipment = "inven4";
+
         [Header("Description Text")]
-        [SerializeField] private TextTypographyData descriptionData;
+        [SerializeField]
+        private TextTypographyData descriptionData;
+
         [SerializeField] private TextTypographyData descriptionNameData;
 
         [Header("UI Transform Data")]
-        [SerializeField] private UITransformData consumptionTransformData;
+        [SerializeField]
+        private UITransformData consumptionTransformData;
+
         [SerializeField] private UITransformData stoneTransformData;
-        
+
         [Header("Game Goods")]
-        [SerializeField] private GameGoods goods;
+        [SerializeField]
+        private GameGoods goods;
 
         // GameObject
         private GameObject descriptionPanel;
@@ -206,7 +217,8 @@ namespace Assets.Scripts.UI.Inventory
         private void Start()
         {
             buttonPanel.ActivateToggle(GroupType.Stone, true);
-            OnCloseButtonClickAction();
+            // OnCloseButtonClickAction();
+            gameObject.SetActive(false);
         }
 
         private void InitGoodsPanel()
@@ -325,6 +337,8 @@ namespace Assets.Scripts.UI.Inventory
 
         private void OnCloseButtonClickAction()
         {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClose);
+
             isOpened = false;
             gameObject.SetActive(false);
             UIPayload payload = new()
@@ -381,10 +395,12 @@ namespace Assets.Scripts.UI.Inventory
         {
             if (isOpened)
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClose);
                 OnCloseButtonClickAction();
             }
             else
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundOpen);
                 isOpened = true;
                 gameObject.SetActive(true);
             }
@@ -412,6 +428,8 @@ namespace Assets.Scripts.UI.Inventory
                 // 아이템 이동
                 case InventoryEventType.MoveItem:
                 {
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundChangeSlot, Vector3.zero);
+
                     payload.baseSlotItem.MoveSlot(payload.slot.SlotItemPosition, payload.baseSlotItem.SlotItemData);
                     payload.baseSlotItem.ChangeSlot(payload.slot.SlotType, payload.slot);
                 }
@@ -430,6 +448,8 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+                    
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
 
@@ -446,6 +466,8 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+                    
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
 
@@ -474,6 +496,8 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
+                    
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
 
@@ -486,8 +510,8 @@ namespace Assets.Scripts.UI.Inventory
                 case InventoryEventType.SendMessageToPlayer:
                 {
                     // !TODO : UIChannel에 플레이어의 has 변수를 바꿔줄 이벤트 쏴야됨
-                        Debug.Log("Inventory: " + payload.groupType);
-                    
+                    Debug.Log("Inventory: " + payload.groupType);
+
                     if (payload.slot != swapBuffer)
                         ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
                 }
@@ -665,7 +689,7 @@ namespace Assets.Scripts.UI.Inventory
                         metaData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
                         break;
                     case GroupType.Etc:
-                        metaData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(itemIdx);
+                        metaData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(itemIdx);
                         break;
                     default:
                         throw new ArgumentOutOfRangeException();

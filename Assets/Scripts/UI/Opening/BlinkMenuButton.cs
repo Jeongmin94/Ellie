@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.PopupMenu;
 using Assets.Scripts.Utils;
@@ -11,6 +12,9 @@ namespace Assets.Scripts.UI.Opening
     public class BlinkMenuButton : OpeningText
     {
         public new static readonly string Path = "Opening/MenuText";
+
+        private static readonly string SoundHover = "click1";
+        private static readonly string SoundClick = "click2";
 
         [SerializeField] private float blinkInterval = 1.0f;
 
@@ -46,16 +50,18 @@ namespace Assets.Scripts.UI.Opening
             imagePanel.BindEvent(OnPointerEnter, UIEvent.PointEnter);
             imagePanel.BindEvent(OnPointerExit, UIEvent.PointExit);
         }
-        
+
         protected virtual void OnClickButton(PointerEventData data)
         {
             var payload = new PopupPayload();
             payload.popupType = PopupType;
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundClick, Vector3.zero);
             blinkMenuAction?.Invoke(payload);
         }
 
         protected virtual void OnPointerEnter(PointerEventData data)
         {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundHover, Vector3.zero);
             StartCoroutine(BlinkPanelImage());
         }
 

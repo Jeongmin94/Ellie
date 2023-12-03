@@ -1,5 +1,4 @@
-﻿using Assets.Scripts.Utils;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,7 +20,7 @@ namespace Assets.Scripts.Managers
         private AudioController audioControllerPrefab;
         //오디오 클립들이 담긴 딕셔너리
         private Dictionary<string, AudioClip> AudioClips = new();
-        
+
         private Coroutine nowPlayingBgmCoroutine;
         private AudioController nowPlayingBgmController;
         private bool isBgmPlaying = false;
@@ -37,6 +36,7 @@ namespace Assets.Scripts.Managers
         private float BGMVolume = 1.0f;
         private float SFXVolume = 1.0f;
         private float UISfxVolume = 1.0f;
+        private float AmbientVolume = 1.0f;
 
 
         public bool IsBgmPlaying() => isBgmPlaying;
@@ -49,8 +49,8 @@ namespace Assets.Scripts.Managers
         }
         private void InitAudioDict()
         {
-            audioControllerPrefab = Resources.Load<AudioController>("Sounds/AudioController");
-            AudioClip[] clips = Resources.LoadAll<AudioClip>("Sounds");
+            audioControllerPrefab = Resources.Load<AudioController>("Prefabs/SoundController/AudioController");
+            AudioClip[] clips = Resources.LoadAll<AudioClip>("Extern/Sounds");
             foreach (AudioClip clip in clips)
             {
                 AudioClips.Add(clip.name, clip);
@@ -78,6 +78,7 @@ namespace Assets.Scripts.Managers
                             audioControllerPool.Push(nowPlayingBgmController);
                         }
                         isBgmPlaying = true;
+                        audioController.SetVolume(BGMVolume);
                         nowPlayingBgmController = audioController;
                         nowPlayingBgmCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, bgmClip, pitch, loop));
                     }
@@ -94,6 +95,8 @@ namespace Assets.Scripts.Managers
                         //audioController의 위치를 해당 위치로
                         audioController.Activate3DEffect();
                         audioController.transform.position = playingPos;
+                        audioController.SetVolume(SFXVolume);
+
 
                         nowPlayingSfxAudioControllerList.Add(audioController);
                         StartCoroutine(PlaySoundCoroutine(type, name, audioController, sfxClip, pitch, loop));
@@ -116,7 +119,7 @@ namespace Assets.Scripts.Managers
                     if (AudioClips.TryGetValue(name, out AudioClip uiSfxClip))
                     {
                         AudioController audioController = audioControllerPool.Pop() as AudioController;
-
+                        audioController.SetVolume(UISfxVolume);
                         nowPlayingUISfxCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, uiSfxClip, pitch, loop));
                     }
                     else
@@ -129,6 +132,7 @@ namespace Assets.Scripts.Managers
                     if (AudioClips.TryGetValue(name, out AudioClip ambientClip))
                     {
                         AudioController audioController = audioControllerPool.Pop() as AudioController;
+                        audioController.SetVolume(AmbientVolume);
 
                         ambientDict.Add(name, audioController);
                         ambientCoroutines[name] = StartCoroutine(PlaySoundCoroutine(type, name, audioController, ambientClip, pitch, loop));
@@ -148,21 +152,22 @@ namespace Assets.Scripts.Managers
             {
                 case SoundType.Bgm:
                     BGMVolume = volume;
-                    break;
-                case SoundType.Sfx:
-                    SFXVolume = volume;
-                    break;
-                case SoundType.UISfx:
-                    UISfxVolume = volume;
+                    nowPlayingBgmController.SetVolume(BGMVolume);
                     break;
                 default:
+                    AmbientVolume = UISfxVolume = SFXVolume = volume;
+                    foreach(var controller in ambientDict.Values)
+                    {
+                        controller.SetVolume(AmbientVolume);
+                    }
                     break;
+
             }
         }
 
         private void StopSound(string name, AudioController nowPlayingAudioController)
         {
-            
+
             nowPlayingSfxAudioControllerList.Remove(nowPlayingAudioController);
             nowPlayingAudioController.Deactivate3DEffect();
             audioControllerPool.Push(nowPlayingAudioController);
@@ -207,7 +212,7 @@ namespace Assets.Scripts.Managers
 
         public void StopSfx(string clipName)
         {
-            foreach(var controller in nowPlayingSfxAudioControllerList)
+            foreach (var controller in nowPlayingSfxAudioControllerList)
             {
                 if (controller.clip.name == clipName)
                 {
@@ -219,7 +224,7 @@ namespace Assets.Scripts.Managers
         {
             audioController.SetClip(clip);
             audioController.Play(pitch, type);
-            if(type == SoundType.Bgm || type == SoundType.Ambient)
+            if (type == SoundType.Bgm || type == SoundType.Ambient)
             {
                 while (true)
                 {
@@ -237,25 +242,50 @@ namespace Assets.Scripts.Managers
                     yield return null;
                 }
             }
-            else 
+            else
             {
                 yield return new WaitForSeconds(clip.length);
                 if (type == SoundType.Sfx && loop)
                 {
-                    while(true)
+                    while (true)
                     {
                         if (!audioController.isPlaying) break;
                         audioController.Play(pitch, type);
                         yield return new WaitForSeconds(clip.length);
                     }
                 }
-                
-                if(type == SoundType.UISfx)
+
+                if (type == SoundType.UISfx)
                 {
                     nowPlayingUISfxCoroutine = null;
                 }
                 StopSound(name, audioController);
             }
         }
+
+        public void StopAllSounds()
+        {
+            StopBgm();
+
+            foreach (var sfx in nowPlayingSfxAudioControllerList)
+            {
+                sfx.Stop();
+                audioControllerPool.Push(sfx);
+            }
+            nowPlayingSfxAudioControllerList.Clear();
+
+            var ambientKeys = new List<string>(ambientDict.Keys); // 키 복사
+            foreach (var ambient in ambientKeys)
+            {
+                StopAmbient(ambient);
+            }
+
+            if (nowPlayingUISfxCoroutine != null)
+            {
+                StopCoroutine(nowPlayingUISfxCoroutine);
+                nowPlayingUISfxCoroutine = null;
+            }
+        }
+
     }
 }

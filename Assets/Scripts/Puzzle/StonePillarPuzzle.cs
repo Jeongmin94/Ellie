@@ -1,5 +1,11 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using Channels.Type;
+using Assets.Scripts.Channels.Camera;
 
 namespace Assets.Scripts.Puzzle
 {
@@ -9,23 +15,40 @@ namespace Assets.Scripts.Puzzle
         public Vector3 size;
         public int count = 0;
 
-        public GameObject pillar1;
-        public GameObject pillar2;
-        public GameObject pillar3;
+        //public GameObject pillar1;
+        //public GameObject pillar2;
+        //public GameObject pillar3;
 
-        public float pillar1Height;
-        public float pillar2Height;
-        public float pillar3Height;
+        public GameObject[] pillars;
+
+        public List<float> pillarsInitialHeight = new();
+        [SerializeField] private float constHeight = -9.0f;
 
         public float waitTime;
 
         private bool isDone;
         public float raisingSpeed;
+
+        private TicketMachine ticketMachine;
+
+        private void Awake()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Camera);
+        }
         private void Start()
         {
             center = transform.position;
             size = transform.localScale;
             isDone = false;
+
+            foreach (var pillar in pillars)
+            {
+                pillarsInitialHeight.Add(pillar.transform.position.y);
+                Vector3 temp = pillar.transform.position;
+                temp.y = constHeight;
+                pillar.transform.position = temp;
+            }
         }
         private void OnTriggerEnter(Collider other)
         {
@@ -46,10 +69,18 @@ namespace Assets.Scripts.Puzzle
             }
             if (count >= 3 && !isDone)
             {
-                StartCoroutine(RaisePillar(pillar1, pillar1Height));
-                StartCoroutine(RaisePillar(pillar2, pillar2Height));
-                StartCoroutine(RaisePillar(pillar3, pillar3Height));
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "puzzle1_stone1", transform.position);
+                for(int i = 0; i<pillars.Length;i++)
+                {
+                    StartCoroutine(RaisePillar(pillars[i], pillarsInitialHeight[i]));
+                }
                 isDone = true;
+                ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload
+                {
+                    type = CameraShakingEffectType.Start,
+                    shakeIntensity = 2.0f,
+                    shakeTime = 13.0f
+                });
             }
         }
 
@@ -61,6 +92,8 @@ namespace Assets.Scripts.Puzzle
                 time += Time.deltaTime;
                 yield return null;
             }
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle1_stone2");
+
             Vector3 raisePos = obj.transform.position;
             while (obj.transform.position.y < height)
             {

@@ -13,6 +13,7 @@ namespace Channels.UI
 
     public enum ActionType
     {
+        // Inventory UI
         AddSlotItem,
         ConsumeSlotItem,
         ToggleInventory,
@@ -20,6 +21,52 @@ namespace Channels.UI
         MoveCounterClockwise,
         SetPlayerProperty,
         ClickCloseButton,
+
+        // Quest UI
+        ClearQuest,
+        SetQuestName,
+        SetQuestDesc,
+        SetQuestIcon,
+        
+        // Interactive UI
+        PopupInteractive,
+        CloseInteractive,
+        
+        // AutoSave
+        OpenAutoSave,
+        CloseAutoSave,
+        
+        // Death
+        OpenDeathCanvas,
+        
+        // Video
+        PlayVideo,
+    }
+
+    public struct QuestInfo
+    {
+        public Sprite questIcon;
+        public string questName;
+        public string questDesc;
+
+        private QuestInfo(Sprite questIcon, string questName, string questDesc)
+        {
+            this.questIcon = questIcon;
+            this.questName = questName;
+            this.questDesc = questDesc;
+        }
+
+        public static QuestInfo Of(Sprite sprite, string questName, string questDesc)
+        {
+            return new QuestInfo(sprite, questName, questDesc);
+        }
+    }
+
+    public enum InteractiveType
+    {
+        Chatting,
+        Mining,
+        Acquisition,
     }
 
     public class UIPayload : IBaseEventPayload
@@ -27,12 +74,27 @@ namespace Channels.UI
         public UIType uiType;
         public ActionType actionType;
         public SlotAreaType slotAreaType;
+
         public GroupType groupType;
+
         //ItemMetaData는 UI에 출력할 데이터들만 포함합니다
         public ItemMetaData itemData;
         public Transform onDragParent;
         public bool isStoneNull;
         public int equipmentSlotIdx;
+
+        // Quest
+        public QuestInfo questInfo;
+        
+        // Interactive
+        public InteractiveType interactiveType;
+
+        public static UIPayload Notify()
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            return payload;
+        }
     }
 
     public class UIChannel : BaseEventChannel

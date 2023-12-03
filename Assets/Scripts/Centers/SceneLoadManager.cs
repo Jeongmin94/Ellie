@@ -1,5 +1,6 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
+using System.Collections;
 
 namespace Assets.Scripts.Centers
 {
@@ -8,7 +9,6 @@ namespace Assets.Scripts.Centers
     {
         Opening,
         InGame,
-        Boss,
         Closing,
         LoadingScene,
     }
@@ -44,22 +44,32 @@ namespace Assets.Scripts.Centers
         //씬 전환을 위한 테스트용
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //{
+            //    LoadScene(SceneName.Opening);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha2))
+            //{
+            //    LoadScene(SceneName.InGame);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha3))
+            //{
+            //    LoadScene(SceneName.Boss);
+            //}
+            //if (Input.GetKeyDown(KeyCode.Alpha4))
+            //{
+            //    LoadScene(SceneName.Closing);
+            //}
+        }
+
+        public IEnumerator CheckIsLoadDone()
+        {
+            var wait = new WaitForSeconds(0.5f);
+            while (IsLoading)
             {
-                LoadScene(SceneName.Opening);
+                yield return wait;
             }
-            if (Input.GetKeyDown(KeyCode.Alpha2))
-            {
-                LoadScene(SceneName.InGame);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha3))
-            {
-                LoadScene(SceneName.Boss);
-            }
-            if (Input.GetKeyDown(KeyCode.Alpha4))
-            {
-                LoadScene(SceneName.Closing);
-            }
+            Debug.Log("씬 로드 완료");
         }
     }
 

@@ -30,6 +30,7 @@ public class TerrapupaRootData : BaseBTData
     public BlackboardKey<Transform> player;
     public BlackboardKey<Transform> objectTransform;
     public BlackboardKey<Transform> magicStoneTransform;
+    public BlackboardKey<bool> isStart;
     public BlackboardKey<bool> canThrowStone;
     public BlackboardKey<bool> canEarthQuake;
     public BlackboardKey<bool> canRoll;
@@ -58,6 +59,7 @@ public class TerrapupaRootData : BaseBTData
         objectTransform = FindBlackboardKey<Transform>("objectTransform", tree);
         magicStoneTransform = FindBlackboardKey<Transform>("magicStoneTransform", tree);
         currentHP = FindBlackboardKey<int>("currentHP", tree);
+        isStart = FindBlackboardKey<bool>("isStart", tree);
         canThrowStone = FindBlackboardKey<bool>("canThrowStone", tree);
         canEarthQuake = FindBlackboardKey<bool>("canEarthQuake", tree);
         canRoll = FindBlackboardKey<bool>("canRoll", tree);

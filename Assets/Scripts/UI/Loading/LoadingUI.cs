@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Assets.Scripts.Centers;
 using UnityEngine.SceneManagement;
+using System.Threading.Tasks;
 
 public class LoadingUI : MonoBehaviour
 {
@@ -48,7 +49,6 @@ public class LoadingUI : MonoBehaviour
 
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync((int)scene, LoadSceneMode.Additive);
 
-
         //Load Map
         while (!loadOperation.isDone)
         {
@@ -78,15 +78,26 @@ public class LoadingUI : MonoBehaviour
         targetLoad += targetLoad;
 
         // + Add Load
-        // player save point
-
-        // Finish Loading
-        while (loadingSlider.value < 1.0f)
+        if(SaveLoadManager.Instance.IsLoadData)
         {
-            UpdateProgressBar(1.0f);
-            yield return null;
+            // 로드 데이터 ㅇㅋ, 로딩바는 버그걸려서 못넣었읍니다
+            SaveLoadManager.Instance.LoadData();
+
+            yield return SaveLoadManager.Instance.CheckIsLoadDone();
         }
-        yield return new WaitForSeconds(spareTimeToLoad);
+        //else
+        //{
+        //    // player save point
+
+        //    // Finish Loading
+        //    while (loadingSlider.value < 1.0f)
+        //    {
+        //        UpdateProgressBar(1.0f);
+        //        yield return null;
+        //    }
+        //    yield return new WaitForSeconds(spareTimeToLoad);
+        //}
+        SaveLoadManager.Instance.IsLoadData = false;
 
         loadingSlider.value = 0.0f;
         SceneLoadManager.Instance.FinishLoading();

@@ -83,7 +83,7 @@ MonoBehaviour:
     - rid: 1683426562437021696
     - rid: 1683426562437021697
     - rid: 1683426562437021872
-  viewPosition: {x: 858.4, y: 304.8, z: 0}
+  viewPosition: {x: 884.8, y: 554.4, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -660,7 +660,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d7eb42280690d384783149ab32acc5ce
-        position: {x: -735, y: -60}
+        position: {x: -720, y: -60}
         blackboard:
           keys: []
         description: 
@@ -686,7 +686,7 @@ MonoBehaviour:
         isRootTransform:
           reference:
             rid: -2
-          defaultValue: 1
+          defaultValue: 0
     - rid: 1683426247750189115
       type: {class: CheckRangeTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -709,7 +709,7 @@ MonoBehaviour:
         checkTag:
           reference:
             rid: -2
-          defaultValue: 
+          defaultValue: InteractionObject
         checkLayer:
           reference:
             rid: -2

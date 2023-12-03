@@ -1,12 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
-using Assets.Scripts.Data;
 using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Monsters.Utility;
-using Assets.Scripts.UI.Framework.Billboard;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
 using Channels.Combat;

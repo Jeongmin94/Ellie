@@ -2,12 +2,15 @@
 using Assets.Scripts.Particle;
 using Channels.Boss;
 using Channels.Components;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Boss.Objects
 {
     public class MagicStalactite : MonoBehaviour
     {
+        public float lineRenderStartWidth = 0.5f;
+        public float lineRenderEndWidth = 0.5f;
         public float respawnValue = 10.0f;
         public GameObject hitEffect;
         public GameObject displayEffect;
@@ -43,11 +46,19 @@ namespace Boss.Objects
         private void InitLineRenderer()
         {
             lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.5f;
-            lineRenderer.endWidth = 0.5f;
+            lineRenderer.startWidth = lineRenderStartWidth;
+            lineRenderer.endWidth = lineRenderEndWidth;
             lineRenderer.material = material;
             lineRenderer.startColor = Color.white;
             lineRenderer.endColor = Color.white;
+        }
+
+        [Button("라인렌더러 값 수정")]
+        private void SetMaterial()
+        {
+            lineRenderer.startWidth = lineRenderStartWidth;
+            lineRenderer.endWidth = lineRenderEndWidth;
+            lineRenderer.material = material;
         }
 
         public void InitTicketMachine(TicketMachine ticketMachine)
@@ -114,7 +125,6 @@ namespace Boss.Objects
                             FloatValue = respawnValue,
                             TransformValue1 = transform,
                             TransformValue2 = other.transform.root,
-                            Sender = other.transform.root,
                         });
 
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 1.0f);

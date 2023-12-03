@@ -82,14 +82,16 @@ namespace Boss.Terrapupa
 
         private void OnTriggerEnter(Collider other)
         {
-            if (((1 << other.gameObject.layer) & layerMask) != 0 && other.transform.root != owner.transform.root)
+			TerrapupaDetection detection = other.GetComponent<TerrapupaDetection>();
+
+            if (((1 << other.gameObject.layer) & layerMask) != 0 && detection.MyTerrapupa != owner)
             {
                 ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
 
                 EventBus.Instance.Publish(EventBusEvents.HitStone, new BossEventPayload
 				{
-					TransformValue1 = other.transform.root,
-				});
+					TransformValue1 = detection.MyTerrapupa,
+                });
 
                 PoolManager.Instance.Push(this);
             }

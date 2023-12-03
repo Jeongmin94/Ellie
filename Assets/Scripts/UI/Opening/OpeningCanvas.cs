@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Presets;
@@ -14,6 +15,8 @@ namespace Assets.Scripts.UI.Opening
     public class OpeningCanvas : UIStatic
     {
         public static readonly string Path = "Opening/OpeningCanvas";
+
+        private static readonly string SoundOpeningBGM = "BGM1";
 
         private enum GameObjects
         {
@@ -50,6 +53,11 @@ namespace Assets.Scripts.UI.Opening
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, SoundOpeningBGM);
         }
 
         protected override void Init()
@@ -96,6 +104,9 @@ namespace Assets.Scripts.UI.Opening
             InitTitle();
             InitMenuButtons();
             InitPopupCanvas();
+
+            // 231130 �߰�
+            CheckLoadFiles();
         }
 
         private void InitTitle()
@@ -125,10 +136,10 @@ namespace Assets.Scripts.UI.Opening
         private void InitPopupCanvas()
         {
             var popupTypes = Enum.GetValues(typeof(PopupType));
-            for (int i = 0; i < popupTypes.Length; i++)
+            for (int i = 0; i < buttonsData.Length; i++)
             {
                 var type = (PopupType)popupTypes.GetValue(i);
-                var popup = UIManager.Instance.MakeSubItem<BasePopupCanvas>(outerRimRect, BasePopupCanvas.Path);
+                var popup = UIManager.Instance.MakePopup<BasePopupCanvas>(BasePopupCanvas.Path);
                 popup.InitPopupCanvas(type);
                 popup.Subscribe(OnPopupCanvasAction);
                 popup.name = $"#{buttonsData[i].title}";
@@ -140,6 +151,14 @@ namespace Assets.Scripts.UI.Opening
             configCanvas.configCanvasAction -= OnPopupCanvasAction;
             configCanvas.configCanvasAction += OnPopupCanvasAction;
             configCanvas.gameObject.SetActive(false);
+        }
+
+        private void CheckLoadFiles()
+        {
+            if (!SaveLoadManager.Instance.IsSaveFilesExist())
+            {
+                menuButtons[(int)PopupType.Load].gameObject.SetActive(false);
+            }
         }
 
         private void LateUpdate()
@@ -175,21 +194,31 @@ namespace Assets.Scripts.UI.Opening
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
-                {
-                }
+                    {
+                        if (payload.popupType == PopupType.Start)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = false;
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                        }
+                        else if (payload.popupType == PopupType.Load)
+                        {
+                            SaveLoadManager.Instance.IsLoadData = true;
+                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                        }
+                    }
                     break;
 
                 case ButtonType.No:
-                {
-                    if (payload.popupType == PopupType.Config)
                     {
-                        configCanvas.gameObject.SetActive(false);
+                        if (payload.popupType == PopupType.Config)
+                        {
+                            configCanvas.gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            popupCanvasList[idx].gameObject.SetActive(false);
+                        }
                     }
-                    else
-                    {
-                        popupCanvasList[idx].gameObject.SetActive(false);
-                    }
-                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

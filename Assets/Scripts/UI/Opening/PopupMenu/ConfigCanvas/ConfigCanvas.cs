@@ -8,6 +8,7 @@ using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using Data.UI.Opening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.PopupMenu
 {
@@ -15,11 +16,19 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "ConfigPopupCanvas";
 
+        private static readonly string SoundCancel = "click3";
+
         private enum GameObjects
         {
             ConfigButtonPanel,
             ConfigListPanel,
         }
+
+        private enum Images
+        {
+            Background
+        }
+
 
         [Header("Config List")]
         [SerializeField]
@@ -43,6 +52,9 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private RectTransform buttonPanelRect;
         private RectTransform listPanelRect;
+
+        public Image Background => background;
+        private Image background;
 
         public Action<PopupPayload> configCanvasAction;
 
@@ -68,12 +80,15 @@ namespace Assets.Scripts.UI.PopupMenu
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
+            Bind<Image>(typeof(Images));
 
             buttonPanel = GetGameObject((int)GameObjects.ConfigButtonPanel);
             listPanel = GetGameObject((int)GameObjects.ConfigListPanel);
 
             buttonPanelRect = buttonPanel.GetComponent<RectTransform>();
             listPanelRect = listPanel.GetComponent<RectTransform>();
+
+            background = GetImage((int)Images.Background);
         }
 
         private void InitObjects()
@@ -127,6 +142,7 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             if (gameObject.activeSelf)
             {
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundCancel, Vector3.zero);
                 PopupPayload payload = new PopupPayload();
                 payload.buttonType = ButtonType.No;
                 payload.popupType = PopupType.Config;

@@ -130,61 +130,6 @@ namespace Assets.Scripts.Player
                     controller.ChangeState(PlayerStateName.ConsumingItem);
                 }
             }
-
-            //if (Input.GetKeyDown(KeyCode.Alpha1))
-            //{
-            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-            //    if (consumableEquipmentSlot[0] == null ||
-            //        consumableEquipmentSlot[0].groupType != GroupType.Item) return;
-            //    if (controller.GetCurState() == PlayerStateName.Idle ||
-            //        controller.GetCurState() == PlayerStateName.Walk ||
-            //        controller.GetCurState() == PlayerStateName.Sprint)
-            //    {
-            //        curSlotIdx = 0;
-            //        controller.ChangeState(PlayerStateName.ConsumingItem);
-            //    }
-            //}
-            //if (Input.GetKeyDown(KeyCode.Alpha2))
-            //{
-            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-            //    if (consumableEquipmentSlot[1] == null ||
-            //        consumableEquipmentSlot[1].groupType != GroupType.Item) return;
-
-            //    if (controller.GetCurState() == PlayerStateName.Idle ||
-            //        controller.GetCurState() == PlayerStateName.Walk ||
-            //        controller.GetCurState() == PlayerStateName.Sprint)
-            //    {
-            //        curSlotIdx = 1;
-            //        controller.ChangeState(PlayerStateName.ConsumingItem);
-            //    }
-            //}
-            //if (Input.GetKeyDown(KeyCode.Alpha3))
-            //{
-            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-            //    if (consumableEquipmentSlot[2] == null ||
-            //        consumableEquipmentSlot[2].groupType != GroupType.Item) return;
-            //    if (controller.GetCurState() == PlayerStateName.Idle ||
-            //        controller.GetCurState() == PlayerStateName.Walk ||
-            //        controller.GetCurState() == PlayerStateName.Sprint)
-            //    {
-            //        curSlotIdx = 2;
-            //        controller.ChangeState(PlayerStateName.ConsumingItem);
-            //    }
-            //}
-            //if (Input.GetKeyDown(KeyCode.Alpha4))
-            //{
-            //    //1번 슬롯에 아이템이 있을 경우에만 sendmessage
-            //    if (consumableEquipmentSlot[3] == null ||
-            //        consumableEquipmentSlot[3].groupType != GroupType.Item) return;
-            //    if (controller.GetCurState() == PlayerStateName.Idle ||
-            //        controller.GetCurState() == PlayerStateName.Walk ||
-            //        controller.GetCurState() == PlayerStateName.Sprint)
-            //    {
-            //        curSlotIdx = 3;
-            //        controller.ChangeState(PlayerStateName.ConsumingItem);
-            //    }
-            //}
-
         }
         private UIPayload MakeInventoryOpenPayload()
         {

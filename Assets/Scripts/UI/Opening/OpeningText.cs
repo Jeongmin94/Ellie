@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI.Opening
         private RectTransform imagePanelRect;
         private RectTransform textPanelRect;
 
-        private TextMeshProUGUI textMeshProUGUI;
+        protected TextMeshProUGUI textMeshProUGUI;
 
         protected readonly Data<Color> imageColor = new Data<Color>();
 
@@ -102,7 +102,15 @@ namespace Assets.Scripts.UI.Opening
             textMeshProUGUI.alignment = typographyTypographyData.alignmentOptions;
             textMeshProUGUI.enableAutoSizing = typographyTypographyData.enableAutoSizing;
             textMeshProUGUI.text = typographyTypographyData.title;
+
+            if (typographyTypographyData.useOutline)
+            {
+                textMeshProUGUI.outlineColor = typographyTypographyData.outlineColor;
+                textMeshProUGUI.outlineWidth = typographyTypographyData.outlineThickness;
+            }
         }
+
+        protected Rect GetRect() => rectTransform.rect;
 
         protected void SetOriginColor(Color color) => originImageColor = color;
         protected void ResetImageColor() => image.color = originImageColor;

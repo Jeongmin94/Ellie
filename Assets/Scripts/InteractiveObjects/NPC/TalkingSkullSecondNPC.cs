@@ -112,8 +112,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             player.SetQuestStatus(REQUIREDQUESTIDX, QuestStatus.End);
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted));
-            //6013 퀘스트를 Accepted 상태로 변경
             player.SetQuestStatus((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted);
+            player.ActivateInteractiveUI();
+
+            //6013 퀘스트를 Accepted 상태로 변경
             EndInteract();
             //player.EndConversation();
         }
@@ -126,6 +128,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 yield break;
             }
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6103, QuestStatus.Done));
+            player.ActivateInteractiveUI();
+
             //6013 퀘스트를 Done 상태로 변경
             player.SetQuestStatus((int)SecondSkullQuest.Quest6103, QuestStatus.Done);
             EndInteract();
@@ -141,6 +145,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             //함정 피격 및 가방 가져오는 퀘스트
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Unaccepted));
+            player.ActivateInteractiveUI();
+
             //6014 퀘스트를 Accepted 상태로 변경
             player.SetQuestStatus((int)SecondSkullQuest.Quest6103, QuestStatus.End);
             player.SetQuestStatus((int)SecondSkullQuest.Quest6104, QuestStatus.Accepted);
@@ -157,6 +163,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             //6104 퀘스트를 완료하지 못한 경우
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Accepted));
+            player.ActivateInteractiveUI();
+
             EndInteract();
             player.EndConversation();
         }
@@ -170,6 +178,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
             //6104 퀘스틀 완료한경우
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Done));
+            player.ActivateInteractiveUI();
+
             player.GetReward((int)SecondSkullQuest.Quest6104);
             EndInteract();
             player.EndConversation();
@@ -185,6 +195,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 yield break;
             }
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Unaccepted));
+            player.ActivateInteractiveUI();
+
             player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.Done);
 
             EndInteract();
@@ -198,13 +210,18 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Done));
-            //player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.End);
 
+            yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Done));
+
+            //player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.End);
+            player.SetQuestStatus(6106, QuestStatus.CantAccept);
             player.GetReward((int)SecondSkullQuest.Quest6105);
 
             EndInteract();
             player.EndConversation();
+
+            player.SetInteractiveObjToNull();
+            //player.DeactivateInteractiveUI();
 
             gameObject.SetActive(false);
         }

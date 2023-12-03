@@ -1,4 +1,7 @@
-﻿using Assets.Scripts.Data.ActionData.Player;
+﻿using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Data.ActionData.Player;
+using Assets.Scripts.Data.GoogleSheet._4400Etc;
+using Assets.Scripts.Environments;
 using Assets.Scripts.Equipments;
 using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Managers;
@@ -10,9 +13,9 @@ using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Cinemachine;
+using System;
 using System.Collections;
 using System.Linq;
-using UnityEditorInternal;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -46,6 +49,8 @@ namespace Assets.Scripts.Player
         public CinemachineVirtualCamera cinematicMainCam;
         public CinemachineVirtualCamera cinematicAimCam;
         public CinemachineVirtualCamera cinematicDialogCam;
+        private Action<float, float> cameraShakeAction;
+        private Action stopCameraShakeAction;
 
         [Header("Move")]
         [SerializeField] private float walkSpeed;
@@ -154,12 +159,16 @@ namespace Assets.Scripts.Player
         public float WalkSpeed { get { return walkSpeed; } }
         public float SprintSpeed { get { return sprintSpeed; } }
         public float DodgeSpeed { get { return dodgeSpeed; } }
+
+        public float PlayerHeight { get { return playerHeight; } }
+
+        public LayerMask GroundLayer { get { return groundLayer; } }
         public float AdditionalJumpForce { get { return additionalJumpForce; } }
         public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
         public float AdditionalGravityForce { get { return additionalGravityForce; } }
         public float LandStateDuration { get { return landStateDuration; } }
         public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
-        public float TimeToDodgeAfterDown { get { return  timeToDodgeAfterDown; } }
+        public float TimeToDodgeAfterDown { get { return timeToDodgeAfterDown; } }
         public Ore CurOre { get { return curOre; } }
         public float MiningTime { get { return miningTime; } }
         public bool IsPickaxeAvailable { get { return isPickaxeAvailable; } }
@@ -185,15 +194,25 @@ namespace Assets.Scripts.Player
             playerStatus = GetComponent<PlayerStatus>();
             InitTicketMachine();
             //stateMachine.CurrentState.
+            playerInventory = GetComponent<PlayerInventory>();
+
+            //카메라 흔들림 이벤트 구독
+            SubscribeCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
+            SubscribeCameraShakeAction(cinematicAimCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
+            SubscribeCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
+            SubscribeStopCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
+            SubscribeStopCameraShakeAction(cinematicAimCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
+            SubscribeStopCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
         }
 
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
 
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog, ChannelType.Camera);
             ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
             ticketMachine.RegisterObserver(ChannelType.Dialog, GetComponent<PlayerQuest>().SetIsPlaying);
+            ticketMachine.RegisterObserver(ChannelType.Camera, OnNotifyCameraAction);
         }
 
         private void Start()
@@ -223,14 +242,11 @@ namespace Assets.Scripts.Player
             GrabSlingshotLeather();
 
             //test
-            if(Input.GetKeyDown(KeyCode.U))
+            if (Input.GetKeyDown(KeyCode.U))
             {
-                GetConsumalbeItemTest(4100);
+                GetPickaxe(9000);
             }
-            if(Input.GetKeyDown(KeyCode.J))
-            {
-                GetConsumalbeItemTest(4101);
-            }
+            
         }
         private void FixedUpdate()
         {
@@ -258,7 +274,6 @@ namespace Assets.Scripts.Player
             Pickaxe.gameObject.SetActive(false);
             TurnOffSlingshot();
             TurnOffMeleeAttackCollider();
-            playerInventory = GetComponent<PlayerInventory>();
         }
         private void SetMovingAnim()
         {
@@ -438,9 +453,10 @@ namespace Assets.Scripts.Player
         private void CheckGround()
         {
             if (isRigid) return;
-            // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
             bool curIsGrounded = Physics.Raycast(transform.position,
                 Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
+            // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
+
 
             if (curIsGrounded != isGrounded)
             {
@@ -630,6 +646,7 @@ namespace Assets.Scripts.Player
 
         public void TurnOnMeleeAttackCollider()
         {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound5", transform.position);
             MeleeAttackCollider.SetActive(true);
         }
 
@@ -696,7 +713,7 @@ namespace Assets.Scripts.Player
                     }
                     break;
                 case GroupType.Stone:
-                    if(uiPayload.itemData == null)
+                    if (uiPayload.itemData == null)
                     {
                         if (uiPayload.equipmentSlotIdx == 0)
                         {
@@ -722,13 +739,14 @@ namespace Assets.Scripts.Player
 
         public void GetPickaxe(int pickaxeIdx)
         {
+            int pickaxeUiIdx = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx).uiIdx;
             UIPayload payload = new()
             {
                 uiType = UIType.Notify,
                 groupType = UI.Inventory.GroupType.Etc,
                 slotAreaType = UI.Inventory.SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx)
+                itemData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(pickaxeUiIdx),
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
 
@@ -736,6 +754,7 @@ namespace Assets.Scripts.Player
             dPayload.canvasType = DialogCanvasType.Simple;
 
             ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+            //!TODO 플레이어의 상태 세이브/로드 데이터에 해당 항목을 추가
             isPickaxeAvailable = true;
             curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
@@ -752,6 +771,45 @@ namespace Assets.Scripts.Player
                 itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(idx)
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
+        }
+
+        private void SubscribeCameraShakeAction(Action<float, float> Listener)
+        {
+            cameraShakeAction -= Listener;
+            cameraShakeAction += Listener;
+        }
+
+        private void SubscribeStopCameraShakeAction(Action Listener)
+        {
+            stopCameraShakeAction -= Listener;
+            stopCameraShakeAction += Listener;
+        }
+        public void ShakeCamera(float shakeIntensity, float shakeTime)
+        {
+            cameraShakeAction.Invoke(shakeIntensity, shakeTime);
+        }
+
+        public void StopShakeCamera()
+        {
+            stopCameraShakeAction.Invoke();
+        }
+
+        private void OnNotifyCameraAction(IBaseEventPayload payload)
+        {
+            if (payload is not CameraPayload cameraPayload) return;
+            switch (cameraPayload.type)
+            {
+                case CameraShakingEffectType.Start:
+                    {
+                        cameraShakeAction.Invoke(cameraPayload.shakeIntensity, cameraPayload.shakeTime);
+                    }
+                    break;
+                case CameraShakingEffectType.Stop:
+                    {
+                        stopCameraShakeAction.Invoke();
+                    }
+                    break;
+            }
         }
     }
 }

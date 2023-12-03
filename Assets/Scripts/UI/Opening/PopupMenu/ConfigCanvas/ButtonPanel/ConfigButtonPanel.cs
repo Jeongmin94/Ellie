@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Data.UI.Opening;
-using UnityEditor.Experimental;
 using UnityEngine;
 using UnityEngine.UI;
 

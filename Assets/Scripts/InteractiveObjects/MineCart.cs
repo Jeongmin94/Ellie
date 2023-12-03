@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Player;
+using Channels.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -16,6 +17,8 @@ namespace Assets.Scripts.InteractiveObjects
         private SplineWalker walker = null;
 
         private bool canJump = false;
+
+        InteractiveType interactiveType = InteractiveType.Chatting;
         // Use this for initialization
         private void Start()
         {
@@ -46,6 +49,7 @@ namespace Assets.Scripts.InteractiveObjects
             player = obj;
             isActivated = true;
             StartRailSystem();
+            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
         private void StartRailSystem()
         {
@@ -64,7 +68,7 @@ namespace Assets.Scripts.InteractiveObjects
             player.transform.position = playerEndPos.position;
             player.GetComponent<PlayerController>().canJump = true;
             Destroy(walker);
-
+            gameObject.tag = "Untagged";
         }
         private void LockPlayerPos()
         {
@@ -100,6 +104,11 @@ namespace Assets.Scripts.InteractiveObjects
             walker.mode = SplineWalkerMode.Once;
             canJump = false;
 
+        }
+
+        public InteractiveType GetInteractiveType()
+        {
+            return interactiveType;
         }
     }
 }

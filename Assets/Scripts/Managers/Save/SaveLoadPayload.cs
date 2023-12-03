@@ -8,10 +8,10 @@ namespace Assets.Scripts.Managers
 {
     public enum SaveLoadType
     {
-        Test,
         Inventory,
         Quest,
-        Map,
+        Test,
+        //Map,
 
         End,
     }
@@ -54,8 +54,6 @@ namespace Assets.Scripts.Managers
 
     public class QuestSavePayload : IBaseEventPayload
     {
-        // 데이터 저장에 필요한 타입들 정의
-        //public int QuestIndex { get; set; }
         public Dictionary<int, QuestStatus> questStatusSaveInfo = new();
     }
 

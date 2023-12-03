@@ -26,13 +26,14 @@ namespace Assets.Scripts
 
         public void SetVolume(float volume)
         {
-            this.volume = volume;
+            audioSource.volume = volume;
         }
+
         public void Play(float pitch, SoundType type)
         {
             isPlaying = true;
             audioSource.pitch = pitch;
-            if(type == SoundType.Bgm)
+            if(type == SoundType.Bgm || type == SoundType.Ambient)
             {
                 audioSource.loop = true;
             }

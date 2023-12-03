@@ -1,7 +1,6 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -60,6 +59,10 @@ namespace Assets.Scripts.Item.Stone
         {
             Poolable obj = stonePool.Pop();
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
+            if (obj.GetComponent<BaseStone>().data == null)
+            {
+                return null;
+            }
             obj.GetComponent<BaseStone>().hatchery = this;
             int idx = Random.Range(0, stoneMeshes.Length);
             obj.gameObject.GetComponent<MeshFilter>().mesh = stoneMeshes[idx];
@@ -112,6 +115,11 @@ namespace Assets.Scripts.Item.Stone
         {
             StoneEventPayload itemPayload = payload as StoneEventPayload;
             BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
+            if(stone == null)
+            {
+                Debug.LogError("돌맹이 파싱 중...");
+                return;
+            }
             Vector3 startPos = itemPayload.StoneSpawnPos;
             Vector3 direction = itemPayload.StoneDirection;
             Vector3 force = itemPayload.StoneForce;

@@ -29,7 +29,6 @@ namespace Assets.Scripts.UI.Framework
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private MonsterHealthData monsterHealthData;
         [SerializeField] private int damage = 1;
-        [SerializeField] private int staminaCost = 10;
 
         private UIStatusBar statusBar;
         private readonly MonsterDataContainer canvasContainer = new MonsterDataContainer();
@@ -82,7 +81,7 @@ namespace Assets.Scripts.UI.Framework
             var canvas = UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
             canvas.InitData(canvasContainer);
 
-            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(transform, UIMonsterBillboard);
+            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billBoardPosition, UIMonsterBillboard);
             billboard.scaleFactor = 0.003f;
             billboard.InitBillboard(billBoardPosition);
             billboard.InitData(billboardContainer);

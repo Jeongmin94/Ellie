@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a383f57c672d4c4996403b27e0160994, type: 3}
   m_Name: ResolutionData
   m_EditorClassIdentifier: 
-  readOnly: 0
+  configType: 0
+  readOnly: 1
   configName: "\uD574\uC0C1\uB3C4"
   values:
   - {x: 1920, y: 1080}
@@ -26,3 +27,4 @@ MonoBehaviour:
   - {x: 1280, y: 960}
   - {x: 1280, y: 800}
   currentIdx: 0
+  optionChangeSoundName: setting2
