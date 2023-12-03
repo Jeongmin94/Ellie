@@ -19,7 +19,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
-            Controller.Anim.SetBool("IsLoadEnd", true);
         }
 
         public override void OnFixedUpdateState()

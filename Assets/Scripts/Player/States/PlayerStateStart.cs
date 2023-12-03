@@ -17,6 +17,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Controller.Anim.SetBool("IsLoadEnd", true);
         }
 
         public override void OnExitState()

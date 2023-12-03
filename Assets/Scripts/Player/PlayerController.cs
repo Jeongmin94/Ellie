@@ -263,7 +263,7 @@ namespace Assets.Scripts.Player
             }
             if(Input.GetKeyDown(KeyCode.B))
             {
-                ChangeState(PlayerStateName.Idle);
+                ChangeState(PlayerStateName.Start);
             }
 
         }
