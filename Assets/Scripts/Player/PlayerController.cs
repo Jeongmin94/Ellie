@@ -260,7 +260,10 @@ namespace Assets.Scripts.Player
                     Defender = transform,
                     Damage = 20
                 });
-
+            }
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+                ChangeState(PlayerStateName.Idle);
             }
 
         }
