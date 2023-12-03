@@ -14,7 +14,7 @@ public class TerrapupaSpinningAttackData : BaseBTData
     }
 
     [Title("사운드 설정")]
-    [InfoBox("회전공격 공격 사운드")] public string sound1 = "TerrapupaNormalAttack";
+    [InfoBox("회전공격 공격 사운드")] public string sound1 = "TerrapupaAttackHit";
 
     [Title("이펙트 설정")]
     [InfoBox("회전 공격 시 이펙트")] public GameObject spinningAttackEffect1;

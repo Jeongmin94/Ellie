@@ -133,7 +133,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         wall.SetActive(true);
         trigger.SetActive(false);
 
-        //SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
     }
     private void OnLeftBossRoom(BossEventPayload manaPayload)
     {
