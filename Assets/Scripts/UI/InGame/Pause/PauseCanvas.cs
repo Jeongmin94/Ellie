@@ -57,6 +57,8 @@ namespace Assets.Scripts.UI.InGame
         private void Awake()
         {
             Init();
+            
+            gameObject.SetActive(false);
         }
 
         protected override void Init()
