@@ -76,11 +76,8 @@ namespace Assets.Scripts.Player
 
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Escape) && Inventory.IsOpened)
-            {
-                ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
-                OnInventoryToggle();
-            }
+            
+            
 
             //for test
             if (Input.GetKeyDown(KeyCode.O))

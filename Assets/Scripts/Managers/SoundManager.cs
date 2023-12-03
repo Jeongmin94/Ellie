@@ -133,7 +133,10 @@ namespace Assets.Scripts.Managers
                         AudioController audioController = audioControllerPool.Pop() as AudioController;
                         audioController.SetVolume(AmbientVolume);
 
-                        ambientDict.Add(name, audioController);
+                        if(!ambientDict.TryGetValue(name, out AudioController controller))
+                        {
+                            ambientDict.Add(name, audioController);
+                        }
                         ambientCoroutines[name] = StartCoroutine(PlaySoundCoroutine(type, name, audioController, ambientClip, pitch, loop));
                     }
                     else
