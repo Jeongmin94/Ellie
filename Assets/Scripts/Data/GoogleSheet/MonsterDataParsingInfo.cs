@@ -108,7 +108,6 @@ public class MonsterDataParsingInfo : DataParsingInfo
                 continue;
             }
 
-            Debug.Log(data.ToString());
             monsters.Add(data);
         }
     }

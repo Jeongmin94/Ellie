@@ -262,5 +262,30 @@ namespace Assets.Scripts.Managers
                 StopSound(name, audioController);
             }
         }
+
+        public void StopAllSounds()
+        {
+            StopBgm();
+
+            foreach (var sfx in nowPlayingSfxAudioControllerList)
+            {
+                sfx.Stop();
+                audioControllerPool.Push(sfx);
+            }
+            nowPlayingSfxAudioControllerList.Clear();
+
+            var ambientKeys = new List<string>(ambientDict.Keys); // 키 복사
+            foreach (var ambient in ambientKeys)
+            {
+                StopAmbient(ambient);
+            }
+
+            if (nowPlayingUISfxCoroutine != null)
+            {
+                StopCoroutine(nowPlayingUISfxCoroutine);
+                nowPlayingUISfxCoroutine = null;
+            }
+        }
+
     }
 }

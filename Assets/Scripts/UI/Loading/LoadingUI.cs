@@ -14,7 +14,7 @@ public class LoadingUI : MonoBehaviour
     [SerializeField] private Text tipText;
     [SerializeField] private Image loadingImage;
 
-    [SerializeField] private TipsParshingInfo data;
+    [SerializeField] private LoadingTipsData tipData;
 
     const int loadingDataQuantity = 2;
     const float spareTimeToLoad = 1.0f;
@@ -25,7 +25,6 @@ public class LoadingUI : MonoBehaviour
     private float barSpeed;
 
     const int imageQuantity = 8;
-    const int tipQuantity = 10;
 
     private void Start()
     {
@@ -38,7 +37,7 @@ public class LoadingUI : MonoBehaviour
         string imagePath = ImagePath + Random.Range(0, imageQuantity).ToString();
         Debug.Log("IMAGE NAME : " + imagePath);
         loadingImage.sprite = ResourceManager.Instance.LoadSprite(imagePath);
-        string tip = data.datas[Random.Range(0, tipQuantity)].tip;
+        string tip = tipData.tips[Random.Range(0, tipData.tips.Count)];
         tipText.text = tip;
     }
 
@@ -80,21 +79,23 @@ public class LoadingUI : MonoBehaviour
         // + Add Load
         if(SaveLoadManager.Instance.IsLoadData)
         {
-            // ·Îµå µ¥ÀÌÅÍ ¤·¤», ·Îµù¹Ù´Â ¹ö±×°É·Á¼­ ¸ø³Ö¾úÀ¾´Ï´Ù
-            yield return StartCoroutine(LoadSaveDataAsync());
-        }
-        else
-        {
-            // player save point
+            // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Îµï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½×°É·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
+            SaveLoadManager.Instance.LoadData();
 
-            // Finish Loading
-            while (loadingSlider.value < 1.0f)
-            {
-                UpdateProgressBar(1.0f);
-                yield return null;
-            }
-            yield return new WaitForSeconds(spareTimeToLoad);
+            yield return SaveLoadManager.Instance.CheckIsLoadDone();
         }
+        //else
+        //{
+        //    // player save point
+
+        //    // Finish Loading
+        //    while (loadingSlider.value < 1.0f)
+        //    {
+        //        UpdateProgressBar(1.0f);
+        //        yield return null;
+        //    }
+        //    yield return new WaitForSeconds(spareTimeToLoad);
+        //}
         SaveLoadManager.Instance.IsLoadData = false;
 
         loadingSlider.value = 0.0f;
@@ -107,25 +108,5 @@ public class LoadingUI : MonoBehaviour
     {
         if (loadingSlider.value < max)
             loadingSlider.value += barSpeed;
-    }
-
-    private IEnumerator LoadSaveDataAsync()
-    {
-        Debug.Log("·Îµå ½ÃÀÛ");
-        var loadDataTask = SaveLoadManager.Instance.LoadData();
-        while (!loadDataTask.IsCompleted)
-        {
-            yield return null; // Task°¡ ¿Ï·áµÉ ¶§±îÁö ¸Å ÇÁ·¹ÀÓ ´ë±â
-        }
-
-        if (loadDataTask.IsFaulted)
-        {
-            // ¿À·ù Ã³¸®
-            Debug.LogError($"·Îµå Áß ¿À·ù ¹ß»ý: {loadDataTask.Exception}");
-        }
-        else
-        {
-            Debug.Log("·Îµå ¿Ï·á");
-        }
     }
 }
