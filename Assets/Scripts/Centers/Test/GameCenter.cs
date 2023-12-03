@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.Singleton;
 using Assets.Scripts.Player;
 using Centers;
 using UnityEngine;
@@ -19,11 +20,16 @@ namespace Assets.Scripts.Centers.Test
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
 
+        public GameObject[] uiPrefabs;
+
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
 
         private void Awake()
         {
+            MangerControllers.ClearAction(ManagerType.Input);
+            MangerControllers.ClearAction(ManagerType.Data);
+
             Init();
         }
 
@@ -48,7 +54,12 @@ namespace Assets.Scripts.Centers.Test
                     CheckTicket(child.gameObject);
                 }
             }
-            
+
+            foreach (var ui in uiPrefabs)
+            {
+                Instantiate(ui, Canvases.transform);
+            }
+
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);
