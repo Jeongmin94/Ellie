@@ -31,6 +31,8 @@ namespace Assets.Scripts.Centers.Test
             MangerControllers.ClearAction(ManagerType.Data);
 
             PoolManager.Instance.DestroyAllPools();
+            SoundManager.Instance.ClearAudioControllers();
+            SoundManager.Instance.InitAudioSourcePool();
             Init();
         }
 

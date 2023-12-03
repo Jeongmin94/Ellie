@@ -56,7 +56,7 @@ namespace Assets.Scripts.Managers
                 AudioClips.Add(clip.name, clip);
             }
         }
-        private void InitAudioSourcePool()
+        public void InitAudioSourcePool()
         {
             audioControllerPool = PoolManager.Instance.CreatePool(audioControllerPrefab.gameObject, 10);
         }
@@ -189,6 +189,15 @@ namespace Assets.Scripts.Managers
                 ambientDict.Remove(name);
             }
         }
+
+        private void StopAllAmbients()
+        {
+            foreach (var controller in ambientDict.Values)
+                audioControllerPool.Push(controller);
+
+            ambientCoroutines.Clear();
+            ambientDict.Clear();
+        }
         public void StopBgm()
         {
             if (!isBgmPlaying) return;
@@ -289,5 +298,10 @@ namespace Assets.Scripts.Managers
             }
         }
 
+        public void ClearAudioControllers()
+        {
+            StopBgm();
+            StopAllAmbients();
+        }
     }
 }

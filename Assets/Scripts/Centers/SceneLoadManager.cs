@@ -26,6 +26,7 @@ namespace Assets.Scripts.Centers
 
             //SaveLoadManager의 액션 구독 전부 해제
             SaveLoadManager.Instance.ClearAction();
+            SoundManager.Instance.ClearAudioControllers();
 
             //로딩 화면이 필요한 경우 if 문에 추	
                 //opening -> ingame, death->restart, savefileload 시 로드 필요 *기획
