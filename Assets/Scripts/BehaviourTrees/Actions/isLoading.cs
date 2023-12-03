@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TheKiwiCoder;
-using Assets.Scripts.Centers.Test;
 using Assets.Scripts.Centers;
+using TheKiwiCoder;
 
 [System.Serializable]
 public class isLoading : ActionNode
@@ -15,7 +11,7 @@ public class isLoading : ActionNode
     }
 
     protected override State OnUpdate() {
-        if (SceneCenter.Instance.IsLoading)
+        if (SceneLoadManager.Instance.IsLoading)
         {
             return State.Failure;
         }
