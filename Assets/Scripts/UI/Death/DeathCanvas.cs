@@ -180,7 +180,7 @@ namespace Assets.Scripts.UI.Death
 
             // !TODO Load Data
             SaveLoadManager.Instance.IsLoadData = true;
-            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+            SceneLoadManager.Instance.LoadScene(SceneName.EmptyScene);
             onPlayingDeath = false;
             backgroundImage.color = backgroundStartColor;
             deathText.color = textStartColor;

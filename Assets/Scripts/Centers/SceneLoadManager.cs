@@ -1,6 +1,7 @@
 ﻿using UnityEngine.SceneManagement;
 using UnityEngine;
 using System.Collections;
+using Assets.Scripts.Managers;
 
 namespace Assets.Scripts.Centers
 {
@@ -11,6 +12,7 @@ namespace Assets.Scripts.Centers
         InGame,
         Closing,
         LoadingScene,
+        EmptyScene,
     }
 
     public class SceneLoadManager : Singleton<SceneLoadManager>
@@ -20,18 +22,27 @@ namespace Assets.Scripts.Centers
 
         public void LoadScene(SceneName sceneName)
         {
-            IsLoading = true;
-            CurrentScene = sceneName;
+            if (sceneName != SceneName.EmptyScene)
+            {
+                IsLoading = true;
+                CurrentScene = sceneName;
+            }
+            SceneManager.LoadScene((int)SceneName.EmptyScene);
+        }
+
+        public void LoadScene()
+        {
 
             //로딩 화면이 필요한 경우 if 문에 추	
-                //opening -> ingame, death->restart, savefileload 시 로드 필요 *기획
+            //opening -> ingame, death->restart, savefileload 시 로드 필요 *기획
             if (CurrentScene == SceneName.InGame)
             {
+                SaveLoadManager.Instance.IsLoadData = true;
                 SceneManager.LoadScene((int)SceneName.LoadingScene);
             }
             else
             {
-                SceneManager.LoadScene((int)sceneName);
+                SceneManager.LoadScene((int)CurrentScene);
                 IsLoading = false;
             }
         }
