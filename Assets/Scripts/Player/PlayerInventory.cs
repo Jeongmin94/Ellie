@@ -46,6 +46,7 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
+            if (controller.GetCurState() == PlayerStateName.Loading) return;
             //인벤토리 열고 닫기
             if (Input.GetKeyDown(KeyCode.I))
             {

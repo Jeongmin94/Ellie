@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Channels.Camera;
+﻿using Assets.Scripts.Centers;
+using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Environments;
@@ -8,6 +9,7 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
+using Channels.Combat;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
@@ -230,6 +232,9 @@ namespace Assets.Scripts.Player
 
             //ShootPos 꺼주기
             ActivateShootPos(false);
+
+            //로딩 코루틴 실행
+            StartCoroutine(LoadingCoroutine());
         }
         private void Update()
         {
@@ -247,7 +252,17 @@ namespace Assets.Scripts.Player
             {
                 GetPickaxe(9000);
             }
-            
+
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                {
+                    Defender = transform,
+                    Damage = 20
+                });
+
+            }
+
         }
         private void FixedUpdate()
         {
@@ -275,6 +290,14 @@ namespace Assets.Scripts.Player
             Pickaxe.gameObject.SetActive(false);
             TurnOffSlingshot();
             TurnOffMeleeAttackCollider();
+        }
+
+        private IEnumerator LoadingCoroutine()
+        {
+            yield return DataManager.Instance.CheckIsParseDone();
+            yield return SceneLoadManager.Instance.CheckIsLoadDone();
+            
+            ChangeState(PlayerStateName.Start);
         }
         private void SetMovingAnim()
         {
@@ -316,9 +339,11 @@ namespace Assets.Scripts.Player
         }
         private void InitStateMachine()
         {
-            PlayerStateStart playerStateStart = new(this);
-            stateMachine = new PlayerStateMachine(PlayerStateName.Start, playerStateStart);
+            PlayerStateLoading playerStateLoading = new(this);
+            stateMachine = new PlayerStateMachine(PlayerStateName.Loading, playerStateLoading);
 
+            PlayerStateStart playerStateStart = new(this);
+            stateMachine.AddState(PlayerStateName.Start, playerStateStart);
             PlayerStateIdle playerStateIdle = new(this);
             stateMachine.AddState(PlayerStateName.Idle, playerStateIdle);
             PlayerStateWalk playerStateWalk = new(this);

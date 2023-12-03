@@ -39,8 +39,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void LoadNPCData(IBaseEventPayload payload)
         {
-            Debug.Log("NPC Load"); 
             if (payload is not NPCSavePayload savePayload) return;
+            Debug.Log("NPC Load"); 
             //여기서 리턴되는듯
             NPCActiveDic = savePayload.NPCActiveDic;
             if(NPCActiveDic.Count > 0)

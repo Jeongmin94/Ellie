@@ -16,6 +16,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Assets.Scripts.Centers;
 
 namespace Assets.Scripts.UI.Death
 {
@@ -178,7 +179,8 @@ namespace Assets.Scripts.UI.Death
             yield return StartCoroutine(FadeOut());
 
             // !TODO Load Data
-
+            SaveLoadManager.Instance.IsLoadData = true;
+            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
             onPlayingDeath = false;
             backgroundImage.color = backgroundStartColor;
             deathText.color = textStartColor;
