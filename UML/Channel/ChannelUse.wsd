@@ -1,0 +1,27 @@
+@startuml
+
+package ChannelSystem {
+    rectangle IBaseEventPayload
+    rectangle BaseEventChannel
+
+    rectangle UIChannel
+    rectangle BossChannel
+
+    rectangle UIPayload
+    rectangle BossPayload
+}
+
+package TicketMachine {
+    rectangle Tickets
+}
+
+circle obj1
+circle obj2
+
+BaseEventChannel <|-- UIChannel
+BaseEventChannel <|-- BossChannel
+IBaseEventPayload <|.. UIPayload
+IBaseEventPayload <|.. BossPayload
+
+
+@enduml

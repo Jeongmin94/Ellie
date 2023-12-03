@@ -14,7 +14,7 @@ public class LoadingUI : MonoBehaviour
     [SerializeField] private Text tipText;
     [SerializeField] private Image loadingImage;
 
-    [SerializeField] private TipsParshingInfo data;
+    [SerializeField] private LoadingTipsData tipData;
 
     const int loadingDataQuantity = 2;
     const float spareTimeToLoad = 1.0f;
@@ -25,7 +25,6 @@ public class LoadingUI : MonoBehaviour
     private float barSpeed;
 
     const int imageQuantity = 8;
-    const int tipQuantity = 10;
 
     private void Start()
     {
@@ -38,7 +37,7 @@ public class LoadingUI : MonoBehaviour
         string imagePath = ImagePath + Random.Range(0, imageQuantity).ToString();
         Debug.Log("IMAGE NAME : " + imagePath);
         loadingImage.sprite = ResourceManager.Instance.LoadSprite(imagePath);
-        string tip = data.datas[Random.Range(0, tipQuantity)].tip;
+        string tip = tipData.tips[Random.Range(0, tipData.tips.Count)];
         tipText.text = tip;
     }
 
@@ -80,7 +79,7 @@ public class LoadingUI : MonoBehaviour
         // + Add Load
         if(SaveLoadManager.Instance.IsLoadData)
         {
-            // ·Îµå µ¥ÀÌÅÍ ¤·¤», ·Îµù¹Ù´Â ¹ö±×°É·Á¼­ ¸ø³Ö¾úÀ¾´Ï´Ù
+            // ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½Îµï¿½ï¿½Ù´ï¿½ ï¿½ï¿½ï¿½×°É·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½
             SaveLoadManager.Instance.LoadData();
 
             yield return SaveLoadManager.Instance.CheckIsLoadDone();
