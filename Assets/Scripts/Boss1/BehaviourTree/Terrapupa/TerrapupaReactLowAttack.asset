@@ -47,6 +47,7 @@ MonoBehaviour:
   - rid: 283011481676021767
   - rid: 283011481676021768
   - rid: 283011481676021769
+  - rid: 6881097883797946374
   treeState: 0
   blackboard:
     keys:
@@ -64,7 +65,8 @@ MonoBehaviour:
     - rid: 1683426247750189151
     - rid: 283011291767373854
     - rid: 1683426562437021874
-  viewPosition: {x: -833.6, y: -53.6, z: 0}
+    - rid: 6881097883797946373
+  viewPosition: {x: -953.6, y: -117.6, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -453,6 +455,7 @@ MonoBehaviour:
         description: 
         drawGizmos: 0
         children:
+        - rid: 6881097883797946374
         - rid: 283011481676021768
         - rid: 283011481676021767
         - rid: 283011481676021769
@@ -462,7 +465,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 43f396af63bef1d4fbbb8f4393aced14
-        position: {x: 3375, y: 1245}
+        position: {x: 3510, y: 1290}
         blackboard:
           keys: []
         description: 
@@ -497,7 +500,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f73cf174289e8fa458863dc527a28628
-        position: {x: 3135, y: 1245}
+        position: {x: 3270, y: 1290}
         blackboard:
           keys: []
         description: 
@@ -532,7 +535,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 197f4b0f7cfd26f4db19e7b3b2191a9f
-        position: {x: 3615, y: 1245}
+        position: {x: 3750, y: 1290}
         blackboard:
           keys: []
         description: 
@@ -857,3 +860,24 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
+    - rid: 6881097883797946373
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 6881097883797946374
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 6ef5c6a6bc3325f4aac054e55f0fefb2
+        position: {x: 3060, y: 1290}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 6881097883797946373
+          defaultValue: 

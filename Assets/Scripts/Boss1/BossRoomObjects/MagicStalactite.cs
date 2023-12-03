@@ -9,12 +9,15 @@ namespace Boss.Objects
 {
     public class MagicStalactite : MonoBehaviour
     {
-        public float lineRenderStartWidth = 0.5f;
-        public float lineRenderEndWidth = 0.5f;
+        [SerializeField] private float lineRenderStartWidth = 0.5f;
+        [SerializeField] private float lineRenderEndWidth = 0.5f;
+        [SerializeField] private GameObject hitEffect;
+        [SerializeField] private GameObject displayEffect;
+        [SerializeField] private Material material;
+        [SerializeField] private string attackSound = "StalactiteAttack";
+        [SerializeField] private string hitSound = "StalactiteHit";
+
         public float respawnValue = 10.0f;
-        public GameObject hitEffect;
-        public GameObject displayEffect;
-        public Material material;
 
         private Rigidbody rb;
         private LineRenderer lineRenderer;
@@ -101,6 +104,8 @@ namespace Boss.Objects
             {
                 Debug.Log(collision.transform.name);
 
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
+
                 rb.useGravity = true;
                 rb.isKinematic = false;
                 isFallen = true;
@@ -127,6 +132,8 @@ namespace Boss.Objects
                             TransformValue2 = other.transform.root,
                         });
 
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, attackSound, transform.position);
+
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 1.0f);
 
                     HitedObject();
@@ -143,6 +150,8 @@ namespace Boss.Objects
                             FloatValue = respawnValue,
                             TransformValue1 = transform,
                         });
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, attackSound, transform.position);
 
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
 
