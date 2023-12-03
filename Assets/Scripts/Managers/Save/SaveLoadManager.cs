@@ -323,5 +323,11 @@ namespace Assets.Scripts.Managers
             }
             Debug.Log("데이터 로드 완료");
         }
+
+        public void ClearActions()
+        {
+            saveAction = null;
+            loadAction = new();
+        }
     }
 }
