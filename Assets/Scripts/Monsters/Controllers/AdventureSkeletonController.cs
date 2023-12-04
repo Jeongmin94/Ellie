@@ -18,8 +18,6 @@ namespace Assets.Scripts.Monsters
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
-
-            SetTicketMachine();
         }
 
         private void Start()

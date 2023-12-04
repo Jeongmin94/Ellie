@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Scripts.Monsters.AbstractClass
 {
 
-    public abstract class AbstractAttack : MonoBehaviour, ICombatant
+    public abstract class AbstractAttack : MonoBehaviour
     {
         protected float attackValue;
         protected float durationTime;
@@ -20,8 +20,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected string owner;
         protected string prefabName;
-
-        private TicketMachine ticketMachine;
 
         [SerializeField] protected AbstractMonster monsterController;
         [SerializeField] protected MonsterAudioController audioController;
@@ -64,12 +62,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public virtual void ReceiveDamage(IBaseEventPayload payload)
         { }
-
-        protected void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-        }
 
         public void Attack(IBaseEventPayload payload)
         {
