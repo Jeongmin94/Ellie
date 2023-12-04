@@ -249,7 +249,7 @@ namespace Assets.Scripts.Managers
                 if (controller.clip.name == clipName)
                 {
                     controller.Stop();
-                    //audioControllerPool.Push(controller);
+                    audioControllerPool.Push(controller);
                 }
             }
         }
