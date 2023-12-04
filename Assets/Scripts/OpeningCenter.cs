@@ -13,8 +13,8 @@ namespace Assets.Scripts
             Cursor.lockState = CursorLockMode.None;
             
             MangerControllers.ClearAction(ManagerType.Input);
+            MangerControllers.ClearAction(ManagerType.Sound);
 
-            SoundManager.Instance.ClearAudioControllers();
             Init();
         }
 

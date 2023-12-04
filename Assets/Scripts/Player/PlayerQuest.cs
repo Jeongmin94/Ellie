@@ -47,9 +47,9 @@ namespace Assets.Scripts.Player
             //퀘스트 UI 스프라이트 로드
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
 
+            //DeactivateInteractiveUI();
             //6100번 퀘스트 시작
-            
-                StartCoroutine(OnDataLoadedCoroutine());
+            StartCoroutine(OnDataLoadedCoroutine());
             
 
         }

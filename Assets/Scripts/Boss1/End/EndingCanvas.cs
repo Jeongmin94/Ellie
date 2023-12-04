@@ -54,7 +54,7 @@ public class EndingCanvas : MonoBehaviour
 
         whiteArea.localScale = targetScale;
 
-        SoundManager.Instance.StopAllSounds();
+        SoundManager.Instance.ClearAction();
 
         SceneManager.LoadScene((int)SceneName.Closing);
     }

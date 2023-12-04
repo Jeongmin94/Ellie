@@ -1,4 +1,8 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using Channels.UI;
 using System.Collections;
 using UnityEngine;
@@ -18,8 +22,14 @@ namespace Assets.Scripts.InteractiveObjects
 
         private bool canJump = false;
 
-        InteractiveType interactiveType = InteractiveType.Chatting;
-        // Use this for initialization
+        private InteractiveType type = InteractiveType.Default;
+
+        private TicketMachine ticketMachine;
+        private void Awake()
+        {
+
+        }
+
         private void Start()
         {
             isActivated = false;
@@ -48,6 +58,7 @@ namespace Assets.Scripts.InteractiveObjects
             if (!obj.CompareTag("Player")) return;
             player = obj;
             isActivated = true;
+            SaveLoadManager.Instance.SaveData();
             StartRailSystem();
             player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
@@ -55,6 +66,7 @@ namespace Assets.Scripts.InteractiveObjects
         {
             player.GetComponent<PlayerController>().PlayerObj.transform.rotation = playerStandingPos.rotation;
             player.GetComponent<PlayerController>().canJump = false;
+            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
             walker = gameObject.AddComponent<SplineWalker>();
             walker.duration = duration;
             walker.spline = spline;
@@ -110,7 +122,7 @@ namespace Assets.Scripts.InteractiveObjects
 
         public InteractiveType GetInteractiveType()
         {
-            return interactiveType;
+            return type;
         }
     }
 }
