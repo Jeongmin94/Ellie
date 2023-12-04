@@ -56,17 +56,5 @@ namespace Assets.Scripts.Centers.Test
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
         }
-
-        private void Update()
-        {
-            //if(Input.GetKeyDown(KeyCode.Alpha0))
-            //{
-            //    SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
-            //}
-            //if(Input.GetKeyDown(KeyCode.Alpha9))
-            //{
-            //    SoundManager.Instance.StopAmbient("cave 10");
-            //}
-        }
     }
 }
