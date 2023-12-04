@@ -719,6 +719,21 @@ namespace Assets.Scripts.Player
             {
                 playerInventory.OnInventoryToggle();
             }
+
+            if (uiPayload.actionType == ActionType.OpenPauseCanvas)
+            {
+                canAttack = false;
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                GetComponent<PlayerAim>().canAim = false;
+            }
+            if (uiPayload.actionType == ActionType.ClosePauseCanvas)
+            {
+                canAttack = true;
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
+                GetComponent<PlayerAim>().canAim = true;
+            }
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             switch (uiPayload.groupType)
             {
