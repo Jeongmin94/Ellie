@@ -11,8 +11,8 @@ public class EndingCenter : BaseCenter
     private void Awake()
     {
         MangerControllers.ClearAction(ManagerType.Input);
+        MangerControllers.ClearAction(ManagerType.Sound);
 
-        SoundManager.Instance.ClearAudioControllers();
 
         Init();
     }

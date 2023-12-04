@@ -27,8 +27,8 @@ namespace Assets.Scripts.Centers.Test
         {
             MangerControllers.ClearAction(ManagerType.Input);
             MangerControllers.ClearAction(ManagerType.Data);
-
-            SoundManager.Instance.ClearAudioControllers();
+            MangerControllers.ClearAction(ManagerType.Sound);
+            
             Init();
         }
 

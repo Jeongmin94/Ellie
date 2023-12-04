@@ -249,7 +249,6 @@ namespace Assets.Scripts.Managers
                 if (controller.clip.name == clipName)
                 {
                     controller.Stop();
-                    audioControllerPool.Push(controller);
                 }
             }
         }
@@ -298,17 +297,9 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void StopAllSounds()
+        public override void ClearAction()
         {
             StopBgm();
-
-            foreach (var sfx in nowPlayingSfxAudioControllerList)
-            {
-                sfx.Stop();
-                audioControllerPool.Push(sfx);
-            }
-
-            nowPlayingSfxAudioControllerList.Clear();
 
             var ambientKeys = new List<string>(ambientDict.Keys); // 키 복사
             foreach (var ambient in ambientKeys)
@@ -321,12 +312,6 @@ namespace Assets.Scripts.Managers
                 StopCoroutine(nowPlayingUISfxCoroutine);
                 nowPlayingUISfxCoroutine = null;
             }
-        }
-
-        public void ClearAudioControllers()
-        {
-            StopAllSounds();
-            //StopAllAmbients();
         }
 
         public void ClearSoundControllers()
@@ -344,13 +329,7 @@ namespace Assets.Scripts.Managers
 
         public void OnPoolableDestroy(AudioController controller)
         {
-            var destroyController = nowPlayingSfxAudioControllerList.Where(c => c == controller).GetEnumerator().Current;
-
-            if (destroyController == null)
-                return;
-
-            nowPlayingSfxAudioControllerList.Remove(controller);
-            Destroy(controller);
+            Destroy(controller.gameObject);
         }
     }
 }
