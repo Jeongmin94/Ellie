@@ -1,5 +1,3 @@
-using Assets.Scripts.Item;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -7,5 +5,10 @@ namespace Assets.Scripts.Managers
     public class Poolable : MonoBehaviour
     {
         public bool isUsing;
+
+        public virtual void PoolableDestroy()
+        {
+            Destroy(this);
+        }
     }
 }

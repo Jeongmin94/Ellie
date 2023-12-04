@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Managers;
-using System.Collections;
 using UnityEngine;
 using static Assets.Scripts.Managers.SoundManager;
 
@@ -14,31 +13,37 @@ namespace Assets.Scripts
 
         public bool isPlaying = false;
         public bool isPaused = false;
-        private void Awake()
+
+        public override void PoolableDestroy()
+        {
+            SoundManager.Instance.OnPoolableDestroy(this);
+        }
+
+        private void OnEnable()
         {
             audioSource = GetComponent<AudioSource>();
         }
-        private void OnDestroy()
-        {
-            Debug.Log("왜 사라짐?");
-        }
+
         public void SetClip(AudioClip clip)
         {
             this.clip = clip;
             audioSource.clip = clip;
         }
+
         public void SetVolume(float volume)
         {
             audioSource.volume = volume;
         }
+
         public void Play(float pitch, SoundType type)
         {
             isPlaying = true;
             audioSource.pitch = pitch;
-            if(type == SoundType.Bgm || type == SoundType.Ambient)
+            if (type == SoundType.Bgm || type == SoundType.Ambient)
             {
                 audioSource.loop = true;
             }
+
             audioSource.Play();
         }
 
@@ -58,7 +63,7 @@ namespace Assets.Scripts
 
         public void Resume()
         {
-            if(isPaused)
+            if (isPaused)
             {
                 audioSource.Play();
                 isPaused = false;
@@ -72,7 +77,13 @@ namespace Assets.Scripts
 
         public void Deactivate3DEffect()
         {
+            Debug.Log($"{name} - Deactivate3DEffect {gameObject.GetHashCode()}");
             audioSource.spatialBlend = 0;
+        }
+
+        private void OnDestroy()
+        {
+            Debug.Log($"{name} - OnDestroy {gameObject.GetHashCode()}");
         }
     }
 }

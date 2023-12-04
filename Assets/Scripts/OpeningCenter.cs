@@ -1,6 +1,7 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Singleton;
 using Centers;
+using UnityEngine;
 
 namespace Assets.Scripts
 {
@@ -8,6 +9,9 @@ namespace Assets.Scripts
     {
         private void Awake()
         {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            
             MangerControllers.ClearAction(ManagerType.Input);
 
             SoundManager.Instance.ClearAudioControllers();
