@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class CheatClient : OdinEditorWindow
+public class CheatClient : SerializedMonoBehaviour
 {
     public Transform player;
     public Transform terrapupa;
@@ -27,49 +27,49 @@ public class CheatClient : OdinEditorWindow
         get { return DataManager.Instance.isParseDone; }
     }
 
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.Alpha0))
-    //    {
-    //        FindObject();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha1))
-    //    {
-    //        SetPlayerPosition1();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha2))
-    //    {
-    //        SetPlayerPosition2();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha3))
-    //    {
-    //        SetPlayerPosition3();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha4))
-    //    {
-    //        KillTerrapupa();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha5))
-    //    {
-    //        KillTerraAndPupa();
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha6))
-    //    {
-            
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha7))
-    //    {
-            
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha8))
-    //    {
-            
-    //    }
-    //    if (Input.GetKeyDown(KeyCode.Alpha9))
-    //    {
-            
-    //    }
-    //}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            FindObject();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            SetPlayerPosition1();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SetPlayerPosition2();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            SetPlayerPosition3();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha4))
+        {
+            SaveLoadManager.Instance.SaveData();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha5))
+        {
+            SaveLoadManager.Instance.LoadData();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha6))
+        {
+            KillTerrapupa();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha7))
+        {
+            KillTerraAndPupa();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha8))
+        {
+            DamageTerrapupa();
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+
+        }
+    }
 
     [Button("참조 목록 갱신", ButtonSizes.Large)]
     private void FindObject()
@@ -92,12 +92,6 @@ public class CheatClient : OdinEditorWindow
         }
 
         return null;
-    }
-
-    [MenuItem("치트키/인게임 치트키")]
-    private static void OpenWindow()
-    {
-        GetWindow<CheatClient>().Show();
     }
 
     private void Awake()
@@ -176,6 +170,16 @@ public class CheatClient : OdinEditorWindow
 
         terra.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
         pupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
+    }
+    [EnableIf("IsRuntime")]
+    [Button("2페이즈 스킵", ButtonSizes.Large)]
+    public void DamageTerrapupa()
+    {
+        Debug.Log("테라, 푸파 데미지 입히기");
+
+        terrapupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
+        terra.GetComponent<TerrapupaBTController>().GetDamaged(1);
+        pupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
     }
 
     /// <summary>

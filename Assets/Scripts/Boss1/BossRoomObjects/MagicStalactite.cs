@@ -100,17 +100,20 @@ namespace Boss.Objects
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.transform.CompareTag("Stone"))
+            if (!isFallen)
             {
-                Debug.Log(collision.transform.name);
+                if (collision.transform.CompareTag("Stone"))
+                {
+                    Debug.Log(collision.transform.name);
 
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
 
-                rb.useGravity = true;
-                rb.isKinematic = false;
-                isFallen = true;
-                particle.Stop();
-                particle = null;
+                    rb.useGravity = true;
+                    rb.isKinematic = false;
+                    isFallen = true;
+                    particle.Stop();
+                    particle = null;
+                } 
             }
         }
 

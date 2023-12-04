@@ -33,30 +33,20 @@ namespace Assets.Scripts.Puzzle
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle2_stone1");
                     isPlayerTouched = true;
                 }
-                else
-                {
-                    //rigidbody.velocity = Vector3.zero;
-                }
             }
-            if(collision.gameObject.CompareTag("InteractionObject"))
-            {
-                //rigidbody.velocity = Vector3.zero;
-                isRigid = true;
-                rigidbody.constraints = RigidbodyConstraints.FreezeAll;
-                SaveLoadManager.Instance.SaveData();
-            }
-
             if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 isPlayerTouched = false;
                 returnToFirstHeightCoroutine = StartCoroutine(OnPlayerExit());
             }
         }
-        //private void OnCollisionExit(Collision collision)
-        //{
-        //    if (collision.gameObject.CompareTag("Player"))
-                
-        //}
+
+        public void Freeze()
+        {
+            isRigid = true;
+            rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+            SaveLoadManager.Instance.SaveData();
+        }
 
         private IEnumerator OnPlayerExit()
         {

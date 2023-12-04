@@ -2,6 +2,7 @@
 using Assets.Scripts.Particle;
 using Channels.Boss;
 using Channels.Components;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -9,22 +10,19 @@ namespace Assets.Scripts.Puzzle
 {
     public class StoneFootboardPuzzleStalactite : MonoBehaviour
     {
-        public GameObject hitEffect;
-        public GameObject displayEffect;
-        public Material material;
+        [SerializeField] private float lineRenderStartWidth = 0.5f;
+        [SerializeField] private float lineRenderEndWidth = 0.5f;
+        [SerializeField] private GameObject hitEffect;
+        [SerializeField] private GameObject displayEffect;
+        [SerializeField] private Material material;
+        [SerializeField] private string attackSound = "puzzle2_stone2";
+        [SerializeField] private string hitSound = "puzzle2_stone3";
 
         private Rigidbody rb;
         private LineRenderer lineRenderer;
         private ParticleController particle;
 
-        private int myIndex;
         private bool isFallen = false;
-
-        public int MyIndex
-        {
-            get { return myIndex; }
-            set { myIndex = value; }
-        }
 
         private void Awake()
         {
@@ -42,14 +40,12 @@ namespace Assets.Scripts.Puzzle
         private void InitLineRenderer()
         {
             lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.3f;
-            lineRenderer.endWidth = 0.3f;
+            lineRenderer.startWidth = lineRenderStartWidth;
+            lineRenderer.endWidth = lineRenderEndWidth;
             lineRenderer.material = material;
             lineRenderer.startColor = Color.white;
             lineRenderer.endColor = Color.white;
         }
-
-        
 
         public void SetLineRendererPosition()
         {
@@ -82,23 +78,44 @@ namespace Assets.Scripts.Puzzle
 
         private void OnCollisionEnter(Collision collision)
         {
-            if (collision.transform.CompareTag("Stone"))
+            if (!isFallen)
             {
-                Debug.Log(collision.transform.name);
-
-                rb.useGravity = true;
-                rb.isKinematic = false;
-                isFallen = true;
-                particle.Stop();
-                particle = null;
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "puzzle2_stone3", transform.position);
+                if (collision.transform.CompareTag("Stone"))
+                {
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
+                    
+                    rb.useGravity = true;
+                    rb.isKinematic = false;
+                    isFallen = true;
+                    particle.Stop();
+                    particle = null;
+                } 
             }
+        }
 
-            if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+        private void OnTriggerEnter(Collider other)
+        {
+            if (isFallen)
             {
-                ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
-                gameObject.SetActive(false);
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle2_stone2");
+                if (other.transform.CompareTag("Ground"))
+                {
+                    Debug.Log($"{other} 충돌!");
+
+                    var puzzle = other.GetComponent<StoneFootboardPuzzle>();
+                    if(puzzle == null)
+                    {
+                        Debug.LogError($"{other} 퍼즐 에러");
+                        return;
+                    }
+                    puzzle.Freeze();
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, attackSound);
+
+                    ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
+
+                    lineRenderer.enabled = false;
+                    Destroy(this);
+                }
             }
         }
     }

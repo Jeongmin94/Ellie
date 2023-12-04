@@ -42,35 +42,6 @@ public class TerrapupaController : SerializedMonoBehaviour
 
     private const int GOLEM_CORE_INDEX = 4021;
 
-    #region 0. 치트키
-    [Title("치트키")]
-    [Button("1페이즈 스킵", ButtonSizes.Large)]
-    public void KillTerrapupa()
-    {
-        Debug.Log("테라푸파 사망 치트");
-
-        terrapupa.terrapupaData.currentHP.Value = 0;
-    }
-    [Button("2페이즈 스킵", ButtonSizes.Large)]
-    public void KillTerraAndPupa()
-    {
-        Debug.Log("테라, 푸파 사망 치트");
-
-        terra.terrapupaData.currentHP.Value = 0;
-        pupa.terrapupaData.currentHP.Value = 0;
-    }
-    [Button("3페이즈 스킵", ButtonSizes.Large)]
-    public void KillMinions()
-    {
-        Debug.Log("테, 라, 푸, 파 사망 치트");
-
-        foreach (var minion in minions)
-        {
-            minion.minionData.currentHP.Value = 0;
-        }
-    }
-    #endregion
-
     private void Awake()
     {
         SubscribeEvents();
