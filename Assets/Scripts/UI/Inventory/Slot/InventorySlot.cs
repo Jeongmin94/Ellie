@@ -209,7 +209,7 @@ namespace Assets.Scripts.UI.Inventory
         public void InvokeEquipmentFrameAction(InventoryEventPayload payload)
         {
             equipmentFrameAction?.Invoke(payload);
-            
+
             //0번 인덱스에 대해서만 추가적인 invoke
             if (SlotType == SlotAreaType.Equipment)
             {

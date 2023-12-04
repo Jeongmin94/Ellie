@@ -298,7 +298,7 @@ namespace Assets.Scripts.UI.Inventory
         }
 
         private readonly int equipmentRow = 1;
-        private readonly int[] equipmentCols = new[] { 4, 5, 1 };
+        private readonly int[] equipmentCols = new[] { 4, 5, 0 };
 
         private void InitEquipmentArea()
         {
