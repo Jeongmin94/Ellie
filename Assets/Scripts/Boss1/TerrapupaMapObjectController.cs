@@ -63,15 +63,6 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         manaFountainCount = manaFountains.Count;
     }
-    private void OnDestroy()
-    {
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
-    }
 
     #region 1. 초기화 함수
     private void InitTicketMachine()
@@ -121,6 +112,13 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     }
     private void SubscribeEvents()
     {
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
+        
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
