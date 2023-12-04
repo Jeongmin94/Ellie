@@ -1,3 +1,4 @@
+using Assets.Scripts.Managers;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -42,7 +43,7 @@ public class RangeManager : Singleton<RangeManager>
 {
     private Material baseMaterial;
 
-    protected override void Awake()
+    public override void Awake()
     {
         base.Awake();
 
