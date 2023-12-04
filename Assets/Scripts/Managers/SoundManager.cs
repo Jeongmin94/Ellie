@@ -327,28 +327,9 @@ namespace Assets.Scripts.Managers
             StopAllAmbients();
         }
 
-        public void ClearSoundControllers()
-        {
-            foreach (Transform child in soundRoot)
-            {
-                Destroy(child.gameObject);
-            }
-        }
-
-        public void ReturnToPool(AudioController audioController)
-        {
-            audioControllerPool.Push(audioController);
-        }
-
         public void OnPoolableDestroy(AudioController controller)
         {
-            var destroyController = nowPlayingSfxAudioControllerList.Where(c => c == controller).GetEnumerator().Current;
-
-            if (destroyController == null)
-                return;
-
-            nowPlayingSfxAudioControllerList.Remove(controller);
-            Destroy(controller);
+            Destroy(controller.gameObject);
         }
     }
 }

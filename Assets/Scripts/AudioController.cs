@@ -77,13 +77,7 @@ namespace Assets.Scripts
 
         public void Deactivate3DEffect()
         {
-            Debug.Log($"{name} - Deactivate3DEffect {gameObject.GetHashCode()}");
             audioSource.spatialBlend = 0;
-        }
-
-        private void OnDestroy()
-        {
-            Debug.Log($"{name} - OnDestroy {gameObject.GetHashCode()}");
         }
     }
 }
