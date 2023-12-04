@@ -6,9 +6,7 @@ using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using Sirenix.OdinInspector;
-using Sirenix.OdinInspector.Editor;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CheatClient : SerializedMonoBehaviour
@@ -31,7 +29,7 @@ public class CheatClient : SerializedMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            FindObject();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -69,34 +67,6 @@ public class CheatClient : SerializedMonoBehaviour
         {
 
         }
-    }
-
-    [Button("참조 목록 갱신", ButtonSizes.Large)]
-    private void FindObject()
-    {
-        player = FindObject("Player");
-        terrapupa = FindObject("Terrapupa");
-        terra = FindObject("Terra");
-        pupa = FindObject("Pupa");
-    }
-
-    private Transform FindObject(string objName)
-    {
-        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-        foreach (var obj in allObjects)
-        {
-            if (obj.name == objName && !EditorUtility.IsPersistent(obj))
-            {
-                return obj.transform;
-            }
-        }
-
-        return null;
-    }
-
-    private void Awake()
-    {
-        FindObject();
     }
 
     /// <summary>
