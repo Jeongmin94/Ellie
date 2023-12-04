@@ -7,7 +7,6 @@ using Channels.Type;
 using Channels.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class CheatClient : SerializedMonoBehaviour
@@ -30,7 +29,7 @@ public class CheatClient : SerializedMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-            FindObject();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -70,111 +69,83 @@ public class CheatClient : SerializedMonoBehaviour
         }
     }
 
-    [Button("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", ButtonSizes.Large)]
-    private void FindObject()
-    {
-        player = FindObject("Player");
-        terrapupa = FindObject("Terrapupa");
-        terra = FindObject("Terra");
-        pupa = FindObject("Pupa");
-    }
-
-    private Transform FindObject(string objName)
-    {
-        GameObject[] allObjects = Resources.FindObjectsOfTypeAll<GameObject>();
-        foreach (var obj in allObjects)
-        {
-            if (obj.name == objName && !EditorUtility.IsPersistent(obj))
-            {
-                return obj.transform;
-            }
-        }
-
-        return null;
-    }
-
-    private void Awake()
-    {
-        FindObject();
-    }
-
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
+    /// »ç¿ëÀÚ ÁöÁ¤ ÀÌµ¿
     /// </summary>
 
-    [Title("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ®")]
+    [Title("»ç¿ëÀÚ ÁöÁ¤ ÅÚ·¹Æ÷Æ®")]
     [ValueDropdown("savePositionList")]
     public Vector3 savePosition = Vector3.zero;
     private List<Vector3> savePositionList = new List<Vector3>();
 
-    [Button("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½", ButtonSizes.Large)]
+    [Button("ÇÃ·¹ÀÌ¾î Æ÷Áö¼Ç ÀúÀå", ButtonSizes.Large)]
     public void SavePosition()
     {
         savePositionList.Add(player.position);
     }
 
-    [Button("ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½", ButtonSizes.Large)]
+    [Button("ÇÃ·¹ÀÌ¾î ÀúÀå À§Ä¡ ¸®½ºÆ® ¸®¼Â", ButtonSizes.Large)]
     public void ResetPositionList()
     {
         savePositionList.Clear();
         savePosition = Vector3.zero;
     }
 
-    [Button("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½Ìµï¿½", ButtonSizes.Large)]
+    [Button("¼±ÅÃÇÑ ÀúÀåÀ§Ä¡·Î ÇÃ·¹ÀÌ¾î À§Ä¡ ÀÌµ¿", ButtonSizes.Large)]
     public void SetPlayerPositionToSavedPosition()
     {
         player.position = savePosition;
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
+    /// °íÁ¤ À§Ä¡ ÀÌµ¿
     /// </summary>
 
-    [Title("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ìµï¿½")]
-    [Button("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½", ButtonSizes.Large)]
+    [Title("ÁöÁ¤ Àå¼Ò ÀÌµ¿")]
+    [Button("½ÃÀÛ ÁöÁ¡ ÀÌµ¿", ButtonSizes.Large)]
     public void SetPlayerPosition1()
     {
         player.position = new Vector3(-5.44f, 7.03f, -10.4f);
     }
 
-    [Button("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½Ìµï¿½", ButtonSizes.Large)]
+    [Button("º¸½º ¹æ ¾Õ ÀÌµ¿", ButtonSizes.Large)]
     public void SetPlayerPosition2()
     {
         player.position = new Vector3(-152f, 13.92f, 645.51f);
     }
 
-    [Button("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½", ButtonSizes.Large)]
+    [Button("µ¹ ¹ßÆÇ ÆÛÁñ ÀÌµ¿", ButtonSizes.Large)]
     public void SetPlayerPosition3()
     {
         player.position = new Vector3(33.5f, 11.8f, 98.8f);
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ Ä¡Æ®Å°
+    /// º¸½º Ä¡Æ®Å°
     /// </summary>
 
-    [Title("ï¿½ï¿½ï¿½ï¿½ Ä¡Æ®Å°")]
+    [Title("º¸½º Ä¡Æ®Å°")]
     [EnableIf("IsRuntime")]
-    [Button("1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ", ButtonSizes.Large)]
+    [Button("1ÆäÀÌÁî ½ºÅµ", ButtonSizes.Large)]
     public void KillTerrapupa()
     {
-        Debug.Log("ï¿½×¶ï¿½Çªï¿½ï¿½ ï¿½ï¿½ï¿½ Ä¡Æ®");
+        Debug.Log("Å×¶óÇªÆÄ »ç¸Á Ä¡Æ®");
         terrapupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
     }
     [EnableIf("IsRuntime")]
-    [Button("2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ", ButtonSizes.Large)]
+    [Button("2ÆäÀÌÁî ½ºÅµ", ButtonSizes.Large)]
     public void KillTerraAndPupa()
     {
-        Debug.Log("ï¿½×¶ï¿½, Çªï¿½ï¿½ ï¿½ï¿½ï¿½ Ä¡Æ®");
+        Debug.Log("Å×¶ó, ÇªÆÄ »ç¸Á Ä¡Æ®");
 
         terra.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
         pupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
     }
     [EnableIf("IsRuntime")]
-    [Button("2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Åµ", ButtonSizes.Large)]
+    [Button("2ÆäÀÌÁî ½ºÅµ", ButtonSizes.Large)]
     public void DamageTerrapupa()
     {
-        Debug.Log("ï¿½×¶ï¿½, Çªï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
+        Debug.Log("Å×¶ó, ÇªÆÄ µ¥¹ÌÁö ÀÔÈ÷±â");
 
         terrapupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
         terra.GetComponent<TerrapupaBTController>().GetDamaged(1);
@@ -182,13 +153,13 @@ public class CheatClient : SerializedMonoBehaviour
     }
 
     /// <summary>
-    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ä¡Æ®Å°
+    /// ¾ÆÀÌÅÛ Ä¡Æ®Å°
     /// </summary>
     /// 
-    [Title("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½")]
+    [Title("¾ÆÀÌÅÛ È¹µæ")]
     [EnableIf("IsRuntime")]
     [EnableIf("IsParsingDone")]
-    [Button("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½", ButtonSizes.Large)]
+    [Button("¾ÆÀÌÅÛ È¹µæ", ButtonSizes.Large)]
     public void AddItem()
     {
         TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
