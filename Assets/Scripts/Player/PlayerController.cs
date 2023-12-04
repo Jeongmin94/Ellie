@@ -695,9 +695,11 @@ namespace Assets.Scripts.Player
         }
         private void OnGUI()
         {
+#if UNITY_EDITOR
             GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
             GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
             GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
+#endif
         }
 
         private void OnDrawGizmos()
