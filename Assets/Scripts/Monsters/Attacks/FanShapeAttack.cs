@@ -18,8 +18,8 @@ namespace Assets.Scripts.Monsters.Attacks
 
         private void Awake()
         {
-            SetTicketMachine();
             audioSource = gameObject.AddComponent<AudioSource>();
+            monsterController = transform.parent.GetComponent<AbstractMonster>();
         }
         private void Start()
         {
@@ -104,6 +104,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
             payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.statusEffectduration = 0.5f;
             payload.Damage = (int)data.attackValue;
             Attack(payload);
         }

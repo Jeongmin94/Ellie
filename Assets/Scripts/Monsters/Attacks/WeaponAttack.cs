@@ -11,11 +11,6 @@ namespace Assets.Scripts.Monsters.Attacks
         private Collider collider;
         private MonsterAttackData attackData;
 
-        private void Awake()
-        {
-            SetTicketMachine();
-        }
-
         public override void InitializeWeapon(MonsterAttackData data)
         {
             attackData = data;

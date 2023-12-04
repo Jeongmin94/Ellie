@@ -12,11 +12,6 @@ namespace Assets.Scripts.Monsters.Attacks
         private MonsterAttackData attackData;
         private ParticleSystem particle;
 
-        private void Awake()
-        {
-            SetTicketMachine();   
-        }
-
         public override void InitializeBoxCollider(MonsterAttackData data)
         {
             attackData = data;
@@ -81,10 +76,10 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
             payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.statusEffectduration = 0.3f;
             payload.Damage = (int)data.attackValue;
             Attack(payload);
         }
-
 
     }
 }
