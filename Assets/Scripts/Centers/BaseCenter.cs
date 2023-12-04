@@ -34,12 +34,32 @@ namespace Centers
     {
         [SerializeField] private BaseChannelTypeSo channelTypeSo;
 
+        public GameObject Canvases;
+        public GameObject[] uiPrefabs;
+
+
         private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
 
         protected virtual void Init()
         {
             InitChannels();
+        }
+
+        protected virtual void InitObjects()
+        {
+            if (Canvases != null)
+            {
+                foreach (Transform child in Canvases.transform)
+                {
+                    CheckTicket(child.gameObject);
+                }
+            }
+
+            foreach (var ui in uiPrefabs)
+            {
+                Instantiate(ui, Canvases.transform);
+            }
         }
 
         private void InitChannels()
