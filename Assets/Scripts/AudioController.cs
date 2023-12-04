@@ -14,21 +14,23 @@ namespace Assets.Scripts
 
         public bool isPlaying = false;
         public bool isPaused = false;
-        private void OnEnable()
+        private void Awake()
         {
             audioSource = GetComponent<AudioSource>();
+        }
+        private void OnDestroy()
+        {
+            Debug.Log("왜 사라짐?");
         }
         public void SetClip(AudioClip clip)
         {
             this.clip = clip;
             audioSource.clip = clip;
         }
-
         public void SetVolume(float volume)
         {
             audioSource.volume = volume;
         }
-
         public void Play(float pitch, SoundType type)
         {
             isPlaying = true;

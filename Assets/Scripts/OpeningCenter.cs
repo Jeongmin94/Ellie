@@ -10,9 +10,7 @@ namespace Assets.Scripts
         {
             MangerControllers.ClearAction(ManagerType.Input);
 
-            PoolManager.Instance.DestroyAllPools();
             SoundManager.Instance.ClearAudioControllers();
-            SoundManager.Instance.InitAudioSourcePool();
             Init();
         }
 

@@ -30,6 +30,7 @@ namespace Assets.Scripts.Managers
 
         private Dictionary<string, AudioController> ambientDict = new();
         private Dictionary<string, Coroutine> ambientCoroutines = new();
+
         private Coroutine nowPlayingUISfxCoroutine;
 
         //volmues
@@ -228,6 +229,7 @@ namespace Assets.Scripts.Managers
                 if (controller.clip.name == clipName)
                 {
                     controller.Stop();
+                    //audioControllerPool.Push(controller);
                 }
             }
         }
@@ -300,8 +302,8 @@ namespace Assets.Scripts.Managers
 
         public void ClearAudioControllers()
         {
-            StopBgm();
-            StopAllAmbients();
+            StopAllSounds();
+            //StopAllAmbients();
         }
     }
 }

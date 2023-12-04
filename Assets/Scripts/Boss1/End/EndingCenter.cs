@@ -12,9 +12,7 @@ public class EndingCenter : BaseCenter
     {
         MangerControllers.ClearAction(ManagerType.Input);
 
-        PoolManager.Instance.DestroyAllPools();
         SoundManager.Instance.ClearAudioControllers();
-        SoundManager.Instance.InitAudioSourcePool();
 
         Init();
     }
