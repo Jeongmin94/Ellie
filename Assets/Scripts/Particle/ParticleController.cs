@@ -10,6 +10,11 @@ namespace Assets.Scripts.Particle
         private Transform origin;
         private bool isFollowOrigin;
 
+        public override void PoolableDestroy()
+        {
+            Destroy(this.gameObject);
+        }
+
         private void Awake()
         {
             ps = GetComponent<ParticleSystem>();
@@ -47,6 +52,7 @@ namespace Assets.Scripts.Particle
 
         private void OnParticleSystemStopped()
         {
+            ParticleManager.Instance.RemoveParticleFromList(this);
             PoolManager.Instance.Push(this);
         }
     }

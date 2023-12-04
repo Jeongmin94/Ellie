@@ -23,12 +23,17 @@ namespace Assets.Scripts.Particle
 
         public override void ClearAction()
         {
-            base.ClearAction();
-
             foreach (var particle in particles)
             {
                 PoolManager.Instance.Push(particle);
             }
+        }
+
+        public void RemoveParticleFromList(Poolable target)
+        {
+            Debug.Log(particles.Count);
+            particles.Remove(target);
+            Debug.Log(particles.Count);
         }
 
         public GameObject GetParticle(GameObject prefab, ParticlePayload payload)
@@ -59,7 +64,6 @@ namespace Assets.Scripts.Particle
 
             var controller = particle.transform.gameObject.AddComponent<ParticleController>();
             controller.Init(payload);
-
 
             return particle.gameObject;
         }

@@ -40,18 +40,8 @@ public class EventBus : Singleton<EventBus>
 
     public override void ClearAction()
     {
-        base.ClearAction();
-
         foreach (var eventName in eventTable.Keys)
         {
-            //Delegate d = eventTable[eventName];
-            //if (d != null)
-            //{
-            //    foreach (Delegate del in d.GetInvocationList())
-            //    {
-            //        eventTable[eventName] = Delegate.Remove(eventTable[eventName], del);
-            //    }
-            //}
             eventTable[eventName] = null;
         }
 
