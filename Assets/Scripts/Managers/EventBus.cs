@@ -1,6 +1,4 @@
 using Assets.Scripts.Managers;
-using Channels.Combat;
-using CodiceApp.EventTracking.Plastic;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
