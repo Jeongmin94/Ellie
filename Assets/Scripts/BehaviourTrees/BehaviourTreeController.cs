@@ -118,16 +118,12 @@ public class BehaviourTreeController : SerializedMonoBehaviour
 
     public void ShowBillboard()
     {
-        Debug.Log("보여줌");
-
         billboardObject.transform.localScale = Vector3.one;
         isBillboardOn = true;
     }
 
     public void HideBillobard()
     {
-        Debug.Log("안보여줌");
-
         billboardObject.transform.localScale = Vector3.zero;
     }
 
