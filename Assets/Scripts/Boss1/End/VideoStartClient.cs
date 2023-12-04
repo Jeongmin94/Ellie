@@ -16,7 +16,7 @@ public class VideoStartClient : MonoBehaviour
 
     public void SendEndingPayload()
     {
-        // µ¿¿µ»ó Àç»ı ÆäÀÌ·Îµå
+        // ë™ì˜ìƒ ì¬ìƒ í˜ì´ë¡œë“œ
         UIPayload payload = UIPayload.Notify();
         payload.actionType = ActionType.PlayVideo;
         ticketMachine.SendMessage(ChannelType.UI, payload);
