@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Managers;
+using Channels.Type;
+using Channels.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +20,11 @@ namespace Assets.Scripts.Player.States
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", Controller.PlayerObj.position);
             Controller.Anim.SetTrigger("Dead");
             Controller.canTurn = false;
-            //Controller
+            Controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.OpenDeathCanvas
+            });
         }
 
         public override void OnExitState()

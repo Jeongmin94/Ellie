@@ -43,6 +43,7 @@ namespace Assets.Scripts.Puzzle
                 //rigidbody.velocity = Vector3.zero;
                 isRigid = true;
                 rigidbody.constraints = RigidbodyConstraints.FreezeAll;
+                SaveLoadManager.Instance.SaveData();
             }
 
             if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))

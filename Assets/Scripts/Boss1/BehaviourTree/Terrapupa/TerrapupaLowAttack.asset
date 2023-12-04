@@ -53,7 +53,6 @@ MonoBehaviour:
   - rid: 1683426562437021701
   - rid: 1683426562437021704
   - rid: 1683426562437021705
-  - rid: 6881097883797946372
   treeState: 0
   blackboard:
     keys:
@@ -71,8 +70,7 @@ MonoBehaviour:
     - rid: 1683426562437021702
     - rid: 1683426562437021703
     - rid: 1683426562437021873
-    - rid: 6881097883797946371
-  viewPosition: {x: -994.4, y: -8, z: 0}
+  viewPosition: {x: -848, y: -138.4, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -339,7 +337,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 57f346d10302ac4438312466b4f58f6e
-        position: {x: 3690, y: 345}
+        position: {x: 3525, y: 345}
         blackboard:
           keys: []
         description: 
@@ -562,13 +560,12 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 8ce0d0ea838103d479b6c3a1cbca7005
-        position: {x: 3360, y: 1020}
+        position: {x: 3525, y: 1020}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
-        - rid: 6881097883797946372
         - rid: 283011481676021762
         - rid: 283011481676021760
         - rid: 283011481676021763
@@ -674,7 +671,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fcb9a2cfe748610498bdadc9cdbd1a48
-        position: {x: 3480, y: 345}
+        position: {x: 3315, y: 345}
         blackboard:
           keys: []
         description: 
@@ -999,24 +996,3 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
-    - rid: 6881097883797946371
-      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: sound1
-        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 
-    - rid: 6881097883797946372
-      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: 9f64f25b65a906644996d4717c4b2256
-        position: {x: 3090, y: 1215}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        soundName:
-          reference:
-            rid: 6881097883797946371
-          defaultValue: 

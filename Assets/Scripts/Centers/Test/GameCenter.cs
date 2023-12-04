@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.Singleton;
 using Assets.Scripts.Player;
 using Centers;
 using UnityEngine;
@@ -13,22 +14,30 @@ namespace Assets.Scripts.Centers.Test
         public StoneHatchery hatchery;
         public Ore[] ores;
         public GameObject monsterController;
-        public GameObject Canvases;
 
         public GameObject SkullSecondTrap;
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
+
 
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
 
         private void Awake()
         {
+            MangerControllers.ClearAction(ManagerType.Input);
+            MangerControllers.ClearAction(ManagerType.Data);
+
+            PoolManager.Instance.DestroyAllPools();
+            SoundManager.Instance.ClearAudioControllers();
+            SoundManager.Instance.InitAudioSourcePool();
             Init();
         }
 
         protected override void Start()
         {
+            base.InitObjects();
+            
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(hatchery.gameObject);
@@ -41,14 +50,6 @@ namespace Assets.Scripts.Centers.Test
 
             CheckTicket(monsterController.gameObject);
 
-            if (Canvases != null)
-            {
-                foreach (Transform child in Canvases.transform)
-                {
-                    CheckTicket(child.gameObject);
-                }
-            }
-            
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);

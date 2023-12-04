@@ -56,7 +56,7 @@ namespace Assets.Scripts.Managers
                 AudioClips.Add(clip.name, clip);
             }
         }
-        private void InitAudioSourcePool()
+        public void InitAudioSourcePool()
         {
             audioControllerPool = PoolManager.Instance.CreatePool(audioControllerPrefab.gameObject, 10);
         }
@@ -112,7 +112,6 @@ namespace Assets.Scripts.Managers
                     if (nowPlayingUISfxCoroutine != null)
                     {
                         //이미 재생중이라면 재생하지 않음
-                        Debug.Log("NowPlayingUISfxCoroutine이 null이 아님");
                         return;
                     }
 
@@ -134,7 +133,10 @@ namespace Assets.Scripts.Managers
                         AudioController audioController = audioControllerPool.Pop() as AudioController;
                         audioController.SetVolume(AmbientVolume);
 
-                        ambientDict.Add(name, audioController);
+                        if(!ambientDict.TryGetValue(name, out AudioController controller))
+                        {
+                            ambientDict.Add(name, audioController);
+                        }
                         ambientCoroutines[name] = StartCoroutine(PlaySoundCoroutine(type, name, audioController, ambientClip, pitch, loop));
                     }
                     else
@@ -186,6 +188,15 @@ namespace Assets.Scripts.Managers
                 audioControllerPool.Push(controller);
                 ambientDict.Remove(name);
             }
+        }
+
+        private void StopAllAmbients()
+        {
+            foreach (var controller in ambientDict.Values)
+                audioControllerPool.Push(controller);
+
+            ambientCoroutines.Clear();
+            ambientDict.Clear();
         }
         public void StopBgm()
         {
@@ -287,5 +298,10 @@ namespace Assets.Scripts.Managers
             }
         }
 
+        public void ClearAudioControllers()
+        {
+            StopBgm();
+            StopAllAmbients();
+        }
     }
 }

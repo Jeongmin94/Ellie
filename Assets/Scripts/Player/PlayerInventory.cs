@@ -17,12 +17,18 @@ namespace Assets.Scripts.Player
             public int HPRecoveryAmount;
             // !TODO : 추가될 소모품의 효과들에 대한 정의가 필요
         }
+
         private const int CONSUMABLEEQUIPMENTSLOTCOUNT = 4;
         private PlayerController controller;
         private PlayerStatus playerStatus;
         private TicketMachine ticketMachine;
         private Inventory inventory;
-        public Inventory Inventory { get { return inventory; } }
+
+        public Inventory Inventory
+        {
+            get { return inventory; }
+        }
+
         public ItemMetaData[] consumableEquipmentSlot = new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
         public int curSlotIdx;
         public bool canUseConsumable;
@@ -36,6 +42,7 @@ namespace Assets.Scripts.Player
             inventory = UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
             gameGoods.Init();
         }
+
         private void Start()
         {
             controller = GetComponent<PlayerController>();
@@ -46,12 +53,18 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
+            if (controller.GetCurState() == PlayerStateName.Loading)
+            {
+                return;
+            }
+
             //인벤토리 열고 닫기
             if (Input.GetKeyDown(KeyCode.I))
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
                 OnInventoryToggle();
             }
+
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCWPayload());
@@ -61,25 +74,21 @@ namespace Assets.Scripts.Player
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCCWPayload());
             }
+
             Vector2 wheelInput = Input.mouseScrollDelta;
 
             if (wheelInput != Vector2.zero)
             {
-                if(wheelInput.y > 0)
+                if (wheelInput.y > 0)
                 {
                     ticketMachine.SendMessage(ChannelType.UI, MakeStoneItemCCWPayload());
                 }
                 else
                 {
                     ticketMachine.SendMessage(ChannelType.UI, MakeStoneItemCWPayload());
-
                 }
             }
-            if (Input.GetKeyDown(KeyCode.Escape) && Inventory.IsOpened)
-            {
-                ticketMachine.SendMessage(ChannelType.UI, MakeInventoryOpenPayload());
-                OnInventoryToggle();
-            }
+
 
             //for test
             if (Input.GetKeyDown(KeyCode.O))
@@ -89,11 +98,13 @@ namespace Assets.Scripts.Player
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
                 }
+
                 for (int i = 0; i < 5; i++)
                 {
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
                     ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
                 }
+
                 for (int i = 0; i < 5; i++)
                 {
                     ticketMachine.SendMessage(ChannelType.UI, new UIPayload
@@ -116,13 +127,14 @@ namespace Assets.Scripts.Player
                 }
             }
 
-            if(Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R))
             {
-                if(itemIdx == 0)
+                if (itemIdx == 0)
                 {
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "ellie_sound9");
                     return;
                 }
+
                 if (controller.GetCurState() == PlayerStateName.Idle ||
                     controller.GetCurState() == PlayerStateName.Walk ||
                     controller.GetCurState() == PlayerStateName.Sprint)
@@ -131,6 +143,7 @@ namespace Assets.Scripts.Player
                 }
             }
         }
+
         private UIPayload MakeInventoryOpenPayload()
         {
             var payload = new UIPayload();
@@ -227,6 +240,7 @@ namespace Assets.Scripts.Player
             consumableItemData.HPRecoveryAmount = data.increasePoint;
             return consumableItemData;
         }
+
         private UIPayload GenerateConsumeItemPayload()
         {
             UIPayload payload = new UIPayload();

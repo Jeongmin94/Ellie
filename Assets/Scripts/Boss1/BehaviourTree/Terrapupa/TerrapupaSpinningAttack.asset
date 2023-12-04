@@ -62,7 +62,6 @@ MonoBehaviour:
   - rid: 1683426247750189118
   - rid: 283011291767373824
   - rid: 283011291767373855
-  - rid: 6881097883797946422
   treeState: 0
   blackboard:
     keys:
@@ -83,9 +82,8 @@ MonoBehaviour:
     - rid: 1683426247750189082
     - rid: 283011291767373849
     - rid: 1683426562437021875
-    - rid: 6881097883797946379
-  viewPosition: {x: -754.4, y: 193.6, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: -1073.6, y: 86.4, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -636,7 +634,6 @@ MonoBehaviour:
         - rid: 1683426247750189118
         - rid: 283011203418554406
         - rid: 283011203418554405
-        - rid: 6881097883797946422
     - rid: 283011203418554399
       type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -663,7 +660,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bbb78271aee1c95409afa68fd38bf656
-        position: {x: 2700, y: 765}
+        position: {x: 3030, y: 750}
         blackboard:
           keys: []
         description: 
@@ -681,7 +678,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 427bf3a00126a8c4e9e5ce3250e6e302
-        position: {x: 2505, y: 765}
+        position: {x: 2835, y: 750}
         blackboard:
           keys: []
         description: 
@@ -767,7 +764,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bc9cd071f11fd03439cfb21446842894
-        position: {x: 1785, y: 765}
+        position: {x: 2115, y: 750}
         blackboard:
           keys: []
         description: 
@@ -878,7 +875,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 04ae60bc1378c7e4e934953edc1ff949
-        position: {x: 2040, y: 765}
+        position: {x: 2370, y: 750}
         blackboard:
           keys: []
         description: 
@@ -911,7 +908,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: aaf3895e0375dcf4f9b2eab6c29badec
-        position: {x: 2280, y: 765}
+        position: {x: 2610, y: 750}
         blackboard:
           keys: []
         description: 
@@ -944,27 +941,6 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
-    - rid: 6881097883797946379
-      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: sound1
-        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 
-    - rid: 6881097883797946422
-      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: b00e2304811ac50498b7efecc8b0d3ac
-        position: {x: 2970, y: 765}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        soundName:
-          reference:
-            rid: 6881097883797946379
-          defaultValue: 
     - rid: 8619125029124177949
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

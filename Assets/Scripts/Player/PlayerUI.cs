@@ -38,7 +38,8 @@ namespace Assets.Scripts.Player
             var healthAndStamina = UIManager.Instance.MakeStatic<UIHealthAndStamina>(UIHealthAndStamina);
             staminaBarImage = healthAndStamina.BarImage;
             
-            statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
+            // !TODO 상태이상 추가되면 활성화
+            // statusBar = UIManager.Instance.MakeStatic<UIStatusBar>(UIStatusCanvas);
         }
     }
 }
