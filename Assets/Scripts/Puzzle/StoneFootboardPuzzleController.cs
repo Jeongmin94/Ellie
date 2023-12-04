@@ -11,7 +11,7 @@ public class StoneFootboardPuzzleController : MonoBehaviour
     {
         if(stalactitePrefab == null)
         {
-            Debug.LogError("ÇÁ¸®ÆÕ ¾øÀ½");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         }
     }
 

@@ -58,7 +58,7 @@ namespace Assets.Scripts.Monsters
                 if (temp == null) continue;
 
                 AbstractAttack tempAttack = AddSkills(temp.attackName, temp.attackType);
-                Debug.Log(temp.attackName);
+                // Debug.Log(temp.attackName);
 
                 switch (temp.attackType)
                 {

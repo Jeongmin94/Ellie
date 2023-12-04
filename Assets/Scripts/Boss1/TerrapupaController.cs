@@ -71,8 +71,6 @@ public class TerrapupaController : SerializedMonoBehaviour
         EventBus.Instance.Unsubscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
         EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
         EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
-
-        Debug.Log("ㅁㄴㅇㄹ1");
     }
     #region 1. 초기화 함수
     private void SetBossInfo()

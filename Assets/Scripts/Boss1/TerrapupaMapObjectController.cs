@@ -71,8 +71,6 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
         EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
-
-        Debug.Log("ㅁㄴㅇㄹ2");
     }
 
     #region 1. 초기화 함수

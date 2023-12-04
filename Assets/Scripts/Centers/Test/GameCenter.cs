@@ -25,6 +25,7 @@ namespace Assets.Scripts.Centers.Test
 
         private void Awake()
         {
+            Debug.Log($"%%%%% GameCenter Awake %%%%%");
             MangerControllers.ClearAction(ManagerType.Input);
             MangerControllers.ClearAction(ManagerType.Data);
             MangerControllers.ClearAction(ManagerType.Sound);
