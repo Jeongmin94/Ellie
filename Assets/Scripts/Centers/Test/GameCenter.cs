@@ -14,13 +14,11 @@ namespace Assets.Scripts.Centers.Test
         public StoneHatchery hatchery;
         public Ore[] ores;
         public GameObject monsterController;
-        public GameObject Canvases;
 
         public GameObject SkullSecondTrap;
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
 
-        public GameObject[] uiPrefabs;
 
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
@@ -38,6 +36,8 @@ namespace Assets.Scripts.Centers.Test
 
         protected override void Start()
         {
+            base.InitObjects();
+            
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(hatchery.gameObject);
@@ -49,19 +49,6 @@ namespace Assets.Scripts.Centers.Test
             }
 
             CheckTicket(monsterController.gameObject);
-
-            if (Canvases != null)
-            {
-                foreach (Transform child in Canvases.transform)
-                {
-                    CheckTicket(child.gameObject);
-                }
-            }
-
-            foreach (var ui in uiPrefabs)
-            {
-                Instantiate(ui, Canvases.transform);
-            }
 
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
