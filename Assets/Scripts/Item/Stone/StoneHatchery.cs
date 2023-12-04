@@ -40,7 +40,7 @@ namespace Assets.Scripts.Item.Stone
             foreach(var mesh in stoneMeshes)
             {
                 mesh.MarkDynamic(); 
-                mesh.UploadMeshData(true);
+                mesh.UploadMeshData(false);
             }
         }
         private void SetTicketMachine()
