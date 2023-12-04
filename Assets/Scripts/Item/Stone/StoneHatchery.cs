@@ -49,8 +49,8 @@ namespace Assets.Scripts.Item.Stone
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
-            //stonePool = PoolManager.Instance.CreatePool(stone, initialPoolSize);
-            stonePool = new();
+            stonePool = PoolManager.Instance.CreatePool(stone, 0);
+            
         }
 
         public void Attack(CombatPayload payload)
