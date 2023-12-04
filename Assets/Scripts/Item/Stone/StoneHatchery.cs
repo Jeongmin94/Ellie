@@ -36,12 +36,6 @@ namespace Assets.Scripts.Item.Stone
             string stoneMeshesPath = "Meshes";
             materials = Resources.LoadAll<Material>(stoneMaterialsPath);
             stoneHitParticles = Resources.LoadAll<GameObject>(stoneHitParticlesPath);
-            stoneMeshes = Resources.LoadAll<Mesh>(stoneMeshesPath);
-            foreach(var mesh in stoneMeshes)
-            {
-                mesh.MarkDynamic(); 
-                mesh.UploadMeshData(false);
-            }
         }
         private void SetTicketMachine()
         {
