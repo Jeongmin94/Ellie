@@ -33,6 +33,7 @@ namespace Assets.Scripts.Managers
 
         private Dictionary<string, AudioController> ambientDict = new();
         private Dictionary<string, Coroutine> ambientCoroutines = new();
+
         private Coroutine nowPlayingUISfxCoroutine;
 
         private Transform soundRoot;
@@ -296,17 +297,9 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void StopAllSounds()
+        public override void ClearAction()
         {
             StopBgm();
-
-            foreach (var sfx in nowPlayingSfxAudioControllerList)
-            {
-                sfx.Stop();
-                audioControllerPool.Push(sfx);
-            }
-
-            nowPlayingSfxAudioControllerList.Clear();
 
             var ambientKeys = new List<string>(ambientDict.Keys); // 키 복사
             foreach (var ambient in ambientKeys)
@@ -321,10 +314,17 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        public void ClearAudioControllers()
+        public void ClearSoundControllers()
         {
-            StopBgm();
-            StopAllAmbients();
+            foreach (Transform child in soundRoot)
+            {
+                Destroy(child.gameObject);
+            }
+        }
+
+        public void ReturnToPool(AudioController audioController)
+        {
+            audioControllerPool.Push(audioController);
         }
 
         public void OnPoolableDestroy(AudioController controller)
