@@ -14,7 +14,7 @@ namespace Assets.Scripts.Centers.Test
         public StoneHatchery hatchery;
         public Ore[] ores;
         public GameObject monsterController;
-
+        public GameObject monsters;
         public GameObject SkullSecondTrap;
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
@@ -49,7 +49,10 @@ namespace Assets.Scripts.Centers.Test
             }
 
             CheckTicket(monsterController.gameObject);
-
+            foreach (Transform child in monsters.transform)
+            {
+                CheckTicket(child.gameObject);
+            }
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
             CheckTicket(SkullSecondTrap.gameObject);

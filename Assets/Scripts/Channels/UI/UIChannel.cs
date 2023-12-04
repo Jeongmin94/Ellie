@@ -41,6 +41,10 @@ namespace Channels.UI
         
         // Video
         PlayVideo,
+
+        // Pause Canvas
+        OpenPauseCanvas,
+        ClosePauseCanvas,
     }
 
     public struct QuestInfo
