@@ -14,31 +14,65 @@ namespace Assets.Scripts.Player
     public class PlayerStatus : MonoBehaviour, ICombatant
     {
         [Header("Player Properties")]
-        [SerializeField] private int maxHP;
+        [SerializeField]
+        private int maxHP;
+
         [SerializeField] private int maxStamina;
 
         [Header("Stamina Consumption")]
-        [SerializeField] private int staminaRecoveryPerSec;
+        [SerializeField]
+        private int staminaRecoveryPerSec;
+
         [SerializeField] private int sprintStaminaConsumptionPerSec;
         [SerializeField] private int jumpStaminaConsumption;
         [SerializeField] private int dodgeStaminaConsumption;
         [SerializeField] private int hangStaminaConsumptionPerSec;
         [SerializeField] private float chargeStaminaConsumptionPerSec;
 
-        [Header("Combat")]
-        [SerializeField] private PlayerHealthData healthData;
+        [Header("Combat")] [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private float invulnerableTimeAfterHit;
         private Coroutine invulnerableCoroutine;
 
-        public int MaxHP { get { return maxHP; } }
-        public int MaxStamina { get { return maxStamina; } }
-        public int StaminaRecoveryPerSec { get { return staminaRecoveryPerSec; } }
-        public int SprintStaminaConsumptionPerSec { get { return sprintStaminaConsumptionPerSec; } }
-        public int JumpStaminaConsumption { get { return jumpStaminaConsumption; } }
-        public int DodgeStaminaConsumption { get { return dodgeStaminaConsumption; } }
-        public int HangStaminaConsumption { get { return HangStaminaConsumption; } }
-        public float ChargeStaminaComsumptionPerSec { get { return chargeStaminaConsumptionPerSec; } }
+        public int MaxHP
+        {
+            get { return maxHP; }
+        }
+
+        public int MaxStamina
+        {
+            get { return maxStamina; }
+        }
+
+        public int StaminaRecoveryPerSec
+        {
+            get { return staminaRecoveryPerSec; }
+        }
+
+        public int SprintStaminaConsumptionPerSec
+        {
+            get { return sprintStaminaConsumptionPerSec; }
+        }
+
+        public int JumpStaminaConsumption
+        {
+            get { return jumpStaminaConsumption; }
+        }
+
+        public int DodgeStaminaConsumption
+        {
+            get { return dodgeStaminaConsumption; }
+        }
+
+        public int HangStaminaConsumption
+        {
+            get { return HangStaminaConsumption; }
+        }
+
+        public float ChargeStaminaComsumptionPerSec
+        {
+            get { return chargeStaminaConsumptionPerSec; }
+        }
 
 
         public bool isDead;
@@ -55,20 +89,15 @@ namespace Assets.Scripts.Player
         public int HP
         {
             get { return healthData.CurrentHealth.Value; }
-            set
-            {
-                healthData.CurrentHealth.Value = value;
-            }
+            set { healthData.CurrentHealth.Value = value; }
         }
 
         public float Stamina
         {
             get { return staminaData.CurrentStamina.Value; }
-            set
-            {
-                staminaData.CurrentStamina.Value = value;
-            }
+            set { staminaData.CurrentStamina.Value = value; }
         }
+
         private void Awake()
         {
             //SetTicketMachine();
@@ -84,17 +113,18 @@ namespace Assets.Scripts.Player
         {
             Debug.Log("Player SetTicketMachine()");
         }
+
         private void Start()
         {
             isRecoveringStamina = true;
             isDead = false;
-
         }
+
         private void Update()
         {
             RecoverStamina();
-            
         }
+
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
@@ -130,6 +160,7 @@ namespace Assets.Scripts.Player
                 StartCoroutine(CheckMidAndForegroundSliderValue());
             }
         }
+
         public void ReduceHP(int damage)
         {
             if (HP <= damage && !isDead)
@@ -144,6 +175,7 @@ namespace Assets.Scripts.Player
                 HP -= damage;
             }
         }
+
         private IEnumerator CheckMidAndForegroundSliderValue()
         {
             yield return playerUI.StaminaBarImage.CheckSliderValue(FillAmountType.Midground, FillAmountType.Foreground);
@@ -154,7 +186,6 @@ namespace Assets.Scripts.Player
 
         public void Attack(IBaseEventPayload payload)
         {
-
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
@@ -172,8 +203,12 @@ namespace Assets.Scripts.Player
                     playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
                 }
             }
+
             //무적 처리 로직
-            SetPlayerInvulnerable(invulnerableTimeAfterHit);
+            if (HP > 0)
+            {
+                SetPlayerInvulnerable(invulnerableTimeAfterHit);
+            }
         }
 
         private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)

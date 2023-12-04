@@ -17,6 +17,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Controller.gameObject.tag = "Untagged";
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", Controller.PlayerObj.position);
             Controller.Anim.SetTrigger("Dead");
             Controller.canTurn = false;
