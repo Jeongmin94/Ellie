@@ -1,5 +1,6 @@
 using Assets.Scripts.Managers;
 using Channels.Combat;
+using CodiceApp.EventTracking.Plastic;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
@@ -43,9 +44,17 @@ public class EventBus : Singleton<EventBus>
     {
         base.ClearAction();
 
-        foreach (var key in eventTable.Keys)
+        foreach (var eventName in eventTable.Keys)
         {
-            eventTable[key] = null;
+            //Delegate d = eventTable[eventName];
+            //if (d != null)
+            //{
+            //    foreach (Delegate del in d.GetInvocationList())
+            //    {
+            //        eventTable[eventName] = Delegate.Remove(eventTable[eventName], del);
+            //    }
+            //}
+            eventTable[eventName] = null;
         }
 
         eventTable.Clear();
