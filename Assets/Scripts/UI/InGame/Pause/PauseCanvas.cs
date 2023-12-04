@@ -7,6 +7,10 @@ using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.UI.PopupMenu;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using Data.UI.Opening;
 using UnityEngine;
 using UnityEngine.UI;
@@ -54,9 +58,11 @@ namespace Assets.Scripts.UI.InGame
         private readonly IDictionary<PopupType, PauseMenuButton> menuButtonMap = new Dictionary<PopupType, PauseMenuButton>();
         private readonly IDictionary<PopupType, BasePopupCanvas> popupCanvasMap = new Dictionary<PopupType, BasePopupCanvas>();
 
+        private TicketMachine ticketMachine;
         private void Awake()
         {
             Init();
+            InitTicketMachine();
         }
 
         private void Start()
@@ -88,6 +94,11 @@ namespace Assets.Scripts.UI.InGame
             escapeImageRect = escapeImage.GetComponent<RectTransform>();
         }
 
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.UI);
+        }
         private void InitObjects()
         {
             AnchorPresets.SetAnchorPreset(buttonPanelRect, AnchorPresets.MiddleCenter);
@@ -168,6 +179,12 @@ namespace Assets.Scripts.UI.InGame
                 Cursor.visible = true;
                 Cursor.lockState = CursorLockMode.None;
                 gameObject.SetActive(true);
+
+                ticketMachine.SendMessage(ChannelType.UI, new UIPayload
+                {
+                    uiType = UIType.Notify,
+                    actionType = ActionType.OpenPauseCanvas,
+                });
             }
             else
             {
@@ -186,6 +203,11 @@ namespace Assets.Scripts.UI.InGame
                     gameObject.SetActive(false);
                     Cursor.visible = false;
                     Cursor.lockState = CursorLockMode.Locked;
+                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
+                    {
+                        uiType = UIType.Notify,
+                        actionType = ActionType.ClosePauseCanvas,
+                    });
                 }
             }
         }

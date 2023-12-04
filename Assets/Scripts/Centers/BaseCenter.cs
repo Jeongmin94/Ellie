@@ -75,7 +75,8 @@ namespace Centers
 
             foreach (var ui in uiPrefabs)
             {
-                Instantiate(ui, Canvases.transform);
+                var canvas = Instantiate(ui, Canvases.transform);
+                CheckTicket(canvas.gameObject);
             }
         }
 
