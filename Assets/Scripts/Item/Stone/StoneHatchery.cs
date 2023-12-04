@@ -33,7 +33,6 @@ namespace Assets.Scripts.Item.Stone
         {
             string stoneMaterialsPath = "Materials/StoneMaterials";
             string stoneHitParticlesPath = "Prefabs/StoneHitParticles";
-            string stoneMeshesPath = "Meshes";
             materials = Resources.LoadAll<Material>(stoneMaterialsPath);
             stoneHitParticles = Resources.LoadAll<GameObject>(stoneHitParticlesPath);
         }
