@@ -2,10 +2,8 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Channels.UI;
-using PlasticGui.Configuration.CloudEdition.Welcome;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
