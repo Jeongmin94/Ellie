@@ -8,7 +8,7 @@ using UnityEngine;
 namespace Assets.Scripts.Monsters.AbstractClass
 {
 
-    public abstract class AbstractAttack : MonoBehaviour, ICombatant
+    public abstract class AbstractAttack : MonoBehaviour
     {
         protected float attackValue;
         protected float durationTime;
@@ -21,8 +21,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected string owner;
         protected string prefabName;
 
-        private TicketMachine ticketMachine;
-
+        [SerializeField] protected AbstractMonster monsterController;
         [SerializeField] protected MonsterAudioController audioController;
         [SerializeField] protected MonsterParticleController particleController;
 
@@ -39,6 +38,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
             owner = transform.parent.gameObject.tag;
             audioController = transform.parent.GetComponent<MonsterAudioController>();
             particleController = transform.parent.GetComponent<MonsterParticleController>();
+
+            monsterController = transform.parent.GetComponent<AbstractMonster>();
         }
 
         public virtual void InitializeBoxCollider(MonsterAttackData data)
@@ -62,15 +63,9 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public virtual void ReceiveDamage(IBaseEventPayload payload)
         { }
 
-        protected void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-        }
-
         public void Attack(IBaseEventPayload payload)
         {
-            ticketMachine.SendMessage(ChannelType.Combat, payload);
+            monsterController.Attack(payload);
         }
     }
 

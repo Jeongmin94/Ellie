@@ -15,11 +15,6 @@ namespace Assets.Scripts.Monsters.Attacks
         public MonsterAttackData attackData;
         private Vector3 offset;
 
-        private void Awake()
-        {
-            SetTicketMachine();
-        }
-
         public override void InitializeProjectile(MonsterAttackData data)
         {
             attackData = data;

@@ -19,6 +19,7 @@ public class FleeFromPlayer : ActionNode
 
     protected override void OnStart() {
         context.agent.speed = fleeSpeed.Value;
+        context.agent.stoppingDistance = 0.0f;
         attemptFlee = 0;
     }
 
@@ -55,6 +56,7 @@ public class FleeFromPlayer : ActionNode
             if (NavMesh.SamplePosition(fleeVector, out navMeshHit, 1.0f, NavMesh.AllAreas))
             {
                 context.agent.destination = navMeshHit.position;
+                Debug.Log("NAVMESH DESTINATION : " + context.agent.destination);
                 return State.Success;
             }
 
