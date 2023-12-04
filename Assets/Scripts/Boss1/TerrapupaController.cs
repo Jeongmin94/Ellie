@@ -53,25 +53,7 @@ public class TerrapupaController : SerializedMonoBehaviour
         SetBossInfo();
         StartCoroutine(FallCheck());
     }
-    private void OnDestroy()
-    {
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.ApplyBossCooldown, OnBossApplyAttackCooldown);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossAttractedByMagicStone, OnBossAtrractedByMagicStone);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, OnBossUnattractedByMagicStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnBossMeleeAttack);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
-        EventBus.Instance.Unsubscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
-    }
+
     #region 1. 초기화 함수
     private void SetBossInfo()
     {
@@ -110,6 +92,23 @@ public class TerrapupaController : SerializedMonoBehaviour
     [Button("테스트용1", ButtonSizes.Large)]
     private void SubscribeEvents()
     {
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.ApplyBossCooldown, OnBossApplyAttackCooldown);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossAttractedByMagicStone, OnBossAtrractedByMagicStone);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, OnBossUnattractedByMagicStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnBossMeleeAttack);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
+        EventBus.Instance.Unsubscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
+        
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);

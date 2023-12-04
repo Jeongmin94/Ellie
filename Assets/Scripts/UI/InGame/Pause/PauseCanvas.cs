@@ -69,6 +69,7 @@ namespace Assets.Scripts.UI.InGame
         {
             gameObject.SetActive(false);
         }
+        
         protected override void Init()
         {
             base.Init();
