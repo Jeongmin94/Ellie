@@ -30,7 +30,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         const float billboardScale = 0.003f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
-        protected TicketMachine ticketMachine;
+        private TicketMachine ticketMachine;
         public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
 
         public BlackboardKey<bool> isDamaged;
@@ -115,8 +115,13 @@ namespace Assets.Scripts.Monsters.AbstractClass
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Monster);
         }
-        public virtual void Attack(IBaseEventPayload payload)
-        { }
+        public void Attack(IBaseEventPayload payload)
+        {
+            Debug.Log("SEND");
+            CombatPayload a = payload as CombatPayload;
+            Debug.Log(a.Defender.name);
+            ticketMachine.SendMessage(ChannelType.Combat, payload);
+        }
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
@@ -132,8 +137,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
-            Debug.Log("Current HP : " + currentHP);
-            Debug.Log("max HP : " + monsterData.maxHP);
             if (currentHP == monsterData.maxHP) ShowBillboard();
             if (isHeadShot) damage *= monsterData.weakRatio;
 
@@ -170,7 +173,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void ResetMonster()
         {
-            Debug.Log("Reset Monster");
             ReturnSpawnLocation();
             GetComponent<Collider>().enabled = true;
             animator.Play("IdleAttack");

@@ -77,6 +77,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.Type = data.combatType;
             payload.Attacker = transform;
             payload.Defender = otherTransform;
+            Debug.Log("OTHER TRANSFORM : " + otherTransform.name);
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
@@ -84,7 +85,6 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.Damage = (int)data.attackValue;
             Attack(payload);
         }
-
 
     }
 }
