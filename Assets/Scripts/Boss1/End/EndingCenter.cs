@@ -1,3 +1,5 @@
+using Assets.Scripts.Managers;
+using Assets.Scripts.Managers.Singleton;
 using Centers;
 using UnityEngine;
 
@@ -8,6 +10,12 @@ public class EndingCenter : BaseCenter
 
     private void Awake()
     {
+        MangerControllers.ClearAction(ManagerType.Input);
+
+        PoolManager.Instance.DestroyAllPools();
+        SoundManager.Instance.ClearAudioControllers();
+        SoundManager.Instance.InitAudioSourcePool();
+
         Init();
     }
 

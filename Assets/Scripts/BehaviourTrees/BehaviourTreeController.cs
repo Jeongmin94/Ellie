@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Sirenix.OdinInspector;
+using System.Collections;
 using System.Collections.Generic;
 using TheKiwiCoder;
 using UnityEngine;
@@ -47,41 +48,25 @@ public abstract class BaseBTData : ScriptableObject
 
 }
 
-public class BehaviourTreeController : MonoBehaviour
+public class BehaviourTreeController : SerializedMonoBehaviour
 {
     [SerializeField] protected BehaviourTreeInstance behaviourTreeInstance;
     [SerializeField] protected BaseBTData rootTreeData;
+    [SerializeField] protected Transform billboardObject;
     [SerializeField] private List<BaseBTData> settingList;
 
-    //protected virtual void Awake()
-    //{
-    //    StartCoroutine(FallCheck());
-    //}
+    [SerializeField] private Transform cameraObj;
+    private bool isBillboardOn;
 
-    //private IEnumerator FallCheck()
-    //{
-    //    LayerMask groundMask = LayerMask.GetMask("Ground");
-    //    float checkDistance = 30.0f;
-    //    float fallCheckLatency = 5.0f;
-    //    float rayStartOffset = 10.0f;
+    protected virtual void Awake()
+    {
+        cameraObj = Camera.main.transform;
+    }
 
-    //    while (true)
-    //    {
-    //        RaycastHit hit;
-
-    //        Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
-
-    //        bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
-
-    //        if (!hitGround)
-    //        {
-    //            Debug.Log("추락 방지, 포지션 초기화");
-    //            transform.position = Vector3.zero;
-    //        }
-
-    //        yield return new WaitForSeconds(fallCheckLatency);
-    //    }
-    //}
+    private void Update()
+    {
+        MonsterOnPlayerForward();
+    }
 
     public void InitRootTree(BehaviourTree tree)
     {
@@ -128,6 +113,39 @@ public class BehaviourTreeController : MonoBehaviour
         {
             data.Tree = tree;
             data.Init(tree);
+        }
+    }
+
+    public void ShowBillboard()
+    {
+        Debug.Log("보여줌");
+
+        billboardObject.transform.localScale = Vector3.one;
+        isBillboardOn = true;
+    }
+
+    public void HideBillobard()
+    {
+        Debug.Log("안보여줌");
+
+        billboardObject.transform.localScale = Vector3.zero;
+    }
+
+    public void MonsterOnPlayerForward()
+    {
+        if (isBillboardOn)
+        {
+            Vector3 direction = transform.position - cameraObj.position;
+            float dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
+
+            if (dot > -0.6f)
+            {
+                ShowBillboard();
+            }
+            else
+            {
+                HideBillobard();
+            }
         }
     }
 }

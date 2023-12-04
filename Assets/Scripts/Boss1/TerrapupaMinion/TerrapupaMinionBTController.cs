@@ -18,8 +18,10 @@ public class TerrapupaMinionBTController : BehaviourTreeController
         get { return healthBar; }
     }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         minionData = rootTreeData as TerrapupaMinionRootData;
         healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
         weakPoints = GetComponentsInChildren<TerrapupaMinionWeakPoint>();
@@ -65,6 +67,7 @@ public class TerrapupaMinionBTController : BehaviourTreeController
 
     public void GetDamaged(int damageValue)
     {
+        ShowBillboard();
         healthBar.RenewHealthBar(minionData.currentHP.value - damageValue);
         minionData.currentHP.Value -= damageValue;
         if (minionData.currentHP.value <= 0)
@@ -82,6 +85,7 @@ public class TerrapupaMinionBTController : BehaviourTreeController
 
         if (minionData.currentHP.value > minionData.hp)
         {
+            ShowBillboard();
             minionData.currentHP.Value = minionData.hp;
             healthBar.RenewHealthBar(minionData.currentHP.value);
         }

@@ -68,8 +68,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7edf593c56a01c64195709729aafb242, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   behaviourTreeInstance: {fileID: 4008788663092322688}
   rootTreeData: {fileID: 11400000, guid: ad8d5520e0abf2c4d846e618444271fa, type: 2}
+  billboardObject: {fileID: 4008788663347610836}
   settingList:
   - {fileID: 11400000, guid: b5f95f1ab53e484439690aad8c274640, type: 2}
   - {fileID: 11400000, guid: 85feaf96c2706b741b04f113a1d6fb4d, type: 2}
@@ -120,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6af5815368e0b4348a6d97b280bcb2a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  material: {fileID: 0}
 --- !u!1 &4008788663347610839
 GameObject:
   m_ObjectHideFlags: 0
