@@ -33,8 +33,15 @@ namespace Assets.Scripts.Item.Stone
         {
             string stoneMaterialsPath = "Materials/StoneMaterials";
             string stoneHitParticlesPath = "Prefabs/StoneHitParticles";
+            string stoneMeshesPath = "Meshes";
             materials = Resources.LoadAll<Material>(stoneMaterialsPath);
             stoneHitParticles = Resources.LoadAll<GameObject>(stoneHitParticlesPath);
+            stoneMeshes = Resources.LoadAll<Mesh>(stoneMeshesPath);
+            foreach(var mesh in stoneMeshes)
+            {
+                mesh.MarkDynamic(); 
+                mesh.UploadMeshData(false);
+            }
         }
         private void SetTicketMachine()
         {
@@ -47,7 +54,8 @@ namespace Assets.Scripts.Item.Stone
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
-            stonePool = PoolManager.Instance.CreatePool(stone, initialPoolSize);
+            stonePool = PoolManager.Instance.CreatePool(stone, 0);
+            
         }
 
         public void Attack(CombatPayload payload)
