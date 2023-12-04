@@ -10,7 +10,9 @@ namespace Assets.Scripts.Managers.Singleton
         Resource,
         Ticket,
         UI,
-        Sound
+        Sound,
+        EventBus,
+
     }
 
     public static class MangerControllers
@@ -39,6 +41,9 @@ namespace Assets.Scripts.Managers.Singleton
                     break;
                 case ManagerType.Sound:
                     SoundManager.Instance.ClearAction();
+                    break;
+                case ManagerType.EventBus:
+                    EventBus.Instance.ClearAction();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

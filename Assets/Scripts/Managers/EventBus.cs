@@ -1,3 +1,4 @@
+using Assets.Scripts.Managers;
 using Channels.Combat;
 using Sirenix.OdinInspector;
 using System;
@@ -37,6 +38,18 @@ public interface IBaseEventPayload
 public class EventBus : Singleton<EventBus>
 {
     [ShowInInspector][ReadOnly] private Dictionary<EventBusEvents, Delegate> eventTable = new Dictionary<EventBusEvents, Delegate>();
+
+    public override void ClearAction()
+    {
+        base.ClearAction();
+
+        foreach (var key in eventTable.Keys)
+        {
+            eventTable[key] = null;
+        }
+
+        eventTable.Clear();
+    }
 
     public void Subscribe(EventBusEvents eventName, Action listener)
     {
