@@ -20,9 +20,9 @@ namespace Assets.Scripts.Monsters.AbstractClass
     public enum MonsterNumber
     {
         NormalSkeleton = 1000,
-        AdventureSkeleton=1001,
-        WizardSkeleton=1002,
-        CaveBat=1003,
+        AdventureSkeleton = 1001,
+        WizardSkeleton = 1002,
+        CaveBat = 1003,
         GuildguardSkeleton = 1004,
     }
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
@@ -44,7 +44,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected NavMeshAgent agent;
         private bool isHeadShot;
 
-        public Dictionary<string, AbstractAttack> Attacks=new();
+        public Dictionary<string, AbstractAttack> Attacks = new();
 
         protected MonsterEffectStatusController statusController;
 
@@ -60,7 +60,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected MonsterAudioController audioController;
         protected GameObject player;
-        private Transform playerObj;
+        private Transform cameraObj;
 
         private void Update()
         {
@@ -202,7 +202,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected void InitUI()
         {
             billboardObject = Functions.FindChildByName(gameObject, "Billboard").transform;
-            playerObj = player.transform.Find("PlayerObj");
+            cameraObj = Camera.main.transform;
 
             billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardObject, UIManager.UIMonsterBillboard);
             HideBillobard();
@@ -224,10 +224,10 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             if (isBillboardOn)
             {
-                Vector3 direction = transform.position - player.transform.position;
-                float dot = Vector3.Dot(direction.normalized, playerObj.forward.normalized);
+                Vector3 direction = transform.position - cameraObj.position;
+                float dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
 
-                if(dot>0)
+                if (dot > 0)
                 {
                     ShowBillboard();
                 }
@@ -237,7 +237,5 @@ namespace Assets.Scripts.Monsters.AbstractClass
                 }
             }
         }
-
     }
-
 }
