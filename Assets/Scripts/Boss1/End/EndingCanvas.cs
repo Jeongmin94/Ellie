@@ -1,11 +1,12 @@
+using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class EndingCanvas : MonoBehaviour
 {
@@ -55,12 +56,6 @@ public class EndingCanvas : MonoBehaviour
 
         SoundManager.Instance.StopAllSounds();
 
-        UIPayload payload = UIPayload.Notify();
-        payload.actionType = ActionType.PlayVideo;
-        ticketMachine.SendMessage(ChannelType.UI, payload);
-
-        yield return new WaitForSeconds(1.0f);
-
-        gameObject.SetActive(false);
+        SceneManager.LoadScene((int)SceneName.Closing);
     }
 }

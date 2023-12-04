@@ -42,8 +42,8 @@ namespace Assets.Scripts.Puzzle
         private void InitLineRenderer()
         {
             lineRenderer = gameObject.AddComponent<LineRenderer>();
-            lineRenderer.startWidth = 0.5f;
-            lineRenderer.endWidth = 0.5f;
+            lineRenderer.startWidth = 0.3f;
+            lineRenderer.endWidth = 0.3f;
             lineRenderer.material = material;
             lineRenderer.startColor = Color.white;
             lineRenderer.endColor = Color.white;

@@ -146,12 +146,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b86a6b6e1698a64cab895251efca310, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lineRenderStartWidth: 0.5
-  lineRenderEndWidth: 0.5
-  respawnValue: 10
+  lineRenderStartWidth: 0.3
+  lineRenderEndWidth: 0.3
   hitEffect: {fileID: 4520471896055026116, guid: 7d02e4aca7e78394aab95cad6969de98, type: 3}
   displayEffect: {fileID: 4580325160271238322, guid: fd12974912a08a245a1df8ef9940be42, type: 3}
-  material: {fileID: 2100000, guid: e3693e4149fbea34388f9315b6196c3d, type: 2}
+  material: {fileID: 2100000, guid: b2a5b94f9b5689346a15d54cc3804e90, type: 2}
+  attackSound: StalactiteAttack
+  hitSound: StalactiteHit
+  respawnValue: 10
 --- !u!136 &960655276
 CapsuleCollider:
   m_ObjectHideFlags: 0

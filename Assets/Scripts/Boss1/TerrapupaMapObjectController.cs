@@ -1,5 +1,6 @@
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -41,6 +42,10 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     [Title("보스방 문")]
     [InfoBox("열리는 시간")] public float openSpeedTime = 3.0f;
     [InfoBox("열리는 각도")] public float openAngle = 120.0f;
+
+    [Title("보스전 설정")]
+    [InfoBox("보스전 BGM")] public string bossBGM = "TerrapupaBGM";
+    [InfoBox("보스전 종료 BGM")] public string endingBGM = "EndingBGM";
 
     private TicketMachine ticketMachine;
 
@@ -126,6 +131,8 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         wall.SetActive(true);
         trigger.SetActive(false);
+
+        SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
     }
     private void OnLeftBossRoom(BossEventPayload manaPayload)
     {
@@ -237,6 +244,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         if (golemCoreCount == 2)
         {
             // 문 개방
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, endingBGM);
             OpenDoor();
         }
     }

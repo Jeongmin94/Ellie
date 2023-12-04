@@ -51,6 +51,7 @@ MonoBehaviour:
   - rid: 1683426562437021717
   - rid: 1683426562437021718
   - rid: 1683426562437021719
+  - rid: 6881097883797946378
   treeState: 0
   blackboard:
     keys:
@@ -69,8 +70,9 @@ MonoBehaviour:
     - rid: 1683426562437021720
     - rid: 1683426562437021721
     - rid: 1683426562437021877
-  viewPosition: {x: 2108.8, y: 596, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+    - rid: 6881097883797946375
+  viewPosition: {x: 2780.8, y: 512.8, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -112,7 +114,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 96d4a4956a237114789dfe1594c91c77
-        position: {x: -1590, y: -420}
+        position: {x: -1560, y: -375}
         blackboard:
           keys: []
         description: 
@@ -171,7 +173,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ed328a35e58254242949e54aa6192976
-        position: {x: -2595, y: 375}
+        position: {x: -2715, y: 375}
         blackboard:
           keys: []
         description: 
@@ -189,7 +191,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 676c8f4379bb27d45b84e660330aee48
-        position: {x: -2790, y: 375}
+        position: {x: -2910, y: 375}
         blackboard:
           keys: []
         description: 
@@ -256,13 +258,14 @@ MonoBehaviour:
         children:
         - rid: 283011153473568810
         - rid: 283011153473568808
+        - rid: 6881097883797946378
     - rid: 283011153473568815
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: ff2e1a2a765ea244cbbf0857bfb05772
-        position: {x: -3195, y: 30}
+        position: {x: -3360, y: 30}
         blackboard:
           keys: []
         description: 
@@ -420,7 +423,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 263d86d3bd9e1b44289a45ef2325e426
-        position: {x: -1770, y: -600}
+        position: {x: -1230, y: -600}
         blackboard:
           keys: []
         description: "\uB3CC \uB358\uC9C0\uAE30 \uB3D9\uC791"
@@ -454,7 +457,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6172c072c7095544b9a8bbc47676a5c2
-        position: {x: -1020, y: -420}
+        position: {x: -810, y: -375}
         blackboard:
           keys: []
         description: 
@@ -465,7 +468,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cef6e428db9b26543a863525d45d2ad9
-        position: {x: -1425, y: -420}
+        position: {x: -1395, y: -375}
         blackboard:
           keys: []
         description: 
@@ -561,7 +564,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 883dd3c6799b1c54a844989bd7dd0606
-        position: {x: -1185, y: -420}
+        position: {x: -975, y: -375}
         blackboard:
           keys: []
         description: 
@@ -673,6 +676,27 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
+    - rid: 6881097883797946375
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 6881097883797946378
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8b5e5b24de9502043bd5565ffe401a52
+        position: {x: -2475, y: 375}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 6881097883797946375
+          defaultValue: 
     - rid: 8619125029124177924
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -917,7 +941,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 41ea8eaac528c2f4a848642abf83fa46
-        position: {x: -720, y: -420}
+        position: {x: -510, y: -375}
         blackboard:
           keys: []
         description: 
