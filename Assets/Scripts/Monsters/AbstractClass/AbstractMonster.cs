@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Managers;
@@ -28,6 +29,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
     {
         const float billboardScale = 0.003f;
+        const float battleStateTime = 8.0f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
         private TicketMachine ticketMachine;
@@ -51,6 +53,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected UIMonsterBillboard billboard;
         protected Transform billboardObject;
         public bool isBillboardOn;
+        private Coroutine battleCoroutine;
 
         protected readonly MonsterDataContainer dataContainer = new();
 
@@ -137,8 +140,12 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
-            if (currentHP == monsterData.maxHP) ShowBillboard();
+            //if (currentHP == monsterData.maxHP)
+            ShowBillboard();
             if (isHeadShot) damage *= monsterData.weakRatio;
+
+            if(battleCoroutine != null) StopCoroutine(battleCoroutine);
+            battleCoroutine = StartCoroutine(EndBattleState());
 
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
@@ -158,6 +165,13 @@ namespace Assets.Scripts.Monsters.AbstractClass
             }
 
             isHeadShot = false;
+        }
+
+        private IEnumerator EndBattleState()
+        {
+            yield return new WaitForSeconds(battleStateTime);
+            HideBillobard();
+            isBillboardOn = false;
         }
 
         private void SetMonsterDead()
