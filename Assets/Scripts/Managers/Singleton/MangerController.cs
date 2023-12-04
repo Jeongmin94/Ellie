@@ -1,3 +1,4 @@
+using Assets.Scripts.Particle;
 using System;
 
 namespace Assets.Scripts.Managers.Singleton
@@ -12,7 +13,7 @@ namespace Assets.Scripts.Managers.Singleton
         UI,
         Sound,
         EventBus,
-
+        Particle,
     }
 
     public static class MangerControllers
@@ -44,6 +45,9 @@ namespace Assets.Scripts.Managers.Singleton
                     break;
                 case ManagerType.EventBus:
                     EventBus.Instance.ClearAction();
+                    break;
+                case ManagerType.Particle:
+                    ParticleManager.Instance.ClearAction();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);

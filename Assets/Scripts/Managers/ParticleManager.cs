@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Managers;
+using Sirenix.OdinInspector;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Particle
@@ -17,6 +19,18 @@ namespace Assets.Scripts.Particle
 
     public class ParticleManager : Singleton<ParticleManager>
     {
+        [ShowInInspector][ReadOnly] private List<Poolable> particles = new List<Poolable>();
+
+        public override void ClearAction()
+        {
+            base.ClearAction();
+
+            foreach (var particle in particles)
+            {
+                PoolManager.Instance.Push(particle);
+            }
+        }
+
         public GameObject GetParticle(GameObject prefab, ParticlePayload payload)
         {
             if (prefab == null)
@@ -26,6 +40,7 @@ namespace Assets.Scripts.Particle
             }
 
             var particle = PoolManager.Instance.Pop(prefab);
+            particles.Add(particle);
 
             if (payload.Origin != null)
             {
