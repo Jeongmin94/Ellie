@@ -43,8 +43,10 @@ namespace Boss.Terrapupa
             get { return attackCooldown; }
         }
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             terrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
 
@@ -135,8 +137,14 @@ namespace Boss.Terrapupa
 
         public void GetDamaged(int damageValue)
         {
-            healthBar.RenewHealthBar(terrapupaData.currentHP.Value - damageValue);
+            ShowBillboard();
+            healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
             terrapupaData.currentHP.Value -= damageValue;
+            if (terrapupaData.currentHP.value <= 0)
+            {
+                terrapupaData.currentHP.Value = 0;
+                healthBar.RenewHealthBar(0);
+            }
         }
 
         public void GetHealed(int healValue)
@@ -146,6 +154,7 @@ namespace Boss.Terrapupa
 
             if(terrapupaData.currentHP.value > terrapupaData.hp)
             {
+                HideBillobard();
                 terrapupaData.currentHP.Value = terrapupaData.hp;
                 healthBar.RenewHealthBar(terrapupaData.currentHP.value);
             }

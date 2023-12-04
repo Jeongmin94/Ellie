@@ -68,6 +68,7 @@ namespace Channels.UI
 
     public enum InteractiveType
     {
+        Default,
         Chatting,
         Mining,
         Acquisition,

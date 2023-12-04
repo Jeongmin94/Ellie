@@ -67,6 +67,8 @@ namespace Assets.Scripts.InteractiveObjects
             isActivated = false;
             player.transform.position = playerEndPos.position;
             player.GetComponent<PlayerController>().canJump = true;
+            player.GetComponent<PlayerInteraction>().interactiveObject = null;
+            player.GetComponent<PlayerInteraction>().SetCanInteract(false);
             Destroy(walker);
             gameObject.tag = "Untagged";
         }
