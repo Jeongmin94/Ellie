@@ -128,7 +128,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1
+  m_AmplitudeGain: 0
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1118065663
@@ -157,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99899435, y: 0.4419999, z: -4.5199995}
+  m_LocalPosition: {x: 0.9990001, y: 0.4419999, z: -4.5200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99899435, y: 0.4419999, z: -4.5199995}
+  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -328,7 +328,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 54.1285
+  m_FocalLength: 29.999998
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -337,7 +337,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 25
+  field of view: 43.60282
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -7107,7 +7107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572231187841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0000012516975, y: 0.7419996, z: -6.999999}
+  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7187,6 +7187,7 @@ GameObject:
   - component: {fileID: 8277164713214988917}
   - component: {fileID: 1523587299}
   - component: {fileID: 267577083}
+  - component: {fileID: 1144504781}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -7318,7 +7319,7 @@ MonoBehaviour:
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
   miningTime: 4
   pickaxe: {fileID: 2136787205}
-  isPickaxeAvailable: 1
+  isPickaxeAvailable: 0
   curPickaxeTier: 0
   playerInventory: {fileID: 0}
   isGrounded: 0
@@ -7543,6 +7544,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isPlaying: 0
+--- !u!114 &1144504781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de266ccd7bb1d34ebbb4c753ff22049, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
@@ -7569,7 +7582,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572422116014}
   m_LocalRotation: {x: 0.123005815, y: -0.035375133, z: 0.0043874756, w: 0.99176556}
-  m_LocalPosition: {x: 0.99999577, y: 0.5419998, z: -1.9999994}
+  m_LocalPosition: {x: 1, y: 0.5419998, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7743,7 +7756,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_NoiseProfile: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   m_PivotOffset: {x: 0, y: 0, z: 0}
-  m_AmplitudeGain: 1
+  m_AmplitudeGain: 0
   m_FrequencyGain: 1
   mNoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &4287311989058363499

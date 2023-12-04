@@ -16,7 +16,6 @@ public class ResetSpeed : ActionNode
 
     protected override State OnUpdate() {
         context.agent.speed = defaultSpeed.Value;
-        context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
         return State.Success;
     }
 }

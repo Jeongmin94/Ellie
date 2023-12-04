@@ -59,7 +59,6 @@ MonoBehaviour:
   - rid: 1683426562437021698
   - rid: 1683426562437021699
   - rid: 1683426562437021700
-  - rid: 6881097883797946369
   treeState: 0
   blackboard:
     keys:
@@ -84,9 +83,8 @@ MonoBehaviour:
     - rid: 1683426562437021696
     - rid: 1683426562437021697
     - rid: 1683426562437021872
-    - rid: 6881097883797946370
-  viewPosition: {x: 1455.2, y: 456, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: 884.8, y: 554.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -290,13 +288,12 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 3ec331e92c8fef94ea18f0eb8e790d40
-        position: {x: 195, y: -330}
+        position: {x: 360, y: -330}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
-        - rid: 6881097883797946369
         - rid: 1683426247750189103
         - rid: 283011297055604740
         - rid: 8619125046743924777
@@ -826,27 +823,6 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
-    - rid: 6881097883797946369
-      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: c1ff5c65baaf6604fa1b2e34090990d5
-        position: {x: -135, y: -150}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        soundName:
-          reference:
-            rid: 6881097883797946370
-          defaultValue: 
-    - rid: 6881097883797946370
-      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        name: sound1
-        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-        value: 
     - rid: 8619125029124177949
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

@@ -81,6 +81,7 @@ namespace Assets.Scripts.Puzzle
                     shakeIntensity = 2.0f,
                     shakeTime = 13.0f
                 });
+                SaveLoadManager.Instance.SaveData();
             }
         }
 

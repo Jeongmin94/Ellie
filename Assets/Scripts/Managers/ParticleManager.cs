@@ -45,7 +45,6 @@ namespace Assets.Scripts.Particle
             var controller = particle.transform.gameObject.AddComponent<ParticleController>();
             controller.Init(payload);
 
-            Debug.Log(particle);
 
             return particle.gameObject;
         }

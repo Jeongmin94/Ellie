@@ -1,27 +1,18 @@
-﻿using System;
+﻿using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Data.GoogleSheet;
 
 namespace Assets.Scripts.Managers
 {
     public enum SaveLoadType
     {
         Inventory,
-        Quest,
-        Test,
-        //Map,
+        Player,
+        NPC,
+        Puzzle,
 
         End,
-    }
-
-    public class TestSavePayload : IBaseEventPayload
-    {
-        public string Name { get; set; }
-        public int Index { get; set; }
-        public List<SerializableVector3> VectorList { get; set; }
-        public SerializableVector3 Position { get; set; }
     }
 
     public class InventorySavePayload : IBaseEventPayload
@@ -52,13 +43,36 @@ namespace Assets.Scripts.Managers
         public List<ItemSaveInfo> GetItemSaveInfos() => saveInfos;
     }
 
-    public class QuestSavePayload : IBaseEventPayload
+    public class PlayerSavePayload : IBaseEventPayload
     {
-        public Dictionary<int, QuestStatus> questStatusSaveInfo = new();
+        //퀘스트 정보
+        public struct QuestDataSaveInfo
+        {
+            public Dictionary<int, QuestStatus> questStatusDic;
+        
+            public QuestData curQuestData;
+        }
+        //곡괭이 정보
+
+        public struct PickaxeDataSaveInfo
+        {
+            public bool isPickaxeAvailable;
+            public int pickaxeTier;
+        }
+        //플레이어 위치
+        public SerializableVector3 position { get; set; }
+
+        public QuestDataSaveInfo questSaveInfo;
+        public PickaxeDataSaveInfo pickaxeSaveInfo;
+    }
+    public class NPCSavePayload : IBaseEventPayload
+    {
+        public Dictionary<string, bool> NPCActiveDic;
     }
 
-    public class MapSavePayload : IBaseEventPayload
+    public class PuzzleSavePayload : IBaseEventPayload
     {
-        public SerializableVector3 Position { get; set; }
+
     }
+
 }

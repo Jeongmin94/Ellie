@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
@@ -17,6 +16,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using Assets.Scripts.Centers;
 
 namespace Assets.Scripts.UI.Death
 {
@@ -179,9 +179,8 @@ namespace Assets.Scripts.UI.Death
             yield return StartCoroutine(FadeOut());
 
             // !TODO Load Data
-            SaveLoadManager.Instance.IsLoadData = false;
+            SaveLoadManager.Instance.IsLoadData = true;
             SceneLoadManager.Instance.LoadScene(SceneName.InGame);
-
             onPlayingDeath = false;
             backgroundImage.color = backgroundStartColor;
             deathText.color = textStartColor;
