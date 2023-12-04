@@ -1,5 +1,4 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
+﻿using System.Collections;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -11,8 +10,8 @@ public class TerrapupaStunData : BaseBTData
         dataName = "TerrapupaStun";
     }
 
-    [Title("기절 상태")]
-    [InfoBox("기절 지속시간")] public float stunDuration = 10.0f;
+    [Header("기절 상태")]
+    [Tooltip("기절 지속시간")] public float stunDuration = 10.0f;
 
     public BlackboardKey<float> duration;
 

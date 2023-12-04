@@ -155,7 +155,6 @@ namespace Assets.Scripts.UI.Dialog
 
         private void SendPayloadToClientEvent(bool _isPlaying)
         {
-            Debug.Log("Send Dialog Payload to Player, isPlaying : " + _isPlaying);
 
             ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
             {

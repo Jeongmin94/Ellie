@@ -33,7 +33,10 @@ namespace Centers
     public class BaseCenter : MonoBehaviour
     {
         [SerializeField] private BaseChannelTypeSo channelTypeSo;
+        public GameObject Canvases;
+        public GameObject[] uiPrefabs;
 
+        
         private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
 
@@ -58,6 +61,22 @@ namespace Centers
         protected virtual void Start()
         {
             // !TODO Start() 메서드에서 CheckTicket 메서드를 호출하여 GameObject의 티켓을 만들어야 합니다. 
+        }
+
+        protected virtual void InitObjects()
+        {
+            if (Canvases != null)
+            {
+                foreach (Transform child in Canvases.transform)
+                {
+                    CheckTicket(child.gameObject);
+                }
+            }
+
+            foreach (var ui in uiPrefabs)
+            {
+                Instantiate(ui, Canvases.transform);
+            }
         }
 
         protected void CheckTicket(GameObject go)

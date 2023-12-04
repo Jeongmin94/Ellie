@@ -233,19 +233,19 @@ namespace Assets.Scripts.Managers
                         InventorySavePayload payload = payloadTable[type] as InventorySavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                case SaveLoadType.Quest:
+                case SaveLoadType.Player:
                     {
-                        QuestSavePayload payload = payloadTable[type] as QuestSavePayload;
+                        PlayerSavePayload payload = payloadTable[type] as PlayerSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                case SaveLoadType.Test:
+                case SaveLoadType.NPC:
                     {
-                        TestSavePayload payload = payloadTable[type] as TestSavePayload;
+                        NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
-                //case SaveLoadType.Map:
+                //case SaveLoadType.Puzzle:
                 //    {
-                //        MapSavePayload payload = payloadTable[type] as MapSavePayload;
+                //        PuzzleSavePayload payload = payloadTable[type] as PuzzleSavePayload;
                 //        return JsonConvert.SerializeObject(payload);
                 //    }
                 default:
@@ -259,12 +259,13 @@ namespace Assets.Scripts.Managers
             {
                 case SaveLoadType.Inventory:
                     return JsonConvert.DeserializeObject<InventorySavePayload>(data);
-                case SaveLoadType.Quest:
-                    return JsonConvert.DeserializeObject<QuestSavePayload>(data);
-                case SaveLoadType.Test:
-                    return JsonConvert.DeserializeObject<TestSavePayload>(data);
-                //case SaveLoadType.Map:
-                    //return JsonConvert.DeserializeObject<MapSavePayload>(data);
+                case SaveLoadType.Player:
+                    return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
+                case SaveLoadType.NPC:
+                    return JsonConvert.DeserializeObject<NPCSavePayload>(data);
+                //case SaveLoadType.Puzzle:
+                //    return JsonConvert.DeserializeObject<PuzzleSavePayload>(data);
+
                 default:
                     return null;
             }
@@ -321,6 +322,12 @@ namespace Assets.Scripts.Managers
                 yield return wait;
             }
             Debug.Log("데이터 로드 완료");
+        }
+
+        public override void ClearAction()
+        {
+            saveAction = null;
+            loadAction = new();
         }
     }
 }

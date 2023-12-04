@@ -93,6 +93,7 @@ namespace Assets.Scripts.Player
         private void Update()
         {
             RecoverStamina();
+            
         }
         private void InitStatusEffects()
         {

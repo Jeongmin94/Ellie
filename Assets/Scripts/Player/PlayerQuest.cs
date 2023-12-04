@@ -10,6 +10,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
 {
@@ -17,6 +18,9 @@ namespace Assets.Scripts.Player
     {
         private PlayerController controller;
         private List<QuestData> questDataList;
+        //!TODO : curQuestData의 상태에 맞게 UI를 출력해주어야 함
+        //!TODO : NPC들에서 플레이어의 curQuest를 변경해주어야 함
+        private QuestData curQuestData;
         private const int FirstQuestDataIdx = 0;
         private Dictionary<int, QuestStatus> questStatusDic;
 
@@ -31,8 +35,7 @@ namespace Assets.Scripts.Player
             controller = GetComponent<PlayerController>();
 
             //퀘스트 세이브 로드
-            SaveLoadManager.Instance.SubscribeSaveEvent(SaveQuestData);
-            SaveLoadManager.Instance.SubscribeLoadEvent(SaveLoadType.Quest, LoadQuestData);
+           
         }
 
         private void Start()
@@ -45,10 +48,9 @@ namespace Assets.Scripts.Player
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
 
             //6100번 퀘스트 시작
-            if(!SaveLoadManager.Instance.IsLoadData)
-            {
-                StartCoroutine(FirstDialogCoroutine());
-            }
+            
+                StartCoroutine(OnDataLoadedCoroutine());
+            
 
         }
 
@@ -87,11 +89,27 @@ namespace Assets.Scripts.Player
             // !TODO : 플레이어의 퀘스트 데이터를 로딩합니다
         }
 
-
-        private IEnumerator FirstDialogCoroutine()
+        private IEnumerator OnDataLoadedCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             yield return SceneLoadManager.Instance.CheckIsLoadDone();
+            // 1. 맨 처음 시작
+            // 2. 퀘스트 중에 껐다 켰을 경우
+            // 3. 모든 퀘스트 다 깼을 경우
+            if (curQuestData != null)
+            {
+                SendDisplayQuestMessage(curQuestData);
+                yield break;
+            } 
+            else
+            {
+                SendClearQuestMessage();
+                curQuestData = questDataList[FirstQuestDataIdx];
+                StartCoroutine(FirstDialogCoroutine());
+            }
+        }
+        private IEnumerator FirstDialogCoroutine()
+        {
 
             int curDialogListIdx = 0;
             List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
@@ -269,9 +287,12 @@ namespace Assets.Scripts.Player
         {
             if (questStatusDic.ContainsKey(questIdx))
             {
+                //현재 퀘스트를 갱신
+                curQuestData = questDataList[questIdx % 6100];
+                
                 questStatusDic[questIdx] = newStatus;
-                //퀘스트 갱신시마다 세이브
-                SaveLoadManager.Instance.SaveData();
+                ////퀘스트 갱신시마다 세이브
+                //SaveLoadManager.Instance.SaveData();
                 //ui채널에 보내기
                 QuestData data = questDataList[questIdx % 6100];
                 //newStatus 가 end 이면 clear하고 아무것도 안함
@@ -279,13 +300,14 @@ namespace Assets.Scripts.Player
                 if (newStatus == QuestStatus.End)
                 {
                     SendClearQuestMessage();
+                    curQuestData = null;
                 }
                 else
                 {
                     SendClearQuestMessage();
                     SendDisplayQuestMessage(data);
                 }
-
+                SaveLoadManager.Instance.SaveData();
             }
             else
             {
@@ -365,7 +387,7 @@ namespace Assets.Scripts.Player
                 payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
                 payload.groupType = payload.itemData.groupType;
             }
-            
+
             for (int i = 0; i < count; i++)
                 ticketMachine.SendMessage(ChannelType.UI, payload);
         }
@@ -419,21 +441,7 @@ namespace Assets.Scripts.Player
             controller.GetPickaxe(pickaxeIdx);
         }
 
-        private void SaveQuestData()
-        {
-            QuestSavePayload payload = new QuestSavePayload();
-            payload.questStatusSaveInfo = questStatusDic;
-
-            SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Quest, payload);
-        }
-
-        private void LoadQuestData(IBaseEventPayload payload)
-        {
-            if (payload is not QuestSavePayload questSavePayload) return;
-            questStatusDic.Clear();
-
-            questStatusDic = questSavePayload.questStatusSaveInfo;
-        }
+        
 
         public void ActivateInteractiveUI()
         {
@@ -448,6 +456,32 @@ namespace Assets.Scripts.Player
         {
             GetComponent<PlayerInteraction>().interactiveObject = null;
             GetComponent<PlayerInteraction>().SetCanInteract(false);
+        }
+
+        public void SetCurQuest(int questidx)
+        {
+            curQuestData = questDataList[questidx % 6100];
+        }
+
+        public QuestDataSaveInfo GetQuestDataSaveInfo()
+        {
+            QuestDataSaveInfo info = new QuestDataSaveInfo();
+            info.questStatusDic = questStatusDic;
+            info.curQuestData = curQuestData;
+
+            return info;
+        }
+
+        public void LoadQuestData(QuestDataSaveInfo info)
+        {
+            questStatusDic = info.questStatusDic;
+            if (info.curQuestData != null)
+            {
+                curQuestData = info.curQuestData;
+
+            }
+            else
+                curQuestData = null;
         }
     }
 }
