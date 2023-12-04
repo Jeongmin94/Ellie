@@ -13,7 +13,8 @@ namespace Assets.Scripts.Managers
         private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
 
         private GoogleSheetsParser parser;
-        private bool isParseDone = false;
+
+        public bool isParseDone { get; private set; } = false;
 
         public override void Awake()
         {

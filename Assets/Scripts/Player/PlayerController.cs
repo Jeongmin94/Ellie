@@ -265,7 +265,6 @@ namespace Assets.Scripts.Player
             {
                 ChangeState(PlayerStateName.Start);
             }
-
         }
         private void FixedUpdate()
         {

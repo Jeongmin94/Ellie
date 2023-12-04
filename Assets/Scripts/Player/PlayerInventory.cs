@@ -110,8 +110,8 @@ namespace Assets.Scripts.Player
                     ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                     {
                         uiType = UIType.Notify,
-                        groupType = UI.Inventory.GroupType.Item,
-                        slotAreaType = UI.Inventory.SlotAreaType.Item,
+                        groupType = GroupType.Item,
+                        slotAreaType = SlotAreaType.Item,
                         actionType = ActionType.AddSlotItem,
                         itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100),
                     });
@@ -119,8 +119,8 @@ namespace Assets.Scripts.Player
                     ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                     {
                         uiType = UIType.Notify,
-                        groupType = UI.Inventory.GroupType.Item,
-                        slotAreaType = UI.Inventory.SlotAreaType.Item,
+                        groupType = GroupType.Item,
+                        slotAreaType = SlotAreaType.Item,
                         actionType = ActionType.AddSlotItem,
                         itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101),
                     });
