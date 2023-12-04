@@ -66,6 +66,8 @@ namespace Assets.Scripts.InteractiveObjects
         {
             player.GetComponent<PlayerController>().PlayerObj.transform.rotation = playerStandingPos.rotation;
             player.GetComponent<PlayerController>().canJump = false;
+            player.GetComponent<PlayerInteraction>().interactiveObject = null;
+            player.GetComponent<PlayerInteraction>().SetCanInteract(false);
             player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
             walker = gameObject.AddComponent<SplineWalker>();
             walker.duration = duration;

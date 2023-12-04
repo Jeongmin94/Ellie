@@ -1,0 +1,45 @@
+@startuml
+
+class PlayerController{
+    + TicketMachine : ticketMachine
+
+    - Update
+    - FixedUpdate
+    - Any Other Logics
+}
+
+class PlayerComponent1{
+
+}
+
+class PlayerComponent1{
+
+}
+
+class PlayerComponent1{
+
+}
+
+PlayerController <- PlayerComponent1
+PlayerController <- PlayerComponent2
+PlayerController <- PlayerComponent3
+@enduml
+
+
+@startuml
+abstract class PlayerBaseState {
+    # Controller: PlayerController
+
+    + {abstract} OnEnterState() : void
+    + OnEnterState(StateInfo info) : virtual void
+    + {abstract} OnUpdateState() : void
+    + {abstract} OnFixedUpdate() : void
+    + {abstract} OnExitState() : void
+
+}
+
+class PlayerStates
+
+PlayerBaseState <|- PlayerStates
+
+@enduml
