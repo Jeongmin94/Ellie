@@ -18,7 +18,8 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
         private IEnumerator ImposeRigidity(PlayerStatusEffectController controller)
         {
             PlayerStateName stateName = playerController.GetCurState();
-            if (!(stateName == PlayerStateName.Idle || stateName == PlayerStateName.Walk || stateName == PlayerStateName.Sprint || stateName == PlayerStateName.Rigidity))
+            if (!(stateName == PlayerStateName.Idle || stateName == PlayerStateName.Walk || 
+                stateName == PlayerStateName.Sprint || stateName == PlayerStateName.Rigidity))
                 yield break;
 
             controller.AddStatusEffect(this);

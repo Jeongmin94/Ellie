@@ -72,6 +72,7 @@ namespace Assets.Scripts.Managers
 
         public override void ClearAction()
         {
+            CanInput = true;
             keyAction = null;
             mouseAction = null;
             escapeAction = null;
