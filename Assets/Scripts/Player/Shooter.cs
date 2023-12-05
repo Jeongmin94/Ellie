@@ -63,7 +63,7 @@ namespace Assets.Scripts.Player
 
         private void OnEnable()
         {
-            //SubscribeAction();
+            SubscribeAction();
         }
 
         private void Start()

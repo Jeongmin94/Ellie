@@ -228,7 +228,6 @@ namespace Assets.Scripts.UI.Inventory
             if (slotAreas.TryGetValue(slotAreaType, out var area))
             {
                 area[(int)groupType].AddItem(payload);
-                Debug.Log("AddItem : " + groupType.ToString());
             }
         }
 

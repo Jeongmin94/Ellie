@@ -208,7 +208,7 @@ namespace Assets.Scripts.Player
             SubscribeStopCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
 
             //shooter 이벤트 구독
-            shooter.GetComponent<Shooter>().Init();
+            // shooter.GetComponent<Shooter>().Init();
         }
 
         private void InitTicketMachine()
