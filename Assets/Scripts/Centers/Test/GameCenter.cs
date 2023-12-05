@@ -19,7 +19,6 @@ namespace Assets.Scripts.Centers.Test
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
 
-
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
 
