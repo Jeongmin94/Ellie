@@ -60,7 +60,7 @@ namespace Boss.Objects
 
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, manaHitSound, transform.position);
 
-                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.HitManaByPlayerStone,
+                    EventBus.Instance.Publish(EventBusEvents.HitManaByPlayerStone,
                         new BossEventPayload
                         {
                             TransformValue1 = transform,
@@ -73,7 +73,7 @@ namespace Boss.Objects
 
                     isBroken = true;
 
-                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
+                    EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
                         new BossEventPayload
                         {
                             PrefabValue = hitEffect,
@@ -89,7 +89,7 @@ namespace Boss.Objects
 
                     isBroken = true;
 
-                    EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1,
+                    EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
                         new BossEventPayload
                         {
                             PrefabValue = hitEffect,

@@ -18,26 +18,26 @@ namespace Channels.Boss
     public enum TerrapupaEvent
     {
         None,
-        // µ¹ ´øÁö±â
+        // ëŒ ë˜ì§€ê¸°
         GripStone,
         ThrowStone,
         EarthQuake,
     }
     public class TerrapupaPayload : IBaseEventPayload
     {
-        // ÀÌº¥Æ® Å¸ÀÔ
+        // ì´ë²¤íŠ¸ íƒ€ì…
         public TerrapupaEvent Type { get; set; }
 
-        // °ø°İ·Â
+        // ê³µê²©ë ¥
         public int AttackValue { get; set; } 
 
-        // °ø°İ ÄğÅ¸ÀÓ Àû¿ë ½Ã
+        // ê³µê²© ì¿¨íƒ€ì„ ì ìš© ì‹œ
         public float Cooldown { get; set; }
 
-        // »óÈ£ÀÛ¿ëÇÏ´Â ´ë»ó (°´Ã¼ -> °´Ã¼)
+        // ìƒí˜¸ì‘ìš©í•˜ëŠ” ëŒ€ìƒ (ê°ì²´ -> ê°ì²´)
         public Transform Sender { get; set; }
 
-        // »óÈ£ÀÛ¿ë ¹Ş´Â ´ë»ó (°´Ã¼ <- °´Ã¼)
+        // ìƒí˜¸ì‘ìš© ë°›ëŠ” ëŒ€ìƒ (ê°ì²´ <- ê°ì²´)
         public Transform Receiver { get; set; }
     }
 

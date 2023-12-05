@@ -19,7 +19,6 @@ namespace Assets.Scripts.Centers.Test
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
 
-
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
 
@@ -30,6 +29,7 @@ namespace Assets.Scripts.Centers.Test
             MangerControllers.ClearAction(ManagerType.Data);
             MangerControllers.ClearAction(ManagerType.Sound);
             MangerControllers.ClearAction(ManagerType.Particle);
+            MangerControllers.ClearAction(ManagerType.EventBus);
             
             Init();
         }

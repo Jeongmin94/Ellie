@@ -667,6 +667,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   channelTypeSo: {fileID: 11400000, guid: bc4cc3b582518e74e9e5ee5a1256fc29, type: 2}
+  Canvases: {fileID: 0}
+  uiPrefabs: []
   Canvas: {fileID: 1147367138}
   Client: {fileID: 1940527374}
 --- !u!4 &1541444634
@@ -698,6 +700,10 @@ PrefabInstance:
     - target: {fileID: 2620129049353322994, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
       propertyPath: m_PlayOnAwake
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620129049353322994, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+      propertyPath: m_PlaybackSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 2620129050418117634, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
       propertyPath: m_Name

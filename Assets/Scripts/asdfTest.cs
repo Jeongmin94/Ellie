@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Channels.Boss;
 
 public class TestEventPayload : IBaseEventPayload
 {
@@ -25,22 +26,26 @@ public class asdfTest : MonoBehaviour
         TestEventPayload temp = new TestEventPayload(100, "�׽�Ʈ");
         object obj = temp;
 
-        EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnTestObj);
+        EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnTestObj);
         EventBus.Instance.Subscribe(EventBusEvents.None, OnTest);
-        EventBus.Instance.Subscribe<TestEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnTestInfo);
+        EventBus.Instance.Subscribe(EventBusEvents.ThrowStoneByBoss1, OnTestInfo);
 
-        EventBus.Instance.Publish<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, temp);
-        EventBus.Instance.Publish(EventBusEvents.None);
-        EventBus.Instance.Publish<TestEventPayload>(EventBusEvents.ThrowStoneByBoss1, new TestEventPayload(5, "ȣ����"));
+        EventBus.Instance.Publish(EventBusEvents.GripStoneByBoss1, temp);
+        EventBus.Instance.Publish(EventBusEvents.None, new TestEventPayload(5, string.Empty));
+        EventBus.Instance.Publish(EventBusEvents.ThrowStoneByBoss1, new TestEventPayload(5, "ȣ����"));
     }
 
-    private void OnTestInfo(TestEventPayload info)
+    private void OnTestInfo(IBaseEventPayload payload)
     {
+        if (payload is not TestEventPayload info)
+            return;
         Debug.Log($"{info.health} , {info.name}");
     }
 
-    private void OnTest()
+    private void OnTest(IBaseEventPayload payload)
     {
+        if (payload is not TestEventPayload info)
+            return;
         Debug.Log("�׽�Ʈ����");
     }
 

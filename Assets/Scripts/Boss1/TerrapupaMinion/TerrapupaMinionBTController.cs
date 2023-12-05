@@ -50,7 +50,6 @@ public class TerrapupaMinionBTController : BehaviourTreeController
     private void InitStatus()
     {
         healthBar.InitData(minionData);
-        GetHealed(1);
     }
 
     private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)

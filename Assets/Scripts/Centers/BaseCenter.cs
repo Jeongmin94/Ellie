@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Controller;
 using Assets.Scripts.Data.Channels;
 using Channels;
 using Channels.Components;
@@ -35,8 +36,8 @@ namespace Centers
         [SerializeField] private BaseChannelTypeSo channelTypeSo;
         public GameObject Canvases;
         public GameObject[] uiPrefabs;
+        public GameObject[] controllerInstances;
 
-        
         private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
 
@@ -77,6 +78,15 @@ namespace Centers
             {
                 var canvas = Instantiate(ui, Canvases.transform);
                 CheckTicket(canvas.gameObject);
+            }
+
+            // instance only
+            if (controllerInstances != null)
+            {
+                foreach (var controller in controllerInstances)
+                {
+                    controller.GetComponent<BaseController>().InitController();
+                }
             }
         }
 

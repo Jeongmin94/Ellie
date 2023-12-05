@@ -13,7 +13,6 @@ public class EndingCenter : BaseCenter
         MangerControllers.ClearAction(ManagerType.Input);
         MangerControllers.ClearAction(ManagerType.Sound);
 
-
         Init();
     }
 

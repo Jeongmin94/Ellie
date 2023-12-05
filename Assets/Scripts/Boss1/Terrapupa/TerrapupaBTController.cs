@@ -66,7 +66,6 @@ namespace Boss.Terrapupa
         private void InitStatus()
         {
             healthBar.InitData(terrapupaData);
-            GetHealed(1);
         }
 
         private void SubscribeEvent()
