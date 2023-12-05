@@ -20,7 +20,7 @@ namespace Assets.Scripts.Particle
 
         private void LateUpdate()
         {
-            if(isFollowOrigin)
+            if (isFollowOrigin)
             {
                 transform.position = origin.transform.position;
                 transform.rotation = origin.transform.rotation;
@@ -47,7 +47,12 @@ namespace Assets.Scripts.Particle
 
         private void OnParticleSystemStopped()
         {
-            PoolManager.Instance.Push(this);
+            ParticleManager.Instance.ReturnToPool(this);
+        }
+
+        public override void PoolableDestroy()
+        {
+            Destroy(this.gameObject);
         }
     }
 }

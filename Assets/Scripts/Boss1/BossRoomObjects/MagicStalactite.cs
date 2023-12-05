@@ -76,7 +76,7 @@ namespace Boss.Objects
 
             if(particle != null)
             {
-                PoolManager.Instance.Push(particle);
+                particle.Stop();
             }
 
             if (Physics.Raycast(transform.position, -Vector3.up, out hit, Mathf.Infinity, layerMask))
