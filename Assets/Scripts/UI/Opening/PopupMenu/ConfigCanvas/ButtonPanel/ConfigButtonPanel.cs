@@ -11,7 +11,8 @@ namespace Assets.Scripts.UI.PopupMenu
     public enum ConfigType
     {
         Setting,
-        Controls
+        Controls,
+        Cheat,
     }
 
     public class ConfigButtonPanel : UIBase
@@ -40,7 +41,8 @@ namespace Assets.Scripts.UI.PopupMenu
             Init();
         }
 
-        private List<string> buttonNames = new List<string>() { "세팅", "컨트롤" };
+        // !TODO: ConfigType 추가 후 이름 추가해주기
+        private List<string> buttonNames = new List<string>() { "세팅", "컨트롤", "치트" };
 
         public void InitConfigTypes(ConfigType[] types, TextTypographyData typographyData)
         {
@@ -59,6 +61,12 @@ namespace Assets.Scripts.UI.PopupMenu
                     }
                         break;
                     case ConfigType.Controls:
+                    {
+                        typographyData.title = buttonNames[idx];
+                    }
+                        break;
+
+                    case ConfigType.Cheat:
                     {
                         typographyData.title = buttonNames[idx];
                     }
