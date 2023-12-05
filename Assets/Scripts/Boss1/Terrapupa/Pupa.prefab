@@ -2166,6 +2166,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 58250ec10b179444eae8bddcd7c17ff1, type: 2}
   - {fileID: 11400000, guid: d35891d5a603d80428f7885aec2b19f4, type: 2}
   - {fileID: 11400000, guid: bf8b870d1c8660a49959005e2a25cf76, type: 2}
+  cameraObj: {fileID: 0}
   terrapupaData: {fileID: 0}
   stone: {fileID: 9073804491225900255}
   weakPoint: {fileID: 911217315469005314}
@@ -2326,6 +2327,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  hitSound: TerrapupaAttackHit
 --- !u!54 &5921519033301202650
 Rigidbody:
   m_ObjectHideFlags: 0
