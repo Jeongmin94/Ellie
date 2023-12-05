@@ -98,7 +98,6 @@ public class TerrapupaController : BaseController
         }
     }
 
-    [Button("테스트용1", ButtonSizes.Large)]
     private void SubscribeEvents()
     {
         EventBus.Instance.Subscribe(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
