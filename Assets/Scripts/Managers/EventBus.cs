@@ -2,6 +2,7 @@ using Assets.Scripts.Managers;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum EventBusEvents
 {
@@ -31,62 +32,72 @@ public enum EventBusEvents
 
 public interface IBaseEventPayload
 {
+}
 
+public class EventWrapper
+{
+    private Action<IBaseEventPayload> actionEvent;
+
+    public void Subscribe(Action<IBaseEventPayload> listener)
+    {
+        actionEvent -= listener;
+        actionEvent += listener;
+    }
+
+    public void Invoke(IBaseEventPayload payload) => actionEvent?.Invoke(payload);
+
+    public void Clear() => actionEvent = null;
 }
 
 public class EventBus : Singleton<EventBus>
 {
-    [ShowInInspector][ReadOnly] private Dictionary<EventBusEvents, Delegate> eventTable = new Dictionary<EventBusEvents, Delegate>();
+    [ShowInInspector] [ReadOnly] private Dictionary<EventBusEvents, EventWrapper> eventTable = new Dictionary<EventBusEvents, EventWrapper>();
+
+    public override void Awake()
+    {
+        base.Awake();
+        
+        InitEventTable();
+    }
+
+    private void InitEventTable()
+    {
+        eventTable.Clear();
+        var eventTypes = Enum.GetValues(typeof(EventBusEvents));
+        for (int i = 0; i < eventTypes.Length; i++)
+        {
+            eventTable.TryAdd((EventBusEvents)eventTypes.GetValue(i), new EventWrapper());
+        }
+    }
 
     public override void ClearAction()
     {
+        Debug.Log($"{name} ClearAction");
+
         foreach (var eventName in eventTable.Keys)
         {
-            eventTable[eventName] = null;
+            if (eventTable.TryGetValue(eventName, out var wrapper))
+            {
+                wrapper.Clear();
+            }
         }
 
-        eventTable.Clear();
+        InitEventTable();
     }
 
-    public void Subscribe(EventBusEvents eventName, Action listener)
+    public void Subscribe(EventBusEvents eventName, Action<IBaseEventPayload> listener)
     {
-        if (!eventTable.ContainsKey(eventName))
-            eventTable[eventName] = null;
-        eventTable[eventName] = (Action)Delegate.Combine(eventTable[eventName], listener);
-    }
-
-    public void Unsubscribe(EventBusEvents eventName, Action listener)
-    {
-        if (eventTable.ContainsKey(eventName))
-            eventTable[eventName] = (Action)Delegate.Remove(eventTable[eventName], listener);
-    }
-
-    public void Publish(EventBusEvents eventName)
-    {
-        if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null)
+        if (eventTable.TryGetValue(eventName, out var wrapper))
         {
-            ((Action)eventTable[eventName])();
+            wrapper.Subscribe(listener);
         }
     }
 
-    public void Subscribe<T>(EventBusEvents eventName, Action<T> listener) where T : IBaseEventPayload
+    public void Publish(EventBusEvents eventName, IBaseEventPayload payload)
     {
-        if (!eventTable.ContainsKey(eventName))
-            eventTable[eventName] = null;
-        eventTable[eventName] = Delegate.Combine(eventTable[eventName], listener);
-    }
-
-    public void Unsubscribe<T>(EventBusEvents eventName, Action<T> listener) where T : IBaseEventPayload
-    {
-        if (eventTable.ContainsKey(eventName))
-            eventTable[eventName] = Delegate.Remove(eventTable[eventName], listener);
-    }
-
-    public void Publish<T>(EventBusEvents eventName, T newEvent) where T : IBaseEventPayload
-    {
-        if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null) 
+        if (eventTable.TryGetValue(eventName, out var wrapper))
         {
-            ((Action<T>)eventTable[eventName])(newEvent);
+            wrapper.Invoke(payload);
         }
     }
 }

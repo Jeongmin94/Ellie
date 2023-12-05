@@ -11,12 +11,15 @@ using Channels.Type;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Controller;
 using UnityEngine;
 
-public class TerrapupaMapObjectController : SerializedMonoBehaviour
+public class TerrapupaMapObjectController : BaseController
 {
     [Title("테라푸파 보스전 오브젝트 객체")]
-    [SerializeField] private GameObject magicStalactitePrefab;
+    [SerializeField]
+    private GameObject magicStalactitePrefab;
+
     [SerializeField] private List<ManaFountain> manaFountains;
     [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
     [SerializeField] private BossRoomDoorKnob leftDoor;
@@ -24,27 +27,29 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
     [SerializeField] private Canvas bossRoomLeftCanvas;
 
     [Title("상태 체크")]
-    [ReadOnly][SerializeField] private int golemCoreCount = 0;
-    [ReadOnly][SerializeField] private int manaFountainCount = 4;
+    [ReadOnly]
+    [SerializeField]
+    private int golemCoreCount = 0;
+
+    [ReadOnly] [SerializeField] private int manaFountainCount = 4;
 
     [Title("종마석")]
-    [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n true면 섭취중 아니여도 기절")] public bool canBossStun = false;
+    [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n true면 섭취중 아니여도 기절")]
+    public bool canBossStun = false;
+
     [InfoBox("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
     [InfoBox("구역 갯수")] public int numberOfSector = 3;
     [InfoBox("구역 당 종마석 갯수")] public int stalactitePerSector = 3;
     [InfoBox("생성 구역 반지름")] public float fieldRadius = 25.0f;
     [InfoBox("생성 높이")] public float fieldHeight = 8.0f;
 
-    [Title("마나의 샘")]
-    [InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
+    [Title("마나의 샘")] [InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
     [InfoBox("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
 
-    [Title("보스방 문")]
-    [InfoBox("열리는 시간")] public float openSpeedTime = 3.0f;
+    [Title("보스방 문")] [InfoBox("열리는 시간")] public float openSpeedTime = 3.0f;
     [InfoBox("열리는 각도")] public float openAngle = 120.0f;
 
-    [Title("보스전 설정")]
-    [InfoBox("보스전 BGM")] public string bossBGM = "TerrapupaBGM";
+    [Title("보스전 설정")] [InfoBox("보스전 BGM")] public string bossBGM = "TerrapupaBGM";
     [InfoBox("보스전 종료 BGM")] public string endingBGM = "EndingBGM";
 
     private TicketMachine ticketMachine;
@@ -54,9 +59,10 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         get { return ticketMachine; }
     }
 
-    private void Awake()
+    public override void InitController()
     {
-        UnsubscribeEvents();
+        Debug.Log($"{name} InitController");
+
         SubscribeEvents();
         SpawnStalactites();
         InitManaFountains();
@@ -65,12 +71,8 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         manaFountainCount = manaFountains.Count;
     }
 
-    private void OnDestroy()
-    {
-        UnsubscribeEvents();
-    }
-
     #region 1. 초기화 함수
+
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -89,6 +91,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             }
         }
     }
+
     private void SpawnStalactites()
     {
         for (int i = 0; i < numberOfSector; i++)
@@ -105,9 +108,11 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
                 sectorList.Add(instantStalactite);
                 instantStalactite.respawnValue = regenerateStalactiteTime;
             }
+
             stalactites.Add(sectorList);
         }
     }
+
     public void InitManaFountains()
     {
         foreach (var mana in manaFountains)
@@ -116,30 +121,26 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             mana.respawnValue = respawnManaFountainTime;
         }
     }
+
     private void SubscribeEvents()
     {
-        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
-        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
-        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
-        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
-        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
-        EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
+        EventBus.Instance.Subscribe(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
+        EventBus.Instance.Subscribe(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
+        EventBus.Instance.Subscribe(EventBusEvents.HitManaByPlayerStone, OnHitMana);
+        EventBus.Instance.Subscribe(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
+        EventBus.Instance.Subscribe(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
+        EventBus.Instance.Subscribe(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
     }
 
-    private void UnsubscribeEvents()
-    {
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.LeftBossRoom, OnLeftBossRoom);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitManaByPlayerStone, OnHitMana);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
-    }
     #endregion
 
     #region 2. 이벤트 핸들러
-    private void OnEnterBossRoom(BossEventPayload manaPayload)
+
+    private void OnEnterBossRoom(IBaseEventPayload payload)
     {
+        if (payload is not BossEventPayload manaPayload)
+            return;
+        
         Debug.Log("OnEnterBossRoom :: 보스방 진입 트리거");
 
         GameObject trigger = manaPayload.TransformValue1.gameObject;
@@ -150,14 +151,21 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
     }
-    private void OnLeftBossRoom(BossEventPayload manaPayload)
+
+    private void OnLeftBossRoom(IBaseEventPayload payload)
     {
+        if (payload is not BossEventPayload manaPayload)
+            return;
         Debug.Log("OnLeftBossRoom :: 엔딩 트리거");
 
         bossRoomLeftCanvas.gameObject.SetActive(true);
     }
-    private void OnHitMana(BossEventPayload manaPayload)
+
+    private void OnHitMana(IBaseEventPayload payload)
     {
+        if (payload is not BossEventPayload manaPayload)
+            return;
+        
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
@@ -165,8 +173,12 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         StartCoroutine(ManaCooldown(manaPayload));
     }
-    private void OnDestroyedMana(BossEventPayload manaPayload)
+
+    private void OnDestroyedMana(IBaseEventPayload payload)
     {
+        if (payload is not BossEventPayload manaPayload)
+            return;
+        
         Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} 공격 타입 봉인");
 
         // 보스의 돌에 맞았을 경우, 돌 삭제
@@ -218,8 +230,12 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         StartCoroutine(ManaRespawn(manaPayload));
     }
-    private void OnDropMagicStalactite(BossEventPayload stalactitePayload)
+
+    private void OnDropMagicStalactite(IBaseEventPayload payload)
     {
+        if (payload is not BossEventPayload stalactitePayload)
+            return;
+        
         Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
 
         Transform boss = stalactitePayload.TransformValue2;
@@ -244,14 +260,19 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         StartCoroutine(RespawnMagicStalactite(stalactitePayload));
     }
-    private void OnBossRoomDoorOpen(BossEventPayload payload)
+
+    private void OnBossRoomDoorOpen(IBaseEventPayload baseEventPayload)
     {
+        if (baseEventPayload is not BossEventPayload payload)
+            return;
+        
         Debug.Log($"OnBossRoomDoorOpen :: 보스방 문 열림 체크");
         GolemCoreStone core = payload.TransformValue1.GetComponent<GolemCoreStone>();
         if (core == null)
         {
             return;
         }
+
         BossRoomDoorKnob knob = payload.Sender.GetComponent<BossRoomDoorKnob>();
 
         knob.Init(core.transform);
@@ -264,9 +285,11 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             OpenDoor();
         }
     }
+
     #endregion
 
     #region 3. 코루틴 함수
+
     private IEnumerator ManaCooldown(BossEventPayload manaPayload)
     {
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
@@ -277,6 +300,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         Debug.Log($"{mana.name} 쿨타임 완료");
         mana.IsCooldown = false;
     }
+
     private IEnumerator RespawnMagicStalactite(BossEventPayload payload)
     {
         float respawnTime = payload.FloatValue;
@@ -288,6 +312,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         payload.TransformValue1.position = position;
         payload.TransformValue1.gameObject.SetActive(true);
     }
+
     private IEnumerator ManaRespawn(BossEventPayload manaPayload)
     {
         manaFountainCount--;
@@ -297,7 +322,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
 
         if (manaFountainCount == 0)
         {
-            EventBus.Instance.Publish(EventBusEvents.DestroyAllManaFountain);
+            EventBus.Instance.Publish(EventBusEvents.DestroyAllManaFountain, new BossEventPayload());
         }
 
         yield return new WaitForSeconds(mana.respawnValue);
@@ -312,9 +337,11 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
         manaPayload.BoolValue = true;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
     }
+
     #endregion
 
     #region 4. 기타 함수
+
     public void DropStoneItem(Vector3 position, int index)
     {
         ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload
@@ -325,6 +352,7 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             StoneIdx = index,
         });
     }
+
     private Vector3 GenerateRandomPositionInSector(int sectorIndex)
     {
         float sectorAngleSize = 360f / numberOfSector;
@@ -340,15 +368,18 @@ public class TerrapupaMapObjectController : SerializedMonoBehaviour
             Mathf.Sin(angle) * distance
         );
     }
+
     private Vector3 GetRandVector()
     {
         Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
         return vec.normalized;
     }
+
     private void OpenDoor()
     {
         leftDoor.OpenDoor(-openAngle, openSpeedTime);
         rightDoor.OpenDoor(openAngle, openSpeedTime);
     }
+
     #endregion
 }
