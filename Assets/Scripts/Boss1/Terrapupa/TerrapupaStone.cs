@@ -79,7 +79,7 @@ namespace Boss.Terrapupa
 			{
 				ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
-                PoolManager.Instance.Push(this);
+				Destroy(this);
             }
         }
 
@@ -97,7 +97,7 @@ namespace Boss.Terrapupa
 					TransformValue1 = detection.MyTerrapupa,
                 });
 
-                PoolManager.Instance.Push(this);
+                Destroy(this);
             }
         }
 

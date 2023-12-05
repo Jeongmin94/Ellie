@@ -44,6 +44,7 @@ public class TerrapupaController : SerializedMonoBehaviour
 
     private void Awake()
     {
+        UnsubscribeEvents();
         SubscribeEvents();
         InitTicketMachine();
     }
@@ -52,6 +53,11 @@ public class TerrapupaController : SerializedMonoBehaviour
         ShuffleMinions();
         SetBossInfo();
         StartCoroutine(FallCheck());
+    }
+
+    private void OnDestroy()
+    {
+        UnsubscribeEvents();
     }
 
     #region 1. 초기화 함수
@@ -92,23 +98,7 @@ public class TerrapupaController : SerializedMonoBehaviour
     [Button("테스트용1", ButtonSizes.Large)]
     private void SubscribeEvents()
     {
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.ApplyBossCooldown, OnBossApplyAttackCooldown);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossAttractedByMagicStone, OnBossAtrractedByMagicStone);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, OnBossUnattractedByMagicStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
-        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnBossMeleeAttack);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
-        EventBus.Instance.Unsubscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
-        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
-        
+
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
@@ -126,6 +116,27 @@ public class TerrapupaController : SerializedMonoBehaviour
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
     }
+
+    private void UnsubscribeEvents()
+    {
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.ApplyBossCooldown, OnBossApplyAttackCooldown);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossAttractedByMagicStone, OnBossAtrractedByMagicStone);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, OnBossUnattractedByMagicStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.IntakeMagicStoneByBoss1, OnIntakeMagicStoneByBoss1);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossDeath, OnBossDeath);
+        EventBus.Instance.Unsubscribe<BossEventPayload>(EventBusEvents.HitStone, OnHitStone);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMeleeAttack, OnBossMeleeAttack);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossLowAttack, OnBossLowAttack);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
+        EventBus.Instance.Unsubscribe(EventBusEvents.DestroyAllManaFountain, OnDestroyAllManaFountains);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
+        EventBus.Instance.Unsubscribe<IBaseEventPayload>(EventBusEvents.StartIntakeMagicStone, OnStartIntakeMagicStone);
+    }
+
     private void ShuffleMinions()
     {
         // 미니언 리스트 랜덤 셔플
@@ -160,7 +171,7 @@ public class TerrapupaController : SerializedMonoBehaviour
         BossEventPayload stonePayload = payload as BossEventPayload;
         TerrapupaBTController actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
 
-        Poolable stone = PoolManager.Instance.Pop(actor.Stone.gameObject, transform);
+        GameObject stone = Instantiate(actor.Stone.gameObject, transform);
         stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.CombatPayload, stonePayload.PrefabValue, stonePayload.Sender, ticketMachine);
         stone.GetComponent<TerrapupaStone>().MoveToTarget(stonePayload.TransformValue1);
 
