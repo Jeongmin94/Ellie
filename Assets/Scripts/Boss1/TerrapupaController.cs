@@ -15,6 +15,7 @@ using Sirenix.OdinInspector;
 using Assets.Scripts.Utils;
 using Assets.Scripts.Channels.Item;
 using System;
+using TheKiwiCoder;
 
 public class TerrapupaController : SerializedMonoBehaviour
 {
@@ -98,7 +99,6 @@ public class TerrapupaController : SerializedMonoBehaviour
     [Button("테스트용1", ButtonSizes.Large)]
     private void SubscribeEvents()
     {
-
         EventBus.Instance.Subscribe<BossEventPayload>(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
         EventBus.Instance.Subscribe<IBaseEventPayload>(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
@@ -484,6 +484,21 @@ public class TerrapupaController : SerializedMonoBehaviour
             yield return new WaitForSeconds(fallCheckLatency);
         }
     }
+    private IEnumerator NullCheck()
+    {
+        while (true)
+        {
+            CheckPlayerNull(terrapupa.transform);
+            CheckPlayerNull(terra.transform);
+            CheckPlayerNull(pupa.transform);
+            foreach (var minion in minions)
+            {
+                CheckPlayerNull(minion.transform);
+            }
+
+            yield return new WaitForSeconds(fallCheckLatency);
+        }
+    }
     #endregion
 
     #region 4. 기타 함수
@@ -576,7 +591,7 @@ public class TerrapupaController : SerializedMonoBehaviour
 
         RaycastHit hit;
 
-        Vector3 rayStart = transform.position + Vector3.up * rayStartOffset;
+        Vector3 rayStart = target.position + Vector3.up * rayStartOffset;
 
         bool hitGround = Physics.Raycast(rayStart, -Vector3.up, out hit, checkDistance, groundMask);
 
@@ -584,6 +599,16 @@ public class TerrapupaController : SerializedMonoBehaviour
         {
             Debug.Log("추락 방지, 포지션 초기화");
             target.position = transform.position;
+        }
+    }
+    private void CheckPlayerNull(Transform targetBoss)
+    {
+        var instance = targetBoss.GetComponent<BehaviourTreeInstance>();
+        var targetPlayer = instance.FindBlackboardKey<Transform>("player");
+
+        if(targetPlayer.value != player.transform)
+        {
+            targetPlayer.Value = player.transform;
         }
     }
     private Vector3 GetRandVector()
