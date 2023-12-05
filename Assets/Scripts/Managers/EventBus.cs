@@ -51,7 +51,7 @@ public class EventWrapper
 
 public class EventBus : Singleton<EventBus>
 {
-    [ShowInInspector] [ReadOnly] private Dictionary<EventBusEvents, EventWrapper> eventTable = new Dictionary<EventBusEvents, EventWrapper>();
+    [ShowInInspector][ReadOnly] private Dictionary<EventBusEvents, EventWrapper> eventTable = new Dictionary<EventBusEvents, EventWrapper>();
 
     public override void Awake()
     {
