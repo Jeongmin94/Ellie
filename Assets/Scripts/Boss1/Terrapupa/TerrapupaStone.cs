@@ -20,6 +20,8 @@ namespace Boss.Terrapupa
 		[SerializeField] private LayerMask layerMask;
 		[SerializeField] private string hitSound = "TerrapupaAttackHit";
 
+		public float remainTime = 10.0f;
+
         private GameObject effect;
 		private Transform owner;
 		private TicketMachine ticketMachine;
@@ -37,6 +39,11 @@ namespace Boss.Terrapupa
         {
 			sphereCollider = GetComponent<SphereCollider>();
 			rb = GetComponent<Rigidbody>();
+        }
+
+        private void Start()
+        {
+			Destroy(this, remainTime);
         }
 
         private void OnDisable()
