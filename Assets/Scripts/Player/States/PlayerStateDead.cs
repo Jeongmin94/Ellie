@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -17,7 +18,8 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            Controller.gameObject.tag = "Untagged";
+            //Controller.gameObject.tag = "Untagged";
+            Controller.GetComponent<CapsuleCollider>().enabled = false;
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", Controller.PlayerObj.position);
             Controller.Anim.SetTrigger("Dead");
             Controller.canTurn = false;
