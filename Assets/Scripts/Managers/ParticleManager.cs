@@ -1,6 +1,5 @@
 ﻿using Assets.Scripts.Managers;
 using Sirenix.OdinInspector;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -19,33 +18,51 @@ namespace Assets.Scripts.Particle
 
     public class ParticleManager : Singleton<ParticleManager>
     {
-        [ShowInInspector][ReadOnly] private List<Poolable> particles = new List<Poolable>();
+        [ShowInInspector] [ReadOnly] private List<ParticleController> particles = new List<ParticleController>();
+
+        private Transform particleRoot;
+
+        public override void Awake()
+        {
+            base.Awake();
+
+            GameObject go = new GameObject();
+            go.transform.parent = transform;
+            go.name = "@Particle_Root";
+            particleRoot = go.transform;
+        }
 
         public override void ClearAction()
         {
+            base.ClearAction();
+
             foreach (var particle in particles)
             {
-                PoolManager.Instance.Push(particle);
+                particle.Stop();
             }
         }
 
-        public void RemoveParticleFromList(Poolable target)
+        public void ReturnToPool(ParticleController controller)
         {
-            Debug.Log(particles.Count);
-            particles.Remove(target);
-            Debug.Log(particles.Count);
+            if (particles.Remove(controller))
+            {
+                PoolManager.Instance.Push(controller);
+            }
+            else
+            {
+                Debug.Log($"{controller.name} 파티클 회수 실패, Particles {particles.Count}");
+            }
         }
-
+        
         public GameObject GetParticle(GameObject prefab, ParticlePayload payload)
         {
             if (prefab == null)
             {
-                Debug.LogError("ParticleManager :: Null Prefab");   
+                Debug.LogError("ParticleManager :: Null Prefab");
                 return null;
             }
 
-            var particle = PoolManager.Instance.Pop(prefab);
-            particles.Add(particle);
+            var particle = PoolManager.Instance.Pop(prefab, particleRoot);
 
             if (payload.Origin != null)
             {
@@ -64,6 +81,8 @@ namespace Assets.Scripts.Particle
 
             var controller = particle.transform.gameObject.AddComponent<ParticleController>();
             controller.Init(payload);
+
+            particles.Add(controller);
 
             return particle.gameObject;
         }

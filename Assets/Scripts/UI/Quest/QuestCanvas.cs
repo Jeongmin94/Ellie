@@ -59,6 +59,11 @@ namespace Assets.Scripts.UI.Quest
             InitObjects();
         }
 
+        private void Start()
+        {
+            gameObject.SetActive(false);
+        }
+
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
@@ -121,11 +126,15 @@ namespace Assets.Scripts.UI.Quest
                     {
                         questTexts[i].text = string.Empty;
                     }
+                    
+                    gameObject.SetActive(false);
                 }
                     break;
 
                 case ActionType.SetQuestIcon:
                 {
+                    gameObject.SetActive(true);
+
                     questIconImage.gameObject.SetActive(true);
                     questIconImage.sprite = uiPayload.questInfo.questIcon;
                 }
@@ -133,12 +142,16 @@ namespace Assets.Scripts.UI.Quest
 
                 case ActionType.SetQuestName:
                 {
+                    gameObject.SetActive(true);
+
                     questTexts[(int)Texts.QuestNameText].text = uiPayload.questInfo.questName;
                 }
                     break;
 
                 case ActionType.SetQuestDesc:
                 {
+                    gameObject.SetActive(true);
+
                     questTexts[(int)Texts.QuestDescText].text = uiPayload.questInfo.questDesc;
                 }
                     break;
