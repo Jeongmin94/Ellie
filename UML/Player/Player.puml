@@ -8,25 +8,29 @@ class PlayerController{
     - Any Other Logics
 }
 
-class PlayerComponent1{
+PlayerController <-down- PlayerStatus
+PlayerController <-down- PlayerAim
+PlayerController <-down- PlayerQuest
+PlayerController <-down- PlayerInteraction
 
-}
-
-class PlayerComponent1{
-
-}
-
-class PlayerComponent1{
-
-}
-
-PlayerController <- PlayerComponent1
-PlayerController <- PlayerComponent2
-PlayerController <- PlayerComponent3
 @enduml
 
 
 @startuml
+class PlayerStateMachine{
+    - states : Dictionary<PlayerStateName, PlayerBaseState>
+    + CurrentState : PlayerBaseState
+    + CurrentStateName : PlayerStateName
+
+    + AddState(PlayerStateName stateName, PlayerBaseState state) : void
+    + DeleteState(PlayerStateName stateName) : void
+    + ChangeState(PlayerStateName nextStateName) : void
+    + ChangeState(PlayerStateName nextStateName, StateInfo info) : void
+    + UpdateState() : void
+    + FixedUpdateState() : void
+}
+
+PlayerStateMachine o-down- PlayerBaseState
 abstract class PlayerBaseState {
     # Controller: PlayerController
 
@@ -38,8 +42,9 @@ abstract class PlayerBaseState {
 
 }
 
-class PlayerStates
+PlayerBaseState <|-down- PlayerStateIdle
+PlayerBaseState <|-down- PlayerStateWalk
+PlayerBaseState <|-down- PlayerStateSprint
 
-PlayerBaseState <|- PlayerStates
 
 @enduml
