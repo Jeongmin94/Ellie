@@ -1,3 +1,5 @@
+using Assets.Scripts.Centers;
+using Assets.Scripts.Data.UI.Video;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
@@ -12,6 +14,14 @@ public class VideoStartClient : MonoBehaviour
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
         ticketMachine.AddTickets(ChannelType.UI);
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            SceneLoadManager.Instance.LoadScene(SceneName.Opening);
+        }
     }
 
     public void SendEndingPayload()

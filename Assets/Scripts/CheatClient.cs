@@ -1,3 +1,4 @@
+using Assets.Scripts.Centers;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Inventory;
@@ -8,6 +9,7 @@ using Channels.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CheatClient : SerializedMonoBehaviour
 {
@@ -65,7 +67,7 @@ public class CheatClient : SerializedMonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-
+            SkipToEnding();
         }
     }
 
@@ -142,7 +144,7 @@ public class CheatClient : SerializedMonoBehaviour
         pupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
     }
     [EnableIf("IsRuntime")]
-    [Button("2페이즈 스킵", ButtonSizes.Large)]
+    [Button("테라푸파 데미지", ButtonSizes.Large)]
     public void DamageTerrapupa()
     {
         Debug.Log("테라, 푸파 데미지 입히기");
@@ -196,6 +198,15 @@ public class CheatClient : SerializedMonoBehaviour
                 itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101),
             });
         }
+    }
+
+    [EnableIf("IsRuntime")]
+    [Button("엔딩 스킵", ButtonSizes.Large)]
+    public void SkipToEnding()
+    {
+        Debug.Log("엔딩으로 스킵");
+
+        SceneLoadManager.Instance.LoadScene(SceneName.Closing);
     }
 
     private UIPayload GenerateStoneAcquirePayloadTest(int index)
