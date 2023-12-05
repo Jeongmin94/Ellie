@@ -44,30 +44,28 @@ namespace Assets.Scripts.Managers
 
         private void Update()
         {
-            if(CanInput)
+            if (Input.GetKeyDown(KeyCode.Escape))
+                escapeAction?.Invoke();
+
+            if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
+                return;
+
+            if (Input.anyKey)
+                keyAction?.Invoke();
+
+            if (Input.GetMouseButton(0))
             {
-                if (Input.GetKeyDown(KeyCode.Escape))
-                    escapeAction?.Invoke();
-
-                if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
-                    return;
-
-                if (Input.anyKey)
-                    keyAction?.Invoke();
-
-                if (Input.GetMouseButton(0))
-                {
-                    mouseAction?.Invoke();
-                    isMousePressed = true;
-                }
-                else
-                {
-                    if (isMousePressed)
-                        mouseAction?.Invoke();
-
-                    isMousePressed = false;
-                }
+                mouseAction?.Invoke();
+                isMousePressed = true;
             }
+            else
+            {
+                if (isMousePressed)
+                    mouseAction?.Invoke();
+
+                isMousePressed = false;
+            }
+            
         }
 
         public override void ClearAction()

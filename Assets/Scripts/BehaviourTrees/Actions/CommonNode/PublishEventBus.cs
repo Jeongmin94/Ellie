@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Channels.Boss;
 using UnityEngine;
 using TheKiwiCoder;
 
@@ -15,7 +16,7 @@ public class PublishEventBus : ActionNode
     }
 
     protected override State OnUpdate() {
-        EventBus.Instance.Publish(eventBusEvent.Value);
+        EventBus.Instance.Publish(eventBusEvent.Value, new BossEventPayload());
         return State.Success;
     }
 }

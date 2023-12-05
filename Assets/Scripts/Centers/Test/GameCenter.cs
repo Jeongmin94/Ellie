@@ -29,6 +29,7 @@ namespace Assets.Scripts.Centers.Test
             MangerControllers.ClearAction(ManagerType.Data);
             MangerControllers.ClearAction(ManagerType.Sound);
             MangerControllers.ClearAction(ManagerType.Particle);
+            MangerControllers.ClearAction(ManagerType.EventBus);
             
             Init();
         }

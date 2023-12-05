@@ -73,6 +73,11 @@ namespace Assets.Scripts.Player
             SetLineRendererLayerMask();
         }
 
+        public void Init()
+        {
+            SubscribeAction();
+        }
+
         private void SubscribeAction()
         {
             chargingData.ChargingValue.Subscribe(OnChangeChargingValue);

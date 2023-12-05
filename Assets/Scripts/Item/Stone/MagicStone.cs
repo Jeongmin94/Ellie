@@ -46,7 +46,7 @@ namespace Assets.Scripts.Item.Stone
             }
 
             //보스의 타겟 초기화
-            EventBus.Instance.Publish<BossEventPayload>(EventBusEvents.BossUnattractedByMagicStone, new BossEventPayload
+            EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone, new BossEventPayload
             {
                 TransformValue1 = transform,
                 TransformValue2 = target,
