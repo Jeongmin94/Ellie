@@ -63,7 +63,7 @@ namespace Assets.Scripts.Player
 
         private void OnEnable()
         {
-            SubscribeAction();
+            //SubscribeAction();
         }
 
         private void Start()
@@ -71,6 +71,11 @@ namespace Assets.Scripts.Player
             lineRenderer.enabled = false;
 
             SetLineRendererLayerMask();
+        }
+
+        public void Init()
+        {
+            SubscribeAction();
         }
 
         private void SubscribeAction()

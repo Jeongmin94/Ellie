@@ -1,0 +1,36 @@
+@startuml
+
+class Poolable{
+
+}
+
+
+class AudioController{
+    - audioSource : AudioSource
+    - clip : AudioClip
+
+    + Play() : void
+    + Stop() : void
+    + Pause() : void
+    + Resume() : void
+}
+
+Poolable <|-down- AudioController
+
+note bottom : 오디오 컨트롤러를 풀링하기 위해 상속
+class SoundManager<<singleton>>{
+    + SoundType : enum
+    - audioControllerPool : Pool
+    - volumes : float
+    - AudioClips : Dictionary<string, AudioClip>
+
+    + PlaySound(SoundType type, string name, Vector3 playingPos, bool loop, float pitch) : void
+    + SetVolume(SoundType type, float volume) : void
+    + StopSfx(string name) : void
+    + StopAmbient(string name) : void
+    + StopBgm() : void
+    + PauseBgm() : void
+    + ResumeBgm() : void
+    + Any Other Logics
+}
+@enduml
