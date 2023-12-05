@@ -43,8 +43,8 @@ MonoBehaviour:
     - rid: 283011087430582291
     - rid: 283011090204065827
     - rid: 283011023650684947
-  viewPosition: {x: 2749.6, y: 487.2, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  viewPosition: {x: 2241.6, y: 568.8, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -271,6 +271,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 283011087430582291
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -299,6 +303,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 1401849447854899235
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

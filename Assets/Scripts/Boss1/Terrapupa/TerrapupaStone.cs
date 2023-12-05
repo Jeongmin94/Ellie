@@ -41,11 +41,6 @@ namespace Boss.Terrapupa
 			rb = GetComponent<Rigidbody>();
         }
 
-        private void Start()
-        {
-			Destroy(this, remainTime);
-        }
-
         private void OnDisable()
         {
             transform.localScale = Vector3.one;
@@ -69,6 +64,8 @@ namespace Boss.Terrapupa
             attackValue = hitPayload.Damage;
 			owner = sender;
 			ticketMachine = senderTicketMacine;
+
+            Destroy(this.gameObject, remainTime);
         }
 
         private void OnCollisionEnter(Collision collision)
@@ -86,7 +83,7 @@ namespace Boss.Terrapupa
 			{
 				ParticleManager.Instance.GetParticle(effect, transform, 1.0f);
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
-				Destroy(this);
+				Destroy(this.gameObject);
             }
         }
 
@@ -104,7 +101,7 @@ namespace Boss.Terrapupa
 					TransformValue1 = detection.MyTerrapupa,
                 });
 
-                Destroy(this);
+                Destroy(this.gameObject);
             }
         }
 
