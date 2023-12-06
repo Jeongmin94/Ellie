@@ -1,6 +1,4 @@
 ﻿using Assets.Scripts.InteractiveObjects;
-using System;
-using System.ComponentModel;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
@@ -20,17 +18,21 @@ namespace Assets.Scripts.Player.States
             curOre = Controller.CurOre;
             miningTime = Controller.MiningTime;
             curTime = 0f;
-            Controller.Anim.SetLayerWeight(2, 1);
             LookOre();
             Controller.Pickaxe.gameObject.SetActive(true);
             Controller.Anim.SetBool("IsMining", true);
+            Controller.GetComponent<PlayerInteraction>().isInteracting = true;
+            Controller.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
 
         public override void OnExitState()
         {
-            Controller.Anim.SetLayerWeight(2, 0);
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Mining);
             Controller.Pickaxe.gameObject.SetActive(false);
             Controller.Anim.SetBool("IsMining", false);
+            Controller.GetComponent<PlayerInteraction>().isInteracting = false;
+            Controller.GetComponent<PlayerInteraction>().ActivateInteractiveUI();
+
         }
 
         public override void OnFixedUpdateState()
@@ -39,6 +41,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
+            Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Mining, 1);
             //입력이 들어오면 스테이트 탈출
             if (Controller.MoveInput.magnitude > 0)
             {
@@ -86,12 +89,13 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.CurOre.Smith(damage);
             }
-            Controller.Pickaxe.Durability--;
-            if (Controller.Pickaxe.Durability <= 0)
-            {
-                Debug.Log("Pickaxe is Broken");
-                Controller.ChangeState(PlayerStateName.Idle);
-            }
+            //Controller.Pickaxe.Durability--;
+            //if (Controller.Pickaxe.Durability <= 0)
+            //{
+            //    Debug.Log("Pickaxe is Broken");
+            //    Controller.ChangeState(PlayerStateName.Idle);
+            //    Controller.isPickaxeAvailable = false;
+            //}
         }
     }
 }

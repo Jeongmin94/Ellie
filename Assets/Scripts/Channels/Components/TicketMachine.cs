@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using Centers;
 using Channels.Type;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Channels.Components
 {
-    public class TicketMachine : MonoBehaviour
+    public class TicketMachine : SerializedMonoBehaviour
     {
         private Action<TicketBox> addTicketAction;
 
-        private readonly IDictionary<ChannelType, Ticket> tickets =
+        [ShowInInspector][ReadOnly] private readonly IDictionary<ChannelType, Ticket> tickets =
             new Dictionary<ChannelType, Ticket>();
 
         private void Subscribe(Action<TicketBox> listener)
@@ -27,8 +28,15 @@ namespace Channels.Components
 
         public void SendMessage(ChannelType type, IBaseEventPayload payload)
         {
+
             if (tickets.TryGetValue(type, out var ticket))
                 ticket.Publish(payload);
+        }
+
+        public void Notify(ChannelType type, IBaseEventPayload payload)
+        {
+            if (tickets.TryGetValue(type, out var ticket))
+                ticket.Notify(payload);
         }
 
         /// <summary>
@@ -61,8 +69,25 @@ namespace Channels.Components
             {
                 foreach (var channelType in tickets.Keys)
                 {
+                    // Debug.Log(channelType + " 채널 구독 : " + gameObject.name);
                     tickets[channelType].Subscribe(center.GetChannel(channelType));
                     Subscribe(center.OnAddTicket);
+                }
+            }
+            else
+            {
+                Debug.LogWarning($"{name}'s ticketTypes is Empty");
+            }
+        }
+
+        public void Ticket(IDictionary<ChannelType, BaseEventChannel> channels)
+        {
+            if (tickets.Any())
+            {
+                foreach (var channelType in tickets.Keys)
+                {
+                    // Debug.Log(channelType + " 채널 구독 : " + gameObject.name);
+                    tickets[channelType].Subscribe(channels[channelType]);
                 }
             }
             else

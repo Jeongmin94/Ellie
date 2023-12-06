@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Equipments
@@ -19,10 +19,13 @@ namespace Assets.Scripts.Equipments
         public Transform effectPos;
         public Tier tier;
         [SerializeField] private int durability = 0;
+
+        private string[] pickaxeSounds = new string[3];
+        private int soundIdx = 0;
         public int Durability { get { return durability; } set { durability = value; } }
         public int MinSmithPower { get { return data.minSmithPower; } }
         public int MaxSmithPower { get { return data.maxSmithPower; } }
-        private void LoadPickaxeData(Tier tier)
+        public void LoadPickaxeData(Tier tier)
         {
             this.tier = tier;
             data = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>((int)tier);
@@ -39,11 +42,17 @@ namespace Assets.Scripts.Equipments
                 obj.SetActive(false);
                 obj.GetComponent<ParticleSystem>().Stop();
             }
+            for(int i = 0; i< pickaxeSounds.Length;i++)
+            {
+                string soundName = "pickaxe_sound";
+                soundName += (i+1).ToString();
+                pickaxeSounds[i] = soundName;
+            }
         }
         private void Update()
         {
             //테스트
-            if(Input.GetKeyDown(KeyCode.Alpha1))
+            if (Input.GetKeyDown(KeyCode.Alpha1))
             {
                 LoadPickaxeData(Tier.Tier5);
             }
@@ -76,6 +85,9 @@ namespace Assets.Scripts.Equipments
             effect.SetActive(true);
             effect.transform.position = effectPos.position;
             effect.GetComponent<ParticleSystem>().Play();
+
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, pickaxeSounds[soundIdx], transform.position);
+            soundIdx = (soundIdx+1) % pickaxeSounds.Length;
         }
     }
 }

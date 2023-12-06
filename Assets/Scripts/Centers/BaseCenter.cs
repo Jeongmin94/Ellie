@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Assets.Scripts.Controller;
 using Assets.Scripts.Data.Channels;
 using Channels;
 using Channels.Components;
@@ -33,6 +34,9 @@ namespace Centers
     public class BaseCenter : MonoBehaviour
     {
         [SerializeField] private BaseChannelTypeSo channelTypeSo;
+        public GameObject Canvases;
+        public GameObject[] uiPrefabs;
+        public GameObject[] controllerInstances;
 
         private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
@@ -58,6 +62,32 @@ namespace Centers
         protected virtual void Start()
         {
             // !TODO Start() 메서드에서 CheckTicket 메서드를 호출하여 GameObject의 티켓을 만들어야 합니다. 
+        }
+
+        protected virtual void InitObjects()
+        {
+            if (Canvases != null)
+            {
+                foreach (Transform child in Canvases.transform)
+                {
+                    CheckTicket(child.gameObject);
+                }
+            }
+
+            foreach (var ui in uiPrefabs)
+            {
+                var canvas = Instantiate(ui, Canvases.transform);
+                CheckTicket(canvas.gameObject);
+            }
+
+            // instance only
+            if (controllerInstances != null)
+            {
+                foreach (var controller in controllerInstances)
+                {
+                    controller.GetComponent<BaseController>().InitController();
+                }
+            }
         }
 
         protected void CheckTicket(GameObject go)

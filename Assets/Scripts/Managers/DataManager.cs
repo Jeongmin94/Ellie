@@ -1,45 +1,72 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
-public class DataManager : Singleton<DataManager>
+namespace Assets.Scripts.Managers
 {
-    [SerializeField]
-    private List<DataParsingInfo> dataList;
-
-    private Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
-
-    private void Start()
+    public class DataManager : Singleton<DataManager>
     {
-        foreach (var data in dataList)
-        {
-            dataDictionary[data.GetType()] = data;
-        }
-    }
+        [SerializeField] private List<DataParsingInfo> dataList;
 
-    public T GetData<T>() where T : DataParsingInfo
-    {
-        if (dataDictionary.TryGetValue(typeof(T), out DataParsingInfo data))
-        {
-            return data as T;
-        }
-        else
-        {
-            Debug.LogError("¹ÝÈ¯ ½ÇÆÐ");
-            return null;
-        }
-    }
+        private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
 
-    public T GetIndexData<T, U>(int index) where U : DataParsingInfo where T : class
-    {
-        var data = GetData<U>();
-        if(data != null)
+        private GoogleSheetsParser parser;
+
+        public bool isParseDone { get; private set; } = false;
+
+        public override void Awake()
         {
-            return data.GetIndexData<T>(index);
+            base.Awake();
+
+            parser = Instance.gameObject.GetOrAddComponent<GoogleSheetsParser>();
+            StartCoroutine(ParseData());
         }
-        else
+
+        private IEnumerator ParseData()
         {
-            return default(T);
+            yield return parser.Parse(dataList);
+
+            foreach (var data in dataList)
+            {
+                dataDictionary[data.GetType()] = data;
+            }
+
+            isParseDone = true;
+        }
+
+        public T GetData<T>() where T : DataParsingInfo
+        {
+            if (dataDictionary.TryGetValue(typeof(T), out DataParsingInfo data))
+            {
+                return data as T;
+            }
+            else
+            {
+                Debug.LogError("ë°˜í™˜ ì‹¤íŒ¨");
+                return null;
+            }
+        }
+
+        public T GetIndexData<T, U>(int index) where U : DataParsingInfo where T : class
+        {
+            var data = GetData<U>();
+            if (data != null)
+            {
+                return data.GetIndexData<T>(index);
+            }
+            else
+            {
+                return default(T);
+            }
+        }
+
+        public IEnumerator CheckIsParseDone()
+        {
+            var wfs = new WaitForSeconds(0.5f);
+            while (!isParseDone)
+                yield return wfs;
         }
     }
 }

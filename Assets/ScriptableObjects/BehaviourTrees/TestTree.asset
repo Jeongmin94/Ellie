@@ -1,0 +1,884 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: TestTree
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 1026712297042345985
+  nodes:
+  - rid: 1026712297042345985
+  - rid: 283011045824135168
+  - rid: 283011178275274793
+  - rid: 283011178275274794
+  - rid: 283011178275274808
+  - rid: 283011178275274809
+  - rid: 283011178275274812
+  - rid: 283011178275274814
+  - rid: 283011178275274818
+  - rid: 1683426247750189059
+  - rid: 1683426247750189060
+  - rid: 1683426247750189061
+  - rid: 1683426247750189062
+  - rid: 1683426247750189063
+  - rid: 1683426247750189064
+  - rid: 1683426247750189065
+  - rid: 1683426247750189066
+  - rid: 1683426247750189067
+  - rid: 1683426247750189068
+  - rid: 1683426247750189069
+  - rid: 1683426247750189070
+  - rid: 1683426247750189071
+  - rid: 1683426247750189074
+  - rid: 1683426247750189075
+  - rid: 1683426247750189078
+  - rid: 1683426247750189079
+  - rid: 1683426247750189080
+  - rid: 1683426247750189081
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: 283011045824135169
+    - rid: 283011045824135170
+    - rid: 283011178275274795
+    - rid: 283011178275274806
+    - rid: 1683426247750189056
+    - rid: 1683426247750189076
+  viewPosition: {x: 1150.4, y: 218.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 283011045824135168
+      type: {class: SubTree, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 349531248749ca94db38bc054c48c2ab
+        position: {x: -135, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        treeAsset: {fileID: 11400000, guid: 629cd42315964bb48bd471c6e71cf8d2, type: 2}
+        treeInstance: {fileID: 0}
+        controllerNames:
+          reference:
+            rid: -2
+          defaultValue: 
+    - rid: 283011045824135169
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: test
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 5
+    - rid: 283011045824135170
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: hihi
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0.5
+    - rid: 283011178275274793
+      type: {class: InterruptSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d7b77497c3dbd2d43b31803f9184ff55
+        position: {x: -405, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011178275274809
+        - rid: 283011045824135168
+    - rid: 283011178275274794
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 09819e22d8fc4874596c0016bd630869
+        position: {x: -405, y: -225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011178275274793
+        restartOnSuccess: 1
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011178275274795
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: checkInit
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011178275274806
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: testt
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011178275274808
+      type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 3e156b7247811684abc3fb6a5dc9bda4
+        position: {x: -1095, y: 405}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011178275274806
+          value:
+            rid: 283011178275274811
+    - rid: 283011178275274809
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 54962055f08c3d44dadcc93440888d73
+        position: {x: -705, y: 150}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011178275274808
+        - rid: 283011178275274812
+        - rid: 283011178275274818
+        - rid: 283011178275274814
+    - rid: 283011178275274811
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 283011178275274812
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 139bc169c426c6943a9c818e8af2c2bc
+        position: {x: -870, y: 405}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011178275274795
+          value:
+            rid: 283011178275274813
+    - rid: 283011178275274813
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011178275274814
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a598cb39d6d41964299b40904eae611c
+        position: {x: -405, y: 405}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011178275274806
+          value:
+            rid: 283011178275274815
+    - rid: 283011178275274815
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011178275274818
+      type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 230573f571f4b73468ada181a38d207d
+        position: {x: -645, y: 405}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        message:
+          reference:
+            rid: -2
+          defaultValue: "\uB8E8\uD2B8\uB178\uB4DC \uD14C\uC2A4\uD2B8"
+    - rid: 1026712297042345985
+      type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: dc13f68f-8813-4271-afdd-4309e0372002
+        position: {x: -405, y: -360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011178275274794
+    - rid: 1683426247750189056
+      type: {class: RangeKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: rangeCheck
+        typeName: BaseRange, Assembly.Ellie, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 1683426247750189059
+      type: {class: AddConeRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 9cf3423ce1454614ab0a83ba7280cbc2
+        position: {x: 90, y: -375}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        startPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        startRotation:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0, w: 0}
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 0
+        angle:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189060
+      type: {class: AddConeRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: ec1067296c975274ba715e5981d62f09
+        position: {x: 435, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 1
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 10
+        angle:
+          reference:
+            rid: -2
+          defaultValue: 45
+    - rid: 1683426247750189061
+      type: {class: AddCircleRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8e05e120be3fc6c449037f89e8ea6f09
+        position: {x: 90, y: -300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        startPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        startRotation:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0, w: 0}
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189062
+      type: {class: AddCircleRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 2d8d45e09474ad64d9874880ebe85a02
+        position: {x: 315, y: -300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189063
+      type: {class: AddTrapezoidRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 09b6d49ee31749e4f83e940460d846b8
+        position: {x: 45, y: -225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        startPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        startRotation:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0, w: 0}
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        height:
+          reference:
+            rid: -2
+          defaultValue: 0
+        upperBase:
+          reference:
+            rid: -2
+          defaultValue: 0
+        lowerBase:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189064
+      type: {class: AddTrapezoidRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c418db4845ae822449ef583448fc0ad9
+        position: {x: 1260, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 1
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 2
+        height:
+          reference:
+            rid: -2
+          defaultValue: 6
+        upperBase:
+          reference:
+            rid: -2
+          defaultValue: 3
+        lowerBase:
+          reference:
+            rid: -2
+          defaultValue: 10
+    - rid: 1683426247750189065
+      type: {class: AddRectangleRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c2e79f5ecc725bd46a95da5234dc76bb
+        position: {x: 45, y: -150}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        startPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        startRotation:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0, w: 0}
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        height:
+          reference:
+            rid: -2
+          defaultValue: 0
+        width:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189066
+      type: {class: AddRectangleRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 3b8e10a0a80543e49b1ee1e4e0f0a6f6
+        position: {x: 2310, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        height:
+          reference:
+            rid: -2
+          defaultValue: 15
+        width:
+          reference:
+            rid: -2
+          defaultValue: 15
+    - rid: 1683426247750189067
+      type: {class: AddHybridConeRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 057ef9e1953ae6c46a2f97c30bd69ad6
+        position: {x: 30, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        startPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        startRotation:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0, w: 0}
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 0
+        angle:
+          reference:
+            rid: -2
+          defaultValue: 0
+        upperBase:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189068
+      type: {class: AddHybridConeRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 2b95be597bd858a4ba01a836fc23e6c7
+        position: {x: 315, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 0
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 0
+        angle:
+          reference:
+            rid: -2
+          defaultValue: 0
+        upperBase:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189069
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7d75d2b7d98f305488318df13ed0f399
+        position: {x: 1470, y: -735}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1683426247750189079
+        - rid: 1683426247750189075
+        - rid: 1683426247750189070
+        - rid: 1683426247750189064
+        - rid: 1683426247750189078
+        - rid: 1683426247750189080
+        - rid: 1683426247750189074
+        - rid: 1683426247750189071
+        - rid: 1683426247750189066
+        - rid: 1683426247750189081
+    - rid: 1683426247750189070
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 2e5aad9469490e747b3a4c49a33afc80
+        position: {x: 1095, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        duration: 3
+    - rid: 1683426247750189071
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 459514c020f607f4b84594d6da00f57c
+        position: {x: 2145, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        duration: 3
+    - rid: 1683426247750189074
+      type: {class: MoveTowardsRunning, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0120a3f5258151243b114fb0bd59ba46
+        position: {x: 1905, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 5, y: 0, z: 5}
+        targetTransform:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        moveSpeed:
+          reference:
+            rid: -2
+          defaultValue: 3
+        moveDistance:
+          reference:
+            rid: -2
+          defaultValue: 5
+    - rid: 1683426247750189075
+      type: {class: CheckRangeTargets, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b1da362e1c4f8224dbf080011eec27b2
+        position: {x: 885, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        range:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        targets:
+          reference:
+            rid: 1683426247750189076
+          defaultValue:
+          - {fileID: 0}
+          - {fileID: 0}
+          - {fileID: 0}
+        checkTag:
+          reference:
+            rid: -2
+          defaultValue: Boss
+        checkLayer:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 0
+    - rid: 1683426247750189076
+      type: {class: ListTransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: resultList
+        typeName: System.Collections.Generic.List`1[[UnityEngine.Transform, UnityEngine.CoreModule,
+          Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+          Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: []
+    - rid: 1683426247750189078
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 6ca3e13db6f067c42baa40f74a954a46
+        position: {x: 1545, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        duration: 1
+    - rid: 1683426247750189079
+      type: {class: AddConeRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: ba0d9724e8ea85e4d956f6c5f04695fc
+        position: {x: 705, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        startPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        startRotation:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0, w: 0}
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 1
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 15
+        angle:
+          reference:
+            rid: -2
+          defaultValue: 60
+    - rid: 1683426247750189080
+      type: {class: CheckRangeTargets, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 58208c9a8b373ff4f8c151dfdae4fab6
+        position: {x: 1710, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        range:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        targets:
+          reference:
+            rid: 1683426247750189076
+          defaultValue: []
+        checkTag:
+          reference:
+            rid: -2
+          defaultValue: 
+        checkLayer:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 0
+    - rid: 1683426247750189081
+      type: {class: CheckRangeTargets, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 509ed172619771f46aefffbc0538bc63
+        position: {x: 2595, y: -480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        range:
+          reference:
+            rid: 1683426247750189056
+          defaultValue: {fileID: 0}
+        targets:
+          reference:
+            rid: 1683426247750189076
+          defaultValue: []
+        checkTag:
+          reference:
+            rid: -2
+          defaultValue: Monster
+        checkLayer:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 0

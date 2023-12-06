@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Combat;
 using Assets.Scripts.Player;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -12,6 +13,10 @@ namespace Assets.Scripts.Centers.Test
     public class TestAttacker : MonoBehaviour, ICombatant
     {
         public PlayerStatus playerStatus;
+        public int testDamage;
+        public float testEffectDuration;
+        public float testForce;
+        public StatusEffectName statusEffect;
         private TicketMachine ticketMachine;
 
         private void Awake()
@@ -20,7 +25,6 @@ namespace Assets.Scripts.Centers.Test
         }
         private void SetTicketMachine()
         {
-            Debug.Log("TestAttacker SetTicketMachine()");
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat);
 
@@ -49,12 +53,14 @@ namespace Assets.Scripts.Centers.Test
             {
                 Type = CombatType.Melee,
                 Attacker = transform,
-                Defender = playerStatus.transform,
+                Defender = playerStatus.gameObject.transform,
                 AttackDirection = Vector3.zero,
                 AttackStartPosition = transform.position,
-                AttackPosition = playerStatus.transform.position,
-                PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity,
-                Damage = 5
+                AttackPosition = playerStatus.gameObject.transform.position,
+                PlayerStatusEffectName = statusEffect,
+                statusEffectduration = testEffectDuration,
+                force = testForce,
+                Damage = testDamage
             };
             Attack(payload);
         }

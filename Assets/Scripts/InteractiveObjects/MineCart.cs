@@ -1,4 +1,9 @@
-﻿using Assets.Scripts.Player;
+﻿using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -16,7 +21,15 @@ namespace Assets.Scripts.InteractiveObjects
         private SplineWalker walker = null;
 
         private bool canJump = false;
-        // Use this for initialization
+
+        private InteractiveType type = InteractiveType.Default;
+
+        private TicketMachine ticketMachine;
+        private void Awake()
+        {
+
+        }
+
         private void Start()
         {
             isActivated = false;
@@ -45,12 +58,17 @@ namespace Assets.Scripts.InteractiveObjects
             if (!obj.CompareTag("Player")) return;
             player = obj;
             isActivated = true;
+            SaveLoadManager.Instance.SaveData();
             StartRailSystem();
+            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
         private void StartRailSystem()
         {
             player.GetComponent<PlayerController>().PlayerObj.transform.rotation = playerStandingPos.rotation;
             player.GetComponent<PlayerController>().canJump = false;
+            player.GetComponent<PlayerInteraction>().interactiveObject = null;
+            player.GetComponent<PlayerInteraction>().SetCanInteract(false);
+            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
             walker = gameObject.AddComponent<SplineWalker>();
             walker.duration = duration;
             walker.spline = spline;
@@ -63,8 +81,10 @@ namespace Assets.Scripts.InteractiveObjects
             isActivated = false;
             player.transform.position = playerEndPos.position;
             player.GetComponent<PlayerController>().canJump = true;
+            player.GetComponent<PlayerInteraction>().interactiveObject = null;
+            player.GetComponent<PlayerInteraction>().SetCanInteract(false);
             Destroy(walker);
-
+            gameObject.tag = "Untagged";
         }
         private void LockPlayerPos()
         {
@@ -100,6 +120,11 @@ namespace Assets.Scripts.InteractiveObjects
             walker.mode = SplineWalkerMode.Once;
             canJump = false;
 
+        }
+
+        public InteractiveType GetInteractiveType()
+        {
+            return type;
         }
     }
 }

@@ -3,9 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Data.ActionData.Player;
+using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Images;
+using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Framework.Static;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Player
@@ -37,8 +40,10 @@ namespace Assets.Scripts.UI.Player
     public class UIHealthAndStamina : UIStatic
     {
         private const string UINameHealthImage = "HealthImage";
-        private const string UINameBarImage = "BarImage";
+        private const string UINameBarImage = "StaminaImage";
 
+        [SerializeField] private UITransformData playerHealthTransformData;
+        [SerializeField] private UITransformData playerStaminaTransformData;
         [SerializeField] private float time = 1.0f;
         [SerializeField] private int division = 2;
         [SerializeField] private PlayerHealthData healthData;
@@ -50,6 +55,11 @@ namespace Assets.Scripts.UI.Player
         private readonly List<HealthImageInfo> healthImageInfos = new List<HealthImageInfo>();
         private UIBarImage barImage;
 
+        private readonly Queue<Rect> healthRectQueue = new Queue<Rect>();
+        private readonly Queue<Vector2> healthScaleQueue = new Queue<Vector2>();
+        private readonly Queue<Rect> staminaRectQueue = new Queue<Rect>();
+        private readonly Queue<Vector2> staminaScaleQueue = new Queue<Vector2>();
+
         public UIBarImage BarImage
         {
             get { return barImage; }
@@ -57,6 +67,10 @@ namespace Assets.Scripts.UI.Player
 
         private GameObject healthPanel;
         private GameObject staminaPanel;
+
+        private RectTransform healthPanelRect;
+        private RectTransform staminaPanelRect;
+
         private int prevHealth;
         private float prevStamina;
 
@@ -69,6 +83,34 @@ namespace Assets.Scripts.UI.Player
         private void Awake()
         {
             Init();
+            InitTransformData();
+        }
+
+        private void LateUpdate()
+        {
+#if UNITY_EDITOR
+            if (healthRectQueue.Any())
+                SetRect(healthPanelRect, healthRectQueue.Dequeue());
+            if (healthScaleQueue.Any())
+                SetScale(healthPanelRect, healthScaleQueue.Dequeue());
+
+            if (staminaRectQueue.Any())
+                SetRect(staminaPanelRect, staminaRectQueue.Dequeue());
+            if (staminaScaleQueue.Any())
+                SetScale(staminaPanelRect, staminaScaleQueue.Dequeue());
+#endif
+        }
+
+        private void SetRect(RectTransform rectTransform, Rect rect)
+        {
+            AnchorPresets.SetAnchorPreset(rectTransform, AnchorPresets.MiddleCenter);
+            rectTransform.sizeDelta = rect.GetSize();
+            rectTransform.localPosition = rect.ToCanvasPos();
+        }
+
+        private void SetScale(RectTransform rectTransform, Vector2 scale)
+        {
+            rectTransform.localScale = scale;
         }
 
         protected override void Init()
@@ -78,21 +120,56 @@ namespace Assets.Scripts.UI.Player
             Bind<GameObject>(typeof(GameObjects));
             healthPanel = GetGameObject((int)GameObjects.HealthPanel);
             staminaPanel = GetGameObject((int)GameObjects.StaminaPanel);
+
+            healthPanelRect = healthPanel.GetComponent<RectTransform>();
+            staminaPanelRect = staminaPanel.GetComponent<RectTransform>();
+
             barImage =
                 UIManager.Instance.MakeSubItem<UIBarImage>(staminaPanel.transform, UINameBarImage);
             barImage.transform.position = staminaPanel.transform.position;
-            
         }
+
+        private void InitTransformData()
+        {
+#if UNITY_EDITOR
+            playerHealthTransformData.actionRect.Subscribe(OnHealthRectChange);
+            playerHealthTransformData.actionScale.Subscribe(OnHealthScaleChange);
+
+            playerStaminaTransformData.actionRect.Subscribe(OnStaminaRectChange);
+            playerStaminaTransformData.actionScale.Subscribe(OnStaminaScaleChange);
+#endif
+        }
+
+        private void OnHealthRectChange(Rect rect)
+        {
+            healthRectQueue.Enqueue(rect);
+        }
+
+        private void OnHealthScaleChange(Vector2 scale)
+        {
+            healthScaleQueue.Enqueue(scale);
+        }
+
+        private void OnStaminaRectChange(Rect rect)
+        {
+            staminaRectQueue.Enqueue(rect);
+        }
+
+        private void OnStaminaScaleChange(Vector2 scale)
+        {
+            staminaScaleQueue.Enqueue(scale);
+        }
+
 
         private void OnEnable()
         {
             SubscribeAction();
         }
+
         private void OnDisable()
         {
             healthData.CurrentHealth.Unsubscribe(OnChangeHealth);
             staminaData.CurrentStamina.Unsubscribe(OnChangeStamina);
-
         }
 
         private void SubscribeAction()

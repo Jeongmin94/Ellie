@@ -1,64 +1,103 @@
+using Assets.Scripts.Managers;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 public enum EventBusEvents
 {
     None,
-    ThrowStoneByBoss1,
     GripStoneByBoss1,
+    ThrowStoneByBoss1,
     HitManaByPlayerStone,
     DestroyedManaByBoss1,
-    RespawnMana,
     OccurEarthQuake,
+    DropMagicStalactite,
+    BossAttractedByMagicStone,
+    BossUnattractedByMagicStone,
+    IntakeMagicStoneByBoss1,
+    BossDeath,
+    HitStone,
+    BossMeleeAttack,
+    BossLowAttack,
+    ApplyBossCooldown,
+    BossMinionAttack,
+    DestroyAllManaFountain,
+    ApplySingleBossCooldown,
+    StartIntakeMagicStone,
+    BossRoomDoorOpen,
+    EnterBossRoom,
+    LeftBossRoom,
 }
 
 public interface IBaseEventPayload
 {
 }
 
+public class EventWrapper
+{
+    private Action<IBaseEventPayload> actionEvent;
+
+    public void Subscribe(Action<IBaseEventPayload> listener)
+    {
+        actionEvent -= listener;
+        actionEvent += listener;
+    }
+
+    public void Invoke(IBaseEventPayload payload) => actionEvent?.Invoke(payload);
+
+    public void Clear() => actionEvent = null;
+}
+
 public class EventBus : Singleton<EventBus>
 {
-    private Dictionary<EventBusEvents, Delegate> eventTable = new Dictionary<EventBusEvents, Delegate>();
+    [ShowInInspector][ReadOnly] private Dictionary<EventBusEvents, EventWrapper> eventTable = new Dictionary<EventBusEvents, EventWrapper>();
 
-    public void Subscribe(EventBusEvents eventName, Action listener)
+    public override void Awake()
     {
-        if (!eventTable.ContainsKey(eventName))
-            eventTable[eventName] = null;
-        eventTable[eventName] = (Action)Delegate.Combine(eventTable[eventName], listener);
+        base.Awake();
+        
+        InitEventTable();
     }
 
-    public void Unsubscribe(EventBusEvents eventName, Action listener)
+    private void InitEventTable()
     {
-        if (eventTable.ContainsKey(eventName))
-            eventTable[eventName] = (Action)Delegate.Remove(eventTable[eventName], listener);
-    }
-
-    public void Publish(EventBusEvents eventName)
-    {
-        if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null)
+        eventTable.Clear();
+        var eventTypes = Enum.GetValues(typeof(EventBusEvents));
+        for (int i = 0; i < eventTypes.Length; i++)
         {
-            ((Action)eventTable[eventName])();
+            eventTable.TryAdd((EventBusEvents)eventTypes.GetValue(i), new EventWrapper());
         }
     }
 
-    public void Subscribe<T>(EventBusEvents eventName, Action<T> listener) where T : IBaseEventPayload
+    public override void ClearAction()
     {
-        if (!eventTable.ContainsKey(eventName))
-            eventTable[eventName] = null;
-        eventTable[eventName] = Delegate.Combine(eventTable[eventName], listener);
-    }
+        Debug.Log($"{name} ClearAction");
 
-    public void Unsubscribe<T>(EventBusEvents eventName, Action<T> listener) where T : IBaseEventPayload
-    {
-        if (eventTable.ContainsKey(eventName))
-            eventTable[eventName] = Delegate.Remove(eventTable[eventName], listener);
-    }
-
-    public void Publish<T>(EventBusEvents eventName, T newEvent) where T : IBaseEventPayload
-    {
-        if (eventTable.ContainsKey(eventName) && eventTable[eventName] != null) 
+        foreach (var eventName in eventTable.Keys)
         {
-            ((Action<T>)eventTable[eventName])(newEvent);
+            if (eventTable.TryGetValue(eventName, out var wrapper))
+            {
+                wrapper.Clear();
+            }
+        }
+
+        InitEventTable();
+    }
+
+    public void Subscribe(EventBusEvents eventName, Action<IBaseEventPayload> listener)
+    {
+        if (eventTable.TryGetValue(eventName, out var wrapper))
+        {
+            wrapper.Subscribe(listener);
+        }
+    }
+
+    public void Publish(EventBusEvents eventName, IBaseEventPayload payload)
+    {
+        if (eventTable.TryGetValue(eventName, out var wrapper))
+        {
+            wrapper.Invoke(payload);
         }
     }
 }

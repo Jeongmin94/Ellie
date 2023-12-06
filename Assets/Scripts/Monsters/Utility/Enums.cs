@@ -1,7 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
 namespace Assets.Scripts.Monsters.Utility
 {
 
@@ -9,9 +5,9 @@ namespace Assets.Scripts.Monsters.Utility
     {
         //Monster
         //Monster Type
-        public enum MonsterKind
+        public enum MonsterElement
         {
-            Human, Skeleton, Ghost, Insect, Beast, FlyingBeast, Golem, End
+            Normal, Fire, Water, Grass, Earth, Light, Dark
         }
         public enum MovementType
         {
@@ -23,7 +19,15 @@ namespace Assets.Scripts.Monsters.Utility
         }
         public enum AttackSkill
         {
-            BoxCollider, SphereCollider, ProjectileAttack, WeaponAttack, AOEAttack, End
+            RunToPlayer,
+            Flee,
+            BoxCollider,
+            SphereCollider,
+            ProjectileAttack,
+            WeaponAttack,
+            AOEAttack,
+            FanshapeAttack,
+            End
         }
 
         //Monster State

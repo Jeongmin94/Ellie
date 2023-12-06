@@ -8,7 +8,6 @@ using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 
-// !TODO: HealthData 사용하지 않도록 변경
 namespace Assets.Scripts.UI.Monster
 {
     public class UIMonsterCanvas : UIStatic
@@ -22,7 +21,9 @@ namespace Assets.Scripts.UI.Monster
         private const string NameMonsterText = "MonsterText";
 
         [SerializeField] protected float time = 1.0f;
-        
+
+        protected GameObject monsterPanel;
+        protected RectTransform monsterPanelRect;
         private TextMeshProUGUI monsterText;
         private UIBarImage barImage;
 
@@ -40,19 +41,19 @@ namespace Assets.Scripts.UI.Monster
             base.Init();
 
             Bind<GameObject>(typeof(GameObjects));
-            var go = GetGameObject((int)GameObjects.MonsterPanel);
-            monsterText = go.FindChild<TextMeshProUGUI>();
+            monsterPanel = GetGameObject((int)GameObjects.MonsterPanel);
+            monsterText = monsterPanel.FindChild<TextMeshProUGUI>();
+            monsterPanelRect = monsterPanel.GetComponent<RectTransform>();
         }
-        
+
         public void InitData(MonsterDataContainer container)
         {
             prevHealth = container.PrevHp;
             maxHealth = container.MaxHp;
             container.CurrentHp.Subscribe(OnChangeHealth);
-            
             SetName(container.Name);
         }
-        
+
         private void SetName(string monsterName)
         {
             monsterText.text = monsterName;
@@ -65,11 +66,13 @@ namespace Assets.Scripts.UI.Monster
             var image = go.FindChild(NameBarImage, true);
             barImage = image.GetOrAddComponent<UIBarImage>();
         }
-        
+
         private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
+            {
                 return;
+            }
 
             float target = value / (float)maxHealth;
             float t = time;

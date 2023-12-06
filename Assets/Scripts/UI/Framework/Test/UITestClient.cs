@@ -10,7 +10,6 @@ using Assets.Scripts.UI.Status;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.Framework
@@ -30,7 +29,6 @@ namespace Assets.Scripts.UI.Framework
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private MonsterHealthData monsterHealthData;
         [SerializeField] private int damage = 1;
-        [SerializeField] private int staminaCost = 10;
 
         private UIStatusBar statusBar;
         private readonly MonsterDataContainer canvasContainer = new MonsterDataContainer();
@@ -60,8 +58,8 @@ namespace Assets.Scripts.UI.Framework
 
         private void OnEnable()
         {
-            InputManager.Instance.OnKeyAction -= OnKeyAction;
-            InputManager.Instance.OnKeyAction += OnKeyAction;
+            InputManager.Instance.keyAction -= OnKeyAction;
+            InputManager.Instance.keyAction += OnKeyAction;
         }
 
         private const string PrefixExclamationPath = "UI/Inven/Exclamation/";
@@ -70,28 +68,6 @@ namespace Assets.Scripts.UI.Framework
 
         private void OnKeyAction()
         {
-            // 아이템 습득 테스트
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                Debug.Log($"아이템 생성");
-                UIPayload payload = new UIPayload();
-                payload.uiType = UIType.Notify;
-                payload.sprite = ResourceManager.Instance.LoadExternResource<Sprite>($"{PrefixExclamationPath}{ExclamationGray}");
-                payload.name = "TestItem";
-                payload.count = 1;
-                payload.actionType = ActionType.AddSlotItem;
-
-                ticketMachine.SendMessage(ChannelType.UI, payload);
-            }
-
-            // 아이템 버리기 테스트
-            if (Input.GetKeyDown(KeyCode.P))
-            {
-                Debug.Log($"아이템 삭제");
-                UIPayload payload = new UIPayload();
-                payload.uiType = UIType.Notify;
-                ticketMachine.SendMessage(ChannelType.UI, payload);
-            }
         }
 
         private void Start()
@@ -105,7 +81,7 @@ namespace Assets.Scripts.UI.Framework
             var canvas = UIManager.Instance.MakeStatic<UIMonsterCanvas>(UIMonsterCanvas);
             canvas.InitData(canvasContainer);
 
-            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(transform, UIMonsterBillboard);
+            var billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billBoardPosition, UIMonsterBillboard);
             billboard.scaleFactor = 0.003f;
             billboard.InitBillboard(billBoardPosition);
             billboard.InitData(billboardContainer);

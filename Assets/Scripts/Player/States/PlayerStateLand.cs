@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -17,14 +18,18 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsFalling", false);
             Controller.isJumping = false;
             Controller.isFalling = false;
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
+            Controller.ActivateShootPos(false);
 
             time = 0f;
             Controller.SetTimeScale(1f);
 
-            if (Controller.cinematicAimCam.activeSelf)
+            if (Controller.cinematicAimCam.gameObject.activeSelf)
                 Controller.TurnOffAimCam();
 
             Controller.PlayerStatus.isRecoveringStamina = true;
+
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_move5", Controller.transform.position);
 
         }
 

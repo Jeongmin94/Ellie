@@ -6,12 +6,13 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
 {
     public class PlayerStatusEffectBurn : MonoBehaviour, IPlayerStatusEffect
     {
-        private const float DURATION = 5.0f;
+        private float duration;
         PlayerStatus status;
-        public void ApplyStatusEffect(PlayerStatusEffectController controller)
+        public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)
         {
             status = controller.GetComponent<PlayerStatus>();
             StartCoroutine(Burn(controller));
+            duration = info.effectDuration;
         }
         private IEnumerator Burn(PlayerStatusEffectController controller)
         {
@@ -19,7 +20,7 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
             controller.AddStatusEffect(this);
             float startTime = Time.time;
             //화상 로직
-            while (Time.time - startTime < DURATION)
+            while (Time.time - startTime < duration)
             {
                 yield return new WaitForSeconds(1.0f);
                 Debug.Log("Burn!");

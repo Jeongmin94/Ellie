@@ -1,13 +1,10 @@
 ﻿using Assets.Scripts.Combat;
 using Assets.Scripts.Data.ActionData.Player;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.StatusEffects;
-using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using Assets.Scripts.UI.Framework.Images;
-using Assets.Scripts.Utils;
 using Channels.Combat;
-using Channels.Components;
-using Channels.Type;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,63 +14,93 @@ namespace Assets.Scripts.Player
     public class PlayerStatus : MonoBehaviour, ICombatant
     {
         [Header("Player Properties")]
-        [SerializeField] private int maxHP;
+        [SerializeField]
+        private int maxHP;
+
         [SerializeField] private int maxStamina;
 
         [Header("Stamina Consumption")]
-        [SerializeField] private int staminaRecoveryPerSec;
+        [SerializeField]
+        private int staminaRecoveryPerSec;
+
         [SerializeField] private int sprintStaminaConsumptionPerSec;
         [SerializeField] private int jumpStaminaConsumption;
         [SerializeField] private int dodgeStaminaConsumption;
         [SerializeField] private int hangStaminaConsumptionPerSec;
+        [SerializeField] private float chargeStaminaConsumptionPerSec;
 
-        [SerializeField] private int sprintStanimaThreshold;
-
-        [Header("Combat")]
-        [SerializeField] private PlayerHealthData healthData;
+        [Header("Combat")] [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
+        [SerializeField] private float invulnerableTimeAfterHit;
+        private Coroutine invulnerableCoroutine;
 
-        public int MaxHP { get { return maxHP; } }
-        public int MaxStamina { get { return maxStamina; } }
-        public int StaminaRecoveryPerSec { get { return staminaRecoveryPerSec; } }
-        public int SprintStaminaConsumptionPerSec { get { return sprintStaminaConsumptionPerSec; } }
-        public int JumpStaminaConsumption { get { return jumpStaminaConsumption; } }
-        public int DodgeStaminaConsumption { get { return dodgeStaminaConsumption; } }
-        public int HangStaminaConsumption { get { return HangStaminaConsumption; } }
+        public int MaxHP
+        {
+            get { return maxHP; }
+        }
 
-        public int SprintStaminaThreshold { get { return sprintStanimaThreshold; } }
+        public int MaxStamina
+        {
+            get { return maxStamina; }
+        }
+
+        public int StaminaRecoveryPerSec
+        {
+            get { return staminaRecoveryPerSec; }
+        }
+
+        public int SprintStaminaConsumptionPerSec
+        {
+            get { return sprintStaminaConsumptionPerSec; }
+        }
+
+        public int JumpStaminaConsumption
+        {
+            get { return jumpStaminaConsumption; }
+        }
+
+        public int DodgeStaminaConsumption
+        {
+            get { return dodgeStaminaConsumption; }
+        }
+
+        public int HangStaminaConsumption
+        {
+            get { return HangStaminaConsumption; }
+        }
+
+        public float ChargeStaminaComsumptionPerSec
+        {
+            get { return chargeStaminaConsumptionPerSec; }
+        }
+
 
         public bool isDead;
         public bool isRecoveringStamina;
 
-        private Dictionary<PlayerStatusEffectName, IPlayerStatusEffect> playerStatusEffects;
+        private Dictionary<StatusEffectName, IPlayerStatusEffect> playerStatusEffects;
         private PlayerStatusEffectController playerStatusEffectController;
 
         float tempStamina;
 
         private PlayerUI playerUI;
-        private TicketMachine ticketMachine;
+
 
         public int HP
         {
             get { return healthData.CurrentHealth.Value; }
-            set
-            {
-                healthData.CurrentHealth.Value = value;
-            }
+            set { healthData.CurrentHealth.Value = value; }
         }
 
         public float Stamina
         {
             get { return staminaData.CurrentStamina.Value; }
-            set
-            {
-                staminaData.CurrentStamina.Value = value;
-            }
+            set { staminaData.CurrentStamina.Value = value; }
         }
+
         private void Awake()
         {
-            SetTicketMachine();
+            //SetTicketMachine();
             playerStatusEffectController = GetComponent<PlayerStatusEffectController>();
             playerStatusEffects = new();
             playerUI = GetComponent<PlayerUI>();
@@ -81,26 +108,31 @@ namespace Assets.Scripts.Player
 
             InitStatusEffects();
         }
+
         private void SetTicketMachine()
         {
             Debug.Log("Player SetTicketMachine()");
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-            isDead = false;
         }
+
         private void Start()
         {
             isRecoveringStamina = true;
+            isDead = false;
         }
+
         private void Update()
         {
             RecoverStamina();
         }
+
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
-            playerStatusEffects.Add(PlayerStatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
-            playerStatusEffects.Add(PlayerStatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
+            //playerStatusEffects.Add(StatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
+            playerStatusEffects.Add(StatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
+            playerStatusEffects.Add(StatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
+            playerStatusEffects.Add(StatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
+            playerStatusEffects.Add(StatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
         }
 
         private void RecoverStamina()
@@ -128,6 +160,7 @@ namespace Assets.Scripts.Player
                 StartCoroutine(CheckMidAndForegroundSliderValue());
             }
         }
+
         public void ReduceHP(int damage)
         {
             if (HP <= damage && !isDead)
@@ -142,6 +175,7 @@ namespace Assets.Scripts.Player
                 HP -= damage;
             }
         }
+
         private IEnumerator CheckMidAndForegroundSliderValue()
         {
             yield return playerUI.StaminaBarImage.CheckSliderValue(FillAmountType.Midground, FillAmountType.Foreground);
@@ -152,20 +186,62 @@ namespace Assets.Scripts.Player
 
         public void Attack(IBaseEventPayload payload)
         {
-
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
+            Debug.Log("Player recieve Damage");
             CombatPayload combatPayload = payload as CombatPayload;
-            if (combatPayload.PlayerStatusEffectName != PlayerStatusEffectName.None)
-            {
-                Debug.Log("Player : RecieveDamage");
-                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
-                playerStatusEffectController.ApplyStatusEffect(effect);
-            }
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
+            //상태이상 공격 처리 로직
+            if (combatPayload.PlayerStatusEffectName != StatusEffectName.None && HP > 0)
+            {
+                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
+                if (effect != null)
+                {
+                    playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));
+                }
+            }
+
+            //무적 처리 로직
+            if (HP > 0)
+            {
+                SetPlayerInvulnerable(invulnerableTimeAfterHit);
+            }
+        }
+
+        private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)
+        {
+            StatusEffectInfo info = new StatusEffectInfo();
+
+            info.effectDuration = payload.statusEffectduration;
+            info.effectForce = payload.force;
+            return info;
+        }
+
+        public void SetPlayerInvulnerable(float time)
+        {
+            if (invulnerableCoroutine != null)
+                StopCoroutine(invulnerableCoroutine);
+            invulnerableCoroutine = StartCoroutine(SetPlayerInvulnerableCoroutine(time));
+        }
+
+        private IEnumerator SetPlayerInvulnerableCoroutine(float time)
+        {
+            gameObject.tag = "Untagged";
+            yield return new WaitForSeconds(time);
+            gameObject.tag = "Player";
+        }
+
+        public void ApplyConsumableItemEffect(PlayerInventory.ConsumableItemData data)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound8", transform.position);
+            int HPRecoveryAmount = data.HPRecoveryAmount;
+            if (HP + HPRecoveryAmount >= maxHP)
+                HP = maxHP;
+            else
+                HP += HPRecoveryAmount;
         }
     }
 }

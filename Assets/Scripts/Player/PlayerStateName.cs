@@ -2,6 +2,8 @@
 {
     public enum PlayerStateName
     {
+        Loading,
+        Start,
         Idle,
         Walk,
         Sprint,
@@ -16,6 +18,11 @@
         Mining,
         Exhaust,
         Rigidity,
+        Down,
+        KnockedAirborne,
+        GetUp,
+        Conversation,
+        ConsumingItem,
         Dead
     }
 }

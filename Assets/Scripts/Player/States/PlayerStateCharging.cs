@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Assets.Scripts.Managers;
+using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
@@ -15,12 +16,15 @@ namespace Assets.Scripts.Player.States
             Controller.ActivateShootPos(true);
             moveSpeed = Controller.WalkSpeed;
             Controller.canTurn = false;
-
+            Controller.PlayerStatus.isRecoveringStamina = false;
+            Controller.TurnOnSlingshot();
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound1", Controller.transform.position);
         }
 
         public override void OnExitState()
         {
-            //Controller.debugSphere.SetActive(false);
+            Controller.PlayerStatus.isRecoveringStamina = true;
+            Controller.TurnOffSlingshot();
         }
 
         public override void OnFixedUpdateState()
@@ -32,11 +36,13 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
+            Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.ChargeStaminaComsumptionPerSec * Time.deltaTime / Time.timeScale);
 
             if (Input.GetMouseButtonUp(0))
             {
                 Controller.ChangeState(PlayerStateName.Shoot);
             }
+            //Controller.GrabSlingshotLeather();
         }
     }
 }

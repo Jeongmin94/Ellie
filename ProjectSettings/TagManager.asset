@@ -14,6 +14,9 @@ TagManager:
   - InteractionObject
   - Wall
   - Monster
+  - WeakPoint
+  - effect
+  - loweffect
   layers:
   - Default
   - TransparentFX
@@ -21,9 +24,13 @@ TagManager:
   - Ground
   - Water
   - UI
-  - BackgroundSphere
+  - Detection
   - Debug
   - ExceptGround
+  - InteractionObject
+  - Monster
+  - BlurryObject
+  - ShootTrajectory
   - 
   - 
   - 
@@ -31,11 +38,7 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PostProcessing
   - 
   - 
   - 

@@ -1,5 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Combat;
+using Assets.Scripts.Monsters.Attacks;
+using Assets.Scripts.Monsters.Utility;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Others
@@ -8,14 +11,11 @@ namespace Assets.Scripts.Monsters.Others
     public class Projectile : MonoBehaviour
     {
         [SerializeField] private float projectileSpeed;
-        private float durationTime;
-        private float attackValue;
-
-        private string owner;
+        public ProjectileAttack spawner;
 
         private void Start()
         {
-            Destroy(gameObject, durationTime);
+            Destroy(gameObject, spawner.attackData.attackDuration);
         }
 
         private void FixedUpdate()
@@ -23,36 +23,16 @@ namespace Assets.Scripts.Monsters.Others
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
         }
 
-        public void SetProjectileData(float attackValue, float durationTime, string owner)
-        {
-            this.durationTime = durationTime;
-            this.attackValue = attackValue;
-            this.owner = owner;
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (owner == "Monster")
+            if (other.CompareTag("Player"))
             {
-                if (other.tag == "Player")
+                if (other.gameObject.GetComponent<ICombatant>() != null)
                 {
-                    FireEnemyProjectile(other);
+                    spawner.ProjectileHitPlayer(other.transform);
                 }
-            }
-            else if (owner == "Player")
-            {
-
+                Destroy(gameObject);
             }
         }
-        private void FireEnemyProjectile(Collider other)
-        {
-            Destroy(gameObject);
-            //Send Message To GameCenter
-        }
-        private void FirePlayerProjectile(Collider other)
-        {
-
-        }
-
     }
 }

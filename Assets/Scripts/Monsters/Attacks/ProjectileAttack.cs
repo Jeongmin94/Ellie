@@ -1,6 +1,9 @@
 using System.Collections;
+using Assets.Scripts.Combat;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Monsters.Others;
+using Channels.Combat;
 using UnityEngine;
 
 
@@ -8,20 +11,24 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class ProjectileAttack : AbstractAttack
     {
-        private Projectile projectile;
+        [SerializeField] private GameObject projectile;
+        public MonsterAttackData attackData;
         private Vector3 offset;
 
-        public override void InitializeProjectile(ProjectileAttackData data)
+        public override void InitializeProjectile(MonsterAttackData data)
         {
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableMinimumDistance);
+            attackData = data;
+            InitializedBase(data);
             offset = data.offset;
-            projectile = data.projectilePrefab.GetComponent<Projectile>();
+            projectile = ResourceManager.Instance.LoadExternResource<GameObject>(data.projectilePrefabPath);
+            particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public override void ActivateAttack()
         {
-            Projectile obj = Instantiate(projectile, transform.position + offset, transform.rotation);
-            obj.SetProjectileData(attackValue, durationTime, gameObject.tag.ToString());
+            GameObject obj = Instantiate(projectile, transform.position + offset, transform.rotation);
+
+            obj.GetComponent<Projectile>().spawner = gameObject.GetComponent<ProjectileAttack>();
             StartCoroutine(StartAttackReadyCount());
         }
 
@@ -32,6 +39,29 @@ namespace Assets.Scripts.Monsters.Attacks
             IsAttackReady = true;
         }
 
+        public void ProjectileHitPlayer(Transform otherTransform)
+        {
+            audioController.PlayAudio(MonsterAudioType.ProjectileHit);
+            ParticleSystem particle = particleController.GetParticle(MonsterParticleType.ProjectileHit);
+            particle.transform.position = otherTransform.position;
+            particle.Play();
+            SetAndAttack(attackData, otherTransform);
+        }
+
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
+        {
+            CombatPayload payload = new();
+            payload.Type = data.combatType;
+            Debug.Log("Payload Type : " + payload.Type);
+            payload.Attacker = transform;
+            payload.Defender = otherTransform;
+            payload.AttackDirection = Vector3.zero;
+            payload.AttackStartPosition = transform.position;
+            payload.AttackPosition = otherTransform.position;
+            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.Burn;
+            payload.Damage = (int)data.attackValue;
+            Attack(payload);
+        }
     }
 
 }

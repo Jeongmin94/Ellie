@@ -4,39 +4,75 @@ using UnityEngine.EventSystems;
 
 namespace Assets.Scripts.Managers
 {
-    public enum MouseEvent
+    public enum InputType
     {
-        Click,
-        Press
+        Key,
+        Mouse,
+        Escape,
     }
 
     public class InputManager : Singleton<InputManager>
     {
-        public Action OnKeyAction;
-        public Action OnMouseAction;
+        public Action keyAction;
+        public Action mouseAction;
+        public Action escapeAction;
+        public bool CanInput { get; set; } = true;
 
         private bool isMousePressed = false;
 
+        public void Subscribe(InputType type, Action listener)
+        {
+            switch (type)
+            {
+                case InputType.Key:
+                    keyAction -= listener;
+                    keyAction += listener;
+                    break;
+                case InputType.Mouse:
+                    mouseAction -= listener;
+                    mouseAction += listener;
+                    break;
+                case InputType.Escape:
+                    escapeAction -= listener;
+                    escapeAction += listener;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
+
+
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.Escape))
+                escapeAction?.Invoke();
+
             if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
                 return;
 
             if (Input.anyKey)
-                OnKeyAction?.Invoke();
+                keyAction?.Invoke();
 
             if (Input.GetMouseButton(0))
             {
-                OnMouseAction?.Invoke();
+                mouseAction?.Invoke();
                 isMousePressed = true;
             }
             else
             {
                 if (isMousePressed)
-                    OnMouseAction?.Invoke();
+                    mouseAction?.Invoke();
 
                 isMousePressed = false;
             }
+            
+        }
+
+        public override void ClearAction()
+        {
+            keyAction = null;
+            mouseAction = null;
+            escapeAction = null;
         }
     }
 }

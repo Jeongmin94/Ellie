@@ -1,29 +1,21 @@
 using System.Collections;
-using System.Collections.Generic;
 using Assets.Scripts.Monsters.AbstractClass;
 using Channels.Combat;
-using Channels.Components;
-using Channels.Type;
-using Assets.Scripts.Utils;
 using UnityEngine;
-using Assets.Scripts.Player;
+using Assets.Scripts.Combat;
 
 namespace Assets.Scripts.Monsters.Attacks
 {
     public class BoxColliderAttack : AbstractAttack
     {
         private BoxCollider collider;
-        private PlayerStatus playerStatus;
+        private MonsterAttackData attackData;
+        private ParticleSystem particle;
 
-        private TicketMachine ticketMachine;
-        private CombatPayload payload=new();
-
-        private BoxColliderAttackData attackData;
-
-        public override void InitializeBoxCollider(BoxColliderAttackData data)
+        public override void InitializeBoxCollider(MonsterAttackData data)
         {
             attackData = data;
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            InitializedBase(data);
 
             if (collider == null)
             {
@@ -35,9 +27,10 @@ namespace Assets.Scripts.Monsters.Attacks
             gameObject.transform.localPosition = data.offset;
             collider.enabled = false;
 
-            playerStatus = GameObject.Find("Player").GetComponent<PlayerStatus>();
-
-            SetTicketMachine();
+            if (audioController == null)
+                audioController = transform.parent.GetComponent<MonsterAudioController>();
+            if (particleController == null)
+                particleController = transform.parent.GetComponent<MonsterParticleController>();
         }
 
         public override void ActivateAttack()
@@ -56,36 +49,36 @@ namespace Assets.Scripts.Monsters.Attacks
         {
             if (owner == "Monster")
             {
-                if (other.tag == "Player")
+                if (other.CompareTag("Player"))
                 {
-                    Debug.Log("MONSTER ATTACKED");
-                    SetPayloadAttack(attackData);
-                    Attack(payload);
+                    if (other.gameObject.GetComponent<ICombatant>() != null)
+                    {
+                        audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
+                        if (particle == null)
+                        {
+                            particle = particleController.GetParticle(MonsterParticleType.MeleeHit);
+                        }
+                        particle.transform.position = other.transform.position;
+                        particle.Play();
+                        SetAndAttack(attackData, other.transform);
+                    }
                 }
             }
         }
 
-        private void SetTicketMachine()
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
-        }
-
-        private void SetPayloadAttack(BoxColliderAttackData data)
-        {
-            Debug.Log("SetPayloadAttack");
+            CombatPayload payload = new();
             payload.Type = data.combatType;
             payload.Attacker = transform;
-            payload.Defender = playerStatus.transform;
+            payload.Defender = otherTransform;
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
-            payload.AttackPosition = playerStatus.transform.position;
-            payload.PlayerStatusEffectName = StatusEffects.PlayerStatusEffectName.WeakRigidity;
+            payload.AttackPosition = otherTransform.position;
+            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.statusEffectduration = 0.3f;
             payload.Damage = (int)data.attackValue;
-        }
-        public override void Attack(IBaseEventPayload payload)
-        {
-            ticketMachine.SendMessage(ChannelType.Combat, payload);
+            Attack(payload);
         }
 
     }

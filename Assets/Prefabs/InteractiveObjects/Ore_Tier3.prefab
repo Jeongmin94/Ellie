@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 5420793442070816300}
   - component: {fileID: 5420793442070816301}
   - component: {fileID: 5420793442070816302}
-  m_Layer: 2
+  m_Layer: 0
   m_Name: Ore_Tier3
   m_TagString: Interactive
   m_Icon: {fileID: 0}
@@ -259,7 +259,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 1.5
+  m_Radius: 2
   m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &5420793442070816302
 MonoBehaviour:
@@ -273,6 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25fdff840fbf3764d92bcc6184678984, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  interactiveType: 1
   stonePrefabTest: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
   data:
     index: 0
@@ -281,9 +282,9 @@ MonoBehaviour:
     HP: 0
     hardness: 0
   tier: 9100
+  curStage: 0
   hardness: 0
   maxHp: 0
   hp: 0
-  quateredHP: 
-  regenerationTime: 4
+  regenerationTime: 30
   canMine: 0

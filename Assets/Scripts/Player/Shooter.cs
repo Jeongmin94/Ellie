@@ -4,6 +4,7 @@ using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
 using System;
 using UnityEngine;
 
@@ -60,7 +61,6 @@ namespace Assets.Scripts.Player
         private float chargingTime = 0.0f;
         private float chargingRatio = 0.0f;
 
-       
         private void OnEnable()
         {
             SubscribeAction();
@@ -72,14 +72,18 @@ namespace Assets.Scripts.Player
 
             SetLineRendererLayerMask();
         }
-        
+
+        public void Init()
+        {
+            SubscribeAction();
+        }
 
         private void SubscribeAction()
         {
             chargingData.ChargingValue.Subscribe(OnChangeChargingValue);
 
-            InputManager.Instance.OnMouseAction -= OnMouseAction;
-            InputManager.Instance.OnMouseAction += OnMouseAction;
+            InputManager.Instance.mouseAction -= OnMouseAction;
+            InputManager.Instance.mouseAction += OnMouseAction;
 
             aimTargetData.TargetPosition.Subscribe(OnChangeAimTarget);
         }
@@ -95,17 +99,26 @@ namespace Assets.Scripts.Player
                 }
             }
         }
-        public void Shoot(TicketMachine ticketMachine)
+
+        public void Shoot(TicketMachine ticketMachine, int stoneIdx)
         {
-            Debug.Log("Shoot");
-            ItemPayload payload = new()
+            //해처리로 이벤트 보내기
+            StoneEventPayload payload = new()
             {
-                Type = ItemType.RequestStone,
+                Type = StoneEventType.ShootStone,
                 StoneSpawnPos = releasePosition.position,
                 StoneDirection = launchDirection,
-                StoneStrength = shootingPower * chargingRatio
+                StoneStrength = shootingPower * chargingRatio,
+                StoneIdx = stoneIdx
             };
-            ticketMachine.SendMessage(ChannelType.Item, payload);
+            ticketMachine.SendMessage(ChannelType.Stone, payload);
+            //UI에 이벤트 보내기
+            UIPayload uIPayload = new()
+            {
+                uiType = UIType.Notify,
+                actionType = ActionType.ConsumeSlotItem,
+                groupType = UI.Inventory.GroupType.Stone
+            };
             lineRenderer.enabled = false;
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;
@@ -139,6 +152,7 @@ namespace Assets.Scripts.Player
             //    chargingData.ChargingValue.Value = 0.0f;
             //}
         }
+
         //public void Shoot(Poolable obj)
         //{
         //    // !TODO : SendMessage를 통해 StoneHatchery가 지정된 위치에서 돌 생성, 돌 발사 로직 실행

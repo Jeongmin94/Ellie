@@ -1,0 +1,183 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: TerrapupaEnter
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 1401849175978016768
+  nodes:
+  - rid: 1401849175978016768
+  - rid: 283011153473568791
+  - rid: 283011153473568792
+  - rid: 283011153473568793
+  - rid: 283011153473568794
+  - rid: 6881097862229786630
+  - rid: 6881097862229786634
+  - rid: 6881097862229786636
+  - rid: 6881097883797946425
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: 6881097862229786633
+  viewPosition: {x: 2917.6, y: 1118.4, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 283011153473568791
+      type: {class: CheckAnimationTransitionEnd, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 45e0dae59bf784f429eebcd6aba36c28
+        position: {x: -2025, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+    - rid: 283011153473568792
+      type: {class: SetRigidbodyKinematic, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b1657f7f10646cb468111ceb9c475173
+        position: {x: -3300, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isKinematic:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 283011153473568793
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 6584be35037cbea4ea1e2ec5a7e4f719
+        position: {x: -2535, y: -1215}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011153473568792
+        - rid: 6881097862229786636
+        - rid: 6881097862229786634
+        - rid: 6881097862229786630
+        - rid: 6881097883797946425
+        - rid: 283011153473568791
+        - rid: 283011153473568794
+    - rid: 283011153473568794
+      type: {class: SetRigidbodyKinematic, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 99c14fe32ded6004ca5ee01e2077aaf1
+        position: {x: -1725, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isKinematic:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1401849175978016768
+      type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
+        position: {x: -2535, y: -1365}
+        blackboard:
+          keys: []
+        description: "\uC9C4\uC785"
+        drawGizmos: 0
+        child:
+          rid: 283011153473568793
+    - rid: 6881097862229786630
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 91e262108459ee745b0cc2aae218f510
+        position: {x: -2550, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 6881097862229786633
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: isStart
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 6881097862229786634
+      type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e1e55696199091c4aa8b862ebfbf98b8
+        position: {x: -2880, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 6881097862229786633
+          value:
+            rid: 6881097862229786635
+    - rid: 6881097862229786635
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 6881097862229786636
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7e3857fd0dc3cbd4ab659d0e20041be9
+        position: {x: -3075, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 6881097883797946425
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c33dcd9b952067f4e8560c3954e79cc9
+        position: {x: -2370, y: -825}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: -2
+          defaultValue: TerrapupaGripStone

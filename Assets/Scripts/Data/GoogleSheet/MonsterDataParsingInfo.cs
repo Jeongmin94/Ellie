@@ -9,6 +9,10 @@ public enum Element
     Confuse,
     Normal,
     Earth,
+    Fire,
+    Water,
+    Grass,
+    Light,
 }
 
 [Serializable]
@@ -104,7 +108,6 @@ public class MonsterDataParsingInfo : DataParsingInfo
                 continue;
             }
 
-            Debug.Log(data.ToString());
             monsters.Add(data);
         }
     }

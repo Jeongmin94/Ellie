@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2757bfb114c684f64859e24689f92506, type: 3}
+  m_Name: SkeletonMonsterData
+  m_EditorClassIdentifier: Assembly.Ellie::SkeletonMonsterParsingInfo
+  url: https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/edit#gid=120000851
+  startCell: B7
+  endColumn: S
+  tsv: "1000\t\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4\tNormal\t5\t5\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1.5\t4300\t10\r\n1001\t\uBAA8\uD5D8\uAC00
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t8\t6\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1.5\t4300,
+    4302, 4303\t10\r\n1002\t\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4\tNormal\t20\t5\t180\t30\t20\t60\t10\t12\tNULL\tNULL\tNULL\thead\t1.5\t4300,
+    4303\t10\r\n1003\t\uB3D9\uAD74 \uBC15\uC950\tNormal\t2\t7\t180\t30\t20\t80\t10\t2\tNULL\tNULL\tNULL\tNULL\t1\t4301\t10\r\n1004\t\uACF5\uB300\uC6D0
+    \uC2A4\uCF08\uB808\uD1A4\tNormal\t10\t6\t180\t30\t20\t60\t10\t1.5\tNULL\tNULL\tNULL\thead\t1\t4301,
+    4304\t10"
+  datas:
+  - index: 1000
+    monsterName: "\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 5
+    movementSpeed: 5
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 1.5
+    weakRatio: 1.5
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1001
+    monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 8
+    movementSpeed: 6
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 1.5
+    weakRatio: 1.5
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1002
+    monsterName: "\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 20
+    movementSpeed: 5
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 12
+    weakRatio: 1.5
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1003
+    monsterName: "\uB3D9\uAD74 \uBC15\uC950"
+    maxHP: 2
+    movementSpeed: 7
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 80
+    stopDistance: 2
+    weakRatio: 1
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0
+  - index: 1004
+    monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
+    maxHP: 10
+    movementSpeed: 6
+    returnSpeed: 10
+    rotationSpeed: 180
+    detectPlayerDistance: 30
+    chasePlayerDistance: 20
+    overtravelDistance: 60
+    stopDistance: 1.5
+    weakRatio: 1
+    itemDropTable: 0
+    respawnTime: 0
+    element: 0
+    type: 0
+    turnType: 0

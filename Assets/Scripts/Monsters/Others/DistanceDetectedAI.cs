@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Others
@@ -13,9 +11,6 @@ namespace Assets.Scripts.Monsters.Others
         private void Awake()
         {
             collider = GetComponent<SphereCollider>();
-            if (collider == null)
-                Debug.Log("[DistanceDetectedAI] : Collider is Null");
-
         }
         public void SetDetectDistance(float playerDetectDistance)
         {

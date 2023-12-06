@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
+using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.AbstractClass;
-using Assets.Scripts.Monsters.Utility;
+using Channels.Combat;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Attacks
@@ -9,13 +9,15 @@ namespace Assets.Scripts.Monsters.Attacks
     public class WeaponAttack : AbstractAttack
     {
         private Collider collider;
+        private MonsterAttackData attackData;
 
-        public override void InitializeWeapon(WeaponAttackData data)
+        public override void InitializeWeapon(MonsterAttackData data)
         {
-            InitializedBase(data.attackValue, data.attackDuration, data.attackInterval, data.attackableDistance);
+            attackData = data;
+            InitializedBase(data);
             if(collider==null)
             {
-                collider = data.weapon.GetComponent<Collider>();
+                //collider = data.weapon.GetComponent<Collider>();
                 if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
                 collider.isTrigger = true;
             }
@@ -24,7 +26,6 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public override void ActivateAttack()
         {
-            if (!IsAttackReady) return;
             if (collider == null)
             {
                 collider = gameObject.GetComponent<Collider>();
@@ -33,7 +34,6 @@ namespace Assets.Scripts.Monsters.Attacks
             }
             collider.enabled = true;
             StartCoroutine(DisableCollider());
-            IsAttackReady = false;
         }
 
         private IEnumerator DisableCollider()
@@ -46,19 +46,32 @@ namespace Assets.Scripts.Monsters.Attacks
         private IEnumerator SetAttackReady()
         {
             yield return new WaitForSeconds(AttackInterval);
-            IsAttackReady = true;
         }
 
         public void OnWeaponTriggerEnter(Collider other)
         {
-            if (owner == "Monster")
+            if (other.CompareTag("Player"))
             {
-                if (other.tag == "Player")
+                if (other.gameObject.GetComponent<ICombatant>() != null)
                 {
-                    Debug.Log("Player Attacked By Weapon");
-                    //Player Recieve Attack
+                    SetAndAttack(attackData, other.transform);
                 }
             }
+        }
+
+        private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
+        {
+            Debug.Log("SetPayloadAttack");
+            CombatPayload payload = new();
+            payload.Type = data.combatType;
+            payload.Attacker = transform;
+            payload.Defender = otherTransform;
+            payload.AttackDirection = Vector3.zero;
+            payload.AttackStartPosition = transform.position;
+            payload.AttackPosition = otherTransform.position;
+            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.Damage = (int)data.attackValue;
+            Attack(payload);
         }
 
     }

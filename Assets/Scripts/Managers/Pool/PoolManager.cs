@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -73,7 +72,7 @@ namespace Assets.Scripts.Managers
                 Push(poolable);
                 return;
             }
-            
+
             string objectName = poolable.name;
             var info = poolTask.GetInfo(poolable);
             if (pools.TryGetValue(objectName, out var pool) && info != null)
@@ -99,7 +98,10 @@ namespace Assets.Scripts.Managers
         {
             if (!pools.ContainsKey(original.name))
                 CreatePool(original);
-            
+
+            if (parent == null)
+                parent = root;
+
             return pools[original.name].Pop(parent);
         }
 
@@ -134,7 +136,9 @@ namespace Assets.Scripts.Managers
             var wfs = new WaitForSeconds(cleanInterval);
             while (pool.IsFull())
             {
-                Destroy(pool.Pop().gameObject);
+                var top = pool.Pop();
+
+                top.PoolableDestroy();
                 yield return wfs;
             }
         }

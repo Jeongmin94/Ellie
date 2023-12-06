@@ -1,0 +1,118 @@
+@startuml
+
+class PlayerController{
+    - playerStateMachine : PlayerStateMachine
+    + TicketMachine : ticketMachine
+
+    - Update
+    - FixedUpdate
+    - Any Other Logics
+}
+
+PlayerController <-down- PlayerStatus
+PlayerController <-down- PlayerAim
+PlayerController <-down- PlayerQuest
+PlayerController <-down- PlayerInteraction
+
+@enduml
+
+
+@startuml
+class PlayerStateMachine{
+    - states : Dictionary<PlayerStateName, PlayerBaseState>
+    + CurrentState : PlayerBaseState
+    + CurrentStateName : PlayerStateName
+
+    + AddState(PlayerStateName stateName, PlayerBaseState state) : void
+    + DeleteState(PlayerStateName stateName) : void
+    + ChangeState(PlayerStateName nextStateName) : void
+    + ChangeState(PlayerStateName nextStateName, StateInfo info) : void
+    + UpdateState() : void
+    + FixedUpdateState() : void
+}
+
+abstract class PlayerBaseState {
+    # Controller: PlayerController
+
+    + {abstract} OnEnterState() : void
+    + OnEnterState(StateInfo info) : virtual void
+    + {abstract} OnUpdateState() : void
+    + {abstract} OnFixedUpdate() : void
+    + {abstract} OnExitState() : void
+
+}
+
+PlayerController <-down- PlayerStateMachine
+PlayerStateMachine <-down- PlayerBaseState
+PlayerBaseState <|-down- PlayerStateIdle
+PlayerBaseState <|-down- PlayerStateWalk
+PlayerBaseState <|-down- PlayerStateSprint
+@enduml
+
+@startuml
+class PlayerStatus{
+    - playerStatusEffects : Dictionary<StatusEffectName, IPlayerStatusEffect>
+    - playerStatusEffectController : PlayerStatusEffectController
+
+    - InitStatusEffects() : void
+    + ReceiveDamage(IBaseEventPayload payload) : void
+}
+class PlayerStatusEffectController{
+    - effects : List<IPlayerStatusEffect>
+
+    + ApplyStatusEffect(IPlayerStatusEffect effect, StatusEffectInfo info) : void
+    + AddStatusEffect(IPlayerStatusEffect effect) : void
+    + RemoveStatusEffect(IPlayerStatusEffect effect) : void
+}
+
+interface IPlayerStatusEffect{
+    + ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info) : void
+}
+
+
+PlayerStatus <-down- PlayerStatusEffectController
+PlayerStatusEffectController <-down- IPlayerStatusEffect
+IPlayerStatusEffect <|-down- PlayerStatusEffectWeakRigidity
+IPlayerStatusEffect <|-down- PlayerStatusEffectStrongRigidity
+IPlayerStatusEffect <|-down- PlayerStatusEffectDown
+IPlayerStatusEffect <|-down- PlayerStatusEffectKnockedAirborne
+@enduml
+
+@startuml
+interface IInteractiveObject{
+    + Interact(GameObject obj) : void
+    + public InteractiveType GetInteractiveType() : InteractiveType
+}
+
+IInteractiveObject <|-down- NPC
+IInteractiveObject <|-down- Ore
+IInteractiveObject <|-down- MineCart
+
+class PlayerInteraction{
+    + InteractiveObject : GameObject
+    + isInteracting : bool
+    + canInteract : bool
+
+    + Interact() : void
+}
+
+note bottom : InteractiveObject의 trigger collider에 \nenter, exit 시 InteractiveObject 를 \n해당하는 오브젝트의 참조로 설정\nInteract로 해당 오브젝트의 Interact함수 호출
+
+@enduml
+
+@startuml
+interface ILootable{
+    + Visit(PlayerLooting player) : void
+}
+
+ILootable <|-down- BaseStone
+ILootable <|-down- BaseDropItem
+
+class PlayerLooting{
+    - OnTriggerEnter(Collider other) : void
+    - Accept(ILootable item) : void
+}
+
+note bottom : PlayerLooting 컴포넌트는 플레이어의 collider와 별개로 \n자기 자신만의 trigger collider를 가지며\n충돌 시 ILootable을 상속받은 객체인지 판단 후 Accept 메서드 실행
+@enduml
+

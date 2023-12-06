@@ -12,8 +12,7 @@ namespace Assets.Scripts.Player.States
         // !TODO : 쏘고 난 후의 애니메이션 필요함
         private float recoilTime;
         private float curTime;
-        private GameObject stone;
-        
+
         public PlayerStateShoot(PlayerController controller) : base(controller)
         {
             recoilTime = controller.RecoilTime;
@@ -21,20 +20,31 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
-            stone = Controller.Stone;
             Controller.Anim.SetBool("IsShooting", true);
             Controller.SetTimeScale(1f);
             curTime = 0;
-            Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine);
+            if (Controller.CurStoneIdx != 0)
+            {
+                Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine, Controller.CurStoneIdx);
+            }
+
+            Controller.TurnOnSlingshot();
+            Controller.TurnSlingshotLineRenderer(false);
+            SoundManager.Instance.StopSfx("slingshot_sound1");
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound2", Controller.PlayerObj.position);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound2", Controller.PlayerObj.position);
+            Controller.ShakeCamera(1.0f, 0.2f);
+
         }
-        
+
 
         public override void OnExitState()
         {
             Controller.TurnOffAimCam();
-            Controller.SetAimingAnimLayerToDefault();
+            Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
             Controller.ActivateShootPos(false);
             Controller.Anim.SetBool("IsShooting", false);
+            Controller.TurnOffSlingshot();
         }
 
         public override void OnFixedUpdateState()
@@ -46,7 +56,6 @@ namespace Assets.Scripts.Player.States
             curTime += Time.deltaTime;
             if (curTime >= recoilTime)
             {
-
                 if (Controller.isGrounded)
                 {
                     Controller.ChangeState(PlayerStateName.Idle);

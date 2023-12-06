@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
@@ -15,6 +16,7 @@ namespace Assets.Scripts.Player.States
 
         public override void OnEnterState()
         {
+            Controller.isRigid = false;
             Controller.canTurn = false;
             beforeDrag = Controller.groundDrag;
             Controller.groundDrag = 0f;
@@ -24,6 +26,8 @@ namespace Assets.Scripts.Player.States
             dodgeTime = 0f;
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.DodgeStaminaConsumption);
+            Controller.PlayerStatus.SetPlayerInvulnerable(Controller.DodgeInvulnerableTime);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound11", Controller.transform.position);
         }
 
         public override void OnExitState()
@@ -32,7 +36,7 @@ namespace Assets.Scripts.Player.States
             //Controller.cam.RotationSpeed = 10f;
             Controller.isDodging = false;
             Controller.Anim.SetBool("IsDodging", false);
-
+            //Controller.gameObject.tag = "Player";
         }
 
         public override void OnFixedUpdateState()
