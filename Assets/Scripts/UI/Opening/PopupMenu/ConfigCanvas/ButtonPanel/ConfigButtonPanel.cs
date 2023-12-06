@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Data.UI.Opening;
-using UnityEngine;
 using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.PopupMenu
@@ -19,7 +18,6 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         private readonly List<ConfigToggleController> toggles = new List<ConfigToggleController>();
 
-        private VerticalLayoutGroup verticalLayoutGroup;
         private ToggleGroup toggleGroup;
         private Action<PopupPayload> buttonPanelAction;
 
@@ -75,7 +73,6 @@ namespace Assets.Scripts.UI.PopupMenu
         private void Bind()
         {
             toggleGroup = GetComponent<ToggleGroup>();
-            verticalLayoutGroup = GetComponent<VerticalLayoutGroup>();
         }
 
         private void InitObjects()

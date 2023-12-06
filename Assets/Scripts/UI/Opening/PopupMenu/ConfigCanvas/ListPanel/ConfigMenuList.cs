@@ -57,7 +57,7 @@ namespace Assets.Scripts.UI.PopupMenu
         public void InitConfigComponents(ConfigType configType)
         {
             ConfigMenuType = configType;
-            
+
             foreach (var data in integerOptionData)
             {
                 if (data.IsSameType(configType))

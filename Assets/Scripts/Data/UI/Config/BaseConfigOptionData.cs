@@ -19,7 +19,6 @@ namespace Data.UI.Config
     {
         [SerializeField] public ConfigType configType;
         [SerializeField] public bool readOnly;
-        [SerializeField] public int order;
         [SerializeField] public string configName;
         [SerializeField] public List<T> values;
         [SerializeField] public int currentIdx;
