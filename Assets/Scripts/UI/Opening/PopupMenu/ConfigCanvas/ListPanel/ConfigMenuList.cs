@@ -10,6 +10,8 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "Opening/ConfigMenuList";
 
+        private static readonly string DataPath = "UI/ConfigData";
+
         [SerializeField] private IntegerOptionData[] integerOptionData;
         [SerializeField] private Vector2OptionData[] vector2OptionData;
         [SerializeField] private StringOptionData[] stringOptionData;
@@ -55,7 +57,7 @@ namespace Assets.Scripts.UI.PopupMenu
         public void InitConfigComponents(ConfigType configType)
         {
             ConfigMenuType = configType;
-
+            
             foreach (var data in integerOptionData)
             {
                 if (data.IsSameType(configType))
@@ -98,6 +100,14 @@ namespace Assets.Scripts.UI.PopupMenu
                     data.SubscribeValueChangeAction(component.OnOptionValueChanged);
                     data.InitData();
                 }
+            }
+
+            string controlPath = "Prefabs/UI/ConfigData/Controls";
+            var gos = Resources.LoadAll(controlPath);
+            foreach (var go in gos)
+            {
+                Debug.Log(go.name);
+                Instantiate(go);
             }
         }
     }
