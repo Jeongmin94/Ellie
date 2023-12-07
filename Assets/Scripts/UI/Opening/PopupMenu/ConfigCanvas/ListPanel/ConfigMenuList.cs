@@ -64,5 +64,12 @@ namespace Assets.Scripts.UI.PopupMenu
             ConfigSaveData.InitData(stringOptionData, ConfigMenuType, content.transform);
             ConfigSaveData.InitData(vector2OptionData, ConfigMenuType, content.transform);
         }
+
+        private void OnDisable()
+        {
+            ConfigSaveData.SaveData(integerOptionData, ConfigMenuType);
+            ConfigSaveData.SaveData(stringOptionData, ConfigMenuType);
+            ConfigSaveData.SaveData(vector2OptionData, ConfigMenuType);
+        }
     }
 }

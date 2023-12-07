@@ -1,5 +1,6 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.PopupMenu;
+using Newtonsoft.Json;
 using UnityEngine;
 
 namespace Data.UI.Config.Save
@@ -23,9 +24,18 @@ namespace Data.UI.Config.Save
             }
         }
 
-        public void SaveData<T>(BaseConfigOptionData<T>[] dataArray, ConfigType configType)
+        public static void SaveData<T>(BaseConfigOptionData<T>[] dataArray, ConfigType configType)
         {
-            
+            foreach (var data in dataArray)
+            {
+                if(data.readOnly)
+                    continue;
+                
+                var so = ScriptableObject.CreateInstance<BaseConfigOptionData<T>>();
+                string jsonSo = JsonConvert.SerializeObject(data);
+                
+                Debug.Log($"{data.name} - {jsonSo}");
+            }
         }
     }
 }
