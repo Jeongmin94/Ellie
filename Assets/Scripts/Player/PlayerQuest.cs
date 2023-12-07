@@ -18,8 +18,6 @@ namespace Assets.Scripts.Player
     {
         private PlayerController controller;
         private List<QuestData> questDataList;
-        //!TODO : curQuestData의 상태에 맞게 UI를 출력해주어야 함
-        //!TODO : NPC들에서 플레이어의 curQuest를 변경해주어야 함
         private QuestData curQuestData;
         private const int FirstQuestDataIdx = 0;
         private Dictionary<int, QuestStatus> questStatusDic;
@@ -33,9 +31,6 @@ namespace Assets.Scripts.Player
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
-
-            //퀘스트 세이브 로드
-           
         }
 
         private void Start()
@@ -47,11 +42,8 @@ namespace Assets.Scripts.Player
             //퀘스트 UI 스프라이트 로드
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
 
-            //DeactivateInteractiveUI();
             //6100번 퀘스트 시작
             StartCoroutine(OnDataLoadedCoroutine());
-            
-
         }
 
         private void Update()
@@ -69,7 +61,7 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void DebugCurrentPlayerQuestDict()
+        public void DebugCurrentPlayerQuestDict()
         {
             foreach (var item in questStatusDic)
             {
@@ -96,7 +88,7 @@ namespace Assets.Scripts.Player
             // 1. 맨 처음 시작
             // 2. 퀘스트 중에 껐다 켰을 경우
             // 3. 모든 퀘스트 다 깼을 경우
-            if (curQuestData != null)
+            if (questStatusDic[6100] != QuestStatus.CantAccept)
             {
                 SendDisplayQuestMessage(curQuestData);
                 yield break;
@@ -307,6 +299,7 @@ namespace Assets.Scripts.Player
                     SendClearQuestMessage();
                     SendDisplayQuestMessage(data);
                 }
+                //퀘스트 상태 변경할 때 마다 세이브
                 SaveLoadManager.Instance.SaveData();
             }
             else

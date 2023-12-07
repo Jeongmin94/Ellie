@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1265620569}
   - component: {fileID: 1265620570}
+  - component: {fileID: 1265620571}
   m_Layer: 2
   m_Name: TalkingSkullEldestTriggerCollider
   m_TagString: Untagged
@@ -45,6 +46,18 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 10
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1265620571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265620568}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1baee717cbafecb4bb86568d4b478755, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1369274931818258488
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,7 +237,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f03722baa2bae247b0063fa2fc7646a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullEldestNPC,
+    Assembly.Ellie
   interactiveType: 0
   NPCIndex: 6000
   rotationSpeed: 10

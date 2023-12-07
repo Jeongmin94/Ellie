@@ -326,7 +326,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 65f99ca12a990454ab984db657654d97, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.GuildguardSkeletonController,
+    Assembly.Ellie
   monsterData:
     index: 0
     monsterName: 
@@ -598,7 +599,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: 6c591b4d7375d4579807665bb2bcc69f, type: 2}
 --- !u!114 &1126190619
 MonoBehaviour:
@@ -611,7 +612,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterAudioController, Assembly.Ellie
   data: {fileID: 11400000, guid: b19edce2b991d45c7a6cfaec097ec8b9, type: 2}
 --- !u!1 &557302774346244468
 GameObject:
