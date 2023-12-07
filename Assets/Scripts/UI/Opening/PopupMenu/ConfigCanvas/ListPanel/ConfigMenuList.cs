@@ -63,6 +63,10 @@ namespace Assets.Scripts.UI.PopupMenu
             ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
             ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
             ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
+            
+            ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
 
             ConfigDataHelper.InitData(integerOptionData, ConfigMenuType, content.transform);
             ConfigDataHelper.InitData(stringOptionData, ConfigMenuType, content.transform);
