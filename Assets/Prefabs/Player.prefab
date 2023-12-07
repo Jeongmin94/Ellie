@@ -7232,7 +7232,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdbd3ad25e979c34ea6414ff87c7dd8f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerUI, Assembly.Ellie
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
 --- !u!114 &3433591422980594333
@@ -7246,7 +7246,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8027749db19f86642b16a488f1dc6344, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerStatus, Assembly.Ellie
   maxHP: 20
   maxStamina: 200
   staminaRecoveryPerSec: 10
@@ -7271,7 +7271,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f638288dc4d17c44bc5dd67da9465dc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerController, Assembly.Ellie
   playerObj: {fileID: 3473479438722185937}
   playerCollider: {fileID: 4016927572169917174}
   orientation: {fileID: 4016927572048160162}
@@ -7344,7 +7344,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f3bb12339e0b744cbec4b4146886772, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerAim, Assembly.Ellie
   xAxis:
     Value: 0
     m_SpeedMode: 0
@@ -7394,7 +7394,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d77062f56d5eea418d416de7fd7d02c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerAnimationEventHandler, Assembly.Ellie
 --- !u!114 &1552748587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7406,7 +7406,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c29014ea0449fd548bc599e8d2f20757, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerInteraction, Assembly.Ellie
   isInteracting: 0
 --- !u!95 &108283330
 Animator:
@@ -7456,7 +7456,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ea1257c15496c345bb03195de494479, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.StatusEffects.PlayerStatusEffectController,
+    Assembly.Ellie
 --- !u!136 &1523587310
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7482,7 +7483,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4ac7b9f0eda0304ca0d33b10a55017c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerInventory, Assembly.Ellie
   consumableEquipmentSlot:
   - groupType: 1
     index: 0
@@ -7520,7 +7521,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6db831980fd61c48b0ad0cbf6242770, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Environments.FadeObjectBlockingObject,
+    Assembly.Ellie
   LayerMask:
     serializedVersion: 2
     m_Bits: 3072
@@ -7542,7 +7544,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6affbb72b17d351408e34d137f197a63, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerQuest, Assembly.Ellie
   isPlaying: 0
 --- !u!114 &1144504781
 MonoBehaviour:
@@ -7555,7 +7557,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2de266ccd7bb1d34ebbb4c753ff22049, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerSaveLoad, Assembly.Ellie
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0

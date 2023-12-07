@@ -24,6 +24,8 @@ namespace Assets.Scripts.Player
             payload.questSaveInfo = quest.GetQuestDataSaveInfo();
             payload.pickaxeSaveInfo = controller.GetPickaxeDataSaveInfo();
 
+            //퀘스트 디버그
+            GetComponent<PlayerQuest>().DebugCurrentPlayerQuestDict();
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Player, payload);
         }
 

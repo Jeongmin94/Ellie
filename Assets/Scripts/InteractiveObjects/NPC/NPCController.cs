@@ -24,10 +24,15 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void OnNPCDisable(string name)
         {
             NPCActiveDic[name] = false;
-            
-            SaveLoadManager.Instance.SaveData();
+
+            StartCoroutine(SaveNPCStatusCoroutine());
         }
 
+        private IEnumerator SaveNPCStatusCoroutine()
+        {
+            yield return SaveLoadManager.Instance.CheckIsSaveDone();
+            SaveLoadManager.Instance.SaveData();
+        }
         private void SaveNPCData()
         {
             NPCSavePayload payload = new NPCSavePayload();
