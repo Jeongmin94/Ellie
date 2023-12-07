@@ -18,10 +18,14 @@ public class PlayerOnMonsterSight : ActionNode
 
     protected override State OnUpdate()
     {
-        Vector3 directionToPlayer = playerPos.Value - context.transform.position;
-        float angle = Vector3.Angle(context.transform.forward, directionToPlayer);
+        Vector3 interV = playerPos.Value - context.transform.position;
 
-        if(angle<70.0f*0.5f)
+        float dot = Vector3.Dot(interV.normalized, context.transform.forward.normalized);
+        float theta = Mathf.Acos(dot);
+        float degree = Mathf.Rad2Deg * theta;
+        Debug.Log("Degree : " + degree);
+
+        if(degree<=140.0f/2)
         {
             return State.Success;
         }
