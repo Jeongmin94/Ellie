@@ -96,12 +96,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.UI.GraphicRaycaster, UnityEngine.UI
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 8191
 --- !u!114 &992173973928626554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef4457e1e0d647279c12e710800f7843, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.UI.Dialog.SimpleDialogCanvas, Assembly.Ellie
   dialogContextData: {fileID: 11400000, guid: 661e53d249d6ac140b8d14c79e15daf5, type: 2}
 --- !u!1 &4236832778657859744
 GameObject:
