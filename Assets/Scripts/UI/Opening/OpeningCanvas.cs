@@ -198,7 +198,7 @@ namespace Assets.Scripts.UI.Opening
                         if (payload.popupType == PopupType.Start)
                         {
                             SaveLoadManager.Instance.IsLoadData = false;
-                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                            SceneLoadManager.Instance.LoadScene(SceneName.NewStart);
                         }
                         else if (payload.popupType == PopupType.Load)
                         {

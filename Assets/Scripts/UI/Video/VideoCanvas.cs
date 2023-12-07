@@ -112,8 +112,13 @@ namespace Assets.Scripts.UI.Video
                 yield return wfef;
             }
 
+            EndVideo();
+        }
+
+        public void EndVideo()
+        {
             gameObject.SetActive(false);
-            SaveLoadManager.Instance.IsLoadData = true;
+            SaveLoadManager.Instance.IsLoadData = videoData.isLoadData;
             SceneLoadManager.Instance.LoadScene(videoData.playAfterScene);
         }
 
