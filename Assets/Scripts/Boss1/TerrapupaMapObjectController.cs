@@ -131,6 +131,7 @@ public class TerrapupaMapObjectController : BaseController
         EventBus.Instance.Subscribe(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Subscribe(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
         EventBus.Instance.Subscribe(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
+        EventBus.Instance.Subscribe(EventBusEvents.ActivateMagicStone, OnActivateMagicStone);
     }
 
     #endregion
@@ -287,6 +288,24 @@ public class TerrapupaMapObjectController : BaseController
         }
     }
 
+    private void OnActivateMagicStone(IBaseEventPayload basePayload)
+    {
+        Debug.Log($"OnActivateMagicStone :: 마법 돌맹이 개수 1개 제한");
+
+        BossEventPayload payload = basePayload as BossEventPayload;
+
+        var magicStone = payload.Sender.GetComponent<MagicStone>();
+        float duration = payload.FloatValue;
+
+        if(!isExistMagicStone)
+        {
+            isExistMagicStone = true;
+            magicStone.ActivateRange();
+
+            StartCoroutine(CheckMagicStoneDuration(payload));
+        }
+    }
+
     #endregion
 
     #region 3. 코루틴 함수
@@ -337,6 +356,13 @@ public class TerrapupaMapObjectController : BaseController
 
         manaPayload.BoolValue = true;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
+    }
+
+    private IEnumerator CheckMagicStoneDuration(BossEventPayload payload)
+    {
+        yield return new WaitForSeconds(payload.FloatValue);
+
+        isExistMagicStone = false;
     }
 
     #endregion

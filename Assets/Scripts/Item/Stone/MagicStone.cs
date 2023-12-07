@@ -29,6 +29,12 @@ namespace Assets.Scripts.Item.Stone
             material = Resources.Load<Material>("Materials/Sensor2");
             bossLayer = 1 << LayerMask.NameToLayer("Monster");
         }
+
+        private void OnEnable()
+        {
+            durationCoroutine = StartCoroutine(StartDurationCheck(duration));
+        }
+
         private void OnDisable()
         {
             isTrigger = false;
@@ -52,6 +58,7 @@ namespace Assets.Scripts.Item.Stone
                 TransformValue2 = target,
             });
         }
+
         private void Update()
         {
             if(isCollideGround && !isTrigger)
@@ -59,6 +66,7 @@ namespace Assets.Scripts.Item.Stone
                 CheckForBossInRange();
             }
         }
+
         public void StopCheckDuration()
         {
             Debug.Log("StopCheckDuration() :: 지속시간 체크 정지");
@@ -67,15 +75,17 @@ namespace Assets.Scripts.Item.Stone
                 StopCoroutine(durationCoroutine);
             }
         }
+
         private IEnumerator StartDurationCheck(float duration)
         {
             Debug.Log($"마법돌맹이 지속시간 : {duration}");
 
             yield return new WaitForSeconds(duration);
-
+            
             Debug.Log($"마법돌맹이 지속시간 종료");
             PoolManager.Instance.Push(this.GetComponent<Poolable>());
         }
+
         protected override void OnCollisionEnter(Collision collision)
         {
             base.OnCollisionEnter(collision);
@@ -85,25 +95,38 @@ namespace Assets.Scripts.Item.Stone
             {
                 if (collision.gameObject.CompareTag("Ground"))
                 {
-                    // 마법돌맹이 콜라이더 제거 + 중력 제거
-                    isCollideGround = true;
-                    rb.velocity = Vector3.zero;
-                    rb.angularVelocity = Vector3.zero;
-                    rb.isKinematic = true;
-                    meshCollider.enabled = false;
-
-                    // 지속시간 설정 + 적용 범위 표시
-                    durationCoroutine = StartCoroutine(StartDurationCheck(duration));
-                    range = RangeManager.Instance.CreateRange(new RangePayload
+                    EventBus.Instance.Publish(EventBusEvents.ActivateMagicStone, new BossEventPayload
                     {
-                        DetectionMaterial = material,
-                        Type = RangeType.Circle,
-                        Radius = attractionRadiusRange,
-                        StartPosition = transform.position,
+                        Sender = transform,    // 마법돌맹이 객체
+                        FloatValue = duration,          // 돌 지속시간
                     });
+
+                    isCollideGround = true;
                 }
             }
         }
+
+        public void ActivateRange()
+        {
+            StopCheckDuration();
+
+            // 마법돌맹이 콜라이더 제거 + 중력 제거
+            rb.velocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+            rb.isKinematic = true;
+            meshCollider.enabled = false;
+
+            // 지속시간 설정 + 적용 범위 표시
+            durationCoroutine = StartCoroutine(StartDurationCheck(duration));
+            range = RangeManager.Instance.CreateRange(new RangePayload
+            {
+                DetectionMaterial = material,
+                Type = RangeType.Circle,
+                Radius = attractionRadiusRange,
+                StartPosition = transform.position,
+            });
+        }
+
         private void CheckForBossInRange()
         {
             Collider[] hitColliders = Physics.OverlapSphere(transform.position, attractionRadiusRange, bossLayer);
