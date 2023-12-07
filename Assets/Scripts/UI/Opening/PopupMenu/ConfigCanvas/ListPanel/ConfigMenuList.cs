@@ -1,7 +1,9 @@
+using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Data.UI.Config;
+using Data.UI.Config.Save;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.PopupMenu
@@ -12,16 +14,16 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private static readonly string DataPath = "UI/ConfigData";
 
-        [SerializeField] private IntegerOptionData[] integerOptionData;
-        [SerializeField] private Vector2OptionData[] vector2OptionData;
-        [SerializeField] private StringOptionData[] stringOptionData;
+        [SerializeField] private BaseConfigOptionData<int>[] integerOptionData;
+        [SerializeField] private BaseConfigOptionData<Vector2>[] vector2OptionData;
+        [SerializeField] private BaseConfigOptionData<string>[] stringOptionData;
 
         private enum GameObjects
         {
             Content,
         }
 
-        public ConfigType ConfigMenuType { get; set; }
+        private ConfigType ConfigMenuType { get; set; }
 
         private GameObject content;
 
@@ -58,49 +60,9 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             ConfigMenuType = configType;
 
-            foreach (var data in integerOptionData)
-            {
-                if (data.IsSameType(configType))
-                {
-                    data.ClearAction();
-
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
-                    component.name += $"#{data.configName}";
-                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
-                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.InitData();
-                }
-            }
-
-            foreach (var data in vector2OptionData)
-            {
-                if (data.IsSameType(configType))
-                {
-                    data.ClearAction();
-
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
-                    component.name += $"#{data.configName}";
-
-                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
-                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.InitData();
-                }
-            }
-
-            foreach (var data in stringOptionData)
-            {
-                if (data.IsSameType(configType))
-                {
-                    data.ClearAction();
-
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
-                    component.name += $"#{data.configName}";
-
-                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
-                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.InitData();
-                }
-            }
+            ConfigSaveData.InitData(integerOptionData, ConfigMenuType, content.transform);
+            ConfigSaveData.InitData(stringOptionData, ConfigMenuType, content.transform);
+            ConfigSaveData.InitData(vector2OptionData, ConfigMenuType, content.transform);
         }
     }
 }

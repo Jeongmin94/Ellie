@@ -11,7 +11,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4ec3ed7e71003ae44a34d5a758a0e28b, type: 3}
   m_Name: QuestData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Data.GoogleSheet.QuestDataParsingInfo,
+    Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1DlHsnJDvkPX63VSBQC0I_Bg3tRGKPfGMpX1gIgggWEQ/edit#gid=1410320592
   startCell: B7
   endColumn: R
@@ -29,13 +30,13 @@ MonoBehaviour:
     \uCCAB \uC9F8 3\uD68C \uD0C0\uACA9\t\uD50C\uB808\uC774\uC5B4 0.2 M \uC774\uB3D9
     \uC2DC \uC81C\uC5B4\uAD8C \uD0C8\uCDE8 \uB300\uC0AC \uCD9C\uB825, NPC \uAE30\uC900
     1M \uC774\uC0C1 \uC774\uB3D9 \uC2DC \uC774\uB3D9 \uD0A4 \uC870\uC791 \uC2DC \uC81C\uC5B4\uAD8C
-    \uD0C8\uCDE8 \uB300\uC0AC \uCD9C\uB825 \t4000,10\t\uACC4\uC18D \uB9D0\uC744 \uAC78\uC5B4
+    \uD0C8\uCDE8 \uB300\uC0AC \uCD9C\uB825 \t4000,20\t\uACC4\uC18D \uB9D0\uC744 \uAC78\uC5B4
     \uBAA8\uD5D8\uC744 \uBC29\uD574\uD558\uB294 \uD574\uACE8\uC744 \uD63C\uB0B4\uC8FC\uC790\t7039;7040\t-1\t7014;7015;7016;7017\t7018;7019\t7023;7024;7025;7026;7027\t-1\t7020;7021;7022\t1\r\n6102\t\uB204\uAD6C\uC5D0\uAC8C\uB098
     \uC0AC\uC5F0\uC740 \uC788\uB2E41\t6101 \uB2EC\uC131 \uD6C4 NPC \uB9D0\uD558\uB294
     \uD574\uACE8 \uBA38\uB9AC \uCCAB \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9 \uC2DC
     \uC9C4\uD589\t6000\tNPC \uB300\uD654\t\uB9D0\uD558\uB294 \uD574\uACE8 \uBA38\uB9AC
-    \uCCAB \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9\tNULL\t-1\t\uC774\uB7EC\uB2E4 \uC5C6\uB294
-    \uBAAC\uC2A4\uD130\uB3C4 \uBAB0\uB824\uC624\uACA0\uB294\uB370...\uC77C\uB2E8
+    \uCCAB \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9\tNULL\t4400,1\t\uC774\uB7EC\uB2E4
+    \uC5C6\uB294 \uBAAC\uC2A4\uD130\uB3C4 \uBAB0\uB824\uC624\uACA0\uB294\uB370...\uC77C\uB2E8
     \uB370\uB824\uAC00\uB294\uAC78\uB85C \uD558\uC790\t7038\t-1\t7028;7029;7030;7031;7032;7033;7034\t-1\t7035;7036;7037\t-1\t-1\t1\r\n6103\t\uB204\uAD6C\uC5D0\uAC8C\uB098
     \uC0AC\uC5F0\uC740 \uC788\uB2E42\t6102 \uB2EC\uC131 \uD6C4 NPC \uB9D0\uD558\uB294
     \uD574\uACE8 \uBA38\uB9AC \uB458 \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9 \uC2DC
@@ -48,10 +49,10 @@ MonoBehaviour:
     \uD6C4 \uD074\uB9AC\uC5B4\t6001\t1.\uD53C\uACA9 2. \uC624\uBE0C\uC81D\uD2B8 \uC0C1\uD638\uC791\uC6A9\t1.
     \uB9D0\uD558\uB294 \uD574\uACE8 \uBA38\uB9AC \uB458 \uC9F8\uC758 \uAC00\uBC29\uC73C\uB85C
     \uD5A5\uD558\uB294 \uAE38 \uD568\uC815 \uD53C\uACA9 1\uD68C 2. \uAC00\uBC29 \uC0C1\uD638\uC791\uC6A9\tNULL\t4000,10;4100,5\t\uB458
-    \uC9F8 \uD574\uACE8\uC758 \uAC00\uBC29\uC744 \uAC00\uC838\uC624\uC790\t7044;7045\t7041\t7046;7047;7048;7049;7050;7051;7052;7053\t7054\t7055;7056;7057;7058;7059;7060;7061;7062;7061\t-1\t-1\t1\r\n6105\t\uB9C8\uC9C0\uB9C9
+    \uC9F8 \uD574\uACE8\uC758 \uAC00\uBC29\uC744 \uAC00\uC838\uC624\uC790\t7044;7045\t7041\t7046;7047;7048;7049;7050;7051;7052;7053\t7054\t7055;7056;7057;7058;7059;7060;7061;7062\t-1\t-1\t1\r\n6105\t\uB9C8\uC9C0\uB9C9
     \uD615\uC81C\t6104 \uD018\uC2A4\uD2B8 \uB2EC\uC131 \uD6C4 \uD574\uACE8 \uBA38\uB9AC
     \uB458 \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9 \uC2DC \uC9C4\uD589\t6001\tNPC \uB300\uD654\t\uB9D0\uD558\uB294
-    \uD574\uACE8 \uBA38\uB9AC \uB458 \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9\tNULL\t-1\t\uADF8\uB798...\uC774\uC655
+    \uD574\uACE8 \uBA38\uB9AC \uB458 \uC9F8\uC640 \uC0C1\uD638\uC791\uC6A9\tNULL\t4401,1\t\uADF8\uB798...\uC774\uC655
     \uC774\uB807\uAC8C \uB41C\uAC70 \uC88B\uC740 \uC77C \uD558\uC790\t7043;7069\t-1\t7062;7063;7064\t-1\t7065;7066;7067;7068\t-1\t-1\t1\r\n6106\t\uD615\uC81C
     \uC0C1\uBD09\t6105 \uD018\uC2A4\uD2B8 \uB2EC\uC131 \uD6C4 \uB9D0\uD558\uB294
     \uD574\uACE8 \uBA38\uB9AC \uB9C9\uB0B4\uC640 \uC0C1\uD638\uC791\uC6A9 \uC2DC
@@ -63,9 +64,9 @@ MonoBehaviour:
     \uC9C4\uD589, \uD574\uACE8 \uBA38\uB9AC \uB9C9\uB0B4 \uC606 \uACE1\uAD2D\uC774
     \uC2B5\uB4DD \uD6C4 \uCC44\uAD11 \uC9C4\uD589\t6002\t1. \uC544\uC774\uD15C \uC2B5\uB4DD
     2. \uC624\uBE0C\uC81D\uD2B8 \uD788\uD2B8 \t1. NPC \uC606 \uACE1\uAD2D\uC774 \uC2B5\uB4DD
-    (\uD68D\uB4DD) 2. \uCC44\uAD11 \uD6C4 \uB3CC \uD68D\uB4DD\tNULL\t4000,20\t\uC774\uAC78
+    (\uD68D\uB4DD) 2. \uCC44\uAD11 \uD6C4 \uB3CC \uD68D\uB4DD\tNULL\t4000,20;4402,1\t\uC774\uAC78
     \uD718\uB450\uB974\uAE30\uACE0 \uC2F8\uC6B0\uAE30\uC5D4 \uB108\uBB34 \uBB34\uAC70\uC6CC...
-    \uC774\uAC78 \uC4F8\uB9CC\uD55C \uC6A9\uB3C4\uB97C \uCC3E\uC544\uBCF4\uC790\t7081;7082\t-1\t-1\t7083\t-1\t-1\t-1\t1"
+    \uC774\uAC78 \uC4F8\uB9CC\uD55C \uC6A9\uB3C4\uB97C \uCC3E\uC544\uBCF4\uC790\t-1\t-1\t7081;7082\t7083\t7084;7085;7086;7087;7088;7089;7090\t-1\t-1\t1"
   questDatas:
   - index: 6100
     name: "\uD504\uB864\uB85C\uADF8"
@@ -79,11 +80,6 @@ MonoBehaviour:
     playableText: "\uB178\uB7AB\uC18C\uB9AC\uAC00 \uB4E4\uB9AC\uB294 \uCABD\uC73C\uB85C
       \uC774\uB3D9\uD558\uC790"
     speechBubbleList: 
-    cantAcceptDialogList: 
-    unAcceptedDialogList: 581b0000591b00005a1b00005b1b00005c1b00005d1b00005e1b00005f1b0000601b0000611b0000621b0000
-    AcceptedDialogList: 
-    doneDialogList: 631b0000641b0000651b0000
-    endDialogList: 
     additionalConditionDialogList: 
     acceptanceTerm: 0
   - index: 6101
@@ -103,11 +99,6 @@ MonoBehaviour:
     playableText: "\uACC4\uC18D \uB9D0\uC744 \uAC78\uC5B4 \uBAA8\uD5D8\uC744 \uBC29\uD574\uD558\uB294
       \uD574\uACE8\uC744 \uD63C\uB0B4\uC8FC\uC790"
     speechBubbleList: 7f1b0000801b0000
-    cantAcceptDialogList: 
-    unAcceptedDialogList: 661b0000671b0000681b0000691b0000
-    AcceptedDialogList: 6a1b00006b1b0000
-    doneDialogList: 6f1b0000701b0000711b0000721b0000731b0000
-    endDialogList: 
     additionalConditionDialogList: 6c1b00006d1b00006e1b0000
     acceptanceTerm: 1
   - index: 6102
@@ -122,11 +113,6 @@ MonoBehaviour:
     playableText: "\uC774\uB7EC\uB2E4 \uC5C6\uB294 \uBAAC\uC2A4\uD130\uB3C4 \uBAB0\uB824\uC624\uACA0\uB294\uB370...\uC77C\uB2E8
       \uB370\uB824\uAC00\uB294\uAC78\uB85C \uD558\uC790"
     speechBubbleList: 7e1b0000
-    cantAcceptDialogList: 
-    unAcceptedDialogList: 741b0000751b0000761b0000771b0000781b0000791b00007a1b0000
-    AcceptedDialogList: 
-    doneDialogList: 7b1b00007c1b00007d1b0000
-    endDialogList: 
     additionalConditionDialogList: 
     acceptanceTerm: 1
   - index: 6103
@@ -141,11 +127,6 @@ MonoBehaviour:
     playableText: "\uB358\uC804 \uC5B4\uB518\uAC00\uC5D0 \uC788\uB294 \uD574\uACE8
       \uB3D9\uC0DD\uC744 \uCC3E\uC544\uBCF4\uC790"
     speechBubbleList: 
-    cantAcceptDialogList: 
-    unAcceptedDialogList: 
-    AcceptedDialogList: 811b0000
-    doneDialogList: 821b0000831b0000
-    endDialogList: 
     additionalConditionDialogList: 
     acceptanceTerm: 1
   - index: 6104
@@ -162,11 +143,6 @@ MonoBehaviour:
     additionalCondition: NULL
     playableText: "\uB458 \uC9F8 \uD574\uACE8\uC758 \uAC00\uBC29\uC744 \uAC00\uC838\uC624\uC790"
     speechBubbleList: 841b0000851b0000
-    cantAcceptDialogList: 811b0000
-    unAcceptedDialogList: 861b0000871b0000881b0000891b00008a1b00008b1b00008c1b00008d1b0000
-    AcceptedDialogList: 8e1b0000
-    doneDialogList: 8f1b0000901b0000911b0000921b0000931b0000941b0000951b0000961b0000951b0000
-    endDialogList: 
     additionalConditionDialogList: 
     acceptanceTerm: 1
   - index: 6105
@@ -181,11 +157,6 @@ MonoBehaviour:
     playableText: "\uADF8\uB798...\uC774\uC655 \uC774\uB807\uAC8C \uB41C\uAC70 \uC88B\uC740
       \uC77C \uD558\uC790"
     speechBubbleList: 831b00009d1b0000
-    cantAcceptDialogList: 
-    unAcceptedDialogList: 961b0000971b0000981b0000
-    AcceptedDialogList: 
-    doneDialogList: 991b00009a1b00009b1b00009c1b0000
-    endDialogList: 
     additionalConditionDialogList: 
     acceptanceTerm: 1
   - index: 6106
@@ -201,11 +172,6 @@ MonoBehaviour:
     playableText: "\uB358\uC804 \uC5B4\uB518\uAC00\uC5D0 \uC788\uB294 \uD574\uACE8
       \uB9C9\uB0B4\uB97C \uCC3E\uC544\uBCF4\uC790"
     speechBubbleList: 9e1b0000
-    cantAcceptDialogList: 9f1b0000
-    unAcceptedDialogList: a01b0000a11b0000a21b0000a31b0000a41b0000
-    AcceptedDialogList: 
-    doneDialogList: a51b0000a61b0000a71b0000a81b0000
-    endDialogList: 
     additionalConditionDialogList: 
     acceptanceTerm: 1
   - index: 6107
@@ -222,11 +188,6 @@ MonoBehaviour:
     playableText: "\uC774\uAC78 \uD718\uB450\uB974\uAE30\uACE0 \uC2F8\uC6B0\uAE30\uC5D4
       \uB108\uBB34 \uBB34\uAC70\uC6CC... \uC774\uAC78 \uC4F8\uB9CC\uD55C \uC6A9\uB3C4\uB97C
       \uCC3E\uC544\uBCF4\uC790"
-    speechBubbleList: a91b0000aa1b0000
-    cantAcceptDialogList: 
-    unAcceptedDialogList: 
-    AcceptedDialogList: ab1b0000
-    doneDialogList: 
-    endDialogList: 
+    speechBubbleList: 
     additionalConditionDialogList: 
     acceptanceTerm: 1
