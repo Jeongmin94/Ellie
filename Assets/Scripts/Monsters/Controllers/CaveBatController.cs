@@ -15,7 +15,11 @@ using static Assets.Scripts.Monsters.Utility.Enums;
 namespace Assets.Scripts.Monsters
 {
     public class CaveBatController : AbstractMonster, ICombatant
-    {        
+    {
+        const int meleeAttackNum = 2010;
+        const int fleeSkillNum = 2011;
+        const int runToPlayerNum = 2012;
+
         private void Awake()
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
@@ -47,9 +51,9 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2010);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2012);
-            attackData[(int)AttackSkill.Flee]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2011);
+            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(meleeAttackNum);
+            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(runToPlayerNum);
+            attackData[(int)AttackSkill.Flee]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(fleeSkillNum);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {

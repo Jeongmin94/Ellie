@@ -15,6 +15,10 @@ namespace Assets.Scripts.Monsters
 {
     public class GuildguardSkeletonController : AbstractMonster, ICombatant
     {
+        const int meleeAttackNum = 2002;
+        const int fanShapeAttackNum = 2004;
+        const int runToPlayerNum = 2007;
+
         private void Awake()
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
@@ -47,9 +51,9 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.FanshapeAttack] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2004);
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2002);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2007);
+            attackData[(int)AttackSkill.FanshapeAttack] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(fanShapeAttackNum);
+            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(meleeAttackNum);
+            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(runToPlayerNum);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {

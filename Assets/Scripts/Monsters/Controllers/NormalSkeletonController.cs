@@ -16,6 +16,9 @@ namespace Assets.Scripts.Monsters
 {
     public class NormalSkeletonController : AbstractMonster, ICombatant
     {
+        const int meleeAttackNum = 2000;
+        const int runToPlayerNum = 2005;
+        
         private void Awake()
         {
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
@@ -48,8 +51,8 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2001);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2006);
+            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(meleeAttackNum);
+            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(runToPlayerNum);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {

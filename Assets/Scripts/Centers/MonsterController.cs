@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Item;
+using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.AbstractClass;
@@ -47,7 +48,6 @@ public class MonsterController : MonoBehaviour, IMonster
 
     public void MonsterDead(IBaseEventPayload payload)
     {
-        Debug.Log("MonsterController Messaged");
         MonsterPayload monsterPayload = payload as MonsterPayload;
 
         //아이템 드롭
@@ -57,13 +57,10 @@ public class MonsterController : MonoBehaviour, IMonster
 
     private IEnumerator RespawnMonster(Transform transform, float time)
     {
-        Debug.Log("Monster Dead");
         yield return new WaitForSeconds(monsterDisableWait);
-        Debug.Log("Monster Disable");
         Vector3 originalScale = transform.localScale;
         transform.localScale = Vector3.zero;
         yield return new WaitForSeconds(time - monsterDisableWait);
-        Debug.Log("Respawn");
         transform.localScale = originalScale;
 
         transform.gameObject.GetComponent<AbstractMonster>().ResetMonster();
@@ -92,7 +89,7 @@ public class MonsterController : MonoBehaviour, IMonster
         //Drop Item
         for (int i = 0; i < dropItem.Count; i++)
         {
-            if (dropItem[i].Item2<4100) //Stone
+            if (dropItem[i].Item2 < 4100) //Stone
             {
                 StoneEventPayload payload = new()
                 {
@@ -101,8 +98,9 @@ public class MonsterController : MonoBehaviour, IMonster
                     StoneForce = GetRandVector(),
                     StoneIdx = dropItem[i].Item2,
                 };
+                
                 for (int j = 0; j < dropItem[i].Item1; j++)
-                {
+                    {
                     ticketMachine.SendMessage(ChannelType.Stone, payload);
                 }
             }
@@ -111,8 +109,8 @@ public class MonsterController : MonoBehaviour, IMonster
                 item.SetItemData(dropItem[i].Item2);
                 for (int j = 0; j < dropItem[i].Item1; j++)
                 {
-                    BaseDropItem obj = Instantiate(item, monster.position,monster.rotation);
-                    //obj.SetItemData(dropItem[i].Item2);
+                    BaseDropItem obj = Instantiate(item, monster.position, monster.rotation);
+                    obj.SetItemData(dropItem[i].Item2);
                     obj.gameObject.GetComponent<Rigidbody>().AddForce(GetRandVector(), ForceMode.Impulse);
                     obj.gameObject.GetComponent<Rigidbody>().AddTorque(2.0f * Random.onUnitSphere);
                 }

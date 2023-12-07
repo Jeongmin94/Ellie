@@ -8,13 +8,9 @@ public class MonsterLookPlayer : ActionNode
 {
     public NodeProperty<Vector3> playerPos;
 
-    private Quaternion targetRotation;
     private float accumTime;
     protected override void OnStart() {
         accumTime = 0.0f;
-        Vector3 directionVector = playerPos.Value - context.transform.position;
-        directionVector.Normalize();
-        targetRotation = Quaternion.LookRotation(directionVector,Vector3.up);
     }
 
     protected override void OnStop() {
@@ -23,7 +19,9 @@ public class MonsterLookPlayer : ActionNode
     protected override State OnUpdate() {
         if (accumTime < 0.5f)
         {
-            context.transform.rotation = Quaternion.Slerp(context.transform.rotation, targetRotation, Time.deltaTime * 10.0f);
+            Vector3 directionToTarget = (playerPos.Value - context.transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(directionToTarget.x, 0, directionToTarget.z));
+            context.transform.rotation = Quaternion.Slerp(context.transform.rotation, lookRotation, Time.deltaTime * 5.0f);
             accumTime += Time.deltaTime;
             return State.Running;
         }

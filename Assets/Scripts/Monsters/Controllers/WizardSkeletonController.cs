@@ -15,11 +15,11 @@ namespace Assets.Scripts.Monsters
 {
     public class WizardSkeletonController : AbstractMonster, ICombatant
     {
+        const int projectileAttackNum = 2009;
+        const int fleeSkillNum = 2008;
+
         private void Awake()
         {
-            //temp, will change with gamecenter
-            player = GameObject.Find("Player");
-
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 
@@ -49,8 +49,8 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.Flee] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2008);
-            attackData[(int)AttackSkill.ProjectileAttack]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2009);
+            attackData[(int)AttackSkill.Flee] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(fleeSkillNum);
+            attackData[(int)AttackSkill.ProjectileAttack]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(projectileAttackNum);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {
