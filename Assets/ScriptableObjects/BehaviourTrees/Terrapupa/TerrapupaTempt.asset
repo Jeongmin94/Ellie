@@ -31,6 +31,12 @@ MonoBehaviour:
   - rid: 283011291767373835
   - rid: 283011291767373837
   - rid: 116448341713223690
+  - rid: 116448341713223696
+  - rid: 116448341713223701
+  - rid: 116448341713223704
+  - rid: 116448341713223706
+  - rid: 116448341713223709
+  - rid: 116448341713223711
   treeState: 0
   blackboard:
     keys:
@@ -41,8 +47,9 @@ MonoBehaviour:
     - rid: 1401849440881606659
     - rid: 283011090204065826
     - rid: 283011090204065904
-  viewPosition: {x: 1546.4, y: 431.2, z: 0}
-  viewScale: {x: 0.43232757, y: 0.43232757, z: 1}
+    - rid: 116448341713223705
+  viewPosition: {x: 2678.4, y: 634.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -54,7 +61,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: c96eb6fbe9a691f4b82763985544ef67
-        position: {x: -2475, y: -510}
+        position: {x: -2325, y: -255}
         blackboard:
           keys: []
         description: 
@@ -68,6 +75,121 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+    - rid: 116448341713223696
+      type: {class: CheckTransformNull, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c6e44b109793fb64aa871d0da1aa0b2d
+        position: {x: -3000, y: -60}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        checkTransform:
+          reference:
+            rid: 283011018610442241
+          defaultValue: {fileID: 0}
+    - rid: 116448341713223701
+      type: {class: InterruptSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d6176e4f9295fb1468bdad92e8ef91ab
+        position: {x: -2550, y: -435}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 116448341713223704
+        - rid: 116448341713223690
+    - rid: 116448341713223704
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 56dd6d346cd7fa84d81691b80e108972
+        position: {x: -2820, y: -240}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 116448341713223696
+        - rid: 116448341713223709
+    - rid: 116448341713223705
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: check
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 116448341713223706
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7d038a110979bc842a82e3a5bb77f135
+        position: {x: -1890, y: 45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 116448341713223705
+          value:
+            rid: 116448341713223707
+    - rid: 116448341713223707
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 116448341713223709
+      type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a9d8cebef168eac45a53b576b16475d4
+        position: {x: -2700, y: -60}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 116448341713223705
+          value:
+            rid: 116448341713223710
+    - rid: 116448341713223710
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 116448341713223711
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 4efeeba87ffa6114e8fd5da4b0a1261a
+        position: {x: -2115, y: -390}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 116448341713223705
+          value:
+            rid: 116448341713223712
+    - rid: 116448341713223712
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
     - rid: 283011018610442241
       type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -112,7 +234,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9cd78b156d9eda44b8e4e8fc85227704
-        position: {x: -2790, y: -510}
+        position: {x: -3180, y: -495}
         blackboard:
           keys: []
         description: 
@@ -132,7 +254,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 8efa9a0f33a963840aef64fb5838ea50
-        position: {x: -2820, y: -390}
+        position: {x: -3210, y: -375}
         blackboard:
           keys: []
         description: 
@@ -182,7 +304,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cf1acebbb1ce4d341ac2db48f204efdd
-        position: {x: -2520, y: -135}
+        position: {x: -2325, y: 45}
         blackboard:
           keys: []
         description: 
@@ -205,7 +327,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: bb85064474de8e041a33ad256cbb05dc
-        position: {x: -2475, y: -390}
+        position: {x: -2325, y: -135}
         blackboard:
           keys: []
         description: 
@@ -214,13 +336,14 @@ MonoBehaviour:
         - rid: 1683426094593605638
         - rid: 1401849440881606689
         - rid: 1401849440881606692
+        - rid: 116448341713223706
     - rid: 1401849440881606692
       type: {class: CheckTargetDistance, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 0a644a0030b8e894481536acb9f56d8d
-        position: {x: -2325, y: -135}
+        position: {x: -2130, y: 45}
         blackboard:
           keys: []
         description: 
@@ -267,7 +390,7 @@ MonoBehaviour:
         children:
         - rid: 1683426094593605657
         - rid: 283011291767373835
-        - rid: 116448341713223690
+        - rid: 116448341713223701
         - rid: 1401849447854899209
     - rid: 1401849447854899208
       type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -291,12 +414,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 802ad53a1b6e019438afed5fcf8fd439
-        position: {x: -1875, y: -525}
+        position: {x: -1950, y: -525}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
+        - rid: 116448341713223711
         - rid: 1401849440881606694
         - rid: 1401849447854899208
     - rid: 1683426094593605637
@@ -305,7 +429,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 256b07ed43d6fe04db7e7285610e2498
-        position: {x: -3240, y: -285}
+        position: {x: -3630, y: -270}
         blackboard:
           keys: []
         description: 
@@ -320,7 +444,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 075e269f593ada34bb03d5a78fa3877b
-        position: {x: -2700, y: -135}
+        position: {x: -2520, y: 45}
         blackboard:
           keys: []
         description: 
@@ -335,7 +459,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 81ada54f67697814783e58f8622e3da2
-        position: {x: -3225, y: -495}
+        position: {x: -3615, y: -480}
         blackboard:
           keys: []
         description: 
@@ -350,7 +474,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 185206126e6066c428bea32123917700
-        position: {x: -3045, y: -285}
+        position: {x: -3435, y: -270}
         blackboard:
           keys: []
         description: 
@@ -372,7 +496,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6222acb0dddde124daf0af9f20f54ded
-        position: {x: -3420, y: -285}
+        position: {x: -3810, y: -270}
         blackboard:
           keys: []
         description: 

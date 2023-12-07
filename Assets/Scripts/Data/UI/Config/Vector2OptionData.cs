@@ -9,5 +9,10 @@ namespace Data.UI.Config
         {
             return $"x: {value.x}, y: {value.y}";
         }
+
+        public override DataType GetDataType()
+        {
+            return DataType.Vector2;
+        }
     }
 }

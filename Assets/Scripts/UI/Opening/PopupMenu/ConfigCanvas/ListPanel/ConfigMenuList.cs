@@ -1,7 +1,9 @@
+using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Data.UI.Config;
+using Data.UI.Config.Save;
 using UnityEngine;
 
 namespace Assets.Scripts.UI.PopupMenu
@@ -10,16 +12,18 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "Opening/ConfigMenuList";
 
-        [SerializeField] private IntegerOptionData[] integerOptionData;
-        [SerializeField] private Vector2OptionData[] vector2OptionData;
-        [SerializeField] private StringOptionData[] stringOptionData;
+        private static readonly string DataPath = "UI/ConfigData";
+
+        [SerializeField] private BaseConfigOptionData<int>[] integerOptionData;
+        [SerializeField] private BaseConfigOptionData<Vector2>[] vector2OptionData;
+        [SerializeField] private BaseConfigOptionData<string>[] stringOptionData;
 
         private enum GameObjects
         {
             Content,
         }
 
-        public ConfigType ConfigMenuType { get; set; }
+        private ConfigType ConfigMenuType { get; set; }
 
         private GameObject content;
 
@@ -56,49 +60,31 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             ConfigMenuType = configType;
 
-            foreach (var data in integerOptionData)
-            {
-                if (data.IsSameType(configType))
-                {
-                    data.ClearAction();
+            ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
+            
+            ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
 
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
-                    component.name += $"#{data.configName}";
-                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
-                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.InitData();
-                }
-            }
+            ConfigDataHelper.InitData(integerOptionData, ConfigMenuType, content.transform);
+            ConfigDataHelper.InitData(stringOptionData, ConfigMenuType, content.transform);
+            ConfigDataHelper.InitData(vector2OptionData, ConfigMenuType, content.transform);
+        }
 
-            foreach (var data in vector2OptionData)
-            {
-                if (data.IsSameType(configType))
-                {
-                    data.ClearAction();
+        public void OnEnable()
+        {
+            ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
+        }
 
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
-                    component.name += $"#{data.configName}";
-
-                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
-                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.InitData();
-                }
-            }
-
-            foreach (var data in stringOptionData)
-            {
-                if (data.IsSameType(configType))
-                {
-                    data.ClearAction();
-
-                    var component = UIManager.Instance.MakeSubItem<ConfigComponent>(content.transform, ConfigComponent.Path);
-                    component.name += $"#{data.configName}";
-
-                    component.SetConfigData(data.configName, data.readOnly, data.OnIndexChanged);
-                    data.SubscribeValueChangeAction(component.OnOptionValueChanged);
-                    data.InitData();
-                }
-            }
+        private void OnDisable()
+        {
+            ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
         }
     }
 }
