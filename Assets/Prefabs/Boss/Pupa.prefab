@@ -2141,7 +2141,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4a844601393ab64189eb458ba12bf26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaBTController, Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -2198,7 +2198,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 20d22ba26721a6249bebbd234e7b2075, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TerrapupaHealthBar, Assembly.Ellie
   data: {fileID: 11400000, guid: 34b43620a70425b4699b416d6ee1ad8a, type: 2}
   scaleFactor: 0.003
 --- !u!1 &8831768199645564775
@@ -2328,6 +2328,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   hitSound: TerrapupaAttackHit
+  remainTime: 15
 --- !u!54 &5921519033301202650
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Controller;
 using UnityEngine;
+using Channels.UI;
 
 public class TerrapupaMapObjectController : BaseController
 {
@@ -30,7 +31,6 @@ public class TerrapupaMapObjectController : BaseController
     [ReadOnly]
     [SerializeField]
     private int golemCoreCount = 0;
-    private bool isExistMagicStone = false;
 
     [ReadOnly] [SerializeField] private int manaFountainCount = 4;
 
@@ -291,18 +291,13 @@ public class TerrapupaMapObjectController : BaseController
     private void OnActivateMagicStone(IBaseEventPayload basePayload)
     {
         Debug.Log($"OnActivateMagicStone :: 마법 돌맹이 개수 1개 제한");
-
         BossEventPayload payload = basePayload as BossEventPayload;
 
         var magicStone = payload.Sender.GetComponent<MagicStone>();
-        float duration = payload.FloatValue;
 
-        if(!isExistMagicStone)
+        if(!MagicStone.isActivateRange)
         {
-            isExistMagicStone = true;
             magicStone.ActivateRange();
-
-            StartCoroutine(CheckMagicStoneDuration(payload));
         }
     }
 
@@ -356,13 +351,6 @@ public class TerrapupaMapObjectController : BaseController
 
         manaPayload.BoolValue = true;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
-    }
-
-    private IEnumerator CheckMagicStoneDuration(BossEventPayload payload)
-    {
-        yield return new WaitForSeconds(payload.FloatValue);
-
-        isExistMagicStone = false;
     }
 
     #endregion

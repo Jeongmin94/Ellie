@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
 using Channels.Boss;
+using Channels.UI;
 using System.Collections;
 using UnityEngine;
 
@@ -8,11 +9,12 @@ namespace Assets.Scripts.Item.Stone
 {
     public class MagicStone : BaseStoneEffect
     {
+        public static bool isActivateRange = false;
+
         public float attractionRadiusRange = 10.0f;
         public float duration = 10.0f;
         public LayerMask bossLayer;
 
-        private bool isCollideGround = false;
         private bool isTrigger = false;
         private Transform target;
         private Rigidbody rb;
@@ -30,17 +32,12 @@ namespace Assets.Scripts.Item.Stone
             bossLayer = 1 << LayerMask.NameToLayer("Monster");
         }
 
-        private void OnEnable()
-        {
-            durationCoroutine = StartCoroutine(StartDurationCheck(duration));
-        }
-
         private void OnDisable()
         {
             isTrigger = false;
-            isCollideGround = false;
+            isActivateRange = false;
 
-            if(range != null)
+            if (range != null)
             {
                 Destroy(range.gameObject);
                 range = null;
@@ -61,9 +58,26 @@ namespace Assets.Scripts.Item.Stone
 
         private void Update()
         {
-            if(isCollideGround && !isTrigger)
+            if(isActivateRange && !isTrigger)
             {
                 CheckForBossInRange();
+            }
+        }
+
+        protected override void OnCollisionEnter(Collision collision)
+        {
+            base.OnCollisionEnter(collision);
+
+            if (!isActivateRange && Type == StoneEventType.ShootStone
+                && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            {
+                if (collision.gameObject.CompareTag("Ground"))
+                {
+                    EventBus.Instance.Publish(EventBusEvents.ActivateMagicStone, new BossEventPayload
+                    {
+                        Sender = transform,             // 마법돌맹이 객체
+                    });
+                }
             }
         }
 
@@ -76,41 +90,11 @@ namespace Assets.Scripts.Item.Stone
             }
         }
 
-        private IEnumerator StartDurationCheck(float duration)
-        {
-            Debug.Log($"마법돌맹이 지속시간 : {duration}");
-
-            yield return new WaitForSeconds(duration);
-            
-            Debug.Log($"마법돌맹이 지속시간 종료");
-            PoolManager.Instance.Push(this.GetComponent<Poolable>());
-        }
-
-        protected override void OnCollisionEnter(Collision collision)
-        {
-            base.OnCollisionEnter(collision);
-
-            if (!isCollideGround && Type == StoneEventType.ShootStone
-                && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
-            {
-                if (collision.gameObject.CompareTag("Ground"))
-                {
-                    EventBus.Instance.Publish(EventBusEvents.ActivateMagicStone, new BossEventPayload
-                    {
-                        Sender = transform,    // 마법돌맹이 객체
-                        FloatValue = duration,          // 돌 지속시간
-                    });
-
-                    isCollideGround = true;
-                }
-            }
-        }
-
         public void ActivateRange()
         {
-            StopCheckDuration();
-
             // 마법돌맹이 콜라이더 제거 + 중력 제거
+            isActivateRange = true;
+
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
             rb.isKinematic = true;
@@ -147,6 +131,16 @@ namespace Assets.Scripts.Item.Stone
                     break;
                 }
             }
+        }
+
+        private IEnumerator StartDurationCheck(float duration)
+        {
+            Debug.Log($"마법돌맹이 지속시간 : {duration}");
+
+            yield return new WaitForSeconds(duration);
+
+            Debug.Log($"마법돌맹이 지속시간 종료");
+            PoolManager.Instance.Push(this.GetComponent<Poolable>());
         }
     }
 }
