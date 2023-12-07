@@ -4978,7 +4978,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f011d131ad03b4f13be261d66d21f497, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Centers.SceneLoadManager, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CurrentScene
+      Entry: 3
+      Data: 0
 --- !u!4 &331704870
 Transform:
   m_ObjectHideFlags: 0
@@ -28251,6 +28263,7 @@ MonoBehaviour:
   Canvases: {fileID: 273971211}
   uiPrefabs:
   - {fileID: 5620976766535060339, guid: 0b9808471eb376243a85e83c3e5da4f0, type: 3}
+  controllerInstances: []
 --- !u!1001 &1765269016
 PrefabInstance:
   m_ObjectHideFlags: 0

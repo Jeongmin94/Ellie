@@ -30,6 +30,7 @@ public class TerrapupaMapObjectController : BaseController
     [ReadOnly]
     [SerializeField]
     private int golemCoreCount = 0;
+    private bool isExistMagicStone = false;
 
     [ReadOnly] [SerializeField] private int manaFountainCount = 4;
 

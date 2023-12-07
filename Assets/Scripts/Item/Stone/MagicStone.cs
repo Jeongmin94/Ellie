@@ -118,7 +118,7 @@ namespace Assets.Scripts.Item.Stone
                     EventBus.Instance.Publish(EventBusEvents.BossAttractedByMagicStone, new BossEventPayload 
                     { 
                         TransformValue1 = transform, 
-                        TransformValue2 = target 
+                        TransformValue2 = target
                     });
 
                     break;
