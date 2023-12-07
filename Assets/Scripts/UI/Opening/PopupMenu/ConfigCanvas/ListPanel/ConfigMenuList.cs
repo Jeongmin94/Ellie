@@ -101,14 +101,6 @@ namespace Assets.Scripts.UI.PopupMenu
                     data.InitData();
                 }
             }
-
-            string controlPath = "Prefabs/UI/ConfigData/Controls";
-            var gos = Resources.LoadAll(controlPath);
-            foreach (var go in gos)
-            {
-                Debug.Log(go.name);
-                Instantiate(go);
-            }
         }
     }
 }
