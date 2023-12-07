@@ -43,18 +43,25 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f67bf0165d8a554985357ac39a59651, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Centers.Test.GameCenter, Assembly.Ellie
   channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
+  Canvases: {fileID: 0}
+  uiPrefabs:
+  - {fileID: 5104706258619150005, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
+  - {fileID: 8056075410326717546, guid: 8aa015324f5530340ba419dc5deab6ad, type: 3}
+  controllerInstances:
+  - {fileID: 0}
+  - {fileID: 0}
   player: {fileID: 0}
   hatchery: {fileID: 0}
-  inventory: {fileID: 0}
   ores:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  monsterController: {fileID: 0}
   monsters: {fileID: 0}
-  DialogCanvas: {fileID: 0}
-  SimpleDialogCanvas: {fileID: 0}
   SkullSecondTrap: {fileID: 0}
-  attacker: {fileID: 0}
+  terrapupaController: {fileID: 0}
+  terrapupaMapObjectController: {fileID: 0}
+  stonePillarPuzzle: {fileID: 0}
   curStage: 1

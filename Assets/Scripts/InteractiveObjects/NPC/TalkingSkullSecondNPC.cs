@@ -64,7 +64,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
 
             //6014 퀘스트를 완료하지 못하고 말을 걸었을 경우
-            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Accepted)
+            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Accepted ||
+                player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Unaccepted)
             {
                 LookAtPlayer();
                 player.StartConversation();
