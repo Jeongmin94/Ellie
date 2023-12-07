@@ -10,6 +10,7 @@ using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class CheatClient : SerializedMonoBehaviour
 {
@@ -17,6 +18,9 @@ public class CheatClient : SerializedMonoBehaviour
     public Transform terrapupa;
     public Transform terra;
     public Transform pupa;
+    public List<Transform> minions;
+
+    private GameObject canvas;
 
     private bool IsRuntime
     {
@@ -31,7 +35,7 @@ public class CheatClient : SerializedMonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha0))
         {
-
+            OnOffCanvas();
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -56,18 +60,56 @@ public class CheatClient : SerializedMonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha6))
         {
             KillTerrapupa();
+            KillTerraAndPupa();
+            KillMinions();
         }
         if (Input.GetKeyDown(KeyCode.Alpha7))
         {
-            KillTerraAndPupa();
+            DamageTerrapupa();
         }
         if (Input.GetKeyDown(KeyCode.Alpha8))
         {
-            DamageTerrapupa();
+            DeactivateBoss();
         }
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             SkipToEnding();
+        }
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F2))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F3))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F4))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F5))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F6))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F7))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F8))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F9))
+        {
+
         }
     }
 
@@ -144,6 +186,17 @@ public class CheatClient : SerializedMonoBehaviour
         pupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
     }
     [EnableIf("IsRuntime")]
+    [Button("3페이즈 스킵", ButtonSizes.Large)]
+    public void KillMinions()
+    {
+        Debug.Log("미니언 사망 치트");
+
+        foreach (var minion in minions)
+        {
+            minion.GetComponent<TerrapupaMinionBTController>().minionData.currentHP.Value = 0;
+        }
+    }
+    [EnableIf("IsRuntime")]
     [Button("테라푸파 데미지", ButtonSizes.Large)]
     public void DamageTerrapupa()
     {
@@ -152,6 +205,24 @@ public class CheatClient : SerializedMonoBehaviour
         terrapupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
         terra.GetComponent<TerrapupaBTController>().GetDamaged(1);
         pupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
+        foreach (var minion in minions)
+        {
+            minion.GetComponent<TerrapupaMinionBTController>().GetDamaged(1);
+        }
+    }
+    [EnableIf("IsRuntime")]
+    [Button("테라푸파 데미지", ButtonSizes.Large)]
+    public void DeactivateBoss()
+    {
+        Debug.Log("보스 비활성화");
+
+        terrapupa.gameObject.SetActive(false);
+        terra.gameObject.SetActive(false);
+        pupa.gameObject.SetActive(false);
+        foreach (var minion in minions)
+        {
+            minion.gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -200,6 +271,12 @@ public class CheatClient : SerializedMonoBehaviour
         }
     }
 
+
+    /// <summary>
+    /// 기타
+    /// </summary>
+    /// 
+    [Title("기타")]
     [EnableIf("IsRuntime")]
     [Button("엔딩 스킵", ButtonSizes.Large)]
     public void SkipToEnding()
@@ -207,6 +284,25 @@ public class CheatClient : SerializedMonoBehaviour
         Debug.Log("엔딩으로 스킵");
 
         SceneLoadManager.Instance.LoadScene(SceneName.Closing);
+    }
+
+    [EnableIf("IsRuntime")]
+    [Button("캔버스 켰다끄기", ButtonSizes.Large)]
+    public void OnOffCanvas()
+    {
+        if(canvas == null)
+        {
+            canvas = GameObject.Find("@UI_Root");
+        }
+
+        if(canvas.active == true)
+        {
+            canvas.SetActive(false);
+        }
+        else
+        {
+            canvas.SetActive(true);
+        }
     }
 
     private UIPayload GenerateStoneAcquirePayloadTest(int index)
