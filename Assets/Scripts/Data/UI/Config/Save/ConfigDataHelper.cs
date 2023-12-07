@@ -1,12 +1,13 @@
+using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.PopupMenu;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 namespace Data.UI.Config.Save
 {
-    [CreateAssetMenu(fileName = "ConfigSaveData", menuName = "UI/Config/ConfigSaveData", order = 0)]
-    public class ConfigSaveData : ScriptableObject
+    public static class ConfigDataHelper
     {
         public static void InitData<T>(BaseConfigOptionData<T>[] dataArray, ConfigType configType, Transform transform)
         {
@@ -28,13 +29,36 @@ namespace Data.UI.Config.Save
         {
             foreach (var data in dataArray)
             {
-                if(data.readOnly)
+                if (data.readOnly)
                     continue;
-                
-                var so = ScriptableObject.CreateInstance<BaseConfigOptionData<T>>();
-                string jsonSo = JsonConvert.SerializeObject(data);
-                
-                Debug.Log($"{data.name} - {jsonSo}");
+
+                if (data.configType != configType)
+                    continue;
+
+                string jsonString = JsonConvert.SerializeObject(data);
+                JObject jsonObj = JObject.Parse(jsonString);
+
+                PlayerPrefs.SetInt(jsonObj["name"].ToString(), Int32.Parse(jsonObj["currentIdx"].ToString()));
+            }
+
+            PlayerPrefs.Save();
+        }
+
+        public static void LoadData<T>(BaseConfigOptionData<T>[] dataArray, ConfigType configType)
+        {
+            foreach (var data in dataArray)
+            {
+                if (data.readOnly)
+                    continue;
+
+                if (data.configType != configType)
+                    continue;
+
+                string jsonString = JsonConvert.SerializeObject(data);
+                JObject jsonObj = JObject.Parse(jsonString);
+
+                int idx = PlayerPrefs.GetInt(jsonObj["name"].ToString());
+                data.currentIdx = idx;
             }
         }
     }

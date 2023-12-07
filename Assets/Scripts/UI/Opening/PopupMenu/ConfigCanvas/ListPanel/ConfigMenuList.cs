@@ -60,16 +60,27 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             ConfigMenuType = configType;
 
-            ConfigSaveData.InitData(integerOptionData, ConfigMenuType, content.transform);
-            ConfigSaveData.InitData(stringOptionData, ConfigMenuType, content.transform);
-            ConfigSaveData.InitData(vector2OptionData, ConfigMenuType, content.transform);
+            ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
+
+            ConfigDataHelper.InitData(integerOptionData, ConfigMenuType, content.transform);
+            ConfigDataHelper.InitData(stringOptionData, ConfigMenuType, content.transform);
+            ConfigDataHelper.InitData(vector2OptionData, ConfigMenuType, content.transform);
+        }
+
+        public void OnEnable()
+        {
+            ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
         }
 
         private void OnDisable()
         {
-            ConfigSaveData.SaveData(integerOptionData, ConfigMenuType);
-            ConfigSaveData.SaveData(stringOptionData, ConfigMenuType);
-            ConfigSaveData.SaveData(vector2OptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
         }
     }
 }
