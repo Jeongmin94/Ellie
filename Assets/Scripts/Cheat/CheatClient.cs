@@ -1,6 +1,7 @@
 using Assets.Scripts.Centers;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Particle;
 using Assets.Scripts.UI.Inventory;
 using Boss.Terrapupa;
 using Channels.Components;
@@ -110,6 +111,22 @@ public class CheatClient : SerializedMonoBehaviour
         if (Input.GetKeyDown(KeyCode.F9))
         {
 
+        }
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.F12))
+        {
+
+        }
+        if (Input.GetKeyDown(KeyCode.O))
+        {
+            AddItem();
         }
     }
 
@@ -239,12 +256,9 @@ public class CheatClient : SerializedMonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
-        }
-
-        for (int i = 0; i < 5; i++)
-        {
+            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
+            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4019));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
         }

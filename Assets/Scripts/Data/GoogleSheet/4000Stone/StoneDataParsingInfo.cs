@@ -25,6 +25,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public string textureName;
         public Material stoneMaterial;
         public GameObject hitParticle;
+        public GameObject skillEffectParticle;
     }
 
     [CreateAssetMenu(fileName = "StoneData", menuName = "GameData List/StoneData")]
@@ -101,6 +102,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                     data.stoneMaterial = Resources.Load<Material>("Materials/StoneMaterials/" + data.index.ToString());
                     //힛 파티클 추가
                     data.hitParticle = Resources.Load<GameObject>("Prefabs/StoneHitParticles/" + data.index.ToString());
+                    //특수효과 추가
+                    var skillParticle = Resources.Load<GameObject>("Prefabs/StoneSkillParticles/" + data.index.ToString());
+                    if(skillParticle != null)
+                    {
+                        data.skillEffectParticle = skillParticle;
+                    }
                 }
                 catch (Exception e)
                 {

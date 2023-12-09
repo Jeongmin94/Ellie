@@ -17,7 +17,6 @@ namespace Assets.Scripts.Item.Stone
         private Pool stonePool;
         [SerializeField] Mesh[] stoneMeshes;
         [SerializeField] Material[] materials;
-        [SerializeField] GameObject[] stoneHitParticles;
         [SerializeField] BaseStoneEffect[] stoneEffects;
         [SerializeField] GameObject stoneTrailTest;
 
@@ -32,9 +31,7 @@ namespace Assets.Scripts.Item.Stone
         private void Start()
         {
             string stoneMaterialsPath = "Materials/StoneMaterials";
-            string stoneHitParticlesPath = "Prefabs/StoneHitParticles";
             materials = Resources.LoadAll<Material>(stoneMaterialsPath);
-            stoneHitParticles = Resources.LoadAll<GameObject>(stoneHitParticlesPath);
         }
         private void SetTicketMachine()
         {
@@ -87,6 +84,9 @@ namespace Assets.Scripts.Item.Stone
             // 추후 enum + 데이터테이블 + 딕셔너리로 수정
             switch (stoneIdx)
             {
+                case 4019:
+                    effect = obj.gameObject.AddComponent<PortalStone>();
+                    break;
                 case 4020:
                     effect = obj.gameObject.AddComponent<MagicStone>();
                     break;
@@ -97,9 +97,6 @@ namespace Assets.Scripts.Item.Stone
                     effect = obj.gameObject.AddComponent<NormalStone>();
                     break;
             }
-            ////힛 파티클을 붙여줌
-            //effect.hitParticle = stoneHitParticles[stoneIdx % STONEIDXSTART];
-
             StonePrefab prefab = obj.GetComponent<StonePrefab>();
 
             prefab.StoneEffect = effect;

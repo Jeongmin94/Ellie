@@ -11,31 +11,544 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c31d4ef64dc2d840a569bf23922240c, type: 3}
   m_Name: StoneData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Data.GoogleSheet.StoneDataParsingInfo,
+    Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1m8XT27AvWyf-EnIbF3EJLNJ3lFX0Tixh_Y8ip3eutsA/edit#gid=0
   startCell: B6
   endColumn: R
   tsv: "4000\t\uB3CC\uBA69\uC774\t\uB358\uC804\uC5D0\uC11C \uC27D\uAC8C \uCC3E\uC744
     \uC218 \uC788\uB294 \uB3CC\uBA69\uC774. \uC704\uB825\uC740 \uC57D\uD558\uC9C0\uB9CC
-    \uC27D\uAC8C \uAD6C\uD560 \uC218 \uC788\uB2E4.\t1\t4\tNormal\t1\tWeakRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4001\t\uB2E8\uB2E8\uD55C
-    \uB3CC\uBA69\uC774\t-\t1\t3\tNormal\t1\tStrongRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4002\t\uD654\uC5FC
-    \uB3CC\uBA69\uC774\t-\t2\t2\tFire\t3\tNone\t0\tBurn\tNone\tNone\t-1\t8\t1\t-\r\n4003\t\uD3ED\uBC1C\uC131
-    \uB3CC\uBA69\uC774\t-\t2\t2\tFire\t2\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4004\t\uC6A9\uC554
-    \uB3CC\uBA69\uC774\t-\t3\t1\tFire\t2\tNone\t0\tNone\t1,3\t\uC6A9\uC554\uC9C0\uB300\t2100\t8\t1\t-\r\n4005\t\uBB3C\uBC29\uC6B8
-    \uB3CC\uBA69\uC774\t-\t2\t2\tWater\t1\tIncarceration\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4006\t\uBB3C\uACB0
-    \uB3CC\uBA69\uC774\t-\t3\t3\tWater\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4007\t\uBE44\uAD6C\uB984
-    \uB3CC\uBA69\uC774\t-\t3\t1\tWater\t1\tNone\t0\tNone\t1,2,3\t\uBE44 \uAD6C\uB984\t2102\t8\t1\t-\r\n4008\t\uC774\uB07C
-    \uB3CC\uBA69\uC774\t-\t3\t3\tGrass\t2\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4009\t\uB369\uCFE8
-    \uB3CC\uBA69\uC774\t-\t2\t3\tGrass\t1\tSnare\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4010\t\uB048\uB048\uC774
-    \uB3CC\uBA69\uC774\t-\t2\t2\tEarth\t3\tNone\t0\tNone\t1,3\t\uB048\uB048\uC774
-    \uB36B\t2103\t8\t1\t-\r\n4011\t\uB370\uAD74\uB370\uAD74 \uB3CC\uBA69\uC774\t-\t3\t2\tEarth\t1\tKnockback\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4012\t\uC9C0\uC9C4
-    \uB3CC\uBA69\uC774\t-\t2\t3\tEarth\t1\tNone\t0\tDown\tNone\tNone\t-1\t8\t1\t-\r\n4013\t\uC57C\uAD11
-    \uB3CC\uBA69\uC774\t-\t3\t3\tLight\t2\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4014\t\uC12C\uAD11
-    \uB3CC\uBA69\uC774\t-\t2\t3\tLight\t1\tNone\t0\tBlind\tNone\tNone\t-1\t8\t1\t-\r\n4015\t\uBE5B\uC758
-    \uB3CC\uBA69\uC774\t-\t3\t2\tLight\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4016\t\uADC0\uC2E0
+    \uC27D\uAC8C \uAD6C\uD560 \uC218 \uC788\uB2E4.\t1\t4\tNormal\t1\tWeakRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t4000\t4000\r\n4001\t\uB2E8\uB2E8\uD55C
+    \uB3CC\uBA69\uC774\t\uAC15\uD55C \uD798\uC73C\uB85C \uC751\uC9D1\uB418\uC5B4
+    \uC788\uC5B4 \uAC15\uB825\uD55C \uBB3C\uB9AC \uD53C\uD574\uB97C \uC904 \uC218
+    \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4. \t1\t3\tNormal\t1\tStrongRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t4001\t4001\r\n4002\t\uD654\uC5FC
+    \uB3CC\uBA69\uC774\t-\t2\t2\tFire\t3\tNone\t0\tBurn\tNone\tNone\t-1\t8\t1\t4002\t4002\r\n4003\t\uD3ED\uBC1C\uC131
+    \uB3CC\uBA69\uC774\t\uD3ED\uBC1C\uC131 \uBB3C\uC9C8\uC774 \uB2E8\uB2E8\uD558\uAC8C
+    \uAD73\uC5B4 \uB3CC\uBA69\uC774\uC758 \uD615\uD0DC\uB97C \uAC16\uCD94\uACE0 \uC788\uB2E4.
+    \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!\t1\t2\tFire\t2\tNone\t0\tNone\tNone\t\uD3ED\uBC1C\t-1\t8\t1\t4003\t4003\r\n4004\t\uC6A9\uC554
+    \uB3CC\uBA69\uC774\t-\t3\t1\tFire\t2\tNone\t0\tNone\t1,3\t\uC6A9\uC554\uC9C0\uB300\t2100\t8\t1\t4004\t4004\r\n4005\t\uC5BC\uC74C
+    \uB3CC\uBA69\uC774\t\uB3D9\uAD74\uC758 \uC11C\uB9AC\uB97C \uC624\uB798\uD1A0\uB85D
+    \uBA38\uAE08\uC73C\uBA70 \uCC28\uAC11\uAC8C \uC5BC\uC5B4\uBD99\uC740 \uACB0\uC815\uC758
+    \uC9D1\uD569\uCCB4\uC774\uB2E4.\t1\t2\tWater\t1\tIncarceration\t0\tNone\tNone\t\uC751\uACB0\t-1\t8\t1\t4005\t4005\r\n4006\t\uBB3C\uACB0
+    \uB3CC\uBA69\uC774\t-\t3\t3\tWater\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4006\t4006\r\n4007\t\uBE44\uAD6C\uB984
+    \uB3CC\uBA69\uC774\t-\t3\t1\tWater\t1\tNone\t0\tNone\t1,2,3\t\uBE44 \uAD6C\uB984\t2102\t8\t1\t4007\t4007\r\n4008\t\uC774\uB07C
+    \uB3CC\uBA69\uC774\t-\t3\t3\tGrass\t2\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4008\t4008\r\n4009\t\uB369\uCFE8
+    \uB3CC\uBA69\uC774\t-\t2\t3\tGrass\t1\tSnare\t0\tNone\tNone\tNone\t-1\t8\t1\t4009\t4009\r\n4010\t\uB048\uB048\uC774
+    \uB3CC\uBA69\uC774\t\uB3D9\uAD74\uAC70\uBBF8\uC758 \uAC70\uBBF8\uC904\uC774 \uC624\uB79C
+    \uC2DC\uAC04\uC744 \uC9C0\uB098 \uB9C8\uB825\uC758 \uD798\uC744 \uBA38\uAE08\uACE0
+    \uC751\uCD95\uB418\uC5B4\uC9C4 \uB3CC\uBA69\uC774\uB2E4.\t1\t2\tEarth\t3\tNone\t0\tNone\t1,3\t\uB048\uB048\uC774
+    \uB36B\t2103\t8\t1\t4010\t4010\r\n4011\t\uB370\uAD74\uB370\uAD74 \uB3CC\uBA69\uC774\t\uC5B4\uB290
+    \uC720\uB839\uC774 \uC7A5\uB09C\uC744 \uAC78\uC5B4\uB450\uC5B4, \uB358\uC9C0\uB294
+    \uC21C\uAC04 \uD06C\uAE30\uAC00 \uCEE4\uC9C0\uAE30 \uC2DC\uC791\uD558\uB294 \uAD34\uC0C1\uD55C
+    \uB3CC\uBA69\uC774\uB2E4.\t1\t2\tEarth\t1\tKnockback\t0\tNone\tNone\t\uB2E4\uB2E8\uD788\uD2B8\t-1\t8\t1\t4011\t4011\r\n4012\t\uC9C0\uC9C4
+    \uB3CC\uBA69\uC774\t-\t2\t3\tEarth\t1\tNone\t0\tDown\tNone\tNone\t-1\t8\t1\t4012\t4012\r\n4013\t\uC57C\uAD11
+    \uB3CC\uBA69\uC774\t-\t3\t3\tLight\t2\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4013\t4013\r\n4014\t\uC12C\uAD11
+    \uB3CC\uBA69\uC774\t-\t2\t3\tLight\t1\tNone\t0\tBlind\tNone\tNone\t-1\t8\t1\t4014\t4014\r\n4015\t\uBE5B\uC758
+    \uB3CC\uBA69\uC774\t-\t1\t2\tLight\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4015\t4015\r\n4016\t\uADC0\uC2E0
     \uB3CC\uBA69\uC774\t-\t3\t1\tDarkness\t1\tNone\t0\tNone\t1,2,3\t\uADC0\uC2E0
-    \uC720\uB839\t2101\t8\t1\t-\r\n4017\t\uC5B4\uB460\uC758 \uB3CC\uBA69\uC774\t-\t2\t2\tDarkness\t5\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4018\t\uD68C\uC624\uB9AC
-    \uB3CC\uBA69\uC774\t-\t3\t2\tNormal\t1\tAirborne\t0\tNone\tNone\tNone\t-1\t8\t1\t-\r\n4019\t\uC815\uC804\uAE30
-    \uB3CC\uBA69\uC774\t-\t2\t1\tNormal\t1\tElectricshock\t0\tElectricshock\tNone\tNone\t-1\t8\t1\t-\r\n4020\t\uB9C8\uC11D
-    \uB3CC\uBA69\uC774\t-\t1\t0\tNormal\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t-"
-  stones: []
+    \uC720\uB839\t2101\t8\t1\t4016\t4016\r\n4017\t\uC5B4\uB460\uC758 \uB3CC\uBA69\uC774\t\uC5B4\uB460\uC758
+    \uD798\uC744 \uB2F4\uC740 \uAC15\uB825\uD55C \uB3CC\uBA69\uC774\uB2E4. \uC704\uB825\uC740
+    \uAC00\uD788 \uC0C1\uC0C1\uC744 \uCD08\uC6D4\uD55C\uB2E4.\t1\t2\tDarkness\t5\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4017\t4017\r\n4018\t\uBCC4\uB625\uBCC4
+    \uB3CC\uBA69\uC774\t\uC790\uCCB4\uC758 \uB370\uBBF8\uC9C0\uB294 \uC57D\uD558\uC9C0\uB9CC
+    \uBCC4\uC758 \uC778\uB825\uC744 \uC774\uC6A9\uD574 \uC801\uB4E4\uC744 \uB04C\uC5B4\uB2F9\uAE30\uB294
+    \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4.\t1\t2\tNormal\t1\tAirborne\t0\tNone\tNone\t\uBE14\uB799\uD640\t-1\t8\t1\t4018\t4018\r\n4019\t\uC21C\uAC04\uC774\uB3D9
+    \uB3CC\uBA69\uC774\t\uB9C8\uBC95\uC740 \uC5B8\uC81C\uB098 \uC54C \uC218 \uC5C6\uB294
+    \uD798\uC73C\uB85C \uAC00\uB4DD\uD558\uB2E4. \uD574\uB2F9 \uB3CC\uBA69\uC774\uB97C
+    \uC0AC\uC6A9\uD558\uBA74 \uC21C\uAC04\uC774\uB3D9 \uD3EC\uD0C8\uC744 \uC5F4 \uC218
+    \uC788\uB2E4.\t1\t2\tNormal\t1\tNone\t0\tNone\tNone\t\uD3EC\uD0C8\t-1\t8\t1\t4019\t4019\r\n4020\t\uB9C8\uC11D
+    \uB3CC\uBA69\uC774\t\uD14C\uB77C\uD478\uD30C\uAC00 \uB3D9\uB825\uC6D0\uC73C\uB85C
+    \uC0AC\uC6A9\uD558\uB294 \uC5D0\uB108\uC9C0\uB97C \uC9C0\uB2C8\uACE0 \uC788\uB294
+    \uB3CC\uBA69\uC774\uB2E4. \uC774\uB97C \uC0AC\uC6A9\uD558\uBA74 \uD14C\uB77C\uD478\uD30C\uB97C
+    \uD2B9\uC815\uD55C \uC704\uCE58\uB85C \uC720\uC778\uD560 \uC218 \uC788\uB2E4.
+    \t1\t0\tNormal\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4020\t4020\r\n4021\t\uACE8\uB818\uC758
+    \uD575\t\uD14C\uB77C\uD478\uD30C\uC5D0\uAC8C \uAC15\uB825\uD55C \uC5D0\uB108\uC9C0\uB97C
+    \uC81C\uACF5\uD574\uC8FC\uB294 \uD798\uC758 \uC6D0\uCC9C\uC774\uB2E4. \uCE21\uC815\uD560
+    \uC218 \uC5C6\uB294 \uAC15\uB825\uD55C \uD798\uC774 \uB290\uAEF4\uC9C4\uB2E4.
+    \t1\t0\tNormal\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4021\t4021"
+  stones:
+  - groupType: 1
+    index: 4000
+    name: "\uB3CC\uBA69\uC774"
+    description: "\uB358\uC804\uC5D0\uC11C \uC27D\uAC8C \uCC3E\uC744 \uC218 \uC788\uB294
+      \uB3CC\uBA69\uC774. \uC704\uB825\uC740 \uC57D\uD558\uC9C0\uB9CC \uC27D\uAC8C
+      \uAD6C\uD560 \uC218 \uC788\uB2E4."
+    imageName: UI/Item/Stone/4000
+    appearanceStage: 1
+    tier: 4
+    element: 2
+    damage: 1
+    statusEffect: 1
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4000
+    stoneMaterial: {fileID: 2100000, guid: 65b5257ef7cd4584e9ae822d2b0c3cb6, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 0bd7d212e9435104fa2a159bd0ceab7a, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4001
+    name: "\uB2E8\uB2E8\uD55C \uB3CC\uBA69\uC774"
+    description: "\uAC15\uD55C \uD798\uC73C\uB85C \uC751\uC9D1\uB418\uC5B4 \uC788\uC5B4
+      \uAC15\uB825\uD55C \uBB3C\uB9AC \uD53C\uD574\uB97C \uC904 \uC218 \uC788\uB294
+      \uB3CC\uBA69\uC774\uB2E4."
+    imageName: UI/Item/Stone/4001
+    appearanceStage: 1
+    tier: 3
+    element: 2
+    damage: 1
+    statusEffect: 2
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4001
+    stoneMaterial: {fileID: 2100000, guid: f30f539c0a1584d4abc3b58dd9c6cd37, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: aeb826b3e766843488a5ce9b707781b2, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4002
+    name: "\uD654\uC5FC \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4002
+    appearanceStage: 2
+    tier: 2
+    element: 4
+    damage: 3
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 5
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4002
+    stoneMaterial: {fileID: 2100000, guid: 92131828040f0f5498d6dcf830a26005, type: 2}
+    hitParticle: {fileID: 1710000754649936, guid: 6da89036bc3555b49b68ca053c88d05d, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4003
+    name: "\uD3ED\uBC1C\uC131 \uB3CC\uBA69\uC774"
+    description: "\uD3ED\uBC1C\uC131 \uBB3C\uC9C8\uC774 \uB2E8\uB2E8\uD558\uAC8C
+      \uAD73\uC5B4 \uB3CC\uBA69\uC774\uC758 \uD615\uD0DC\uB97C \uAC16\uCD94\uACE0
+      \uC788\uB2E4. \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!"
+    imageName: UI/Item/Stone/4003
+    appearanceStage: 1
+    tier: 2
+    element: 4
+    damage: 2
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: "\uD3ED\uBC1C"
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4003
+    stoneMaterial: {fileID: 2100000, guid: 81368c2a9de920a49a4b8eb69c1f0590, type: 2}
+    hitParticle: {fileID: 1710000754649936, guid: 705c62ea3c0dad846acff0799fb2ba11, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4004
+    name: "\uC6A9\uC554 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4004
+    appearanceStage: 3
+    tier: 1
+    element: 4
+    damage: 2
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 0100000003000000
+    specialEffectName: "\uC6A9\uC554\uC9C0\uB300"
+    specialEffectIndex: 2100
+    combineCost: 8
+    sellCost: 1
+    textureName: 4004
+    stoneMaterial: {fileID: 2100000, guid: 1d5e0a27266590e47b274661be8a5570, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 83d0737887813934aa28c0cd8437bc33, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4005
+    name: "\uC5BC\uC74C \uB3CC\uBA69\uC774"
+    description: "\uB3D9\uAD74\uC758 \uC11C\uB9AC\uB97C \uC624\uB798\uD1A0\uB85D
+      \uBA38\uAE08\uC73C\uBA70 \uCC28\uAC11\uAC8C \uC5BC\uC5B4\uBD99\uC740 \uACB0\uC815\uC758
+      \uC9D1\uD569\uCCB4\uC774\uB2E4."
+    imageName: UI/Item/Stone/4005
+    appearanceStage: 1
+    tier: 2
+    element: 5
+    damage: 1
+    statusEffect: 11
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: "\uC751\uACB0"
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4005
+    stoneMaterial: {fileID: 2100000, guid: 0319c20f9827a8e4597d9d9d307de589, type: 2}
+    hitParticle: {fileID: 1215768559362038, guid: 29bf85c12c98a9a4aa9a04043809c205, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4006
+    name: "\uBB3C\uACB0 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4006
+    appearanceStage: 3
+    tier: 3
+    element: 5
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4006
+    stoneMaterial: {fileID: 2100000, guid: eb5c2e50389788c4487d5d5935257a61, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 1b6f8e2577eed85409dbf2d5a20e0c89, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4007
+    name: "\uBE44\uAD6C\uB984 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4007
+    appearanceStage: 3
+    tier: 1
+    element: 5
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 010000000200000003000000
+    specialEffectName: "\uBE44 \uAD6C\uB984"
+    specialEffectIndex: 2102
+    combineCost: 8
+    sellCost: 1
+    textureName: 4007
+    stoneMaterial: {fileID: 2100000, guid: ebf516a075cab7d4ab5fd7f2ca9fcca0, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 040127682c423904bb7743ff8310c168, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4008
+    name: "\uC774\uB07C \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4008
+    appearanceStage: 3
+    tier: 3
+    element: 6
+    damage: 2
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4008
+    stoneMaterial: {fileID: 2100000, guid: 4f3e3dd1ecd256249a7cff90ab67751e, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 1ab2f9bdd48c170449f51251f7c35fec, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4009
+    name: "\uB369\uCFE8 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4009
+    appearanceStage: 2
+    tier: 3
+    element: 6
+    damage: 1
+    statusEffect: 12
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4009
+    stoneMaterial: {fileID: 2100000, guid: 8992d14821a98d442aeb8692116b9d74, type: 2}
+    hitParticle: {fileID: 1496259903870386, guid: e882752adc89d874db21a6dc4c96f7e9, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4010
+    name: "\uB048\uB048\uC774 \uB3CC\uBA69\uC774"
+    description: "\uB3D9\uAD74\uAC70\uBBF8\uC758 \uAC70\uBBF8\uC904\uC774 \uC624\uB79C
+      \uC2DC\uAC04\uC744 \uC9C0\uB098 \uB9C8\uB825\uC758 \uD798\uC744 \uBA38\uAE08\uACE0
+      \uC751\uCD95\uB418\uC5B4\uC9C4 \uB3CC\uBA69\uC774\uB2E4."
+    imageName: UI/Item/Stone/4010
+    appearanceStage: 1
+    tier: 2
+    element: 3
+    damage: 3
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 0100000003000000
+    specialEffectName: "\uB048\uB048\uC774 \uB36B"
+    specialEffectIndex: 2103
+    combineCost: 8
+    sellCost: 1
+    textureName: 4010
+    stoneMaterial: {fileID: 2100000, guid: fe01cc8cea6be164a8248926d91ce77b, type: 2}
+    hitParticle: {fileID: 1558682215054084, guid: 03cc650493d24fb40866a2fa099ac214, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4011
+    name: "\uB370\uAD74\uB370\uAD74 \uB3CC\uBA69\uC774"
+    description: "\uC5B4\uB290 \uC720\uB839\uC774 \uC7A5\uB09C\uC744 \uAC78\uC5B4\uB450\uC5B4,
+      \uB358\uC9C0\uB294 \uC21C\uAC04 \uD06C\uAE30\uAC00 \uCEE4\uC9C0\uAE30 \uC2DC\uC791\uD558\uB294
+      \uAD34\uC0C1\uD55C \uB3CC\uBA69\uC774\uB2E4."
+    imageName: UI/Item/Stone/4011
+    appearanceStage: 1
+    tier: 2
+    element: 3
+    damage: 1
+    statusEffect: 7
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: "\uB2E4\uB2E8\uD788\uD2B8"
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4011
+    stoneMaterial: {fileID: 2100000, guid: a1e9ce8f71bf5d04f8931ef3e2425989, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: b30058c2832ff9b4b809007acc91235d, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4012
+    name: "\uC9C0\uC9C4 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4012
+    appearanceStage: 2
+    tier: 3
+    element: 3
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 3
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4012
+    stoneMaterial: {fileID: 2100000, guid: fe18066bfa72ae14e91bfdcb8fea1035, type: 2}
+    hitParticle: {fileID: 1290487480389892, guid: 26539f8bf567388409799a05b87d9079, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4013
+    name: "\uC57C\uAD11 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4013
+    appearanceStage: 3
+    tier: 3
+    element: 7
+    damage: 2
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4013
+    stoneMaterial: {fileID: 2100000, guid: a325ab8e856e85c489df0752efb589ce, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 80025844bcf994847a2e45e353aabe2b, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4014
+    name: "\uC12C\uAD11 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4014
+    appearanceStage: 2
+    tier: 3
+    element: 7
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 16
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4014
+    stoneMaterial: {fileID: 2100000, guid: 2a8cfc074b4b64f41bf1c7213d6d285a, type: 2}
+    hitParticle: {fileID: 1804706802806572, guid: 77c608d32602b0c48a7cecc409534b33, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4015
+    name: "\uBE5B\uC758 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4015
+    appearanceStage: 1
+    tier: 2
+    element: 7
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4015
+    stoneMaterial: {fileID: 2100000, guid: 2f6db8ccc42d4c14db9075f9a894d9f1, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 8531c28119f82504c8d1446898a45a71, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4016
+    name: "\uADC0\uC2E0 \uB3CC\uBA69\uC774"
+    description: '-'
+    imageName: UI/Item/Stone/4016
+    appearanceStage: 3
+    tier: 1
+    element: 0
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 010000000200000003000000
+    specialEffectName: "\uADC0\uC2E0 \uC720\uB839"
+    specialEffectIndex: 2101
+    combineCost: 8
+    sellCost: 1
+    textureName: 4016
+    stoneMaterial: {fileID: 2100000, guid: d5587ca150ac50f48a75b469bcb4e030, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: 650bdccb019635c4da38aeb160fa5485, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4017
+    name: "\uC5B4\uB460\uC758 \uB3CC\uBA69\uC774"
+    description: "\uC5B4\uB460\uC758 \uD798\uC744 \uB2F4\uC740 \uAC15\uB825\uD55C
+      \uB3CC\uBA69\uC774\uB2E4. \uC704\uB825\uC740 \uAC00\uD788 \uC0C1\uC0C1\uC744
+      \uCD08\uC6D4\uD55C\uB2E4."
+    imageName: UI/Item/Stone/4017
+    appearanceStage: 1
+    tier: 2
+    element: 0
+    damage: 5
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4017
+    stoneMaterial: {fileID: 2100000, guid: 299b5100b5519c34885051da3a9418e5, type: 2}
+    hitParticle: {fileID: 1674388553933302, guid: d4027d166d3e1a74bb9112fe0fc86060, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4018
+    name: "\uBCC4\uB625\uBCC4 \uB3CC\uBA69\uC774"
+    description: "\uC790\uCCB4\uC758 \uB370\uBBF8\uC9C0\uB294 \uC57D\uD558\uC9C0\uB9CC
+      \uBCC4\uC758 \uC778\uB825\uC744 \uC774\uC6A9\uD574 \uC801\uB4E4\uC744 \uB04C\uC5B4\uB2F9\uAE30\uB294
+      \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4."
+    imageName: UI/Item/Stone/4018
+    appearanceStage: 1
+    tier: 2
+    element: 2
+    damage: 1
+    statusEffect: 6
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: "\uBE14\uB799\uD640"
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4018
+    stoneMaterial: {fileID: 2100000, guid: f90c95d6e19fb374aa6bbc48e61ef42a, type: 2}
+    hitParticle: {fileID: 1164487206690632, guid: d656beb3b6173b649965ea9ce049ecff, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4019
+    name: "\uC21C\uAC04\uC774\uB3D9 \uB3CC\uBA69\uC774"
+    description: "\uB9C8\uBC95\uC740 \uC5B8\uC81C\uB098 \uC54C \uC218 \uC5C6\uB294
+      \uD798\uC73C\uB85C \uAC00\uB4DD\uD558\uB2E4. \uD574\uB2F9 \uB3CC\uBA69\uC774\uB97C
+      \uC0AC\uC6A9\uD558\uBA74 \uC21C\uAC04\uC774\uB3D9 \uD3EC\uD0C8\uC744 \uC5F4
+      \uC218 \uC788\uB2E4."
+    imageName: UI/Item/Stone/4019
+    appearanceStage: 1
+    tier: 2
+    element: 2
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: "\uD3EC\uD0C8"
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4019
+    stoneMaterial: {fileID: 2100000, guid: c6e8ff1607894c94f88b0eb375407257, type: 2}
+    hitParticle: {fileID: 1042750588098846, guid: ceef76da491a31842bc871cd0b4dbe2e, type: 3}
+    skillEffectParticle: {fileID: 1586826114847994, guid: 6c9a2019e671f12428f81828dd6f0b51, type: 3}
+  - groupType: 1
+    index: 4020
+    name: "\uB9C8\uC11D \uB3CC\uBA69\uC774"
+    description: "\uD14C\uB77C\uD478\uD30C\uAC00 \uB3D9\uB825\uC6D0\uC73C\uB85C \uC0AC\uC6A9\uD558\uB294
+      \uC5D0\uB108\uC9C0\uB97C \uC9C0\uB2C8\uACE0 \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4.
+      \uC774\uB97C \uC0AC\uC6A9\uD558\uBA74 \uD14C\uB77C\uD478\uD30C\uB97C \uD2B9\uC815\uD55C
+      \uC704\uCE58\uB85C \uC720\uC778\uD560 \uC218 \uC788\uB2E4."
+    imageName: UI/Item/Stone/4020
+    appearanceStage: 1
+    tier: 0
+    element: 2
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4020
+    stoneMaterial: {fileID: 2100000, guid: 6dcf759867bfc4ef0b52caed976f7996, type: 2}
+    hitParticle: {fileID: 1496259903870386, guid: 24f8dc1954be91f47b25e6b08adf24e0, type: 3}
+    skillEffectParticle: {fileID: 0}
+  - groupType: 1
+    index: 4021
+    name: "\uACE8\uB818\uC758 \uD575"
+    description: "\uD14C\uB77C\uD478\uD30C\uC5D0\uAC8C \uAC15\uB825\uD55C \uC5D0\uB108\uC9C0\uB97C
+      \uC81C\uACF5\uD574\uC8FC\uB294 \uD798\uC758 \uC6D0\uCC9C\uC774\uB2E4. \uCE21\uC815\uD560
+      \uC218 \uC5C6\uB294 \uAC15\uB825\uD55C \uD798\uC774 \uB290\uAEF4\uC9C4\uB2E4."
+    imageName: UI/Item/Stone/4021
+    appearanceStage: 1
+    tier: 0
+    element: 2
+    damage: 1
+    statusEffect: 0
+    statusEffectDuration: 0
+    debuff: 0
+    conditions: 
+    specialEffectName: None
+    specialEffectIndex: -1
+    combineCost: 8
+    sellCost: 1
+    textureName: 4021
+    stoneMaterial: {fileID: 2100000, guid: f32dc8b2422c0a141b30ccf16e96474c, type: 2}
+    hitParticle: {fileID: 1215768559362038, guid: cfc2aaa0b14d596428b5c3b4be7a6e51, type: 3}
+    skillEffectParticle: {fileID: 0}

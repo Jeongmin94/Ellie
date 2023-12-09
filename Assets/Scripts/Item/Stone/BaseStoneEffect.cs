@@ -30,7 +30,7 @@ namespace Assets.Scripts.Item.Stone
             collisionCount = 1;
         }
 
-        public void InitData(StoneData data)
+        public virtual void InitData(StoneData data)
         {
             this.data = data;
         }

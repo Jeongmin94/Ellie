@@ -89,44 +89,6 @@ namespace Assets.Scripts.Player
                 }
             }
 
-
-            //for test
-            if (Input.GetKeyDown(KeyCode.O))
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
-                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
-                }
-
-                for (int i = 0; i < 5; i++)
-                {
-                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
-                    ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
-                }
-
-                for (int i = 0; i < 5; i++)
-                {
-                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
-                    {
-                        uiType = UIType.Notify,
-                        groupType = GroupType.Item,
-                        slotAreaType = SlotAreaType.Item,
-                        actionType = ActionType.AddSlotItem,
-                        itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100),
-                    });
-
-                    ticketMachine.SendMessage(ChannelType.UI, new UIPayload
-                    {
-                        uiType = UIType.Notify,
-                        groupType = GroupType.Item,
-                        slotAreaType = SlotAreaType.Item,
-                        actionType = ActionType.AddSlotItem,
-                        itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101),
-                    });
-                }
-            }
-
             if (Input.GetKeyDown(KeyCode.R))
             {
                 if (itemIdx == 0)
