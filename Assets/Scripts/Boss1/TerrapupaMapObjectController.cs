@@ -324,7 +324,7 @@ public class TerrapupaMapObjectController : BaseController
         yield return new WaitForSeconds(respawnTime);
 
         Vector3 position = GenerateRandomPositionInSector(payload.IntValue);
-        payload.TransformValue1.position = position;
+        payload.TransformValue1.localPosition = position;
         payload.TransformValue1.gameObject.SetActive(true);
     }
 

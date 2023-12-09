@@ -17,6 +17,7 @@ namespace Assets.Scripts.Item.Stone
         protected TicketMachine ticketMachine;
 
         private event Action<Transform> effectAction;
+        private bool isHitEnemy = false;
         private int collisionCount = 1;
         private LayerMask layerMask;
 
@@ -70,6 +71,8 @@ namespace Assets.Scripts.Item.Stone
                     Debug.Log($"NormalStone OnCollisionEnter :: ICombatant OK {collision.gameObject.name}");
                     OccurEffect(hitObject.transform);
 
+                    isHitEnemy = true;
+
                     break;
                 }
             }
@@ -90,10 +93,10 @@ namespace Assets.Scripts.Item.Stone
 
             }
 
-
-            
+            if(isHitEnemy)
+            {
+                PoolManager.Instance.Push(this.GetComponent<Poolable>());
+            }
         }
-
-        
     }
 }

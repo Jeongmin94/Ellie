@@ -25,7 +25,7 @@ MonoBehaviour:
     \uB3CC\uBA69\uC774\t-\t2\t2\tFire\t3\tNone\t0\tBurn\tNone\tNone\t-1\t8\t1\t4002\t4002\r\n4003\t\uD3ED\uBC1C\uC131
     \uB3CC\uBA69\uC774\t\uD3ED\uBC1C\uC131 \uBB3C\uC9C8\uC774 \uB2E8\uB2E8\uD558\uAC8C
     \uAD73\uC5B4 \uB3CC\uBA69\uC774\uC758 \uD615\uD0DC\uB97C \uAC16\uCD94\uACE0 \uC788\uB2E4.
-    \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!\t1\t2\tFire\t2\tNone\t0\tNone\tNone\t\uD3ED\uBC1C\t-1\t8\t1\t4003\t4003\r\n4004\t\uC6A9\uC554
+    \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!\t1\t2\tFire\t1\tKnockedAirborne\t0.5\tNone\tNone\t\uD3ED\uBC1C\t-1\t8\t1\t4003\t4003\r\n4004\t\uC6A9\uC554
     \uB3CC\uBA69\uC774\t-\t3\t1\tFire\t2\tNone\t0\tNone\t1,3\t\uC6A9\uC554\uC9C0\uB300\t2100\t8\t1\t4004\t4004\r\n4005\t\uC5BC\uC74C
     \uB3CC\uBA69\uC774\t\uB3D9\uAD74\uC758 \uC11C\uB9AC\uB97C \uC624\uB798\uD1A0\uB85D
     \uBA38\uAE08\uC73C\uBA70 \uCC28\uAC11\uAC8C \uC5BC\uC5B4\uBD99\uC740 \uACB0\uC815\uC758
@@ -79,6 +79,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 1
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -102,6 +103,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 2
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -123,6 +125,7 @@ MonoBehaviour:
     damage: 3
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 5
     conditions: 
     specialEffectName: None
@@ -143,9 +146,10 @@ MonoBehaviour:
     appearanceStage: 1
     tier: 2
     element: 4
-    damage: 2
-    statusEffect: 0
-    statusEffectDuration: 0
+    damage: 1
+    statusEffect: 4
+    statusEffectDuration: 0.5
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: "\uD3ED\uBC1C"
@@ -155,7 +159,7 @@ MonoBehaviour:
     textureName: 4003
     stoneMaterial: {fileID: 2100000, guid: 81368c2a9de920a49a4b8eb69c1f0590, type: 2}
     hitParticle: {fileID: 1710000754649936, guid: 705c62ea3c0dad846acff0799fb2ba11, type: 3}
-    skillEffectParticle: {fileID: 0}
+    skillEffectParticle: {fileID: 5065804187445697859, guid: d21c40fd96ceadf4887b30568a966cc6, type: 3}
   - groupType: 1
     index: 4004
     name: "\uC6A9\uC554 \uB3CC\uBA69\uC774"
@@ -167,6 +171,7 @@ MonoBehaviour:
     damage: 2
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 0100000003000000
     specialEffectName: "\uC6A9\uC554\uC9C0\uB300"
@@ -190,6 +195,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 11
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: "\uC751\uACB0"
@@ -211,6 +217,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -232,6 +239,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 010000000200000003000000
     specialEffectName: "\uBE44 \uAD6C\uB984"
@@ -253,6 +261,7 @@ MonoBehaviour:
     damage: 2
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -274,6 +283,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 12
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -297,6 +307,7 @@ MonoBehaviour:
     damage: 3
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 0100000003000000
     specialEffectName: "\uB048\uB048\uC774 \uB36B"
@@ -320,6 +331,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 7
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: "\uB2E4\uB2E8\uD788\uD2B8"
@@ -341,6 +353,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 3
     conditions: 
     specialEffectName: None
@@ -362,6 +375,7 @@ MonoBehaviour:
     damage: 2
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -383,6 +397,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 16
     conditions: 
     specialEffectName: None
@@ -404,6 +419,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -425,6 +441,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 010000000200000003000000
     specialEffectName: "\uADC0\uC2E0 \uC720\uB839"
@@ -448,6 +465,7 @@ MonoBehaviour:
     damage: 5
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -471,6 +489,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 6
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: "\uBE14\uB799\uD640"
@@ -495,6 +514,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: "\uD3EC\uD0C8"
@@ -502,7 +522,7 @@ MonoBehaviour:
     combineCost: 8
     sellCost: 1
     textureName: 4019
-    stoneMaterial: {fileID: 2100000, guid: c6e8ff1607894c94f88b0eb375407257, type: 2}
+    stoneMaterial: {fileID: 2100000, guid: dc40cf1a5b696e047b8f1ed82a038c43, type: 2}
     hitParticle: {fileID: 1042750588098846, guid: ceef76da491a31842bc871cd0b4dbe2e, type: 3}
     skillEffectParticle: {fileID: 1586826114847994, guid: 6c9a2019e671f12428f81828dd6f0b51, type: 3}
   - groupType: 1
@@ -519,6 +539,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None
@@ -542,6 +563,7 @@ MonoBehaviour:
     damage: 1
     statusEffect: 0
     statusEffectDuration: 0
+    force: 10
     debuff: 0
     conditions: 
     specialEffectName: None

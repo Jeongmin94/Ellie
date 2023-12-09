@@ -27,8 +27,9 @@ namespace Assets.Scripts.Item.Stone
             int bossLayer = LayerMask.NameToLayer("Boss");
             int monsterLayer = LayerMask.NameToLayer("Monster");
             int playerLayer = LayerMask.NameToLayer("Ignore Raycast");
+            int exceptGroundLayer = LayerMask.NameToLayer("ExceptGround");
 
-            targetLayer = (1 << bossLayer) | (1 << monsterLayer) | (1 << playerLayer);
+            targetLayer = (1 << bossLayer) | (1 << monsterLayer) | (1 << playerLayer) | (1 << exceptGroundLayer);
         }
 
         private void OnDisable()
@@ -73,7 +74,7 @@ namespace Assets.Scripts.Item.Stone
             {
                 ICombatant enemy = hitCollider.GetComponentInChildren<ICombatant>();
 
-                if (enemy != null)
+                if (enemy != null && !hitCollider.gameObject.CompareTag("WeakPoint"))
                 {
                     OccurEffect(hitCollider.transform);
                 }

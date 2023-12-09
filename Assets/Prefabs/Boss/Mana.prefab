@@ -91,12 +91,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Objects.ManaFountain, Assembly.Ellie
+  spawnPosition: {fileID: 1395424389}
+  hitEffect: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
+  manaHitSound: ManaFountainHit
   coolDownValue: 3
   respawnValue: 10
   banBossAttackType: 3
-  spawnPosition: {fileID: 1395424389}
-  hitEffect: {fileID: 5065804187445697859, guid: 65ba90a76b2d9d54f99891e07812a7a9, type: 3}
 --- !u!1001 &2377918597369493030
 PrefabInstance:
   m_ObjectHideFlags: 0

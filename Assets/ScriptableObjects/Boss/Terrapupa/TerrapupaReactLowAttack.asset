@@ -11,8 +11,13 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 691b7fac2f20ca640827ad0d597cf3be, type: 3}
   m_Name: TerrapupaReactLowAttack
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TerrapupaLowAttackData, Assembly.Ellie
   dataName: TerrapupaReactLowAttack
+  sound1: TerrapupaAttackHit
   lowAttackEffect1: {fileID: 2530407491298833576, guid: 018437c73729fc94795e99d35a2ea3b9, type: 3}
-  lowAttackRotationSpeed: 4
-  lowAttackAttackValue: 5
+  cooldown: 10
+  rotationSpeed: 4
+  attackValue: 5
+  statusEffect: 3
+  statusEffectDuration: 0.5
+  statusEffectForce: 10

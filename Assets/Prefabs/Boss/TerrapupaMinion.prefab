@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 2865219159835221847}
   m_Layer: 10
   m_Name: TerrapupaMinion
-  m_TagString: Boss
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -236,7 +236,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498064, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: WeakPoint
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498066, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_Layer
@@ -244,7 +244,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498066, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498068, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_Name
@@ -256,7 +256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498068, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498070, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_Layer
@@ -264,7 +264,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498070, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498074, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_Layer
@@ -272,7 +272,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498074, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498076, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_Layer
@@ -280,7 +280,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498076, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: Monster
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498078, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_Layer
@@ -288,7 +288,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8789255107767498078, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
       propertyPath: m_TagString
-      value: Boss
+      value: Monster
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
@@ -327,7 +327,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6be9bb1c0cfe17b4fb335e921bcb5be5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Boss1.TerrapupaMinion.TerrapupaMinionWeakPoint,
+    Assembly.Ellie
 --- !u!1 &5646283575895831964 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8789255107767498076, guid: d47299fc8ffbb9b4e96c5864160b53f2, type: 3}
@@ -358,4 +359,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6be9bb1c0cfe17b4fb335e921bcb5be5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Boss1.TerrapupaMinion.TerrapupaMinionWeakPoint,
+    Assembly.Ellie
