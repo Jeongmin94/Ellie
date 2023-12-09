@@ -12,6 +12,7 @@ namespace Assets.Scripts.Item.Stone
     {
         public float portalRadius = 1.0f;
         public float duration = 30.0f;
+        public float cooldown = 1.0f;
         public LayerMask playerLayer;
 
         private ParticleController portalParticle;
@@ -83,14 +84,17 @@ namespace Assets.Scripts.Item.Stone
                 Portal = transform,
                 Player = player,
             });
+        }
 
+        public void ApplyCooldown()
+        {
             canUsePortal = false;
             StartCoroutine(ApplyPortalCooldown());
         }
 
         private IEnumerator ApplyPortalCooldown()
         {
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(cooldown);
 
             canUsePortal = true;
         }

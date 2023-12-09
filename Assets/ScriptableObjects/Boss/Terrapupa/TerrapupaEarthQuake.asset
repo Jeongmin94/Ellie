@@ -11,12 +11,17 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b03dd7f358769e848bb499a8338014b2, type: 3}
   m_Name: TerrapupaEarthQuake
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TerrapupaEarthQuakeData, Assembly.Ellie
   dataName: TerrapupaEarthQuake
+  sound1: EarthQuake
   earthQuakeEffect1: {fileID: 3565353461759489274, guid: 42acbbf3fa818084d851519bf22c627b, type: 3}
-  earthQuakeRotationSpeed: 4
-  earthQuakeMoveDistance: 3
-  earthQuakeMovementSpeed: 5
-  earthQuakeAttackAngle: 45
-  earthQuakeEffectiveRadius: 50
-  earthQuakeAttackValue: 5
+  cooldown: 10
+  rotationSpeed: 4
+  moveDistance: 10
+  movementSpeed: 8
+  attackAngle: 45
+  effectiveRadius: 50
+  attackValue: 5
+  statusEffect: 4
+  statusEffectDuration: 1
+  statusEffectForce: 15

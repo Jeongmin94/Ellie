@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
 using Channels;
 using System.Collections.Generic;
 using UnityEngine;
@@ -76,6 +77,13 @@ namespace Assets.Scripts.Channels
             else
             {
                 player.position = portals.First.Value.position + new Vector3(0.0f, 2.0f, 0.0f);
+            }
+
+            foreach (var portal in portals)
+            {
+                var portalStone = portal.GetComponent<PortalStone>();
+
+                portalStone.ApplyCooldown();
             }
         }
     }

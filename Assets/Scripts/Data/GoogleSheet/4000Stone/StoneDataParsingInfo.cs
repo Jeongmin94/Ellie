@@ -16,6 +16,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public int damage;
         public StatusEffectName statusEffect;
         public float statusEffectDuration;
+        public float force;
         public StatusEffectName debuff;
         public List<int> conditions = new();
         public string specialEffectName;
@@ -108,6 +109,8 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         data.skillEffectParticle = skillParticle;
                     }
+                    // 임시 상태이상 힘 추가, 나중에 시트에 추가
+                    data.force = 10.0f;
                 }
                 catch (Exception e)
                 {

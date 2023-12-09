@@ -83,6 +83,9 @@ namespace Assets.Scripts.Item.Stone
             // 추후 enum + 데이터테이블 + 딕셔너리로 수정
             switch (stoneIdx)
             {
+                case 4003:
+                    effect = obj.gameObject.AddComponent<ExplosionStone>();
+                    break;
                 case 4019:
                     effect = obj.gameObject.AddComponent<PortalStone>();
                     break;
