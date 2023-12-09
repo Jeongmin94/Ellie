@@ -1,9 +1,8 @@
-﻿using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Data.GoogleSheet;
+﻿using Assets.Scripts.Channels;
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
-using Channels.Boss;
-using Channels.UI;
+using Channels.Type;
 using System.Collections;
 using UnityEngine;
 
@@ -11,31 +10,22 @@ namespace Assets.Scripts.Item.Stone
 {
     public class PortalStone : BaseStoneEffect
     {
-        public static int portalNumber = 0;
-
-        public GameObject particleEffect;
-        public float portalRadius = 5.0f;
-        public float duration = 5.0f;
-
-        private int portalID = 0;
+        public float portalRadius = 1.0f;
+        public float duration = 30.0f;
+        public LayerMask playerLayer;
 
         private ParticleController portalParticle;
         private Rigidbody rb;
-
         private MeshCollider meshCollider;
-        private Coroutine durationCoroutine;
+
+        private bool isActivatePortal = false;
+        private bool canUsePortal = true;
 
         private void Awake()
         {
             rb = GetComponent<Rigidbody>();
             meshCollider = GetComponent<MeshCollider>();
-        }
-
-        public override void InitData(StoneData data)
-        {
-            base.InitData(data);
-
-            particleEffect = data.skillEffectParticle;
+            playerLayer = 1 << LayerMask.NameToLayer("Ignore Raycast");
         }
 
         private void OnDisable()
@@ -47,31 +37,62 @@ namespace Assets.Scripts.Item.Stone
                 portalParticle = null;
             }
 
-            if(rb != null)
-            {
-                rb.isKinematic = false;
-            }
+            rb.isKinematic = false;
+            meshCollider.enabled = true;
+            isActivatePortal = false;
         }
 
         protected override void OnCollisionEnter(Collision collision)
         {
-            if (portalNumber < 2 && Type == StoneEventType.ShootStone
+            if (!isActivatePortal && Type == StoneEventType.ShootStone
                 && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
-                if (collision.gameObject.CompareTag("Ground"))
+                isActivatePortal = true;
+                ActivatePortal();
+            }
+        }
+
+        private void Update()
+        {
+            if(isActivatePortal && canUsePortal)
+            {
+                CheckUsePortal();
+            }
+        }
+
+        private void CheckUsePortal()
+        {
+            Collider[] hitColliders = Physics.OverlapSphere(transform.position, portalRadius, playerLayer);
+            foreach (var hitCollider in hitColliders)
+            {
+                if (hitCollider.CompareTag("Player"))
                 {
-                    ActivatePortal();
+                    Debug.Log(hitCollider);
+                    UsePortal(hitCollider.transform); 
+
+                    break;
                 }
             }
         }
 
-        public void StopCheckDuration()
+        private void UsePortal(Transform player)
         {
-            Debug.Log("StopCheckDuration() :: 지속시간 체크 정지");
-            if (durationCoroutine != null)
+            ticketMachine.SendMessage(ChannelType.Portal, new PortalEventPayload
             {
-                StopCoroutine(durationCoroutine);
-            }
+                Type = PortalEventType.UsePortal,
+                Portal = transform,
+                Player = player,
+            });
+
+            canUsePortal = false;
+            StartCoroutine(ApplyPortalCooldown());
+        }
+
+        private IEnumerator ApplyPortalCooldown()
+        {
+            yield return new WaitForSeconds(1);
+
+            canUsePortal = true;
         }
 
         public void ActivatePortal()
@@ -84,33 +105,39 @@ namespace Assets.Scripts.Item.Stone
             rb.isKinematic = true;
             meshCollider.enabled = false;
 
-            // 지속시간 설정 + 스킬 이펙트 추가
-            durationCoroutine = StartCoroutine(StartDurationCheck(duration));
-        }
+            ticketMachine.SendMessage(ChannelType.Portal, new PortalEventPayload
+            {
+                Type = PortalEventType.ActivatePortal,
+                Portal = transform,
+            });
 
-        private IEnumerator StartDurationCheck(float duration)
-        {
-            Debug.Log($"포탈 지속시간 : {duration}");
-            portalNumber++;
-            portalID = portalNumber;
-            Debug.Log($"{portalID} : {portalNumber}개 존재");
-
-            portalParticle = ParticleManager.Instance.GetParticle(particleEffect, new ParticlePayload
+            portalParticle = ParticleManager.Instance.GetParticle(data.skillEffectParticle, new ParticlePayload
             {
                 IsLoop = true,
                 Position = transform.position,
                 Offset = new Vector3(0.0f, 2.0f, 0.0f),
             }).GetComponent<ParticleController>();
+
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "Stone_Sound_2", transform.position);
+
+            // 지속시간 설정 + 스킬 이펙트 추가
+            StartCoroutine(StartDurationCheck(duration));
+        }
+
+        private IEnumerator StartDurationCheck(float duration)
+        {
+            Debug.Log($"포탈 지속시간 : {duration}");
 
             yield return new WaitForSeconds(duration);
 
             Debug.Log($"포탈 지속시간 종료");
-            portalNumber--;
-            Debug.Log($"{portalID} : {portalNumber}개 존재");
-            PoolManager.Instance.Push(this.GetComponent<Poolable>());
-
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "Stone_Sound_2", transform.position);
+
+            ticketMachine.SendMessage(ChannelType.Portal, new PortalEventPayload
+            {
+                Type = PortalEventType.DeactivatePortal,
+                Portal = transform,
+            });
         }
     }
 }

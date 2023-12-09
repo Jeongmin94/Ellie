@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Channels;
 using Assets.Scripts.Channels.Item;
 using Channels.Boss;
 using Channels.Combat;
@@ -22,7 +23,7 @@ namespace Channels.Utils
                     channel = new UIChannel();
                     break;
                 case ChannelType.Stone:
-                    channel = new PortalChannel();
+                    channel = new StoneChannel();
                     break;
                 case ChannelType.BossInteraction:
                     channel = new BossInteractionChannel();
@@ -38,6 +39,11 @@ namespace Channels.Utils
                     break;
                 case ChannelType.Camera:
                     channel = new MonsterChannel();
+                    break;
+                case ChannelType.Item:
+                    break;
+                case ChannelType.Portal:
+                    channel = new PortalChannel();
                     break;
             }
             return channel;

@@ -1,4 +1,5 @@
-﻿using Channels;
+﻿using Assets.Scripts.Managers;
+using Channels;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ namespace Assets.Scripts.Channels
     {
         private int portalNumber = 0;
 
-        private Queue<Transform> portals = new Queue<Transform>();
+        private LinkedList<Transform> portals = new LinkedList<Transform>();
         
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
@@ -29,28 +30,53 @@ namespace Assets.Scripts.Channels
             switch (portalPayload.Type)
             {
                 case PortalEventType.ActivatePortal:
+                    ActivatePortal(portalPayload);
                     break;
                 case PortalEventType.DeactivatePortal:
+                    DeactivatePortal(portalPayload);
                     break;
                 case PortalEventType.UsePortal:
+                    UsePortal(portalPayload);
                     break;
             }
-
-            //Hatchery의 StoneEvent 함수를 호출합니다
-            Publish(portalPayload);
         }
 
-        private void ActivatePortal()
+        private void ActivatePortal(PortalEventPayload payload)
         {
+            portals.AddLast(payload.Portal);
+
             if(portals.Count > 2)
             {
-
+                DeactivatePortal(new PortalEventPayload
+                {
+                    Portal = portals.First.Value,
+                });
             }
         }
 
-        private void DeactivatePortal()
+        private void DeactivatePortal(PortalEventPayload payload)
         {
+            PoolManager.Instance.Push(payload.Portal.GetComponent<Poolable>());
 
+            portals.RemoveFirst();
+        }
+
+        private void UsePortal(PortalEventPayload payload)
+        {
+            if(portals.Count < 2)
+            {
+                return;
+            }
+
+            var player = payload.Player;
+            if(payload.Portal == portals.First.Value)
+            {
+                player.position = portals.Last.Value.position + new Vector3(0.0f, 2.0f, 0.0f);
+            }
+            else
+            {
+                player.position = portals.First.Value.position + new Vector3(0.0f, 2.0f, 0.0f);
+            }
         }
     }
 }

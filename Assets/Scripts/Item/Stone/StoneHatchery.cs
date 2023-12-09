@@ -36,8 +36,7 @@ namespace Assets.Scripts.Item.Stone
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
-            //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Portal);
             ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
 
@@ -100,7 +99,7 @@ namespace Assets.Scripts.Item.Stone
             StonePrefab prefab = obj.GetComponent<StonePrefab>();
 
             prefab.StoneEffect = effect;
-            effect.InitData(prefab.data);
+            effect.InitData(prefab.data, ticketMachine);
             effect.SubscribeAction(prefab.OccurEffect);
         }
 
@@ -125,7 +124,6 @@ namespace Assets.Scripts.Item.Stone
             stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
             if (itemPayload.Type == StoneEventType.ShootStone)
             {
-                
                 ReleaseStone(stone, startPos, direction, strength);
                 //UI 페이로드 작성
                 UIPayload uIPayload = new()

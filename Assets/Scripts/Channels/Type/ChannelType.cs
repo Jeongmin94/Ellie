@@ -10,6 +10,7 @@ namespace Channels.Type
         Item,
         Dialog,
         Monster,
-        Camera
+        Camera,
+        Portal,
     }
 }
