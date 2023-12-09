@@ -22,7 +22,7 @@ namespace Channels.Utils
                     channel = new UIChannel();
                     break;
                 case ChannelType.Stone:
-                    channel = new StoneChannel();
+                    channel = new PortalChannel();
                     break;
                 case ChannelType.BossInteraction:
                     channel = new BossInteractionChannel();
