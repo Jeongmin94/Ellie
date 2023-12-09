@@ -16,6 +16,7 @@ namespace Assets.Scripts.Item.Stone
         public LayerMask bossLayer;
 
         private bool isTrigger = false;
+        private bool isCollideGround = false;
         private Transform target;
         private Rigidbody rb;
 
@@ -58,7 +59,7 @@ namespace Assets.Scripts.Item.Stone
 
         private void Update()
         {
-            if(isActivateRange && !isTrigger)
+            if(isActivateRange && !isTrigger && isCollideGround)
             {
                 CheckForBossInRange();
             }
@@ -66,17 +67,19 @@ namespace Assets.Scripts.Item.Stone
 
         protected override void OnCollisionEnter(Collision collision)
         {
-            base.OnCollisionEnter(collision);
-
-            if (!isActivateRange && Type == StoneEventType.ShootStone
-                && collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            if (!isActivateRange && !isCollideGround && Type == StoneEventType.ShootStone)
             {
-                if (collision.gameObject.CompareTag("Ground"))
+                base.OnCollisionEnter(collision);
+
+                if (collision.gameObject.layer == LayerMask.NameToLayer("Ground")
+                    && collision.gameObject.CompareTag("Ground"))
                 {
                     EventBus.Instance.Publish(EventBusEvents.ActivateMagicStone, new BossEventPayload
                     {
-                        Sender = transform,             // 마법돌맹이 객체
+                        Sender = transform,
                     });
+
+                    isCollideGround = true;
                 }
             }
         }
