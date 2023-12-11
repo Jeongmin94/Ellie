@@ -21,13 +21,14 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         public bool isTrapped = false;
         public bool hasBackpack = false;
 
-        [SerializeField] SkullSecondTrap trap;
+        [SerializeField] SkullSecondTrap[] traps;
         [SerializeField] SkullSecondBackPack backPack;
 
         private void Start()
         {
             Init();
-            trap.SubscribeTrapHitAction(CheckTrap);
+            foreach(var trap in traps)
+                trap.SubscribeTrapHitAction(CheckTrap);
             backPack.SubscribeGetBackPackAction(CheckBackPack);
         }
 

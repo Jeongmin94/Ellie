@@ -157,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9990001, y: 0.4419999, z: -4.5200005}
+  m_LocalPosition: {x: 0.99899864, y: 0.44199944, z: -4.5200043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
+  m_LocalPosition: {x: 0.99899864, y: 0.44199944, z: -4.5200043}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -328,7 +328,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 29.999998
+  m_FocalLength: 54.1285
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -337,7 +337,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 43.60282
+  field of view: 25
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -462,6 +462,37 @@ Transform:
   m_Father: {fileID: 8457071790924498306}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 9.635, y: -13.571, z: -88.892}
+--- !u!1 &1487057442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1487057443}
+  m_Layer: 2
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1487057443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487057442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4016927572337565217}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491971374
 GameObject:
   m_ObjectHideFlags: 0
@@ -7107,7 +7138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572231187841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
+  m_LocalPosition: {x: 0, y: 0.7420006, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7218,6 +7249,7 @@ Transform:
   - {fileID: 1693604417}
   - {fileID: 1346398098}
   - {fileID: 354825457}
+  - {fileID: 1487057443}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7249,7 +7281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assets.Scripts.Player.PlayerStatus, Assembly.Ellie
   maxHP: 20
   maxStamina: 200
-  staminaRecoveryPerSec: 10
+  staminaRecoveryPerSec: 20
   sprintStaminaConsumptionPerSec: 10
   jumpStaminaConsumption: 0
   dodgeStaminaConsumption: 40
@@ -7279,11 +7311,11 @@ MonoBehaviour:
   cinematicMainCam: {fileID: 4016927572231187846}
   cinematicAimCam: {fileID: 4016927572422116012}
   cinematicDialogCam: {fileID: 1118065665}
-  walkSpeed: 5
-  sprintSpeed: 8
-  dodgeSpeed: 10
+  walkSpeed: 7
+  sprintSpeed: 11
+  dodgeSpeed: 30
   rotationSpeed: 10
-  jumpForce: 9
+  jumpForce: 10
   additionalJumpForce: 9
   jumpCooldown: 0.5
   maximumAdditionalJumpInputTime: 0.3
@@ -7584,7 +7616,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572422116014}
   m_LocalRotation: {x: 0.123005815, y: -0.035375133, z: 0.0043874756, w: 0.99176556}
-  m_LocalPosition: {x: 1, y: 0.5419998, z: -2}
+  m_LocalPosition: {x: 0.9999981, y: 0.5419998, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -8249,7 +8281,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7081990673131531117}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 167.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

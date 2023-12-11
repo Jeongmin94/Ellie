@@ -45,7 +45,6 @@ namespace Assets.Scripts.Item
             {
                 transform.GetChild(0).gameObject.SetActive(true);
             }
-
         }
 
         public void MoveStone(Vector3 direction, float strength)

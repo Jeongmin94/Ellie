@@ -14,7 +14,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private Action trapHitAction;
 
-        private bool isTrapActivated = false;
+        private static bool isTrapActivated = false;
+        
 
         private void Awake()
         {

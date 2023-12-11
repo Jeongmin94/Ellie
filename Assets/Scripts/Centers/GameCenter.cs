@@ -5,6 +5,7 @@ using Assets.Scripts.Managers.Singleton;
 using Assets.Scripts.Player;
 using Centers;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.Centers.Test
 {
@@ -15,7 +16,7 @@ namespace Assets.Scripts.Centers.Test
         public Ore[] ores;
         public GameObject monsterController;
         public GameObject monsters;
-        public GameObject SkullSecondTrap;
+        public GameObject[] skullSecondTraps;
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
 
@@ -55,7 +56,8 @@ namespace Assets.Scripts.Centers.Test
             }
             CheckTicket(terrapupaController.gameObject);
             CheckTicket(terrapupaMapObjectController.gameObject);
-            CheckTicket(SkullSecondTrap.gameObject);
+            foreach(var SkullSecondTrap in skullSecondTraps)
+                CheckTicket(SkullSecondTrap.gameObject);
             CheckTicket(stonePillarPuzzle.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");

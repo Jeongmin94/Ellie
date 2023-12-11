@@ -256,7 +256,7 @@ namespace Assets.Scripts.Player
                 GetPickaxe(9000);
             }
 
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
                 {

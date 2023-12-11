@@ -9,18 +9,19 @@ using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerQuest : MonoBehaviour
+    public class PlayerQuest : SerializedMonoBehaviour
     {
         private PlayerController controller;
         private List<QuestData> questDataList;
         private QuestData curQuestData;
         private const int FirstQuestDataIdx = 0;
-        private Dictionary<int, QuestStatus> questStatusDic;
+        [ShowInInspector] private Dictionary<int, QuestStatus> questStatusDic;
 
 
         private TicketMachine ticketMachine;
