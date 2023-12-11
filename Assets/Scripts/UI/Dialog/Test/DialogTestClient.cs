@@ -27,7 +27,10 @@ namespace UI.Dialog.Test
 
             if (GUI.Button(new Rect(520, 10, 100, 50), "Play Dialog"))
             {
-                ticketMachine.SendMessage(ChannelType.Dialog, DialogPayload.Play(text, 0.1f));
+                Debug.Log($"{name} Play Dialog");
+                var payload = DialogPayload.Play(text, 0.1f);
+                payload.canvasType = DialogCanvasType.SimpleRemaining;
+                ticketMachine.SendMessage(ChannelType.Dialog, payload);
             }
 
             if (GUI.Button(new Rect(625, 10, 100, 50), "Pause"))

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Assets.Scripts.Data.UI.Dialog;
+using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
@@ -10,6 +11,7 @@ using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Assets.Scripts.UI.Dialog
 {
@@ -18,25 +20,40 @@ namespace Assets.Scripts.UI.Dialog
         private enum GameObjects
         {
             SimpleDialogPanel,
+            SimpleDialogNextPanel,
         }
 
         [SerializeField] private DialogTypographyData dialogContextData;
+        [SerializeField] private UITransformData nextPanelTransform;
 
         private GameObject simpleDialogPanel;
+        private GameObject nextPanel;
+
         private RectTransform simpleDialogPanelRect;
+        private RectTransform nextPanelRect;
 
         private DialogText dialogText;
 
         private TicketMachine ticketMachine;
 
+        private readonly TransformController nextPanelController = new TransformController();
+
         private void Awake()
         {
             Init();
         }
+
         private void Start()
         {
             simpleDialogPanel.gameObject.SetActive(false);
             dialogText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
+        }
+
+        private void LateUpdate()
+        {
+#if UNITY_EDITOR
+            nextPanelController.CheckQueue(nextPanelRect);
+#endif
         }
 
         protected override void Init()
@@ -56,6 +73,9 @@ namespace Assets.Scripts.UI.Dialog
             simpleDialogPanel = GetGameObject((int)GameObjects.SimpleDialogPanel);
             simpleDialogPanelRect = simpleDialogPanel.GetComponent<RectTransform>();
 
+            nextPanel = GetGameObject((int)GameObjects.SimpleDialogNextPanel);
+            nextPanelRect = nextPanel.GetComponent<RectTransform>();
+
             dialogText = simpleDialogPanel.GetOrAddComponent<DialogText>();
         }
 
@@ -65,6 +85,16 @@ namespace Assets.Scripts.UI.Dialog
             simpleDialogPanelRect.sizeDelta = DialogConst.SimpleDialogPanelRect.GetSize();
             simpleDialogPanelRect.localPosition = DialogConst.SimpleDialogPanelRect.ToCanvasPos();
 
+            AnchorPresets.SetAnchorPreset(nextPanelRect, AnchorPresets.MiddleCenter);
+            nextPanelRect.sizeDelta = nextPanelTransform.actionRect.Value.GetSize();
+            nextPanelRect.localPosition = nextPanelTransform.actionRect.Value.ToCanvasPos();
+            nextPanelRect.localScale = nextPanelTransform.actionScale.Value;
+
+#if UNITY_EDITOR
+            nextPanelTransform.actionRect.Subscribe(nextPanelController.OnRectChange);
+            nextPanelTransform.actionScale.Subscribe(nextPanelController.OnScaleChange);
+#endif
+            
             dialogText.InitDialogText();
             dialogText.InitTypography(dialogContextData);
         }
@@ -89,40 +119,41 @@ namespace Assets.Scripts.UI.Dialog
             switch (dialogPayload.dialogAction)
             {
                 case DialogAction.Play:
+                {
+                    if (dialogText.IsPlaying)
                     {
-                        if (dialogText.IsPlaying)
-                        {
-                            //isPlayingÀÏ ¶§ ´Ù½Ã Play ¿äÃ»ÀÌ µé¾î¿À¸é OnNextÇÏµµ·Ï
-                            dialogText.Next();
-                            break;
-                        }
-                        dialogText.gameObject.SetActive(true);
-                        Play(dialogPayload);
+                        //isPlayingï¿½ï¿½ ï¿½ï¿½ ï¿½Ù½ï¿½ Play ï¿½ï¿½Ã»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ OnNextï¿½Ïµï¿½ï¿½ï¿½
+                        dialogText.Next();
+                        break;
                     }
+
+                    dialogText.gameObject.SetActive(true);
+                    Play(dialogPayload);
+                }
                     break;
 
                 case DialogAction.Stop:
-                    {
-                        Stop();
-                    }
+                {
+                    Stop();
+                }
                     break;
 
                 case DialogAction.Resume:
-                    {
-                        dialogText.SetPause(false);
-                    }
+                {
+                    dialogText.SetPause(false);
+                }
                     break;
 
                 case DialogAction.Pause:
-                    {
-                        dialogText.SetPause(true);
-                    }
+                {
+                    dialogText.SetPause(true);
+                }
                     break;
 
                 case DialogAction.OnNext:
-                    {
-                        dialogText.Next();
-                    }
+                {
+                    dialogText.Next();
+                }
                     break;
 
                 default:
@@ -155,7 +186,6 @@ namespace Assets.Scripts.UI.Dialog
 
         private void SendPayloadToClientEvent(bool _isPlaying)
         {
-
             ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
             {
                 dialogType = DialogType.NotifyToClient,
