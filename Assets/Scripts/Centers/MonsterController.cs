@@ -14,10 +14,23 @@ using UnityEngine;
 
 public class MonsterController : MonoBehaviour, IMonster
 {
+    public enum MonsterType
+    {
+        NormalSkeleton=1000,
+        AdventureSkeleton=1001,
+        WizardSkeleton=1002,
+        GuilldguardSkeleton=1004,
+        CaveBat=1003,
+    }
+
     private const int monsterDisableWait = 5;
 
+    //몬스터 번호 몬스터 소환 시점 몬스터 종류
+    [SerializeField] private Dictionary<MonsterType, MonsterPoolData>[] poolData;
+    private Pool monsterPool;
+
     [SerializeField] private GameObject player;
-    [SerializeField] private GameObject monsters;
+    [SerializeField] private Transform monsters;
     [SerializeField] private BaseDropItem item;
     [SerializeField] private MonsterItemDropData itemData;
     private List<AbstractMonster> monster = new();
@@ -29,15 +42,29 @@ public class MonsterController : MonoBehaviour, IMonster
         ticketMachine.AddTickets(ChannelType.Monster, ChannelType.Stone);
         ticketMachine.RegisterObserver(ChannelType.Monster, MonsterDead);
         TicketManager.Instance.Ticket(ticketMachine);
+    }
 
+    private void Start()
+    {
         SetMonster();
     }
 
     private void SetMonster()
     {
+        Debug.Log("HELLLLOOO");
+        poolData = new Dictionary<MonsterType, MonsterPoolData>[monsters.childCount];
+
         foreach (Transform child in monsters.transform)
         {
-            monster.Add(child.GetComponent<AbstractMonster>());
+            foreach (Transform child2 in child)
+            {
+                int num = child.name[child.name.Length - 1]-'0';
+                Debug.Log(child.name[child.name.Length - 1]);
+                Debug.Log("NUM : " + num);
+                AbstractMonster monster = child2.GetComponent<AbstractMonster>();
+                poolData[num].Add((MonsterType)monster.monsterData.index, monster.poolData);
+                Debug.Log("ADDED TO DIC : " + monster.name);
+            }
         }
         foreach (AbstractMonster mon in monster)
         {

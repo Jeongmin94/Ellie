@@ -27,6 +27,11 @@ namespace Assets.Scripts.Monsters
         private void Start()
         {
             StartCoroutine(InitParsingData());
+
+            poolData.spawnPosition = transform;
+            Transform obj = transform.Find("PatrolPoints");
+            foreach (Transform a in obj)
+                poolData.patrolPoints.Add(a);
         }
 
         private IEnumerator InitParsingData()

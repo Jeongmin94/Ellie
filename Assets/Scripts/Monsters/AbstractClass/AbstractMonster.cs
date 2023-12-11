@@ -31,6 +31,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
         const float billboardScale = 0.003f;
         const float battleStateTime = 8.0f;
 
+        public MonsterPoolData poolData=new();
+
         [SerializeField] public SkeletonMonsterData monsterData;
         private TicketMachine ticketMachine;
         public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
@@ -86,27 +88,30 @@ namespace Assets.Scripts.Monsters.AbstractClass
             newSkill.transform.localScale = Vector3.one;
             switch (attackSkill)
             {
-                case Enums.AttackSkill.ProjectileAttack:
+                case AttackSkill.ProjectileAttack:
                     attack = newSkill.AddComponent<ProjectileAttack>();
                     break;
-                case Enums.AttackSkill.BoxCollider:
+                case AttackSkill.BoxCollider:
                     attack = newSkill.AddComponent<BoxColliderAttack>();
                     break;
-                case Enums.AttackSkill.SphereCollider:
+                case AttackSkill.SphereCollider:
                     attack = newSkill.AddComponent<SphereColliderAttack>();
                     break;
-                case Enums.AttackSkill.WeaponAttack:
+                case AttackSkill.WeaponAttack:
                     attack = newSkill.AddComponent<WeaponAttack>();
                     break;
-                case Enums.AttackSkill.AOEAttack:
+                case AttackSkill.AOEAttack:
                     attack = newSkill.AddComponent<AOEPrefabAttack>();
                     break;
-                case Enums.AttackSkill.FanshapeAttack:
+                case AttackSkill.FanshapeAttack:
                     attack = newSkill.AddComponent<FanShapeAttack>();
                     break;
             }
             if (attack != null)
             {
+                Debug.Log("ATTCKS : " + Attacks);
+                Debug.Log("skillName : " + skillName);
+                Debug.Log("attack : " + attack);
                 Attacks.Add(skillName, attack);
             }
 
