@@ -25,10 +25,7 @@ public class TerrapupaController : BaseController
     [SerializeField] private PlayerController player;
 
     [Title("현재 페이즈 상태 체크용")]
-    [ReadOnly]
-    [SerializeField]
-    private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
-
+    [ReadOnly] [SerializeField] private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
     [ReadOnly] [SerializeField] private int minionDeathCheck = 4; // 3페이즈 미니언 4마리 체크
     [ReadOnly] [SerializeField] private int currentMinionSpawnIndex = 0;
     [ReadOnly] [SerializeField] private float fallCheckLatency = 5.0f;
