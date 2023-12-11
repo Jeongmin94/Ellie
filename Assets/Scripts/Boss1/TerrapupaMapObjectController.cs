@@ -308,11 +308,19 @@ public class TerrapupaMapObjectController : BaseController
     private IEnumerator ManaCooldown(BossEventPayload manaPayload)
     {
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        if (mana.isActiveAndEnabled)
+        {
+            mana.SetLightIntensity(0.0f, mana.changeLightTime);
+        }
         mana.IsCooldown = true;
 
         yield return new WaitForSeconds(mana.coolDownValue);
 
         Debug.Log($"{mana.name} 쿨타임 완료");
+        if (mana.isActiveAndEnabled)
+        {
+            mana.SetLightIntensity(mana.lightIntensity, mana.changeLightTime);
+        }
         mana.IsCooldown = false;
     }
 
