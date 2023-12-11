@@ -190,8 +190,7 @@ namespace Assets.Scripts.Player
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
-            Debug.Log("Player recieve Damage");
-            CombatPayload combatPayload = payload as CombatPayload;
+            if (payload is not CombatPayload combatPayload) return;
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
             //상태이상 공격 처리 로직
