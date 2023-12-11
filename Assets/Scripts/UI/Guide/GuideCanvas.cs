@@ -6,6 +6,10 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.UI.PopupMenu;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Type;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,7 +40,9 @@ namespace Assets.Scripts.UI.Guide
         private Image guideImage;
         private RectTransform guideImageRect;
 
+        private int currentIndex = 0;
         private readonly Data<int> spriteIndex = new Data<int>();
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -50,7 +56,15 @@ namespace Assets.Scripts.UI.Guide
             Bind();
             InitObjects();
 
+            spriteIndex.Value = currentIndex = 0;
             spriteIndex.Subscribe(OnIndexChanged);
+
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.UI);
+
+#if UNITY_EDITOR
+            TicketManager.Instance.Ticket(ticketMachine);
+#endif
         }
 
         private void Bind()
@@ -87,12 +101,18 @@ namespace Assets.Scripts.UI.Guide
             InitButtons();
         }
 
+        private readonly ButtonType[] buttonTypes = new ButtonType[] { ButtonType.Yes, ButtonType.No };
+
         private void InitButtons()
         {
             for (int i = 0; i < buttonsTransformData.Length; i++)
             {
                 var button = UIManager.Instance.MakeSubItem<GuideButton>(transform, GuideButton.Path);
+                button.name += $"#{buttonTypes[i]}";
                 button.InitButton();
+                button.Subscribe(OnButtonClicked);
+                button.GuideButtonType = buttonTypes[i];
+
                 var buttonRect = button.GetComponent<RectTransform>();
                 AnchorPresets.SetAnchorPreset(buttonRect, AnchorPresets.MiddleCenter);
                 buttonRect.sizeDelta = buttonsTransformData[i].actionRect.Value.GetSize();
@@ -101,8 +121,36 @@ namespace Assets.Scripts.UI.Guide
             }
         }
 
+        private void OnButtonClicked(PopupPayload payload)
+        {
+            // ButtonType yes -> left, no -> right
+            Debug.Log($"OnButtonClicked: {payload.buttonType}");
+            switch (payload.buttonType)
+            {
+                case ButtonType.Yes:
+                {
+                    // -1
+                    currentIndex = Math.Clamp(currentIndex - 1, 0, guideSprites.Length - 1);
+                }
+                    break;
+
+                case ButtonType.No:
+                {
+                    // +1
+                    currentIndex = Math.Clamp(currentIndex + 1, 0, guideSprites.Length - 1);
+                }
+                    break;
+
+                default:
+                    return;
+            }
+
+            spriteIndex.Value = currentIndex;
+        }
+
         private void OnIndexChanged(int value)
         {
+            Debug.Log($"{name} OnIndexChanged {value}");
             guideImage.sprite = guideSprites[value];
         }
     }
