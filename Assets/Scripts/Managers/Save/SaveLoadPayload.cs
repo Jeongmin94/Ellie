@@ -10,8 +10,6 @@ namespace Assets.Scripts.Managers
         Inventory,
         Player,
         NPC,
-        Puzzle,
-
         End,
     }
 
@@ -69,10 +67,4 @@ namespace Assets.Scripts.Managers
     {
         public Dictionary<string, bool> NPCActiveDic;
     }
-
-    public class PuzzleSavePayload : IBaseEventPayload
-    {
-
-    }
-
 }

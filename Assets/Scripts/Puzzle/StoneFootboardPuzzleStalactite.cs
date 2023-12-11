@@ -114,7 +114,7 @@ namespace Assets.Scripts.Puzzle
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
 
                     lineRenderer.enabled = false;
-                    Destroy(this);
+                    Destroy(this.gameObject);
                 }
             }
         }

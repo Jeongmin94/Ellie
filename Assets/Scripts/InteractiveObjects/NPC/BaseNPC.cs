@@ -41,31 +41,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 NPCObj = transform.GetChild(0);
         }
 
-        private void Start()
-        {
-            
-        }
-
         protected void Init()
         {
             StartCoroutine(InitCoroutine());
         }
+        
         private IEnumerator InitCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
-            //questDataDict = new();
-            //foreach(int dataIdx in npcData.questList)
-            //{
-            //    QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
-            //    questDataDict.Add(dataIdx, data);
-            //}
-            //curQuestData = questDataDict[npcData.questList[0]];
         }
         public virtual void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
-            //LookAtPlayer();
         }
 
         protected void LookAtPlayer()

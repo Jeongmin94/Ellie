@@ -24,7 +24,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void OnNPCDisable(string name)
         {
             NPCActiveDic[name] = false;
-
+            Debug.Log("Saving NPC... cur disabled npc is " + name);
             StartCoroutine(SaveNPCStatusCoroutine());
         }
 
@@ -35,18 +35,16 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         }
         private void SaveNPCData()
         {
-            NPCSavePayload payload = new NPCSavePayload();
-            payload.NPCActiveDic = NPCActiveDic; 
-
-            Debug.Log("Saving NPC Data");
+            NPCSavePayload payload = new NPCSavePayload
+            {
+                NPCActiveDic = NPCActiveDic
+            };
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.NPC, payload);
         }
 
         private void LoadNPCData(IBaseEventPayload payload)
         {
             if (payload is not NPCSavePayload savePayload) return;
-            Debug.Log("NPC Load"); 
-            //여기서 리턴되는듯
             NPCActiveDic = savePayload.NPCActiveDic;
             if(NPCActiveDic.Count > 0)
                 SetNPCActive();
