@@ -154,7 +154,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59d55fe16cdb0994cb0015cb47af1881, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: BossRoomEnterTrigger, Assembly.Ellie
   wall: {fileID: 180122945235922568}
   eventType: 21
 --- !u!1 &180122945200714460
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 59d55fe16cdb0994cb0015cb47af1881, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: BossRoomEnterTrigger, Assembly.Ellie
   wall: {fileID: 180122945235922568}
   eventType: 20
 --- !u!1 &180122945235922571
@@ -538,7 +538,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Objects.ManaFountain, Assembly.Ellie
 --- !u!4 &6445409576775872588 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
@@ -652,7 +652,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Objects.ManaFountain, Assembly.Ellie
 --- !u!4 &6445409576578914245 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
@@ -665,6 +665,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 180122945942151419}
     m_Modifications:
+    - target: {fileID: 1395424389, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.039
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395424389, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.375
+      objectReference: {fileID: 0}
+    - target: {fileID: 1395424389, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.047
+      objectReference: {fileID: 0}
     - target: {fileID: 2176720462376189022, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: hitEffect
       value: 
@@ -719,7 +731,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.92387956
+      value: 0.44647375
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.x
@@ -727,7 +739,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.38268343
+      value: 0.8947967
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.z
@@ -739,7 +751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 45
+      value: 126.965
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -774,7 +786,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Objects.ManaFountain, Assembly.Ellie
 --- !u!4 &6445409575422214151 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
@@ -787,6 +799,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 180122945942151419}
     m_Modifications:
+    - target: {fileID: 399933358090350184, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 399933358090350184, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: m_Color.g
+      value: 0.49258578
+      objectReference: {fileID: 0}
+    - target: {fileID: 399933358090350184, guid: 27ebace435c11044f855d3217d203a83, type: 3}
+      propertyPath: m_Color.r
+      value: 0.20188677
+      objectReference: {fileID: 0}
     - target: {fileID: 2176720462376189021, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_Height
       value: 1.5287743
@@ -833,15 +857,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.46174863
+      value: -0.069002174
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.8870109
+      value: 0.9976165
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalRotation.z
@@ -853,7 +877,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 235
+      value: 187.913
       objectReference: {fileID: 0}
     - target: {fileID: 6561002492242775536, guid: 27ebace435c11044f855d3217d203a83, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -872,7 +896,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 19160d1b08973ee4c9d0a1da02d669e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Objects.ManaFountain, Assembly.Ellie
 --- !u!1 &5924873920791578777 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5784466549098485578, guid: 27ebace435c11044f855d3217d203a83, type: 3}

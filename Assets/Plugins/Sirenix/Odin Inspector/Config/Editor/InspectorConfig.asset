@@ -16,4 +16,1310 @@ MonoBehaviour:
   defaultEditorBehaviour: 11
   processMouseMoveInInspector: 1
   drawingConfig:
-    configs: []
+    configs:
+    - DrawnTypeName: UnityEngine.AssetBundle, UnityEngine.AssetBundleModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.AssetBundleManifest, UnityEngine.AssetBundleModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.AudioBehaviour, UnityEngine.AudioModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.AudioListener, UnityEngine.AudioModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Behaviour, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.CanvasGroup, UnityEngine.UIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Collider, UnityEngine.PhysicsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Collider2D, UnityEngine.Physics2DModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Component, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.ConstantForce, UnityEngine.PhysicsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.ConstantForce2D, UnityEngine.Physics2DModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.FailedToLoadScriptObject, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.FlareLayer, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.GridLayout, UnityEngine.GridModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.GUISkin, UnityEngine.IMGUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Halo, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.LightmapSettings, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.LocalizationAsset, UnityEngine.LocalizationModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.LowerResBlitTexture, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.MeshFilter, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Motion, UnityEngine.AnimationModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.ParticleSystemRenderer, UnityEngine.ParticleSystemModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.PhysicMaterial, UnityEngine.PhysicsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.PhysicsMaterial2D, UnityEngine.Physics2DModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.PhysicsUpdateBehaviour2D, UnityEngine.Physics2DModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.PreloadData, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Renderer, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.RuntimeAnimatorController, UnityEngine.AnimationModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Skybox, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.SparseTexture, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.SpeedTreeWindAsset, UnityEngine.TerrainModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.TerrainData, UnityEngine.TerrainModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Texture, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.AI.NavMeshData, UnityEngine.AIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Audio.AudioMixerGroup, UnityEngine.AudioModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Audio.AudioMixerSnapshot, UnityEngine.AudioModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Connect.UnityConnectSettings, UnityEngine.UnityConnectModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.Networking.PlayerConnection.PlayerConnection, UnityEngine.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.UIElements.ThemeStyleSheet, UnityEngine.UIElementsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.UIElements.VectorImage, UnityEngine.UIElementsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.VFX.VFXRenderer, UnityEngine.VFXModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEngine.VFX.VisualEffectAsset, UnityEngine.VFXModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AnimationClipSelectionItem, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AnimationWindowControl, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AnimationWindowKeySelection, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AnimationWindowSelectionItem, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AnimationWindowState, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AssemblyDefinitionAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.AssemblyDefinitionReferenceAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.GameObjectSelectionItem, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditorInternal.PackageManifest, UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AndroidAssetPackImporter, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AnimationModeDriver, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AnimEditor, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AppStatusBar, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AssemblyDefinitionReferenceImporterInspector+AssemblyDefinitionReferenceState,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AssemblyDefinitionImporterInspector+AssemblyDefinitionState,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AssetImporter, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AvatarMappingEditor, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AvatarMuscleEditor, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AvatarPreviewSelection, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AvatarSubEditor, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ClothInspectorState, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ContainerWindow, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.CurveEditorSelection, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.DiagnosticSwitchesConsoleMessage, UnityEditor.DiagnosticsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.DockArea, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AssetPopupBackend+DoCreateNewAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainInspector+DoCreateTerrainMaterial, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EditorBuildSettings, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EditorSnapSettingsData, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EditorUserBuildSettings, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EditorUserSettings, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EyeDropper, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.GameViewSizes, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.GridPalette, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.GUIStyleHolder, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.GUIView, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.HostView, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.HumanTemplate, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.LightingDataAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.LightProbeGroupSelection, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.LineRendererEditorSettings, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.LocalCacheServer, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.MainView, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.MaximizedHostView, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ModeDescriptor, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AvatarPreview+ObjectSelectorOperation, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PaneDragTab, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.AudioImporterInspector+PlatformSettings, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PlayerConnectionLogReceiver, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PresetLibraryManager, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PreviewImporter, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ReferencesArtifactGenerator, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SavedSearchFilters, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneVisibilityManager, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneVisibilityState, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ScriptableSingleton`1, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ScriptReloadProperties, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SerializableDelayedCallback, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderInclude, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderIncludeImporter, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderImporterInspector+ShaderProperties, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SplitView, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.VideoClipImporterInspector+TargetSettings, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Texture3DPreview, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Toolbar, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Tools, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TooltipView, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.View, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.WindowFocusState, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Animations.AnimatorController, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Animations.AnimatorTransitionBase, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Animations.GameObjectRecorder, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Audio.AudioMixerEffectController, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Build.Reporting.BuildReport, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Build.Reporting.PackedAssets, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Build.Reporting.ScenesUsingAssets, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Build.Reporting.StrippingInfo, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EditorTools.EditorToolManager, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.EditorTools.GameObjectToolContext, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Experimental.MultiArtifactTestImporter, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Experimental.GraphView.GraphViewUndoRedoSelection,
+        UnityEditor.GraphViewModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.Graph, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.GroupNode, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.Node, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.ProxyNode, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationBlendTree.Graph, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationBlendTree.GraphGUI, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationBlendTree.Node, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationStateMachine.Graph, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationStateMachine.GraphGUI, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationStateMachine.Node, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationStateMachine.StateMachineNode, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphs.AnimationStateMachine.StateNode, UnityEditor.Graphs
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Modules.DefaultBuildProperties, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Networking.PlayerConnection.EditorConnection, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Overlays.OverlayPreset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Overlays.OverlayPresetManager, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.AssetStoreDownloadManager+DownloadDelegateHandler,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.EntitlementsErrorChecker,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.PackageManagerProjectSettings,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.PackageManifestImporterEditor+PackageManifestState,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.PlayModeDownloadState,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.RegistryInfoDraftData,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.RegistryInfoOriginalData,
+        UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.PackageManager.UI.Internal.ServicesContainer, UnityEditor.PackageManagerUIModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Presets.DefaultPresetSelectorReceiver, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Presets.DefaultPresetReorderableList+PresetChanged,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Presets.PresetContextMenu, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateAnimatorController,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateAssetWithContent,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateAudioMixer, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateFolder, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateFolderWithTemplates,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateNewAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreatePrefab, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreatePrefabVariant, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateScene, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProjectWindowCallback.DoCreateScriptAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneManagement.AvatarConfigurationStage, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneManagement.MainStage, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneManagement.PrefabStage, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SceneManagement.StageNavigationManager, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Search.SearchDatabase, UnityEditor.QuickSearchModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.CreateTerrainTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.PaintDetailsTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.PaintHeightTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.PaintHolesTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.PaintTextureTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.PaintTreesTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.SetHeightTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.SmoothHeightTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TerrainTools.StampTool, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TextCore.Text.SerializedPropertyHolder, UnityEditor.TextCoreTextEngineModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Toolbars.EditorToolbarManager, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.SpriteAtlasAsset, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.Physics2D.MenuItems+CreateAssetEndNameEditAction,
+        UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.UIElements.EditorWindowViewData, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.UIElements.PanelOwner, UnityEditor.UIElementsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.UIElements.SerializableJsonDictionary, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.UIElements.Samples.UIElementsSnippetAsset, UnityEditor.UIElementsSamplesModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.UIElements.StyleSheets.ThemeAssetDefinitionState,
+        UnityEditor.UIElementsModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.VFX.VisualEffectResource, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.VFX.VisualEffectSubgraphBlock, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.VFX.VisualEffectSubgraphOperator, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Web.EditorProjectAccess, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Unity.UI.Builder.BuilderDocument, UnityEditor.UIBuilderModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TreeEditor.TreeData, UnityEditor.CoreModule
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.EmittedAnimationCurveContainer,
+        Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.EmittedGradientContainer, Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.ImportSettingsConfig, Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.UndoTracker, Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.UndoTrackerStateContainer, Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Examples.DisabledInInlineEditorScriptableObject,
+        Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Examples.ExampleTransform, Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Examples.HideMonoScriptScriptableObject,
+        Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Examples.MyInlineScriptableObject,
+        Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Examples.MyScriptyScriptableObject,
+        Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Examples.ShowMonoScriptScriptableObject,
+        Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.OdinInspector.Editor.Modules.OdinModuleConfig, Sirenix.OdinInspector.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Sirenix.Utilities.ProjectPathFinder, Sirenix.Utilities
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: BehaviourTreeController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: BossRoomDoorKnob, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: BossRoomEnterTrigger, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ButtonAnimation, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CameraMove, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CameraShakeSimpleScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ChasePlayer, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CheatClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CinemachineCameraOffset, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CinemachineRecomposer, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CinemachineTouchInputMapper, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: CircleRange, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ConeRange, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: DropTableDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EffectController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ElasticManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EndingCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EndingCenter, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EventBus, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: GameManager, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: GoogleSheetsParser, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: HybridConeRange, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: LoadingTipsData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: LoadingUI, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterAttackDataparsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterAudioController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterAudioData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterEffectData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterHeadShot, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterItemDropDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterParticleController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: MonsterParticleData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: OreDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: PatrolPoints, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: PickaxeDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: PreviousAndNext_ClawSlashfx, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ProjectileMoveScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: RangeManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: RangeTest, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: RectangleRange, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ReturnSpawnLocation, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: RotateToMouseScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: RunToPlayerAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SceneRenderPipeline, Unity.RenderPipelines.Core.Runtime
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SelfDestruct, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SkeletonMonsterDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Slingshot, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SpawnProjectilesScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SplineDecorator, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SplineWalker, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: StoneFootboardPuzzleController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Target, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaDetection, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaEarthQuakeData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaHealthBar, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaIntakeData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaLowAttackData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionAttackData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMapObjectController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionBTController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionJumpData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionHealthBar, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionMoveData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionSelfDestructData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionRootData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaMinionSkinController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaRollData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaRootData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaSpinningAttackData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaStoneData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaStunData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaTemptData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TerrapupaTraceData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TestUnitData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TimelinePreferences, Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TimelineProjectSettings, Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TrapezoidRange, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UISaturation, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: VideoStartClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.AudioController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.OpeningCenter, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.ActionData.Monster.MonsterHealthData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Boss1.TerrapupaMinion.TerrapupaMinionWeakPoint,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Centers.SceneLoadManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Centers.Test.GameCenter, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Centers.Test.TestAttacker, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.ActionData.Player.AimTargetData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.ActionData.Player.ChargingData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.ActionData.Player.PlayerHealthData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.ActionData.Player.StaminaData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.ActionData.UI.SliderData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.ActionData.UI.TextData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.Channels.BaseChannelTypeSo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.GoogleSheet.DialogDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.GoogleSheet.NPCDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.GoogleSheet.QuestDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.GoogleSheet.StoneDataParsingInfo, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.GoogleSheet._4400Etc.EtcDataParsingInfo,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.UI.DialogCanvasData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.UI.Dialog.DialogTypographyData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Data.UI.Transform.UITransformData, Assembly.Ellie
+      EditorTypeName: 
+    - DrawnTypeName: Assets.Scripts.Data.UI.Video.VideoData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.ElliePhysics.CollisionTest, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.ElliePhysics.PhysicsTest, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Environments.CameraShakingEffect, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Environments.FadeObjectBlockingObject, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Environments.FadingObject, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Equipments.Pickaxe, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.MineCart, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.Ore, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.BaseNPC, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.NPCController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.SkullSecondBackPack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.SkullSecondTrap, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullEldestNPC,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullEldestNPCCollider,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullEldestTriggerCollider,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullSecondNPC,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullYoungestNPC,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.InteractiveObjects.NPC.YoungestSkullPickaxe,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.BaseDropItem, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.BaseStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Goods.GameGoods, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.BaseStoneEffect, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.ExplosionStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.GolemCoreStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.MagicStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.NormalStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.PortalStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.StoneHatchery, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Item.Stone.StonePrefab, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.DataManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.GameManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.InputManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.Poolable, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.PoolManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.ResourceManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.SaveLoadManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.Singleton`1, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.SoundManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.TicketManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.UIManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.Sound.SoundManagerTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Managers.Test.PoolTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.AdventureSkeletonController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.CaveBatController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.GuildguardSkeletonController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.NormalSkeletonController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.WizardSkeletonController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Attacks.AOEPrefabAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Attacks.BoxColliderAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Attacks.FanShapeAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Attacks.ProjectileAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Attacks.SphereColliderAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Attacks.WeaponAttack, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.EffectStatus.MonsterEffectStatusController,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.EffectStatus.StatusEffectPlainHit, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.MonsterStatus.MonsterStatus, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Others.AOE, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Others.Projectile, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Utility.Functions, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Monsters.Utility.Structures, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Particle.ParticleController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Particle.ParticleManager, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerAim, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerAnimationEventHandler, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerInteraction, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerInventory, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerLooting, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerMeleeAttackCollider, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerQuest, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerSaveLoad, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerStatus, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.PlayerUI, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.Shooter, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies.PlayerStatusEffectDown,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies.PlayerStatusEffectKnockedAirborne,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies.PlayerStatusEffectStrongRigidity,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies.PlayerStatusEffectWeakRigidity,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Puzzle.StoneFootboardPuzzle, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Puzzle.StoneFootboardPuzzleStalactite, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Puzzle.StonePillarPuzzle, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.StatusEffects.PlayerStatusEffectController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies.PlayerStatusEffectBurn,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.ImageAlphaController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PowerSliderController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.TextAlphaController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Death.DeathCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Death.DeathCanvasTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Dialog.DialogCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Dialog.DialogText, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Dialog.SimpleDialogCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Equipment.EquipmentFrame, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Equipment.FrameCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.UIEventHandler, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.UITestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.Images.UIBaseImage, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.Popup.UIPopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.Popup.UIPopupButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.Static.UIStatic, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Framework.Test.UITest, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.InGame.PauseCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.InGame.PauseMenuButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.InGame.AutoSave.AutoSaveCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.InGame.AutoSave.AutoSaveCanvasTestClient,
+        Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Interactive.InteractiveCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Interactive.InteractiveCanvasTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.CategoryButtonPanel, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.CategoryToggleController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.CloseButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.DescriptionNamePanel, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.DescriptionTextPanel, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.GoodsPanel, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.ImageAndTextArea, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.Inventory, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.InventorySlot, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.InventorySlotArea, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.InventorySlotCopyItem, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.InventorySlotItem, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.SlotItemPosition, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.ToggleController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Inventory.Test.InventoryTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Item.UIItemInven, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Item.UIItemSubItem, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Item.UIStoneInven, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Item.UIStoneSubItem, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Monster.UIMonsterBillboard, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Monster.UIMonsterCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Opening.BlinkMenuButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Opening.OpeningCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Opening.OpeningText, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Player.UIBarImage, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Player.UIHealthAndStamina, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Player.UIPlayerHealthImage, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.BaseNormalMenuButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.BasePopupCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigButtonPanel, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigComponent, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigMenuList, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigPopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigToggleController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ConfigToggleText, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.EscapePopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.ExitPopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.LoadPopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.MainPopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.NoMenuButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.PopupCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.StartPopup, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.PopupMenu.YesMenuButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Quest.QuestCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Quest.QuestCanvasTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Status.UIStatus, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Status.UIStatusBar, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Video.VideoCanvas, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.UI.Video.VideoCanvasTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Assets.Scripts.Utils.TargetObjectFinder, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Boss.Objects.MagicStalactite, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Boss.Objects.ManaFountain, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Boss.Terrapupa.TerrapupaBTController, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Boss.Terrapupa.TerrapupaStone, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Boss.Terrapupa.TerrapupaWeakPoint, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Centers.BaseCenter, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Centers.Test.TestCenterClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Channels.Components.TicketMachine, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.Cinemachine3rdPersonAim, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachineDollyCart, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachineFixedSignal, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachineFollowZoom, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachineIndependentImpulseListener, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachineInputProvider, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachinePipeline, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.CinemachinePixelPerfect, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.GroupWeightManipulator, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.Editor.CinemachineImpulseChannels, com.unity.cinemachine.editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.Editor.CinemachineLensPresets, com.unity.cinemachine.editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.Editor.ScriptableObjectUtility, com.unity.cinemachine.editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Cinemachine.PostFX.CinemachinePostProcessing, Cinemachine
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.BackgroundVolumeData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.BooleanOptionData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.EffectVolumeData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.IntegerOptionData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.OptionButton, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.ResolutionData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.StringOptionData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Config.Vector2OptionData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Inventory.InventoryChannel, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Opening.MenuTextData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Opening.PopupData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Data.UI.Opening.TextTypographyData, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXButtonScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXEffectController, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXEffectControllerPooled, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXEffectCycler, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXFireProjectile, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXLightFade, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXLoopScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXMouseOrbit, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXPitchRandomizer, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXProjectileScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXRotation, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXSceneManager, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXSpriteBouncer, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: EpicToonFX.ETFXTarget, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ETFXPEL.ParticleEffectsLibrary, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ETFXPEL.PEButtonScript, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: ETFXPEL.UICanvasManager, Assembly-CSharp
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Packages.Rider.Editor.RiderScriptEditorData, Unity.Rider.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Packages.Rider.Editor.RiderScriptEditorPersistedState, Unity.Rider.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Packages.Rider.Editor.UnitTesting.CallbackData, Unity.Rider.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Packages.Rider.Editor.UnitTesting.SyncTestRunEventsHandler,
+        Unity.Rider.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Packages.Rider.Editor.UnitTesting.TestsCallback, Unity.Rider.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: SolidUtilities.Editor.EditorIconsDatabase, SolidUtilities.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TestRunner.Callbacks.WindowResultUpdaterDataHolder, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TheKiwiCoder.BehaviourTree, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TheKiwiCoder.BehaviourTreeProjectSettings, thekiwicoder.behaviourtreeeditor.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TheKiwiCoder.CreateNodeWindow, thekiwicoder.behaviourtreeeditor.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TMPro.TMP_Dropdown+DropdownItem, Unity.TextMeshPro
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TMPro.TMP_ScrollbarEventHandler, Unity.TextMeshPro
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TMPro.TMP_SelectionCaret, Unity.TextMeshPro
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TMPro.TMP_SerializedPropertyHolder, Unity.TextMeshPro.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: TMPro.TMP_SpriteAnimator, Unity.TextMeshPro
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UI.Dialog.Test.DialogTestClient, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UI.Framework.Test.UITestCenter, Assembly.Ellie
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Unity.Burst.BurstCompiler+DomainReloadStateSingleton, Unity.Burst
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Unity.Burst.Editor.BurstPlatformAotSettings, Unity.Burst.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: Unity.Burst.Editor.BurstPlatformLegacySettings, Unity.Burst.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.SpriteRectCache, Unity.2D.Sprite.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Animations.Rigging.RigEffector, Unity.Animation.Rigging.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Graphing.GraphObject, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProBuilder.DimensionsEditor, Unity.ProBuilder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProBuilder.MaterialPalette, Unity.ProBuilder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProBuilder.PositionToolContext, Unity.ProBuilder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ProBuilder.TextureToolContext, Unity.ProBuilder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.AnimationRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.AOVRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.AudioRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.GIFRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.ImageRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.MovieRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.PresetHelper+PresetReceiver, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.RecorderComponent, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.FrameCapturer.EXRRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.FrameCapturer.MP4Recorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.FrameCapturer.PNGRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.FrameCapturer.WEBMRecorder, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.Input.AudioRenderer, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Recorder.Timeline.WaitForEndOfFrameComponent, Unity.Recorder.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugState`1, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateBool, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateColor, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateEnum, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateFlags, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateFloat, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateInt, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateUInt, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateVector2, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateVector3, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugStateVector4, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DebugWindowSettings, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.DoCreatePostProcessProfile, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.IESObject, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.LensFlareEditorUtils+LensFlareDataSRPCreator,
+        Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.BuiltIn.AssetVersion, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInMetadata, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.LookDev.Context, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.LookDev.EnvironmentLibraryCreator, Unity.RenderPipelines.Core.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.Universal.AssetVersion, Unity.RenderPipelines.Universal.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.Universal.Renderer2DMenus+Create2DRendererDataAsset,
+        Unity.RenderPipelines.Universal.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.Universal.Renderer2DMenus+CreateUniversalPipelineAsset,
+        Unity.RenderPipelines.Universal.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.Universal.UniversalProjectSettings, Unity.RenderPipelines.Universal.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.Universal.Path2D.ScriptableData`1, Unity.RenderPipelines.Universal.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Rendering.Universal.ShaderGraph.UniversalMetadata,
+        Unity.RenderPipelines.Universal.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.CreateShaderSubGraph, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.NewGraphAction, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.ShaderGraphMetadata, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.ShaderGraphProjectSettings, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.ShaderSubGraphMetadata, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.SubGraphAsset, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.Drawing.SearcherProvider, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.Drawing.SearchWindowProvider, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.Drawing.Controls.GradientObject, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.ShaderGraph.Internal.ShaderGraphVfxAsset, Unity.ShaderGraph.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestRunner.TestLaunchers.RemotePlayerLogController,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestRunner.TestLaunchers.RemoteTestRunController,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.CodeCoverage.CoverageEventData, Unity.TestTools.CodeCoverage.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.CodeCoverage.CoverageReporterListener,
+        Unity.TestTools.CodeCoverage.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.CodeCoverage.CoverageRunData, Unity.TestTools.CodeCoverage.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.CodeCoverage.Analytics.CoverageAnalytics,
+        Unity.TestTools.CodeCoverage.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.EditModeLauncher+BackgroundListener,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.EditModeRunner, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.EditModeRunnerCallback, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.RerunCallback, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.RerunCallbackData, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.TestListCacheData, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.TestRunnerCallback, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.Api.CallbacksDelegatorListener,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.Api.CallbacksHolder, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.Api.TestRunnerApi, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.CommandLineTest.ExitCallbacks,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.CommandLineTest.ExitCallbacksDataHolder,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.CommandLineTest.LogSavingCallbacks,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.CommandLineTest.ResultsSavingCallbacks,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.CommandLineTest.RunData, UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.TestTools.TestRunner.TestRun.TestJobDataHolder,
+        UnityEditor.TestRunner
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Timeline.TimelineWindow+DoCreateTimeline, Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Timeline.SequenceHierarchy, Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Timeline.TimelineAssetViewModel, Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Timeline.TimelineWindowTimeControl, Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Timeline.Signals.SignalAssetInspector+DoCreateSignalAsset,
+        Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.Timeline.Signals.SignalReceiverItem+UnityEventCloner,
+        Unity.Timeline.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.ItemCreationUtility+CreateAssetEndNameEditAction,
+        Unity.2D.Sprite.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.MenuItems+DoCreateSpriteAtlas, Unity.2D.Sprite.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.Sprites.SpriteEditorMenuSetting, Unity.2D.Sprite.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.Sprites.SpriteOutlineModel, Unity.2D.Sprite.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor
+    - DrawnTypeName: UnityEditor.U2D.Sprites.SpriteRectModel, Unity.2D.Sprite.Editor
+      EditorTypeName: Sirenix.OdinInspector.Editor.OdinEditor, Sirenix.OdinInspector.Editor

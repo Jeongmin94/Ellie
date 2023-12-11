@@ -49,7 +49,7 @@ namespace Boss.Objects
 
         private void Awake()
         {
-            lightComponent = GetComponent<Light>();
+            lightComponent = GetComponentInChildren<Light>();
         }
 
         private void OnDisable()

@@ -16,7 +16,7 @@ namespace Assets.Scripts.Item.Stone
         protected StoneData data;
         protected TicketMachine ticketMachine;
 
-        private event Action<Transform> effectAction;
+        private Action<Transform> effectAction;
         private bool isHitEnemy = false;
         private int collisionCount = 1;
         private LayerMask layerMask;
