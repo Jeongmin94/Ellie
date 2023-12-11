@@ -1,5 +1,4 @@
-using System;
-using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Channels;
 using Channels.Boss;
 using Channels.Combat;
 using Channels.Dialog;
