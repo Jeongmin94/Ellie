@@ -7,9 +7,8 @@ namespace Channels.Type
         Stone,
         BossInteraction,
         Terrapupa,
-        Item,
         Dialog,
         Monster,
-        Camera
+        Camera,
     }
 }

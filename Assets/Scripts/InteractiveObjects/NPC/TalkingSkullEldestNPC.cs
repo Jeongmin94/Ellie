@@ -196,7 +196,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetInteractiveObjToNull();
             //player.DeactivateInteractiveUI();
             
-            OnDisableAction?.Invoke(npcData.name);
+            OnDisableAction?.Invoke(npcData.type);
             this.gameObject.SetActive(false);
         }
         

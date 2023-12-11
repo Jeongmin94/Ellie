@@ -1,9 +1,5 @@
 ﻿using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
-using Channels.Boss;
-using Channels.Components;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle

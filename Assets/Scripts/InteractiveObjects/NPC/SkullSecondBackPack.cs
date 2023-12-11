@@ -20,7 +20,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         public void Interact(GameObject obj)
         {
-            if (obj.GetComponent<PlayerQuest>().GetQuestStatus(6104) != QuestStatus.Unaccepted)
+            if (obj.GetComponent<PlayerQuest>().GetQuestStatus(6104) != QuestStatus.Accepted)
             {
                 return;
             }
