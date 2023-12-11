@@ -5,6 +5,7 @@ using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using System.Collections;
 using UnityEngine;
 
 namespace Boss.Objects
@@ -13,10 +14,13 @@ namespace Boss.Objects
     {
         [SerializeField] private Transform spawnPosition;
         [SerializeField] private GameObject hitEffect;
+        [SerializeField] private Light lightComponent;
         [SerializeField] private string manaHitSound = "ManaFountainHit";
 
         public float coolDownValue = 3.0f;
         public float respawnValue = 3.0f;
+        public float lightIntensity = 15.0f;
+        public float changeLightTime = 1.0f;
         public TerrapupaAttackType banBossAttackType;
 
         private bool isCooldown;
@@ -43,6 +47,18 @@ namespace Boss.Objects
             set { isBroken = value; }
         }
 
+        private void Awake()
+        {
+            lightComponent = GetComponentInChildren<Light>();
+        }
+
+        private void OnDisable()
+        {
+            lightComponent.intensity = lightIntensity;
+            isCooldown = false;
+            StopAllCoroutines();
+        }
+
         public void InitTicketMachine(TicketMachine ticketMachine)
         {
             this.ticketMachine = ticketMachine;
@@ -65,7 +81,6 @@ namespace Boss.Objects
                         {
                             TransformValue1 = transform,
                         });
-
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {
@@ -118,6 +133,26 @@ namespace Boss.Objects
         {
             Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
             return vec.normalized;
+        }
+
+        public void SetLightIntensity(float targetIntensity, float duration)
+        {
+            StartCoroutine(ChangeIntensity(targetIntensity, duration));
+        }
+
+        private IEnumerator ChangeIntensity(float targetIntensity, float duration)
+        {
+            float startIntensity = lightComponent.intensity;
+            float time = 0;
+
+            while (time < duration)
+            {
+                lightComponent.intensity = Mathf.Lerp(startIntensity, targetIntensity, time / duration);
+                time += Time.deltaTime;
+                yield return null;
+            }
+
+            lightComponent.intensity = targetIntensity;
         }
     }
 }

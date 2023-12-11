@@ -167,5 +167,23 @@ namespace Assets.Scripts.UI.PopupMenu
         }
 
         #endregion
+
+        public static string ConfigToName(ConfigType type)
+        {
+            switch (type)
+            {
+                case ConfigType.Setting:
+                    return "세팅";
+                    break;
+                case ConfigType.Controls:
+                    return "컨트롤";
+                    break;
+                case ConfigType.Cheat:
+                    return "치트";
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(type), type, null);
+            }
+        }
     }
 }

@@ -28,6 +28,7 @@ public enum EventBusEvents
     BossRoomDoorOpen,
     EnterBossRoom,
     LeftBossRoom,
+    ActivateMagicStone,
 }
 
 public interface IBaseEventPayload

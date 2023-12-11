@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 903360848592381736}
   m_Layer: 10
   m_Name: HeadShot
-  m_TagString: Untagged
+  m_TagString: WeakPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2e096b59c7a8420c977887b8ea3a021, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterHeadShot, Assembly.Ellie
   controller: {fileID: 75047580125934228}
 --- !u!1 &574987668
 GameObject:
@@ -1744,7 +1744,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 748f79fe9d2c14a3c9b648ecd5d49b0a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.AdventureSkeletonController, Assembly.Ellie
   monsterData:
     index: 0
     monsterName: 
@@ -1920,7 +1920,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterAudioController, Assembly.Ellie
   data: {fileID: 11400000, guid: c820c946f59004cb3832834d4cb87342, type: 2}
 --- !u!114 &1731138202
 MonoBehaviour:
@@ -1933,7 +1933,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: b5eb79329df1549d3a18c06cb09e3c91, type: 2}
 --- !u!114 &7659240725079815480
 MonoBehaviour:
@@ -2528,7 +2528,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a2f1a7f540ee4084ae09420e2ce4bec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: PatrolPoints, Assembly.Ellie
 --- !u!1 &5374335118979370753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +3205,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &7946567601255918653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3263,7 +3263,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &7964537898988176375
 GameObject:
   m_ObjectHideFlags: 0
