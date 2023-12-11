@@ -40,19 +40,8 @@ namespace Assets.Scripts.Data.UI.Transform
         [Header("x, y, width, height")] public Rect rect;
         [Header("x, y scale")] public Vector2 scale = Vector2.one;
 
-        [OnValueChanged("OnValueChange")]
-        public Rect rect2;
-        [OnValueChanged("OnValueChange")]
-        public Vector2 scale2;
-
         public readonly Data<Rect> actionRect = new Data<Rect>();
         public readonly Data<Vector2> actionScale = new Data<Vector2>();
-
-        public void OnValueChange()
-        {
-            rect = rect2;
-            scale = scale2;
-        }
 
         public void OnBeforeSerialize()
         {
