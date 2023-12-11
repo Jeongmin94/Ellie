@@ -10,8 +10,8 @@ using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Assets.Scripts.UI.Dialog
 {
@@ -23,6 +23,11 @@ namespace Assets.Scripts.UI.Dialog
             SimpleDialogNextPanel,
         }
 
+        private enum Texts
+        {
+            SimpleDialogNextText,
+        }
+
         [SerializeField] private DialogTypographyData dialogContextData;
         [SerializeField] private UITransformData nextPanelTransform;
 
@@ -31,6 +36,9 @@ namespace Assets.Scripts.UI.Dialog
 
         private RectTransform simpleDialogPanelRect;
         private RectTransform nextPanelRect;
+        private RectTransform nextTextRect;
+
+        private TextMeshProUGUI nextText;
 
         private DialogText dialogText;
 
@@ -46,6 +54,8 @@ namespace Assets.Scripts.UI.Dialog
         private void Start()
         {
             simpleDialogPanel.gameObject.SetActive(false);
+            nextPanel.gameObject.SetActive(false);
+            
             dialogText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
         }
 
@@ -69,12 +79,16 @@ namespace Assets.Scripts.UI.Dialog
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
+            Bind<TextMeshProUGUI>(typeof(Texts));
 
             simpleDialogPanel = GetGameObject((int)GameObjects.SimpleDialogPanel);
             simpleDialogPanelRect = simpleDialogPanel.GetComponent<RectTransform>();
 
             nextPanel = GetGameObject((int)GameObjects.SimpleDialogNextPanel);
             nextPanelRect = nextPanel.GetComponent<RectTransform>();
+
+            nextText = GetText((int)Texts.SimpleDialogNextText);
+            nextTextRect = nextText.GetComponent<RectTransform>();
 
             dialogText = simpleDialogPanel.GetOrAddComponent<DialogText>();
         }
@@ -94,9 +108,14 @@ namespace Assets.Scripts.UI.Dialog
             nextPanelTransform.actionRect.Subscribe(nextPanelController.OnRectChange);
             nextPanelTransform.actionScale.Subscribe(nextPanelController.OnScaleChange);
 #endif
-            
             dialogText.InitDialogText();
             dialogText.InitTypography(dialogContextData);
+
+            AnchorPresets.SetAnchorPreset(nextTextRect, AnchorPresets.StretchAll);
+            nextTextRect.sizeDelta = Vector2.zero;
+            nextTextRect.localPosition = Vector3.zero;
+            
+            DialogTypographyData.SetDialogTypography(nextText, dialogContextData);
         }
 
         private void InitTicketMachine()
@@ -127,7 +146,9 @@ namespace Assets.Scripts.UI.Dialog
                         break;
                     }
 
-                    dialogText.gameObject.SetActive(true);
+                    simpleDialogPanel.SetActive(true);
+                    if(dialogPayload.canvasType == DialogCanvasType.SimpleRemaining)
+                        nextPanelRect.gameObject.SetActive(true);
                     Play(dialogPayload);
                 }
                     break;
@@ -172,7 +193,8 @@ namespace Assets.Scripts.UI.Dialog
         {
             if (dialogText.Stop())
             {
-                dialogText.gameObject.SetActive(false);
+                simpleDialogPanel.SetActive(false);
+                nextPanel.SetActive(false);
             }
         }
 
