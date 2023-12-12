@@ -19,6 +19,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject[] skullSecondTraps;
         public GameObject terrapupaController;
         public GameObject terrapupaMapObjectController;
+        public GameObject breakableStonePuzzle;
 
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
@@ -59,6 +60,7 @@ namespace Assets.Scripts.Centers.Test
             foreach(var SkullSecondTrap in skullSecondTraps)
                 CheckTicket(SkullSecondTrap.gameObject);
             CheckTicket(stonePillarPuzzle.gameObject);
+            CheckTicket(breakableStonePuzzle.gameObject);
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
         }

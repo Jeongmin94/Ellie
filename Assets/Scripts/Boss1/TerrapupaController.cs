@@ -25,10 +25,7 @@ public class TerrapupaController : BaseController
     [SerializeField] private PlayerController player;
 
     [Title("현재 페이즈 상태 체크용")]
-    [ReadOnly]
-    [SerializeField]
-    private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
-
+    [ReadOnly] [SerializeField] private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
     [ReadOnly] [SerializeField] private int minionDeathCheck = 4; // 3페이즈 미니언 4마리 체크
     [ReadOnly] [SerializeField] private int currentMinionSpawnIndex = 0;
     [ReadOnly] [SerializeField] private float fallCheckLatency = 5.0f;
@@ -58,6 +55,7 @@ public class TerrapupaController : BaseController
         ShuffleMinions();
         SetBossInfo();
         StartCoroutine(FallCheck());
+        StartCoroutine(NullCheck());
     }
 
     #region 1. 초기화 함수
@@ -279,10 +277,10 @@ public class TerrapupaController : BaseController
 
         BossEventPayload payload = bossPayload as BossEventPayload;
 
+        TerrapupaBTController actor = payload.Sender.GetComponent<TerrapupaBTController>();
         Transform _magicStone = payload.TransformValue1;
         int healValue = payload.IntValue;
 
-        TerrapupaBTController actor = payload.Sender.GetComponent<TerrapupaBTController>();
         actor.GetHealed(healValue);
         actor.terrapupaData.isTempted.Value = false;
         actor.terrapupaData.isIntake.Value = false;
@@ -578,6 +576,9 @@ public class TerrapupaController : BaseController
 
         terra.terrapupaData.player.Value = player.transform;
         pupa.terrapupaData.player.Value = player.transform;
+
+        terra.HideBillobard();
+        pupa.HideBillobard();
     }
 
     private void SpawnMinions(Transform obj)
@@ -593,6 +594,7 @@ public class TerrapupaController : BaseController
             minion.gameObject.SetActive(true);
             minion.transform.position = position;
             minion.minionData.player.Value = player.transform;
+            minion.HideBillobard();
 
             // 미니언 인덱스 갱신 ( +1 )
             currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;

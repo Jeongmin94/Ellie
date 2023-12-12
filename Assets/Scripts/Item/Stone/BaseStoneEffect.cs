@@ -3,6 +3,7 @@ using Assets.Scripts.Combat;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
+using Channels.Components;
 using System;
 using UnityEngine;
 
@@ -12,8 +13,11 @@ namespace Assets.Scripts.Item.Stone
     {
         public StoneEventType Type { get; set; }
 
-        private event Action<Transform> effectAction;
         protected StoneData data;
+        protected TicketMachine ticketMachine;
+
+        private Action<Transform> effectAction;
+        private bool isHitEnemy = false;
         private int collisionCount = 1;
         private LayerMask layerMask;
 
@@ -30,9 +34,10 @@ namespace Assets.Scripts.Item.Stone
             collisionCount = 1;
         }
 
-        public void InitData(StoneData data)
+        public virtual void InitData(StoneData data, TicketMachine ticketMachine)
         {
             this.data = data;
+            this.ticketMachine = ticketMachine;
         }
 
         public void SubscribeAction(Action<Transform> action)
@@ -66,6 +71,8 @@ namespace Assets.Scripts.Item.Stone
                     Debug.Log($"NormalStone OnCollisionEnter :: ICombatant OK {collision.gameObject.name}");
                     OccurEffect(hitObject.transform);
 
+                    isHitEnemy = true;
+
                     break;
                 }
             }
@@ -86,10 +93,10 @@ namespace Assets.Scripts.Item.Stone
 
             }
 
-
-            
+            if(isHitEnemy)
+            {
+                PoolManager.Instance.Push(this.GetComponent<Poolable>());
+            }
         }
-
-        
     }
 }

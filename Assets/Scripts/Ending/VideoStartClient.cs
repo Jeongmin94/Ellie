@@ -1,5 +1,6 @@
 using Assets.Scripts.Centers;
 using Assets.Scripts.Data.UI.Video;
+using Assets.Scripts.UI.Video;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
@@ -8,6 +9,8 @@ using UnityEngine;
 
 public class VideoStartClient : MonoBehaviour
 {
+    public VideoCanvas canvas;
+
     private TicketMachine ticketMachine;
 
     private void Awake()
@@ -20,7 +23,7 @@ public class VideoStartClient : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha9))
         {
-            SceneLoadManager.Instance.LoadScene(SceneName.Opening);
+            canvas.EndVideo();
         }
     }
 

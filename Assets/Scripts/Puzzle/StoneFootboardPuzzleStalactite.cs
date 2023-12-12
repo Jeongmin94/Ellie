@@ -82,6 +82,7 @@ namespace Assets.Scripts.Puzzle
                     
                     rb.useGravity = true;
                     rb.isKinematic = false;
+                    
                     isFallen = true;
                     particle.Stop();
                     particle = null;

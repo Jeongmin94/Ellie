@@ -6,6 +6,15 @@ using UnityEngine;
 
 namespace Data.UI.Config
 {
+    public enum DataType
+    {
+        Int,
+        Boolean,
+        String,
+        Float,
+        Vector2
+    }
+    
     public abstract class BaseConfigOptionData<T> : ScriptableObject
     {
         [SerializeField] public ConfigType configType;
@@ -51,5 +60,6 @@ namespace Data.UI.Config
 
         public bool IsSameType(ConfigType type) => configType == type;
         protected abstract string ValueString(T value);
+        public abstract DataType GetDataType();
     }
 }

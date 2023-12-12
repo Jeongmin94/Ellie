@@ -39,6 +39,8 @@ MonoBehaviour:
   - rid: 1683426582401646595
   - rid: 1683426582401646596
   - rid: 1683426582401646597
+  - rid: 116448341713223685
+  - rid: 116448341713223686
   treeState: 0
   blackboard:
     keys:
@@ -50,13 +52,42 @@ MonoBehaviour:
     - rid: 283011090204065879
     - rid: 1401849442858696713
     - rid: 1683426582401646594
-  viewPosition: {x: 2599.2, y: 294.4, z: 0}
+  viewPosition: {x: 2773.6, y: 729.6, z: 0}
   viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448341713223685
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 74cf44561eca5e6419644f67681006e7
+        position: {x: -2340, y: -945}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 116448341713223686
+        - rid: 1683426247750189181
+    - rid: 116448341713223686
+      type: {class: CheckTransformNull, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0212722e01d2d544a98e5089dbc1fbea
+        position: {x: -2505, y: -795}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        checkTransform:
+          reference:
+            rid: 283011090204065915
+          defaultValue: {fileID: 0}
     - rid: 283011018610442240
       type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
       data:
@@ -118,13 +149,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e035a90cf3891cf42b1526aa2dfa526e
-        position: {x: -2100, y: -990}
+        position: {x: -2100, y: -1125}
         blackboard:
           keys: []
         description: 
         drawGizmos: 0
         children:
-        - rid: 1683426247750189181
+        - rid: 116448341713223685
         - rid: 1401849440881606697
     - rid: 283011291767373838
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -187,7 +218,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
-        position: {x: -2100, y: -1140}
+        position: {x: -2100, y: -1275}
         blackboard:
           keys: []
         description: "\uC12D\uCDE8"
@@ -462,7 +493,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6e257778e92ffe5408956a9ea90033dc
-        position: {x: -2265, y: -795}
+        position: {x: -2235, y: -795}
         blackboard:
           keys: []
         description: 

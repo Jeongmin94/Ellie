@@ -153,7 +153,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.UI.GraphicRaycaster, UnityEngine.UI
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -275,7 +275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -562,7 +562,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.EventSystems.StandaloneInputModule, UnityEngine.UI
   m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
@@ -665,10 +665,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 659a551ab35d2764e8ebb3bd812c3014, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: EndingCenter, Assembly.Ellie
   channelTypeSo: {fileID: 11400000, guid: bc4cc3b582518e74e9e5ee5a1256fc29, type: 2}
   Canvases: {fileID: 0}
   uiPrefabs: []
+  controllerInstances: []
   Canvas: {fileID: 1147367138}
   Client: {fileID: 1940527374}
 --- !u!4 &1541444634
@@ -697,13 +698,21 @@ PrefabInstance:
       propertyPath: videoData
       value: 
       objectReference: {fileID: 11400000, guid: 22800f1c9bc07c34ca6be57006cc45dd, type: 2}
+    - target: {fileID: 1695365844, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+      propertyPath: m_EditorClassIdentifier
+      value: Assets.Scripts.UI.Video.VideoCanvas, Assembly.Ellie
+      objectReference: {fileID: 0}
     - target: {fileID: 2620129049353322994, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
       propertyPath: m_PlayOnAwake
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2620129049353322994, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
       propertyPath: m_PlaybackSpeed
-      value: 1.5
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620129050418117633, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+      propertyPath: m_EditorClassIdentifier
+      value: UnityEngine.UI.GraphicRaycaster, UnityEngine.UI
       objectReference: {fileID: 0}
     - target: {fileID: 2620129050418117634, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
       propertyPath: m_Name
@@ -813,8 +822,31 @@ PrefabInstance:
       propertyPath: m_SortingOrder
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 2620129051007169494, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620129051007169494, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2620129051007169494, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+--- !u!114 &1700141140 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1695365844, guid: eed55f99af4584c479a8755b014bb77a, type: 3}
+  m_PrefabInstance: {fileID: 1700141139}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1147367138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b6e1c26372547b98ea0f6868a700ce7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.UI.Video.VideoCanvas, Assembly.Ellie
 --- !u!1 &1940527374
 GameObject:
   m_ObjectHideFlags: 0
@@ -858,4 +890,5 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d9933a8f74ad7b84c88ee7bb9d978504, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: VideoStartClient, Assembly.Ellie
+  canvas: {fileID: 1700141140}
