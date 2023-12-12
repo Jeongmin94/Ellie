@@ -62,7 +62,7 @@ namespace Assets.Scripts.Puzzle
         private void DestroyStone()
         {
             // 파괴 파티클
-            ParticleManager.Instance.GetParticle(destroyEffect, transform, 1.0f);
+            ParticleManager.Instance.GetParticle(destroyEffect, transform, 2.0f);
 
             // 돌 삭제
             Destroy(this.gameObject);

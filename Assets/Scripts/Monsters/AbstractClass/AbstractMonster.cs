@@ -120,7 +120,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
         }
         public void Attack(IBaseEventPayload payload)
         {
-            Debug.Log("SEND");
             CombatPayload a = payload as CombatPayload;
             Debug.Log(a.Defender.name);
             ticketMachine.SendMessage(ChannelType.Combat, payload);
