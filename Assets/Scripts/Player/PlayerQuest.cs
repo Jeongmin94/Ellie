@@ -78,8 +78,6 @@ namespace Assets.Scripts.Player
             {
                 questStatusDic.Add(data.index, QuestStatus.CantAccept);
             }
-
-            // !TODO : 플레이어의 퀘스트 데이터를 로딩합니다
         }
 
         private IEnumerator OnDataLoadedCoroutine()
@@ -91,7 +89,8 @@ namespace Assets.Scripts.Player
             // 3. 모든 퀘스트 다 깼을 경우
             if (questStatusDic[6100] != QuestStatus.CantAccept)
             {
-                SendDisplayQuestMessage(curQuestData);
+                if(curQuestData != null)
+                    SendDisplayQuestMessage(curQuestData);
                 yield break;
             } 
             else

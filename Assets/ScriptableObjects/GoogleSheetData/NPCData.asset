@@ -11,42 +11,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b7542142c62fa842b6b976bab6daee3, type: 3}
   m_Name: NPCData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Data.GoogleSheet.NPCDataParsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1DlHsnJDvkPX63VSBQC0I_Bg3tRGKPfGMpX1gIgggWEQ/edit#gid=602129952
   startCell: B6
-  endColumn: G
-  tsv: "<!DOCTYPE html><html lang=\"ko\"><head><meta name=\"description\" content=\"\uC778\uD130\uB137\uC5D0\uC11C
-    \uBB38\uC11C\uB97C \uC791\uC131\uD558\uACE0 \uD504\uB808\uC820\uD14C\uC774\uC158
-    \uBC0F \uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8\uB97C \uB9CC\uB4E4\uC5B4 \uBCF4\uC138\uC694.\"><meta
-    name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0,
-    minimum-scale=1.0, user-scalable=0\"><link rel=\"shortcut icon\" href=\"//docs.google.com/favicon.ico\"><title>\uD398\uC774\uC9C0\uB97C
-    \uCC3E\uC744 \uC218 \uC5C6\uC74C</title><meta name=\"referrer\" content=\"origin\"><link
-    href=\"//fonts.googleapis.com/css?family=Product+Sans\" rel=\"stylesheet\" type=\"text/css\"
-    nonce=\"GGqV0QalRGKcbwNmvZ5XYw\"><style nonce=\"GGqV0QalRGKcbwNmvZ5XYw\">.goog-inline-block{position:relative;display:-moz-inline-box;display:inline-block}*
-    html .goog-inline-block{display:inline}*:first-child+html .goog-inline-block{display:inline}#drive-logo{margin:18px
-    0;position:absolute;white-space:nowrap}.docs-drivelogo-img{background-image:url(//ssl.gstatic.com/images/branding/googlelogo/1x/googlelogo_color_116x41dp.png);-webkit-background-size:116px
-    41px;background-size:116px 41px;display:inline-block;height:41px;vertical-align:bottom;width:116px}.docs-drivelogo-text{color:#000;display:inline-block;opacity:.54;text-decoration:none;font-family:\"Product
-    Sans\",Arial,Helvetica,sans-serif;font-size:32px;text-rendering:optimizeLegibility;position:relative;top:-6px;left:-7px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}@media
-    (-o-min-device-pixel-ratio:3/2),(-webkit-min-device-pixel-ratio:1.5),(min-resolution:144dpi){.docs-drivelogo-img{background-image:url(//ssl.gstatic.com/images/branding/googlelogo/2x/googlelogo_color_116x41dp.png)}}sentinel{}</style><style
-    type=\"text/css\" nonce=\"GGqV0QalRGKcbwNmvZ5XYw\">body {background-color: #fff;
-    font-family: Arial,sans-serif; font-size: 13px; margin: 0; padding: 0;}a, a:link,
-    a:visited {color: #112ABB;}</style><style type=\"text/css\" nonce=\"GGqV0QalRGKcbwNmvZ5XYw\">.errorMessage
-    {font-size: 12pt; font-weight: bold; line-height: 150%;}</style></head><body><div
-    id=\"outerContainer\"><div id=\"innerContainer\"><div style=\"position: absolute;
-    top: -80px;\"><div style=\"margin: 18px 0; position: absolute; white-space: nowrap;\"><a
-    href=\"//support.google.com/docs/\"><img height=\"35px\" src=\"//ssl.gstatic.com/docs/common/product/spreadsheets_lockup2.png\"
-    alt=\"Google \uB85C\uACE0\"/></a></div></div><div align=\"center\"><p class=\"errorMessage\"
-    style=\"padding-top: 50px\">\uD604\uC7AC \uD30C\uC77C\uC744 \uC5F4 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4.</p><p>\uC8FC\uC18C\uB97C
-    \uD655\uC778\uD55C \uB2E4\uC74C \uB2E4\uC2DC \uC2DC\uB3C4\uD574 \uC8FC\uC138\uC694.</p><div
-    style=\"background: #F0F6FF; border: 1px solid black; margin-top: 35px; padding:
-    10px 125px; width: 300px;\"><p><strong>Google Drive\uB97C \uC0AC\uC6A9\uD558\uC5EC
-    \uC791\uC5C5\uD558\uC138\uC694.</strong></p><p>Google Drive\uC758 \uC571\uC744
-    \uC0AC\uC6A9\uD558\uBA74 \uC628\uB77C\uC778 \uBB38\uC11C, \uC2A4\uD504\uB808\uB4DC\uC2DC\uD2B8,
-    \uD504\uB808\uC820\uD14C\uC774\uC158\uC744 \uC27D\uAC8C \uB9CC\uB4E4\uACE0 \uC800\uC7A5\uD558\uACE0
-    \uACF5\uC720\uD560 \uC218 \uC788\uC2B5\uB2C8\uB2E4.</p><p><a href=\"https://drive.google.com/start/apps\">drive.google.com/start/apps</a>\uC5D0\uC11C
-    \uC790\uC138\uD788 \uC54C\uC544\uBCF4\uC138\uC694.</p></div></div></div></div></body><style
-    nonce=\"GGqV0QalRGKcbwNmvZ5XYw\">html {height: 100%; overflow: auto;}body {height:
-    100%; overflow: auto;}#outerContainer {margin: auto; max-width: 750px;}#innerContainer
-    {margin-bottom: 20px; margin-left: 40px; margin-right: 40px; margin-top: 80px;
-    position: relative;}</style></html>"
+  endColumn: H
+  tsv: "6000\t\uB9D0\uD558\uB294 \uD574\uACE8 \uBA38\uB9AC \uCCAB \uC9F8\t-\tTRUE\tTRUE\t6101;6102\r\n6001\t\uB9D0\uD558\uB294
+    \uD574\uACE8 \uBA38\uB9AC \uB458 \uC9F8\t-\tTRUE\tTRUE\t6103;6104;6105\r\n6002\t\uB9D0\uD558\uB294
+    \uD574\uACE8 \uBA38\uB9AC \uB9C9\uB0B4\t-\tTRUE\tTRUE\t6106;6107"
   datas: []

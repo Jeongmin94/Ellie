@@ -2,6 +2,7 @@
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using System.Collections.Generic;
+using Assets.Scripts.InteractiveObjects.NPC;
 
 namespace Assets.Scripts.Managers
 {
@@ -10,8 +11,6 @@ namespace Assets.Scripts.Managers
         Inventory,
         Player,
         NPC,
-        Puzzle,
-
         End,
     }
 
@@ -67,12 +66,6 @@ namespace Assets.Scripts.Managers
     }
     public class NPCSavePayload : IBaseEventPayload
     {
-        public Dictionary<string, bool> NPCActiveDic;
+        public Dictionary<NpcType, bool> NPCActiveDic;
     }
-
-    public class PuzzleSavePayload : IBaseEventPayload
-    {
-
-    }
-
 }

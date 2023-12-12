@@ -157,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99899864, y: 0.44199944, z: -4.5200043}
+  m_LocalPosition: {x: 0.9990001, y: 0.4419999, z: -4.5200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.99899864, y: 0.44199944, z: -4.5200043}
+  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -328,7 +328,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 54.1285
+  m_FocalLength: 29.999998
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -337,7 +337,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 25
+  field of view: 43.60282
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -7138,7 +7138,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572231187841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7420006, z: -7}
+  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7311,9 +7311,9 @@ MonoBehaviour:
   cinematicMainCam: {fileID: 4016927572231187846}
   cinematicAimCam: {fileID: 4016927572422116012}
   cinematicDialogCam: {fileID: 1118065665}
-  walkSpeed: 7
-  sprintSpeed: 11
-  dodgeSpeed: 30
+  walkSpeed: 5
+  sprintSpeed: 8
+  dodgeSpeed: 10
   rotationSpeed: 10
   jumpForce: 10
   additionalJumpForce: 9
@@ -7577,6 +7577,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6affbb72b17d351408e34d137f197a63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.PlayerQuest, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   isPlaying: 0
 --- !u!114 &1144504781
 MonoBehaviour:
@@ -7616,7 +7625,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572422116014}
   m_LocalRotation: {x: 0.123005815, y: -0.035375133, z: 0.0043874756, w: 0.99176556}
-  m_LocalPosition: {x: 0.9999981, y: 0.5419998, z: -2}
+  m_LocalPosition: {x: 1, y: 0.5419998, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
