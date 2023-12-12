@@ -1,9 +1,16 @@
 ﻿using Assets.Scripts.Combat;
+using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
+using Assets.Scripts.Player;
 using Channels.Combat;
 using Channels.Components;
+using Channels.Dialog;
+using Channels.Type;
+using Channels.UI;
 using Sirenix.OdinInspector;
+using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle
@@ -12,9 +19,17 @@ namespace Assets.Scripts.Puzzle
     {
         public GameObject destroyEffect;
         public int currentHP;
-        public float stoneShakeTime;
+
+        public float shakeDuration = 0.1f;
+        public float shakeMagnitude = 0.1f;
 
         private TicketMachine ticketMachine;
+
+        [Button("히트 테스트", ButtonSizes.Large)]
+        public void Test()
+        {
+            HitByStone(1);
+        }
 
         public void InitTicketMachine(TicketMachine ticketMachine)
         {
@@ -52,6 +67,8 @@ namespace Assets.Scripts.Puzzle
 
         private void GetDamaged(int damageValue)
         {
+            StartCoroutine(ShakeCoroutine());
+
             currentHP -= damageValue;
             if (currentHP <= 0)
             {
@@ -66,6 +83,22 @@ namespace Assets.Scripts.Puzzle
 
             // 돌 삭제
             Destroy(this.gameObject);
+        }
+
+        private IEnumerator ShakeCoroutine()
+        {
+            float elapsed = 0.0f;
+
+            Vector3 originalPosition = transform.position;
+
+            while (elapsed < shakeDuration)
+            {
+                transform.position = originalPosition + Random.insideUnitSphere * shakeMagnitude;
+                elapsed += Time.deltaTime;
+                yield return null; // 다음 프레임까지 기다림
+            }
+
+            transform.position = originalPosition; // 원래 위치로 돌아감
         }
     }
 }

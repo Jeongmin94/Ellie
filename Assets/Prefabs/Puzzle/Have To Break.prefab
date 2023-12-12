@@ -98,11 +98,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 454262, guid: 438e2d5f3b9cf3344bca7c6ee3a7413b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.220001
+      value: -8.83
       objectReference: {fileID: 0}
     - target: {fileID: 454262, guid: 438e2d5f3b9cf3344bca7c6ee3a7413b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.34000015
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 454262, guid: 438e2d5f3b9cf3344bca7c6ee3a7413b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -163,7 +163,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d624be85f82dc7b4eb0d6add0e0d5f30, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Puzzle.BreakableStone, Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -175,7 +175,8 @@ MonoBehaviour:
     SerializationNodes: []
   destroyEffect: {fileID: 0}
   currentHP: 0
-  stoneShakeTime: 0
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
 --- !u!1001 &5350558775493163472
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -286,7 +287,8 @@ MonoBehaviour:
     SerializationNodes: []
   destroyEffect: {fileID: 0}
   currentHP: 0
-  stoneShakeTime: 0
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
 --- !u!1001 &5350558775610888960
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -392,7 +394,8 @@ MonoBehaviour:
     SerializationNodes: []
   destroyEffect: {fileID: 0}
   currentHP: 0
-  stoneShakeTime: 0
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
 --- !u!4 &5350558775610981750 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 454262, guid: 438e2d5f3b9cf3344bca7c6ee3a7413b, type: 3}
@@ -508,4 +511,5 @@ MonoBehaviour:
     SerializationNodes: []
   destroyEffect: {fileID: 0}
   currentHP: 0
-  stoneShakeTime: 0
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
