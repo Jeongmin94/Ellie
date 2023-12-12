@@ -1,9 +1,5 @@
 ﻿using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
-using Channels.Boss;
-using Channels.Components;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle
@@ -86,6 +82,7 @@ namespace Assets.Scripts.Puzzle
                     
                     rb.useGravity = true;
                     rb.isKinematic = false;
+                    
                     isFallen = true;
                     particle.Stop();
                     particle = null;
@@ -114,7 +111,7 @@ namespace Assets.Scripts.Puzzle
                     ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
 
                     lineRenderer.enabled = false;
-                    Destroy(this);
+                    Destroy(this.gameObject);
                 }
             }
         }

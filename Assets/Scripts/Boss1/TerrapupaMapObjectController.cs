@@ -13,6 +13,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Controller;
 using UnityEngine;
+using Channels.UI;
 
 public class TerrapupaMapObjectController : BaseController
 {
@@ -130,6 +131,7 @@ public class TerrapupaMapObjectController : BaseController
         EventBus.Instance.Subscribe(EventBusEvents.DestroyedManaByBoss1, OnDestroyedMana);
         EventBus.Instance.Subscribe(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
         EventBus.Instance.Subscribe(EventBusEvents.BossRoomDoorOpen, OnBossRoomDoorOpen);
+        EventBus.Instance.Subscribe(EventBusEvents.ActivateMagicStone, OnActivateMagicStone);
     }
 
     #endregion
@@ -286,6 +288,19 @@ public class TerrapupaMapObjectController : BaseController
         }
     }
 
+    private void OnActivateMagicStone(IBaseEventPayload basePayload)
+    {
+        Debug.Log($"OnActivateMagicStone :: 마법 돌맹이 개수 1개 제한");
+        BossEventPayload payload = basePayload as BossEventPayload;
+
+        var magicStone = payload.Sender.GetComponent<MagicStone>();
+
+        if(!MagicStone.isActivateRange)
+        {
+            magicStone.ActivateRange();
+        }
+    }
+
     #endregion
 
     #region 3. 코루틴 함수
@@ -293,11 +308,19 @@ public class TerrapupaMapObjectController : BaseController
     private IEnumerator ManaCooldown(BossEventPayload manaPayload)
     {
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        if (mana.isActiveAndEnabled)
+        {
+            mana.SetLightIntensity(0.0f, mana.changeLightTime);
+        }
         mana.IsCooldown = true;
 
         yield return new WaitForSeconds(mana.coolDownValue);
 
         Debug.Log($"{mana.name} 쿨타임 완료");
+        if (mana.isActiveAndEnabled)
+        {
+            mana.SetLightIntensity(mana.lightIntensity, mana.changeLightTime);
+        }
         mana.IsCooldown = false;
     }
 
@@ -309,7 +332,7 @@ public class TerrapupaMapObjectController : BaseController
         yield return new WaitForSeconds(respawnTime);
 
         Vector3 position = GenerateRandomPositionInSector(payload.IntValue);
-        payload.TransformValue1.position = position;
+        payload.TransformValue1.localPosition = position;
         payload.TransformValue1.gameObject.SetActive(true);
     }
 

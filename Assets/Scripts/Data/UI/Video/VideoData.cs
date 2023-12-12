@@ -9,5 +9,6 @@ namespace Assets.Scripts.Data.UI.Video
     {
         [SerializeField] public VideoClip videoClip;
         [SerializeField] public SceneName playAfterScene;
+        [SerializeField] public bool isLoadData;
     }
 }

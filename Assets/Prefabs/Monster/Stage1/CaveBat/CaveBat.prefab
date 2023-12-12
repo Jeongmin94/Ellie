@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 1258672269}
   - component: {fileID: 1258672271}
   - component: {fileID: 1258672270}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: ChasePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &1378685216
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1378685217}
   - component: {fileID: 1378685219}
   - component: {fileID: 1378685218}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: PlayerDetect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &1597554981
 GameObject:
   m_ObjectHideFlags: 0
@@ -989,7 +989,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81b9a9bcaa8cd452aa681d99d6e1dbb2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.CaveBatController, Assembly.Ellie
   monsterData:
     index: 0
     monsterName: 
@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterAudioController, Assembly.Ellie
   data: {fileID: 11400000, guid: 9a904c12f67a8472fa6dd66acb5c0d69, type: 2}
 --- !u!114 &888380734
 MonoBehaviour:
@@ -1322,7 +1322,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: bd835a946ce8d4310bac2aff715cf2b9, type: 2}
 --- !u!1 &6860746806608860722
 GameObject:

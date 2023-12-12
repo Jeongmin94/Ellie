@@ -16,6 +16,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public int damage;
         public StatusEffectName statusEffect;
         public float statusEffectDuration;
+        public float force;
         public StatusEffectName debuff;
         public List<int> conditions = new();
         public string specialEffectName;
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public string textureName;
         public Material stoneMaterial;
         public GameObject hitParticle;
+        public GameObject skillEffectParticle;
     }
 
     [CreateAssetMenu(fileName = "StoneData", menuName = "GameData List/StoneData")]
@@ -101,6 +103,14 @@ namespace Assets.Scripts.Data.GoogleSheet
                     data.stoneMaterial = Resources.Load<Material>("Materials/StoneMaterials/" + data.index.ToString());
                     //힛 파티클 추가
                     data.hitParticle = Resources.Load<GameObject>("Prefabs/StoneHitParticles/" + data.index.ToString());
+                    //특수효과 추가
+                    var skillParticle = Resources.Load<GameObject>("Prefabs/StoneSkillParticles/" + data.index.ToString());
+                    if(skillParticle != null)
+                    {
+                        data.skillEffectParticle = skillParticle;
+                    }
+                    // 임시 상태이상 힘 추가, 나중에 시트에 추가
+                    data.force = 10.0f;
                 }
                 catch (Exception e)
                 {

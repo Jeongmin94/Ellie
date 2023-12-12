@@ -4,10 +4,17 @@ using Assets.Scripts.Player;
 using Channels.UI;
 using System;
 using System.Collections;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
+    public enum NpcType
+    {
+        TalkingSkullEldest,
+        TalkingSkullSecond,
+        TalkingSkullYoungest,
+    }
     public class BaseNPC : MonoBehaviour, IInteractiveObject
     {
         //NPC 및 퀘스트 데이터
@@ -26,7 +33,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         protected PlayerQuest player;
 
         //npc 로직 완료 후 비활성화 시 실행해줄 이벤트
-        protected Action<string> OnDisableAction;
+        protected Action<NpcType> OnDisableAction;
 
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
@@ -41,31 +48,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 NPCObj = transform.GetChild(0);
         }
 
-        private void Start()
-        {
-            
-        }
-
         protected void Init()
         {
             StartCoroutine(InitCoroutine());
         }
+        
         private IEnumerator InitCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
-            //questDataDict = new();
-            //foreach(int dataIdx in npcData.questList)
-            //{
-            //    QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
-            //    questDataDict.Add(dataIdx, data);
-            //}
-            //curQuestData = questDataDict[npcData.questList[0]];
         }
         public virtual void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
-            //LookAtPlayer();
         }
 
         protected void LookAtPlayer()
@@ -118,7 +113,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             return interactiveType;
         }
 
-        public void SubscribeOnDisableAction(Action<string> listener)
+        public void SubscribeOnDisableAction(Action<NpcType> listener)
         {
             OnDisableAction -= listener;
             OnDisableAction += listener;

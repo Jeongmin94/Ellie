@@ -24,7 +24,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6207184824476312728}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -43,11 +43,30 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9f67bf0165d8a554985357ac39a59651, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Centers.Test.GameCenter, Assembly.Ellie
   channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
+  Canvases: {fileID: 0}
+  uiPrefabs:
+  - {fileID: 5104706258619150005, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
+  - {fileID: 8056075410326717546, guid: 8aa015324f5530340ba419dc5deab6ad, type: 3}
+  controllerInstances:
+  - {fileID: 0}
+  - {fileID: 0}
   player: {fileID: 0}
   hatchery: {fileID: 0}
-  inventory: {fileID: 0}
-  ores: []
+  ores:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  monsterController: {fileID: 0}
   monsters: {fileID: 0}
+  skullSecondTraps:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  terrapupaController: {fileID: 0}
+  terrapupaMapObjectController: {fileID: 0}
+  breakableStonePuzzle: {fileID: 0}
+  stonePillarPuzzle: {fileID: 0}
   curStage: 1

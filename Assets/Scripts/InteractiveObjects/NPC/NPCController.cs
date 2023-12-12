@@ -8,8 +8,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
     public class NPCController : MonoBehaviour
     {
         [SerializeField] private GameObject[] npcs;
+        [SerializeField] private GameObject[] colliders;
         
-        private Dictionary<string, bool> NPCActiveDic = new Dictionary<string, bool>();
+        private Dictionary<NpcType, bool> NPCActiveDic = new Dictionary<NpcType, bool>();
+        private Dictionary<NpcType, GameObject> questColliderDic = new();
         private void Awake()
         {
             SaveLoadManager.Instance.SubscribeSaveEvent(SaveNPCData);
@@ -19,12 +21,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             {
                 npc.GetComponent<BaseNPC>().SubscribeOnDisableAction(OnNPCDisable);
             }
+
+            foreach (var collider in colliders)
+            {
+                NpcType type = collider.GetComponent<QuestCollider.QuestCollider>().GetType();
+                questColliderDic[type] = collider;
+            }
         }
 
-        private void OnNPCDisable(string name)
+        private void OnNPCDisable(NpcType type)
         {
-            NPCActiveDic[name] = false;
-
+            NPCActiveDic[type] = false;
+            questColliderDic[type].SetActive(false);
+            
             StartCoroutine(SaveNPCStatusCoroutine());
         }
 
@@ -35,18 +44,16 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         }
         private void SaveNPCData()
         {
-            NPCSavePayload payload = new NPCSavePayload();
-            payload.NPCActiveDic = NPCActiveDic; 
-
-            Debug.Log("Saving NPC Data");
+            NPCSavePayload payload = new NPCSavePayload
+            {
+                NPCActiveDic = NPCActiveDic
+            };
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.NPC, payload);
         }
 
         private void LoadNPCData(IBaseEventPayload payload)
         {
             if (payload is not NPCSavePayload savePayload) return;
-            Debug.Log("NPC Load"); 
-            //여기서 리턴되는듯
             NPCActiveDic = savePayload.NPCActiveDic;
             if(NPCActiveDic.Count > 0)
                 SetNPCActive();
@@ -54,14 +61,18 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void SetNPCActive()
         {
-            foreach(var npcName in NPCActiveDic.Keys)
+            foreach(var npcType in NPCActiveDic.Keys)
             {
                 foreach(var npc in npcs)
                 {
-                    if(npc.GetComponent<BaseNPC>().GetData().name == npcName)
+                    NpcType type = npc.GetComponent<BaseNPC>().GetData().type;
+                    if(type == npcType)
                     {
-                        if (!NPCActiveDic[npcName])
+                        if (!NPCActiveDic[npcType])
+                        {
                             npc.SetActive(false);
+                            questColliderDic[type].SetActive(false);
+                        }
                     }
                 }
             }

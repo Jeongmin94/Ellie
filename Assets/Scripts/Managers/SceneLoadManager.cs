@@ -12,6 +12,7 @@ namespace Assets.Scripts.Centers
         InGame,
         Closing,
         LoadingScene,
+        NewStart,
     }
 
     public class SceneLoadManager : Singleton<SceneLoadManager>

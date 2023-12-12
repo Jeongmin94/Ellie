@@ -1,4 +1,5 @@
-using System;
+using Assets.Scripts.Channels;
+using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Channels.Item;
 using Channels.Boss;
 using Channels.Combat;
@@ -37,7 +38,12 @@ namespace Channels.Utils
                     channel = new MonsterChannel();
                     break;
                 case ChannelType.Camera:
-                    channel = new MonsterChannel();
+                    channel = new CameraChannel();
+                    break;
+                case ChannelType.Item:
+                    break;
+                case ChannelType.Portal:
+                    channel = new PortalChannel();
                     break;
             }
             return channel;

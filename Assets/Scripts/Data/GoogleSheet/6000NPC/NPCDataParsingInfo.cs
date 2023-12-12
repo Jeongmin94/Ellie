@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.InteractiveObjects.NPC;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
@@ -13,6 +14,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public bool isInteractable;
         public bool isTakingControl;
         public List<int> questList = new();
+        public NpcType type;
     }
     [CreateAssetMenu(fileName = "NPCData", menuName = "GameData List/NPCData")]
 
@@ -66,6 +68,8 @@ namespace Assets.Scripts.Data.GoogleSheet
                             }
                         }
                     }
+                    //enum타입
+                    data.type = (NpcType)Enum.Parse(typeof(NpcType), entries[6].Trim());
                 }
                 catch (Exception e)
                 {

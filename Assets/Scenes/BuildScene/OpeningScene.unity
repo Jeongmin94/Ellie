@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: bef0ecd7151e3004fbad1ed75318b8e5, type: 2}
   m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
@@ -4978,7 +4978,19 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f011d131ad03b4f13be261d66d21f497, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Centers.SceneLoadManager, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes:
+    - Name: CurrentScene
+      Entry: 3
+      Data: 0
 --- !u!4 &331704870
 Transform:
   m_ObjectHideFlags: 0
@@ -21256,7 +21268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1315446735
 Transform:
   m_ObjectHideFlags: 0
@@ -21283,7 +21295,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4395068cced2bb44ba6c8434df14f36, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Managers.DataManager, Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -21940,7 +21952,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.EventSystems.StandaloneInputModule, UnityEngine.UI
   m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
@@ -28246,11 +28258,12 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 567732c2fefd4e679fa488f2e8d879f4, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.OpeningCenter, Assembly.Ellie
   channelTypeSo: {fileID: 11400000, guid: 5dc258f6d07db6842b8141630150376c, type: 2}
   Canvases: {fileID: 273971211}
   uiPrefabs:
   - {fileID: 5620976766535060339, guid: 0b9808471eb376243a85e83c3e5da4f0, type: 3}
+  controllerInstances: []
 --- !u!1001 &1765269016
 PrefabInstance:
   m_ObjectHideFlags: 0
