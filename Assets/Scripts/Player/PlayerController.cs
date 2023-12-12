@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
@@ -103,7 +104,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private GameObject rightHand;
         public bool hasStone;
         public GameObject shooter;
-        public GameObject MeleeAttackCollider;
+        public GameObject meleeAttackCollider;
         [SerializeField] private int curStoneIdx;
         private Vector3 aimTarget;
         public Vector3 AimTarget
@@ -206,9 +207,7 @@ namespace Assets.Scripts.Player
             SubscribeStopCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
             SubscribeStopCameraShakeAction(cinematicAimCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
             SubscribeStopCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
-
-            //shooter 이벤트 구독
-            // shooter.GetComponent<Shooter>().Init();
+           
         }
 
         private void InitTicketMachine()
@@ -250,11 +249,6 @@ namespace Assets.Scripts.Player
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
 
-            //test
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                GetPickaxe(9000);
-            }
 
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -586,10 +580,10 @@ namespace Assets.Scripts.Player
             float curWeight = Anim.GetLayerWeight((int)layer);
             if (Mathf.Equals(curWeight, weight)) return;
 
-            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            float animLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             if (curWeight < weight)
             {
-                curWeight += AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                curWeight += animLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
             }
             Anim.SetLayerWeight((int)layer, curWeight);
         }
@@ -619,8 +613,7 @@ namespace Assets.Scripts.Player
         public void Aim()
         {
             Ray shootRay = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-            RaycastHit hit;
-            if (Physics.Raycast(shootRay, out hit, Mathf.Infinity, ~layerToIgnore))
+            if (Physics.Raycast(shootRay, out var hit, Mathf.Infinity, ~layerToIgnore))
             {
                 AimTarget = hit.point;
             }
@@ -678,15 +671,15 @@ namespace Assets.Scripts.Player
         public void TurnOnMeleeAttackCollider()
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound5", transform.position);
-            MeleeAttackCollider.SetActive(true);
+            meleeAttackCollider.SetActive(true);
         }
 
         public void TurnOffMeleeAttackCollider()
         {
-            MeleeAttackCollider.SetActive(false);
+            meleeAttackCollider.SetActive(false);
         }
 
-        public void GrabSlingshotLeather()
+        private void GrabSlingshotLeather()
         {
             slingshot.GetComponent<Slingshot>().leather.transform.position = rightHand.transform.position;
         }
@@ -808,29 +801,16 @@ namespace Assets.Scripts.Player
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
         }
 
-        private void GetConsumalbeItemTest(int idx)
+        private void SubscribeCameraShakeAction(Action<float, float> listener)
         {
-            UIPayload payload = new()
-            {
-                uiType = UIType.Notify,
-                groupType = UI.Inventory.GroupType.Item,
-                slotAreaType = UI.Inventory.SlotAreaType.Item,
-                actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(idx)
-            };
-            ticketMachine.SendMessage(ChannelType.UI, payload);
+            cameraShakeAction -= listener;
+            cameraShakeAction += listener;
         }
 
-        private void SubscribeCameraShakeAction(Action<float, float> Listener)
+        private void SubscribeStopCameraShakeAction(Action listener)
         {
-            cameraShakeAction -= Listener;
-            cameraShakeAction += Listener;
-        }
-
-        private void SubscribeStopCameraShakeAction(Action Listener)
-        {
-            stopCameraShakeAction -= Listener;
-            stopCameraShakeAction += Listener;
+            stopCameraShakeAction -= listener;
+            stopCameraShakeAction += listener;
         }
         public void ShakeCamera(float shakeIntensity, float shakeTime)
         {
@@ -862,9 +842,11 @@ namespace Assets.Scripts.Player
 
         public PickaxeDataSaveInfo GetPickaxeDataSaveInfo()
         {
-            PickaxeDataSaveInfo info = new();
+            PickaxeDataSaveInfo info = new()
+            {
+                isPickaxeAvailable = isPickaxeAvailable
+            };
 
-            info.isPickaxeAvailable = isPickaxeAvailable;
             if(isPickaxeAvailable)
                 info.pickaxeTier = (int)curPickaxeTier;
             else
