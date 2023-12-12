@@ -10,6 +10,7 @@ namespace Assets.Scripts.Managers
 {
     public class TicketManager : Singleton<TicketManager>
     {
+        [SerializeField]
         private readonly IDictionary<ChannelType, BaseEventChannel> channels = new Dictionary<ChannelType, BaseEventChannel>();
 
         public override void Awake()
