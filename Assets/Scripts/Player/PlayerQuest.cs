@@ -418,6 +418,7 @@ namespace Assets.Scripts.Player
         {
             controller.canMove = false;
             controller.canTurn = false;
+            controller.ChangeState(PlayerStateName.Conversation);
         }
 
         public void UnlockPlayerMovement()
@@ -448,11 +449,6 @@ namespace Assets.Scripts.Player
         {
             GetComponent<PlayerInteraction>().interactiveObject = null;
             GetComponent<PlayerInteraction>().SetCanInteract(false);
-        }
-
-        public void SetCurQuest(int questidx)
-        {
-            curQuestData = questDataList[questidx % 6100];
         }
 
         public QuestDataSaveInfo GetQuestDataSaveInfo()

@@ -243,7 +243,6 @@ namespace Assets.Scripts.Player
             GetInput();
             CheckGround();
             Turn();
-            //SetColliderHeight();
             ResetPlayerPos();
             SetMovingAnim();
             stateMachine?.UpdateState();
@@ -272,7 +271,6 @@ namespace Assets.Scripts.Player
 
         private void InitVariables()
         {
-
             Rb.freezeRotation = true;
             canMove = true;
             canJump = true;
@@ -300,6 +298,7 @@ namespace Assets.Scripts.Player
         }
         private void SetMovingAnim()
         {
+            if (!canTurn || !canMove) return;
             if (stateMachine.CurrentStateName == PlayerStateName.Conversation || !canMove)
             {
                 Anim.SetFloat("Input Magnitude", 0f);
