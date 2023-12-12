@@ -298,7 +298,6 @@ namespace Assets.Scripts.Player
         }
         private void SetMovingAnim()
         {
-            if (!canTurn || !canMove) return;
             if (stateMachine.CurrentStateName == PlayerStateName.Conversation || !canMove)
             {
                 Anim.SetFloat("Input Magnitude", 0f);
