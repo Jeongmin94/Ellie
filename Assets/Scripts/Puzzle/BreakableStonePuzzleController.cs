@@ -14,10 +14,24 @@ namespace Assets.Scripts.Puzzle
         [SerializeField] private List<BreakableStone> stones = new List<BreakableStone>();
 
         [Title("관련 정보")]
-        [InfoBox("돌의 체력")] public int stoneHP = 100;
-        [InfoBox("돌 떨림 시간")] public float stoneShakeTime = 0.5f;
+        [InfoBox("부서지는 이펙트")] public GameObject destroyEffect;
+        [InfoBox("돌의 체력")] public int stoneHP = 10;
 
         private TicketMachine ticketMachine;
+
+        private void Start()
+        {
+            InitStones();
+        }
+
+        private void InitStones()
+        {
+            foreach (var stone in stones)
+            {
+                stone.destroyEffect = destroyEffect;
+                stone.currentHP = stoneHP;
+            }
+        }
 
         public override void InitController()
         {
@@ -34,7 +48,5 @@ namespace Assets.Scripts.Puzzle
                 stone.InitTicketMachine(ticketMachine);
             }
         }
-
-
     }
 }

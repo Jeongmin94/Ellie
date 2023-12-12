@@ -1,13 +1,16 @@
 ﻿using Assets.Scripts.Combat;
 using Assets.Scripts.Item.Stone;
+using Assets.Scripts.Particle;
 using Channels.Combat;
 using Channels.Components;
 using Sirenix.OdinInspector;
+using UnityEngine;
 
 namespace Assets.Scripts.Puzzle
 {
     public class BreakableStone : SerializedMonoBehaviour, ICombatant
     {
+        public GameObject destroyEffect;
         public int currentHP;
         public float stoneShakeTime;
 
@@ -29,7 +32,7 @@ namespace Assets.Scripts.Puzzle
 
             var attackStone = combatPayload.Attacker;
 
-            if (attackStone.GetComponent<ExplosionStone>() != null )
+            if (attackStone.GetComponent<ExplosionStone>() != null)
             {
                 DestroyStone();
             }
@@ -52,13 +55,16 @@ namespace Assets.Scripts.Puzzle
             currentHP -= damageValue;
             if (currentHP <= 0)
             {
-                // 돌 삭제
                 DestroyStone();
             }
         }
 
         private void DestroyStone()
         {
+            // 파괴 파티클
+            ParticleManager.Instance.GetParticle(destroyEffect, transform, 1.0f);
+
+            // 돌 삭제
             Destroy(this.gameObject);
         }
     }
