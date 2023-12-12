@@ -11,8 +11,14 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 868169e8890f4eb99cfa90dee0440c59, type: 3}
   m_Name: SimpleDialogContextData
-  m_EditorClassIdentifier: 
-  fontAsset: {fileID: 11400000, guid: c2ff610336ec05f489d67abb7c9ba812, type: 2}
+  m_EditorClassIdentifier: Assets.Scripts.Data.UI.Dialog.DialogTypographyData, Assembly.Ellie
+  fontAsset: {fileID: 11400000, guid: 359db409620dd9f4d913f4cfe296f2bd, type: 2}
   color: {r: 1, g: 1, b: 1, a: 1}
-  fontSize: 40
+  fontSize: 35
+  characterSpacing: 0
+  wordSpacing: 0
+  paragraphSpacing: 0
   lineSpacing: 48
+  useOutline: 0
+  outlineColor: {r: 0, g: 0, b: 0, a: 0}
+  outlineThickness: 0

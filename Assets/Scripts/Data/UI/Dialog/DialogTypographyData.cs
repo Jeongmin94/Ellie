@@ -21,5 +21,23 @@ namespace Assets.Scripts.Data.UI.Dialog
         [SerializeField] public bool useOutline = false;
         [SerializeField] public Color outlineColor;
         [SerializeField] public float outlineThickness;
+
+        public static void SetDialogTypography(TextMeshProUGUI tmp, DialogTypographyData data)
+        {
+            tmp.font = data.fontAsset;
+            tmp.color = data.color;
+            tmp.fontSize = data.fontSize;
+
+            tmp.characterSpacing = data.characterSpacing;
+            tmp.wordSpacing = data.wordSpacing;
+            tmp.paragraphSpacing = data.paragraphSpacing;
+            tmp.lineSpacing = data.lineSpacing;
+
+            if (data.useOutline)
+            {
+                tmp.outlineColor = data.outlineColor;
+                tmp.outlineWidth = data.outlineThickness;
+            }
+        }
     }
 }
