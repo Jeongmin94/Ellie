@@ -140,7 +140,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
-            //if (currentHP == monsterData.maxHP)
             ShowBillboard();
             if (isHeadShot) damage *= monsterData.weakRatio;
 
