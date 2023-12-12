@@ -3,15 +3,19 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EndingCanvas : MonoBehaviour
 {
+    public Color originColor = Color.black;
+    public Color targetColor = Color.black;
     public RectTransform whiteArea;
     public float extensionTime = 2.0f;
+
+    private Image image;
 
     private TicketMachine ticketMachine;
 
@@ -20,6 +24,9 @@ public class EndingCanvas : MonoBehaviour
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
 
         ticketMachine.AddTickets(ChannelType.UI);
+
+        image = whiteArea.gameObject.GetComponent<Image>();
+        image.color = originColor;
     }
 
     private void Start()
@@ -34,26 +41,20 @@ public class EndingCanvas : MonoBehaviour
 
     private void OnDisable()
     {
-        whiteArea.localScale = Vector3.zero;
         StopAllCoroutines();
     }
 
     private IEnumerator ScaleOverTime(float time)
     {
-        Vector3 originalScale = whiteArea.localScale;
-        Vector3 targetScale = new Vector3(24.0f, 24.0f, 24.0f);
         float currentTime = 0.0f;
-
         do
         {
-            whiteArea.localScale = Vector3.Lerp(originalScale, targetScale, currentTime / time);
+            image.color = Color.Lerp(originColor, targetColor, currentTime / time);
             currentTime += Time.deltaTime;
             yield return null;
-        }
-        while (currentTime <= time);
+        } while (currentTime <= time);
 
-        whiteArea.localScale = targetScale;
-
+        image.color = targetColor;
         SoundManager.Instance.ClearAction();
 
         SceneManager.LoadScene((int)SceneName.Closing);
