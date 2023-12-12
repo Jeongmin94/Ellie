@@ -92,7 +92,7 @@ namespace Assets.Scripts.UI.Dialog
                     {
                         if (dialogText.IsPlaying)
                         {
-                            //isPlayingÀÏ ¶§ ´Ù½Ã Play ¿äÃ»ÀÌ µé¾î¿À¸é OnNextÇÏµµ·Ï
+                            //isPlayingì¼ ë•Œ ë‹¤ì‹œ Play ìš”ì²­ì´ ë“¤ì–´ì˜¤ë©´ OnNextí•˜ë„ë¡
                             dialogText.Next();
                             break;
                         }

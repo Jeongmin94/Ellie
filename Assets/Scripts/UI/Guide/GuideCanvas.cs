@@ -22,6 +22,7 @@ namespace Assets.Scripts.UI.Guide
         private enum GameObjects
         {
             GuidePanel,
+            CloseButton,
         }
 
         private enum Images
@@ -30,6 +31,9 @@ namespace Assets.Scripts.UI.Guide
         }
 
         [SerializeField] private Sprite[] guideSprites;
+        [SerializeField] private Sprite[] guideButtonActiveSprites;
+        [SerializeField] private Sprite[] guideButtonInactiveSprites;
+
         [SerializeField] private UITransformData[] transformData;
         [SerializeField] private UITransformData[] buttonsTransformData;
 
@@ -37,6 +41,7 @@ namespace Assets.Scripts.UI.Guide
         private readonly List<RectTransform> panelRects = new List<RectTransform>();
         private readonly List<GuideButton> buttons = new List<GuideButton>();
 
+        private CloseButton closeButton;
         private Image guideImage;
         private RectTransform guideImageRect;
 
@@ -47,6 +52,27 @@ namespace Assets.Scripts.UI.Guide
         private void Awake()
         {
             Init();
+
+            InputManager.Instance.Subscribe(InputType.Escape, OnEscapeAction);
+        }
+
+        private void OnEscapeAction()
+        {
+            if (gameObject.activeSelf)
+            {
+                gameObject.SetActive(false);
+                Destroy(this.gameObject);
+            }
+        }
+
+        private void OnEnable()
+        {
+            InputManager.Instance.CanInput = false;
+        }
+
+        private void OnDisable()
+        {
+            InputManager.Instance.CanInput = false;
         }
 
         protected override void Init()
@@ -82,6 +108,9 @@ namespace Assets.Scripts.UI.Guide
 
             guideImage = GetImage((int)Images.GuideImage);
             guideImageRect = guideImage.GetComponent<RectTransform>();
+
+            closeButton = panelRects[(int)GameObjects.CloseButton].gameObject.GetComponent<CloseButton>();
+            closeButton.Subscribe(OnCloseButtonClicked);
         }
 
         private void InitObjects()
@@ -101,6 +130,7 @@ namespace Assets.Scripts.UI.Guide
             InitButtons();
         }
 
+        // left, right
         private readonly ButtonType[] buttonTypes = new ButtonType[] { ButtonType.Yes, ButtonType.No };
 
         private void InitButtons()
@@ -110,6 +140,7 @@ namespace Assets.Scripts.UI.Guide
                 var button = UIManager.Instance.MakeSubItem<GuideButton>(transform, GuideButton.Path);
                 button.name += $"#{buttonTypes[i]}";
                 button.InitButton();
+                button.GuideButtonImage.sprite = guideButtonActiveSprites[i];
                 button.Subscribe(OnButtonClicked);
                 button.GuideButtonType = buttonTypes[i];
 
@@ -118,13 +149,23 @@ namespace Assets.Scripts.UI.Guide
                 buttonRect.sizeDelta = buttonsTransformData[i].actionRect.Value.GetSize();
                 buttonRect.localPosition = buttonsTransformData[i].actionRect.Value.ToCanvasPos();
                 buttonRect.localScale = buttonsTransformData[i].actionScale.Value;
+
+                buttons.Add(button);
             }
+
+            PopupPayload popupPayload = new PopupPayload();
+            popupPayload.buttonType = ButtonType.Yes;
+            OnButtonClicked(popupPayload);
+        }
+
+        private void OnCloseButtonClicked()
+        {
+            gameObject.SetActive(false);
         }
 
         private void OnButtonClicked(PopupPayload payload)
         {
             // ButtonType yes -> left, no -> right
-            Debug.Log($"OnButtonClicked: {payload.buttonType}");
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
@@ -145,12 +186,35 @@ namespace Assets.Scripts.UI.Guide
                     return;
             }
 
+            int leftIdx = (int)ButtonType.Yes;
+            int rightIdx = (int)ButtonType.No;
+            if (currentIndex == 0)
+            {
+                buttons[leftIdx].GuideButtonImage.sprite = guideButtonInactiveSprites[leftIdx];
+                buttons[leftIdx].IsActivated = false;
+            }
+            else
+            {
+                buttons[leftIdx].GuideButtonImage.sprite = guideButtonActiveSprites[leftIdx];
+                buttons[leftIdx].IsActivated = true;
+            }
+
+            if (currentIndex == guideSprites.Length - 1)
+            {
+                buttons[rightIdx].GuideButtonImage.sprite = guideButtonInactiveSprites[rightIdx];
+                buttons[rightIdx].IsActivated = false;
+            }
+            else
+            {
+                buttons[rightIdx].GuideButtonImage.sprite = guideButtonActiveSprites[rightIdx];
+                buttons[rightIdx].IsActivated = true;
+            }
+
             spriteIndex.Value = currentIndex;
         }
 
         private void OnIndexChanged(int value)
         {
-            Debug.Log($"{name} OnIndexChanged {value}");
             guideImage.sprite = guideSprites[value];
         }
     }

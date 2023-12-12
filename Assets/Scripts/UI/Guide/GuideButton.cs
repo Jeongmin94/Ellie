@@ -1,4 +1,5 @@
 using System;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.PopupMenu;
 using Assets.Scripts.Utils;
@@ -12,12 +13,14 @@ namespace Assets.Scripts.UI.Guide
     public class GuideButton : UIBase
     {
         public static readonly string Path = "Guide/GuideButton";
+        private static readonly string soundButton = "inven1";
+
         public ButtonType GuideButtonType { get; set; }
+        public Image GuideButtonImage { get; set; }
+        public bool IsActivated { get; set; } = false;
 
         [SerializeField] private TextTypographyData colorData;
 
-        private Image guidButtonImage;
-        
         private Action<PopupPayload> guideButtonAction;
 
         public void Subscribe(Action<PopupPayload> listener)
@@ -40,12 +43,12 @@ namespace Assets.Scripts.UI.Guide
 
         private void Bind()
         {
-            guidButtonImage = gameObject.GetComponent<Image>();
+            GuideButtonImage = gameObject.GetComponent<Image>();
         }
 
         private void InitObjects()
         {
-            guidButtonImage.color = colorData.disabledColor;
+            GuideButtonImage.color = colorData.disabledColor;
         }
 
         private void BindEvents()
@@ -59,27 +62,30 @@ namespace Assets.Scripts.UI.Guide
 
         private void OnPointerEnter(PointerEventData data)
         {
-            guidButtonImage.color = colorData.highlightedColor;
+            GuideButtonImage.color = colorData.highlightedColor;
         }
 
         private void OnPointerExit(PointerEventData data)
         {
-            guidButtonImage.color = colorData.disabledColor;
+            GuideButtonImage.color = colorData.disabledColor;
         }
 
         private void OnPointerDown(PointerEventData data)
         {
-            guidButtonImage.color = colorData.pressedColor;
+            GuideButtonImage.color = colorData.pressedColor;
         }
 
         private void OnPointerUp(PointerEventData data)
         {
-            guidButtonImage.color = colorData.disabledColor;
+            GuideButtonImage.color = colorData.disabledColor;
         }
 
         private void OnPointerClick(PointerEventData data)
         {
-            guidButtonImage.color = colorData.highlightedColor;
+            GuideButtonImage.color = colorData.highlightedColor;
+
+            if (IsActivated)
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, soundButton, Vector3.zero);
 
             PopupPayload payload = new PopupPayload();
             payload.buttonType = GuideButtonType;
