@@ -40,7 +40,7 @@ namespace Assets.Scripts.UI.InGame
         [SerializeField] private TextTypographyData pauseMenuTypographyData;
         [SerializeField] private TextTypographyData escapeTypographyData;
 
-        [Header("팝업 타입")][SerializeField] private PopupType[] popupTypes;
+        [Header("팝업 타입")] [SerializeField] private PopupType[] popupTypes;
 
         [SerializeField] private string[] buttonNames;
 
@@ -59,6 +59,7 @@ namespace Assets.Scripts.UI.InGame
         private readonly IDictionary<PopupType, BasePopupCanvas> popupCanvasMap = new Dictionary<PopupType, BasePopupCanvas>();
 
         private TicketMachine ticketMachine;
+
         private void Awake()
         {
             Init();
@@ -69,7 +70,7 @@ namespace Assets.Scripts.UI.InGame
         {
             gameObject.SetActive(false);
         }
-        
+
         protected override void Init()
         {
             base.Init();
@@ -100,6 +101,7 @@ namespace Assets.Scripts.UI.InGame
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.UI);
         }
+
         private void InitObjects()
         {
             AnchorPresets.SetAnchorPreset(buttonPanelRect, AnchorPresets.MiddleCenter);
@@ -174,6 +176,9 @@ namespace Assets.Scripts.UI.InGame
 
         private void OnEscapeAction()
         {
+            if (!InputManager.Instance.CanInput)
+                return;
+
             if (!gameObject.activeSelf)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOpen, Vector3.zero);
@@ -234,27 +239,27 @@ namespace Assets.Scripts.UI.InGame
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
+                {
+                    if (payload.popupType == PopupType.Load)
                     {
-                        if (payload.popupType == PopupType.Load)
-                        {
-                            SaveLoadManager.Instance.IsLoadData = true;
-                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
-                        }
-                        // !TODO
+                        SaveLoadManager.Instance.IsLoadData = true;
+                        SceneLoadManager.Instance.LoadScene(SceneName.InGame);
                     }
+                    // !TODO
+                }
                     break;
 
                 case ButtonType.No:
+                {
+                    if (payload.popupType == PopupType.Config)
                     {
-                        if (payload.popupType == PopupType.Config)
-                        {
-                            configCanvas.gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            popupCanvasMap[payload.popupType].gameObject.SetActive(false);
-                        }
+                        configCanvas.gameObject.SetActive(false);
                     }
+                    else
+                    {
+                        popupCanvasMap[payload.popupType].gameObject.SetActive(false);
+                    }
+                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();

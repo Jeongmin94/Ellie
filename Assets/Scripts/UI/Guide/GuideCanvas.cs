@@ -10,6 +10,7 @@ using Assets.Scripts.UI.PopupMenu;
 using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
+using Channels.UI;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -60,17 +61,12 @@ namespace Assets.Scripts.UI.Guide
         {
             if (gameObject.activeSelf)
             {
+                InputManager.Instance.CanInput = true;
                 gameObject.SetActive(false);
-                Destroy(this.gameObject);
             }
         }
 
         private void OnEnable()
-        {
-            InputManager.Instance.CanInput = false;
-        }
-
-        private void OnDisable()
         {
             InputManager.Instance.CanInput = false;
         }
@@ -87,10 +83,13 @@ namespace Assets.Scripts.UI.Guide
 
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.UI);
+            ticketMachine.RegisterObserver(ChannelType.UI, OnNotify);
 
 #if UNITY_EDITOR
             TicketManager.Instance.Ticket(ticketMachine);
 #endif
+
+            gameObject.SetActive(false);
         }
 
         private void Bind()
@@ -216,6 +215,23 @@ namespace Assets.Scripts.UI.Guide
         private void OnIndexChanged(int value)
         {
             guideImage.sprite = guideSprites[value];
+        }
+
+        private void OnNotify(IBaseEventPayload payload)
+        {
+            if (payload is not UIPayload uiPayload)
+                return;
+
+            switch (uiPayload.actionType)
+            {
+                case ActionType.OpenGuideCanvas:
+                {
+                    Cursor.visible = true;
+                    Cursor.lockState = CursorLockMode.None;
+                    gameObject.SetActive(true);
+                }
+                    break;
+            }
         }
     }
 }
