@@ -50,8 +50,6 @@ namespace Assets.Scripts.Item.Stone
 
         public void Explosion()
         {
-            Debug.Log("폭발 돌맹이 폭발");
-
             // 콜라이더 제거 + 중력 제거
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

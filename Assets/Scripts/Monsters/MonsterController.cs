@@ -47,7 +47,6 @@ public class MonsterController : MonoBehaviour, IMonster
 
     public void MonsterDead(IBaseEventPayload payload)
     {
-        Debug.Log("MonsterController Messaged");
         MonsterPayload monsterPayload = payload as MonsterPayload;
 
         //아이템 드롭

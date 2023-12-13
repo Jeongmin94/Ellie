@@ -17,7 +17,7 @@ namespace Assets.Scripts.Puzzle
         [InfoBox("부서지는 이펙트")] public GameObject destroyEffect;
         [InfoBox("돌의 체력")] public int stoneHP = 10;
 
-        private TicketMachine ticketMachine;
+        [ShowInInspector] private TicketMachine ticketMachine;
 
         private void Start()
         {
