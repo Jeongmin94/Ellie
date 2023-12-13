@@ -7,6 +7,7 @@ using Assets.Scripts.UI.Framework.Images;
 using Channels.Combat;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Player.HitComponent;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -33,6 +34,8 @@ namespace Assets.Scripts.Player
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private float invulnerableTimeAfterHit;
         private Coroutine invulnerableCoroutine;
+
+        private MaterialHitComponent hitComponent;
 
         public int MaxHP
         {
@@ -105,6 +108,7 @@ namespace Assets.Scripts.Player
             playerStatusEffects = new();
             playerUI = GetComponent<PlayerUI>();
 
+            hitComponent = GetComponent<MaterialHitComponent>();
 
             InitStatusEffects();
         }
@@ -173,6 +177,9 @@ namespace Assets.Scripts.Player
             else
             {
                 HP -= damage;
+                
+                // hit effect
+                hitComponent.Hit();
             }
         }
 
