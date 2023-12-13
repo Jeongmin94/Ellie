@@ -7,6 +7,11 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
     public class PlayerStatusEffectKnockedAirborne : MonoBehaviour, IPlayerStatusEffect
     {
         PlayerController playerController;
+        public void InitStatusEffect()
+        {
+            
+        }
+
         public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)
         {
             playerController = controller.gameObject.GetComponent<PlayerController>();

@@ -8,6 +8,11 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
     {
         private float duration;
         private PlayerController playerController;
+        public void InitStatusEffect()
+        {
+            
+        }
+
         public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)
         {
             playerController = controller.gameObject.GetComponent<PlayerController>();

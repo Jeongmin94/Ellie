@@ -25,7 +25,6 @@ namespace Assets.Scripts.InteractiveObjects
         }
 
         public InteractiveType interactiveType = InteractiveType.Mining;
-        [SerializeField] private GameObject stonePrefabTest;
         private Transform oreBody;
         private Transform stoneSpawnPos;
         public OreData data;

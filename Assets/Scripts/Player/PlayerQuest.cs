@@ -470,11 +470,6 @@ namespace Assets.Scripts.Player
             GetComponent<PlayerInteraction>().SetCanInteract(false);
         }
 
-        public void SetCurQuest(int questidx)
-        {
-            curQuestData = questDataList[questidx % 6100];
-        }
-
         public QuestDataSaveInfo GetQuestDataSaveInfo()
         {
             QuestDataSaveInfo info = new QuestDataSaveInfo();
