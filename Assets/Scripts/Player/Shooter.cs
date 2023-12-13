@@ -38,6 +38,9 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private bool withPlayer = false;
 
+        public bool isTargetingEnemy;
+        
+        
 
         //public BaseStone Stone
         //{
@@ -210,6 +213,22 @@ namespace Assets.Scripts.Player
 
             lineRenderer.positionCount = points.Length;
             lineRenderer.SetPositions(points);
+        }
+
+        public void ChangeLineRendererColor(bool _isTargeting)
+        {
+            //조준하지 않고 있다가 새롭게 조준
+            if (_isTargeting && !isTargetingEnemy)
+            {
+                lineRenderer.material.color = Color.red;
+                isTargetingEnemy = true;
+            }
+
+            if (!_isTargeting && isTargetingEnemy)
+            {
+                lineRenderer.material.color = Color.white;
+                isTargetingEnemy = false;
+            }
         }
     }
 }

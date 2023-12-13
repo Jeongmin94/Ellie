@@ -18,6 +18,7 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Linq;
+using Assets.Scripts.Combat;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static Assets.Scripts.Managers.PlayerSavePayload;
@@ -103,7 +104,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private GameObject slingshot;
         [SerializeField] private GameObject rightHand;
         public bool hasStone;
-        public GameObject shooter;
+        public Shooter shooter;
         public GameObject meleeAttackCollider;
         [SerializeField] private int curStoneIdx;
         private Vector3 aimTarget;
@@ -605,7 +606,7 @@ namespace Assets.Scripts.Player
 
         public void ActivateShootPos(bool value)
         {
-            shooter.SetActive(value);
+            shooter.gameObject.SetActive(value);
         }
 
         public void Aim()
@@ -614,6 +615,15 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(shootRay, out var hit, Mathf.Infinity, ~layerToIgnore))
             {
                 AimTarget = hit.point;
+                ICombatant combatant = hit.collider.gameObject.GetComponent<ICombatant>();
+                if (combatant != null)
+                {
+                    shooter.ChangeLineRendererColor(true);
+                }
+                else
+                {
+                    shooter.ChangeLineRendererColor(false);
+                }
             }
             else
             {
@@ -622,6 +632,8 @@ namespace Assets.Scripts.Player
             aimTransform.position = shootRay.origin + 5f * shootRay.direction.normalized;
             cinematicAimCam.LookAt = aimTransform;
         }
+
+        
         public void LookAimTarget()
         {
             Vector3 directionToTarget = AimTarget - PlayerObj.position;
