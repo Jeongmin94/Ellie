@@ -44,6 +44,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
+        public Renderer renderer;
         private bool isHeadShot;
 
         public Dictionary<string, AbstractAttack> Attacks = new();
@@ -139,7 +140,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
-            //if (currentHP == monsterData.maxHP)
             ShowBillboard();
             if (isHeadShot) damage *= monsterData.weakRatio;
 
