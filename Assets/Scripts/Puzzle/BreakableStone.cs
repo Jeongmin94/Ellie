@@ -19,10 +19,10 @@ namespace Assets.Scripts.Puzzle
     {
         public GameObject destroyEffect;
         public int currentHP;
-
         public float shakeDuration = 0.1f;
         public float shakeMagnitude = 0.1f;
 
+        [ShowInInspector] private bool isFrozen = false;
         private TicketMachine ticketMachine;
 
         [Button("히트 테스트", ButtonSizes.Large)]
@@ -51,6 +51,10 @@ namespace Assets.Scripts.Puzzle
             {
                 DestroyStone();
             }
+            else if (attackStone.GetComponent<IceStone>() != null)
+            {
+                SetFrozen();
+            }
             else
             {
                 HitByStone(combatPayload.Damage);
@@ -60,20 +64,29 @@ namespace Assets.Scripts.Puzzle
         private void HitByStone(int damageValue)
         {
             // 돌맹이 피격 흔들림 처리
-
+            StartCoroutine(ShakeCoroutine());
+            
             // 데미지 처리
             GetDamaged(damageValue);
         }
 
         private void GetDamaged(int damageValue)
         {
-            StartCoroutine(ShakeCoroutine());
-
             currentHP -= damageValue;
             if (currentHP <= 0)
             {
                 DestroyStone();
             }
+        }
+
+        private void SetFrozen()
+        {
+            // 빙결 처리
+            isFrozen = true;
+            Debug.Log("빙결 상태");
+
+            // 체력 설정 -> 1 고정
+            HitByStone(currentHP - 1);
         }
 
         private void DestroyStone()

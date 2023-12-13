@@ -86,6 +86,9 @@ namespace Assets.Scripts.Item.Stone
                 case 4003:
                     effect = obj.gameObject.AddComponent<ExplosionStone>();
                     break;
+                case 4005:
+                    effect = obj.gameObject.AddComponent<IceStone>();
+                    break;
                 case 4019:
                     effect = obj.gameObject.AddComponent<PortalStone>();
                     break;

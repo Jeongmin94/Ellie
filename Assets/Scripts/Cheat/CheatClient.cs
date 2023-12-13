@@ -300,6 +300,7 @@ public class CheatClient : SerializedMonoBehaviour
         for (int i = 0; i < 20; i++)
         {
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4003));
+            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4005));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4019));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
