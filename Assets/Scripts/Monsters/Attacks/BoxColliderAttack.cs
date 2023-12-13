@@ -75,7 +75,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
             payload.statusEffectduration = 0.3f;
             payload.Damage = (int)data.attackValue;
             Attack(payload);

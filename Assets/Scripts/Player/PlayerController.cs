@@ -18,7 +18,9 @@ using Cinemachine;
 using System;
 using System.Collections;
 using System.Linq;
+using Assets.Scripts.Combat;
 using UnityEngine;
+using UnityEngine.Serialization;
 using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
@@ -27,12 +29,14 @@ namespace Assets.Scripts.Player
     {
         private const float MOVE_FORCE = 10f;
         private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
+
         public enum SlopeStat
         {
             Flat,
             Climable,
             CantClimb
         }
+
         public enum AnimLayer
         {
             Base,
@@ -40,31 +44,30 @@ namespace Assets.Scripts.Player
             Mining,
             Consuming
         }
+
         [Header("Player references")]
-        [SerializeField] private Transform playerObj;
+        [SerializeField]
+        private Transform playerObj;
+
         [SerializeField] private CapsuleCollider playerCollider;
         [SerializeField] private Transform orientation;
         private PlayerStatus playerStatus;
 
 
-        [Header("Camera")]
-        public Camera mainCam;
+        [Header("Camera")] public Camera mainCam;
         public CinemachineVirtualCamera cinematicMainCam;
         public CinemachineVirtualCamera cinematicAimCam;
         public CinemachineVirtualCamera cinematicDialogCam;
         private Action<float, float> cameraShakeAction;
         private Action stopCameraShakeAction;
 
-        [Header("Move")]
-        [SerializeField] private float walkSpeed;
+        [Header("Move")] [SerializeField] private float walkSpeed;
         [SerializeField] private float sprintSpeed;
         [SerializeField] private float dodgeSpeed;
 
-        [Header("Rotate")]
-        [SerializeField] private float rotationSpeed;
+        [Header("Rotate")] [SerializeField] private float rotationSpeed;
 
-        [Header("Jump")]
-        [SerializeField] private float jumpForce;
+        [Header("Jump")] [SerializeField] private float jumpForce;
         [SerializeField] private float additionalJumpForce;
         [SerializeField] private float jumpCooldown;
         [SerializeField] private float maximumAdditionalJumpInputTime;
@@ -72,40 +75,43 @@ namespace Assets.Scripts.Player
 
 
         [Header("Ground Check")]
-        [SerializeField] private float playerHeight;
+        [SerializeField]
+        private float playerHeight;
+
         [SerializeField] private LayerMask groundLayer;
         [SerializeField] private LayerMask layerToIgnore;
         [SerializeField] public float groundDrag;
         [SerializeField] private float landStateDuration;
 
 
-        [Header("Slope")]
-        public float maxSlopeAngle;
+        [Header("Slope")] public float maxSlopeAngle;
         private RaycastHit slopeHit;
 
         [Header("Getting Over Step")]
-        [SerializeField] private GameObject stepRayUpper;
+        [SerializeField]
+        private GameObject stepRayUpper;
+
         [SerializeField] private GameObject stepRayLower;
         [SerializeField] float stepHeight;
         [SerializeField] float stepSmooth;
         [SerializeField] private float lowerRayLength;
         [SerializeField] private float upperRayLength;
 
-        [Header("Dodge")]
-        [SerializeField] private float dodgeInvulnerableTime;
+        [Header("Dodge")] [SerializeField] private float dodgeInvulnerableTime;
         [SerializeField] private float timeToDodgeAfterDown;
 
         [Header("ActionData")]
-        [SerializeField] private AimTargetData aimTargetData;
+        [SerializeField]
+        private AimTargetData aimTargetData;
 
-        [Header("Attack")]
-        [SerializeField] private GameObject slingshot;
+        [Header("Attack")] [SerializeField] private GameObject slingshot;
         [SerializeField] private GameObject rightHand;
         public bool hasStone;
-        public GameObject shooter;
-        public GameObject MeleeAttackCollider;
+        public Shooter shooter;
+        public GameObject meleeAttackCollider;
         [SerializeField] private int curStoneIdx;
         private Vector3 aimTarget;
+
         public Vector3 AimTarget
         {
             get { return aimTarget; }
@@ -123,20 +129,22 @@ namespace Assets.Scripts.Player
         [SerializeField] private float recoilTime;
         [SerializeField] private GameObject stone;
 
-        [Header("Mining")]
-        [SerializeField] private float miningTime;
+        [Header("Mining")] [SerializeField] private float miningTime;
         [SerializeField] private Pickaxe pickaxe;
-        public Pickaxe Pickaxe { get { return pickaxe; } }
+
+        public Pickaxe Pickaxe
+        {
+            get { return pickaxe; }
+        }
+
         private Ore curOre = null;
         public bool isPickaxeAvailable = false;
         public Pickaxe.Tier curPickaxeTier;
 
-        [Header("Inventory")]
-        public PlayerInventory playerInventory;
+        [Header("Inventory")] public PlayerInventory playerInventory;
 
 
-        [Header("Boolean Properties")]
-        public bool isGrounded;
+        [Header("Boolean Properties")] public bool isGrounded;
         public bool isSprinting;
         public bool isFalling;
         public bool isJumping;
@@ -153,42 +161,113 @@ namespace Assets.Scripts.Player
         private float verticalInput;
 
 
-        public Transform PlayerObj { get { return playerObj; } }
+        public Transform PlayerObj
+        {
+            get { return playerObj; }
+        }
+
         public PlayerStatus PlayerStatus
         {
             get { return playerStatus; }
             set { playerStatus = value; }
         }
-        public float WalkSpeed { get { return walkSpeed; } }
-        public float SprintSpeed { get { return sprintSpeed; } }
-        public float DodgeSpeed { get { return dodgeSpeed; } }
 
-        public float PlayerHeight { get { return playerHeight; } }
+        public float WalkSpeed
+        {
+            get { return walkSpeed; }
+        }
 
-        public LayerMask GroundLayer { get { return groundLayer; } }
-        public float AdditionalJumpForce { get { return additionalJumpForce; } }
-        public float MaximumJumpInputTime { get { return maximumAdditionalJumpInputTime; } }
-        public float AdditionalGravityForce { get { return additionalGravityForce; } }
-        public float LandStateDuration { get { return landStateDuration; } }
-        public float DodgeInvulnerableTime { get { return dodgeInvulnerableTime; } }
-        public float TimeToDodgeAfterDown { get { return timeToDodgeAfterDown; } }
-        public Ore CurOre { get { return curOre; } }
-        public float MiningTime { get { return miningTime; } }
-        public bool IsPickaxeAvailable { get { return isPickaxeAvailable; } }
+        public float SprintSpeed
+        {
+            get { return sprintSpeed; }
+        }
+
+        public float DodgeSpeed
+        {
+            get { return dodgeSpeed; }
+        }
+
+        public float PlayerHeight
+        {
+            get { return playerHeight; }
+        }
+
+        public LayerMask GroundLayer
+        {
+            get { return groundLayer; }
+        }
+
+        public float AdditionalJumpForce
+        {
+            get { return additionalJumpForce; }
+        }
+
+        public float MaximumJumpInputTime
+        {
+            get { return maximumAdditionalJumpInputTime; }
+        }
+
+        public float AdditionalGravityForce
+        {
+            get { return additionalGravityForce; }
+        }
+
+        public float LandStateDuration
+        {
+            get { return landStateDuration; }
+        }
+
+        public float DodgeInvulnerableTime
+        {
+            get { return dodgeInvulnerableTime; }
+        }
+
+        public float TimeToDodgeAfterDown
+        {
+            get { return timeToDodgeAfterDown; }
+        }
+
+        public Ore CurOre
+        {
+            get { return curOre; }
+        }
+
+        public float MiningTime
+        {
+            get { return miningTime; }
+        }
+
+        public bool IsPickaxeAvailable
+        {
+            get { return isPickaxeAvailable; }
+        }
+
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
         public Rigidbody Rb { get; private set; }
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
-        public float RecoilTime { get { return recoilTime; } }
-        public int CurStoneIdx { get { return curStoneIdx; } }
+
+        public float RecoilTime
+        {
+            get { return recoilTime; }
+        }
+
+        public int CurStoneIdx
+        {
+            get { return curStoneIdx; }
+        }
 
         private float inputMagnitude;
 
         private PlayerStateMachine stateMachine;
 
         private TicketMachine ticketMachine;
-        public TicketMachine TicketMachine { get { return ticketMachine; } }
+
+        public TicketMachine TicketMachine
+        {
+            get { return ticketMachine; }
+        }
 
         private void Awake()
         {
@@ -206,9 +285,7 @@ namespace Assets.Scripts.Player
             SubscribeStopCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
             SubscribeStopCameraShakeAction(cinematicAimCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
             SubscribeStopCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
-
-            //shooter 이벤트 구독
-            // shooter.GetComponent<Shooter>().Init();
+           
         }
 
         private void InitTicketMachine()
@@ -239,22 +316,20 @@ namespace Assets.Scripts.Player
             //로딩 코루틴 실행
             StartCoroutine(LoadingCoroutine());
         }
+
         private void Update()
         {
+            if (!InputManager.Instance.CanInput)
+                return;
+
             GetInput();
             CheckGround();
             Turn();
-            //SetColliderHeight();
             ResetPlayerPos();
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
 
-            //test
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                GetPickaxe(9000);
-            }
 
             if (Input.GetKeyDown(KeyCode.P))
             {
@@ -264,11 +339,13 @@ namespace Assets.Scripts.Player
                     Damage = 20
                 });
             }
-            if(Input.GetKeyDown(KeyCode.B))
+
+            if (Input.GetKeyDown(KeyCode.B))
             {
                 ChangeState(PlayerStateName.Start);
             }
         }
+
         private void FixedUpdate()
         {
             CalculateMoveDirection();
@@ -278,7 +355,6 @@ namespace Assets.Scripts.Player
 
         private void InitVariables()
         {
-
             Rb.freezeRotation = true;
             canMove = true;
             canJump = true;
@@ -301,9 +377,10 @@ namespace Assets.Scripts.Player
         {
             yield return DataManager.Instance.CheckIsParseDone();
             yield return SceneLoadManager.Instance.CheckIsLoadDone();
-            
+
             ChangeState(PlayerStateName.Start);
         }
+
         private void SetMovingAnim()
         {
             if (stateMachine.CurrentStateName == PlayerStateName.Conversation || !canMove)
@@ -312,6 +389,7 @@ namespace Assets.Scripts.Player
 
                 return;
             }
+
             inputMagnitude = Mathf.Clamp01(MoveInput.magnitude);
             if (isSprinting)
             {
@@ -320,6 +398,7 @@ namespace Assets.Scripts.Player
 
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
+
         private void ResetPlayerPos()
         {
             //Test용
@@ -329,19 +408,21 @@ namespace Assets.Scripts.Player
             //    ChangeState(PlayerStateName.Idle);
             //}
         }
+
         public void SetColliderHeight(float colliderHeight)
         {
-
             //if (isJumping || isFalling)
             //    playerCollider.height = 1f;
             //else
             //    playerCollider.height = 1.5f;
             playerCollider.height = colliderHeight;
         }
+
         private void AddAdditionalGravityForce()
         {
             Rb.AddForce(-Rb.transform.up * AdditionalGravityForce, ForceMode.Force);
         }
+
         private void InitStateMachine()
         {
             PlayerStateLoading playerStateLoading = new(this);
@@ -387,8 +468,8 @@ namespace Assets.Scripts.Player
             stateMachine.AddState(PlayerStateName.MeleeAttack, playerStateMeleeAttack);
             PlayerStateConsumingItem playerStateConsumingItem = new(this);
             stateMachine.AddState(PlayerStateName.ConsumingItem, playerStateConsumingItem);
-
         }
+
         public void MovePlayer(float moveSpeed)
         {
             if (!canMove) return;
@@ -432,6 +513,7 @@ namespace Assets.Scripts.Player
                     flag = true;
                 }
             }
+
             RaycastHit[] hitLowerMinus45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), lowerRayLength, groundLayer);
             if (hitLowerMinus45.Any())
             {
@@ -448,12 +530,13 @@ namespace Assets.Scripts.Player
                 Rb.AddForce(Vector3.up * 60f, ForceMode.Force);
                 //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
             }
-
         }
+
         public void Jump()
         {
             StartCoroutine(JumpCoroutine());
         }
+
         private IEnumerator JumpCoroutine()
         {
             canJump = false;
@@ -464,6 +547,7 @@ namespace Assets.Scripts.Player
             yield return new WaitForSeconds(jumpCooldown);
             canJump = true;
         }
+
         public void ChangeState(PlayerStateName nextStateName)
         {
             if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
@@ -475,12 +559,14 @@ namespace Assets.Scripts.Player
             if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
             stateMachine.ChangeState(nextStateName, info);
         }
+
         private void GetInput()
         {
             horizontalInput = Input.GetAxisRaw("Horizontal");
             verticalInput = Input.GetAxisRaw("Vertical");
             MoveInput = new Vector2(horizontalInput, verticalInput);
         }
+
         private void CheckGround()
         {
             if (isRigid) return;
@@ -504,8 +590,10 @@ namespace Assets.Scripts.Player
                         ChangeState(PlayerStateName.Airborne);
                     }
                 }
+
                 isGrounded = curIsGrounded;
             }
+
             if (isGrounded)
             {
                 Rb.drag = groundDrag;
@@ -530,12 +618,15 @@ namespace Assets.Scripts.Player
                 else
                     return SlopeStat.Climable;
             }
+
             return 0;
         }
+
         private Vector3 GetSlopeMoveDirection()
         {
             return Vector3.ProjectOnPlane(MoveDirection, slopeHit.normal).normalized;
         }
+
         private void CalculateMoveDirection()
         {
             //orientation의 forward를 플레이어가 카메라를 향하는 방향으로 갱신합니다
@@ -543,6 +634,7 @@ namespace Assets.Scripts.Player
             orientation.forward = viewDir.normalized;
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         }
+
         private void Turn()
         {
             if (!canTurn) return;
@@ -551,16 +643,17 @@ namespace Assets.Scripts.Player
                 PlayerObj.forward = Vector3.Slerp(PlayerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
             }
         }
+
         public void TurnOnAimCam()
         {
             cinematicMainCam.gameObject.SetActive(false);
             cinematicAimCam.gameObject.SetActive(true);
         }
+
         public void TurnOffAimCam()
         {
             cinematicMainCam.gameObject.SetActive(true);
             cinematicAimCam.gameObject.SetActive(false);
-
         }
 
         public void TurnOnDialogCam()
@@ -574,23 +667,26 @@ namespace Assets.Scripts.Player
             cinematicMainCam.gameObject.SetActive(true);
             cinematicDialogCam.gameObject.SetActive(false);
         }
+
         public void SetTimeScale(float expectedTimeScale)
         {
             //현재 timeScale과 fixedDeltatime을 파라미터의 값에 맞게 변경합니다
             Time.timeScale = expectedTimeScale;
             Time.fixedDeltaTime = initialFixedDeltaTime * Time.timeScale;
         }
+
         public void IncreaseAnimLayerWeight(AnimLayer layer, float weight)
         {
             // 애니메이션의 레이어의 Weight를 증가시킵니다. State의 Update에서 호출합니다
             float curWeight = Anim.GetLayerWeight((int)layer);
             if (Mathf.Equals(curWeight, weight)) return;
 
-            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            float animLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             if (curWeight < weight)
             {
-                curWeight += AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                curWeight += animLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
             }
+
             Anim.SetLayerWeight((int)layer, curWeight);
         }
 
@@ -598,6 +694,7 @@ namespace Assets.Scripts.Player
         {
             StartCoroutine(SetAnimToDefaultlayerCoroutine((int)layer));
         }
+
         private IEnumerator SetAnimToDefaultlayerCoroutine(int layer)
         {
             float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
@@ -608,26 +705,36 @@ namespace Assets.Scripts.Player
                 Anim.SetLayerWeight(layer, curWeight);
                 yield return null;
             }
+
             Anim.SetLayerWeight(layer, 0);
         }
 
         public void ActivateShootPos(bool value)
         {
-            shooter.SetActive(value);
+            shooter.gameObject.SetActive(value);
         }
 
         public void Aim()
         {
             Ray shootRay = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-            RaycastHit hit;
-            if (Physics.Raycast(shootRay, out hit, Mathf.Infinity, ~layerToIgnore))
+            if (Physics.Raycast(shootRay, out var hit, Mathf.Infinity, ~layerToIgnore))
             {
                 AimTarget = hit.point;
+                ICombatant combatant = hit.collider.gameObject.GetComponent<ICombatant>();
+                if (combatant != null)
+                {
+                    shooter.ChangeLineRendererColor(true);
+                }
+                else
+                {
+                    shooter.ChangeLineRendererColor(false);
+                }
             }
             else
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
+
             aimTransform.position = shootRay.origin + 5f * shootRay.direction.normalized;
             cinematicAimCam.LookAt = aimTransform;
         }
@@ -678,15 +785,15 @@ namespace Assets.Scripts.Player
         public void TurnOnMeleeAttackCollider()
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound5", transform.position);
-            MeleeAttackCollider.SetActive(true);
+            meleeAttackCollider.SetActive(true);
         }
 
         public void TurnOffMeleeAttackCollider()
         {
-            MeleeAttackCollider.SetActive(false);
+            meleeAttackCollider.SetActive(false);
         }
 
-        public void GrabSlingshotLeather()
+        private void GrabSlingshotLeather()
         {
             slingshot.GetComponent<Slingshot>().leather.transform.position = rightHand.transform.position;
         }
@@ -695,6 +802,7 @@ namespace Assets.Scripts.Player
         {
             slingshot.GetComponent<Slingshot>().TurnLineRenderer(b);
         }
+
         private void OnGUI()
         {
 #if UNITY_EDITOR
@@ -731,6 +839,7 @@ namespace Assets.Scripts.Player
                 Cursor.visible = true;
                 GetComponent<PlayerAim>().canAim = false;
             }
+
             if (uiPayload.actionType == ActionType.ClosePauseCanvas)
             {
                 canAttack = true;
@@ -738,6 +847,7 @@ namespace Assets.Scripts.Player
                 Cursor.visible = false;
                 GetComponent<PlayerAim>().canAim = true;
             }
+
             if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
             switch (uiPayload.groupType)
             {
@@ -759,6 +869,7 @@ namespace Assets.Scripts.Player
                             playerInventory.itemIdx = uiPayload.itemData.index;
                         }
                     }
+
                     break;
                 case GroupType.Stone:
                     if (uiPayload.itemData == null)
@@ -777,6 +888,7 @@ namespace Assets.Scripts.Player
                             curStoneIdx = uiPayload.itemData.index;
                         }
                     }
+
                     break;
                 case GroupType.Etc:
                     break;
@@ -808,30 +920,18 @@ namespace Assets.Scripts.Player
             pickaxe.LoadPickaxeData((Pickaxe.Tier)pickaxeIdx);
         }
 
-        private void GetConsumalbeItemTest(int idx)
+        private void SubscribeCameraShakeAction(Action<float, float> listener)
         {
-            UIPayload payload = new()
-            {
-                uiType = UIType.Notify,
-                groupType = UI.Inventory.GroupType.Item,
-                slotAreaType = UI.Inventory.SlotAreaType.Item,
-                actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(idx)
-            };
-            ticketMachine.SendMessage(ChannelType.UI, payload);
+            cameraShakeAction -= listener;
+            cameraShakeAction += listener;
         }
 
-        private void SubscribeCameraShakeAction(Action<float, float> Listener)
+        private void SubscribeStopCameraShakeAction(Action listener)
         {
-            cameraShakeAction -= Listener;
-            cameraShakeAction += Listener;
+            stopCameraShakeAction -= listener;
+            stopCameraShakeAction += listener;
         }
 
-        private void SubscribeStopCameraShakeAction(Action Listener)
-        {
-            stopCameraShakeAction -= Listener;
-            stopCameraShakeAction += Listener;
-        }
         public void ShakeCamera(float shakeIntensity, float shakeTime)
         {
             cameraShakeAction.Invoke(shakeIntensity, shakeTime);
@@ -848,24 +948,27 @@ namespace Assets.Scripts.Player
             switch (cameraPayload.type)
             {
                 case CameraShakingEffectType.Start:
-                    {
-                        cameraShakeAction.Invoke(cameraPayload.shakeIntensity, cameraPayload.shakeTime);
-                    }
+                {
+                    cameraShakeAction.Invoke(cameraPayload.shakeIntensity, cameraPayload.shakeTime);
+                }
                     break;
                 case CameraShakingEffectType.Stop:
-                    {
-                        stopCameraShakeAction.Invoke();
-                    }
+                {
+                    stopCameraShakeAction.Invoke();
+                }
                     break;
             }
         }
 
         public PickaxeDataSaveInfo GetPickaxeDataSaveInfo()
         {
-            PickaxeDataSaveInfo info = new();
+            PickaxeDataSaveInfo info = new()
+            {
+                isPickaxeAvailable = isPickaxeAvailable
+            };
 
             info.isPickaxeAvailable = isPickaxeAvailable;
-            if(isPickaxeAvailable)
+            if (isPickaxeAvailable)
                 info.pickaxeTier = (int)curPickaxeTier;
             else
                 info.pickaxeTier = 0;
@@ -884,6 +987,5 @@ namespace Assets.Scripts.Player
             else
                 curPickaxeTier = 0;
         }
-
     }
 }

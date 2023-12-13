@@ -15,15 +15,16 @@ using static Assets.Scripts.Monsters.Utility.Enums;
 namespace Assets.Scripts.Monsters
 {
     public class CaveBatController : AbstractMonster, ICombatant
-    {
-
-        private void Awake()
+    {        
+        protected override void Awake()
         {
+            base.Awake();
+
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
             renderer = transform.Find("Polygonal One Eyed Bat").gameObject.GetComponent<Renderer>();
             if (renderer == null) Debug.Break();
-
+            
             SetTicketMachine();
         }
 
@@ -60,7 +61,6 @@ namespace Assets.Scripts.Monsters
                 if (temp == null) continue;
 
                 AbstractAttack tempAttack = AddSkills(temp.attackName, temp.attackType);
-                Debug.Log(temp.attackName);
 
                 switch (temp.attackType)
                 {

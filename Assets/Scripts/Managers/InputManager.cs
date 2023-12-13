@@ -47,6 +47,9 @@ namespace Assets.Scripts.Managers
             if (Input.GetKeyDown(KeyCode.Escape))
                 escapeAction?.Invoke();
 
+            if (!CanInput)
+                return;
+            
             if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
                 return;
 

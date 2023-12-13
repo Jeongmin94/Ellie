@@ -162,6 +162,13 @@ public class TerrapupaMapObjectController : BaseController
 
         bossRoomLeftCanvas.gameObject.SetActive(true);
     }
+    
+    [Button("스킵", ButtonSizes.Large)]
+    private void Skip()
+    {
+        bossRoomLeftCanvas.gameObject.SetActive(true);
+    }
+    
 
     private void OnHitMana(IBaseEventPayload payload)
     {

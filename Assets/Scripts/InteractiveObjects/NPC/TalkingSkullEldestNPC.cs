@@ -195,8 +195,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetQuestStatus(6103, QuestStatus.CantAccept);
             player.SetInteractiveObjToNull();
             //player.DeactivateInteractiveUI();
-
-            OnDisableAction?.Invoke(npcData.name);
+            
+            OnDisableAction?.Invoke(npcData.type);
             this.gameObject.SetActive(false);
         }
         

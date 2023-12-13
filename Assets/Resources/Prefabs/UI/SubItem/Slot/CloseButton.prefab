@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2327205324278603893}
   - component: {fileID: 2327205324278603892}
   - component: {fileID: 2327205324278603895}
+  - component: {fileID: 5929111884815114166}
   m_Layer: 5
   m_Name: CloseButton
   m_TagString: Untagged
@@ -121,3 +122,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5929111884815114166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2327205324278603913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e10bc30cec23448a9cc4d9e79625bab7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.UI.Inventory.CloseButton, Assembly.Ellie

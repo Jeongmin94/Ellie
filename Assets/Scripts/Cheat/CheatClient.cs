@@ -1,7 +1,6 @@
 using Assets.Scripts.Centers;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Assets.Scripts.UI.Inventory;
 using Boss.Terrapupa;
 using Channels.Components;
@@ -10,7 +9,6 @@ using Channels.UI;
 using Sirenix.OdinInspector;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CheatClient : SerializedMonoBehaviour
@@ -40,15 +38,15 @@ public class CheatClient : SerializedMonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SetPlayerPosition1();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SetPlayerPosition2();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SetPlayerPosition3();
+
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
@@ -78,39 +76,48 @@ public class CheatClient : SerializedMonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.F1))
         {
-
+            // TELEPORT START
+            SetPlayerPosition1();
         }
         if (Input.GetKeyDown(KeyCode.F2))
         {
-
+            // TELEPORT BOSS ROOM
+            SetPlayerPosition2();
         }
         if (Input.GetKeyDown(KeyCode.F3))
         {
-
+            // TELEPORT STONE FOOTBOARD PUZZLE
+            SetPlayerPosition3();
         }
         if (Input.GetKeyDown(KeyCode.F4))
         {
-
+            // TELEPORT BREAKABLE STONE PUZZLE
+            SetPlayerPosition4();
         }
         if (Input.GetKeyDown(KeyCode.F5))
         {
-
+            // TELEPORT PILLAR PUZZLE
+            SetPlayerPosition5();
         }
         if (Input.GetKeyDown(KeyCode.F6))
         {
-
+            // TELEPORT RAIL START
+            SetPlayerPosition6();
         }
         if (Input.GetKeyDown(KeyCode.F7))
         {
-
+            // TELEPORT NPC1
+            SetPlayerPosition7();
         }
         if (Input.GetKeyDown(KeyCode.F8))
         {
-
+            // TELEPORT NPC2
+            SetPlayerPosition8();
         }
         if (Input.GetKeyDown(KeyCode.F9))
         {
-
+            // TELEPORT NPC3
+            SetPlayerPosition9();
         }
         if (Input.GetKeyDown(KeyCode.F10))
         {
@@ -179,6 +186,42 @@ public class CheatClient : SerializedMonoBehaviour
     public void SetPlayerPosition3()
     {
         player.position = new Vector3(33.5f, 11.8f, 98.8f);
+    }
+
+    [Button("돌 부수기 퍼즐 이동", ButtonSizes.Large)]
+    public void SetPlayerPosition4()
+    {
+        player.position = new Vector3(-115.6f, 13.02f, 390.79f);
+    }
+
+    [Button("돌 넣기 퍼즐 이동", ButtonSizes.Large)]
+    public void SetPlayerPosition5()
+    {
+        player.position = new Vector3(39.0f, 3.28f, 14.81f);
+    }
+
+    [Button("광차 이동", ButtonSizes.Large)]
+    public void SetPlayerPosition6()
+    {
+        player.position = new Vector3(32.96f, 13.56f, 155.13f);
+    }
+
+    [Button("NPC 1번 이동", ButtonSizes.Large)]
+    public void SetPlayerPosition7()
+    {
+        player.position = new Vector3(-68.019f, 3.16f, 74.72f);
+    }
+
+    [Button("NPC 2번 이동", ButtonSizes.Large)]
+    public void SetPlayerPosition8()
+    {
+        player.position = new Vector3(-68.01f, 3.16f, 112.71f);
+    }
+
+    [Button("NPC 3번 이동", ButtonSizes.Large)]
+    public void SetPlayerPosition9()
+    {
+        player.position = new Vector3(79.38f, 3.16f, 85.80f);
     }
 
     /// <summary>
@@ -256,8 +299,8 @@ public class CheatClient : SerializedMonoBehaviour
 
         for (int i = 0; i < 20; i++)
         {
-            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4003));
+            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4005));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4019));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));

@@ -194,9 +194,9 @@ namespace Assets.Scripts.Player
             //hp처리 로직
             ReduceHP(combatPayload.Damage);
             //상태이상 공격 처리 로직
-            if (combatPayload.PlayerStatusEffectName != StatusEffectName.None && HP > 0)
+            if (combatPayload.StatusEffectName != StatusEffectName.None && HP > 0)
             {
-                playerStatusEffects.TryGetValue(combatPayload.PlayerStatusEffectName, out IPlayerStatusEffect effect);
+                playerStatusEffects.TryGetValue(combatPayload.StatusEffectName, out IPlayerStatusEffect effect);
                 if (effect != null)
                 {
                     playerStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(combatPayload));

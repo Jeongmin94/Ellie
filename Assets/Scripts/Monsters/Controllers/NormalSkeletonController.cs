@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using TheKiwiCoder;
 using Assets.Scripts.Monsters.Utility;
@@ -16,8 +15,10 @@ namespace Assets.Scripts.Monsters
 {
     public class NormalSkeletonController : AbstractMonster, ICombatant
     {
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 
@@ -27,13 +28,14 @@ namespace Assets.Scripts.Monsters
         private void Start()
         {
             StartCoroutine(InitParsingData());
-
         }
 
         private IEnumerator InitParsingData()
         {
             yield return DataManager.Instance.CheckIsParseDone();
-            monsterData = DataManager.Instance.GetIndexData<SkeletonMonsterData, SkeletonMonsterDataParsingInfo>(((int)MonsterNumber.NormalSkeleton));
+            monsterData =
+                DataManager.Instance.GetIndexData<SkeletonMonsterData, SkeletonMonsterDataParsingInfo>(
+                    ((int)MonsterNumber.NormalSkeleton));
 
             SetSkills();
             InitUI();
@@ -41,6 +43,7 @@ namespace Assets.Scripts.Monsters
             SetNavMesh();
             SetBehaviourTreeInstance();
         }
+
         private void SetSkills()
         {
             for (int i = 0; i < (int)AttackSkill.End; i++)
@@ -48,8 +51,10 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2001);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2006);
+            attackData[(int)AttackSkill.BoxCollider] =
+                DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2000);
+            attackData[(int)AttackSkill.RunToPlayer] =
+                DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2005);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {
@@ -61,11 +66,13 @@ namespace Assets.Scripts.Monsters
                 switch (temp.attackType)
                 {
                     case AttackSkill.RunToPlayer:
-                        behaviourTreeInstance.SetBlackboardValue<float>("RunAttackMinimumDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("RunAttackMinimumDistance",
+                            temp.attackableDistance);
                         behaviourTreeInstance.SetBlackboardValue<float>("RunAttackInterval", temp.attackInterval);
                         break;
                     case AttackSkill.Flee:
-                        behaviourTreeInstance.SetBlackboardValue<float>("ActivatableFleeDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("ActivatableFleeDistance",
+                            temp.attackableDistance);
                         behaviourTreeInstance.SetBlackboardValue<float>("ActivateFleeInterval", temp.attackInterval);
                         behaviourTreeInstance.SetBlackboardValue<float>("FleeDistance", temp.fleeDistance);
                         behaviourTreeInstance.SetBlackboardValue<float>("FleeSpeed", temp.movementSpeed);
@@ -73,19 +80,23 @@ namespace Assets.Scripts.Monsters
                     case AttackSkill.BoxCollider:
                         tempAttack.InitializeBoxCollider(temp);
                         behaviourTreeInstance.SetBlackboardValue<float>("MeleeAnimationHold", temp.animationHold);
-                        behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackableDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackableDistance",
+                            temp.attackableDistance);
                         behaviourTreeInstance.SetBlackboardValue<float>("MeleeAttackInterval", temp.attackInterval);
                         break;
                     case AttackSkill.ProjectileAttack:
                         tempAttack.InitializeProjectile(temp);
                         behaviourTreeInstance.SetBlackboardValue<float>("ProjectimeAnimationHold", temp.animationHold);
-                        behaviourTreeInstance.SetBlackboardValue<float>("projectileAttackableDistance", temp.attackableMinimumDistance);
-                        behaviourTreeInstance.SetBlackboardValue<float>("ProjectileAttackInterval", temp.attackInterval);
+                        behaviourTreeInstance.SetBlackboardValue<float>("projectileAttackableDistance",
+                            temp.attackableMinimumDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("ProjectileAttackInterval",
+                            temp.attackInterval);
                         break;
                     case AttackSkill.FanshapeAttack:
                         tempAttack.InitializeFanShape(temp);
                         behaviourTreeInstance.SetBlackboardValue<float>("FanshapeAnimationHold", temp.animationHold);
-                        behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackableDistance", temp.attackableDistance);
+                        behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackableDistance",
+                            temp.attackableDistance);
                         behaviourTreeInstance.SetBlackboardValue<float>("FanshpaeAttackInterval", temp.attackInterval);
                         break;
                 }
@@ -142,12 +153,11 @@ namespace Assets.Scripts.Monsters
 
         public void ChangeEffectState(StatusEffectName effect)
         {
-
         }
+
         public override void ReturnSpawnLocation()
         {
             gameObject.transform.position = spawnPosition;
         }
     }
 }
-

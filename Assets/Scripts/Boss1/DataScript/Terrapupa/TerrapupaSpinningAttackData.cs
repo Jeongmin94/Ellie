@@ -41,7 +41,7 @@ public class TerrapupaSpinningAttackData : BaseBTData
         SetBlackboardValue<IBaseEventPayload>("combatPayload", new CombatPayload
         {
             Damage = attackValue,
-            PlayerStatusEffectName = statusEffect,
+            StatusEffectName = statusEffect,
             statusEffectduration = statusEffectDuration,
             force = statusEffectForce,
         }, tree);

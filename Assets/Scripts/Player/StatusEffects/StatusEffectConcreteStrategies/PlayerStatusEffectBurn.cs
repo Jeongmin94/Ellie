@@ -8,6 +8,12 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
     {
         private float duration;
         PlayerStatus status;
+        private GameObject BurnEffectParticle;
+        public void InitStatusEffect()
+        {
+            throw new System.NotImplementedException();
+        }
+
         public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)
         {
             status = controller.GetComponent<PlayerStatus>();

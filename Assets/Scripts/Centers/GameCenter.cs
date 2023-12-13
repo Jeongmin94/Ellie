@@ -5,7 +5,6 @@ using Assets.Scripts.Managers.Singleton;
 using Assets.Scripts.Player;
 using Centers;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace Assets.Scripts.Centers.Test
 {

@@ -2,6 +2,7 @@
 using Channels.UI;
 using System;
 using System.Collections;
+using Assets.Scripts.Data.GoogleSheet;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
@@ -11,6 +12,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private Action getBackPackAction;
 
         InteractiveType interactiveType = InteractiveType.Acquisition;
+
         public InteractiveType GetInteractiveType()
         {
             return interactiveType;
@@ -18,9 +20,15 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         public void Interact(GameObject obj)
         {
+            if (obj.GetComponent<PlayerQuest>().GetQuestStatus(6104) != QuestStatus.Accepted)
+            {
+                return;
+            }
+
             Publish();
             obj.GetComponent<PlayerInteraction>().interactiveObject = null;
             obj.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
+
             gameObject.SetActive(false);
         }
 

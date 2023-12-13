@@ -25,7 +25,7 @@ namespace Assets.Scripts.Player.States
             curTime = 0;
             if (Controller.CurStoneIdx != 0)
             {
-                Controller.shooter.GetComponent<Shooter>().Shoot(Controller.TicketMachine, Controller.CurStoneIdx);
+                Controller.shooter.Shoot(Controller.TicketMachine, Controller.CurStoneIdx);
             }
 
             Controller.TurnOnSlingshot();
