@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Combat;
+using Assets.Scripts.StatusEffects;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static Assets.Scripts.Managers.PlayerSavePayload;
@@ -319,8 +320,8 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            if (!InputManager.Instance.CanInput)
-                return;
+            // if (!InputManager.Instance.CanInput)
+            //     return;
 
             GetInput();
             CheckGround();
@@ -333,10 +334,17 @@ namespace Assets.Scripts.Player
 
             if (Input.GetKeyDown(KeyCode.P))
             {
+                // ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                // {
+                //     Defender = transform,
+                //     Damage = 20
+                // });
                 ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
                 {
                     Defender = transform,
-                    Damage = 20
+                    Damage = 1,
+                    StatusEffectName = StatusEffectName.Burn,
+                    statusEffectduration = 5f
                 });
             }
 

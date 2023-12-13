@@ -126,13 +126,6 @@ namespace Assets.Scripts.Player
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;
         }
-        //private void ReleaseStone(BaseStone stone, Vector3 direction, float strength)
-        //{
-        //    stone.SetPosition(releasePosition.position);
-        //    stone.MoveStone(direction, strength);
-
-        //}
-
         private void OnMouseAction()
         {
             if (Input.GetMouseButton(0))
@@ -144,27 +137,8 @@ namespace Assets.Scripts.Player
                 launchDirection = CalculateDirection();
                 DrawTrajectory(launchDirection, shootingPower * chargingRatio);
             }
-            //else if (Input.GetMouseButtonUp(0))
-            //{
-            //    // shooting
-            //    Shoot(launchDirection, shootingPower * chargingRatio);
-
-            //    // after shooting
-            //    lineRenderer.enabled = false;
-            //    chargingTime = 0.0f;
-            //    chargingData.ChargingValue.Value = 0.0f;
-            //}
         }
 
-        //public void Shoot(Poolable obj)
-        //{
-        //    // !TODO : SendMessage를 통해 StoneHatchery가 지정된 위치에서 돌 생성, 돌 발사 로직 실행
-        //    BaseStone stone = obj as BaseStone;
-        //    ReleaseStone(stone, launchDirection, shootingPower * chargingRatio);
-        //    lineRenderer.enabled = false;
-        //    chargingTime = 0.0f;
-        //    chargingData.ChargingValue.Value = 0.0f;
-        //}
         private Vector3 CalculateDirection()
         {
             Vector3 direction = Vector3.zero;

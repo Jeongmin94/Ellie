@@ -7,6 +7,7 @@ using Assets.Scripts.UI.Framework.Images;
 using Channels.Combat;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -128,11 +129,16 @@ namespace Assets.Scripts.Player
         private void InitStatusEffects()
         {
             // !TODO : 상태이상들 객체 생성, 리스트에 담아두기
-            //playerStatusEffects.Add(StatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
+            playerStatusEffects.Add(StatusEffectName.Burn, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectBurn>());
             playerStatusEffects.Add(StatusEffectName.WeakRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectWeakRigidity>());
             playerStatusEffects.Add(StatusEffectName.StrongRigidity, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectStrongRigidity>());
             playerStatusEffects.Add(StatusEffectName.Down, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectDown>());
             playerStatusEffects.Add(StatusEffectName.KnockedAirborne, playerStatusEffectController.gameObject.AddComponent<PlayerStatusEffectKnockedAirborne>());
+
+            foreach (var effect in playerStatusEffects.Values)
+            {
+                effect.InitStatusEffect();
+            }
         }
 
         private void RecoverStamina()
@@ -212,10 +218,12 @@ namespace Assets.Scripts.Player
 
         private StatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)
         {
-            StatusEffectInfo info = new StatusEffectInfo();
+            StatusEffectInfo info = new StatusEffectInfo
+            {
+                effectDuration = payload.statusEffectduration,
+                effectForce = payload.force
+            };
 
-            info.effectDuration = payload.statusEffectduration;
-            info.effectForce = payload.force;
             return info;
         }
 
