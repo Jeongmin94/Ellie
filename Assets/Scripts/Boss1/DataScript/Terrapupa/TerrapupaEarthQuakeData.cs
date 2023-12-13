@@ -14,7 +14,7 @@ public class TerrapupaEarthQuakeData : BaseBTData
     }
 
     [Title("사운드 설정")]
-    [InfoBox("땅 뒤집기 공격 사운드")] public string sound1 = "EarthQuake";
+    [InfoBox("땅 뒤집기 공격 사운드")] public string sound1 = "TerrapupaEarthQuake";
 
     [Title("이펙트 설정")]
     [InfoBox("내려 찍기 이펙트")] public GameObject earthQuakeEffect1;

@@ -15,6 +15,7 @@ public class TerrapupaRollData : BaseBTData
 
     [Title("사운드 설정")]
     [InfoBox("돌진 공격 시작 사운드")] public string sound1 = "TerrapupaRoll";
+    [InfoBox("돌진 공격 히트 사운드")] public string sound2 = "TerrapupaRollHit";
 
     [Title("이펙트 설정")]
     [InfoBox("돌진 시작 시 이펙트")] public GameObject rollEffect1;
