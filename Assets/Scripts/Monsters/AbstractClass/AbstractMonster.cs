@@ -68,7 +68,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected GameObject player;
         private Transform cameraObj;
 
-        // µğ¹öÇÁ °ü¸® Å¬·¡½º
+        // ë””ë²„í”„ ê´€ë¦¬ í´ë˜ìŠ¤
         private MonsterStatus statusEffect;
 
         protected virtual void Awake()
@@ -145,14 +145,14 @@ namespace Assets.Scripts.Monsters.AbstractClass
             {
                 if(statusEffect == null)
                 {
-                    Debug.LogError($"{transform.name} »óÅÂÀÌ»ó Ã³¸® ·ÎÁ÷ ¾øÀ½, Awake() Ãß°¡");
+                    Debug.LogError($"{transform.name} ìƒíƒœì´ìƒ ì²˜ë¦¬ ë¡œì§ ì—†ìŒ, Awake() ì¶”ê°€");
                 }
-                // µğ¹öÇÁ Ã³¸®
+                // ë””ë²„í”„ ì²˜ë¦¬
                 statusEffect.ApplyStatusEffect(combatPayload);
             }
         }
 
-        [Button("¸ó½ºÅÍ ºù°á »óÅÂÀÌ»ó Ã¼Å©", ButtonSizes.Large)]
+        [Button("ëª¬ìŠ¤í„° ë¹™ê²° ìƒíƒœì´ìƒ ì²´í¬", ButtonSizes.Large)]
         public void Test()
         {
             ReceiveDamage(new CombatPayload
