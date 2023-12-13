@@ -17,9 +17,6 @@ namespace Assets.Scripts.Monsters
     {
         private void Awake()
         {
-            //temp, will change with gamecenter
-            player = GameObject.Find("Player");
-
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 
