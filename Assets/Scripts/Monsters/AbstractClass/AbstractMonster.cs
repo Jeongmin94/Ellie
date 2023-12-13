@@ -6,11 +6,13 @@ using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Monsters.Utility;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Sirenix.OdinInspector;
 using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.AI;
@@ -65,6 +67,14 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected MonsterAudioController audioController;
         protected GameObject player;
         private Transform cameraObj;
+
+        // 디버프 관리 클래스
+        private MonsterStatus statusEffect;
+
+        protected virtual void Awake()
+        {
+            statusEffect = gameObject.GetOrAddComponent<MonsterStatus>();
+        }
 
         private void Update()
         {
@@ -130,6 +140,27 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             CombatPayload combatPayload = payload as CombatPayload;
             UpdateHP(combatPayload.Damage);
+
+            if(combatPayload.StatusEffectName != StatusEffectName.None && currentHP > 0)
+            {
+                if(statusEffect == null)
+                {
+                    Debug.LogError($"{transform.name} 상태이상 처리 로직 없음, Awake() 추가");
+                }
+                // 디버프 처리
+                statusEffect.ApplyStatusEffect(combatPayload);
+            }
+        }
+
+        [Button("몬스터 빙결 상태이상 체크", ButtonSizes.Large)]
+        public void Test()
+        {
+            ReceiveDamage(new CombatPayload
+            {
+                Damage = 1,
+                StatusEffectName = StatusEffectName.Incarceration,
+                statusEffectduration = 10.0f,
+            });
         }
 
         public void RecieveHeadShot()
