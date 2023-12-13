@@ -15,6 +15,8 @@ namespace Assets.Scripts.Player.HitComponent
         private Color originColor;
         private Coroutine hitCoroutine;
 
+        public float HitDuration() => hitDuration;
+
         private void Awake()
         {
             if (modelMaterial == null)

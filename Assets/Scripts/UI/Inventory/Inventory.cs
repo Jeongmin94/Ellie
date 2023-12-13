@@ -339,6 +339,7 @@ namespace Assets.Scripts.UI.Inventory
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClose);
 
+            Cursor.visible = false;
             isOpened = false;
             gameObject.SetActive(false);
             UIPayload payload = new()
@@ -448,7 +449,7 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
-                    
+
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
@@ -466,7 +467,7 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
-                    
+
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
@@ -496,7 +497,7 @@ namespace Assets.Scripts.UI.Inventory
 
                     baseSlotItem.ChangeSlot(slot.SlotType, slot);
                     baseSlotItem.ChangeSlotItem(slot.SlotType, copy);
-                    
+
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundEquipment, Vector3.zero);
                 }
                     break;
