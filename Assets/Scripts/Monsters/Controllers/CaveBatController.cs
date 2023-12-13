@@ -22,7 +22,9 @@ namespace Assets.Scripts.Monsters
 
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
-
+            renderer = transform.Find("Polygonal One Eyed Bat").gameObject.GetComponent<Renderer>();
+            if (renderer == null) Debug.Break();
+            
             SetTicketMachine();
         }
 
