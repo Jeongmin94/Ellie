@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
   m_Name: CaveBatBehaviourTree
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TheKiwiCoder.BehaviourTree, Assembly.Ellie
   rootNode:
     rid: 5827609998966652928
   nodes:
@@ -120,8 +120,8 @@ MonoBehaviour:
     - rid: 6937830615371481108
     - rid: 6937830615371481109
     - rid: 6937830615371481110
-  viewPosition: {x: 1307, y: 232, z: 0}
-  viewScale: {x: 0.4971768, y: 0.4971768, z: 1}
+  viewPosition: {x: 2150, y: -40, z: 0}
+  viewScale: {x: 0.43232766, y: 0.43232766, z: 1}
   references:
     version: 2
     RefIds:
@@ -331,7 +331,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 66312dc16c5ab4f63ac0cbda231190be
-        position: {x: -4350, y: 960}
+        position: {x: -4440, y: 1065}
         blackboard:
           keys: []
         description: 
@@ -358,13 +358,14 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a1d30f5b90c6e48888718b5fca429fac
-        position: {x: 645, y: 690}
+        position: {x: 705, y: 690}
         blackboard:
           keys: []
         description: Movement
         drawGizmos: 0
         children:
         - rid: 5827610086317228049
+        - rid: 5827610086317228054
     - rid: 5827610086317228049
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

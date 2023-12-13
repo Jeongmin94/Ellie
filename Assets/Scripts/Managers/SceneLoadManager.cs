@@ -18,7 +18,7 @@ namespace Assets.Scripts.Centers
     public class SceneLoadManager : Singleton<SceneLoadManager>
     {
         [SerializeField] public SceneName CurrentScene { get; private set; }
-        public bool IsLoading { get; private set; } = true;
+        public bool IsLoading { get; private set; } = false;
 
         public void LoadScene(SceneName sceneName)
         {
