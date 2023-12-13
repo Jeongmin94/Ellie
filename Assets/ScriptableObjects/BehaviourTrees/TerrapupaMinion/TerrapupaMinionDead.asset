@@ -46,6 +46,7 @@ MonoBehaviour:
   - rid: 1683426562437021869
   - rid: 1683426562437021870
   - rid: 1683426571690704899
+  - rid: 116448479611715585
   treeState: 0
   blackboard:
     keys:
@@ -59,13 +60,35 @@ MonoBehaviour:
     - rid: 1683426562437021866
     - rid: 1683426571690704898
     - rid: 1683426571690704900
-  viewPosition: {x: 1552, y: 840, z: 0}
-  viewScale: {x: 0.375937, y: 0.375937, z: 1}
+    - rid: 116448479611715584
+  viewPosition: {x: 1798.4, y: 1010.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448479611715584
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448479611715585
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: addbbce699cbfeb4f9a605a95599d566
+        position: {x: -1650, y: -705}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448479611715584
+          defaultValue: 
     - rid: 283011090204065825
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -78,7 +101,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f7ad4994951c9474f8c02cfd39bed571
-        position: {x: -2190, y: -720}
+        position: {x: -2310, y: -705}
         blackboard:
           keys: []
         description: 
@@ -162,13 +185,14 @@ MonoBehaviour:
         - rid: 283011153473568795
         - rid: 283011153473568801
         - rid: 1683426571690704899
+        - rid: 116448479611715585
     - rid: 283011153473568801
       type: {class: SetRigidbodyKinematic, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 7cbebfdc26e561a419d01ce1bb8c7334
-        position: {x: -1980, y: -720}
+        position: {x: -2115, y: -705}
         blackboard:
           keys: []
         description: 
@@ -756,7 +780,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 9f01bd1a8855ca84fbc4e09e133a6787
-        position: {x: -1740, y: -720}
+        position: {x: -1875, y: -705}
         blackboard:
           keys: []
         description: 

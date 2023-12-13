@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.StatusEffects;
 using Channels.Combat;
-using System.Collections;
+using Sirenix.OdinInspector;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -12,6 +12,9 @@ public class TerrapupaMinionSelfDestructData : BaseBTData
         dataName = "TerrapupaMinionSelfDestruct";
     }
 
+    [Title("사운드 설정")]
+    [InfoBox("땅 뒤집기 공격 사운드")] public string sound1 = "MinionSelfDestruct";
+    
     [Header("이펙트 설정")]
     [Tooltip("공격 이펙트")] public GameObject attackEffect1;
 
@@ -28,6 +31,7 @@ public class TerrapupaMinionSelfDestructData : BaseBTData
 
     public override void Init(BehaviourTree tree)
     {
+        SetBlackboardValue<string>("sound1", sound1, tree);
         SetBlackboardValue<GameObject>("effect1", attackEffect1, tree);
         SetBlackboardValue<float>("rotationSpeed", rotationSpeed, tree);
         SetBlackboardValue<float>("jumpPower", jumpPower, tree);
