@@ -23,10 +23,17 @@ namespace Assets.Scripts.Item.Stone
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
 
+        private Transform stoneRoot;
+
         private void Awake()
         {
             SetTicketMachine();
             InitStonePool();
+            
+            GameObject root = new GameObject();
+            root.name = "@Stone_Root";
+            root.transform.SetParent(transform);
+            stoneRoot = root.transform;
         }
         private void Start()
         {
@@ -43,8 +50,7 @@ namespace Assets.Scripts.Item.Stone
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
-            stonePool = PoolManager.Instance.CreatePool(stone, 0);
-            
+            stonePool = PoolManager.Instance.CreatePool(stone, 10);
         }
 
         public void Attack(CombatPayload payload)
@@ -54,7 +60,8 @@ namespace Assets.Scripts.Item.Stone
 
         public Poolable GetStone(int stoneIdx)
         {
-            Poolable obj = stonePool.Pop();
+            Poolable obj = stonePool.Pop(stoneRoot);
+            Debug.Log(stonePool.GetStackSize());
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             if (obj.GetComponent<BaseStone>().data == null)
             {
@@ -153,7 +160,10 @@ namespace Assets.Scripts.Item.Stone
 
         private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
         {
-            stone.SetPosition(startPos);
+            stone.transform.position = startPos;
+
+            Debug.Log("startpos : " + startPos);
+            Debug.Log("curStonePos : " + stone.transform.position);
             stone.MoveStone(direction, strength);
             stone.GetComponent<Rigidbody>().AddTorque(2f*Random.onUnitSphere);
         }
