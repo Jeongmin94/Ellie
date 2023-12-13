@@ -16,8 +16,10 @@ namespace Assets.Scripts.Monsters
 {
     public class CaveBatController : AbstractMonster, ICombatant
     {        
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
 

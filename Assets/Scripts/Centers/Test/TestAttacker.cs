@@ -57,7 +57,7 @@ namespace Assets.Scripts.Centers.Test
                 AttackDirection = Vector3.zero,
                 AttackStartPosition = transform.position,
                 AttackPosition = playerStatus.gameObject.transform.position,
-                PlayerStatusEffectName = statusEffect,
+                StatusEffectName = statusEffect,
                 statusEffectduration = testEffectDuration,
                 force = testForce,
                 Damage = testDamage

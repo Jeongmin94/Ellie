@@ -39,7 +39,7 @@ namespace Assets.Scripts.Item.Stone
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = defender.position;
             payload.Damage = data.damage;
-            payload.PlayerStatusEffectName = data.statusEffect;
+            payload.StatusEffectName = data.statusEffect;
             payload.statusEffectduration = data.statusEffectDuration;
             payload.force = data.force;
             //<=

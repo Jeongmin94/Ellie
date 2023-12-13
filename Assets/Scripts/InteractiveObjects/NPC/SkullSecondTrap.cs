@@ -44,7 +44,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                     Type = CombatType.Melee,
                     Damage = 1,
                     Defender = other.transform,
-                    PlayerStatusEffectName = StatusEffects.StatusEffectName.KnockedAirborne,
+                    StatusEffectName = StatusEffects.StatusEffectName.KnockedAirborne,
                     statusEffectduration = 1.5f,
                     force = 15f
                 });

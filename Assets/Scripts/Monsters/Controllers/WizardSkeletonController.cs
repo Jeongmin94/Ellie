@@ -15,8 +15,10 @@ namespace Assets.Scripts.Monsters
 {
     public class WizardSkeletonController : AbstractMonster, ICombatant
     {
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             //temp, will change with gamecenter
             player = GameObject.Find("Player");
 
