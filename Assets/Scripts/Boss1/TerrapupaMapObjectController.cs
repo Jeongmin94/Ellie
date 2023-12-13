@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Controller;
+using Channels.Dialog;
 using UnityEngine;
 using Channels.UI;
 
@@ -77,7 +78,7 @@ public class TerrapupaMapObjectController : BaseController
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog);
 
         foreach (var mana in manaFountains)
         {
@@ -152,6 +153,22 @@ public class TerrapupaMapObjectController : BaseController
         trigger.SetActive(false);
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
+
+        var dPayload = DialogPayload.Play("test");
+        dPayload.canvasType = DialogCanvasType.SimpleRemaining;
+        ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+
+        StartCoroutine(test());
+    }
+
+    private IEnumerator test()
+    {
+        yield return new WaitForSeconds(3.0f);
+        
+        Debug.Log("테스트");
+        var dPayload = DialogPayload.Stop();
+        dPayload.canvasType = DialogCanvasType.SimpleRemaining;
+        ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
     }
 
     private void OnLeftBossRoom(IBaseEventPayload payload)

@@ -194,7 +194,7 @@ public class TerrapupaController : BaseController
         Transform manaTransform = payload.TransformValue2;
         Transform hitBossTransform = payload.TransformValue3;
         Transform boss = payload.Sender;
-
+        
         // 1. 플레이어 피격
         if (playerTransform != null)
         {
