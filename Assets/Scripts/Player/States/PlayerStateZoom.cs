@@ -43,8 +43,9 @@ namespace Assets.Scripts.Player.States
             Controller.Aim();
             Controller.LookAimTarget();
             Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Aiming, 1f);
+            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
 
-            curTime += Time.deltaTime / Time.timeScale;
+            curTime += Time.deltaTime / ts ;
             if (curTime >= zoomingTime)
             {
                 Controller.ChangeState(PlayerStateName.Charging);
