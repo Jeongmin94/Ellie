@@ -11,6 +11,7 @@ public class TerrapupaIntakeData : BaseBTData
         dataName = "TerrapupaIntake";
     }
 
+    
     [Title("섭취 상태")]
     [InfoBox("섭취 지속시간")] public float intakeDuration = 5.0f;
     [InfoBox("섭취 시 체력 회복량")] public int intakeHealValue = 10;
