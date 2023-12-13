@@ -44,6 +44,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
+        public Renderer renderer;
         private bool isHeadShot;
 
         public Dictionary<string, AbstractAttack> Attacks = new();
