@@ -200,7 +200,7 @@ namespace Assets.Scripts.UI.Dialog
 
         private IEnumerator PlaySimpleDialog(DialogPayload payload)
         {
-            yield return dialogText.Play(payload.text, payload.interval, 1.0f);
+            yield return dialogText.Play(payload.text, payload.interval, payload.simpleDialogDuration);
 
             if (payload.canvasType == DialogCanvasType.Simple)
                 Stop();

@@ -155,10 +155,11 @@ public class TerrapupaMapObjectController : BaseController
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
 
         var dPayload = DialogPayload.Play("test");
-        dPayload.canvasType = DialogCanvasType.SimpleRemaining;
+        dPayload.canvasType = DialogCanvasType.Simple;
+        dPayload.simpleDialogDuration = 3.0f;
         ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
 
-        StartCoroutine(test());
+        // StartCoroutine(test());
     }
 
     private IEnumerator test()
