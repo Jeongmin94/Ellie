@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -12,13 +13,11 @@ namespace Assets.Scripts.Player
         public bool canAim = true;
 
         private float zoomingCoeff;
-        void Start()
-        {
-
-        }
 
         void Update()
         {
+            if (!InputManager.Instance.CanInput)
+                return;
             if (!canAim) return;
             xAxis.Update(Time.deltaTime / Time.timeScale);
             yAxis.Update(Time.deltaTime / Time.timeScale);

@@ -45,6 +45,9 @@ namespace Channels.UI
         // Pause Canvas
         OpenPauseCanvas,
         ClosePauseCanvas,
+        
+        // GuideCanvas
+        OpenGuideCanvas
     }
 
     public struct QuestInfo
@@ -93,7 +96,6 @@ namespace Channels.UI
         
         // Interactive
         public InteractiveType interactiveType;
-
         public static UIPayload Notify()
         {
             UIPayload payload = new UIPayload();
