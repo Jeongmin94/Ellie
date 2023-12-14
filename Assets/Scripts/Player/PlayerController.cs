@@ -19,6 +19,7 @@ using System;
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Combat;
+using Assets.Scripts.StatusEffects;
 using UnityEngine;
 using UnityEngine.Serialization;
 using static Assets.Scripts.Managers.PlayerSavePayload;
@@ -325,7 +326,6 @@ namespace Assets.Scripts.Player
             GetInput();
             CheckGround();
             Turn();
-            ResetPlayerPos();
             SetMovingAnim();
             stateMachine?.UpdateState();
             GrabSlingshotLeather();
@@ -333,10 +333,17 @@ namespace Assets.Scripts.Player
 
             if (Input.GetKeyDown(KeyCode.P))
             {
+                // ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                // {
+                //     Defender = transform,
+                //     Damage = 20
+                // });
                 ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
                 {
                     Defender = transform,
-                    Damage = 20
+                    Damage = 1,
+                    StatusEffectName = StatusEffectName.Burn,
+                    statusEffectduration = 5f
                 });
             }
 
@@ -399,22 +406,10 @@ namespace Assets.Scripts.Player
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
 
-        private void ResetPlayerPos()
-        {
-            //Test용
-            //if (Input.GetKeyDown(KeyCode.Escape))
-            //{
-            //    transform.position = new Vector3(0f, 1f, 0f);
-            //    ChangeState(PlayerStateName.Idle);
-            //}
-        }
+        
 
         public void SetColliderHeight(float colliderHeight)
         {
-            //if (isJumping || isFalling)
-            //    playerCollider.height = 1f;
-            //else
-            //    playerCollider.height = 1.5f;
             playerCollider.height = colliderHeight;
         }
 
@@ -684,7 +679,9 @@ namespace Assets.Scripts.Player
             float animLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             if (curWeight < weight)
             {
-                curWeight += animLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+
+                curWeight += animLayerWeightChangeSpeed * Time.deltaTime / ts;
             }
 
             Anim.SetLayerWeight((int)layer, curWeight);
@@ -699,9 +696,12 @@ namespace Assets.Scripts.Player
         {
             float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             float curWeight = Anim.GetLayerWeight(layer);
+            
             while (curWeight > 0)
             {
-                curWeight -= AnimLayerWeightChangeSpeed * Time.deltaTime / Time.timeScale;
+                float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+
+                curWeight -= AnimLayerWeightChangeSpeed * Time.deltaTime / ts;
                 Anim.SetLayerWeight(layer, curWeight);
                 yield return null;
             }
@@ -744,6 +744,7 @@ namespace Assets.Scripts.Player
             directionToTarget.y = 0;
 
             Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
             PlayerObj.rotation = Quaternion.Slerp(PlayerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
         }
 

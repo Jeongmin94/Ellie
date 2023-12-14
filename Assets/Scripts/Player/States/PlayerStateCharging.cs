@@ -36,7 +36,8 @@ namespace Assets.Scripts.Player.States
         {
             Controller.Aim();
             Controller.LookAimTarget();
-            Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.ChargeStaminaComsumptionPerSec * Time.deltaTime / Time.timeScale);
+            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+            Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.ChargeStaminaComsumptionPerSec * Time.deltaTime / ts);
 
             if (Input.GetMouseButtonUp(0))
             {
