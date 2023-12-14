@@ -85,7 +85,7 @@ public class TerrapupaController : BaseController
     public void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat, ChannelType.Camera);
 
         terrapupa.InitTicketMachine(ticketMachine);
         terra.InitTicketMachine(ticketMachine);
@@ -577,8 +577,8 @@ public class TerrapupaController : BaseController
         terra.terrapupaData.player.Value = player.transform;
         pupa.terrapupaData.player.Value = player.transform;
 
-        terra.HideBillobard();
-        pupa.HideBillobard();
+        terra.HideBillboard();
+        pupa.HideBillboard();
     }
 
     private void SpawnMinions(Transform obj)
@@ -594,7 +594,7 @@ public class TerrapupaController : BaseController
             minion.gameObject.SetActive(true);
             minion.transform.position = position;
             minion.minionData.player.Value = player.transform;
-            minion.HideBillobard();
+            minion.HideBillboard();
 
             // 미니언 인덱스 갱신 ( +1 )
             currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;

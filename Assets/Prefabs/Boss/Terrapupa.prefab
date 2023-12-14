@@ -104,6 +104,7 @@ GameObject:
   - component: {fileID: 8979523351519513294}
   - component: {fileID: 8979523351519513295}
   - component: {fileID: 5739336596423150777}
+  - component: {fileID: 986809399633441117}
   m_Layer: 10
   m_Name: Terrapupa
   m_TagString: Boss
@@ -217,6 +218,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: TerrapupaHealthBar, Assembly.Ellie
   data: {fileID: 11400000, guid: a4189abdd4b7ce546a91d5e9f68d38c6, type: 2}
   scaleFactor: 0.003
+--- !u!114 &986809399633441117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8979523351519513283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
+  modelMaterial: {fileID: 2100000, guid: 2a415c504a4235f40972456400792538, type: 2}
 --- !u!1001 &2128096367104428211
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -33,10 +33,9 @@ public class TerrapupaMinionHealthBar : MonoBehaviour
         dataContainer.CurrentHp.Value = (int)Mathf.Ceil(data.hp);
         dataContainer.Name = data.bossName;
 
+        billboard.InitData(dataContainer);
         RenewHealthBar(dataContainer.CurrentHp.Value - 1);
         RenewHealthBar(dataContainer.CurrentHp.Value + 1);
-
-        billboard.InitData(dataContainer);
     }
 
     public void RenewHealthBar(int currentHP)

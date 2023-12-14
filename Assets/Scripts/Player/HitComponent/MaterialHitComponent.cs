@@ -6,6 +6,7 @@ namespace Assets.Scripts.Player.HitComponent
     public class MaterialHitComponent : MonoBehaviour
     {
         private static readonly string StringBaseColor = "_BaseColor";
+        private static readonly string StringEmissionColor = "_EmissionColor";
 
         [SerializeField] private Color hitColor = Color.red;
         [SerializeField] private float hitDuration = 0.5f;
@@ -41,6 +42,7 @@ namespace Assets.Scripts.Player.HitComponent
         private IEnumerator ChangeModelMaterial()
         {
             modelMaterial.SetColor(StringBaseColor, hitColor);
+            modelMaterial.SetColor(StringEmissionColor, hitColor);
             yield return new WaitForSeconds(hitDuration);
 
             float timeAcc = 0.0f;
@@ -52,9 +54,11 @@ namespace Assets.Scripts.Player.HitComponent
 
                 Color c = Color.Lerp(hitColor, originColor, timeAcc / returnDuration);
                 modelMaterial.SetColor(StringBaseColor, c);
+                modelMaterial.SetColor(StringEmissionColor, c);
             }
 
             modelMaterial.SetColor(StringBaseColor, originColor);
+            modelMaterial.SetColor(StringEmissionColor, originColor);
         }
     }
 }
