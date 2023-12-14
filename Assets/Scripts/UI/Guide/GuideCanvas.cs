@@ -61,6 +61,7 @@ namespace Assets.Scripts.UI.Guide
         {
             if (gameObject.activeSelf)
             {
+                Cursor.visible = false;
                 InputManager.Instance.CanInput = true;
                 gameObject.SetActive(false);
             }
@@ -159,7 +160,7 @@ namespace Assets.Scripts.UI.Guide
 
         private void OnCloseButtonClicked()
         {
-            gameObject.SetActive(false);
+            OnEscapeAction();
         }
 
         private void OnButtonClicked(PopupPayload payload)

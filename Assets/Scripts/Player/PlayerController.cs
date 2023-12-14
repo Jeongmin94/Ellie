@@ -275,9 +275,11 @@ namespace Assets.Scripts.Player
             Rb = GetComponent<Rigidbody>();
             Anim = GetComponent<Animator>();
             playerStatus = GetComponent<PlayerStatus>();
-            InitTicketMachine();
-            //stateMachine.CurrentState.
             playerInventory = GetComponent<PlayerInventory>();
+            
+            InitTicketMachine();
+            playerStatus.ControllerTicketMachine = ticketMachine;
+            //stateMachine.CurrentState.
 
             //카메라 흔들림 이벤트 구독
             SubscribeCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);

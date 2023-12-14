@@ -7,6 +7,11 @@ using Assets.Scripts.UI.Framework.Images;
 using Channels.Combat;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Player.HitComponent;
+using Channels.Components;
+using Channels.Type;
+using Channels.UI;
 using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
 using UnityEngine;
 
@@ -34,6 +39,10 @@ namespace Assets.Scripts.Player
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private float invulnerableTimeAfterHit;
         private Coroutine invulnerableCoroutine;
+
+        // hit effect
+        private MaterialHitComponent hitComponent;
+        public TicketMachine ControllerTicketMachine { get; set; }
 
         public int MaxHP
         {
@@ -106,6 +115,7 @@ namespace Assets.Scripts.Player
             playerStatusEffects = new();
             playerUI = GetComponent<PlayerUI>();
 
+            hitComponent = GetComponent<MaterialHitComponent>();
 
             InitStatusEffects();
         }
@@ -169,6 +179,22 @@ namespace Assets.Scripts.Player
 
         public void ReduceHP(int damage)
         {
+            // Hit Effect
+            // 1. Model Material
+            hitComponent.Hit();
+
+            // 2. Screen Damage
+            UIPayload payload = UIPayload.Notify();
+            payload.actionType = ActionType.ShowBlurEffect;
+            ControllerTicketMachine.SendMessage(ChannelType.UI, payload);
+
+            // 3. Camera
+            CameraPayload cameraPayload = new CameraPayload();
+            cameraPayload.type = CameraShakingEffectType.Start;
+            cameraPayload.shakeIntensity = damage;
+            cameraPayload.shakeTime = hitComponent.HitDuration();
+            ControllerTicketMachine.SendMessage(ChannelType.Camera, cameraPayload);
+
             if (HP <= damage && !isDead)
             {
                 HP = 0;
