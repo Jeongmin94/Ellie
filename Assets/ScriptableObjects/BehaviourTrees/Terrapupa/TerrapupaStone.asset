@@ -52,6 +52,7 @@ MonoBehaviour:
   - rid: 1683426562437021718
   - rid: 1683426562437021719
   - rid: 6881097883797946378
+  - rid: 116448495133786119
   treeState: 0
   blackboard:
     keys:
@@ -71,13 +72,35 @@ MonoBehaviour:
     - rid: 1683426562437021721
     - rid: 1683426562437021877
     - rid: 6881097883797946375
-  viewPosition: {x: 2608, y: 516, z: 0}
+    - rid: 116448495133786118
+  viewPosition: {x: 2533.6, y: 536.8, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448495133786118
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound3
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448495133786119
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 10429b5bbe90e0247b3f72c5ccbfcf01
+        position: {x: -1620, y: -375}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448495133786118
+          defaultValue: 
     - rid: 283011090204065836
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -114,7 +137,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 96d4a4956a237114789dfe1594c91c77
-        position: {x: -1560, y: -375}
+        position: {x: -1455, y: -375}
         blackboard:
           keys: []
         description: 
@@ -423,13 +446,14 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 263d86d3bd9e1b44289a45ef2325e426
-        position: {x: -1230, y: -600}
+        position: {x: -1095, y: -600}
         blackboard:
           keys: []
         description: "\uB3CC \uB358\uC9C0\uAE30 \uB3D9\uC791"
         drawGizmos: 0
         children:
         - rid: 8619125029124177929
+        - rid: 116448495133786119
         - rid: 283011090204065842
         - rid: 1401849379394682880
         - rid: 1683426247750189100
@@ -468,7 +492,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: cef6e428db9b26543a863525d45d2ad9
-        position: {x: -1395, y: -375}
+        position: {x: -1290, y: -375}
         blackboard:
           keys: []
         description: 

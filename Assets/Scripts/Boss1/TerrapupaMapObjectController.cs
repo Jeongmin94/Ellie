@@ -363,9 +363,10 @@ public class TerrapupaMapObjectController : BaseController
 
     private IEnumerator ManaRespawn(BossEventPayload manaPayload)
     {
-        manaFountainCount--;
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-        mana.IsBroken = true;
+        
+        manaFountainCount--;
+        mana.DestroyManaFountain();
         mana.gameObject.SetActive(false);
 
         if (manaFountainCount == 0)
@@ -379,8 +380,7 @@ public class TerrapupaMapObjectController : BaseController
 
         manaFountainCount++;
         mana.gameObject.SetActive(true);
-        mana.IsBroken = false;
-        mana.IsCooldown = false;
+        mana.RegenerateManaFountain();
 
         manaPayload.BoolValue = true;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);

@@ -60,6 +60,7 @@ MonoBehaviour:
   - rid: 1683426562437021699
   - rid: 1683426562437021700
   - rid: 6881097883797946369
+  - rid: 116448495133786115
   treeState: 0
   blackboard:
     keys:
@@ -85,13 +86,35 @@ MonoBehaviour:
     - rid: 1683426562437021697
     - rid: 1683426562437021872
     - rid: 6881097883797946370
-  viewPosition: {x: 1886.4, y: 510.4, z: 0}
+    - rid: 116448495133786114
+  viewPosition: {x: 2258.4, y: 522.4, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448495133786114
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound2
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448495133786115
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 879c1e7e61a47c144abc1ddcfe949bef
+        position: {x: -3300, y: 330}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448495133786114
+          defaultValue: 
     - rid: 283011018610442309
       type: {class: MoveToPosLerp, ns: , asm: Assembly.Ellie}
       data:
@@ -490,12 +513,13 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 81114db15660979469cad8b8061b9cfa
-        position: {x: -2610, y: 135}
+        position: {x: -2850, y: 120}
         blackboard:
           keys: []
         description: "\uCD08\uAE30\uD654"
         drawGizmos: 0
         children:
+        - rid: 116448495133786115
         - rid: 1683426247750189101
         - rid: 8619125046743924785
         - rid: 283011090204065853

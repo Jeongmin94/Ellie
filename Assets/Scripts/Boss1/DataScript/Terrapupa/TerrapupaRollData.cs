@@ -14,8 +14,9 @@ public class TerrapupaRollData : BaseBTData
     }
 
     [Title("사운드 설정")]
-    [InfoBox("돌진 공격 시작 사운드")] public string sound1 = "TerrapupaRoll";
+    [InfoBox("돌진 공격 사운드")] public string sound1 = "TerrapupaRoll";
     [InfoBox("돌진 공격 히트 사운드")] public string sound2 = "TerrapupaRollHit";
+    [InfoBox("돌진 공격 시작 사운드")] public string sound3 = "TerrapupaRollStart";
 
     [Title("이펙트 설정")]
     [InfoBox("돌진 시작 시 이펙트")] public GameObject rollEffect1;
@@ -38,6 +39,8 @@ public class TerrapupaRollData : BaseBTData
     public override void Init(BehaviourTree tree)
     {
         SetBlackboardValue<string>("sound1", sound1, tree);
+        SetBlackboardValue<string>("sound2", sound2, tree);
+        SetBlackboardValue<string>("sound3", sound3, tree);
         SetBlackboardValue<GameObject>("effect1", rollEffect1, tree);
         SetBlackboardValue<GameObject>("effect2", rollEffect2, tree);
         SetBlackboardValue<float>("cooldown", cooldown, tree);
