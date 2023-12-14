@@ -34,7 +34,6 @@ namespace Assets.Scripts.Player
             if (!other.gameObject.CompareTag("Interactive")) return;
             interactiveObject = other.gameObject;
             canInteract = true;
-            Debug.Log($"OnTriggerEnter - {other.name}");
             var io = interactiveObject.GetComponent<InteractiveObject>();
             if (io != null)
             {
@@ -47,7 +46,6 @@ namespace Assets.Scripts.Player
         private void OnTriggerExit(Collider other)
         {
             if (!other.gameObject.CompareTag("Interactive")) return;
-            Debug.Log($"OnTriggerExit - {other.name}");
             var io = other.gameObject.GetComponent<InteractiveObject>();
             if (io != null)
             {
