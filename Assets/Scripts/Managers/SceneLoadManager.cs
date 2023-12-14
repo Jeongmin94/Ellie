@@ -8,6 +8,7 @@ namespace Assets.Scripts.Centers
     //Build세팅 할 때 Scene 넘버 확인해서 추가 / 수정
     public enum SceneName
     {
+        Logo,
         Opening,
         InGame,
         Closing,

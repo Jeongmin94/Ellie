@@ -1,15 +1,13 @@
 ﻿using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
-using Assets.Scripts.Utils;
 using Channels.Components;
-using Channels.Type;
 using Channels.UI;
-using System.Collections;
+using Outline;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
 {
-    public class MineCart : MonoBehaviour, IInteractiveObject
+    public class MineCart : InteractiveObject
     {
         [SerializeField] private Transform playerStandingPos;
         [SerializeField] private BezierSpline spline;
@@ -18,6 +16,7 @@ namespace Assets.Scripts.InteractiveObjects
         [SerializeField] private Transform playerEndPos;
         [SerializeField] private bool isActivated;
         [SerializeField] private float duration;
+        [SerializeField] private Renderer renderer;
         private SplineWalker walker = null;
 
         private bool canJump = false;
@@ -53,7 +52,7 @@ namespace Assets.Scripts.InteractiveObjects
         }
         //TODO : 특정 구간에서 Space를 입력해서 구간 넘어가기
         
-        public void Interact(GameObject obj)
+        public override void Interact(GameObject obj)
         {
             if (!obj.CompareTag("Player")) return;
             player = obj;
@@ -122,9 +121,19 @@ namespace Assets.Scripts.InteractiveObjects
 
         }
 
-        public InteractiveType GetInteractiveType()
+        public override InteractiveType GetInteractiveType()
         {
             return type;
+        }
+
+        public override OutlineType GetOutlineType()
+        {
+            return OutlineType.InteractiveOutline;
+        }
+
+        public override Renderer GetRenderer()
+        {
+            return renderer;
         }
     }
 }

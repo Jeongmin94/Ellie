@@ -117,6 +117,7 @@ MonoBehaviour:
   playerEndPos: {fileID: 9066127736181460788}
   isActivated: 0
   duration: 50
+  renderer: {fileID: 9066127736861344975}
 --- !u!54 &9066127736972206294
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,5 +244,10 @@ Rigidbody:
 --- !u!4 &9066127736859008473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 498650, guid: 5c00c5f03c23f3b44af6d75077362432, type: 3}
+  m_PrefabInstance: {fileID: 9066127736858969603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9066127736861344975 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2376396, guid: 5c00c5f03c23f3b44af6d75077362432, type: 3}
   m_PrefabInstance: {fileID: 9066127736858969603}
   m_PrefabAsset: {fileID: 0}

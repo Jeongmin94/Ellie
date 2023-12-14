@@ -102,9 +102,10 @@ namespace Assets.Scripts.UI.Video
 
         private IEnumerator PlayVideo()
         {
-            // InputManager.Instance.CanInput = false;
+            InputManager.Instance.CanInput = false;
             IsEnd = false;
-
+            Cursor.visible = false;
+            
             videoPlayer.Play();
             WaitForEndOfFrame wfef = new WaitForEndOfFrame();
             while (!IsEnd)
@@ -118,6 +119,7 @@ namespace Assets.Scripts.UI.Video
         public void EndVideo()
         {
             gameObject.SetActive(false);
+            Cursor.visible = true;
             SaveLoadManager.Instance.IsLoadData = videoData.isLoadData;
             SceneLoadManager.Instance.LoadScene(videoData.playAfterScene);
         }

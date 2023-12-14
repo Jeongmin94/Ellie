@@ -138,118 +138,118 @@ public class CheatClient : SerializedMonoBehaviour
     }
 
     /// <summary>
-    /// »ç¿ëÀÚ ÁöÁ¤ ÀÌµ¿
+    /// ì‚¬ìš©ì ì§€ì • ì´ë™
     /// </summary>
 
-    [Title("»ç¿ëÀÚ ÁöÁ¤ ÅÚ·¹Æ÷Æ®")]
+    [Title("ì‚¬ìš©ì ì§€ì • í…”ë ˆí¬íŠ¸")]
     [ValueDropdown("savePositionList")]
     public Vector3 savePosition = Vector3.zero;
     private List<Vector3> savePositionList = new List<Vector3>();
 
-    [Button("ÇÃ·¹ÀÌ¾î Æ÷Áö¼Ç ÀúÀå", ButtonSizes.Large)]
+    [Button("í”Œë ˆì´ì–´ í¬ì§€ì…˜ ì €ì¥", ButtonSizes.Large)]
     public void SavePosition()
     {
         savePositionList.Add(player.position);
     }
 
-    [Button("ÇÃ·¹ÀÌ¾î ÀúÀå À§Ä¡ ¸®½ºÆ® ¸®¼Â", ButtonSizes.Large)]
+    [Button("í”Œë ˆì´ì–´ ì €ì¥ ìœ„ì¹˜ ë¦¬ìŠ¤íŠ¸ ë¦¬ì…‹", ButtonSizes.Large)]
     public void ResetPositionList()
     {
         savePositionList.Clear();
         savePosition = Vector3.zero;
     }
 
-    [Button("¼±ÅÃÇÑ ÀúÀåÀ§Ä¡·Î ÇÃ·¹ÀÌ¾î À§Ä¡ ÀÌµ¿", ButtonSizes.Large)]
+    [Button("ì„ íƒí•œ ì €ì¥ìœ„ì¹˜ë¡œ í”Œë ˆì´ì–´ ìœ„ì¹˜ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPositionToSavedPosition()
     {
         player.position = savePosition;
     }
 
     /// <summary>
-    /// °íÁ¤ À§Ä¡ ÀÌµ¿
+    /// ê³ ì • ìœ„ì¹˜ ì´ë™
     /// </summary>
 
-    [Title("ÁöÁ¤ Àå¼Ò ÀÌµ¿")]
-    [Button("½ÃÀÛ ÁöÁ¡ ÀÌµ¿", ButtonSizes.Large)]
+    [Title("ì§€ì • ì¥ì†Œ ì´ë™")]
+    [Button("ì‹œì‘ ì§€ì  ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition1()
     {
         player.position = new Vector3(-5.44f, 7.03f, -10.4f);
     }
 
-    [Button("º¸½º ¹æ ¾Õ ÀÌµ¿", ButtonSizes.Large)]
+    [Button("ë³´ìŠ¤ ë°© ì• ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition2()
     {
         player.position = new Vector3(-152f, 13.92f, 645.51f);
     }
 
-    [Button("µ¹ ¹ßÆÇ ÆÛÁñ ÀÌµ¿", ButtonSizes.Large)]
+    [Button("ëŒ ë°œíŒ í¼ì¦ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition3()
     {
         player.position = new Vector3(33.5f, 11.8f, 98.8f);
     }
 
-    [Button("µ¹ ºÎ¼ö±â ÆÛÁñ ÀÌµ¿", ButtonSizes.Large)]
+    [Button("ëŒ ë¶€ìˆ˜ê¸° í¼ì¦ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition4()
     {
         player.position = new Vector3(-115.6f, 13.02f, 390.79f);
     }
 
-    [Button("µ¹ ³Ö±â ÆÛÁñ ÀÌµ¿", ButtonSizes.Large)]
+    [Button("ëŒ ë„£ê¸° í¼ì¦ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition5()
     {
         player.position = new Vector3(39.0f, 3.28f, 14.81f);
     }
 
-    [Button("±¤Â÷ ÀÌµ¿", ButtonSizes.Large)]
+    [Button("ê´‘ì°¨ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition6()
     {
         player.position = new Vector3(32.96f, 13.56f, 155.13f);
     }
 
-    [Button("NPC 1¹ø ÀÌµ¿", ButtonSizes.Large)]
+    [Button("NPC 1ë²ˆ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition7()
     {
         player.position = new Vector3(-68.019f, 3.16f, 74.72f);
     }
 
-    [Button("NPC 2¹ø ÀÌµ¿", ButtonSizes.Large)]
+    [Button("NPC 2ë²ˆ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition8()
     {
         player.position = new Vector3(-68.01f, 3.16f, 112.71f);
     }
 
-    [Button("NPC 3¹ø ÀÌµ¿", ButtonSizes.Large)]
+    [Button("NPC 3ë²ˆ ì´ë™", ButtonSizes.Large)]
     public void SetPlayerPosition9()
     {
         player.position = new Vector3(79.38f, 3.16f, 85.80f);
     }
 
     /// <summary>
-    /// º¸½º Ä¡Æ®Å°
+    /// ë³´ìŠ¤ ì¹˜íŠ¸í‚¤
     /// </summary>
 
-    [Title("º¸½º Ä¡Æ®Å°")]
+    [Title("ë³´ìŠ¤ ì¹˜íŠ¸í‚¤")]
     [EnableIf("IsRuntime")]
-    [Button("1ÆäÀÌÁî ½ºÅµ", ButtonSizes.Large)]
+    [Button("1í˜ì´ì¦ˆ ìŠ¤í‚µ", ButtonSizes.Large)]
     public void KillTerrapupa()
     {
-        Debug.Log("Å×¶óÇªÆÄ »ç¸Á Ä¡Æ®");
+        Debug.Log("í…Œë¼í‘¸íŒŒ ì‚¬ë§ ì¹˜íŠ¸");
         terrapupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
     }
     [EnableIf("IsRuntime")]
-    [Button("2ÆäÀÌÁî ½ºÅµ", ButtonSizes.Large)]
+    [Button("2í˜ì´ì¦ˆ ìŠ¤í‚µ", ButtonSizes.Large)]
     public void KillTerraAndPupa()
     {
-        Debug.Log("Å×¶ó, ÇªÆÄ »ç¸Á Ä¡Æ®");
+        Debug.Log("í…Œë¼, í‘¸íŒŒ ì‚¬ë§ ì¹˜íŠ¸");
 
         terra.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
         pupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
     }
     [EnableIf("IsRuntime")]
-    [Button("3ÆäÀÌÁî ½ºÅµ", ButtonSizes.Large)]
+    [Button("3í˜ì´ì¦ˆ ìŠ¤í‚µ", ButtonSizes.Large)]
     public void KillMinions()
     {
-        Debug.Log("¹Ì´Ï¾ğ »ç¸Á Ä¡Æ®");
+        Debug.Log("ë¯¸ë‹ˆì–¸ ì‚¬ë§ ì¹˜íŠ¸");
 
         foreach (var minion in minions)
         {
@@ -257,10 +257,10 @@ public class CheatClient : SerializedMonoBehaviour
         }
     }
     [EnableIf("IsRuntime")]
-    [Button("Å×¶óÇªÆÄ µ¥¹ÌÁö", ButtonSizes.Large)]
+    [Button("í…Œë¼í‘¸íŒŒ ë°ë¯¸ì§€", ButtonSizes.Large)]
     public void DamageTerrapupa()
     {
-        Debug.Log("Å×¶ó, ÇªÆÄ µ¥¹ÌÁö ÀÔÈ÷±â");
+        Debug.Log("í…Œë¼, í‘¸íŒŒ ë°ë¯¸ì§€ ì…íˆê¸°");
 
         terrapupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
         terra.GetComponent<TerrapupaBTController>().GetDamaged(1);
@@ -271,10 +271,10 @@ public class CheatClient : SerializedMonoBehaviour
         }
     }
     [EnableIf("IsRuntime")]
-    [Button("Å×¶óÇªÆÄ µ¥¹ÌÁö", ButtonSizes.Large)]
+    [Button("í…Œë¼í‘¸íŒŒ ë°ë¯¸ì§€", ButtonSizes.Large)]
     public void DeactivateBoss()
     {
-        Debug.Log("º¸½º ºñÈ°¼ºÈ­");
+        Debug.Log("ë³´ìŠ¤ ë¹„í™œì„±í™”");
 
         terrapupa.gameObject.SetActive(false);
         terra.gameObject.SetActive(false);
@@ -286,13 +286,13 @@ public class CheatClient : SerializedMonoBehaviour
     }
 
     /// <summary>
-    /// ¾ÆÀÌÅÛ Ä¡Æ®Å°
+    /// ì•„ì´í…œ ì¹˜íŠ¸í‚¤
     /// </summary>
     /// 
-    [Title("¾ÆÀÌÅÛ È¹µæ")]
+    [Title("ì•„ì´í…œ íšë“")]
     [EnableIf("IsRuntime")]
     [EnableIf("IsParsingDone")]
-    [Button("¾ÆÀÌÅÛ È¹µæ", ButtonSizes.Large)]
+    [Button("ì•„ì´í…œ íšë“", ButtonSizes.Large)]
     public void AddItem()
     {
         TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
@@ -331,21 +331,21 @@ public class CheatClient : SerializedMonoBehaviour
 
 
     /// <summary>
-    /// ±âÅ¸
+    /// ê¸°íƒ€
     /// </summary>
     /// 
-    [Title("±âÅ¸")]
+    [Title("ê¸°íƒ€")]
     [EnableIf("IsRuntime")]
-    [Button("¿£µù ½ºÅµ", ButtonSizes.Large)]
+    [Button("ì—”ë”© ìŠ¤í‚µ", ButtonSizes.Large)]
     public void SkipToEnding()
     {
-        Debug.Log("¿£µùÀ¸·Î ½ºÅµ");
+        Debug.Log("ì—”ë”©ìœ¼ë¡œ ìŠ¤í‚µ");
 
         SceneLoadManager.Instance.LoadScene(SceneName.Closing);
     }
 
     [EnableIf("IsRuntime")]
-    [Button("Äµ¹ö½º Ä×´Ù²ô±â", ButtonSizes.Large)]
+    [Button("ìº”ë²„ìŠ¤ ì¼°ë‹¤ë„ê¸°", ButtonSizes.Large)]
     public void OnOffCanvas()
     {
         if(canvas == null)

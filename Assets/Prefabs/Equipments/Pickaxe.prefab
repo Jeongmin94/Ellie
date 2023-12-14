@@ -127,16 +127,20 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ad52945635a9404a828f58d138ce4b1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Equipments.Pickaxe, Assembly.Ellie
   data:
+    groupType: 1
     index: 0
     name: 
+    description: 
+    imageName: 
     tier: 0
     durability: 0
     minSmithPower: 0
     maxSmithPower: 0
     upgradeCost: 0
     upgradeChance: 0
+    uiIdx: 0
   pickaxeMaterials: []
   smithingEffects:
   - {fileID: 1258725013165278, guid: f00872eb3daf45d4cb44ebbbf9d203b7, type: 3}
