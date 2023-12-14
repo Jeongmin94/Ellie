@@ -18,6 +18,7 @@ namespace Assets.Scripts.Player
         private bool canInteract = false;
 
         private OutlineController outlineController;
+        public OutlineController OutlineController => outlineController;
 
         private void Start()
         {
