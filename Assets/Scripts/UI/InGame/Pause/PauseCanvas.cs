@@ -183,7 +183,6 @@ namespace Assets.Scripts.UI.InGame
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOpen, Vector3.zero);
                 Cursor.visible = true;
-                Cursor.lockState = CursorLockMode.None;
                 gameObject.SetActive(true);
 
                 ticketMachine.SendMessage(ChannelType.UI, new UIPayload
@@ -206,9 +205,9 @@ namespace Assets.Scripts.UI.InGame
 
                 if (allPopupClosed)
                 {
-                    gameObject.SetActive(false);
                     Cursor.visible = false;
-                    Cursor.lockState = CursorLockMode.Locked;
+                    gameObject.SetActive(false);
+                    
                     ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                     {
                         uiType = UIType.Notify,
@@ -226,7 +225,7 @@ namespace Assets.Scripts.UI.InGame
             }
             else if (payload.popupType == PopupType.Escape)
             {
-                gameObject.SetActive(false);
+                OnEscapeAction();
             }
             else
             {
@@ -245,7 +244,6 @@ namespace Assets.Scripts.UI.InGame
                         SaveLoadManager.Instance.IsLoadData = true;
                         SceneLoadManager.Instance.LoadScene(SceneName.InGame);
                     }
-                    // !TODO
                 }
                     break;
 

@@ -31,22 +31,10 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private ChargingData chargingData;
         [SerializeField] private AimTargetData aimTargetData;
-
-        // !TODO: stone을 가져와서 사용할 수 있도록 변경해야 함(인벤토리 시스템 추가 후 변경)
-        // !TODO: 현재는 테스트 용도로 인스턴스 받아와 사용
-        //[Header("Objects")] [SerializeField] private BaseStone stone;
-
         [SerializeField] private bool withPlayer = false;
 
         public bool isTargetingEnemy;
         
-        
-
-        //public BaseStone Stone
-        //{
-        //    get { return stone; }
-        //    set { stone = value; }
-        //}
 
         public float ChargingRatio
         {
@@ -126,45 +114,20 @@ namespace Assets.Scripts.Player
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;
         }
-        //private void ReleaseStone(BaseStone stone, Vector3 direction, float strength)
-        //{
-        //    stone.SetPosition(releasePosition.position);
-        //    stone.MoveStone(direction, strength);
-
-        //}
-
         private void OnMouseAction()
         {
             if (Input.GetMouseButton(0))
             {
-                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / Time.timeScale, 0.0f,
+                float ts = Time.timeScale == 0f ? 1 : Time.timeScale;
+                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / ts, 0.0f,
                     chargingData.timeSteps[chargingData.timeSteps.Length - 1]);
                 chargingData.ChargingValue.Value = chargingTime;
 
                 launchDirection = CalculateDirection();
                 DrawTrajectory(launchDirection, shootingPower * chargingRatio);
             }
-            //else if (Input.GetMouseButtonUp(0))
-            //{
-            //    // shooting
-            //    Shoot(launchDirection, shootingPower * chargingRatio);
-
-            //    // after shooting
-            //    lineRenderer.enabled = false;
-            //    chargingTime = 0.0f;
-            //    chargingData.ChargingValue.Value = 0.0f;
-            //}
         }
 
-        //public void Shoot(Poolable obj)
-        //{
-        //    // !TODO : SendMessage를 통해 StoneHatchery가 지정된 위치에서 돌 생성, 돌 발사 로직 실행
-        //    BaseStone stone = obj as BaseStone;
-        //    ReleaseStone(stone, launchDirection, shootingPower * chargingRatio);
-        //    lineRenderer.enabled = false;
-        //    chargingTime = 0.0f;
-        //    chargingData.ChargingValue.Value = 0.0f;
-        //}
         private Vector3 CalculateDirection()
         {
             Vector3 direction = Vector3.zero;
