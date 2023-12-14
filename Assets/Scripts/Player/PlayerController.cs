@@ -322,7 +322,7 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            if (!InputManager.Instance.CanInput)
+            if (!InputManager.Instance.PrevCanInput)
                 return;
 
             GetInput();

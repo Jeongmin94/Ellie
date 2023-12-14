@@ -53,7 +53,7 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            if (!InputManager.Instance.CanInput)
+            if (!InputManager.Instance.PrevCanInput)
                 return;
 
             if (controller.GetCurState() == PlayerStateName.Loading)
