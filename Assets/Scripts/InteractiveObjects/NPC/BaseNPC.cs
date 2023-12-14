@@ -4,7 +4,7 @@ using Assets.Scripts.Player;
 using Channels.UI;
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
+using Outline;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
@@ -15,7 +15,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         TalkingSkullSecond,
         TalkingSkullYoungest,
     }
-    public class BaseNPC : MonoBehaviour, IInteractiveObject
+    public class BaseNPC : InteractiveObject
     {
         //NPC 및 퀘스트 데이터
         protected NPCData npcData;
@@ -37,6 +37,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
+        [SerializeField] private Renderer renderer;
 
         WaitForEndOfFrame wff = new WaitForEndOfFrame();
 
@@ -58,7 +59,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
         }
-        public virtual void Interact(GameObject obj)
+        public override void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
         }
@@ -108,9 +109,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             NPCObj.rotation = targetRotation;
         }
 
-        public InteractiveType GetInteractiveType()
+        public override InteractiveType GetInteractiveType()
         {
             return interactiveType;
+        }
+
+        public override OutlineType GetOutlineType()
+        {
+            return OutlineType.InteractiveOutline;
+        }
+
+        public override Renderer GetRenderer()
+        {
+            return renderer;
         }
 
         public void SubscribeOnDisableAction(Action<NpcType> listener)

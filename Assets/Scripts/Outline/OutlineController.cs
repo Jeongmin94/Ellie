@@ -23,21 +23,32 @@ namespace Outline
         public List<OutlineType> outlineTypes;
         public List<Material> materials;
 
-        public void AddOutline(MeshRenderer meshRenderer, OutlineType type)
+        private readonly List<Material> buffer = new List<Material>();
+
+        public void AddOutline(Renderer targetRenderer, OutlineType type)
         {
-            List<Material> matList = new List<Material>(meshRenderer.materials);
-            Material target = materials[(int)type];
+            buffer.Clear();
 
-            matList.Add(target);
+            buffer.AddRange(targetRenderer.sharedMaterials);
+            if (buffer.Contains(materials[(int)type]))
+                return;
 
-            meshRenderer.materials = matList.ToArray();
+            buffer.Add(materials[(int)type]);
+
+            targetRenderer.materials = buffer.ToArray();
         }
 
-        public void RemoveLastMaterial(MeshRenderer meshRenderer)
+        public void RemoveMaterial(Renderer targetRenderer, OutlineType type)
         {
-            List<Material> matList = new List<Material>(meshRenderer.materials);
-            matList.RemoveAt(matList.Count - 1);
-            meshRenderer.materials = matList.ToArray();
+            buffer.Clear();
+
+            buffer.AddRange(targetRenderer.sharedMaterials);
+            if (!buffer.Contains(materials[(int)type]))
+                return;
+
+            buffer.Remove(materials[(int)type]);
+
+            targetRenderer.materials = buffer.ToArray();
         }
     }
 }

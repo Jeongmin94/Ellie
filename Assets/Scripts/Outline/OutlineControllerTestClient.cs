@@ -16,7 +16,7 @@ namespace Outline
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                outlineController.RemoveLastMaterial(target);
+                outlineController.RemoveMaterial(target, OutlineType.InteractiveOutline);
             }
         }
     }
