@@ -118,6 +118,7 @@ namespace Assets.Scripts.UI.Video
 
         public void EndVideo()
         {
+            InputManager.Instance.CanInput = true;
             gameObject.SetActive(false);
             Cursor.visible = true;
             SaveLoadManager.Instance.IsLoadData = videoData.isLoadData;

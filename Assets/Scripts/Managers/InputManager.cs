@@ -46,7 +46,7 @@ namespace Assets.Scripts.Managers
         {
             if (Input.GetKeyDown(KeyCode.Escape))
                 escapeAction?.Invoke();
-
+            Debug.Log(CanInput);
             if (!CanInput)
                 return;
             

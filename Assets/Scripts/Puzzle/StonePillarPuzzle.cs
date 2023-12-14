@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Channels.Type;
 using Assets.Scripts.Channels.Camera;
+using PlasticPipe.PlasticProtocol.Messages;
 
 namespace Assets.Scripts.Puzzle
 {
@@ -31,11 +32,22 @@ namespace Assets.Scripts.Puzzle
 
         private TicketMachine ticketMachine;
 
+        [SerializeField] private GameObject[] gems;
+        [SerializeField] private List<GameObject> gemLights = new();
+
         private void Awake()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Camera);
+
+            foreach (var obj in gems)
+            {
+                GameObject light = obj.transform.GetChild(1).gameObject;
+                light.SetActive(false);
+                gemLights.Add(light);
+            }
         }
+
         private void Start()
         {
             center = transform.position;
@@ -50,6 +62,7 @@ namespace Assets.Scripts.Puzzle
                 pillar.transform.position = temp;
             }
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Stone"))
@@ -65,15 +78,19 @@ namespace Assets.Scripts.Puzzle
                 if (collider.CompareTag("Stone"))
                 {
                     count++;
+                    if (count <= gemLights.Count)
+                        gemLights[count - 1].SetActive(true);
                 }
             }
+
             if (count >= 3 && !isDone)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "puzzle1_stone1", transform.position);
-                for(int i = 0; i<pillars.Length;i++)
+                for (int i = 0; i < pillars.Length; i++)
                 {
                     StartCoroutine(RaisePillar(pillars[i], pillarsInitialHeight[i]));
                 }
+
                 isDone = true;
                 ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload
                 {
@@ -93,6 +110,7 @@ namespace Assets.Scripts.Puzzle
                 time += Time.deltaTime;
                 yield return null;
             }
+
             SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle1_stone2");
 
             Vector3 raisePos = obj.transform.position;
@@ -102,6 +120,7 @@ namespace Assets.Scripts.Puzzle
                 obj.transform.position = raisePos;
                 yield return null;
             }
+
             raisePos.y = height;
             obj.transform.position = raisePos;
         }
