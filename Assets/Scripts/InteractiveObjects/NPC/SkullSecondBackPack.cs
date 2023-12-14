@@ -3,22 +3,35 @@ using Channels.UI;
 using System;
 using System.Collections;
 using Assets.Scripts.Data.GoogleSheet;
+using Outline;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
-    public class SkullSecondBackPack : MonoBehaviour, IInteractiveObject
+    public class SkullSecondBackPack : InteractiveObject
     {
+        [SerializeField] private Renderer renderer;
+
         private Action getBackPackAction;
 
         InteractiveType interactiveType = InteractiveType.Acquisition;
 
-        public InteractiveType GetInteractiveType()
+        public override InteractiveType GetInteractiveType()
         {
             return interactiveType;
         }
 
-        public void Interact(GameObject obj)
+        public override OutlineType GetOutlineType()
+        {
+            return OutlineType.InteractiveOutline;
+        }
+
+        public override Renderer GetRenderer()
+        {
+            return renderer;
+        }
+
+        public override void Interact(GameObject obj)
         {
             if (obj.GetComponent<PlayerQuest>().GetQuestStatus(6104) != QuestStatus.Accepted)
             {

@@ -60,6 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.InteractiveObjects.NPC.SkullSecondBackPack,
     Assembly.Ellie
+  renderer: {fileID: 7504112687814322350}
 --- !u!1001 &4226798618993324707
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -129,6 +130,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e4b47771508d5f54fb9d6423d52f414b, type: 3}
+--- !u!23 &7504112687814322350 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 5947966790064265741, guid: e4b47771508d5f54fb9d6423d52f414b, type: 3}
+  m_PrefabInstance: {fileID: 4226798618993324707}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &8296486805826636155 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5299487957247753176, guid: e4b47771508d5f54fb9d6423d52f414b, type: 3}

@@ -938,6 +938,7 @@ MonoBehaviour:
   chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   withPlayer: 1
+  isTargetingEnemy: 0
 --- !u!120 &1833054887
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -7439,6 +7440,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c29014ea0449fd548bc599e8d2f20757, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.PlayerInteraction, Assembly.Ellie
+  outlineControllerPrefab: {fileID: 1331362273742217626, guid: 1544c6372219ed6448cbb7029809584d, type: 3}
   isInteracting: 0
 --- !u!95 &108283330
 Animator:
