@@ -46,6 +46,11 @@ namespace Assets.Scripts.Item.Stone
                 isExplosion = true;
                 Explosion();
             }
+
+            if (isExplosion && gameObject.activeSelf)
+            {
+                PoolManager.Instance.Push(this.GetComponent<Poolable>());
+            }
         }
 
         public void Explosion()
@@ -61,8 +66,6 @@ namespace Assets.Scripts.Item.Stone
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "TerrapupaAttackHit", transform.position);
 
             CheckTargets();
-
-            PoolManager.Instance.Push(this.GetComponent<Poolable>());
         }
 
         private void CheckTargets()

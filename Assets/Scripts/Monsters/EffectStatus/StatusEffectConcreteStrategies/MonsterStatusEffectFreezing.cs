@@ -33,16 +33,16 @@ namespace Assets.Scripts.Monsters.EffectStatus.StatusEffectConcreteStrategies
         {
             Debug.Log($"{transform.name} 빙결 시작!!");
 
-            var behaviour = GetComponent<BehaviourTreeInstance>();
-            behaviour.FindBlackboardKey<bool>("IsFreezing").Value = true;
+            // var behaviour = GetComponent<BehaviourTreeInstance>();
+            // behaviour.FindBlackboardKey<bool>("IsFreezing").Value = true;
         }
 
         private void EndFreeze()
         {
             Debug.Log($"{transform.name} 빙결 해제!!");
 
-            var behaviour = GetComponent<BehaviourTreeInstance>();
-            behaviour.FindBlackboardKey<bool>("IsFreezing").Value = false;
+            // var behaviour = GetComponent<BehaviourTreeInstance>();
+            // behaviour.FindBlackboardKey<bool>("IsFreezing").Value = false;
         }
     }
 }

@@ -93,7 +93,7 @@ namespace Assets.Scripts.Item.Stone
 
             }
 
-            if(isHitEnemy)
+            if(isHitEnemy && gameObject.activeSelf)
             {
                 PoolManager.Instance.Push(this.GetComponent<Poolable>());
             }
