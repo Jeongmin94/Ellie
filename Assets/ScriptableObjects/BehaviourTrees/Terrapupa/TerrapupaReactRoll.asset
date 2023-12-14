@@ -75,6 +75,8 @@ MonoBehaviour:
   - rid: 1683426247750189153
   - rid: 283011313877123073
   - rid: 283011481676021765
+  - rid: 116448501211856903
+  - rid: 116448501211856904
   treeState: 0
   blackboard:
     keys:
@@ -97,13 +99,57 @@ MonoBehaviour:
     - rid: 283011291767373852
     - rid: 283011291767373853
     - rid: 1683426562437021879
-  viewPosition: {x: 4645.6, y: 525.6, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+    - rid: 116448501211856901
+    - rid: 116448501211856902
+  viewPosition: {x: 2154.4, y: 953.6, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448501211856901
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448501211856902
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound3
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448501211856903
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 68e19ff873ca11a4b80a2806c809bb43
+        position: {x: -3915, y: -150}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448501211856901
+          defaultValue: 
+    - rid: 116448501211856904
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8ac3aef629c886e4081caedf71cc6732
+        position: {x: -1830, y: -585}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448501211856902
+          defaultValue: 
     - rid: 283011018610442310
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -600,7 +646,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: a3e7bb2b4112e9549ad7ca648a37bdc8
-        position: {x: -4590, y: -555}
+        position: {x: -4350, y: -555}
         blackboard:
           keys: []
         description: 
@@ -611,6 +657,7 @@ MonoBehaviour:
         - rid: 8619125030485229576
         - rid: 8619125030485229575
         - rid: 8619125030485229582
+        - rid: 116448501211856903
     - rid: 1683426247750189094
       type: {class: RangeKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -933,7 +980,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 25f52abc9d5624e45bf3646cfab0a84d
-        position: {x: -1995, y: -600}
+        position: {x: -2115, y: -585}
         blackboard:
           keys: []
         description: 
@@ -1017,6 +1064,7 @@ MonoBehaviour:
         - rid: 1401849440881606703
         - rid: 283011198868258823
         - rid: 1683426247750189142
+        - rid: 116448501211856904
         - rid: 8619125030485229594
         - rid: 283011198868258839
         - rid: 283011198868258834
