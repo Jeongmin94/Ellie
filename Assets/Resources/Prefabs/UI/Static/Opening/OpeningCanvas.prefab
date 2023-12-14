@@ -98,7 +98,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: UnityEngine.UI.GraphicRaycaster, UnityEngine.UI
   m_IgnoreReversedGraphics: 1
   m_BlockingObjects: 0
   m_BlockingMask:
@@ -115,7 +115,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0bbc82f489b14e7c9c35a408d342b1e6, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.UI.Opening.OpeningCanvas, Assembly.Ellie
+  useText: 0
   titleTransformData: {fileID: 11400000, guid: 631afedf49837fb4b926287857b15c5a, type: 2}
   menuTransformData: {fileID: 11400000, guid: 0cd6983f7134d474f955637d86f459e5, type: 2}
   titleTypographyTypographyData: {fileID: 11400000, guid: 7c44dc831196a924d81cf2b99e955dcd, type: 2}
@@ -236,7 +237,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 524, y: 274}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6867959901485664125
 CanvasRenderer:
@@ -259,15 +260,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 3072b2c68b453a048ba06a84bd62a5e6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
