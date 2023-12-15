@@ -119,6 +119,7 @@ MonoBehaviour:
   - rid: 2500359034828750851
   - rid: 2500359053683982336
   - rid: 2500359053683982337
+  - rid: 2500359053683982338
   treeState: 0
   blackboard:
     keys:
@@ -147,8 +148,8 @@ MonoBehaviour:
     - rid: 6937830456686542858
     - rid: 6937830456686542871
     - rid: 2500359034828750848
-  viewPosition: {x: 224.5, y: 96.5, z: 0}
-  viewScale: {x: 1, y: 1, z: 1}
+  viewPosition: {x: 547.5, y: 167, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -318,7 +319,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: dd7904997079046679edc6824dc4cbca
-        position: {x: 15, y: 225}
+        position: {x: 15, y: 210}
         blackboard:
           keys: []
         description: 
@@ -337,7 +338,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f891bcceca5c34799bfeb467cee54459
-        position: {x: 315, y: 225}
+        position: {x: 465, y: 225}
         blackboard:
           keys: []
         description: 
@@ -355,6 +356,7 @@ MonoBehaviour:
         drawGizmos: 0
         children:
         - rid: 2500359034828750849
+        - rid: 2500359053683982338
         - rid: 2500359053683982337
         - rid: 2500359034828750850
         - rid: 2500359053683982336
@@ -364,7 +366,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 4ddc0ed59fecb4061be332d7752fc7cd
-        position: {x: 465, y: 225}
+        position: {x: 615, y: 225}
         blackboard:
           keys: []
         description: 
@@ -379,6 +381,17 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: b4f038024f57c45cfa3714e0f42cda09
+        position: {x: 315, y: 225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+    - rid: 2500359053683982338
+      type: {class: StopParticle, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a1c848bfca1214fe49bab88f391626cc
         position: {x: 165, y: 225}
         blackboard:
           keys: []
