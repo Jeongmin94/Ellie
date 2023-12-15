@@ -23,6 +23,11 @@ namespace Assets.Scripts.InteractiveObjects
             Tier3 = 9100,
             Tier2,
             Tier1,
+            Boom,
+            Ice,
+            Dark,
+            Portal,
+            Normal
         }
 
         [SerializeField] private Renderer renderer;
