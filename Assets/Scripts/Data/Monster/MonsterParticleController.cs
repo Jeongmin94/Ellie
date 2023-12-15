@@ -10,6 +10,8 @@ public enum MonsterParticleType
     WeaponHit,
     ProjectileCast,
     ProjectileHit,
+    Hit,
+    HeadShot,
 }
 public class MonsterParticleController : MonoBehaviour
 {

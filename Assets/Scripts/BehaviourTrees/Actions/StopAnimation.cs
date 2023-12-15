@@ -4,21 +4,16 @@ using UnityEngine;
 using TheKiwiCoder;
 
 [System.Serializable]
-public class ShowRenderer : ActionNode
+public class StopAnimation : ActionNode
 {
-    public NodeProperty<bool> isVisible;
-
     protected override void OnStart() {
+        context.animator.speed = 0.0f;
     }
 
     protected override void OnStop() {
     }
 
     protected override State OnUpdate() {
-        if (isVisible.Value)
-            context.controller.GetComponent<Renderer>().enabled = true;
-        else
-            context.controller.GetComponent<Renderer>().enabled = false;
         return State.Success;
     }
 }

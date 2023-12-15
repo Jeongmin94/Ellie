@@ -24,6 +24,7 @@ public class MonsterAudioData : ScriptableObject
     public AudioClip projectileHit;
     public AudioClip bite;
     public AudioClip biteHit;
+    public AudioClip headShot;
 
     public AudioClip GetAudioClip(MonsterAudioType type)
     {
@@ -61,6 +62,8 @@ public class MonsterAudioData : ScriptableObject
                 return projectileFire;
             case MonsterAudioType.ProjectileHit:
                 return projectileHit;
+            case MonsterAudioType.HeadShot:
+                return headShot;
         }
         return null;
     }

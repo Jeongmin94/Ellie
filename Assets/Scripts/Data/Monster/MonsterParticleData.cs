@@ -18,6 +18,10 @@ public class MonsterParticleData : ScriptableObject
     public Vector3 projectileCastOffset;
     public ParticleSystem projectileHit;
     public Vector3 projectileHitOffset;
+    public ParticleSystem hitParticle;
+    public Vector3 hitParticleOffset;
+    public ParticleSystem headShotParticle;
+    public Vector3 headShotParticleOffset;
 
     public ParticleSystem GetParticleSystem(MonsterParticleType type)
     {
@@ -35,6 +39,10 @@ public class MonsterParticleData : ScriptableObject
                 return projectileCast;
             case MonsterParticleType.ProjectileHit:
                 return projectileHit;
+            case MonsterParticleType.Hit:
+                return hitParticle;
+            case MonsterParticleType.HeadShot:
+                return headShotParticle;
         }
 
         return null;
@@ -56,6 +64,10 @@ public class MonsterParticleData : ScriptableObject
                 return projectileCastOffset;
             case MonsterParticleType.ProjectileHit:
                 return projectileHitOffset;
+            case MonsterParticleType.Hit:
+                return hitParticleOffset;
+            case MonsterParticleType.HeadShot:
+                return headShotParticleOffset;
         }
 
         return Vector3.zero;
