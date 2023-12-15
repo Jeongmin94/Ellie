@@ -135,5 +135,9 @@ namespace UI.Dialog.GuideDialog
             if (payload is not DialogPayload dialogPayload)
                 return;
         }
+        
+        // !TODO
+        // 1. 요청 들어오면 이미지, 스피커, 메시지 출력하기
+        // 2. 페이로드 만들어서 채널 이용하게 만들기
     }
 }
