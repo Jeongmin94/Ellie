@@ -16,9 +16,9 @@ public class ShowRenderer : ActionNode
 
     protected override State OnUpdate() {
         if (isVisible.Value)
-            context.controller.GetComponent<Renderer>().enabled = true;
+            context.controller.renderer.enabled = true;
         else
-            context.controller.GetComponent<Renderer>().enabled = false;
+            context.controller.renderer.enabled = false;
         return State.Success;
     }
 }
