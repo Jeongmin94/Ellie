@@ -13,7 +13,8 @@ namespace Assets.Scripts.Player.HitComponent
         [SerializeField] private float returnDuration = 0.2f;
         [SerializeField] private Material modelMaterial;
 
-        private Color originColor;
+        private Color baseOriginalColor;
+        private Color emissionOriginalColor;
         private Coroutine hitCoroutine;
 
         public float HitDuration() => hitDuration;
@@ -26,7 +27,8 @@ namespace Assets.Scripts.Player.HitComponent
                 return;
             }
 
-            originColor = modelMaterial.GetColor(StringBaseColor);
+            baseOriginalColor = modelMaterial.GetColor(StringBaseColor);
+            emissionOriginalColor = modelMaterial.GetColor(StringEmissionColor);
         }
 
         public void Hit()
@@ -52,13 +54,14 @@ namespace Assets.Scripts.Player.HitComponent
                 timeAcc += Time.deltaTime;
                 yield return wfef;
 
-                Color c = Color.Lerp(hitColor, originColor, timeAcc / returnDuration);
-                modelMaterial.SetColor(StringBaseColor, c);
-                modelMaterial.SetColor(StringEmissionColor, c);
+                Color curBaseColor = Color.Lerp(hitColor, baseOriginalColor, timeAcc / returnDuration);
+                modelMaterial.SetColor(StringBaseColor, curBaseColor);
+                Color curEmissionColor = Color.Lerp(hitColor, emissionOriginalColor, timeAcc / returnDuration);
+                modelMaterial.SetColor(StringEmissionColor, curEmissionColor);
             }
 
-            modelMaterial.SetColor(StringBaseColor, originColor);
-            modelMaterial.SetColor(StringEmissionColor, originColor);
+            modelMaterial.SetColor(StringBaseColor, baseOriginalColor);
+            modelMaterial.SetColor(StringEmissionColor, emissionOriginalColor);
         }
     }
 }

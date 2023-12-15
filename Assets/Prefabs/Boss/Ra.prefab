@@ -112,7 +112,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6f39983385a010e43baf831068c320e4, type: 2}
+  - {fileID: 2100000, guid: d3a020bcd5709e84495aeec8fc8ea679, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -406,7 +406,6 @@ GameObject:
   - component: {fileID: 6658098154583854866}
   - component: {fileID: 6658098154583854867}
   - component: {fileID: 6658098154583854868}
-  - component: {fileID: 5478357742412607942}
   m_Layer: 10
   m_Name: Ra
   m_TagString: Monster
@@ -421,7 +420,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6658098154583854869}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.70710677}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -196.95, y: 12.76, z: 644.06006}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -430,7 +429,7 @@ Transform:
   - {fileID: 6658098153766398533}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &6658098154583854865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -512,16 +511,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TerrapupaMinionHealthBar, Assembly.Ellie
   scaleFactor: 0.002
---- !u!114 &5478357742412607942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6658098154583854869}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6af5815368e0b4348a6d97b280bcb2a3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: TerrapupaMinionSkinController, Assembly.Ellie
-  material: {fileID: 2100000, guid: d3a020bcd5709e84495aeec8fc8ea679, type: 2}

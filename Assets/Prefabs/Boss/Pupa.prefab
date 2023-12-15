@@ -172,7 +172,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1014437cb8727147a949f6b03846f85, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaWeakPoint, Assembly.Ellie
 --- !u!135 &5393486691621073270
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1070,7 +1070,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a415c504a4235f40972456400792538, type: 2}
+  - {fileID: 2100000, guid: 709ba2df5ef17264bb73f269844edca8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2217,10 +2217,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
-  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitColor: {r: 0, g: 0, b: 1, a: 1}
   hitDuration: 0.3
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: 2a415c504a4235f40972456400792538, type: 2}
+  modelMaterial: {fileID: 2100000, guid: 709ba2df5ef17264bb73f269844edca8, type: 2}
 --- !u!1 &8831768199645564775
 GameObject:
   m_ObjectHideFlags: 0

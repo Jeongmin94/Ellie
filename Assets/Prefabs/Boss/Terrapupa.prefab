@@ -188,6 +188,8 @@ MonoBehaviour:
   stone: {fileID: 3623519102850700817}
   weakPoint: {fileID: 3540787206911723075}
   healthBar: {fileID: 5739336596423150777}
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
 --- !u!54 &8979523351519513295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -231,10 +233,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
-  hitColor: {r: 1, g: 0, b: 0, a: 1}
-  hitDuration: 0.5
+  hitColor: {r: 0, g: 1, b: 0, a: 1}
+  hitDuration: 0.3
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: 2a415c504a4235f40972456400792538, type: 2}
+  modelMaterial: {fileID: 2100000, guid: 3650af4f7921bf147a502393bcb7c541, type: 2}
 --- !u!1001 &2128096367104428211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1352,6 +1354,10 @@ PrefabInstance:
       propertyPath: m_Quality
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 13700000, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 3650af4f7921bf147a502393bcb7c541, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d85ac4d976c14f945b98e70e926395da, type: 3}
 --- !u!1 &8979523352842534485 stripped
