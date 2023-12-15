@@ -15,6 +15,13 @@ namespace Assets.Scripts.Monsters
 {
     public class GuildguardSkeletonController : AbstractMonster, ICombatant
     {
+        private enum ParshingSkills
+        {
+            MeleeAttack = 2002,
+            FanshapeAttack = 2004,
+            RunToPlayer = 2007,
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -49,9 +56,9 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.FanshapeAttack] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2004);
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2002);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2007);
+            attackData[(int)AttackSkill.FanshapeAttack] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.FanshapeAttack);
+            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.MeleeAttack);
+            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.RunToPlayer);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {

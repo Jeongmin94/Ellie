@@ -8,7 +8,7 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class FanShapeAttack : AbstractAttack
     {
-        private const float angle = 90.0f;
+        private const float angle = 180.0f;
         private const float radius = 2.0f;
 
         private MonsterAttackData attackData;

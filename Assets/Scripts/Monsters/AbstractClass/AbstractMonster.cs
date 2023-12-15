@@ -29,6 +29,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         CaveBat = 1003,
         GuildguardSkeleton = 1004,
     }
+
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
     {
         const float billboardScale = 0.003f;

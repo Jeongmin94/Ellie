@@ -15,6 +15,12 @@ namespace Assets.Scripts.Monsters
 {
     public class NormalSkeletonController : AbstractMonster, ICombatant
     {
+        private enum ParshingSkills
+        {
+            MeleeAttack = 2000,
+            RunToPlayer = 2005,
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -52,9 +58,9 @@ namespace Assets.Scripts.Monsters
             }
 
             attackData[(int)AttackSkill.BoxCollider] =
-                DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2000);
+                DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.MeleeAttack);
             attackData[(int)AttackSkill.RunToPlayer] =
-                DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2005);
+                DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.RunToPlayer);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {
