@@ -20,6 +20,7 @@ namespace Channels.Dialog
         Default,
         Simple,
         SimpleRemaining,
+        GuideDialog,
     }
 
 
