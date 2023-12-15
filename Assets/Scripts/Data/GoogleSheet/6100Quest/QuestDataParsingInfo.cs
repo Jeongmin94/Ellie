@@ -1,9 +1,6 @@
-﻿using JetBrains.Annotations;
+﻿using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
@@ -30,7 +27,7 @@ namespace Assets.Scripts.Data.GoogleSheet
         public List<(int, int)> rewardList = new();
         public string playableText;
         public List<int> speechBubbleList = new();
-        public Dictionary<QuestStatus, List<int>> DialogListDic = new();
+        [ShowInInspector] public Dictionary<QuestStatus, List<int>> DialogListDic = new();
         public List<int> additionalConditionDialogList = new();
         public int acceptanceTerm;
     }

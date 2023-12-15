@@ -47,27 +47,6 @@ namespace Assets.Scripts.Centers
             IsLoading = false;
         }
 
-        //씬 전환을 위한 테스트용
-        private void Update()
-        {
-            //if (Input.GetKeyDown(KeyCode.Alpha1))
-            //{
-            //    LoadScene(SceneName.Opening);
-            //}
-            //if (Input.GetKeyDown(KeyCode.Alpha2))
-            //{
-            //    LoadScene(SceneName.InGame);
-            //}
-            //if (Input.GetKeyDown(KeyCode.Alpha3))
-            //{
-            //    LoadScene(SceneName.Boss);
-            //}
-            //if (Input.GetKeyDown(KeyCode.Alpha4))
-            //{
-            //    LoadScene(SceneName.Closing);
-            //}
-        }
-
         public IEnumerator CheckIsLoadDone()
         {
             var wait = new WaitForSeconds(0.5f);

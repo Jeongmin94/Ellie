@@ -78,7 +78,7 @@ public class TerrapupaMapObjectController : BaseController
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog, ChannelType.Terrapupa);
 
         foreach (var mana in manaFountains)
         {

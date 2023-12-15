@@ -11,6 +11,7 @@ namespace Assets.Scripts.Managers
         Inventory,
         Player,
         NPC,
+        Boss,
         End,
     }
 
@@ -67,5 +68,10 @@ namespace Assets.Scripts.Managers
     public class NPCSavePayload : IBaseEventPayload
     {
         public Dictionary<NpcType, bool> NPCActiveDic;
+    }
+
+    public class BossSavePayload : IBaseEventPayload
+    {
+        public Dictionary<int, bool> bossDialogStatusDic;
     }
 }

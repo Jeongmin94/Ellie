@@ -45,6 +45,9 @@ namespace Channels.Utils
                 case ChannelType.Portal:
                     channel = new PortalChannel();
                     break;
+                case ChannelType.BossDialog:
+                    channel = new BossDialogChannel();
+                    break;
             }
             return channel;
         }

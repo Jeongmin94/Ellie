@@ -23,7 +23,6 @@ namespace Assets.Scripts.Puzzle
 
         private void InitStalactites()
         {
-            Debug.Log(spawnTransformList.Count);
             foreach (var spawnTransform in spawnTransformList)
             {
                 Vector3 position = spawnTransform.position;

@@ -1,7 +1,4 @@
-using Assets.Scripts.Combat;
-using Centers;
 using Channels.Combat;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Channels.Boss

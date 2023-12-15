@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cb0f7fc84e614e1da05685ce69c47df, type: 3}
   m_Name: MonsterAttackData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterAttackDataparsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/edit#gid=0
   startCell: B7
   endColumn: AC
@@ -44,7 +44,7 @@ MonoBehaviour:
     attackableMinimumDistance: -1
     combatType: 0
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2001
     monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uD314 \uB0B4\uB824\uCE58\uAE30"
@@ -62,7 +62,7 @@ MonoBehaviour:
     attackableMinimumDistance: -1
     combatType: 0
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2002
     monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uD314 \uB0B4\uB824\uCE58\uAE30"
@@ -80,7 +80,7 @@ MonoBehaviour:
     attackableMinimumDistance: -1
     combatType: 0
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2003
     monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uD749\uAE30 \uD718\uB450\uB974\uAE30"
@@ -98,7 +98,7 @@ MonoBehaviour:
     attackableMinimumDistance: -1
     combatType: 1
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2004
     monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uD749\uAE30 \uD718\uB450\uB974\uAE30"
@@ -116,7 +116,7 @@ MonoBehaviour:
     attackableMinimumDistance: -1
     combatType: 1
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2005
     monsterName: "\uD3C9\uBC94\uD55C \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uB2EC\uB824\uB4E4\uAE30"
@@ -134,7 +134,7 @@ MonoBehaviour:
     attackableMinimumDistance: 5
     combatType: 3
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2006
     monsterName: "\uBAA8\uD5D8\uAC00 \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uB2EC\uB824\uB4E4\uAE30"
@@ -152,7 +152,7 @@ MonoBehaviour:
     attackableMinimumDistance: 5
     combatType: 3
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2007
     monsterName: "\uACF5\uB300\uC6D0 \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uB2EC\uB824\uB4E4\uAE30"
@@ -170,7 +170,7 @@ MonoBehaviour:
     attackableMinimumDistance: 5
     combatType: 3
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2008
     monsterName: "\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uB0A0\uC544\uAC00\uAE30"
@@ -188,7 +188,7 @@ MonoBehaviour:
     attackableMinimumDistance: 10
     combatType: 3
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 
   - index: 2009
     monsterName: "\uB9C8\uBC95\uC0AC \uC2A4\uCF08\uB808\uD1A4"
     attackName: "\uBD88\uB369\uC774 \uBC1C\uC0AC"
@@ -206,4 +206,4 @@ MonoBehaviour:
     attackableMinimumDistance: -1
     combatType: 2
     weaponName: 
-    projectilePrefab: {fileID: 0}
+    projectilePrefabPath: 

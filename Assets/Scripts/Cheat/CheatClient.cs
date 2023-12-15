@@ -1,9 +1,11 @@
 using Assets.Scripts.Centers;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Player;
 using Assets.Scripts.UI.Inventory;
 using Boss.Terrapupa;
 using Channels.Components;
+using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Sirenix.OdinInspector;
@@ -54,6 +56,16 @@ public class CheatClient : SerializedMonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
+            TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
+
+            DialogPayload payload = DialogPayload.Stop();
+            payload.canvasType = DialogCanvasType.Default;
+            ticketMachine.SendMessage(ChannelType.Dialog, payload);
+            payload.canvasType = DialogCanvasType.Simple;
+            ticketMachine.SendMessage(ChannelType.Dialog, payload);
+            payload.canvasType = DialogCanvasType.SimpleRemaining;
+            ticketMachine.SendMessage(ChannelType.Dialog, payload);
+
             SaveLoadManager.Instance.LoadData();
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))

@@ -85,7 +85,7 @@ public class TerrapupaController : BaseController
     public void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat, ChannelType.Camera);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat, ChannelType.Camera, ChannelType.Terrapupa);
 
         terrapupa.InitTicketMachine(ticketMachine);
         terra.InitTicketMachine(ticketMachine);
