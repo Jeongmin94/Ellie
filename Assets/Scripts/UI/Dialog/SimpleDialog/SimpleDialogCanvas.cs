@@ -203,7 +203,10 @@ namespace Assets.Scripts.UI.Dialog
             yield return dialogText.Play(payload.text, payload.interval, payload.simpleDialogDuration);
 
             if (payload.canvasType == DialogCanvasType.Simple)
+            {
+                SendPayloadEndingDialog();
                 Stop();
+            }
         }
 
         private void SendPayloadToClientEvent(bool _isPlaying)
@@ -212,6 +215,15 @@ namespace Assets.Scripts.UI.Dialog
             {
                 dialogType = DialogType.NotifyToClient,
                 isPlaying = _isPlaying
+            });
+        }
+        private void SendPayloadEndingDialog()
+        {
+            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
+            {
+                dialogType = DialogType.NotifyToClient,
+                isPlaying = false,
+                isEnd = true,
             });
         }
     }

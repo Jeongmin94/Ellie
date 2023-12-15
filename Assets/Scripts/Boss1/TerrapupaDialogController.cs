@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Controller;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Puzzle;
 using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Components;
@@ -19,9 +20,11 @@ namespace Assets.Scripts.Boss1
     {
         [ShowInInspector][ReadOnly] private Dictionary<int, bool> dialogSaveDic = new();
         [ShowInInspector][ReadOnly] private BossDialogParsingInfo parsingInfo;
-        [ShowInInspector][ReadOnly] private BossDialogData currentData;
+        [ShowInInspector][ReadOnly] private BossDialogData currentData = null;
         [ShowInInspector] private List<BossDialog> dialogList = new();
+        
 
+        [OnValueChanged("OnChangeIndex")] public int currentIndex;
         public float dialogDuration = 3.0f;
         public string[] speakers = new string[]{
             "엘리",
@@ -29,8 +32,10 @@ namespace Assets.Scripts.Boss1
             "말하는 해골 머리 둘 째",
             "말하는 해골 머리 막내"};
 
-        private TicketMachine ticketMachine;
-        private int currentIndex;
+        [ShowInInspector] private TicketMachine ticketMachine;
+        [ShowInInspector] private Coroutine dialogCoroutine = null;
+        [ShowInInspector] private DialogCanvasType currentType;
+        [ShowInInspector] private bool isInit;
 
         public TicketMachine TicketMachine
         {
@@ -93,77 +98,106 @@ namespace Assets.Scripts.Boss1
             dialogSaveDic = savePayload.bossDialogStatusDic;
         }
 
-        [Button("테스트 페이로드 8100", ButtonSizes.Large)]
-        public void Test1()
+        [Button]
+        public void TestBossDialogTrigger(BossDialogTriggerType type = BossDialogTriggerType.EnterBossRoom)
         {
-            Debug.Log("테스트1");
+            Debug.Log($"테스트 타입 :: {type}");
             ticketMachine.SendMessage(ChannelType.BossDialog, new BossDialogPaylaod
             {
-                TriggerType = BossDialogTriggerType.EnterBossRoom,
+                TriggerType = type,
             });
         }
-        [Button("다이얼로그 테스트1", ButtonSizes.Large)]
-        public void Test2()
-        {
-            Debug.Log("테스트2");
-            var dPayload1 = DialogPayload.Play("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-            dPayload1.canvasType = DialogCanvasType.Simple;
-            dPayload1.simpleDialogDuration = 3.0f;
-            ticketMachine.SendMessage(ChannelType.Dialog, dPayload1);
-        }
-        [Button("다이얼로그 테스트2", ButtonSizes.Large)]
-        public void Test2()
-        {
-            Debug.Log("테스트2");
-            var dPayload1 = DialogPayload.Play("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-            dPayload1.canvasType = DialogCanvasType.SimpleRemaining;
-            dPayload1.simpleDialogDuration = 3.0f;
-            ticketMachine.SendMessage(ChannelType.Dialog, dPayload1);
-        }
-        [Button("다이얼로그 테스트3", ButtonSizes.Large)]
-        public void Test3()
-        {
-            Debug.Log("테스트2");
-            var dPayload1 = DialogPayload.OnNext();
-            dPayload1.canvasType = DialogCanvasType.SimpleRemaining;
-            dPayload1.simpleDialogDuration = 3.0f;
-            ticketMachine.SendMessage(ChannelType.Dialog, dPayload1);
-        }
-        [Button("다이얼로그 테스트4", ButtonSizes.Large)]
-        public void Test4()
-        {
-            Debug.Log("테스트2");
-            var dPayload1 = DialogPayload.Play("fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff");
-            dPayload1.canvasType = DialogCanvasType.SimpleRemaining;
-            dPayload1.simpleDialogDuration = 3.0f;
-            ticketMachine.SendMessage(ChannelType.Dialog, dPayload1);
-        }
-
 
         private void OnNotifyDialog(IBaseEventPayload payload)
         {
             if (payload is not DialogPayload dialogPayload)
                 return;
 
-            if (dialogPayload.dialogType != DialogType.NotifyToClient && currentData != null) 
+            if (dialogPayload.dialogType != DialogType.NotifyToClient || currentData == null) 
                 return;
 
-            var isPlaying = dialogPayload.isPlaying;
-            if (isPlaying)
+            if(isInit)
             {
-                Debug.Log("켜짐");
-                currentIndex++;
+                if(dialogPayload.isEnd)
+                {
+                    Debug.Log("End OK");
+                    if (dialogCoroutine != null)
+                    {
+                        StopCoroutine(dialogCoroutine);
+                    }
+
+                    currentIndex++;
+                    if (currentIndex < dialogList.Count)
+                    {
+                        NextDialog();
+                    }
+                    else
+                    {
+                        EndDialog();
+                    }
+                    dialogCoroutine = null;
+                }
+                else if (currentType != DialogCanvasType.Simple)
+                {
+                    Debug.Log($"isPlaying == {dialogPayload.isPlaying}");
+                    if (dialogPayload.isPlaying == false)
+                    {
+                        if (dialogCoroutine != null)
+                        {
+                            StopCoroutine(dialogCoroutine);
+                        }
+                        dialogCoroutine = StartCoroutine(DialogCoroutine());
+                    }
+                }
             }
-            else
+        }
+
+        private IEnumerator DialogCoroutine()
+        {
+            while (true)
             {
-                Debug.Log("꺼짐");
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    currentIndex++;
+                    if (currentIndex < dialogList.Count)
+                    {
+                        NextDialog();
+                    }
+                    else
+                    {
+                        EndDialog();
+                    }
+                    dialogCoroutine = null;
+                    yield break;
+                }
+                yield return null;
             }
+        }
+
+        private void NextDialog()
+        {
+            Debug.Log("다음 대사");
+            InitDialog();
+
+            currentType = dialogList[currentIndex].dialogCanvasType;
+            if (dialogCoroutine != null && currentType == DialogCanvasType.Simple)
+            {
+                StopCoroutine(dialogCoroutine);
+            }
+            SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker);
+        }
+
+        private void EndDialog()
+        {
+            Debug.Log("대사 종료");
+            InitDialog();
+            currentIndex = 0;
+            dialogList = null;
+            currentData = null;
         }
 
         private void OnNotifyBossDialog(IBaseEventPayload payload)
         {
-            Debug.Log("보스다이얼로그 요청받음");
-
             if (payload is not BossDialogPaylaod dialogPayload)
                 return;
 
@@ -171,7 +205,15 @@ namespace Assets.Scripts.Boss1
             dialogList = currentData.dialogList;
             currentIndex = 0;
 
-            SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker);
+            NextDialog();
+        }
+        private void InitDialog()
+        {
+            isInit = false;
+            SendStopDialogPayload(DialogCanvasType.Default);
+            SendStopDialogPayload(DialogCanvasType.Simple);
+            SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+            isInit = true;
         }
 
         private void SendDialogMessage(string text, DialogCanvasType canvasType, int speaker)
@@ -183,25 +225,16 @@ namespace Assets.Scripts.Boss1
             ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
         }
 
-        private void CheckBossDialogType(BossDialogType type)
+        private void SendStopDialogPayload(DialogCanvasType type)
         {
-            switch (type)
-            {
-                case BossDialogType.None:
-                    break;
-                case BossDialogType.EnterBossRoom:
-                    break;
-                case BossDialogType.ShowExitDoor:
-                    break;
-                case BossDialogType.StandUpTerrapupa:
-                    break;
-                case BossDialogType.StartBattle:
-                    break;
-                case BossDialogType.HighlightExitDoor:
-                    break;
-                default:
-                    break;
-            }
+            DialogPayload payload = DialogPayload.Stop();
+            payload.canvasType = type;
+            ticketMachine.SendMessage(ChannelType.Dialog, payload);
+        }
+
+        public void OnChangeIndex()
+        {
+            Debug.Log($"OnChangeIndex :: {currentIndex}, {currentType}");
         }
     }
 }

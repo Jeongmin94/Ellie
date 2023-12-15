@@ -31,12 +31,9 @@ namespace Channels.Boss
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            Debug.Log("오긴 옴?");
-
             if (payload is not BossDialogPaylaod bossDialogPayload)
                 return;
 
-            Debug.Log("dd 옴");
             Publish(payload);
         }
     }
