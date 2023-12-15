@@ -26,5 +26,13 @@ namespace Data.UI.Opening
         [Header("버튼 클릭을 해제했을 때의 색")]
         [SerializeField]
         public Color disabledColor = new Color(200, 200, 200, 128);
+
+        public static void SetTextTypographyData(TextMeshProUGUI tmp, TextTypographyData data)
+        {
+            DialogTypographyData.SetDialogTypography(tmp, data);
+            tmp.alignment = data.alignmentOptions;
+            tmp.enableAutoSizing = data.enableAutoSizing;
+            tmp.text = data.title;
+        }
     }
 }

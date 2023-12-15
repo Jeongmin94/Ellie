@@ -1,7 +1,19 @@
+using System;
 using System.Collections.Generic;
+using Assets.Scripts.Data.UI.Dialog;
 using Assets.Scripts.Data.UI.Transform;
+using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
+using Assets.Scripts.UI.Framework.Presets;
+using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.Utils;
+using Channels.Components;
+using Channels.Dialog;
+using Channels.Type;
+using Data.UI.Opening;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace UI.Dialog.GuideDialog
 {
@@ -41,11 +53,22 @@ namespace UI.Dialog.GuideDialog
             GuideDialogMessagePanel,
         }
 
+        private enum Texts
+        {
+            GuideDialogSpeakerText,
+            GuideDialogMessageText,
+        }
+
         [SerializeField] private UITransformData[] transformData;
+        [SerializeField] private TextTypographyData[] typographyData;
 
         private readonly List<GameObject> panels = new List<GameObject>();
         private readonly List<RectTransform> panelRects = new List<RectTransform>();
 
+        private readonly List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
+        private Image guideDialogImage;
+
+        private TicketMachine ticketMachine;
         private readonly Queue<GuideDialogInfo> dialogInfoQueue = new Queue<GuideDialogInfo>();
 
         private void Awake()
@@ -63,10 +86,54 @@ namespace UI.Dialog.GuideDialog
 
         private void Bind()
         {
+            Bind<GameObject>(typeof(GameObjects));
+            Bind<TextMeshProUGUI>(typeof(Texts));
+
+            var gos = Enum.GetValues(typeof(GameObjects));
+            for (int i = 0; i < gos.Length; i++)
+            {
+                var go = GetGameObject(i);
+                panelRects.Add(go.GetComponent<RectTransform>());
+                panels.Add(go);
+            }
+
+            var t = Enum.GetValues(typeof(Texts));
+            for (int i = 0; i < t.Length; i++)
+            {
+                texts.Add(GetText(i));
+            }
+
+            guideDialogImage = panels[(int)GameObjects.GuideDialogImagePanel].GetComponent<Image>();
         }
 
         private void InitObjects()
         {
+            for (int i = 0; i < transformData.Length; i++)
+            {
+                AnchorPresets.SetAnchorPreset(panelRects[i], AnchorPresets.MiddleCenter);
+                panelRects[i].sizeDelta = transformData[i].actionRect.Value.GetSize();
+                panelRects[i].localPosition = transformData[i].actionRect.Value.ToCanvasPos();
+                panelRects[i].localScale = transformData[i].actionScale.Value;
+            }
+
+            for (int i = 0; i < typographyData.Length; i++)
+            {
+                TextTypographyData.SetTextTypographyData(texts[i], typographyData[i]);
+            }
+
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTicket(ChannelType.Dialog);
+            ticketMachine.RegisterObserver(ChannelType.Dialog, OnNotify);
+
+#if UNITY_EDITOR
+            TicketManager.Instance.Ticket(ticketMachine);
+#endif
+        }
+
+        private void OnNotify(IBaseEventPayload payload)
+        {
+            if (payload is not DialogPayload dialogPayload)
+                return;
         }
     }
 }
