@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.GlobalIllumination;
 
 namespace Assets.Scripts.Puzzle
 {
@@ -7,7 +8,7 @@ namespace Assets.Scripts.Puzzle
     {
         [SerializeField] private GameObject stalactitePrefab;
         [SerializeField] private List<Transform> spawnTransformList = new List<Transform>();
-
+        
         private void Awake()
         {
             if (stalactitePrefab == null)

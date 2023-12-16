@@ -176,7 +176,7 @@ namespace Assets.Scripts.UI.InGame
 
         private void OnEscapeAction()
         {
-            if (!InputManager.Instance.PrevCanInput)
+            if (!InputManager.Instance.CanInput)
                 return;
 
             if (!gameObject.activeSelf)
@@ -184,8 +184,6 @@ namespace Assets.Scripts.UI.InGame
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOpen, Vector3.zero);
                 Cursor.visible = true;
                 gameObject.SetActive(true);
-
-                Time.timeScale = 0.0f;
 
                 ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                 {
@@ -209,9 +207,7 @@ namespace Assets.Scripts.UI.InGame
                 {
                     Cursor.visible = false;
                     gameObject.SetActive(false);
-
-                    Time.timeScale = 1.0f;
-
+                    
                     ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                     {
                         uiType = UIType.Notify,

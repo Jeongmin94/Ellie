@@ -135,7 +135,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             //플레이어 움직일 수 있게 풀어줘야됨
             player.EndConversation();
             //player.SetQuestStatus((int)EldestQuestList.quest6101, QuestStatus.Accepted);
-            while (hitCount < 3)
+            while (hitCount < 1)
             {
                 yield return null;
             }
@@ -203,11 +203,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         public void HitOnStone()
         {
             if (player == null || player.GetQuestStatus((int)EldestSkullQuest.quest6101) != QuestStatus.Accepted) return;
-            if (hitCount < 3)
+            if (hitCount < 1)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "NPC1", transform.position);
             }
             hitCount++;
+            //player.
         }
     }
 }

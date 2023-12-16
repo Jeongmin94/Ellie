@@ -157,7 +157,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1118065663}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.999, y: 0.44200003, z: -4.52}
+  m_LocalPosition: {x: 0.9990001, y: 0.4419999, z: -4.5200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78ddb7d521940714bbfc1dd80d4a77cf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Environments.CameraShakingEffect, Assembly.Ellie
 --- !u!1 &1118183893
 GameObject:
   m_ObjectHideFlags: 0
@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 0.54200006, z: -2}
+  m_LocalPosition: {x: 0.9990001, y: 0.4419999, z: -4.5200005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -321,14 +321,14 @@ Camera:
   m_GameObject: {fileID: 1346398095}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 29.999998
+  m_FocalLength: 54.1285
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -337,7 +337,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 43.60282
+  field of view: 25
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1048577
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -7139,7 +7139,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572231187841}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.7420001, z: -7}
+  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7220,6 +7220,7 @@ GameObject:
   - component: {fileID: 1523587299}
   - component: {fileID: 267577083}
   - component: {fileID: 1144504781}
+  - component: {fileID: 1878870944}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -7290,7 +7291,7 @@ MonoBehaviour:
   chargeStaminaConsumptionPerSec: 5
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
-  invulnerableTimeAfterHit: 1.5
+  invulnerableTimeAfterHit: 0.5
   isDead: 0
   isRecoveringStamina: 0
 --- !u!114 &6030200240847392581
@@ -7343,7 +7344,7 @@ MonoBehaviour:
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
   hasStone: 0
-  shooter: {fileID: 1833054885}
+  shooter: {fileID: 1833054888}
   meleeAttackCollider: {fileID: 1626558121}
   curStoneIdx: 0
   aimTransform: {fileID: 354825457}
@@ -7601,6 +7602,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2de266ccd7bb1d34ebbb4c753ff22049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.PlayerSaveLoad, Assembly.Ellie
+--- !u!114 &1878870944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
+  modelMaterial: {fileID: 2100000, guid: 5dd8de00ede3fa84ea9e8726a78ebf61, type: 2}
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
@@ -7627,7 +7645,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4016927572422116014}
   m_LocalRotation: {x: 0.123005815, y: -0.035375133, z: 0.0043874756, w: 0.99176556}
-  m_LocalPosition: {x: 1, y: 0.54200006, z: -2}
+  m_LocalPosition: {x: 1, y: 0.5419998, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9027,7 +9045,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ad52945635a9404a828f58d138ce4b1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Equipments.Pickaxe, Assembly.Ellie
 --- !u!4 &4692122521253568810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4692122520935946692, guid: 35b7c9f0fe348de4eaa1467263cde907, type: 3}

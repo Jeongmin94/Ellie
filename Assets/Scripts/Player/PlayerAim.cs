@@ -16,7 +16,7 @@ namespace Assets.Scripts.Player
 
         void Update()
         {
-            if (!InputManager.Instance.PrevCanInput)
+            if (!InputManager.Instance.CanInput)
                 return;
             if (!canAim) return;
             
