@@ -15,6 +15,7 @@ public class TerrapupaEarthQuakeData : BaseBTData
 
     [Title("사운드 설정")]
     [InfoBox("땅 뒤집기 공격 사운드")] public string sound1 = "TerrapupaEarthQuake";
+    [InfoBox("땅 뒤집기 공격 시작 사운드")] public string sound2 = "TerapupaEarthQuakeJump";
 
     [Title("이펙트 설정")]
     [InfoBox("내려 찍기 이펙트")] public GameObject earthQuakeEffect1;
@@ -36,6 +37,7 @@ public class TerrapupaEarthQuakeData : BaseBTData
     public override void Init(BehaviourTree tree)
     {
         SetBlackboardValue<string>("sound1", sound1, tree);
+        SetBlackboardValue<string>("sound2", sound2, tree);
         SetBlackboardValue<GameObject>("effect1", earthQuakeEffect1, tree);
         SetBlackboardValue<float>("cooldown", cooldown, tree);
         SetBlackboardValue<float>("rotationSpeed", rotationSpeed, tree);

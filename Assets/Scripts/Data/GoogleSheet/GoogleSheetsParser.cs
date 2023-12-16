@@ -20,6 +20,5 @@ public class GoogleSheetsParser : MonoBehaviour
 
         info.tsv = www.downloadHandler.text;
         print(info.tsv);
-        info.Parse();
     }
 }

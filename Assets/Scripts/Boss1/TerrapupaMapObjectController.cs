@@ -12,6 +12,7 @@ using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Controller;
+using Channels.Dialog;
 using UnityEngine;
 using Channels.UI;
 
@@ -77,7 +78,7 @@ public class TerrapupaMapObjectController : BaseController
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog, ChannelType.Terrapupa);
 
         foreach (var mana in manaFountains)
         {
@@ -152,6 +153,23 @@ public class TerrapupaMapObjectController : BaseController
         trigger.SetActive(false);
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
+
+        var dPayload = DialogPayload.Play("test");
+        dPayload.canvasType = DialogCanvasType.Simple;
+        dPayload.simpleDialogDuration = 3.0f;
+        ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+
+        // StartCoroutine(test());
+    }
+
+    private IEnumerator test()
+    {
+        yield return new WaitForSeconds(3.0f);
+        
+        Debug.Log("테스트");
+        var dPayload = DialogPayload.Stop();
+        dPayload.canvasType = DialogCanvasType.SimpleRemaining;
+        ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
     }
 
     private void OnLeftBossRoom(IBaseEventPayload payload)
@@ -345,9 +363,10 @@ public class TerrapupaMapObjectController : BaseController
 
     private IEnumerator ManaRespawn(BossEventPayload manaPayload)
     {
-        manaFountainCount--;
         ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-        mana.IsBroken = true;
+        
+        manaFountainCount--;
+        mana.DestroyManaFountain();
         mana.gameObject.SetActive(false);
 
         if (manaFountainCount == 0)
@@ -361,8 +380,7 @@ public class TerrapupaMapObjectController : BaseController
 
         manaFountainCount++;
         mana.gameObject.SetActive(true);
-        mana.IsBroken = false;
-        mana.IsCooldown = false;
+        mana.RegenerateManaFountain();
 
         manaPayload.BoolValue = true;
         EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);

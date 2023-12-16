@@ -2,15 +2,18 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
     public class DataManager : Singleton<DataManager>
     {
-        [SerializeField] private List<DataParsingInfo> dataList;
+        [InfoBox("체크 시 실시간 데이터 파싱을 진행합니다!\n빌드 시에는 꼭 체크해주세요!!!")]
+        [SerializeField] private bool isDataParseInit = true;
+        [SerializeField] private List<DataParsingInfo> dataList = new();
 
-        private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
+        [ShowInInspector][ReadOnly] private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new Dictionary<Type, DataParsingInfo>();
 
         private GoogleSheetsParser parser;
 
@@ -20,16 +23,36 @@ namespace Assets.Scripts.Managers
         {
             base.Awake();
 
-            parser = Instance.gameObject.GetOrAddComponent<GoogleSheetsParser>();
-            StartCoroutine(ParseData());
+            if(this.gameObject != null)
+            {
+                parser = Instance.gameObject.GetOrAddComponent<GoogleSheetsParser>();
+
+                if (isDataParseInit)
+                {
+                    StartCoroutine(ParseData());
+                }
+                else
+                {
+                    Debug.LogError("현재 실시간 데이터 파싱을 진행하지 않습니다!!");
+                    Debug.LogError("실시간 데이터 파싱이 필요하시면 체크를 풀어주세요.");
+
+                    AddDataList();
+                }
+            }
         }
 
         private IEnumerator ParseData()
         {
             yield return parser.Parse(dataList);
 
+            AddDataList();
+        }
+
+        private void AddDataList()
+        {
             foreach (var data in dataList)
             {
+                data.Parse();
                 dataDictionary[data.GetType()] = data;
             }
 

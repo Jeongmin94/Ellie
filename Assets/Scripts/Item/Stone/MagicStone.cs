@@ -13,8 +13,10 @@ namespace Assets.Scripts.Item.Stone
 
         public float attractionRadiusRange = 10.0f;
         public float duration = 10.0f;
+        public string activateRangeSound = "MagicStoneActivate";
+        public string deactivateRangeSound = "MagicStoneDeactivate";
         public LayerMask bossLayer;
-
+        
         private bool isTrigger = false;
         private bool isCollideGround = false;
         private Transform target;
@@ -49,6 +51,9 @@ namespace Assets.Scripts.Item.Stone
                 rb.isKinematic = false;
             }
 
+            // 비활성화 소리
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, deactivateRangeSound, transform.position);
+            
             //보스의 타겟 초기화
             EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone, new BossEventPayload
             {
@@ -103,6 +108,9 @@ namespace Assets.Scripts.Item.Stone
             rb.isKinematic = true;
             meshCollider.enabled = false;
 
+            // 사운드 시작
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, activateRangeSound, transform.position);
+            
             // 지속시간 설정 + 적용 범위 표시
             durationCoroutine = StartCoroutine(StartDurationCheck(duration));
             range = RangeManager.Instance.CreateRange(new RangePayload

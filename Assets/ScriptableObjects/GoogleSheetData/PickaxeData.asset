@@ -11,11 +11,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76afb3a824b90944b9d6f91b80a55371, type: 3}
   m_Name: PickaxeData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: PickaxeDataParsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1m8XT27AvWyf-EnIbF3EJLNJ3lFX0Tixh_Y8ip3eutsA/edit#gid=764653854
   startCell: A5
   endColumn: K
-  tsv: "9000\tPickaxe_Tier5\t5\t20\t1\t2\t30\t0.7\r\n9001\tPickaxe_Tier4\t4\t22\t2\t3\t50\t0.6\r\n9002\tPickaxe_Tier3\t3\t24\t2\t4\t85\t0.5\r\n9003\tPickaxe_Tier2\t2\t26\t4\t5\t140\t0.4\r\n9004\tPickaxe_Tier1\t1\t28\t6\t7\t0\t0"
+  tsv: "9000\tPickaxe_Tier5\t5\uD2F0\uC5B4 \uACE1\uAD2D\uC774\t5\t20\t2\t3\t30\t0.7\t-\t4403\r\n9001\tPickaxe_Tier4\t4\uD2F0\uC5B4
+    \uACE1\uAD2D\uC774\t4\t22\t2\t3\t50\t0.6\t-\t4404\r\n9002\tPickaxe_Tier3\t3\uD2F0\uC5B4
+    \uACE1\uAD2D\uC774\t3\t24\t2\t4\t85\t0.5\t-\t4405\r\n9003\tPickaxe_Tier2\t2\uD2F0\uC5B4
+    \uACE1\uAD2D\uC774\t2\t26\t4\t5\t140\t0.4\t-\t4406\r\n9004\tPickaxe_Tier1\t1\uD2F0\uC5B4
+    \uACE1\uAD2D\uC774\t1\t28\t6\t7\t0\t0\t-\t4407"
   pickaxes:
   - groupType: 2
     index: 9000
@@ -24,11 +28,11 @@ MonoBehaviour:
     imageName: '-'
     tier: 5
     durability: 20
-    minSmithPower: 1
-    maxSmithPower: 2
+    minSmithPower: 2
+    maxSmithPower: 3
     upgradeCost: 30
     upgradeChance: 0.7
-    uiIdx: 0
+    uiIdx: 4403
   - groupType: 2
     index: 9001
     name: Pickaxe_Tier4
@@ -40,7 +44,7 @@ MonoBehaviour:
     maxSmithPower: 3
     upgradeCost: 50
     upgradeChance: 0.6
-    uiIdx: 0
+    uiIdx: 4404
   - groupType: 2
     index: 9002
     name: Pickaxe_Tier3
@@ -52,7 +56,7 @@ MonoBehaviour:
     maxSmithPower: 4
     upgradeCost: 85
     upgradeChance: 0.5
-    uiIdx: 0
+    uiIdx: 4405
   - groupType: 2
     index: 9003
     name: Pickaxe_Tier2
@@ -64,7 +68,7 @@ MonoBehaviour:
     maxSmithPower: 5
     upgradeCost: 140
     upgradeChance: 0.4
-    uiIdx: 0
+    uiIdx: 4406
   - groupType: 2
     index: 9004
     name: Pickaxe_Tier1
@@ -76,4 +80,4 @@ MonoBehaviour:
     maxSmithPower: 7
     upgradeCost: 0
     upgradeChance: 0
-    uiIdx: 0
+    uiIdx: 4407

@@ -29,6 +29,7 @@ MonoBehaviour:
   - rid: 283011153473568822
   - rid: 283011153473568824
   - rid: 283011153473568827
+  - rid: 116448495133786117
   treeState: 0
   blackboard:
     keys:
@@ -36,13 +37,35 @@ MonoBehaviour:
     - rid: 283011090204065825
     - rid: 283011153473568825
     - rid: 283011153473568826
-  viewPosition: {x: 1437.6, y: 714.4, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+    - rid: 116448495133786116
+  viewPosition: {x: 2218.4, y: 1026.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448495133786116
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: TerapupaDeath
+    - rid: 116448495133786117
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 505726e761541ec48b6f3ba5a95a5837
+        position: {x: -2430, y: -750}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448495133786116
+          defaultValue: 
     - rid: 283011090204065825
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -55,7 +78,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: f7ad4994951c9474f8c02cfd39bed571
-        position: {x: -2625, y: -750}
+        position: {x: -2955, y: -750}
         blackboard:
           keys: []
         description: 
@@ -89,7 +112,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 635241baba19d8c4086c8ff611c839d1
-        position: {x: -2010, y: -900}
+        position: {x: -2025, y: -900}
         blackboard:
           keys: []
         description: 
@@ -125,7 +148,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 7460eace0c4c0ce4d9846478e0536226
-        position: {x: -2460, y: -900}
+        position: {x: -2700, y: -900}
         blackboard:
           keys: []
         description: 
@@ -133,13 +156,14 @@ MonoBehaviour:
         children:
         - rid: 283011153473568795
         - rid: 283011153473568801
+        - rid: 116448495133786117
     - rid: 283011153473568801
       type: {class: SetRigidbodyKinematic, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 7cbebfdc26e561a419d01ce1bb8c7334
-        position: {x: -2340, y: -750}
+        position: {x: -2730, y: -750}
         blackboard:
           keys: []
         description: 
@@ -198,6 +222,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 283011153473568826
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -226,6 +254,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 283011153473568807
       type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
       data:
@@ -288,6 +319,10 @@ MonoBehaviour:
         bossPayload:
           reference:
             rid: 283011153473568825
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
         intValue:
           reference:
             rid: -2
@@ -316,6 +351,9 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
     - rid: 283011153473568825
       type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

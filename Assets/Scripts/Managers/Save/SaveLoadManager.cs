@@ -243,6 +243,11 @@ namespace Assets.Scripts.Managers
                         NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
                         return JsonConvert.SerializeObject(payload);
                     }
+                case SaveLoadType.Boss:
+                    {
+                        BossSavePayload payload = payloadTable[type] as BossSavePayload;
+                        return JsonConvert.SerializeObject(payload);
+                    }
                 default:
                     return null;
             }
@@ -258,6 +263,8 @@ namespace Assets.Scripts.Managers
                     return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
                 case SaveLoadType.NPC:
                     return JsonConvert.DeserializeObject<NPCSavePayload>(data);
+                case SaveLoadType.Boss:
+                    return JsonConvert.DeserializeObject<BossSavePayload>(data);
                 default:
                     return null;
             }

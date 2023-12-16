@@ -5,6 +5,7 @@ using Channels;
 using Channels.Components;
 using Channels.Type;
 using Channels.Utils;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Centers
@@ -34,12 +35,11 @@ namespace Centers
     public class BaseCenter : MonoBehaviour
     {
         [SerializeField] private BaseChannelTypeSo channelTypeSo;
+        [ShowInInspector] private readonly IDictionary<ChannelType, BaseEventChannel> channels =
+            new Dictionary<ChannelType, BaseEventChannel>();
         public GameObject Canvases;
         public GameObject[] uiPrefabs;
         public GameObject[] controllerInstances;
-
-        private readonly IDictionary<ChannelType, BaseEventChannel> channels =
-            new Dictionary<ChannelType, BaseEventChannel>();
 
         protected virtual void Init()
         {

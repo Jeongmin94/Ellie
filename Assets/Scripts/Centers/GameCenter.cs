@@ -16,9 +16,6 @@ namespace Assets.Scripts.Centers.Test
         public GameObject monsterController;
         public GameObject monsters;
         public GameObject[] skullSecondTraps;
-        public GameObject terrapupaController;
-        public GameObject terrapupaMapObjectController;
-
         public GameObject stonePillarPuzzle;
         public int curStage = 1;
 
@@ -26,7 +23,7 @@ namespace Assets.Scripts.Centers.Test
         {
             Debug.Log($"%%%%% GameCenter Awake %%%%%");
             MangerControllers.ClearAction(ManagerType.Input);
-            MangerControllers.ClearAction(ManagerType.Data);
+            //MangerControllers.ClearAction(ManagerType.Data);
             MangerControllers.ClearAction(ManagerType.Sound);
             MangerControllers.ClearAction(ManagerType.Particle);
             MangerControllers.ClearAction(ManagerType.EventBus);
@@ -53,8 +50,10 @@ namespace Assets.Scripts.Centers.Test
             {
                 CheckTicket(child.gameObject);
             }
-            CheckTicket(terrapupaController.gameObject);
-            CheckTicket(terrapupaMapObjectController.gameObject);
+            foreach (var controller in controllerInstances)
+            {
+                CheckTicket(controller.gameObject);
+            }
             foreach(var SkullSecondTrap in skullSecondTraps)
                 CheckTicket(SkullSecondTrap.gameObject);
             CheckTicket(stonePillarPuzzle.gameObject);

@@ -6,6 +6,9 @@ using Channels.Components;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Player.HitComponent;
+using Channels.Type;
 using UnityEngine;
 
 namespace Boss.Terrapupa
@@ -17,9 +20,14 @@ namespace Boss.Terrapupa
         [SerializeField] private TerrapupaWeakPoint weakPoint;
         [SerializeField] private TerrapupaHealthBar healthBar;
 
-        [ShowInInspector][ReadOnly] private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown = new Dictionary<TerrapupaAttackType, Coroutine>();
-        
+        [ShowInInspector] [ReadOnly] private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown =
+            new Dictionary<TerrapupaAttackType, Coroutine>();
+
+        public float shakeDuration = 0.1f;
+        public float shakeMagnitude = 0.1f;
+
         private TicketMachine ticketMachine;
+        private MaterialHitComponent hitComponent;
 
         public Transform Stone
         {
@@ -34,7 +42,7 @@ namespace Boss.Terrapupa
         }
 
         public TerrapupaHealthBar HealthBar
-        { 
+        {
             get { return healthBar; }
         }
 
@@ -49,6 +57,7 @@ namespace Boss.Terrapupa
 
             terrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
+            hitComponent = gameObject.GetComponent<MaterialHitComponent>();
 
             SubscribeEvent();
         }
@@ -78,7 +87,7 @@ namespace Boss.Terrapupa
             // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
             Debug.Log($"OnCollidedCoreByPlayerStone :: {payload}");
 
-            if(terrapupaData.isStuned.value)
+            if (terrapupaData.isStuned.value)
             {
                 CombatPayload combatPayload = payload as CombatPayload;
                 PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
@@ -86,9 +95,8 @@ namespace Boss.Terrapupa
 
                 GetDamaged(damage);
                 Debug.Log($"기절 상태, {damage} 데미지 입음 : {terrapupaData.currentHP.Value}");
-                
             }
-            else 
+            else
             {
                 Debug.Log("기절 상태가 아님");
             }
@@ -137,10 +145,21 @@ namespace Boss.Terrapupa
         public void GetDamaged(int damageValue)
         {
             ShowBillboard();
+            StartCoroutine(ShakeCoroutine());
+            hitComponent.Hit();
+            ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload()
+            {
+                type = CameraShakingEffectType.Start,
+                shakeIntensity = damageValue,
+                shakeTime = 0.1f,
+            });
+
             healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
             terrapupaData.currentHP.Value -= damageValue;
+
             if (terrapupaData.currentHP.value <= 0)
             {
+                HideBillboard();
                 terrapupaData.currentHP.Value = 0;
                 healthBar.RenewHealthBar(0);
             }
@@ -151,12 +170,28 @@ namespace Boss.Terrapupa
             healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
             terrapupaData.currentHP.Value += healValue;
 
-            if(terrapupaData.currentHP.value > terrapupaData.hp)
+            if (terrapupaData.currentHP.value > terrapupaData.hp)
             {
-                HideBillobard();
+                HideBillboard();
                 terrapupaData.currentHP.Value = terrapupaData.hp;
                 healthBar.RenewHealthBar(terrapupaData.currentHP.value);
             }
+        }
+
+        private IEnumerator ShakeCoroutine()
+        {
+            float elapsed = 0.0f;
+
+            Vector3 originalPosition = transform.position;
+
+            while (elapsed < shakeDuration)
+            {
+                transform.position = originalPosition + Random.insideUnitSphere * shakeMagnitude;
+                elapsed += Time.deltaTime;
+                yield return null; // 다음 프레임까지 기다림
+            }
+
+            transform.position = originalPosition; // 원래 위치로 돌아감
         }
     }
 }
