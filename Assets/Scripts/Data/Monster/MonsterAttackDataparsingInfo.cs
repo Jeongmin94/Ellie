@@ -21,6 +21,8 @@ public class MonsterAttackData
     public float attackDuration;
     public Vector3 offset;
     public Vector3 size;
+    public int projectileChase;
+    public float projectileSpeed;
 
     public int movementSpeed;
 
@@ -80,7 +82,9 @@ public class MonsterAttackDataparsingInfo : DataParsingInfo
                 data.size.x = float.Parse(entries[14]);
                 data.size.y = float.Parse(entries[15]);
                 data.size.z = float.Parse(entries[16]);
+                data.projectileSpeed = float.Parse(entries[17]);
                 data.projectilePrefabPath = entries[20].Trim();
+                data.projectileChase = int.Parse(entries[21]);
                 data.movementSpeed = int.Parse(entries[22]);
                 data.fleeDistance = int.Parse(entries[23]);
                 data.stopDistance = float.Parse(entries[25]);

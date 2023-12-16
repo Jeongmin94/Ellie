@@ -23,7 +23,7 @@ namespace Assets.Scripts.Monsters.EffectStatus.StatusEffectConcreteStrategies
             controller.AddStatusEffect(this);
             StartFreeze();
 
-            yield return new WaitForSeconds(duration);
+            yield return new WaitForSeconds(5.0f);
 
             controller.RemoveStatusEffect(this);
             EndFreeze();

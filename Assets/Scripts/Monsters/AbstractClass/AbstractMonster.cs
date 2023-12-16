@@ -28,6 +28,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         WizardSkeleton = 1002,
         CaveBat = 1003,
         GuildguardSkeleton = 1004,
+        CaveWitch = 1005,
     }
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
@@ -158,7 +159,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
                 // 디버프 처리
                 statusEffect.ApplyStatusEffect(combatPayload);
             }
-
             UpdateHP(combatPayload.Damage);
         }
 
@@ -301,6 +301,10 @@ namespace Assets.Scripts.Monsters.AbstractClass
                     HideBillobard();
                 }
             }
+        }
+        public Transform GetPlayer()
+        {
+            return player.transform;
         }
     }
 }
