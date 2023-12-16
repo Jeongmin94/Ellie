@@ -1,18 +1,15 @@
 ﻿using Assets.Scripts.Controller;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Puzzle;
 using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
-using Codice.CM.Common.Encryption;
 using Sirenix.OdinInspector;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static PlasticPipe.Server.MonitorStats;
 
 namespace Assets.Scripts.Boss1
 {

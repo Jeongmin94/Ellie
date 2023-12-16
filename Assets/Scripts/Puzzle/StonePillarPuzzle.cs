@@ -7,7 +7,6 @@ using UnityEngine;
 using Channels.Type;
 using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Environments;
-using PlasticPipe.PlasticProtocol.Messages;
 
 namespace Assets.Scripts.Puzzle
 {
