@@ -14,6 +14,7 @@ using Channels.Type;
 using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Dialog.GuideDialog
@@ -61,7 +62,7 @@ namespace UI.Dialog.GuideDialog
         [SerializeField] private UITransformData[] transformData;
         [SerializeField] private TextTypographyData[] typographyData;
         [SerializeField] private float showDuration = 5.0f;
-        [SerializeField] private float showInterval = 1.0f;
+        [SerializeField] private float fadeOutDuration = 1.0f;
 
         private readonly List<GameObject> panels = new List<GameObject>();
         private readonly List<RectTransform> panelRects = new List<RectTransform>();
@@ -229,12 +230,12 @@ namespace UI.Dialog.GuideDialog
             Color imageColor = guideDialogImage.color;
             Color backgroundImageColor = guideDialogBackgroundImage.color;
 
-            while (timeAcc <= showInterval)
+            while (timeAcc <= fadeOutDuration)
             {
                 yield return wfef;
                 timeAcc += Time.deltaTime;
 
-                float ratio = timeAcc / showInterval;
+                float ratio = timeAcc / fadeOutDuration;
 
                 for (int i = 0; i < texts.Count; i++)
                 {
