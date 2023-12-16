@@ -21,7 +21,7 @@ namespace Assets.Scripts.UI.ScreenEffect
 
         [SerializeField] private Color blurColor;
         [SerializeField] [Range(0.0f, 5.0f)] private float blurDuration = 0.05f;
-        [SerializeField] private float baseClarity = 0.3f;
+        [SerializeField] private float baseClarity = 0.15f;
 
         private Image blurEffectImage;
 

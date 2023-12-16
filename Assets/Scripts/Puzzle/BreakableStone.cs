@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Combat;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Particle;
+using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Sirenix.OdinInspector;
@@ -78,6 +79,9 @@ namespace Assets.Scripts.Puzzle
             // 빙결 처리
             isFrozen = true;
             Debug.Log("빙결 상태");
+
+            var setting = GetComponent<FreezeRenderSetting>();
+            setting.AddFreezeRenderer();
 
             // 체력 설정 -> 1 고정
             HitByStone(currentHP - 1);

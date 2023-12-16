@@ -29,7 +29,6 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
             while (Time.time - startTime < duration)
             {
                 yield return new WaitForSeconds(1.0f);
-                Debug.Log("Burn!");
                 status.ReduceHP(1);
             }
             controller.RemoveStatusEffect(this);

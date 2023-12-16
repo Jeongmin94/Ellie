@@ -61,7 +61,6 @@ namespace Assets.Scripts.Item.Stone
         public Poolable GetStone(int stoneIdx)
         {
             Poolable obj = stonePool.Pop(stoneRoot);
-            Debug.Log(stonePool.GetStackSize());
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             if (obj.GetComponent<BaseStone>().data == null)
             {
@@ -165,8 +164,6 @@ namespace Assets.Scripts.Item.Stone
         {
             stone.transform.position = startPos;
 
-            Debug.Log("startpos : " + startPos);
-            Debug.Log("curStonePos : " + stone.transform.position);
             stone.MoveStone(direction, strength);
             stone.GetComponent<Rigidbody>().AddTorque(2f*Random.onUnitSphere);
         }
