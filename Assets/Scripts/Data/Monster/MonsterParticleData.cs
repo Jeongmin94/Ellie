@@ -21,7 +21,7 @@ public class MonsterParticleData : ScriptableObject
     public ParticleSystem hitParticle;
     public Vector3 hitParticleOffset;
     public ParticleSystem headShotParticle;
-    public Vector3 headShotParticleOffset;
+    public Vector3 headShotParticleOffset; 
 
     public ParticleSystem GetParticleSystem(MonsterParticleType type)
     {
