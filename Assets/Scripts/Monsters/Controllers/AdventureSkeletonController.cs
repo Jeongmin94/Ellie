@@ -13,7 +13,14 @@ using static Assets.Scripts.Monsters.Utility.Enums;
 namespace Assets.Scripts.Monsters
 {
     public class AdventureSkeletonController : AbstractMonster, ICombatant
-    {  
+    {
+        private enum ParshingSkills
+        {
+            MeleeAttack = 2001,
+            FanshapeAttack = 2003,
+            RunToPlayer = 2006,
+        }
+
         protected override void Awake()
         {
             base.Awake();
@@ -45,9 +52,9 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.FanshapeAttack] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2003);
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2001);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2006);
+            attackData[(int)AttackSkill.FanshapeAttack] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.FanshapeAttack);
+            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.MeleeAttack);
+            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.RunToPlayer);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {

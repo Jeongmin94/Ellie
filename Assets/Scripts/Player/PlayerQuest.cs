@@ -111,6 +111,7 @@ namespace Assets.Scripts.Player
             int curDialogListIdx = 0;
             List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
 
+            InputManager.Instance.CanInput = false;
             SendClearQuestMessage();
             if (dialogList == null)
             {
@@ -156,6 +157,8 @@ namespace Assets.Scripts.Player
                         ticketMachine.SendMessage(ChannelType.UI, payload);
 
                         UnlockPlayerMovement();
+                        InputManager.Instance.CanInput = true;
+
                         yield break;
                     }
                 }

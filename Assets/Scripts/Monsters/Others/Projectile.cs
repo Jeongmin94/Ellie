@@ -10,8 +10,12 @@ namespace Assets.Scripts.Monsters.Others
 
     public class Projectile : MonoBehaviour
     {
-        [SerializeField] private float projectileSpeed;
+        private float projectileSpeed;
         public ProjectileAttack spawner;
+        public Transform player;
+        public bool isChasing = false;
+        private float rotationSpeed = 10.0f;
+        private float accumTime = 0.0f;
 
         private void Start()
         {
@@ -21,6 +25,10 @@ namespace Assets.Scripts.Monsters.Others
         private void FixedUpdate()
         {
             transform.Translate(Vector3.forward * projectileSpeed * Time.deltaTime);
+            if(isChasing)
+            {
+                ChasePlayer();
+            }
         }
 
         private void OnTriggerEnter(Collider other)
@@ -33,6 +41,32 @@ namespace Assets.Scripts.Monsters.Others
                 }
                 Destroy(gameObject);
             }
+            else if (other.CompareTag("Wall"))
+                Destroy(gameObject);
         }
+        private void ChasePlayer()
+        {
+            Vector3 directionToTarget = player.position - transform.position;
+            if (directionToTarget.sqrMagnitude < 1.0f)
+            {
+                accumTime += Time.deltaTime;
+            }
+            if(accumTime>1.0f)
+                Destroy(gameObject);
+
+            Quaternion rotationToTarget = Quaternion.LookRotation(directionToTarget);
+
+            transform.rotation = Quaternion.Slerp(transform.rotation, rotationToTarget, rotationSpeed * Time.deltaTime);
+        }
+        public void ChasePlayer(Transform player)
+        {
+            this.player = player;
+            isChasing = true;
+        }
+        public void SetSpeed(float speed)
+        {
+            projectileSpeed = speed;
+        }
+
     }
 }

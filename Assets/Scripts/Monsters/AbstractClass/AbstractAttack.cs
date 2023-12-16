@@ -29,8 +29,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected void InitializedBase(MonsterAttackData attackData)
         {
-            this.attackValue = attackData.attackValue;
-            this.durationTime = attackData.attackDuration;
+            attackValue = attackData.attackValue;
+            durationTime = attackData.attackDuration;
             AttackInterval = attackData.attackInterval;
             AttackableDistance = attackData.attackableDistance;
 

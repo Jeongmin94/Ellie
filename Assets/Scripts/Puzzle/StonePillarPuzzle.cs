@@ -6,18 +6,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Channels.Type;
 using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Environments;
+using PlasticPipe.PlasticProtocol.Messages;
 
 namespace Assets.Scripts.Puzzle
 {
     public class StonePillarPuzzle : MonoBehaviour
     {
+        private const int RequiredCount = 4;
         public Vector3 center;
         public Vector3 size;
         public int count = 0;
-
-        //public GameObject pillar1;
-        //public GameObject pillar2;
-        //public GameObject pillar3;
 
         public GameObject[] pillars;
 
@@ -29,13 +28,16 @@ namespace Assets.Scripts.Puzzle
         private bool isDone;
         public float raisingSpeed;
 
+        [SerializeField] private GameObject[] altarPillars;
         private TicketMachine ticketMachine;
+
 
         private void Awake()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Camera);
         }
+
         private void Start()
         {
             center = transform.position;
@@ -49,7 +51,13 @@ namespace Assets.Scripts.Puzzle
                 temp.y = constHeight;
                 pillar.transform.position = temp;
             }
+
+            foreach (var altarPillar in altarPillars)
+            {
+                altarPillar.GetComponent<MaterialChangableObject>().SetEmissionValue(0f);
+            }
         }
+
         private void OnTriggerEnter(Collider other)
         {
             if (other.CompareTag("Stone"))
@@ -65,15 +73,19 @@ namespace Assets.Scripts.Puzzle
                 if (collider.CompareTag("Stone"))
                 {
                     count++;
+                    if (count <= altarPillars.Length)
+                        altarPillars[count - 1].GetComponent<MaterialChangableObject>().ResetMaterial();
                 }
             }
-            if (count >= 3 && !isDone)
+
+            if (count >= RequiredCount && !isDone)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "puzzle1_stone1", transform.position);
-                for(int i = 0; i<pillars.Length;i++)
+                for (int i = 0; i < pillars.Length; i++)
                 {
                     StartCoroutine(RaisePillar(pillars[i], pillarsInitialHeight[i]));
                 }
+
                 isDone = true;
                 ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload
                 {
@@ -93,6 +105,7 @@ namespace Assets.Scripts.Puzzle
                 time += Time.deltaTime;
                 yield return null;
             }
+
             SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle1_stone2");
 
             Vector3 raisePos = obj.transform.position;
@@ -102,6 +115,7 @@ namespace Assets.Scripts.Puzzle
                 obj.transform.position = raisePos;
                 yield return null;
             }
+
             raisePos.y = height;
             obj.transform.position = raisePos;
         }

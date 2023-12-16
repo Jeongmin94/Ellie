@@ -10,6 +10,8 @@ public enum MonsterParticleType
     WeaponHit,
     ProjectileCast,
     ProjectileHit,
+    Hit,
+    HeadShot,
 }
 public class MonsterParticleController : MonoBehaviour
 {
@@ -34,6 +36,7 @@ public class MonsterParticleController : MonoBehaviour
         {
             ParticleSystem particleObj = Instantiate(data.GetParticleSystem(type),transform);
             particles.Add(type, particleObj);
+            Debug.Log("++Particle Added : " + particleObj);
             if (particles.TryGetValue(type, out particle))
             {
                 particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);

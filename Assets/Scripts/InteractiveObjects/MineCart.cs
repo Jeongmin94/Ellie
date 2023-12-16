@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using System;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
 using Channels.Components;
 using Channels.UI;
@@ -24,9 +25,9 @@ namespace Assets.Scripts.InteractiveObjects
         private InteractiveType type = InteractiveType.Default;
 
         private TicketMachine ticketMachine;
+
         private void Awake()
         {
-
         }
 
         private void Start()
@@ -41,17 +42,19 @@ namespace Assets.Scripts.InteractiveObjects
             {
                 LockPlayerPos();
             }
-            if (walker && isActivated && walker.Progress == 1f)
+
+            if (walker && isActivated && Math.Abs(walker.Progress - 1f) < float.Epsilon)
             {
                 EndRailSystem();
             }
-            if(canJump && Input.GetKeyDown(KeyCode.Space))
+
+            if (canJump && Input.GetKeyDown(KeyCode.Space))
             {
                 JumpToSuccessRail();
             }
         }
         //TODO : 특정 구간에서 Space를 입력해서 구간 넘어가기
-        
+
         public override void Interact(GameObject obj)
         {
             if (!obj.CompareTag("Player")) return;
@@ -61,13 +64,17 @@ namespace Assets.Scripts.InteractiveObjects
             StartRailSystem();
             player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
+
         private void StartRailSystem()
         {
-            player.GetComponent<PlayerController>().PlayerObj.transform.rotation = playerStandingPos.rotation;
-            player.GetComponent<PlayerController>().canJump = false;
-            player.GetComponent<PlayerInteraction>().interactiveObject = null;
-            player.GetComponent<PlayerInteraction>().SetCanInteract(false);
-            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
+            var playerController = player.GetComponent<PlayerController>();
+            var playerinteraction = player.GetComponent<PlayerInteraction>();
+            playerController.PlayerObj.transform.rotation = playerStandingPos.rotation;
+            playerController.canJump = false;
+            playerinteraction.interactiveObject = null;
+            playerinteraction.SetCanInteract(false);
+            playerinteraction.DeactivateInteractiveUI();
+            playerinteraction.OutlineController.RemoveMaterial(renderer, OutlineType.InteractiveOutline);
             walker = gameObject.AddComponent<SplineWalker>();
             walker.duration = duration;
             walker.spline = spline;
@@ -75,6 +82,7 @@ namespace Assets.Scripts.InteractiveObjects
             walker.mode = SplineWalkerMode.Once;
             isActivated = true;
         }
+
         private void EndRailSystem()
         {
             isActivated = false;
@@ -85,6 +93,7 @@ namespace Assets.Scripts.InteractiveObjects
             Destroy(walker);
             gameObject.tag = "Untagged";
         }
+
         private void LockPlayerPos()
         {
             player.transform.position = playerStandingPos.position;
@@ -92,7 +101,7 @@ namespace Assets.Scripts.InteractiveObjects
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.name == "SuccessInterval")
+            if (other.gameObject.name == "SuccessInterval")
             {
                 Debug.Log("enter interval");
                 canJump = true;
@@ -107,7 +116,7 @@ namespace Assets.Scripts.InteractiveObjects
                 canJump = false;
             }
         }
-        
+
 
         private void JumpToSuccessRail()
         {
@@ -118,7 +127,6 @@ namespace Assets.Scripts.InteractiveObjects
             walker.lookForward = true;
             walker.mode = SplineWalkerMode.Once;
             canJump = false;
-
         }
 
         public override InteractiveType GetInteractiveType()

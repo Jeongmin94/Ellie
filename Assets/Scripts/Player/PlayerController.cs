@@ -722,23 +722,29 @@ namespace Assets.Scripts.Player
             if (Physics.Raycast(shootRay, out var hit, Mathf.Infinity, ~layerToIgnore))
             {
                 AimTarget = hit.point;
-                ICombatant combatant = hit.collider.gameObject.GetComponent<ICombatant>();
-                if (combatant != null)
-                {
-                    shooter.ChangeLineRendererColor(true);
-                }
-                else
-                {
-                    shooter.ChangeLineRendererColor(false);
-                }
+                
             }
             else
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
-
+            
             aimTransform.position = shootRay.origin + 5f * shootRay.direction.normalized;
             cinematicAimCam.LookAt = aimTransform;
+            
+            //trajectory의 마지막 포인트를 중심으로 overlapsphere하여 콜라이더 검출
+            Vector3 lastPointOfTraj = shooter.LastPointOfTraj();
+            float radius = 0.4f;
+            Collider[] colliders = Physics.OverlapSphere(lastPointOfTraj, radius);
+            ICombatant combatant = null;
+            foreach (var collider in colliders)
+            {
+                combatant = collider.gameObject.GetComponent<ICombatant>();
+                if (combatant != null)
+                    break;
+            }
+
+            shooter.ChangeLineRendererColor(combatant != null);
         }
         public void LookAimTarget()
         {
@@ -823,6 +829,10 @@ namespace Assets.Scripts.Player
             Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
 
             Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
+            
+            Gizmos.color = Color.yellow;
+            if(Input.GetMouseButton(0))
+                Gizmos.DrawWireSphere(shooter.LastPointOfTraj(), 0.4f);
         }
 
         private void OnNotifyAction(IBaseEventPayload payload)

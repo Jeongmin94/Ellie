@@ -6,6 +6,7 @@ using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -34,6 +35,9 @@ namespace Assets.Scripts.Player
         [SerializeField] private bool withPlayer = false;
 
         public bool isTargetingEnemy;
+
+        private Vector3 lastPointOfTraj;
+        public Vector3 LastPointOfTraj() => lastPointOfTraj;
         
 
         public float ChargingRatio
@@ -174,6 +178,7 @@ namespace Assets.Scripts.Player
             Vector3[] points = PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength,
                 calculatingTime, linePoints, trajectoryCollisionMask);
 
+            lastPointOfTraj = points.Length > 0 ? points[^1] : releasePosition.position;
             lineRenderer.positionCount = points.Length;
             lineRenderer.SetPositions(points);
         }
