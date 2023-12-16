@@ -16,7 +16,7 @@ public class LoadingUI : MonoBehaviour
 
     [SerializeField] private LoadingTipsData tipData;
 
-    const int loadingDataQuantity = 2;
+    const int loadingDataQuantity = 4;
     const float spareTimeToLoad = 1.0f;
 
     const float generalBarSpeed = 0.001f;
@@ -54,7 +54,6 @@ public class LoadingUI : MonoBehaviour
             UpdateProgressBar(targetLoad);
             yield return null;
         }
-
         barSpeed = fasterBarSpeed;
         while (loadingSlider.value < targetLoad)
         {
@@ -65,40 +64,41 @@ public class LoadingUI : MonoBehaviour
 
         //Load Parsing
         yield return DataManager.Instance.CheckIsParseDone();
-
+        Debug.Log("++" + loadingSlider.value);
         barSpeed = fasterBarSpeed;
         while (loadingSlider.value < targetLoad)
         {
             UpdateProgressBar(targetLoad);
             yield return null;
         }
-        barSpeed = generalBarSpeed;
-        yield return new WaitForSeconds(spareTimeToLoad);
         targetLoad += targetLoad;
-
+        Debug.Log("++" + loadingSlider.value);
         // + Add Load
-        if(SaveLoadManager.Instance.IsLoadData)
+        yield return SaveLoadManager.Instance.CheckIsLoadDone();
+
+        barSpeed = fasterBarSpeed;
+        Debug.Log("++" + loadingSlider.value);
+        while (loadingSlider.value < targetLoad)
         {
-            // �ε� ������ ����, �ε��ٴ� ���װɷ��� ���־����ϴ�
-            SaveLoadManager.Instance.LoadData();
-
-            yield return SaveLoadManager.Instance.CheckIsLoadDone();
+            UpdateProgressBar(targetLoad);
+            Debug.Log(targetLoad);
+            Debug.Log("++" + loadingSlider.value);
+            yield return null;
         }
-        //else
-        //{
-        //    // player save point
 
-        //    // Finish Loading
-        //    while (loadingSlider.value < 1.0f)
-        //    {
-        //        UpdateProgressBar(1.0f);
-        //        yield return null;
-        //    }
-        //    yield return new WaitForSeconds(spareTimeToLoad);
-        //}
+        barSpeed = generalBarSpeed;
+        Debug.Log("++"+loadingSlider.value);
+        yield return new WaitForSeconds(spareTimeToLoad);
         SaveLoadManager.Instance.IsLoadData = false;
 
-        loadingSlider.value = 0.0f;
+
+        while (loadingSlider.value < 1.0f)
+        {
+            UpdateProgressBar(1.0f);
+            yield return null;
+        }
+        yield return new WaitForSeconds(spareTimeToLoad);
+
         SceneLoadManager.Instance.FinishLoading();
 
         SceneManager.UnloadSceneAsync((int)SceneName.LoadingScene);
