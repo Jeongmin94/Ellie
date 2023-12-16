@@ -47,22 +47,6 @@ namespace Assets.Scripts.Player
             StartCoroutine(OnDataLoadedCoroutine());
         }
 
-        private void Update()
-        {
-            //퀘스트 상태 디버깅용
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                SaveLoadManager.Instance.SaveData();
-                DebugCurrentPlayerQuestDict();
-            }
-
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                SaveLoadManager.Instance.LoadData();
-                DebugCurrentPlayerQuestDict();
-            }
-        }
-
         public void DebugCurrentPlayerQuestDict()
         {
             foreach (var item in questStatusDic)
