@@ -476,7 +476,7 @@ GameObject:
   - component: {fileID: 3482226070589136852}
   - component: {fileID: 1708059784877339196}
   - component: {fileID: 3897550539972048889}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: HeadShot
   m_TagString: WeakPoint
   m_Icon: {fileID: 0}
@@ -3013,7 +3013,7 @@ GameObject:
   - component: {fileID: 3323000195417403496}
   - component: {fileID: 2156146737864194590}
   - component: {fileID: 1945422486}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: NormalSkeleton
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -3605,6 +3605,10 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 66.01661
       objectReference: {fileID: 0}
@@ -3637,6 +3641,10 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 66.01661
       objectReference: {fileID: 0}
@@ -3655,6 +3663,10 @@ PrefabInstance:
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: ShapeModule.type
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar

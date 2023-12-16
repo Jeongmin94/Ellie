@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 1126190626}
   - component: {fileID: 1126190618}
   - component: {fileID: 1126190619}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: GuildguardSkeleton
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -1207,7 +1207,7 @@ GameObject:
   - component: {fileID: 4389532022312353699}
   - component: {fileID: 2010570146395025650}
   - component: {fileID: 2441412383557307416}
-  m_Layer: 2
+  m_Layer: 10
   m_Name: HeadShot
   m_TagString: WeakPoint
   m_Icon: {fileID: 0}
@@ -3691,6 +3691,10 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 198.76581
       objectReference: {fileID: 0}
@@ -3723,6 +3727,10 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
       value: 198.76581
       objectReference: {fileID: 0}
@@ -3741,6 +3749,10 @@ PrefabInstance:
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: ShapeModule.type
       value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
