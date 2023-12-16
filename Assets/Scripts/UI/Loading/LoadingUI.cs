@@ -64,7 +64,6 @@ public class LoadingUI : MonoBehaviour
 
         //Load Parsing
         yield return DataManager.Instance.CheckIsParseDone();
-        Debug.Log("++" + loadingSlider.value);
         barSpeed = fasterBarSpeed;
         while (loadingSlider.value < targetLoad)
         {
@@ -72,22 +71,17 @@ public class LoadingUI : MonoBehaviour
             yield return null;
         }
         targetLoad += targetLoad;
-        Debug.Log("++" + loadingSlider.value);
         // + Add Load
         yield return SaveLoadManager.Instance.CheckIsLoadDone();
 
         barSpeed = fasterBarSpeed;
-        Debug.Log("++" + loadingSlider.value);
         while (loadingSlider.value < targetLoad)
         {
             UpdateProgressBar(targetLoad);
-            Debug.Log(targetLoad);
-            Debug.Log("++" + loadingSlider.value);
             yield return null;
         }
 
         barSpeed = generalBarSpeed;
-        Debug.Log("++"+loadingSlider.value);
         yield return new WaitForSeconds(spareTimeToLoad);
         SaveLoadManager.Instance.IsLoadData = false;
 

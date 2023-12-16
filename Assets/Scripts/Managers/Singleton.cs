@@ -33,18 +33,10 @@ namespace Assets.Scripts.Managers
             {
                 instance = this as T;
                 DontDestroyOnLoad(instance);
-                Debug.Log($"{instance} µî·Ï", instance);
             }
             else if (instance != this)
             {
-                Debug.Log($"{gameObject} ÆÄ±«", gameObject);
-                Debug.Log($"{instance.gameObject} À¯Áö", instance.gameObject);
-
                 Destroy(gameObject);
-            }
-            else
-            {
-                Debug.Log($"{instance}½Ì±ÛÅæ ÆÄ±« ¿À·ù", Instance);
             }
         }
 

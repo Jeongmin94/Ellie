@@ -23,7 +23,6 @@ namespace Assets.Scripts.Centers.Test
         {
             Debug.Log($"%%%%% GameCenter Awake %%%%%");
             MangerControllers.ClearAction(ManagerType.Input);
-            //MangerControllers.ClearAction(ManagerType.Data);
             MangerControllers.ClearAction(ManagerType.Sound);
             MangerControllers.ClearAction(ManagerType.Particle);
             MangerControllers.ClearAction(ManagerType.EventBus);
@@ -40,7 +39,6 @@ namespace Assets.Scripts.Centers.Test
             CheckTicket(hatchery.gameObject);
             foreach (Ore ore in ores)
             {
-                Debug.Log($"{ore.name} checked");
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
             }

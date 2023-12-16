@@ -66,6 +66,7 @@ public class CheatClient : SerializedMonoBehaviour
             payload.canvasType = DialogCanvasType.SimpleRemaining;
             ticketMachine.SendMessage(ChannelType.Dialog, payload);
 
+            SceneLoadManager.Instance.FinishLoading();
             SaveLoadManager.Instance.LoadData();
         }
         if (Input.GetKeyDown(KeyCode.Alpha6))
