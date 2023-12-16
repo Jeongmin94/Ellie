@@ -327,7 +327,6 @@ namespace Assets.Scripts.Player
                 ChangeState(PlayerStateName.Start);
                 InputManager.Instance.CanInput = true;
             }
-
             if (!InputManager.Instance.CanInput)
                 return;
 
@@ -354,6 +353,7 @@ namespace Assets.Scripts.Player
                     statusEffectduration = 5f
                 });
             }
+
         }
 
         private void FixedUpdate()
