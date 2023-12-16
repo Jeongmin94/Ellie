@@ -20,6 +20,7 @@ namespace Channels.Dialog
         Default,
         Simple,
         SimpleRemaining,
+        GuideDialog,
     }
 
 
@@ -30,6 +31,7 @@ namespace Channels.Dialog
         public DialogCanvasType canvasType = DialogCanvasType.Default;
         public string text;
         public string speaker;
+        public string imageName;
         public float interval;
         public bool isPlaying;
         public bool isEnd;
