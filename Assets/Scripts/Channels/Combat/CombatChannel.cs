@@ -11,7 +11,8 @@ namespace Channels.Combat
         Weapon,
         Projectile,
         Movement,
-        RequestStone
+        RequestStone,
+        AOEAttack,
     }
 
     public class CombatPayload : IBaseEventPayload

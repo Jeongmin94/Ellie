@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 396134560}
   - component: {fileID: 396134562}
   - component: {fileID: 396134561}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Point1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 599345689}
   - component: {fileID: 599345691}
   - component: {fileID: 599345690}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 950955895}
   - component: {fileID: 950955896}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: PatrolPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 1597554982}
   - component: {fileID: 1597554984}
   - component: {fileID: 1597554983}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Point1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863434811263296864}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854550196471353462}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm1Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854992022622691956}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm1Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,7 +516,7 @@ GameObject:
   - component: {fileID: 6854713006667337580}
   - component: {fileID: 6835177988558661332}
   - component: {fileID: 1021999039}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Polygonal One Eyed Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -621,7 +621,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863155372969150784}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -652,7 +652,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854483760103612604}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigEyeballGizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -683,7 +683,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854776466017807228}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigMainGizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -714,7 +714,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6855007595427077946}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm2Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -745,7 +745,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854799602367430448}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -776,7 +776,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6855020622004486094}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm3Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -807,7 +807,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863010192248130140}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -839,7 +839,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863412836193463364}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -871,7 +871,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863457542017159038}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -912,7 +912,7 @@ GameObject:
   - component: {fileID: 453060604}
   - component: {fileID: 453060605}
   - component: {fileID: 888380734}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: CaveBat
   m_TagString: Monster
   m_Icon: {fileID: 0}
@@ -1035,6 +1035,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1053,6 +1055,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1071,6 +1075,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1089,6 +1095,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1107,6 +1115,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1125,6 +1135,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1143,6 +1155,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1161,6 +1175,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1351,7 +1367,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854689802900459878}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1383,7 +1399,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863069234414157474}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm2Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1414,7 +1430,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863190328118074968}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1448,7 +1464,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854690290256568766}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm3Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1479,7 +1495,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854803659179828628}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigEyeball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1510,7 +1526,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6257255211013222877}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1539,9 +1555,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 6863236723056871730}
     m_Modifications:
+    - target: {fileID: 160264, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 196572, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: m_Name
       value: FreezeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 196572, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: m_RootOrder
@@ -1596,48 +1620,72 @@ PrefabInstance:
       value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.type
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.3410991
+      value: 0.0024518522
       objectReference: {fileID: 0}
     - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 0.0042637386
+      value: 0.00003064815
       objectReference: {fileID: 0}
     - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.17054956
+      value: 0.0012259261
       objectReference: {fileID: 0}
     - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: ShapeModule.m_SkinnedMeshRenderer
       value: 
       objectReference: {fileID: 6835177988558661332}
+    - target: {fileID: 1310559048633638, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1378059735237970, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426763655552172, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.type
+      value: 14
+      objectReference: {fileID: 0}
     - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.3410991
+      value: 0.0024518522
       objectReference: {fileID: 0}
     - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 0.0042637386
+      value: 0.00003064815
       objectReference: {fileID: 0}
     - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.17054956
+      value: 0.0012259261
       objectReference: {fileID: 0}
     - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: ShapeModule.m_SkinnedMeshRenderer
       value: 
       objectReference: {fileID: 6835177988558661332}
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.type
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.scalar
-      value: 0.12791216
+      value: 0.00091944454
       objectReference: {fileID: 0}
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSpeed.scalar
-      value: 0.0042637386
+      value: 0.00003064815
       objectReference: {fileID: 0}
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: InitialModule.startSize.minScalar
-      value: 0.08527478
+      value: 0.00061296305
       objectReference: {fileID: 0}
     - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
       propertyPath: ShapeModule.m_SkinnedMeshRenderer
