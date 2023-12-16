@@ -20,6 +20,7 @@ namespace Channels.Dialog
         Default,
         Simple,
         SimpleRemaining,
+        GuideDialog,
     }
 
 
@@ -32,6 +33,7 @@ namespace Channels.Dialog
         public string speaker;
         public float interval;
         public bool isPlaying;
+        public string imageName;
 
         public static DialogPayload Play(string text, float interval = 0.01f)
         {
