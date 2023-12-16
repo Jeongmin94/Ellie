@@ -6,19 +6,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using Channels.Type;
 using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Environments;
 using PlasticPipe.PlasticProtocol.Messages;
 
 namespace Assets.Scripts.Puzzle
 {
     public class StonePillarPuzzle : MonoBehaviour
     {
+        private const int RequiredCount = 4;
         public Vector3 center;
         public Vector3 size;
         public int count = 0;
-
-        //public GameObject pillar1;
-        //public GameObject pillar2;
-        //public GameObject pillar3;
 
         public GameObject[] pillars;
 
@@ -30,22 +28,14 @@ namespace Assets.Scripts.Puzzle
         private bool isDone;
         public float raisingSpeed;
 
+        [SerializeField] private GameObject[] altarPillars;
         private TicketMachine ticketMachine;
 
-        [SerializeField] private GameObject[] gems;
-        [SerializeField] private List<GameObject> gemLights = new();
 
         private void Awake()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Camera);
-
-            foreach (var obj in gems)
-            {
-                GameObject light = obj.transform.GetChild(1).gameObject;
-                light.SetActive(false);
-                gemLights.Add(light);
-            }
         }
 
         private void Start()
@@ -60,6 +50,11 @@ namespace Assets.Scripts.Puzzle
                 Vector3 temp = pillar.transform.position;
                 temp.y = constHeight;
                 pillar.transform.position = temp;
+            }
+
+            foreach (var altarPillar in altarPillars)
+            {
+                altarPillar.GetComponent<MaterialChangableObject>().SetEmissionValue(0f);
             }
         }
 
@@ -78,12 +73,12 @@ namespace Assets.Scripts.Puzzle
                 if (collider.CompareTag("Stone"))
                 {
                     count++;
-                    if (count <= gemLights.Count)
-                        gemLights[count - 1].SetActive(true);
+                    if (count <= altarPillars.Length)
+                        altarPillars[count - 1].GetComponent<MaterialChangableObject>().ResetMaterial();
                 }
             }
 
-            if (count >= 3 && !isDone)
+            if (count >= RequiredCount && !isDone)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "puzzle1_stone1", transform.position);
                 for (int i = 0; i < pillars.Length; i++)
