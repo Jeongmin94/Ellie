@@ -1,6 +1,7 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Data.UI.Dialog;
+using System.Linq;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
@@ -17,23 +18,21 @@ using UnityEngine.UI;
 
 namespace UI.Dialog.GuideDialog
 {
-    // 특정 상황 최초 발생시 출력됨
-    // 출력 후 n초 후에 사라짐
-    // 동시에 여러 다이얼로그가 출력되면 이전 메시지 사라지고 출력됨
-    // ex) 1번 , 2번 다이얼로그가 동시에 발생하면 1번 출력 -> 5초 표시 -> 1번 사라짐 -> 2번 출력
     public class GuideDialogCanvas : UIPopup
     {
         private struct GuideDialogInfo
         {
-            private string speaker;
-            private string message;
-            private string image;
+            public string Speaker { get; }
+
+            public string Message { get; }
+
+            public string Image { get; }
 
             private GuideDialogInfo(string speaker, string message, string image)
             {
-                this.speaker = speaker;
-                this.message = message;
-                this.image = image;
+                Speaker = speaker;
+                Message = message;
+                Image = image;
             }
 
             public static GuideDialogInfo Of(string speaker, string message, string image)
@@ -43,7 +42,7 @@ namespace UI.Dialog.GuideDialog
         }
 
         // Speaker Image Base Path
-        private static readonly string SpeakerImageBasePath = "UI/GuideDialog/SpeakerImage";
+        private static readonly string SpeakerImageBasePath = "UI/GuideDialog/SpeakerImage/";
 
         private enum GameObjects
         {
@@ -61,15 +60,20 @@ namespace UI.Dialog.GuideDialog
 
         [SerializeField] private UITransformData[] transformData;
         [SerializeField] private TextTypographyData[] typographyData;
+        [SerializeField] private float showDuration = 5.0f;
+        [SerializeField] private float showInterval = 1.0f;
 
         private readonly List<GameObject> panels = new List<GameObject>();
         private readonly List<RectTransform> panelRects = new List<RectTransform>();
 
         private readonly List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
+
         private Image guideDialogImage;
+        private Image guideDialogBackgroundImage;
 
         private TicketMachine ticketMachine;
         private readonly Queue<GuideDialogInfo> dialogInfoQueue = new Queue<GuideDialogInfo>();
+
 
         private void Awake()
         {
@@ -82,6 +86,12 @@ namespace UI.Dialog.GuideDialog
 
             Bind();
             InitObjects();
+        }
+
+        private void Start()
+        {
+            InactiveObjects();
+            StartCoroutine(Execute());
         }
 
         private void Bind()
@@ -104,6 +114,7 @@ namespace UI.Dialog.GuideDialog
             }
 
             guideDialogImage = panels[(int)GameObjects.GuideDialogImagePanel].GetComponent<Image>();
+            guideDialogBackgroundImage = panels[(int)GameObjects.GuideDialogBackgroundPanel].GetComponent<Image>();
         }
 
         private void InitObjects()
@@ -134,10 +145,117 @@ namespace UI.Dialog.GuideDialog
         {
             if (payload is not DialogPayload dialogPayload)
                 return;
+
+            if (dialogPayload.dialogType != DialogType.Notify)
+                return;
+            if (dialogPayload.canvasType != DialogCanvasType.GuideDialog)
+                return;
+
+            var guidDialogInfo = GuideDialogInfo.Of(dialogPayload.speaker, dialogPayload.text, dialogPayload.imageName);
+            dialogInfoQueue.Enqueue(guidDialogInfo);
         }
-        
-        // !TODO
-        // 1. 요청 들어오면 이미지, 스피커, 메시지 출력하기
-        // 2. 페이로드 만들어서 채널 이용하게 만들기
+
+        private IEnumerator Execute()
+        {
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            while (true)
+            {
+                if (dialogInfoQueue.Any())
+                {
+                    var info = dialogInfoQueue.Dequeue();
+
+                    yield return ShowGuideDialog(info);
+                }
+
+                yield return wfef;
+            }
+        }
+
+        private IEnumerator ShowGuideDialog(GuideDialogInfo info)
+        {
+            string path = SpeakerImageBasePath + info.Image;
+            var sprite = ResourceManager.Instance.LoadSprite(path);
+
+            guideDialogImage.sprite = sprite;
+            texts[(int)Texts.GuideDialogMessageText].text = info.Message;
+            texts[(int)Texts.GuideDialogSpeakerText].text = info.Speaker;
+
+            ActiveObjects();
+            yield return new WaitForSeconds(showDuration);
+
+            yield return FadeOutObjects();
+        }
+
+
+        private void ActiveObjects()
+        {
+            foreach (var panel in panels)
+            {
+                panel.SetActive(true);
+            }
+
+            foreach (var text in texts)
+            {
+                var color = text.color;
+                color.a = 1.0f;
+                text.color = color;
+            }
+
+            var imageColor = guideDialogImage.color;
+            imageColor.a = 1.0f;
+            guideDialogImage.color = imageColor;
+
+            var backgroundColor = guideDialogBackgroundImage.color;
+            backgroundColor.a = 1.0f;
+            guideDialogBackgroundImage.color = backgroundColor;
+        }
+
+        private void InactiveObjects()
+        {
+            foreach (var panel in panels)
+            {
+                panel.SetActive(false);
+            }
+        }
+
+        private IEnumerator FadeOutObjects()
+        {
+            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            float timeAcc = 0.0f;
+
+            List<Color> textOriginColors = new List<Color>();
+            texts.ForEach(t => textOriginColors.Add(t.color));
+
+            Color imageColor = guideDialogImage.color;
+            Color backgroundImageColor = guideDialogBackgroundImage.color;
+
+            while (timeAcc <= showInterval)
+            {
+                yield return wfef;
+                timeAcc += Time.deltaTime;
+
+                float ratio = timeAcc / showInterval;
+
+                for (int i = 0; i < texts.Count; i++)
+                {
+                    texts[i].color = FadeOutColor(textOriginColors[i], ratio);
+                }
+
+                guideDialogImage.color = FadeOutColor(imageColor, ratio);
+                guideDialogBackgroundImage.color = FadeOutColor(backgroundImageColor, ratio);
+            }
+
+            InactiveObjects();
+        }
+
+        private Color FadeOutColor(Color origin, float ratio)
+        {
+            var st = origin;
+            st.a = 1.0f;
+            var en = origin;
+            en.a = 0.0f;
+
+            return Color.Lerp(st, en, ratio);
+        }
     }
 }
