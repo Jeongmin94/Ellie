@@ -322,6 +322,12 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                ChangeState(PlayerStateName.Start);
+                InputManager.Instance.CanInput = true;
+            }
+
             if (!InputManager.Instance.CanInput)
                 return;
 
@@ -347,11 +353,6 @@ namespace Assets.Scripts.Player
                     StatusEffectName = StatusEffectName.Burn,
                     statusEffectduration = 5f
                 });
-            }
-
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                ChangeState(PlayerStateName.Start);
             }
         }
 
