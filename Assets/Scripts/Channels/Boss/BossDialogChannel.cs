@@ -8,6 +8,7 @@ namespace Channels.Boss
         // https://docs.google.com/spreadsheets/d/1DlHsnJDvkPX63VSBQC0I_Bg3tRGKPfGMpX1gIgggWEQ/edit#gid=98615154
 
         EnterBossRoom = 8100,
+        DestroyManaFountainFirstTime,
         AttackBossWithNormalStone,
         GetMagicStoneFirstTime,
         DontAttackBossWeakPoint,
