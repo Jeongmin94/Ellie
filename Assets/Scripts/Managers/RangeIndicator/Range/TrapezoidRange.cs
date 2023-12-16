@@ -26,6 +26,11 @@ public class TrapezoidRange : BaseRange
 
         DetectionMaterial = payload.DetectionMaterial;
 
+        if (!IsShowRange)
+        {
+            return;
+        }
+
         // MeshFilter와 MeshRenderer 컴포넌트를 추가합니다.
         MeshFilter meshFilter = RangeObject.AddComponent<MeshFilter>();
         MeshRenderer meshRenderer = RangeObject.AddComponent<MeshRenderer>();

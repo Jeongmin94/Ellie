@@ -11,6 +11,7 @@ public abstract class BaseRange : MonoBehaviour
     public float FadeInTime { get; set; }
     public float FadeOutTime { get; set; }
     public float RemainTime { get; set; }
+    public bool IsShowRange { get; set; }
 
     private const float RAYCAST_STARTPOS_OFFSET = 3.0f;
     private const float POSITION_OFFSET = 0.1f;
@@ -45,6 +46,7 @@ public abstract class BaseRange : MonoBehaviour
         RangeObject = rangeObject;
         isFollowOrigin = payload.IsFollowOrigin;
         Original = payload.Original;
+        IsShowRange = payload.IsShowRange;
 
         if (Original == null)
         {
