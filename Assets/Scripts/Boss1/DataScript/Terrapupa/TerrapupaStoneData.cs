@@ -16,6 +16,7 @@ public class TerrapupaStoneData : BaseBTData
     [Title("사운드 설정")]
     [InfoBox("돌 주울때 사운드")] public string sound1 = "TerrapupaGripStone";
     [InfoBox("돌 히트 사운드")] public string sound2 = "TerrapupaAttackHit";
+    [InfoBox("돌 던질때 사운드")] public string sound3 = "TerrapupaThrowStone";
 
     [Title("이펙트 설정")]
     [InfoBox("돌 줍는 상황 이펙트")] public GameObject stoneEffect1;
@@ -36,6 +37,7 @@ public class TerrapupaStoneData : BaseBTData
     {
         SetBlackboardValue<string>("sound1", sound1, tree);
         SetBlackboardValue<string>("sound2", sound2, tree);
+        SetBlackboardValue<string>("sound3", sound3, tree);
         SetBlackboardValue<GameObject>("effect1", stoneEffect1, tree);
         SetBlackboardValue<GameObject>("effect2", stoneEffect2, tree);
         SetBlackboardValue<float>("cooldown", cooldown, tree);

@@ -73,6 +73,7 @@ namespace Assets.Scripts.UI.Dialog
         {
             dialogPanel.gameObject.SetActive(false);
             dialogContextText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
+            //dialogContextText.SubscribeEndingAction(SendPayloadEndingDialog);
         }
         private void Bind()
         {

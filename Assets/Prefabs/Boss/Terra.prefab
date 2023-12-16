@@ -1780,7 +1780,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a415c504a4235f40972456400792538, type: 2}
+  - {fileID: 2100000, guid: d82cfca67f44bb14f854a1eb8bd9f852, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2065,6 +2065,7 @@ GameObject:
   - component: {fileID: 4290592259550087225}
   - component: {fileID: 4290592259550087224}
   - component: {fileID: 8979523352542451410}
+  - component: {fileID: 8392476946623869020}
   m_Layer: 10
   m_Name: Terra
   m_TagString: Boss
@@ -2148,6 +2149,8 @@ MonoBehaviour:
   stone: {fileID: 539340684515209833}
   weakPoint: {fileID: 8517983859904332980}
   healthBar: {fileID: 8979523352542451410}
+  shakeDuration: 0.1
+  shakeMagnitude: 0.1
 --- !u!54 &4290592259550087224
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2178,6 +2181,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: TerrapupaHealthBar, Assembly.Ellie
   data: {fileID: 11400000, guid: 7f4e2184a357c6944b70a32a7ac97a25, type: 2}
   scaleFactor: 0.003
+--- !u!114 &8392476946623869020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4290592259550087220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.3
+  returnDuration: 0.2
+  modelMaterial: {fileID: 2100000, guid: d82cfca67f44bb14f854a1eb8bd9f852, type: 2}
 --- !u!1001 &2935722766533192907
 PrefabInstance:
   m_ObjectHideFlags: 0

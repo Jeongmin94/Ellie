@@ -54,6 +54,7 @@ MonoBehaviour:
   - rid: 1683426562437021704
   - rid: 1683426562437021705
   - rid: 6881097883797946372
+  - rid: 116448495133786121
   treeState: 0
   blackboard:
     keys:
@@ -72,13 +73,35 @@ MonoBehaviour:
     - rid: 1683426562437021703
     - rid: 1683426562437021873
     - rid: 6881097883797946371
-  viewPosition: {x: -435.2, y: 264, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+    - rid: 116448495133786120
+  viewPosition: {x: -445.6, y: 198.4, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448495133786120
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound2
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448495133786121
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 19e78c80b7e416a41a7a150825cfd798
+        position: {x: 2055, y: 360}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448495133786120
+          defaultValue: 
     - rid: 283011018610442276
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -101,7 +124,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 22de29c5ef930d24f8ebd11745c196f6
-        position: {x: 1635, y: 360}
+        position: {x: 1470, y: 360}
         blackboard:
           keys: []
         description: 
@@ -116,7 +139,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 6629574fb7630dc4fa064dcd6b9ac080
-        position: {x: 1830, y: 360}
+        position: {x: 1665, y: 360}
         blackboard:
           keys: []
         description: 
@@ -131,7 +154,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: eb370044e73c428468f9c0aad8e938ce
-        position: {x: 1635, y: 195}
+        position: {x: 1560, y: 195}
         blackboard:
           keys: []
         description: 
@@ -142,6 +165,7 @@ MonoBehaviour:
         - rid: 283011018610442277
         - rid: 283011018610442278
         - rid: 283011178275274763
+        - rid: 116448495133786121
     - rid: 283011018610442280
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -374,7 +398,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 793e57bfbfabd9748873cd25863be691
-        position: {x: 2025, y: 360}
+        position: {x: 1860, y: 360}
         blackboard:
           keys: []
         description: 
@@ -501,7 +525,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: ce2fd4e9075bdc34f8c8a59fd419b25e
-        position: {x: 1185, y: 360}
+        position: {x: 1020, y: 360}
         blackboard:
           keys: []
         description: 
@@ -689,7 +713,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: fbe4ae1d587bae3448df51c58fa0a66a
-        position: {x: 1365, y: 360}
+        position: {x: 1200, y: 360}
         blackboard:
           keys: []
         description: 

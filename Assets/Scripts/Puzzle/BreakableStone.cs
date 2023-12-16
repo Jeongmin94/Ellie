@@ -1,14 +1,8 @@
 ﻿using Assets.Scripts.Combat;
-using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Item.Stone;
-using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
-using Assets.Scripts.Player;
 using Channels.Combat;
 using Channels.Components;
-using Channels.Dialog;
-using Channels.Type;
-using Channels.UI;
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;

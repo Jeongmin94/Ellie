@@ -48,6 +48,7 @@ MonoBehaviour:
   - rid: 283011481676021768
   - rid: 283011481676021769
   - rid: 6881097883797946374
+  - rid: 116448501211856905
   treeState: 0
   blackboard:
     keys:
@@ -66,6 +67,7 @@ MonoBehaviour:
     - rid: 283011291767373854
     - rid: 1683426562437021874
     - rid: 6881097883797946373
+    - rid: 116448501211856906
   viewPosition: {x: -847.2, y: 64.8, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
@@ -73,6 +75,27 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
+    - rid: 116448501211856905
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 1544a7ccb6f0a984faf2e1cb5c83ae81
+        position: {x: 2400, y: 330}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: -2
+          defaultValue: 
+    - rid: 116448501211856906
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound2
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
     - rid: 283011018610442276
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -135,6 +158,7 @@ MonoBehaviour:
         - rid: 283011018610442277
         - rid: 283011018610442278
         - rid: 283011178275274763
+        - rid: 116448501211856905
     - rid: 283011018610442280
       type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

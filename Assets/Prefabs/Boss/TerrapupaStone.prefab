@@ -59,13 +59,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5d1fc731edddfd45aa07402159e1b47, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaStone, Assembly.Ellie
   isUsing: 0
   movementSpeed: 15
   attackValue: 5
   layerMask:
     serializedVersion: 2
     m_Bits: 64
+  hitSound: TerrapupaAttackHit
+  remainTime: 10
 --- !u!54 &288476327
 Rigidbody:
   m_ObjectHideFlags: 0

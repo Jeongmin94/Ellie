@@ -6,13 +6,15 @@ namespace Assets.Scripts.Player.HitComponent
     public class MaterialHitComponent : MonoBehaviour
     {
         private static readonly string StringBaseColor = "_BaseColor";
+        private static readonly string StringEmissionColor = "_EmissionColor";
 
         [SerializeField] private Color hitColor = Color.red;
         [SerializeField] private float hitDuration = 0.5f;
         [SerializeField] private float returnDuration = 0.2f;
         [SerializeField] private Material modelMaterial;
 
-        private Color originColor;
+        private Color baseOriginalColor;
+        private Color emissionOriginalColor;
         private Coroutine hitCoroutine;
 
         public float HitDuration() => hitDuration;
@@ -25,7 +27,8 @@ namespace Assets.Scripts.Player.HitComponent
                 return;
             }
 
-            originColor = modelMaterial.GetColor(StringBaseColor);
+            baseOriginalColor = modelMaterial.GetColor(StringBaseColor);
+            emissionOriginalColor = modelMaterial.GetColor(StringEmissionColor);
         }
 
         public void Hit()
@@ -41,6 +44,7 @@ namespace Assets.Scripts.Player.HitComponent
         private IEnumerator ChangeModelMaterial()
         {
             modelMaterial.SetColor(StringBaseColor, hitColor);
+            modelMaterial.SetColor(StringEmissionColor, hitColor);
             yield return new WaitForSeconds(hitDuration);
 
             float timeAcc = 0.0f;
@@ -50,11 +54,14 @@ namespace Assets.Scripts.Player.HitComponent
                 timeAcc += Time.deltaTime;
                 yield return wfef;
 
-                Color c = Color.Lerp(hitColor, originColor, timeAcc / returnDuration);
-                modelMaterial.SetColor(StringBaseColor, c);
+                Color curBaseColor = Color.Lerp(hitColor, baseOriginalColor, timeAcc / returnDuration);
+                modelMaterial.SetColor(StringBaseColor, curBaseColor);
+                Color curEmissionColor = Color.Lerp(hitColor, emissionOriginalColor, timeAcc / returnDuration);
+                modelMaterial.SetColor(StringEmissionColor, curEmissionColor);
             }
 
-            modelMaterial.SetColor(StringBaseColor, originColor);
+            modelMaterial.SetColor(StringBaseColor, baseOriginalColor);
+            modelMaterial.SetColor(StringEmissionColor, emissionOriginalColor);
         }
     }
 }

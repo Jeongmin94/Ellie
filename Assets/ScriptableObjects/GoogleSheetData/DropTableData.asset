@@ -11,9 +11,99 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e7319a1372c9f5a449eed51e4086a76a, type: 3}
   m_Name: DropTableData
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: DropTableDataParsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1m8XT27AvWyf-EnIbF3EJLNJ3lFX0Tixh_Y8ip3eutsA/edit#gid=1288534929
   startCell: B6
   endColumn: J
-  tsv: 
-  dropTables: []
+  tsv: "4200\tStone_droptable1\t4\t1\t-1\t-1\t-1\t-1\t0\r\n4201\tStone_droptable2\t4\t2\t-1\t-1\t-1\t-1\t0\r\n4202\tStone_droptable3\t4\t1\t3\t1\t-1\t-1\t0\r\n4203\tStone_droptable4\t3\t1\t2\t1\t-1\t-1\t0\r\n4204\tStone_droptable5\t4\t1\t3\t2\t-1\t-1\t0\r\n4205\tStone_droptable6\t4\t3\t3\t1\t-1\t-1\t0\r\n4206\tStone_droptable7\t4\t1\t3\t3\t-1\t-1\t0\r\n4207\tStone_droptable8\t4\t2\t3\t2\t-1\t-1\t0\r\n4208\tStone_droptable9\t3\t4\t1\t2\t-1\t-1\t0\r\n4209\tStone_droptable10\t2\t3\t1\t2\t-1\t-1\t0\r\n4210\tStone_droptable11\t2\t2\t1\t2\t-1\t-1\t0\r\n4211\tStone_droptable12\t-1\t-1\t-1\t-1\t4100\t1\t1\r\n4212\tStone_droptable13\t-1\t-1\t-1\t-1\t4000\t3\t1\r\n4213\tStone_droptable14\t-1\t-1\t-1\t-1\t4000\t4\t1\r\n4214\tStone_droptable14\t3\t1\t-1\t-1\t-1\t-1\t0\r\n4215\tStone_droptable15\t-1\t-1\t-1\t-1\t4021\t1\t1\r\n4216\tStone_droptable16\t-1\t-1\t-1\t-1\t4001\t4\t0\r\n4217\tStone_droptable17\t-1\t-1\t-1\t-1\t4001\t3\t0\r\n4218\tStone_droptable18\t-1\t-1\t-1\t-1\t4001\t2\t0\r\n4219\tStone_droptable19\t-1\t-1\t-1\t-1\t4003\t4\t0\r\n4220\tStone_droptable20\t-1\t-1\t-1\t-1\t4003\t3\t0\r\n4221\tStone_droptable21\t-1\t-1\t-1\t-1\t4003\t2\t0\r\n4222\tStone_droptable22\t-1\t-1\t-1\t-1\t4005\t4\t0\r\n4223\tStone_droptable23\t-1\t-1\t-1\t-1\t4005\t3\t0\r\n4224\tStone_droptable24\t-1\t-1\t-1\t-1\t4005\t2\t0\r\n4225\tStone_droptable25\t-1\t-1\t-1\t-1\t4017\t4\t0\r\n4226\tStone_droptable26\t-1\t-1\t-1\t-1\t4017\t3\t0\r\n4227\tStone_droptable27\t-1\t-1\t-1\t-1\t4017\t2\t0\r\n4228\tStone_droptable28\t-1\t-1\t-1\t-1\t4019\t4\t0\r\n4229\tStone_droptable29\t-1\t-1\t-1\t-1\t4019\t2\t0"
+  dropTables:
+  - index: 4200
+    name: Stone_droptable1
+    isSpecialDropTable: 0
+  - index: 4201
+    name: Stone_droptable2
+    isSpecialDropTable: 0
+  - index: 4202
+    name: Stone_droptable3
+    isSpecialDropTable: 0
+  - index: 4203
+    name: Stone_droptable4
+    isSpecialDropTable: 0
+  - index: 4204
+    name: Stone_droptable5
+    isSpecialDropTable: 0
+  - index: 4205
+    name: Stone_droptable6
+    isSpecialDropTable: 0
+  - index: 4206
+    name: Stone_droptable7
+    isSpecialDropTable: 0
+  - index: 4207
+    name: Stone_droptable8
+    isSpecialDropTable: 0
+  - index: 4208
+    name: Stone_droptable9
+    isSpecialDropTable: 0
+  - index: 4209
+    name: Stone_droptable10
+    isSpecialDropTable: 0
+  - index: 4210
+    name: Stone_droptable11
+    isSpecialDropTable: 0
+  - index: 4211
+    name: Stone_droptable12
+    isSpecialDropTable: 1
+  - index: 4212
+    name: Stone_droptable13
+    isSpecialDropTable: 1
+  - index: 4213
+    name: Stone_droptable14
+    isSpecialDropTable: 1
+  - index: 4214
+    name: Stone_droptable14
+    isSpecialDropTable: 0
+  - index: 4215
+    name: Stone_droptable15
+    isSpecialDropTable: 1
+  - index: 4216
+    name: Stone_droptable16
+    isSpecialDropTable: 1
+  - index: 4217
+    name: Stone_droptable17
+    isSpecialDropTable: 1
+  - index: 4218
+    name: Stone_droptable18
+    isSpecialDropTable: 1
+  - index: 4219
+    name: Stone_droptable19
+    isSpecialDropTable: 1
+  - index: 4220
+    name: Stone_droptable20
+    isSpecialDropTable: 1
+  - index: 4221
+    name: Stone_droptable21
+    isSpecialDropTable: 1
+  - index: 4222
+    name: Stone_droptable22
+    isSpecialDropTable: 1
+  - index: 4223
+    name: Stone_droptable23
+    isSpecialDropTable: 1
+  - index: 4224
+    name: Stone_droptable24
+    isSpecialDropTable: 1
+  - index: 4225
+    name: Stone_droptable25
+    isSpecialDropTable: 1
+  - index: 4226
+    name: Stone_droptable26
+    isSpecialDropTable: 1
+  - index: 4227
+    name: Stone_droptable27
+    isSpecialDropTable: 1
+  - index: 4228
+    name: Stone_droptable28
+    isSpecialDropTable: 1
+  - index: 4229
+    name: Stone_droptable29
+    isSpecialDropTable: 1

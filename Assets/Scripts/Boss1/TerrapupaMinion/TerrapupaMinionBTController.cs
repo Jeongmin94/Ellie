@@ -1,3 +1,4 @@
+using System.Collections;
 using Assets.Scripts.Boss1.TerrapupaMinion;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
@@ -12,6 +13,9 @@ public class TerrapupaMinionBTController : BehaviourTreeController
     [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
     private TicketMachine ticketMachine;
+
+    private float shakeDuration = 0.05f;
+    private float shakeMagnitude = 0.05f;
 
     public TerrapupaMinionHealthBar HealthBar
     {
@@ -36,8 +40,8 @@ public class TerrapupaMinionBTController : BehaviourTreeController
 
     private void SubscribeEvent()
     {
-        foreach (var weakPoint in weakPoints) 
-        { 
+        foreach (var weakPoint in weakPoints)
+        {
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
     }
@@ -67,13 +71,16 @@ public class TerrapupaMinionBTController : BehaviourTreeController
     public void GetDamaged(int damageValue)
     {
         ShowBillboard();
+        StartCoroutine(ShakeCoroutine());
         healthBar.RenewHealthBar(minionData.currentHP.value - damageValue);
         minionData.currentHP.Value -= damageValue;
         if (minionData.currentHP.value <= 0)
         {
+            HideBillboard();
             minionData.currentHP.Value = 0;
             healthBar.RenewHealthBar(0);
         }
+
         minionData.isHit.Value = true;
     }
 
@@ -88,5 +95,20 @@ public class TerrapupaMinionBTController : BehaviourTreeController
             minionData.currentHP.Value = minionData.hp;
             healthBar.RenewHealthBar(minionData.currentHP.value);
         }
+    }
+    private IEnumerator ShakeCoroutine()
+    {
+        float elapsed = 0.0f;
+
+        Vector3 originalPosition = transform.position;
+
+        while (elapsed < shakeDuration)
+        {
+            transform.position = originalPosition + Random.insideUnitSphere * shakeMagnitude;
+            elapsed += Time.deltaTime;
+            yield return null; // 다음 프레임까지 기다림
+        }
+
+        transform.position = originalPosition; // 원래 위치로 돌아감
     }
 }

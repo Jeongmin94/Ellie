@@ -41,6 +41,7 @@ MonoBehaviour:
   - rid: 1683426582401646597
   - rid: 116448341713223685
   - rid: 116448341713223686
+  - rid: 116448495133786112
   treeState: 0
   blackboard:
     keys:
@@ -52,8 +53,9 @@ MonoBehaviour:
     - rid: 283011090204065879
     - rid: 1401849442858696713
     - rid: 1683426582401646594
-  viewPosition: {x: 2773.6, y: 729.6, z: 0}
-  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
+    - rid: 116448495133786113
+  viewPosition: {x: 2054.4, y: 819.2, z: 0}
+  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
   references:
     version: 2
     RefIds:
@@ -88,6 +90,27 @@ MonoBehaviour:
           reference:
             rid: 283011090204065915
           defaultValue: {fileID: 0}
+    - rid: 116448495133786112
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: fd5f5d73ac9c0884692540359adf03d0
+        position: {x: -1140, y: -225}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448495133786113
+          defaultValue: 
+    - rid: 116448495133786113
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
     - rid: 283011018610442240
       type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
       data:
@@ -396,7 +419,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: d0942d1956ef7a643b2eaa6df965778d
-        position: {x: -1560, y: -435}
+        position: {x: -1470, y: -435}
         blackboard:
           keys: []
         description: 
@@ -405,13 +428,14 @@ MonoBehaviour:
         - rid: 1401849447854899211
         - rid: 1401849442858696715
         - rid: 283011018610442240
+        - rid: 116448495133786112
     - rid: 1683426094593605647
       type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 03fdf517a42aec04a8c58fd7376c6159
-        position: {x: -1125, y: -435}
+        position: {x: -1095, y: -435}
         blackboard:
           keys: []
         description: 

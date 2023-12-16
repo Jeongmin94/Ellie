@@ -17,12 +17,12 @@ namespace Assets.Scripts.Player
 {
     public class PlayerQuest : SerializedMonoBehaviour
     {
-        private PlayerController controller;
-        private List<QuestData> questDataList;
-        private QuestData curQuestData;
-        private const int FirstQuestDataIdx = 0;
+        [ShowInInspector] private List<QuestData> questDataList;
+        [ShowInInspector] private QuestData curQuestData;
         [ShowInInspector] private Dictionary<int, QuestStatus> questStatusDic;
 
+        private PlayerController controller;
+        private const int FirstQuestDataIdx = 0;
 
         private TicketMachine ticketMachine;
         public bool isPlaying;
@@ -47,22 +47,6 @@ namespace Assets.Scripts.Player
             StartCoroutine(OnDataLoadedCoroutine());
         }
 
-        private void Update()
-        {
-            //퀘스트 상태 디버깅용
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                SaveLoadManager.Instance.SaveData();
-                DebugCurrentPlayerQuestDict();
-            }
-
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                SaveLoadManager.Instance.LoadData();
-                DebugCurrentPlayerQuestDict();
-            }
-        }
-
         public void DebugCurrentPlayerQuestDict()
         {
             foreach (var item in questStatusDic)
@@ -78,7 +62,10 @@ namespace Assets.Scripts.Player
             questDataList = DataManager.Instance.GetData<QuestDataParsingInfo>().questDatas;
             foreach (QuestData data in questDataList)
             {
-                questStatusDic.Add(data.index, QuestStatus.CantAccept);
+                if (!questStatusDic.ContainsKey(data.index))
+                {
+                    questStatusDic.Add(data.index, QuestStatus.CantAccept);
+                }
             }
         }
 
@@ -487,7 +474,10 @@ namespace Assets.Scripts.Player
             questStatusDic = info.questStatusDic;
             if (info.curQuestData != null)
             {
+                StopAllCoroutines();
+
                 curQuestData = info.curQuestData;
+                SendDisplayQuestMessage(curQuestData);
             }
             else
                 curQuestData = null;

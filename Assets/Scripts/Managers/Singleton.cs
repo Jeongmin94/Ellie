@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -32,11 +33,24 @@ namespace Assets.Scripts.Managers
             {
                 instance = this as T;
                 DontDestroyOnLoad(instance);
+                Debug.Log($"{instance} µî·Ï", instance);
+            }
+            else if (instance != this)
+            {
+                Debug.Log($"{gameObject} ÆÄ±«", gameObject);
+                Debug.Log($"{instance.gameObject} À¯Áö", instance.gameObject);
+
+                Destroy(gameObject);
             }
             else
             {
-                Destroy(gameObject);
+                Debug.Log($"{instance}½Ì±ÛÅæ ÆÄ±« ¿À·ù", Instance);
             }
+        }
+
+        private void OnDestroy()
+        {
+            instance = null;
         }
 
         public virtual void ClearAction()
