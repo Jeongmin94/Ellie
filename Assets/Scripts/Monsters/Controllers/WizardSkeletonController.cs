@@ -15,6 +15,11 @@ namespace Assets.Scripts.Monsters
 {
     public class WizardSkeletonController : AbstractMonster, ICombatant
     {
+        private enum ParshingSkills
+        {
+            Flee=2008,
+            ProjectileAttack=2009,
+        }
         protected override void Awake()
         {
             base.Awake();
@@ -47,8 +52,8 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.Flee] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2008);
-            attackData[(int)AttackSkill.ProjectileAttack]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2009);
+            attackData[(int)AttackSkill.Flee] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.Flee);
+            attackData[(int)AttackSkill.ProjectileAttack]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.ProjectileAttack);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {
