@@ -78,7 +78,7 @@ public class TerrapupaMapObjectController : BaseController
     private void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog, ChannelType.Terrapupa);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Dialog, ChannelType.Terrapupa, ChannelType.BossDialog);
 
         foreach (var mana in manaFountains)
         {
@@ -154,22 +154,10 @@ public class TerrapupaMapObjectController : BaseController
 
         SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
 
-        var dPayload = DialogPayload.Play("test");
-        dPayload.canvasType = DialogCanvasType.Simple;
-        dPayload.dialogDuration = 3.0f;
-        ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
-
-        // StartCoroutine(test());
-    }
-
-    private IEnumerator test()
-    {
-        yield return new WaitForSeconds(3.0f);
-        
-        Debug.Log("테스트");
-        var dPayload = DialogPayload.Stop();
-        dPayload.canvasType = DialogCanvasType.SimpleRemaining;
-        ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+        ticketMachine.SendMessage(ChannelType.BossDialog, new BossDialogPaylaod
+        {
+            TriggerType = BossDialogTriggerType.EnterBossRoom,
+        });
     }
 
     private void OnLeftBossRoom(IBaseEventPayload payload)
