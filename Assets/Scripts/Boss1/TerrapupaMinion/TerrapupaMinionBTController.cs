@@ -1,6 +1,7 @@
 using System.Collections;
 using Assets.Scripts.Boss1.TerrapupaMinion;
 using Assets.Scripts.Managers;
+using Assets.Scripts.Player.HitComponent;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -12,10 +13,13 @@ public class TerrapupaMinionBTController : BehaviourTreeController
     [SerializeField] private TerrapupaMinionHealthBar healthBar;
     [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
-    private TicketMachine ticketMachine;
 
     private float shakeDuration = 0.05f;
     private float shakeMagnitude = 0.05f;
+
+    private MaterialHitComponent hitComponent;
+    private TicketMachine ticketMachine;
+    private bool isDead = false;
 
     public TerrapupaMinionHealthBar HealthBar
     {
@@ -29,6 +33,7 @@ public class TerrapupaMinionBTController : BehaviourTreeController
         minionData = rootTreeData as TerrapupaMinionRootData;
         healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
         weakPoints = GetComponentsInChildren<TerrapupaMinionWeakPoint>();
+        hitComponent = gameObject.GetComponent<MaterialHitComponent>();
 
         SubscribeEvent();
     }
@@ -65,35 +70,42 @@ public class TerrapupaMinionBTController : BehaviourTreeController
         int damage = combatPayload.Damage;
 
         GetDamaged(damage);
-        Debug.Log($"{damage} ������ ���� : {minionData.currentHP.Value}");
+        Debug.Log($"{damage} 데미지 입음 : {minionData.currentHP.Value}");
     }
 
     public void GetDamaged(int damageValue)
     {
-        ShowBillboard();
-        StartCoroutine(ShakeCoroutine());
-        healthBar.RenewHealthBar(minionData.currentHP.value - damageValue);
-        minionData.currentHP.Value -= damageValue;
-        if (minionData.currentHP.value <= 0)
+        if(!isDead)
         {
-            HideBillboard();
-            minionData.currentHP.Value = 0;
-            healthBar.RenewHealthBar(0);
-        }
+            ShowBillboard();
+            StartCoroutine(ShakeCoroutine());
+            hitComponent.Hit();
 
-        minionData.isHit.Value = true;
+            healthBar.RenewHealthBar(minionData.currentHP.value - damageValue);
+            minionData.currentHP.Value -= damageValue;
+
+            if (minionData.currentHP.value <= 0)
+            {
+                Dead();
+            }
+
+            minionData.isHit.Value = true;
+        }
     }
 
     public void GetHealed(int healValue)
     {
-        healthBar.RenewHealthBar(minionData.currentHP.value + healValue);
-        minionData.currentHP.Value += healValue;
-
-        if (minionData.currentHP.value > minionData.hp)
+        if (!isDead)
         {
-            ShowBillboard();
-            minionData.currentHP.Value = minionData.hp;
-            healthBar.RenewHealthBar(minionData.currentHP.value);
+            healthBar.RenewHealthBar(minionData.currentHP.value + healValue);
+            minionData.currentHP.Value += healValue;
+
+            if (minionData.currentHP.value > minionData.hp)
+            {
+                ShowBillboard();
+                minionData.currentHP.Value = minionData.hp;
+                healthBar.RenewHealthBar(minionData.currentHP.value);
+            }
         }
     }
     private IEnumerator ShakeCoroutine()
@@ -110,5 +122,13 @@ public class TerrapupaMinionBTController : BehaviourTreeController
         }
 
         transform.position = originalPosition; // 원래 위치로 돌아감
+    }
+
+    public void Dead()
+    {
+        isDead = true;
+        minionData.currentHP.Value = 0;
+        healthBar.RenewHealthBar(0);
+        billboardObject.gameObject.SetActive(false);
     }
 }

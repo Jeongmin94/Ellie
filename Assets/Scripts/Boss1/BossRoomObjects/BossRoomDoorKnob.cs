@@ -1,31 +1,28 @@
-using Assets.Scripts.Managers;
-using Channels.Boss;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
-using Unity.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 using ReadOnlyAttribute = Sirenix.OdinInspector.ReadOnlyAttribute;
 
 public class BossRoomDoorKnob : MonoBehaviour
 {
-    [SerializeField] private Transform doorKnob;
-    [SerializeField] private float openSpeedTime;
-    [ReadOnly][SerializeField] private bool isChecked = false;
+    [SerializeField][Required] private Transform doorKnob;
+    [SerializeField][ReadOnly] private bool isChecked = false;
+    [SerializeField][ReadOnly] private float openSpeedTime;
 
-    private Transform golemCore;
+    private Action<BossRoomDoorKnob, Transform> golemCoreCheckAction;
+
+    public void SubScribeAction(Action<BossRoomDoorKnob, Transform> action)
+    {
+        golemCoreCheckAction -= action;
+        golemCoreCheckAction += action;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.name);
-
         if(isChecked == false && other.CompareTag("Stone"))
         {
-            EventBus.Instance.Publish(EventBusEvents.BossRoomDoorOpen, new BossEventPayload
-            {
-                Sender = transform,
-                TransformValue1 = other.transform,
-            });
+            golemCoreCheckAction?.Invoke(this, other.transform);
         }
     }
 

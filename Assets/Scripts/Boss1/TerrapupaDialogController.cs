@@ -15,13 +15,17 @@ namespace Assets.Scripts.Boss1
 {
     public class TerrapupaDialogController : BaseController
     {
-        [ShowInInspector][ReadOnly] private Dictionary<int, bool> dialogSaveDic = new();
-        [ShowInInspector][ReadOnly] private BossDialogParsingInfo parsingInfo;
+        [ShowInInspector][ReadOnly] private Dictionary<int, bool> dialogAchievementDic = new();
         [ShowInInspector][ReadOnly] private BossDialogData currentData = null;
-        [ShowInInspector] private List<BossDialog> dialogList = new();
-        
+        [ShowInInspector][ReadOnly] private List<BossDialog> dialogList = new();
 
-        [OnValueChanged("OnChangeIndex")] public int currentIndex;
+        private BossDialogParsingInfo parsingInfo;
+        private Coroutine dialogCoroutine = null;
+        private DialogCanvasType currentType;
+        private int currentIndex;
+        private bool isInit;
+
+        private TicketMachine ticketMachine;
 
         public string[] speakers = new string[]
         {
@@ -29,7 +33,8 @@ namespace Assets.Scripts.Boss1
             "말하는 해골 머리 첫 째",
             "말하는 해골 머리 둘 째",
             "말하는 해골 머리 막내",
-            "테라푸파"};
+            "테라푸파"
+        };
         public string[] images = new string[]
         {
             "Ellie",
@@ -38,16 +43,6 @@ namespace Assets.Scripts.Boss1
             "talking skull head3",
             "Frame 8",
         };
-
-        [ShowInInspector] private TicketMachine ticketMachine;
-        [ShowInInspector] private Coroutine dialogCoroutine = null;
-        [ShowInInspector] private DialogCanvasType currentType;
-        [ShowInInspector] private bool isInit;
-
-        public TicketMachine TicketMachine
-        {
-            get { return ticketMachine; }
-        }
 
         public override void InitController()
         {
@@ -69,7 +64,7 @@ namespace Assets.Scripts.Boss1
         {
             // 티켓머신 초기화 + 옵저버 등록
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Dialog, ChannelType.BossDialog);
+            ticketMachine.AddTickets(ChannelType.Dialog, ChannelType.BossDialog, ChannelType.BossBattle);
 
             ticketMachine.RegisterObserver(ChannelType.Dialog, OnNotifyDialog);
             ticketMachine.RegisterObserver(ChannelType.BossDialog, OnNotifyBossDialog);
@@ -84,16 +79,13 @@ namespace Assets.Scripts.Boss1
             // 수행 여부 딕셔너리 초기화
             foreach (var data in parsingInfo.datas)
             {
-                dialogSaveDic[data.index] = false;
+                dialogAchievementDic[data.index] = false;
             }
         }
 
         private void SaveBossDialog()
         {
-            var payload = new BossSavePayload
-            {
-                bossDialogStatusDic = dialogSaveDic,
-            };
+            var payload = new BossSavePayload { bossDialogStatusDic = dialogAchievementDic };
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Boss, payload);
         }
 
@@ -102,28 +94,7 @@ namespace Assets.Scripts.Boss1
             if (payload is not BossSavePayload savePayload) 
                 return;
 
-            dialogSaveDic = savePayload.bossDialogStatusDic;
-        }
-
-        [Button]
-        public void TestTriggerBossDialog(BossDialogTriggerType type = BossDialogTriggerType.EnterBossRoom)
-        {
-            Debug.Log($"테스트 타입 :: {type}");
-            ticketMachine.SendMessage(ChannelType.BossDialog, new BossDialogPaylaod
-            {
-                TriggerType = type,
-            });
-        }
-
-        [Button]
-        public void TestStopBossDialog()
-        {
-            isInit = false;
-            SendStopDialogPayload(DialogCanvasType.Default);
-            SendStopDialogPayload(DialogCanvasType.Simple);
-            SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
-            SendStopDialogPayload(DialogCanvasType.GuideDialog);
-            isInit = true;
+            dialogAchievementDic = savePayload.bossDialogStatusDic;
         }
 
         private void OnNotifyDialog(IBaseEventPayload payload)
@@ -170,6 +141,31 @@ namespace Assets.Scripts.Boss1
             }
         }
 
+        private void OnNotifyBossDialog(IBaseEventPayload payload)
+        {
+            if (payload is not BossDialogPaylaod dialogPayload)
+                return;
+
+            if (dialogPayload.TriggerType == BossDialogTriggerType.None)
+                return;
+
+            var data = parsingInfo.GetIndexData<BossDialogData>((int)dialogPayload.TriggerType);
+            Debug.Log($"OnNotifyBossDialog() :: {data.index}");
+
+            // false여야 최초 상태로 돌입
+            if (!IsCheckedAchievementStatus(data))
+            {
+                dialogAchievementDic[data.index] = true;
+
+                currentData = data;
+                dialogList = currentData.dialogList;
+                currentIndex = 0;
+
+                NextDialog();
+                SaveLoadManager.Instance.SaveSpecificData(SaveBossDialog);
+            }
+        }
+
         private IEnumerator DialogCoroutine()
         {
             while (true)
@@ -202,6 +198,12 @@ namespace Assets.Scripts.Boss1
             {
                 StopCoroutine(dialogCoroutine);
             }
+            // 상황 별 이벤트 재생
+            var bossDialogType = dialogList[currentIndex].bossDialogType;
+            if (bossDialogType != BossSituationType.None)
+            {
+                SendBossDialogMessage(bossDialogType);
+            }
             SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker, dialogList[currentIndex].remainTime);
         }
 
@@ -214,17 +216,6 @@ namespace Assets.Scripts.Boss1
             currentData = null;
         }
 
-        private void OnNotifyBossDialog(IBaseEventPayload payload)
-        {
-            if (payload is not BossDialogPaylaod dialogPayload)
-                return;
-
-            currentData = parsingInfo.GetIndexData<BossDialogData>((int)dialogPayload.TriggerType);
-            dialogList = currentData.dialogList;
-            currentIndex = 0;
-
-            NextDialog();
-        }
         private void InitDialog()
         {
             isInit = false;
@@ -246,14 +237,63 @@ namespace Assets.Scripts.Boss1
 
         private void SendStopDialogPayload(DialogCanvasType type)
         {
-            DialogPayload payload = DialogPayload.Stop();
-            payload.canvasType = type;
-            ticketMachine.SendMessage(ChannelType.Dialog, payload);
+            var dPayload = DialogPayload.Stop();
+            dPayload.canvasType = type;
+            ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
         }
 
-        public void OnChangeIndex()
+        private void SendBossDialogMessage(BossSituationType type)
         {
-            Debug.Log($"OnChangeIndex :: {currentIndex}, {currentType}");
+            var payload = new BossBattlePayload { SituationType = type };
+            ticketMachine.SendMessage(ChannelType.BossBattle, payload);
+        }
+
+        private bool IsCheckedAchievementStatus(BossDialogData data)
+        {
+            // 세이브하는 데이터인지 체크
+            if(data.isSaveDialog)
+            {
+                return dialogAchievementDic[data.index];
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void SendMessageBossBattle(BossSituationType type)
+        {
+            var bPayload = new BossBattlePayload { SituationType = type };
+            ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
+        }
+
+        [Button]
+        private void SendMessageBossDialog(BossDialogTriggerType type = BossDialogTriggerType.EnterBossRoom)
+        {
+            var dPayload = new BossDialogPaylaod { TriggerType = type };
+            ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
+        }
+
+        [Button]
+        private void TestStopBossDialog()
+        {
+            isInit = false;
+            SendStopDialogPayload(DialogCanvasType.Default);
+            SendStopDialogPayload(DialogCanvasType.Simple);
+            SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+            SendStopDialogPayload(DialogCanvasType.GuideDialog);
+            isInit = true;
+        }
+
+        [Button]
+        private void InitAchievement()
+        {
+            // 테스트용 저장상태 초기화
+            foreach (var data in parsingInfo.datas)
+            {
+                dialogAchievementDic[data.index] = false;
+            }
+            SaveLoadManager.Instance.SaveSpecificData(SaveBossDialog);
         }
     }
 }

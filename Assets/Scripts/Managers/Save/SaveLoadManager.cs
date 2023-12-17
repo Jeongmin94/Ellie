@@ -154,6 +154,53 @@ namespace Assets.Scripts.Managers
             }
         }
 
+        public async void SaveSpecificData(Action saveAction)
+        {
+            if (IsCurrentSavingOrLoading())
+            {
+                return;
+            }
+            isSaving = true;
+            cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(saveloadTimeOut));
+
+            // 단일 세이브
+            saveAction?.Invoke();
+
+            try
+            {
+                var saveTasks = new List<Task>();
+                for (int i = 0; i < (int)SaveLoadType.End; i++)
+                {
+                    saveTasks.Add(SaveDataAsync(i, cancellationTokenSource.Token));
+                }
+
+                // 타임아웃과 세이브 작업을 병렬로 실행
+                var timeoutTask = Task.Delay(TimeSpan.FromSeconds(30), cancellationTokenSource.Token);
+                var savingTask = Task.WhenAll(saveTasks);
+                var completedTask = await Task.WhenAny(savingTask, timeoutTask);
+
+                if (completedTask == timeoutTask)
+                {
+                    throw new TimeoutException("세이브 작업이 시간 초과로 취소되었습니다.");
+                }
+            }
+            catch (TimeoutException ex)
+            {
+                Debug.LogError(ex.Message);
+                // 필요한 추가 처리
+            }
+            catch (Exception ex)
+            {
+                Debug.LogError($"세이브 중 오류 발생: {ex.Message}");
+            }
+            finally
+            {
+                cancellationTokenSource.Cancel();
+                isSaving = false;
+                cancellationTokenSource = null;
+            }
+        }
+
         private async Task SaveDataAsync(int index, CancellationToken cancellationToken)
         {
             cancellationToken.ThrowIfCancellationRequested();

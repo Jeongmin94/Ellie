@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 8979523351519513295}
   - component: {fileID: 5739336596423150777}
   - component: {fileID: 986809399633441117}
+  - component: {fileID: 2066784684}
   m_Layer: 10
   m_Name: Terrapupa
   m_TagString: Boss
@@ -185,9 +186,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c954d1a9b8c3fc5479212c5e4460a7fc, type: 2}
   cameraObj: {fileID: 0}
   terrapupaData: {fileID: 0}
-  stone: {fileID: 3623519102850700817}
   weakPoint: {fileID: 3540787206911723075}
   healthBar: {fileID: 5739336596423150777}
+  stone: {fileID: 3623519102850700817}
   shakeDuration: 0.1
   shakeMagnitude: 0.1
 --- !u!54 &8979523351519513295
@@ -233,10 +234,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 3650af4f7921bf147a502393bcb7c541, type: 2}
   hitColor: {r: 0, g: 1, b: 0, a: 1}
   hitDuration: 0.3
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: 3650af4f7921bf147a502393bcb7c541, type: 2}
+--- !u!114 &2066784684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8979523351519513283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e4f1958280de9489c0be3735bb24e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Boss1.Terrapupa.TerrapupaCoreController,
+    Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  blinkIntensity: 3
+  blinkDuration: 0.45
+  darkenDuration: 3
 --- !u!1001 &2128096367104428211
 PrefabInstance:
   m_ObjectHideFlags: 0

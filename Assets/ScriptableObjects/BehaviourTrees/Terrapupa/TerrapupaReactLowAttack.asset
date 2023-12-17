@@ -68,7 +68,7 @@ MonoBehaviour:
     - rid: 1683426562437021874
     - rid: 6881097883797946373
     - rid: 116448501211856906
-  viewPosition: {x: -847.2, y: 64.8, z: 0}
+  viewPosition: {x: -730.4, y: -199.2, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -88,7 +88,7 @@ MonoBehaviour:
         drawGizmos: 0
         soundName:
           reference:
-            rid: -2
+            rid: 116448501211856906
           defaultValue: 
     - rid: 116448501211856906
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
@@ -400,7 +400,7 @@ MonoBehaviour:
         animationSpeed:
           reference:
             rid: -2
-          defaultValue: 0.5
+          defaultValue: 1
     - rid: 283011178275274765
       type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
       data:

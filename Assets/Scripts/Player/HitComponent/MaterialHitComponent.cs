@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
 
@@ -8,14 +9,15 @@ namespace Assets.Scripts.Player.HitComponent
         private static readonly string StringBaseColor = "_BaseColor";
         private static readonly string StringEmissionColor = "_EmissionColor";
 
+        [SerializeField][Required] private Material modelMaterial;
         [SerializeField] private Color hitColor = Color.red;
         [SerializeField] private float hitDuration = 0.5f;
         [SerializeField] private float returnDuration = 0.2f;
-        [SerializeField] private Material modelMaterial;
 
-        private Color baseOriginalColor;
-        private Color emissionOriginalColor;
-        private Coroutine hitCoroutine;
+        public Color BaseOriginalColor { get; private set; }
+        public Color EmissionOriginalColor { get; private set; }
+        public Coroutine BaseCoroutine { get; private set; }
+        public Coroutine EmissionCoroutine { get; private set; }
 
         public float HitDuration() => hitDuration;
 
@@ -27,24 +29,51 @@ namespace Assets.Scripts.Player.HitComponent
                 return;
             }
 
-            baseOriginalColor = modelMaterial.GetColor(StringBaseColor);
-            emissionOriginalColor = modelMaterial.GetColor(StringEmissionColor);
+            BaseOriginalColor = modelMaterial.GetColor(StringBaseColor);
+            EmissionOriginalColor = modelMaterial.GetColor(StringEmissionColor);
+        }
+
+        private void OnDisable()
+        {
+            StopAllCoroutines();
+
+            SetOriginalColor();
         }
 
         public void Hit()
         {
-            if (hitCoroutine != null)
+            if (BaseCoroutine != null || EmissionCoroutine != null)
             {
-                StopCoroutine(hitCoroutine);
+                SetOriginalColor();
             }
 
-            hitCoroutine = StartCoroutine(ChangeModelMaterial());
+            SetBaseColor(BaseOriginalColor, hitColor, hitDuration, returnDuration);
+            SetEmissionColor(EmissionOriginalColor, hitColor, hitDuration, returnDuration);
         }
 
-        private IEnumerator ChangeModelMaterial()
+        public void SetBaseColor(Color targetColor, Color startColor, float hitDuration, float returnDuration)
         {
-            modelMaterial.SetColor(StringBaseColor, hitColor);
-            modelMaterial.SetColor(StringEmissionColor, hitColor);
+            if (BaseCoroutine != null)
+            {
+                StopCoroutine(BaseCoroutine);
+            }
+
+            BaseCoroutine = StartCoroutine(ChangeColorCoroutine(StringBaseColor, targetColor, startColor, hitDuration, returnDuration));
+        }
+
+        public void SetEmissionColor(Color targetColor, Color startColor, float hitDuration, float returnDuration)
+        {
+            if (EmissionCoroutine != null)
+            {
+                StopCoroutine(EmissionCoroutine);
+            }
+
+            EmissionCoroutine = StartCoroutine(ChangeColorCoroutine(StringEmissionColor, targetColor, startColor, hitDuration, returnDuration));
+        }
+
+        private IEnumerator ChangeColorCoroutine(string colorPropertyName, Color targetColor, Color startColor, float hitDuration, float returnDuration)
+        {
+            modelMaterial.SetColor(colorPropertyName, startColor);
             yield return new WaitForSeconds(hitDuration);
 
             float timeAcc = 0.0f;
@@ -54,14 +83,17 @@ namespace Assets.Scripts.Player.HitComponent
                 timeAcc += Time.deltaTime;
                 yield return wfef;
 
-                Color curBaseColor = Color.Lerp(hitColor, baseOriginalColor, timeAcc / returnDuration);
-                modelMaterial.SetColor(StringBaseColor, curBaseColor);
-                Color curEmissionColor = Color.Lerp(hitColor, emissionOriginalColor, timeAcc / returnDuration);
-                modelMaterial.SetColor(StringEmissionColor, curEmissionColor);
+                Color curColor = Color.Lerp(startColor, targetColor, timeAcc / returnDuration);
+                modelMaterial.SetColor(colorPropertyName, curColor);
             }
 
-            modelMaterial.SetColor(StringBaseColor, baseOriginalColor);
-            modelMaterial.SetColor(StringEmissionColor, emissionOriginalColor);
+            modelMaterial.SetColor(colorPropertyName, targetColor);
+        }
+
+        public void SetOriginalColor()
+        {
+            modelMaterial.SetColor(StringBaseColor, BaseOriginalColor);
+            modelMaterial.SetColor(StringEmissionColor, EmissionOriginalColor);
         }
     }
 }

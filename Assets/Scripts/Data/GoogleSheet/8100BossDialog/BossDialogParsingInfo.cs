@@ -6,16 +6,6 @@ using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {
-    public enum BossDialogType
-    {
-        None,
-        EnterBossRoom,
-        StandUpBoss,
-        StartBattle,
-        StartSeconPhase,
-        EndBattle,
-    }
-
     [Serializable]
     public class BossDialogData
     {
@@ -31,7 +21,7 @@ namespace Assets.Scripts.Data.GoogleSheet
     public struct BossDialog
     {
         // 상황 타입
-        public BossDialogType bossDialogType;
+        public BossSituationType bossDialogType;
         // 다이얼로그 출력 타입
         public DialogCanvasType dialogCanvasType;
         // 발화자 (0 : 없음, 1 : 엘리, 2 : 첫째, 3 : 둘째, 4 : 셋째)
@@ -92,7 +82,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                     BossDialog dialog = new BossDialog
                     {
                         bossDialogType = entries[3].Trim() == "-" ?
-                            BossDialogType.None : (BossDialogType)Enum.Parse(typeof(BossDialogType), entries[3].Trim()),
+                            BossSituationType.None : (BossSituationType)Enum.Parse(typeof(BossSituationType), entries[3].Trim()),
                         dialogCanvasType = (DialogCanvasType)Enum.Parse(typeof(DialogCanvasType), entries[4].Trim()),
                         speaker = int.Parse(entries[5].Trim()),
                         dialog = entries[6].Trim(),

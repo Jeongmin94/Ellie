@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2955949621655329697}
   - component: {fileID: 2955949621655329696}
   - component: {fileID: 2955949621655329703}
+  - component: {fileID: 1893857260}
   m_Layer: 10
   m_Name: Te
   m_TagString: Monster
@@ -118,6 +119,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: TerrapupaMinionHealthBar, Assembly.Ellie
   scaleFactor: 0.002
+--- !u!114 &1893857260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955949621655329702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.3
+  returnDuration: 0.2
+  modelMaterial: {fileID: 2100000, guid: b5f3db58cf5b7e1419025291ecd43606, type: 2}
 --- !u!1 &2955949623555849973
 GameObject:
   m_ObjectHideFlags: 0

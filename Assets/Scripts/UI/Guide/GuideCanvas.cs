@@ -59,13 +59,12 @@ namespace Assets.Scripts.UI.Guide
 
         private void OnEscapeAction()
         {
-            Debug.Log("들어오는지 확인1");
             if (gameObject.activeSelf)
             {
-                Debug.Log("들어오는지 확인2");
                 InputManager.Instance.CanInput = true;
                 gameObject.SetActive(false);
                 Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
 

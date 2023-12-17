@@ -64,7 +64,7 @@ namespace UI.Dialog.GuideDialog
         [SerializeField] private UITransformData[] transformData;
         [SerializeField] private TextTypographyData[] typographyData;
         [SerializeField] private float showDuration = 5.0f;
-        [SerializeField] private float fadeOutDuration = 1.0f;
+        [SerializeField] private float fadeOutDuration = 0.5f;
 
         private readonly List<GameObject> panels = new List<GameObject>();
         private readonly List<RectTransform> panelRects = new List<RectTransform>();
