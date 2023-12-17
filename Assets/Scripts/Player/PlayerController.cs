@@ -322,11 +322,11 @@ namespace Assets.Scripts.Player
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                ChangeState(PlayerStateName.Start);
-                InputManager.Instance.CanInput = true;
-            }
+            //if (Input.GetKeyDown(KeyCode.B))
+            //{
+            //    ChangeState(PlayerStateName.Start);
+            //    InputManager.Instance.CanInput = true;
+            //}
             if (!InputManager.Instance.CanInput)
                 return;
 

@@ -71,7 +71,6 @@ namespace Assets.Scripts.Item.Stone
             {
                 if (hitCollider.CompareTag("Player"))
                 {
-                    Debug.Log(hitCollider);
                     UsePortal(hitCollider.transform); 
 
                     break;
@@ -104,8 +103,6 @@ namespace Assets.Scripts.Item.Stone
 
         public void ActivatePortal()
         {
-            Debug.Log("포탈 활성화");
-
             // 콜라이더 제거 + 중력 제거
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;

@@ -80,6 +80,7 @@ namespace Assets.Scripts.Player
             {
                 if (curQuestData != null)
                     SendDisplayQuestMessage(curQuestData);
+                InputManager.Instance.CanInput = true;
                 yield break;
             }
             else
