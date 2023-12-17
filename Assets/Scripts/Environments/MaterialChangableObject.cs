@@ -21,7 +21,6 @@ namespace Assets.Scripts.Environments
             Color color = GetComponent<Renderer>().material.GetColor("_EmissionColor");
             
             color *= value;
-            Debug.Log(color);
             changingMaterial.SetColor("_EmissionColor", color);
             GetComponent<Renderer>().material = changingMaterial;
         }
