@@ -13,14 +13,12 @@ namespace Channels.Boss
         GetMagicStoneFirstTime,
         DontAttackBossWeakPoint,
         IntakeMagicStoneFirstTime,
-        ReachHitEarthQuakeCount,
-        ReachHitLowAttackCount,
         StartSecondPhase,
         DestroyAllManaFountains,
-        ReachMissStalactiteCount,
         StartThirdPhase,
-        GetGolemCoreFirstTime, 
+        GetGolemCoreFirstTime,
         DieAllMinions,
+        FailedToOpenDoor,
     }
 
     public class BossDialogPaylaod : IBaseEventPayload

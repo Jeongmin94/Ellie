@@ -181,14 +181,12 @@ namespace UI.Dialog.GuideDialog
             {
                 if (dialogInfoQueue.Any() && currentExcuteCoroutine == null)
                 {
-                    Debug.Log($"{dialogInfoQueue.Count} 큐 처리");
                     var info = dialogInfoQueue.Dequeue();
 
                     currentExcuteCoroutine = StartCoroutine(ShowGuideDialog(info));
                     yield return currentExcuteCoroutine;
                     currentExcuteCoroutine = null;
                 }
-                Debug.Log("조건에 걸리지 않는 코루틴 테스트");
 
                 yield return wfef;
             }
@@ -204,7 +202,6 @@ namespace UI.Dialog.GuideDialog
             texts[(int)Texts.GuideDialogSpeakerText].text = info.Speaker;
 
             ActiveObjects();
-            Debug.Log($"{info.RemainTime} 테스트");
             yield return new WaitForSeconds(info.RemainTime);
 
             yield return FadeOutObjects();

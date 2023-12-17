@@ -10,12 +10,11 @@ namespace Assets.Scripts.Data.GoogleSheet
     {
         None,
         EnterBossRoom,
-        ShowExitDoor,
-        StandUpTerrapupa,
+        StandUpBoss,
         StartBattle,
-        HighlightExitDoor,
+        StartSeconPhase,
+        EndBattle,
     }
-
 
     [Serializable]
     public class BossDialogData
