@@ -39,6 +39,8 @@ namespace Assets.Scripts.Data.GoogleSheet
         public int speaker;
         // 다이얼로그 내용
         public string dialog;
+        // 다이얼로그 출력 시간
+        public float remainTime;
     }
 
     [CreateAssetMenu(fileName = "BossDialogData", menuName = "GameData List/BossDialogData")]
@@ -90,11 +92,12 @@ namespace Assets.Scripts.Data.GoogleSheet
                     // dialogList에 대화 추가
                     BossDialog dialog = new BossDialog
                     {
-                        bossDialogType = entries[3].Trim() == "-" ? 
+                        bossDialogType = entries[3].Trim() == "-" ?
                             BossDialogType.None : (BossDialogType)Enum.Parse(typeof(BossDialogType), entries[3].Trim()),
                         dialogCanvasType = (DialogCanvasType)Enum.Parse(typeof(DialogCanvasType), entries[4].Trim()),
                         speaker = int.Parse(entries[5].Trim()),
-                        dialog = entries[6].Trim()
+                        dialog = entries[6].Trim(),
+                        remainTime = float.Parse(entries[7].Trim()),
                     };
 
                     currentData.dialogList.Add(dialog);

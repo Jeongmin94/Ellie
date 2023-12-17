@@ -22,12 +22,22 @@ namespace Assets.Scripts.Boss1
         
 
         [OnValueChanged("OnChangeIndex")] public int currentIndex;
-        public float dialogDuration = 3.0f;
-        public string[] speakers = new string[]{
+
+        public string[] speakers = new string[]
+        {
             "엘리",
             "말하는 해골 머리 첫 째",
             "말하는 해골 머리 둘 째",
-            "말하는 해골 머리 막내"};
+            "말하는 해골 머리 막내",
+            "테라푸파"};
+        public string[] images = new string[]
+        {
+            "Ellie",
+            "talking skull head1",
+            "talking skull head2",
+            "talking skull head3",
+            "Frame 8",
+        };
 
         [ShowInInspector] private TicketMachine ticketMachine;
         [ShowInInspector] private Coroutine dialogCoroutine = null;
@@ -96,13 +106,24 @@ namespace Assets.Scripts.Boss1
         }
 
         [Button]
-        public void TestBossDialogTrigger(BossDialogTriggerType type = BossDialogTriggerType.EnterBossRoom)
+        public void TestTriggerBossDialog(BossDialogTriggerType type = BossDialogTriggerType.EnterBossRoom)
         {
             Debug.Log($"테스트 타입 :: {type}");
             ticketMachine.SendMessage(ChannelType.BossDialog, new BossDialogPaylaod
             {
                 TriggerType = type,
             });
+        }
+
+        [Button]
+        public void TestStopBossDialog()
+        {
+            isInit = false;
+            SendStopDialogPayload(DialogCanvasType.Default);
+            SendStopDialogPayload(DialogCanvasType.Simple);
+            SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+            SendStopDialogPayload(DialogCanvasType.GuideDialog);
+            isInit = true;
         }
 
         private void OnNotifyDialog(IBaseEventPayload payload)
@@ -181,7 +202,7 @@ namespace Assets.Scripts.Boss1
             {
                 StopCoroutine(dialogCoroutine);
             }
-            SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker);
+            SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker, dialogList[currentIndex].remainTime);
         }
 
         private void EndDialog()
@@ -213,12 +234,13 @@ namespace Assets.Scripts.Boss1
             isInit = true;
         }
 
-        private void SendDialogMessage(string text, DialogCanvasType canvasType, int speaker)
+        private void SendDialogMessage(string text, DialogCanvasType canvasType, int speaker, float dialogDuration)
         {
             var dPayload = DialogPayload.Play(text);
             dPayload.canvasType = canvasType;
             dPayload.speaker = speaker > 0 ? speakers[speaker - 1] : "";
-            dPayload.simpleDialogDuration = dialogDuration;
+            dPayload.dialogDuration = dialogDuration;
+            dPayload.imageName = speaker > 0 ? images[speaker - 1] : "";
             ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
         }
 

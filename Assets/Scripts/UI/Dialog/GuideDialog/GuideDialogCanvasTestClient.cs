@@ -27,8 +27,8 @@ namespace UI.Dialog.GuideDialog
         }
 
         // test index
-        // 8200, 8201, 8207
-        private readonly List<int> testIndex = new List<int>() { 8200, 8201, 8207 };
+        // 8200, 8201, 8202
+        private readonly List<int> testIndex = new List<int>() { 8200, 8201, 8202 };
 
         private void Update()
         {

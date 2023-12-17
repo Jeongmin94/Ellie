@@ -156,7 +156,7 @@ public class TerrapupaMapObjectController : BaseController
 
         var dPayload = DialogPayload.Play("test");
         dPayload.canvasType = DialogCanvasType.Simple;
-        dPayload.simpleDialogDuration = 3.0f;
+        dPayload.dialogDuration = 3.0f;
         ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
 
         // StartCoroutine(test());
