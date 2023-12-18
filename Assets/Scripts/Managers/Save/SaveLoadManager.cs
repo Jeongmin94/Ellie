@@ -12,12 +12,14 @@ namespace Assets.Scripts.Managers
 {
     public class SaveLoadManager : Singleton<SaveLoadManager>
     {
-        [ShowInInspector][ReadOnly] private Action saveAction;
-        [ShowInInspector][ReadOnly] private Dictionary<SaveLoadType, Delegate> loadAction = new Dictionary<SaveLoadType, Delegate>();
-        [ShowInInspector][ReadOnly] private Dictionary<SaveLoadType, IBaseEventPayload> payloadTable = new Dictionary<SaveLoadType, IBaseEventPayload>();
+        [ShowInInspector] [ReadOnly] private Action saveAction;
+        [ShowInInspector] [ReadOnly] private Dictionary<SaveLoadType, Delegate> loadAction = new Dictionary<SaveLoadType, Delegate>();
+        [ShowInInspector] [ReadOnly] private Dictionary<SaveLoadType, IBaseEventPayload> payloadTable = new Dictionary<SaveLoadType, IBaseEventPayload>();
 
-        private float saveloadTimeOut = 5.0f;   // 비동기 작업이 해당 변수 이상 지속될경우 정지
-        private CancellationTokenSource cancellationTokenSource;    // 비동기 작업이 계속될 경우 정지시키게 설정
+        public Action saveDoneAction;
+
+        private float saveloadTimeOut = 5.0f;                    // 비동기 작업이 해당 변수 이상 지속될경우 정지
+        private CancellationTokenSource cancellationTokenSource; // 비동기 작업이 계속될 경우 정지시키게 설정
 
         private string path;
         private string filename = "EllieSaveFile";
@@ -28,6 +30,7 @@ namespace Assets.Scripts.Managers
         public bool IsLoadData { get; set; } = false;
 
         #region ### 초기화 메서드 ###
+
         public override void Awake()
         {
             base.Awake();
@@ -64,15 +67,18 @@ namespace Assets.Scripts.Managers
         {
             payloadTable[type] = payload;
         }
+
         #endregion
 
         #region ### 세이브, 로드 함수 ###
+
         public async void SaveData()
         {
             if (IsCurrentSavingOrLoading())
             {
                 return;
             }
+
             isSaving = true;
             cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(saveloadTimeOut));
 
@@ -111,6 +117,8 @@ namespace Assets.Scripts.Managers
                 cancellationTokenSource.Cancel();
                 isSaving = false;
                 cancellationTokenSource = null;
+
+                saveDoneAction?.Invoke();
             }
         }
 
@@ -160,6 +168,7 @@ namespace Assets.Scripts.Managers
             {
                 return;
             }
+
             isSaving = true;
             cancellationTokenSource = new CancellationTokenSource(TimeSpan.FromSeconds(saveloadTimeOut));
 
@@ -276,25 +285,25 @@ namespace Assets.Scripts.Managers
             switch (type)
             {
                 case SaveLoadType.Inventory:
-                    {
-                        InventorySavePayload payload = payloadTable[type] as InventorySavePayload;
-                        return JsonConvert.SerializeObject(payload);
-                    }
+                {
+                    InventorySavePayload payload = payloadTable[type] as InventorySavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
                 case SaveLoadType.Player:
-                    {
-                        PlayerSavePayload payload = payloadTable[type] as PlayerSavePayload;
-                        return JsonConvert.SerializeObject(payload);
-                    }
+                {
+                    PlayerSavePayload payload = payloadTable[type] as PlayerSavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
                 case SaveLoadType.NPC:
-                    {
-                        NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
-                        return JsonConvert.SerializeObject(payload);
-                    }
+                {
+                    NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
                 case SaveLoadType.Boss:
-                    {
-                        BossSavePayload payload = payloadTable[type] as BossSavePayload;
-                        return JsonConvert.SerializeObject(payload);
-                    }
+                {
+                    BossSavePayload payload = payloadTable[type] as BossSavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
                 default:
                     return null;
             }
@@ -347,6 +356,7 @@ namespace Assets.Scripts.Managers
                 Debug.Log("세이브가 진행중입니다.");
                 return true;
             }
+
             return false;
         }
 
@@ -357,6 +367,7 @@ namespace Assets.Scripts.Managers
             {
                 yield return wait;
             }
+
             Debug.Log("데이터 세이브 완료");
         }
 
@@ -367,6 +378,7 @@ namespace Assets.Scripts.Managers
             {
                 yield return wait;
             }
+
             Debug.Log("데이터 로드 완료");
         }
 
@@ -374,6 +386,8 @@ namespace Assets.Scripts.Managers
         {
             saveAction = null;
             loadAction = new();
+
+            saveDoneAction = null;
         }
     }
 }

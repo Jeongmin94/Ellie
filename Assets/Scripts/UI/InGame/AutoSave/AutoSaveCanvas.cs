@@ -24,6 +24,9 @@ namespace Assets.Scripts.UI.InGame.AutoSave
         [SerializeField] private float rotateInterval;
         [SerializeField] private float fadeOut;
 
+        private float minimumShowingDuration = 1.0f;
+        private float currentShowingAcc = 0.0f;
+
         private enum GameObjects
         {
             IconPanel,
@@ -63,6 +66,12 @@ namespace Assets.Scripts.UI.InGame.AutoSave
 
             Bind();
             InitObjects();
+
+            SaveLoadManager.Instance.SubscribeSaveEvent(OnSaveAction);
+            SaveLoadManager.Instance.saveDoneAction -= OnSaveDoneAction;
+            SaveLoadManager.Instance.saveDoneAction += OnSaveDoneAction;
+
+            gameObject.SetActive(false);
         }
 
         private void Bind()
@@ -134,6 +143,9 @@ namespace Assets.Scripts.UI.InGame.AutoSave
 
         private IEnumerator FadeOut()
         {
+            if (currentShowingAcc < minimumShowingDuration)
+                yield return new WaitForSeconds(minimumShowingDuration - currentShowingAcc);
+
             float timeAcc = 0.0f;
             WaitForEndOfFrame wfef = new WaitForEndOfFrame();
 
@@ -163,6 +175,7 @@ namespace Assets.Scripts.UI.InGame.AutoSave
 
         private IEnumerator RotateIcon()
         {
+            currentShowingAcc = 0.0f;
             if (rotateInterval <= 0.0f)
                 yield break;
 
@@ -174,7 +187,26 @@ namespace Assets.Scripts.UI.InGame.AutoSave
             {
                 rectTransforms[(int)GameObjects.IconPanel].Rotate(Vector3.forward, -rotationSpeed * Time.deltaTime);
                 yield return wfef;
+                currentShowingAcc += Time.deltaTime;
             }
+        }
+
+        private void OnSaveAction()
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.OpenAutoSave;
+
+            OnNotify(payload);
+        }
+
+        private void OnSaveDoneAction()
+        {
+            UIPayload payload = new UIPayload();
+            payload.uiType = UIType.Notify;
+            payload.actionType = ActionType.CloseAutoSave;
+
+            OnNotify(payload);
         }
     }
 }
