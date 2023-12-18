@@ -305,7 +305,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1346398095}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.9990001, y: 0.4419999, z: -4.5200005}
+  m_LocalPosition: {x: 0, y: 0.7419996, z: -7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -328,7 +328,7 @@ Camera:
   m_FOVAxisMode: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 54.1285
+  m_FocalLength: 29.999998
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -337,7 +337,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 5000
-  field of view: 25
+  field of view: 43.60282
   orthographic: 0
   orthographic size: 10
   m_Depth: -1
@@ -7351,7 +7351,7 @@ MonoBehaviour:
   zoomMultiplier: 0.5
   recoilTime: 0.3
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
-  miningTime: 4
+  miningTime: 1
   pickaxe: {fileID: 2136787205}
   isPickaxeAvailable: 0
   curPickaxeTier: 0
@@ -7615,10 +7615,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 5dd8de00ede3fa84ea9e8726a78ebf61, type: 2}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitDuration: 0.5
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: 5dd8de00ede3fa84ea9e8726a78ebf61, type: 2}
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
