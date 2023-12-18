@@ -1,6 +1,5 @@
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Item.Stone;
-using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -13,7 +12,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Controller;
 using UnityEngine;
-using Assets.Scripts.Data.GoogleSheet;
 
 public class TerrapupaMapObjectController : BaseController
 {

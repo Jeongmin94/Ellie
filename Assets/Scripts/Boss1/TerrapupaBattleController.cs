@@ -110,7 +110,8 @@ namespace Assets.Scripts.Boss1
         private void OnEndDialog()
         {
             Debug.Log("OnEndDialog()");
-            // 다이얼로그 끝났을 때
+            // 제한시간 코루틴 설정
+            StartCoroutine(bossRoomDoor.OpenDoorTimeLimit());
             //InputManager.Instance.CanInput = true;
         }
 

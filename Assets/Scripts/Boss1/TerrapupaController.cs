@@ -152,7 +152,7 @@ public class TerrapupaController : BaseController
                 OnStartSecondPhase();
                 break;
             case BossSituationType.StartThirdPhase:
-                OnStartThirdPhase(bPayload.Sender);
+                //OnStartThirdPhase(bPayload.Sender);
                 break;
             default:
                 break;
@@ -333,7 +333,7 @@ public class TerrapupaController : BaseController
         actor.terrapupaData.isIntake.Value = false;
         actor.terrapupaData.magicStoneTransform.Value = null;
 
-        if(!isFirstTerrapupaHeal)
+        if(!actor.IsDead && healValue != 0 && !isFirstTerrapupaHeal)
         {
             isFirstTerrapupaHeal = true;
             SendMessageBossDialog(BossDialogTriggerType.IntakeMagicStoneFirstTime);
@@ -492,6 +492,7 @@ public class TerrapupaController : BaseController
         StartCoroutine(MinionAttackCooldown(payload));
     }
 
+    [Button]
     private void OnDestroyAllManaFountains(IBaseEventPayload payload)
     {
         Debug.Log($"OnDestroyAllManaFountains :: 모든 보스 기절");

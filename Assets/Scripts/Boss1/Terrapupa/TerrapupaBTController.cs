@@ -41,8 +41,6 @@ namespace Boss.Terrapupa
         private bool isFirstReachCompareCountFaint = false;
         private int stoneHitCountFaint = 0;
 
-
-
         public Transform Stone
         {
             get { return stone; }
@@ -63,6 +61,11 @@ namespace Boss.Terrapupa
         public Dictionary<TerrapupaAttackType, Coroutine> AttackCooldown
         {
             get { return attackCooldown; }
+        }
+
+        public bool IsDead
+        {
+            get { return isDead; }
         }
 
         protected override void Awake()
@@ -97,9 +100,11 @@ namespace Boss.Terrapupa
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
 
-        private void OnTriggerEnter(Collider other)
+
+        private void OnCollisionEnter(Collision collision)
         {
-            if(!isFirstReachCompareCount && other.CompareTag("Stone"))
+            if(terrapupaData.isStart.Value &&
+                !isFirstReachCompareCount && collision.gameObject.CompareTag("Stone"))
             {
                 stoneHitCount++;
                 if (stoneHitCount >= stoneHitCompareCount)
@@ -115,6 +120,10 @@ namespace Boss.Terrapupa
             // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
             Debug.Log($"OnCollidedCoreByPlayerStone :: {payload}");
 
+            if(stoneHitCount > 0)
+            {
+                stoneHitCount--;
+            }
             if (terrapupaData.isStuned.value)
             {
                 CombatPayload combatPayload = payload as CombatPayload;
@@ -128,7 +137,7 @@ namespace Boss.Terrapupa
             {
                 Debug.Log("기절 상태가 아님");
 
-                if(!isFirstReachCompareCountFaint)
+                if(terrapupaData.isStart.Value && !isFirstReachCompareCountFaint)
                 {
                     stoneHitCountFaint++;
                     if (stoneHitCountFaint >= stoneHitCompareCountFaint)

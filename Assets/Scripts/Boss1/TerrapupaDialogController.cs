@@ -7,6 +7,7 @@ using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Sirenix.OdinInspector;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Boss1
         private int currentIndex;
         private bool isInit;
 
+        private Dictionary<int, bool> dialogFirstAchievementDic = new(); // 임시 저장용
         private TicketMachine ticketMachine;
 
         public string[] speakers = new string[]
@@ -68,6 +70,7 @@ namespace Assets.Scripts.Boss1
 
             ticketMachine.RegisterObserver(ChannelType.Dialog, OnNotifyDialog);
             ticketMachine.RegisterObserver(ChannelType.BossDialog, OnNotifyBossDialog);
+            ticketMachine.RegisterObserver(ChannelType.BossBattle, OnNotifyBossBattle);
         }
 
         private IEnumerator InitDialogData()
@@ -95,6 +98,7 @@ namespace Assets.Scripts.Boss1
                 return;
 
             dialogAchievementDic = savePayload.bossDialogStatusDic;
+            dialogFirstAchievementDic = dialogAchievementDic;
         }
 
         private void OnNotifyDialog(IBaseEventPayload payload)
@@ -109,7 +113,6 @@ namespace Assets.Scripts.Boss1
             {
                 if(dialogPayload.isEnd)
                 {
-                    Debug.Log("End OK");
                     if (dialogCoroutine != null)
                     {
                         StopCoroutine(dialogCoroutine);
@@ -126,7 +129,7 @@ namespace Assets.Scripts.Boss1
                     }
                     dialogCoroutine = null;
                 }
-                else if (currentType != DialogCanvasType.Simple)
+                else if (currentType != DialogCanvasType.Simple && currentType != DialogCanvasType.GuideDialog)
                 {
                     Debug.Log($"isPlaying == {dialogPayload.isPlaying}");
                     if (dialogPayload.isPlaying == false)
@@ -155,14 +158,33 @@ namespace Assets.Scripts.Boss1
             // false여야 최초 상태로 돌입
             if (!IsCheckedAchievementStatus(data))
             {
-                dialogAchievementDic[data.index] = true;
-
+                Debug.Log("다이얼로그 출력");
+                dialogFirstAchievementDic[data.index] = true;
                 currentData = data;
                 dialogList = currentData.dialogList;
                 currentIndex = 0;
 
                 NextDialog();
-                SaveLoadManager.Instance.SaveSpecificData(SaveBossDialog);
+            }
+        }
+
+        private void OnNotifyBossBattle(IBaseEventPayload payload)
+        {
+            if (payload is not BossBattlePayload battlePayload)
+                return;
+
+            Debug.Log(battlePayload.SituationType);
+
+            if (battlePayload.SituationType == BossSituationType.EnterBossRoom)
+            {
+                bool hasDialogAchievement = dialogAchievementDic.ContainsKey((int)BossDialogTriggerType.EnterBossRoom)
+                                            && dialogAchievementDic[(int)BossDialogTriggerType.EnterBossRoom];
+
+                if ((currentData == null && hasDialogAchievement) ||
+                    (currentData != null && currentData.index == (int)BossSituationType.EnterBossRoom && hasDialogAchievement))
+                {
+                    SendMessageBossBattle(BossSituationType.StartBattle);
+                }
             }
         }
 
@@ -190,7 +212,7 @@ namespace Assets.Scripts.Boss1
 
         private void NextDialog()
         {
-            Debug.Log("다음 대사");
+            Debug.Log($"{currentIndex} 인덱스");
             InitDialog();
 
             currentType = dialogList[currentIndex].dialogCanvasType;
@@ -201,7 +223,7 @@ namespace Assets.Scripts.Boss1
             // 상황 별 이벤트 재생
             var bossDialogType = dialogList[currentIndex].bossDialogType;
             if (bossDialogType != BossSituationType.None)
-            {
+            {   
                 SendBossDialogMessage(bossDialogType);
             }
             SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker, dialogList[currentIndex].remainTime);
@@ -211,6 +233,9 @@ namespace Assets.Scripts.Boss1
         {
             Debug.Log("대사 종료");
             InitDialog();
+            dialogAchievementDic[currentData.index] = true;
+            SaveLoadManager.Instance.SaveSpecificData(SaveBossDialog);
+
             currentIndex = 0;
             dialogList = null;
             currentData = null;
@@ -253,7 +278,7 @@ namespace Assets.Scripts.Boss1
             // 세이브하는 데이터인지 체크
             if(data.isSaveDialog)
             {
-                return dialogAchievementDic[data.index];
+                return dialogFirstAchievementDic[data.index];
             }
             else
             {
