@@ -17,7 +17,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject monsters;
         public GameObject[] skullSecondTraps;
         public GameObject stonePillarPuzzle;
-        public GameObject[] GuideColliders;
+        public GameObject GuideColliders;
         public int curStage = 1;
 
         private void Awake()
@@ -56,6 +56,11 @@ namespace Assets.Scripts.Centers.Test
             foreach(var SkullSecondTrap in skullSecondTraps)
                 CheckTicket(SkullSecondTrap.gameObject);
             CheckTicket(stonePillarPuzzle.gameObject);
+            
+            foreach (Transform guidecollider in GuideColliders.transform)
+            {
+                CheckTicket(guidecollider.gameObject);
+            }
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
         }
