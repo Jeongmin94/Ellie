@@ -2089,6 +2089,7 @@ GameObject:
   - component: {fileID: 4691484792249310862}
   - component: {fileID: 4358872970538757724}
   - component: {fileID: 6555073082771406715}
+  - component: {fileID: 2102300570}
   m_Layer: 10
   m_Name: Pupa
   m_TagString: Boss
@@ -2166,12 +2167,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28723ba2bff4b6b4780a4c4578ea55b8, type: 2}
   - {fileID: 11400000, guid: 58250ec10b179444eae8bddcd7c17ff1, type: 2}
   - {fileID: 11400000, guid: d35891d5a603d80428f7885aec2b19f4, type: 2}
-  - {fileID: 11400000, guid: bf8b870d1c8660a49959005e2a25cf76, type: 2}
+  - {fileID: 11400000, guid: 8e4edf6acbc8dba41b5c272970124c3e, type: 2}
   cameraObj: {fileID: 0}
   terrapupaData: {fileID: 0}
-  stone: {fileID: 9073804491225900255}
   weakPoint: {fileID: 911217315469005314}
   healthBar: {fileID: 4358872970538757724}
+  stone: {fileID: 9073804491225900255}
   shakeDuration: 0.1
   shakeMagnitude: 0.1
 --- !u!54 &4691484792249310862
@@ -2217,10 +2218,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 709ba2df5ef17264bb73f269844edca8, type: 2}
   hitColor: {r: 0, g: 0, b: 1, a: 1}
   hitDuration: 0.3
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: 709ba2df5ef17264bb73f269844edca8, type: 2}
+--- !u!114 &2102300570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4691484792249310850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e4f1958280de9489c0be3735bb24e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  blinkIntensity: 3
+  blinkDuration: 0.45
+  darkenDuration: 3
 --- !u!1 &8831768199645564775
 GameObject:
   m_ObjectHideFlags: 0

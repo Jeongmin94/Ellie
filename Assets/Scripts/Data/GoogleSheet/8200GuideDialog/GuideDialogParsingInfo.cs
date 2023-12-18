@@ -20,7 +20,7 @@ namespace Data.GoogleSheet._8200GuideDialog
     {
         private const int InvalidIntValue = -1;
 
-        public readonly List<GuideDialogData> data = new List<GuideDialogData>();
+        public List<GuideDialogData> data = new List<GuideDialogData>();
 
         public override void Parse()
         {

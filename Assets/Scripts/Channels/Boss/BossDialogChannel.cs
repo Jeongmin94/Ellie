@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Data.GoogleSheet;
+using UnityEngine;
 
 namespace Channels.Boss
 {
@@ -6,26 +7,25 @@ namespace Channels.Boss
     {
         // 트리거 타입
         // https://docs.google.com/spreadsheets/d/1DlHsnJDvkPX63VSBQC0I_Bg3tRGKPfGMpX1gIgggWEQ/edit#gid=98615154
+        None,
 
         EnterBossRoom = 8100,
         DestroyManaFountainFirstTime,
-        AttackBossWithNormalStone,
-        GetMagicStoneFirstTime,
         DontAttackBossWeakPoint,
+        GetMagicStoneFirstTime,
+        AttackBossWithNormalStone,
         IntakeMagicStoneFirstTime,
-        ReachHitEarthQuakeCount,
-        ReachHitLowAttackCount,
         StartSecondPhase,
         DestroyAllManaFountains,
-        ReachMissStalactiteCount,
         StartThirdPhase,
-        GetGolemCoreFirstTime, 
+        GetGolemCoreFirstTime,
         DieAllMinions,
+        FailedToOpenDoor,
     }
 
     public class BossDialogPaylaod : IBaseEventPayload
     {
-        public BossDialogTriggerType TriggerType { get; set; }
+        public BossDialogTriggerType TriggerType { get; set; } = BossDialogTriggerType.None;
     }
 
     public class BossDialogChannel : BaseEventChannel

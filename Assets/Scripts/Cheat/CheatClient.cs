@@ -247,7 +247,7 @@ public class CheatClient : SerializedMonoBehaviour
     public void KillTerrapupa()
     {
         Debug.Log("테라푸파 사망 치트");
-        terrapupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
+        terrapupa.GetComponent<TerrapupaBTController>().Dead();
     }
     [EnableIf("IsRuntime")]
     [Button("2페이즈 스킵", ButtonSizes.Large)]
@@ -255,8 +255,8 @@ public class CheatClient : SerializedMonoBehaviour
     {
         Debug.Log("테라, 푸파 사망 치트");
 
-        terra.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
-        pupa.GetComponent<TerrapupaBTController>().terrapupaData.currentHP.Value = 0;
+        terra.GetComponent<TerrapupaBTController>().Dead();
+        pupa.GetComponent<TerrapupaBTController>().Dead();
     }
     [EnableIf("IsRuntime")]
     [Button("3페이즈 스킵", ButtonSizes.Large)]
@@ -266,7 +266,7 @@ public class CheatClient : SerializedMonoBehaviour
 
         foreach (var minion in minions)
         {
-            minion.GetComponent<TerrapupaMinionBTController>().minionData.currentHP.Value = 0;
+            minion.GetComponent<TerrapupaMinionBTController>().Dead();
         }
     }
     [EnableIf("IsRuntime")]

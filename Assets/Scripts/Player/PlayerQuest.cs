@@ -80,6 +80,7 @@ namespace Assets.Scripts.Player
             {
                 if (curQuestData != null)
                     SendDisplayQuestMessage(curQuestData);
+                InputManager.Instance.CanInput = true;
                 yield break;
             }
             else
@@ -136,12 +137,13 @@ namespace Assets.Scripts.Player
                         SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
 
                         // 첫 번째 퀘스트 다이얼로그 출력 후 가이드 UI Pop
+                        InputManager.Instance.CanInput = true;
+
                         UIPayload payload = UIPayload.Notify();
                         payload.actionType = ActionType.OpenGuideCanvas;
                         ticketMachine.SendMessage(ChannelType.UI, payload);
 
                         UnlockPlayerMovement();
-                        InputManager.Instance.CanInput = true;
 
                         yield break;
                     }

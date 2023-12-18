@@ -39,7 +39,10 @@ public class CheckRangeTarget : ActionNode
 
         if (targets.Count == 0)
         {
-            target.Value = null;
+            if(target != null)
+            {
+                target.Value = null;
+            }
             return State.Success;
         }
         foreach (var item in targets)

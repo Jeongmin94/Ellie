@@ -16,7 +16,13 @@ namespace Assets.Scripts.Managers
         public Action keyAction;
         public Action mouseAction;
         public Action escapeAction;
-        public bool CanInput { get; set; } = false;
+
+        private bool canInput = false;
+        public bool CanInput
+        {
+            get { return canInput; }
+            set { canInput = value; Debug.Log($"호출시점 확인 :: 인풋 매니저 밸류 {value}"); }
+        }
         public bool PrevCanInput { get; private set; } = false;
 
         private bool isMousePressed = false;

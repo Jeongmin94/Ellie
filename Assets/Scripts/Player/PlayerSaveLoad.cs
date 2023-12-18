@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Centers;
+using Assets.Scripts.Managers;
 using System.Collections;
 using UnityEngine;
 
@@ -34,9 +35,20 @@ namespace Assets.Scripts.Player
             if (payload is not PlayerSavePayload savePayload) return;
 
             Debug.Log("Player Load");
+
             transform.position = savePayload.position.ToVector3();
             quest.LoadQuestData(savePayload.questSaveInfo);
             controller.LoadPickaxeData(savePayload.pickaxeSaveInfo);
+
+            StartCoroutine(SceneLoadCoroutine());
+        }
+
+        private IEnumerator SceneLoadCoroutine()
+        {
+            yield return SceneLoadManager.Instance.CheckIsLoadDone();
+
+            controller.ChangeState(PlayerStateName.Start);
+            InputManager.Instance.CanInput = true;
         }
     }
 }

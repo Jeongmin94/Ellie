@@ -25,11 +25,11 @@ namespace Channels.Utils
                 case ChannelType.Stone:
                     channel = new StoneChannel();
                     break;
-                case ChannelType.BossInteraction:
-                    channel = new BossInteractionChannel();
+                case ChannelType.BossBattle:
+                    channel = new BossBattleChannel();
                     break;
                 case ChannelType.Terrapupa:
-                    channel = new TerrapupaChannel();
+                    channel = new BossChannel();
                     break;
                 case ChannelType.Dialog:
                     channel = new DialogChannel();

@@ -14,7 +14,6 @@ using Channels.Type;
 using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 namespace UI.Dialog.GuideDialog
@@ -29,16 +28,19 @@ namespace UI.Dialog.GuideDialog
 
             public string Image { get; }
 
-            private GuideDialogInfo(string speaker, string message, string image)
+            public float RemainTime { get; }
+
+            private GuideDialogInfo(string speaker, string message, string image, float remainTime)
             {
                 Speaker = speaker;
                 Message = message;
                 Image = image;
+                RemainTime = remainTime;
             }
 
-            public static GuideDialogInfo Of(string speaker, string message, string image)
+            public static GuideDialogInfo Of(string speaker, string message, string image, float remainTime)
             {
-                return new GuideDialogInfo(speaker, message, image);
+                return new GuideDialogInfo(speaker, message, image, remainTime);
             }
         }
 
@@ -62,7 +64,7 @@ namespace UI.Dialog.GuideDialog
         [SerializeField] private UITransformData[] transformData;
         [SerializeField] private TextTypographyData[] typographyData;
         [SerializeField] private float showDuration = 5.0f;
-        [SerializeField] private float fadeOutDuration = 1.0f;
+        [SerializeField] private float fadeOutDuration = 0.5f;
 
         private readonly List<GameObject> panels = new List<GameObject>();
         private readonly List<RectTransform> panelRects = new List<RectTransform>();
@@ -71,6 +73,10 @@ namespace UI.Dialog.GuideDialog
 
         private Image guideDialogImage;
         private Image guideDialogBackgroundImage;
+
+        private Coroutine excuteCoroutine;
+        private Coroutine currentExcuteCoroutine;
+        private bool isFadingOut;
 
         private TicketMachine ticketMachine;
         private readonly Queue<GuideDialogInfo> dialogInfoQueue = new Queue<GuideDialogInfo>();
@@ -92,7 +98,7 @@ namespace UI.Dialog.GuideDialog
         private void Start()
         {
             InactiveObjects();
-            StartCoroutine(Execute());
+            excuteCoroutine = StartCoroutine(Execute());
         }
 
         private void Bind()
@@ -152,7 +158,19 @@ namespace UI.Dialog.GuideDialog
             if (dialogPayload.canvasType != DialogCanvasType.GuideDialog)
                 return;
 
-            var guidDialogInfo = GuideDialogInfo.Of(dialogPayload.speaker, dialogPayload.text, dialogPayload.imageName);
+            if (dialogPayload.dialogAction == DialogAction.Stop)
+            {
+                StartCoroutine(Stop());
+                return;
+            }    
+
+            var duration = dialogPayload.dialogDuration;
+            if (duration < 0.01f)
+            {
+                // Default
+                duration = showDuration;
+            }
+            var guidDialogInfo = GuideDialogInfo.Of(dialogPayload.speaker, dialogPayload.text, dialogPayload.imageName, duration);
             dialogInfoQueue.Enqueue(guidDialogInfo);
         }
 
@@ -161,11 +179,13 @@ namespace UI.Dialog.GuideDialog
             WaitForEndOfFrame wfef = new WaitForEndOfFrame();
             while (true)
             {
-                if (dialogInfoQueue.Any())
+                if (dialogInfoQueue.Any() && currentExcuteCoroutine == null)
                 {
                     var info = dialogInfoQueue.Dequeue();
 
-                    yield return ShowGuideDialog(info);
+                    currentExcuteCoroutine = StartCoroutine(ShowGuideDialog(info));
+                    yield return currentExcuteCoroutine;
+                    currentExcuteCoroutine = null;
                 }
 
                 yield return wfef;
@@ -182,7 +202,7 @@ namespace UI.Dialog.GuideDialog
             texts[(int)Texts.GuideDialogSpeakerText].text = info.Speaker;
 
             ActiveObjects();
-            yield return new WaitForSeconds(showDuration);
+            yield return new WaitForSeconds(info.RemainTime);
 
             yield return FadeOutObjects();
         }
@@ -230,6 +250,7 @@ namespace UI.Dialog.GuideDialog
             Color imageColor = guideDialogImage.color;
             Color backgroundImageColor = guideDialogBackgroundImage.color;
 
+            isFadingOut = true;
             while (timeAcc <= fadeOutDuration)
             {
                 yield return wfef;
@@ -245,7 +266,8 @@ namespace UI.Dialog.GuideDialog
                 guideDialogImage.color = FadeOutColor(imageColor, ratio);
                 guideDialogBackgroundImage.color = FadeOutColor(backgroundImageColor, ratio);
             }
-
+            isFadingOut = false;
+            SendPayloadEndingDialog();
             InactiveObjects();
         }
 
@@ -257,6 +279,34 @@ namespace UI.Dialog.GuideDialog
             en.a = 0.0f;
 
             return Color.Lerp(st, en, ratio);
+        }
+
+        private IEnumerator Stop()
+        {
+            if (isFadingOut)
+            {
+                yield break;
+            }
+
+            if (currentExcuteCoroutine != null)
+            {
+                StopCoroutine(currentExcuteCoroutine);
+                currentExcuteCoroutine = null;
+            }
+
+            yield return StartCoroutine(FadeOutObjects());
+            StopCoroutine(excuteCoroutine);
+            excuteCoroutine = StartCoroutine(Execute());
+        }
+
+        private void SendPayloadEndingDialog()
+        {
+            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
+            {
+                dialogType = DialogType.NotifyToClient,
+                isPlaying = false,
+                isEnd = true,
+            });
         }
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Monsters.Others;
-using Borodar.RainbowFolders;
 using Channels.Combat;
 using UnityEngine;
 
