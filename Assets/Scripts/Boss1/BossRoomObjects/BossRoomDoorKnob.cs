@@ -33,7 +33,7 @@ public class BossRoomDoorKnob : MonoBehaviour
     {
         if(!isChecked)
         {
-            var temp = new ParticlePayload { Origin = doorKnob, IsLoop = true };
+            var temp = new ParticlePayload { Origin = doorKnob, IsFollowOrigin = true, IsLoop = true };
             particle = ParticleManager.Instance.GetParticle(emphasizeEffect, temp).GetComponent<ParticleController>();
         }
     }

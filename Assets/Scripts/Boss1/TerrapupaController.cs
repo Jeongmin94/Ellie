@@ -359,26 +359,26 @@ public class TerrapupaController : BaseController
             {
                 minionDeathCheck--;
                 Debug.Log($"미니언 사망, 남은 미니언 {minionDeathCheck}");
+
+                if (minionDeathCheck == 2 || minionDeathCheck == 0)
+                {
+                    Debug.Log("골렘의 눈 드랍");
+                    Vector3 position = payload.Sender.position;
+
+                    DropStoneItem(position, GOLEM_CORE_INDEX);
+                    golemCoreCount++;
+                    if (golemCoreCount == 1)
+                    {
+                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetGolemCoreFirstTime, ticketMachine);
+                    }
+                    else if (golemCoreCount == 2)
+                    {
+                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DieAllMinions, ticketMachine);
+                    }
+                }
             }
 
             payload.Sender.gameObject.SetActive(false);
-        }
-
-        if (minionDeathCheck == 2 || minionDeathCheck == 0)
-        {
-            Debug.Log("골렘의 눈 드랍");
-            Vector3 position = payload.Sender.position;
-
-            DropStoneItem(position, GOLEM_CORE_INDEX);
-            golemCoreCount++;
-            if(golemCoreCount == 1)
-            {
-                BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetGolemCoreFirstTime, ticketMachine);
-            }
-            else if(golemCoreCount == 2)
-            {
-                BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DieAllMinions, ticketMachine);
-            }
         }
     }
 
