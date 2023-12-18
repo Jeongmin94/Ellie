@@ -37,6 +37,7 @@ namespace Assets.Scripts.Boss1.BossRoomObjects
             yield return new WaitForSeconds(doorTimeLimit);
 
             BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.FailedToOpenDoor, ticketMachine);
+            EmphasizedDoor();
         }
 
         private void OnCheckGolemCore(BossRoomDoorKnob knob, Transform stone)
@@ -63,6 +64,12 @@ namespace Assets.Scripts.Boss1.BossRoomObjects
 
             leftDoor.OpenDoor(-openAngle, openSpeedTime);
             rightDoor.OpenDoor(openAngle, openSpeedTime);
+        }
+
+        private void EmphasizedDoor()
+        {
+            leftDoor.EmphasizedDoor();
+            rightDoor.EmphasizedDoor();
         }
     }
 }

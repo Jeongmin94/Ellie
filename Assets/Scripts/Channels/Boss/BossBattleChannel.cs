@@ -15,6 +15,7 @@ namespace Channels.Boss
         LeftBossRoom,
         OpenLeftDoor,
         StartThirdPhase,
+        EmphasizedDoor,
     }
 
     public class BossBattlePayload : IBaseEventPayload

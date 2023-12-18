@@ -1,3 +1,4 @@
+using Assets.Scripts.Particle;
 using Sirenix.OdinInspector;
 using System;
 using System.Collections;
@@ -6,11 +7,13 @@ using ReadOnlyAttribute = Sirenix.OdinInspector.ReadOnlyAttribute;
 
 public class BossRoomDoorKnob : MonoBehaviour
 {
+    [SerializeField][Required] private GameObject emphasizeEffect;
     [SerializeField][Required] private Transform doorKnob;
     [SerializeField][ReadOnly] private bool isChecked = false;
     [SerializeField][ReadOnly] private float openSpeedTime;
 
     private Action<BossRoomDoorKnob, Transform> golemCoreCheckAction;
+    private ParticleController particle;
 
     public void SubScribeAction(Action<BossRoomDoorKnob, Transform> action)
     {
@@ -26,6 +29,15 @@ public class BossRoomDoorKnob : MonoBehaviour
         }
     }
 
+    public void EmphasizedDoor()
+    {
+        if(!isChecked)
+        {
+            var temp = new ParticlePayload { Origin = doorKnob, IsLoop = true };
+            particle = ParticleManager.Instance.GetParticle(emphasizeEffect, temp).GetComponent<ParticleController>();
+        }
+    }
+
     public void Init(Transform golemCoreStone)
     {
         golemCoreStone.SetParent(doorKnob);
@@ -36,6 +48,12 @@ public class BossRoomDoorKnob : MonoBehaviour
         coreRigidbody.isKinematic = true;
         coreRigidbody.velocity = Vector3.zero;
         coreRigidbody.useGravity = false;
+
+        if(particle)
+        {
+            particle.Stop();
+            particle = null;
+        }
     }
 
     public void OpenDoor(float openAngle, float openTime)

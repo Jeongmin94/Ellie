@@ -104,9 +104,10 @@ MonoBehaviour:
     - rid: 1683426562437021715
     - rid: 1683426562437021876
     - rid: 116448501211856896
+    - rid: 6881098230567796747
     - rid: 116448501211856898
-  viewPosition: {x: 3288.8, y: 588.8, z: 0}
-  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  viewPosition: {x: 1437.6, y: 168.8, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -139,6 +140,10 @@ MonoBehaviour:
           reference:
             rid: 116448501211856898
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 1
     - rid: 116448501211856900
       type: {class: PlaySound, ns: , asm: Assembly.Ellie}
       data:
@@ -154,6 +159,10 @@ MonoBehaviour:
           reference:
             rid: 116448501211856898
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 1
     - rid: 283011018610442310
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -853,7 +862,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 50029ef93d817a34dba28c61941bef67
-        position: {x: -630, y: 780}
+        position: {x: -645, y: 780}
         blackboard:
           keys: []
         description: 
@@ -964,7 +973,7 @@ MonoBehaviour:
         eventBusEvent:
           reference:
             rid: -2
-          defaultValue: 5
+          defaultValue: 12
         baseEventPayload:
           reference:
             rid: 1683426247750189135
@@ -1134,6 +1143,12 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
+    - rid: 6881098230567796747
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound2
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
     - rid: 8619125029124177949
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

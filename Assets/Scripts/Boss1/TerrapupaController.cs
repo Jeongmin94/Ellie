@@ -18,6 +18,7 @@ using TheKiwiCoder;
 using Assets.Scripts.Boss1.Terrapupa;
 using Assets.Scripts.Data.GoogleSheet;
 using Channels.UI;
+using Assets.Scripts.Managers;
 
 public class TerrapupaController : BaseController
 {
@@ -403,6 +404,7 @@ public class TerrapupaController : BaseController
             return;
         }
 
+        GameObject hitEffect = payload.PrefabValue;
         Transform playerTransform = payload.TransformValue1;
         Transform manaTransform = payload.TransformValue2;
         Transform boss = payload.Sender;
@@ -411,6 +413,11 @@ public class TerrapupaController : BaseController
         if (playerTransform != null)
         {
             HitedPlayer(boss, playerTransform, payload.CombatPayload);
+            if(hitEffect != null)
+            {
+                ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "TerrapupaRollHit", boss.position);
+            }
         }
 
         if (manaTransform != null)

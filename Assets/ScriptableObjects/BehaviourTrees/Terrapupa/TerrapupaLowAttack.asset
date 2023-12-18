@@ -74,7 +74,7 @@ MonoBehaviour:
     - rid: 1683426562437021873
     - rid: 6881097883797946371
     - rid: 116448495133786120
-  viewPosition: {x: -247.2, y: 76, z: 0}
+  viewPosition: {x: -1099.2, y: 11.2, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -102,6 +102,10 @@ MonoBehaviour:
           reference:
             rid: 116448495133786120
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442276
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -580,6 +584,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011481676021761
       type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -631,6 +639,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011481676021763
       type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -663,6 +675,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 0
         isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        loopCount:
           reference:
             rid: -2
           defaultValue: 0
@@ -1044,3 +1060,7 @@ MonoBehaviour:
           reference:
             rid: 6881097883797946371
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0

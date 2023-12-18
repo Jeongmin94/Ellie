@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 using TheKiwiCoder;
 using Assets.Scripts.Managers;
 
@@ -8,6 +5,7 @@ using Assets.Scripts.Managers;
 public class PlaySound : ActionNode
 {
     public NodeProperty<string> soundName;
+    public NodeProperty<bool> isUISfx;
 
     protected override void OnStart() {
     }
@@ -16,7 +14,14 @@ public class PlaySound : ActionNode
     }
 
     protected override State OnUpdate() {
-        SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, soundName.Value, context.transform.position);
+        if(isUISfx.Value)
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, soundName.Value, context.transform.position);
+        }
+        else
+        {
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, soundName.Value, context.transform.position);
+        }
 
         return State.Success;
     }

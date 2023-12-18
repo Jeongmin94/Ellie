@@ -100,9 +100,10 @@ MonoBehaviour:
     - rid: 283011291767373853
     - rid: 1683426562437021879
     - rid: 116448501211856901
+    - rid: 6881098230567796748
     - rid: 116448501211856902
-  viewPosition: {x: 2455.2, y: 609.6, z: 0}
-  viewScale: {x: 0.49717674, y: 0.49717674, z: 1}
+  viewPosition: {x: 2155.2, y: 292, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -135,13 +136,17 @@ MonoBehaviour:
           reference:
             rid: 116448501211856901
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 1
     - rid: 116448501211856904
       type: {class: PlaySound, ns: , asm: Assembly.Ellie}
       data:
         state: 0
         started: 0
         guid: 8ac3aef629c886e4081caedf71cc6732
-        position: {x: -1830, y: -585}
+        position: {x: -1830, y: -600}
         blackboard:
           keys: []
         description: 
@@ -150,6 +155,10 @@ MonoBehaviour:
           reference:
             rid: 116448501211856902
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 1
     - rid: 283011018610442310
       type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -614,6 +623,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 1401849175978016768
       type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -942,7 +955,7 @@ MonoBehaviour:
         eventBusEvent:
           reference:
             rid: -2
-          defaultValue: 5
+          defaultValue: 12
         baseEventPayload:
           reference:
             rid: 1683426247750189135
@@ -1043,6 +1056,12 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
+    - rid: 6881098230567796748
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound2
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
     - rid: 8619125029124177949
       type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
