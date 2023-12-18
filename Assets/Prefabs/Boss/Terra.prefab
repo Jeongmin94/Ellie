@@ -2066,6 +2066,7 @@ GameObject:
   - component: {fileID: 4290592259550087224}
   - component: {fileID: 8979523352542451410}
   - component: {fileID: 8392476946623869020}
+  - component: {fileID: 1623710013}
   m_Layer: 10
   m_Name: Terra
   m_TagString: Boss
@@ -2143,12 +2144,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28723ba2bff4b6b4780a4c4578ea55b8, type: 2}
   - {fileID: 11400000, guid: 58250ec10b179444eae8bddcd7c17ff1, type: 2}
   - {fileID: 11400000, guid: d35891d5a603d80428f7885aec2b19f4, type: 2}
-  - {fileID: 11400000, guid: bf8b870d1c8660a49959005e2a25cf76, type: 2}
+  - {fileID: 11400000, guid: 28c270d94fc82954cb36ed44c6d613a9, type: 2}
   cameraObj: {fileID: 0}
   terrapupaData: {fileID: 0}
-  stone: {fileID: 539340684515209833}
   weakPoint: {fileID: 8517983859904332980}
   healthBar: {fileID: 8979523352542451410}
+  stone: {fileID: 539340684515209833}
   shakeDuration: 0.1
   shakeMagnitude: 0.1
 --- !u!54 &4290592259550087224
@@ -2194,10 +2195,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: d82cfca67f44bb14f854a1eb8bd9f852, type: 2}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitDuration: 0.3
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: d82cfca67f44bb14f854a1eb8bd9f852, type: 2}
+--- !u!114 &1623710013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4290592259550087220}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76e4f1958280de9489c0be3735bb24e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  blinkIntensity: 3
+  blinkDuration: 0.45
+  darkenDuration: 3
 --- !u!1001 &2935722766533192907
 PrefabInstance:
   m_ObjectHideFlags: 0

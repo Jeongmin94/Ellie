@@ -35,7 +35,7 @@ namespace Channels.Dialog
         public float interval;
         public bool isPlaying;
         public bool isEnd;
-        public float simpleDialogDuration = 1.0f;
+        public float dialogDuration;
 
         public static DialogPayload Play(string text, float interval = 0.01f)
         {

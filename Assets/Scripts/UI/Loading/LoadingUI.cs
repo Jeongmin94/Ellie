@@ -72,7 +72,11 @@ public class LoadingUI : MonoBehaviour
         }
         targetLoad += targetLoad;
         // + Add Load
-        yield return SaveLoadManager.Instance.CheckIsLoadDone();
+        if(SaveLoadManager.Instance.IsLoadData == true)
+        {
+            SaveLoadManager.Instance.LoadData();
+            yield return SaveLoadManager.Instance.CheckIsLoadDone();
+        }
 
         barSpeed = fasterBarSpeed;
         while (loadingSlider.value < targetLoad)
@@ -81,10 +85,7 @@ public class LoadingUI : MonoBehaviour
             yield return null;
         }
 
-        barSpeed = generalBarSpeed;
         yield return new WaitForSeconds(spareTimeToLoad);
-        SaveLoadManager.Instance.IsLoadData = false;
-
 
         while (loadingSlider.value < 1.0f)
         {
@@ -94,7 +95,6 @@ public class LoadingUI : MonoBehaviour
         yield return new WaitForSeconds(spareTimeToLoad);
 
         SceneLoadManager.Instance.FinishLoading();
-
         SceneManager.UnloadSceneAsync((int)SceneName.LoadingScene);
     }
 

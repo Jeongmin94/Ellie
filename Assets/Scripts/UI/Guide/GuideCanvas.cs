@@ -61,9 +61,10 @@ namespace Assets.Scripts.UI.Guide
         {
             if (gameObject.activeSelf)
             {
-                Cursor.visible = false;
                 InputManager.Instance.CanInput = true;
                 gameObject.SetActive(false);
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
             }
         }
 

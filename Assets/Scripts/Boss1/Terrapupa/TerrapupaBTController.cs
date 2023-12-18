@@ -10,15 +10,17 @@ using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Player.HitComponent;
 using Channels.Type;
 using UnityEngine;
+using Assets.Scripts.Boss1.Terrapupa;
+using TheKiwiCoder;
 
 namespace Boss.Terrapupa
 {
     public class TerrapupaBTController : BehaviourTreeController
     {
         [HideInInspector] public TerrapupaRootData terrapupaData;
-        [SerializeField] private Transform stone;
-        [SerializeField] private TerrapupaWeakPoint weakPoint;
-        [SerializeField] private TerrapupaHealthBar healthBar;
+        [SerializeField][Required] private TerrapupaWeakPoint weakPoint;
+        [SerializeField][Required] private TerrapupaHealthBar healthBar;
+        [SerializeField][Required] private Transform stone;
 
         [ShowInInspector] [ReadOnly] private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown =
             new Dictionary<TerrapupaAttackType, Coroutine>();
@@ -28,6 +30,18 @@ namespace Boss.Terrapupa
 
         private TicketMachine ticketMachine;
         private MaterialHitComponent hitComponent;
+        private TerrapupaCoreController coreController;
+        private bool isDead = false;
+
+        private readonly int stoneHitCompareCount = 5;
+        private bool isFirstReachCompareCount = false;
+        private int stoneHitCount = 0;
+
+        private readonly int stoneHitCompareCountFaint = 3;
+        private bool isFirstReachCompareCountFaint = false;
+        private int stoneHitCountFaint = 0;
+
+
 
         public Transform Stone
         {
@@ -58,6 +72,7 @@ namespace Boss.Terrapupa
             terrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
             hitComponent = gameObject.GetComponent<MaterialHitComponent>();
+            coreController = gameObject.GetComponent<TerrapupaCoreController>();
 
             SubscribeEvent();
         }
@@ -82,6 +97,19 @@ namespace Boss.Terrapupa
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
 
+        private void OnTriggerEnter(Collider other)
+        {
+            if(!isFirstReachCompareCount && other.CompareTag("Stone"))
+            {
+                stoneHitCount++;
+                if (stoneHitCount >= stoneHitCompareCount)
+                {
+                    isFirstReachCompareCount = true;
+                    SendMessageBossDialog(BossDialogTriggerType.AttackBossWithNormalStone);
+                }
+            }
+        }
+
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
         {
             // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
@@ -99,6 +127,16 @@ namespace Boss.Terrapupa
             else
             {
                 Debug.Log("기절 상태가 아님");
+
+                if(!isFirstReachCompareCountFaint)
+                {
+                    stoneHitCountFaint++;
+                    if (stoneHitCountFaint >= stoneHitCompareCountFaint)
+                    {
+                        isFirstReachCompareCountFaint = true;
+                        SendMessageBossDialog(BossDialogTriggerType.DontAttackBossWeakPoint);
+                    }
+                }
             }
         }
 
@@ -144,37 +182,36 @@ namespace Boss.Terrapupa
 
         public void GetDamaged(int damageValue)
         {
-            ShowBillboard();
-            StartCoroutine(ShakeCoroutine());
-            hitComponent.Hit();
-            ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload()
+            if(!isDead)
             {
-                type = CameraShakingEffectType.Start,
-                shakeIntensity = damageValue,
-                shakeTime = 0.1f,
-            });
+                ShowBillboard();
+                ShakeCamera(damageValue);
+                StartCoroutine(ShakeCoroutine());
+                hitComponent.Hit();
 
-            healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
-            terrapupaData.currentHP.Value -= damageValue;
+                healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
+                terrapupaData.currentHP.Value -= damageValue;
 
-            if (terrapupaData.currentHP.value <= 0)
-            {
-                HideBillboard();
-                terrapupaData.currentHP.Value = 0;
-                healthBar.RenewHealthBar(0);
+                if (terrapupaData.currentHP.value <= 0)
+                {
+                    Dead();
+                }
             }
         }
 
         public void GetHealed(int healValue)
         {
-            healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
-            terrapupaData.currentHP.Value += healValue;
-
-            if (terrapupaData.currentHP.value > terrapupaData.hp)
+            if(!isDead)
             {
-                HideBillboard();
-                terrapupaData.currentHP.Value = terrapupaData.hp;
-                healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+                healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
+                terrapupaData.currentHP.Value += healValue;
+
+                if (terrapupaData.currentHP.value > terrapupaData.hp)
+                {
+                    HideBillboard();
+                    terrapupaData.currentHP.Value = terrapupaData.hp;
+                    healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+                }
             }
         }
 
@@ -192,6 +229,31 @@ namespace Boss.Terrapupa
             }
 
             transform.position = originalPosition; // 원래 위치로 돌아감
+        }
+
+        private void ShakeCamera(int damageValue)
+        {
+            ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload()
+            {
+                type = CameraShakingEffectType.Start,
+                shakeIntensity = damageValue,
+                shakeTime = 0.1f,
+            });
+        }
+
+        public void Dead()
+        {
+            isDead = true;
+            terrapupaData.currentHP.Value = 0;
+            healthBar.RenewHealthBar(0);
+            coreController.DarkenCore();
+            billboardObject.gameObject.SetActive(false);
+        }
+
+        private void SendMessageBossDialog(BossDialogTriggerType type)
+        {
+            var dPayload = new BossDialogPaylaod { TriggerType = type };
+            ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
         }
     }
 }

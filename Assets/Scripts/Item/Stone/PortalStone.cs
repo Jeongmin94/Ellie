@@ -63,12 +63,14 @@ namespace Assets.Scripts.Item.Stone
 
         private void CheckUsePortal()
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, portalRadius, playerLayer);
+            Vector3 portalPosition = transform.position;
+            Vector3 capsuleTop = portalPosition + Vector3.up * 2.0f;
+
+            Collider[] hitColliders = Physics.OverlapCapsule(portalPosition, capsuleTop, portalRadius, playerLayer);
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.CompareTag("Player"))
                 {
-                    Debug.Log(hitCollider);
                     UsePortal(hitCollider.transform); 
 
                     break;
@@ -101,8 +103,6 @@ namespace Assets.Scripts.Item.Stone
 
         public void ActivatePortal()
         {
-            Debug.Log("포탈 활성화");
-
             // 콜라이더 제거 + 중력 제거
             rb.velocity = Vector3.zero;
             rb.angularVelocity = Vector3.zero;
