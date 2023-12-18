@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using System.Collections;
 using System.Collections.Generic;
+using InteractingColliders;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
@@ -24,7 +25,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
             foreach (var collider in colliders)
             {
-                NpcType type = collider.GetComponent<QuestCollider.QuestCollider>().GetType();
+                NpcType type = collider.GetComponent<QuestCollider>().GetType();
                 questColliderDic[type] = collider;
             }
         }

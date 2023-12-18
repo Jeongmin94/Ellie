@@ -17,6 +17,7 @@ namespace Assets.Scripts.Centers.Test
         public GameObject monsters;
         public GameObject[] skullSecondTraps;
         public GameObject stonePillarPuzzle;
+        public GameObject[] GuideColliders;
         public int curStage = 1;
 
         private void Awake()
