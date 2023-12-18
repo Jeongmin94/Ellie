@@ -44,11 +44,11 @@ public class CheatClient : SerializedMonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-
+            player.gameObject.tag = "Player";
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-
+            player.gameObject.tag = "Untagged";
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {

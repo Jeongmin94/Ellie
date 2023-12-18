@@ -7,9 +7,9 @@ namespace Assets.Scripts.Boss1.Terrapupa
 {
     public class TerrapupaCoreController : SerializedMonoBehaviour
     {
-        public float blinkIntensity = 3.0f;
+        public float blinkIntensity = 4.0f;
         public float blinkDuration = 0.45f;
-        public float darkenDuration = 3.0f;
+        public float darkenDuration = 2.0f;
 
         private MaterialHitComponent hitComponent;
         private Coroutine blinkCoroutine;
