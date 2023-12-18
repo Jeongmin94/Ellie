@@ -12,6 +12,8 @@ using Channels.Type;
 using UnityEngine;
 using Assets.Scripts.Boss1.Terrapupa;
 using TheKiwiCoder;
+using Assets.Scripts.Controller;
+using Assets.Scripts.Particle;
 
 namespace Boss.Terrapupa
 {
@@ -40,6 +42,8 @@ namespace Boss.Terrapupa
         private readonly int stoneHitCompareCountFaint = 3;
         private bool isFirstReachCompareCountFaint = false;
         private int stoneHitCountFaint = 0;
+
+        private ParticleController intakeEffect;
 
         public Transform Stone
         {
@@ -100,7 +104,6 @@ namespace Boss.Terrapupa
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
 
-
         private void OnCollisionEnter(Collision collision)
         {
             if(terrapupaData.isStart.Value &&
@@ -110,7 +113,7 @@ namespace Boss.Terrapupa
                 if (stoneHitCount >= stoneHitCompareCount)
                 {
                     isFirstReachCompareCount = true;
-                    SendMessageBossDialog(BossDialogTriggerType.AttackBossWithNormalStone);
+                    BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.AttackBossWithNormalStone, ticketMachine);
                 }
             }
         }
@@ -143,10 +146,106 @@ namespace Boss.Terrapupa
                     if (stoneHitCountFaint >= stoneHitCompareCountFaint)
                     {
                         isFirstReachCompareCountFaint = true;
-                        SendMessageBossDialog(BossDialogTriggerType.DontAttackBossWeakPoint);
+                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DontAttackBossWeakPoint, ticketMachine);
                     }
                 }
             }
+        }
+
+        public void GetDamaged(int damageValue)
+        {
+            if(!isDead)
+            {
+                ShowBillboard();
+                ShakeCamera(damageValue);
+                StartCoroutine(ShakeCoroutine());
+                hitComponent.Hit();
+
+                healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
+                terrapupaData.currentHP.Value -= damageValue;
+
+                if (terrapupaData.currentHP.value <= 0)
+                {
+                    Dead();
+                }
+            }
+        }
+
+        public void GetHealed(int healValue)
+        {
+            if(!isDead)
+            {
+                healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
+                terrapupaData.currentHP.Value += healValue;
+
+                if (terrapupaData.currentHP.value > terrapupaData.hp)
+                {
+                    HideBillboard();
+                    terrapupaData.currentHP.Value = terrapupaData.hp;
+                    healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+                }
+            }
+        }
+
+        public void StartBattle(Transform player)
+        {
+            terrapupaData.isStart.Value = true;
+            coreController.PlayCoreEffect();
+            terrapupaData.player.Value = player;
+            HideBillboard();
+        }
+
+        public void Dead()
+        {
+            isDead = true;
+            StopIntakeEffect();
+            terrapupaData.currentHP.Value = 0;
+            healthBar.RenewHealthBar(0);
+            coreController.DarkenCore();
+            billboardObject.gameObject.SetActive(false);
+        }
+
+        public void Stun()
+        {
+            StopIntakeEffect();
+            coreController.StopCoreEffect();
+            coreController.StopBlinkCore();
+            terrapupaData.isStuned.Value = true;
+            terrapupaData.isTempted.Value = false;
+            terrapupaData.isIntake.Value = false;
+        }
+
+        public void AttractMagicStone(Transform magicStone)
+        {
+            terrapupaData.isTempted.Value = true;
+            terrapupaData.isIntake.Value = false;
+            terrapupaData.magicStoneTransform.Value = magicStone;
+        }
+
+        public void UnattractMagicStone()
+        {
+            terrapupaData.isTempted.Value = false;
+            terrapupaData.isIntake.Value = false;
+            terrapupaData.magicStoneTransform.Value = null;
+        }
+
+        public void StartIntakeMagicStone()
+        {
+            coreController.StartBlinkCore();
+
+            var effect = Data<TerrapupaIntakeData>("TerrapupaIntake");
+            var payload = new ParticlePayload { Origin = transform, LoopCount = 5 };
+            intakeEffect = ParticleManager.Instance.GetParticle(effect.effect1, payload).GetComponent<ParticleController>();
+        }
+
+        public void EndIntakeMagicStone(int healValue)
+        {
+            StopIntakeEffect();
+            GetHealed(healValue);
+            coreController.StopBlinkCore();
+            terrapupaData.isTempted.Value = false;
+            terrapupaData.isIntake.Value = false;
+            terrapupaData.magicStoneTransform.Value = null;
         }
 
         public void Cooldown(float cooldown, TerrapupaAttackType type)
@@ -189,41 +288,6 @@ namespace Boss.Terrapupa
             }
         }
 
-        public void GetDamaged(int damageValue)
-        {
-            if(!isDead)
-            {
-                ShowBillboard();
-                ShakeCamera(damageValue);
-                StartCoroutine(ShakeCoroutine());
-                hitComponent.Hit();
-
-                healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
-                terrapupaData.currentHP.Value -= damageValue;
-
-                if (terrapupaData.currentHP.value <= 0)
-                {
-                    Dead();
-                }
-            }
-        }
-
-        public void GetHealed(int healValue)
-        {
-            if(!isDead)
-            {
-                healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
-                terrapupaData.currentHP.Value += healValue;
-
-                if (terrapupaData.currentHP.value > terrapupaData.hp)
-                {
-                    HideBillboard();
-                    terrapupaData.currentHP.Value = terrapupaData.hp;
-                    healthBar.RenewHealthBar(terrapupaData.currentHP.value);
-                }
-            }
-        }
-
         private IEnumerator ShakeCoroutine()
         {
             float elapsed = 0.0f;
@@ -250,19 +314,13 @@ namespace Boss.Terrapupa
             });
         }
 
-        public void Dead()
+        private void StopIntakeEffect()
         {
-            isDead = true;
-            terrapupaData.currentHP.Value = 0;
-            healthBar.RenewHealthBar(0);
-            coreController.DarkenCore();
-            billboardObject.gameObject.SetActive(false);
-        }
-
-        private void SendMessageBossDialog(BossDialogTriggerType type)
-        {
-            var dPayload = new BossDialogPaylaod { TriggerType = type };
-            ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
+            if (intakeEffect)
+            {
+                intakeEffect.Stop();
+                intakeEffect = null;
+            }
         }
     }
 }

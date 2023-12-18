@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Channels.Components;
+using Channels.Type;
+using UnityEngine;
 
 namespace Channels.Boss
 {
@@ -23,6 +25,12 @@ namespace Channels.Boss
 
     public class BossBattleChannel : BaseEventChannel
     {
+        public static void SendMessageBossBattle(BossSituationType type, TicketMachine ticketMachine)
+        {
+            var bPayload = new BossBattlePayload { SituationType = type };
+            ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
+        }
+
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             if (payload is not BossBattlePayload bossDialogPayload)

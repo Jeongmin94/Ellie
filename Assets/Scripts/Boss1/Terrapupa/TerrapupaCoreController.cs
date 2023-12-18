@@ -2,6 +2,7 @@
 using Sirenix.OdinInspector;
 using System.Collections;
 using UnityEngine;
+using UnityEngine.VFX;
 
 namespace Assets.Scripts.Boss1.Terrapupa
 {
@@ -12,12 +13,30 @@ namespace Assets.Scripts.Boss1.Terrapupa
         public float darkenDuration = 2.0f;
 
         private MaterialHitComponent hitComponent;
+        private VisualEffect coreEffect;
         private Coroutine blinkCoroutine;
         private bool isBlinking;
 
         private void Awake()
         {
+            coreEffect = GetComponentInChildren<VisualEffect>();
             hitComponent = GetComponent<MaterialHitComponent>();
+        }
+
+        private void Start()
+        {
+            coreEffect.enabled = false;
+        }
+
+        public void PlayCoreEffect()
+        {
+            coreEffect.enabled = true;
+            coreEffect.Play();
+        }
+
+        public void StopCoreEffect()
+        {
+            coreEffect.Stop();
         }
 
         [Button]
@@ -41,6 +60,7 @@ namespace Assets.Scripts.Boss1.Terrapupa
         public void DarkenCore()
         {
             StopAllCoroutines();
+            StopCoreEffect();
             StartCoroutine(DarkenCoroutine());
         }
 

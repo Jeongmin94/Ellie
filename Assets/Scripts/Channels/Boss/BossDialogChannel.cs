@@ -1,4 +1,6 @@
 ﻿using Assets.Scripts.Data.GoogleSheet;
+using Channels.Components;
+using Channels.Type;
 using UnityEngine;
 
 namespace Channels.Boss
@@ -30,6 +32,12 @@ namespace Channels.Boss
 
     public class BossDialogChannel : BaseEventChannel
     {
+        public static void SendMessageBossDialog(BossDialogTriggerType type, TicketMachine ticketMachine)
+        {
+            var dPayload = new BossDialogPaylaod { TriggerType = type };
+            ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
+        }
+
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             if (payload is not BossDialogPaylaod bossDialogPayload)

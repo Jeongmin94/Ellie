@@ -15,138 +15,129 @@ using UnityEngine.UI;
 
 public class CheatClient : SerializedMonoBehaviour
 {
-    public Transform player;
-    public Transform terrapupa;
-    public Transform terra;
-    public Transform pupa;
-    public List<Transform> minions;
+    [InfoBox("치트 사용 가능 여부")] public bool canCheat = true;
+
+    [Required] public Transform player;
+    [Required] public Transform terrapupa;
+    [Required] public Transform terra;
+    [Required] public Transform pupa;
+    [Required] public List<Transform> minions;
 
     private GameObject canvas;
 
-    private bool IsRuntime
-    {
-        get { return Application.isPlaying; }
-    }
-    private bool IsParsingDone
-    {
-        get { return DataManager.Instance.isParseDone; }
-    }
-
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Alpha0))
+        if(canCheat)
         {
-            OnOffCanvas();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
+            if (Input.GetKeyDown(KeyCode.Alpha0))
+            {
+                // 영상용 캔버스 끄기
+                OnOffCanvas();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
 
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            player.gameObject.tag = "Player";
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            player.gameObject.tag = "Untagged";
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SaveLoadManager.Instance.SaveData();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha5))
-        {
-            TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                // ELLIE POWER OVERWHELMING!!
+                // 구르면 풀림
+                player.gameObject.tag = "Untagged";
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                // SAVE DATA
+                Save();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha5))
+            {
+                // LOAD DATA
+                Load();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha6))
+            {
+                // KILL CURRENT PHASE BOSS
+                KillCurrentBoss();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha7))
+            {
+                // HIT CURRENT BOSS (-1 DAMAGE)
+                DamageTerrapupa();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha8))
+            {
+                // DEACTIVATE BOSS BATTLE
+                DeactivateBoss();
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha9))
+            {
+                SkipToEnding();
+            }
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                // TELEPORT START
+                SetPlayerPosition1();
+            }
+            if (Input.GetKeyDown(KeyCode.F2))
+            {
+                // TELEPORT BOSS ROOM
+                SetPlayerPosition2();
+            }
+            if (Input.GetKeyDown(KeyCode.F3))
+            {
+                // TELEPORT STONE FOOTBOARD PUZZLE
+                SetPlayerPosition3();
+            }
+            if (Input.GetKeyDown(KeyCode.F4))
+            {
+                // TELEPORT BREAKABLE STONE PUZZLE
+                SetPlayerPosition4();
+            }
+            if (Input.GetKeyDown(KeyCode.F5))
+            {
+                // TELEPORT PILLAR PUZZLE
+                SetPlayerPosition5();
+            }
+            if (Input.GetKeyDown(KeyCode.F6))
+            {
+                // TELEPORT RAIL START
+                SetPlayerPosition6();
+            }
+            if (Input.GetKeyDown(KeyCode.F7))
+            {
+                // TELEPORT NPC1
+                SetPlayerPosition7();
+            }
+            if (Input.GetKeyDown(KeyCode.F8))
+            {
+                // TELEPORT NPC2
+                SetPlayerPosition8();
+            }
+            if (Input.GetKeyDown(KeyCode.F9))
+            {
+                // TELEPORT NPC3
+                SetPlayerPosition9();
+            }
+            if (Input.GetKeyDown(KeyCode.F10))
+            {
 
-            DialogPayload payload = DialogPayload.Stop();
-            payload.canvasType = DialogCanvasType.Default;
-            ticketMachine.SendMessage(ChannelType.Dialog, payload);
-            payload.canvasType = DialogCanvasType.Simple;
-            ticketMachine.SendMessage(ChannelType.Dialog, payload);
-            payload.canvasType = DialogCanvasType.SimpleRemaining;
-            ticketMachine.SendMessage(ChannelType.Dialog, payload);
+            }
+            if (Input.GetKeyDown(KeyCode.F11))
+            {
 
-            SceneLoadManager.Instance.FinishLoading();
-            SaveLoadManager.Instance.LoadData();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha6))
-        {
-            KillTerrapupa();
-            KillTerraAndPupa();
-            KillMinions();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha7))
-        {
-            DamageTerrapupa();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha8))
-        {
-            DeactivateBoss();
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            SkipToEnding();
-        }
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            // TELEPORT START
-            SetPlayerPosition1();
-        }
-        if (Input.GetKeyDown(KeyCode.F2))
-        {
-            // TELEPORT BOSS ROOM
-            SetPlayerPosition2();
-        }
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            // TELEPORT STONE FOOTBOARD PUZZLE
-            SetPlayerPosition3();
-        }
-        if (Input.GetKeyDown(KeyCode.F4))
-        {
-            // TELEPORT BREAKABLE STONE PUZZLE
-            SetPlayerPosition4();
-        }
-        if (Input.GetKeyDown(KeyCode.F5))
-        {
-            // TELEPORT PILLAR PUZZLE
-            SetPlayerPosition5();
-        }
-        if (Input.GetKeyDown(KeyCode.F6))
-        {
-            // TELEPORT RAIL START
-            SetPlayerPosition6();
-        }
-        if (Input.GetKeyDown(KeyCode.F7))
-        {
-            // TELEPORT NPC1
-            SetPlayerPosition7();
-        }
-        if (Input.GetKeyDown(KeyCode.F8))
-        {
-            // TELEPORT NPC2
-            SetPlayerPosition8();
-        }
-        if (Input.GetKeyDown(KeyCode.F9))
-        {
-            // TELEPORT NPC3
-            SetPlayerPosition9();
-        }
-        if (Input.GetKeyDown(KeyCode.F10))
-        {
+            }
+            if (Input.GetKeyDown(KeyCode.F12))
+            {
 
-        }
-        if (Input.GetKeyDown(KeyCode.F11))
-        {
-
-        }
-        if (Input.GetKeyDown(KeyCode.F12))
-        {
-
-        }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            AddItem();
+            }
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                AddItem();
+            }
         }
     }
 
@@ -310,18 +301,20 @@ public class CheatClient : SerializedMonoBehaviour
     {
         TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
 
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < 100; i++)
         {
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
+            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4001));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4003));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4005));
+            ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4010));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4017));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4019));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4020));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
         }
 
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < 20; i++)
         {
             ticketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
@@ -367,7 +360,7 @@ public class CheatClient : SerializedMonoBehaviour
             canvas = GameObject.Find("@UI_Root");
         }
 
-        if(canvas.active == true)
+        if(canvas.activeSelf)
         {
             canvas.SetActive(false);
         }
@@ -375,6 +368,43 @@ public class CheatClient : SerializedMonoBehaviour
         {
             canvas.SetActive(true);
         }
+    }
+
+    private void KillCurrentBoss()
+    {
+        if(terrapupa.gameObject.activeSelf)
+        {
+            KillTerrapupa();
+        }
+        else if (terra.gameObject.activeSelf)
+        {
+            KillTerraAndPupa();
+        }
+        else
+        {
+            KillMinions();
+        }
+    }
+
+    private void Save()
+    {
+        SaveLoadManager.Instance.SaveData();
+    }
+
+    private void Load()
+    {
+        TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
+
+        DialogPayload payload = DialogPayload.Stop();
+        payload.canvasType = DialogCanvasType.Default;
+        ticketMachine.SendMessage(ChannelType.Dialog, payload);
+        payload.canvasType = DialogCanvasType.Simple;
+        ticketMachine.SendMessage(ChannelType.Dialog, payload);
+        payload.canvasType = DialogCanvasType.SimpleRemaining;
+        ticketMachine.SendMessage(ChannelType.Dialog, payload);
+
+        SceneLoadManager.Instance.FinishLoading();
+        SaveLoadManager.Instance.LoadData();
     }
 
     private UIPayload GenerateStoneAcquirePayloadTest(int index)

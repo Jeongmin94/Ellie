@@ -8,7 +8,6 @@ public class ConeRange : BaseRange
 {
     public float Radius { get; private set; }
     public float Angle { get; private set; }
-    public float Chord { get; private set; }
 
     public override void Init(GameObject rangeObject, RangePayload payload)
     {

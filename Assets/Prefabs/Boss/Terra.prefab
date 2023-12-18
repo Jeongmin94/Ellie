@@ -1309,6 +1309,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4290592258226659650}
+  - {fileID: 6107341789595571104}
   - {fileID: 4290592258275761824}
   m_Father: {fileID: 4290592258226659616}
   m_RootOrder: 1
@@ -1781,6 +1782,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: d82cfca67f44bb14f854a1eb8bd9f852, type: 2}
+  - {fileID: 2100000, guid: 466df0718029314439469ca8d8c283a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2012,7 +2014,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4290592258226659708}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4290592258275761827
 SphereCollider:
@@ -2038,7 +2040,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1014437cb8727147a949f6b03846f85, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaWeakPoint, Assembly.Ellie
 --- !u!135 &3479380302608082880
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2289,4 +2291,70 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 3441268208278773410, guid: a7ba64febbefc074aa5aa32d5f1bb42b, type: 3}
   m_PrefabInstance: {fileID: 2935722766533192907}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8084628579410459600
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4290592258226659708}
+    m_Modifications:
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533877, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_Name
+      value: vfxgraph_StylizedSmoke_v1_Fire
+      objectReference: {fileID: 0}
+    - target: {fileID: 2662749037228533879, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 0.7
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+--- !u!4 &6107341789595571104 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
+  m_PrefabInstance: {fileID: 8084628579410459600}
   m_PrefabAsset: {fileID: 0}

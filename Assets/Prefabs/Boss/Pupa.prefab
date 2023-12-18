@@ -146,7 +146,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4691484790888134602}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4691484790841247765
 SphereCollider:
@@ -1071,6 +1071,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 709ba2df5ef17264bb73f269844edca8, type: 2}
+  - {fileID: 2100000, guid: 466df0718029314439469ca8d8c283a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1626,6 +1627,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4691484790888134644}
+  - {fileID: 7447519048559996501}
   - {fileID: 4691484790841247766}
   m_Father: {fileID: 4691484790888134550}
   m_RootOrder: 1
@@ -2391,3 +2393,77 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &3695994820051998899
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4691484790888134602}
+    m_Modifications:
+    - target: {fileID: 6057386206599952096, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952097, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952099, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_Name
+      value: vfxgraph_StylizedSmoke_v1_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952099, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+--- !u!4 &7447519048559996501 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+  m_PrefabInstance: {fileID: 3695994820051998899}
+  m_PrefabAsset: {fileID: 0}

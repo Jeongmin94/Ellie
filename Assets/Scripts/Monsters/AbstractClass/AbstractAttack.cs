@@ -1,13 +1,7 @@
-using Assets.Scripts.Combat;
-using Assets.Scripts.Monsters.Utility;
-using Assets.Scripts.Utils;
-using Channels.Components;
-using Channels.Type;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.AbstractClass
 {
-
     public abstract class AbstractAttack : MonoBehaviour
     {
         protected float attackValue;

@@ -14,11 +14,15 @@ public class AddParticle : ActionNode
     public NodeProperty<Vector3> offset;
 
     public NodeProperty<bool> isLoop;
+    public NodeProperty<int> loopCount;
 
     protected override void OnStart()
     {
         if(scale.Value == Vector3.zero)
             scale.Value = Vector3.one;
+
+        if (loopCount.Value <= 0)
+            loopCount.Value = 1;
     }
 
     protected override void OnStop()
@@ -37,6 +41,7 @@ public class AddParticle : ActionNode
             IsLoop = isLoop.Value,
             Scale = scale.Value,
             Offset = offset.Value,
+            LoopCount = loopCount.Value,
         });
 
         return State.Success;

@@ -183,7 +183,7 @@ namespace Assets.Scripts.Boss1
                 if ((currentData == null && hasDialogAchievement) ||
                     (currentData != null && currentData.index == (int)BossSituationType.EnterBossRoom && hasDialogAchievement))
                 {
-                    SendMessageBossBattle(BossSituationType.StartBattle);
+                    BossBattleChannel.SendMessageBossBattle(BossSituationType.StartBattle, ticketMachine);
                 }
             }
         }
@@ -284,12 +284,6 @@ namespace Assets.Scripts.Boss1
             {
                 return false;
             }
-        }
-
-        private void SendMessageBossBattle(BossSituationType type)
-        {
-            var bPayload = new BossBattlePayload { SituationType = type };
-            ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
         }
 
         [Button]
