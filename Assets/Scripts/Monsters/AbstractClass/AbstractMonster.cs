@@ -6,6 +6,7 @@ using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Monsters.Utility;
+using Assets.Scripts.Player.HitComponent;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
@@ -71,6 +72,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected MonsterAudioController audioController;
         private MonsterParticleController particleController;
+        private MaterialHitComponent hitComponent;
         protected GameObject player;
         private Transform cameraObj;
 
@@ -81,6 +83,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             statusEffect = gameObject.GetOrAddComponent<MonsterStatus>();
             particleController = gameObject.GetOrAddComponent<MonsterParticleController>();
+            hitComponent = gameObject.GetOrAddComponent<MaterialHitComponent>();
 
             freezeEffect = transform.Find("FreezeEffect").gameObject;
             freezeEffect.SetActive(false);
@@ -158,6 +161,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
                 // 디버프 처리
                 statusEffect.ApplyStatusEffect(combatPayload);
             }
+            hitComponent.Hit();
             UpdateHP(combatPayload.Damage);
         }
 

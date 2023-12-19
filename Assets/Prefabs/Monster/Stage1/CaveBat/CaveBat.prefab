@@ -560,6 +560,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 2a8b673c30077974782619d981973f35, type: 2}
   - {fileID: 2100000, guid: c45bd59c9989c7446a8a7ab82fb62fca, type: 2}
+  - {fileID: 2100000, guid: 733f10ef6385cff4c92ad87adc0ff293, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -912,6 +913,7 @@ GameObject:
   - component: {fileID: 453060604}
   - component: {fileID: 453060605}
   - component: {fileID: 888380734}
+  - component: {fileID: 3340085693602875231}
   m_Layer: 10
   m_Name: CaveBat
   m_TagString: Monster
@@ -1358,6 +1360,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: bd835a946ce8d4310bac2aff715cf2b9, type: 2}
+--- !u!114 &3340085693602875231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860538853240187878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 2a8b673c30077974782619d981973f35, type: 2}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
 --- !u!1 &6860746806608860722
 GameObject:
   m_ObjectHideFlags: 0

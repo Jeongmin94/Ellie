@@ -3013,6 +3013,7 @@ GameObject:
   - component: {fileID: 3323000195417403496}
   - component: {fileID: 2156146737864194590}
   - component: {fileID: 1945422486}
+  - component: {fileID: 7676860906075403657}
   m_Layer: 10
   m_Name: NormalSkeleton
   m_TagString: Monster
@@ -3450,6 +3451,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: 299ce5f5ac0564aa9bd73d47c2d4a2e4, type: 2}
+--- !u!114 &7676860906075403657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9034515840355106491}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
 --- !u!1 &9178374280581418941
 GameObject:
   m_ObjectHideFlags: 0
@@ -3908,7 +3926,7 @@ PrefabInstance:
       objectReference: {fileID: 8445923488699805798}
     - target: {fileID: 4530691145843953506, guid: 0f768d21495314319a01b979186e5394, type: 3}
       propertyPath: m_Materials.Array.size
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4530691145843953506, guid: 0f768d21495314319a01b979186e5394, type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -3918,6 +3936,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[1]
       value: 
       objectReference: {fileID: 2100000, guid: c45bd59c9989c7446a8a7ab82fb62fca, type: 2}
+    - target: {fileID: 4530691145843953506, guid: 0f768d21495314319a01b979186e5394, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: 733f10ef6385cff4c92ad87adc0ff293, type: 2}
     - target: {fileID: 8770870713989539572, guid: 0f768d21495314319a01b979186e5394, type: 3}
       propertyPath: m_RootOrder
       value: 0
