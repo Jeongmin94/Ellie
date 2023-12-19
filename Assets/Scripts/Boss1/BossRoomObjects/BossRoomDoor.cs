@@ -31,6 +31,15 @@ namespace Assets.Scripts.Boss1.BossRoomObjects
             this.ticketMachine = ticketMachine;
         }
 
+        public IEnumerator OpenDoorTimeLimit()
+        {
+            // 제한시간(60초)안에 못열면 다이얼로그 출력
+            yield return new WaitForSeconds(doorTimeLimit);
+
+            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.FailedToOpenDoor, ticketMachine);
+            EmphasizedDoor();
+        }
+
         private void OnCheckGolemCore(BossRoomDoorKnob knob, Transform stone)
         {
             var core = stone.GetComponent<GolemCoreStone>();
@@ -45,7 +54,6 @@ namespace Assets.Scripts.Boss1.BossRoomObjects
             if (golemCoreCount == 2)
             {
                 OpenDoor();
-                StartCoroutine(OpenDoorTimeLimit());
             }
         }
 
@@ -58,18 +66,10 @@ namespace Assets.Scripts.Boss1.BossRoomObjects
             rightDoor.OpenDoor(openAngle, openSpeedTime);
         }
 
-        private IEnumerator OpenDoorTimeLimit()
+        private void EmphasizedDoor()
         {
-            // 제한시간(60초)안에 못열면 다이얼로그 출력
-            yield return new WaitForSeconds(doorTimeLimit);
-
-            SendMessageBossDialog(BossDialogTriggerType.FailedToOpenDoor);
-        }
-
-        private void SendMessageBossDialog(BossDialogTriggerType type)
-        {
-            var dPayload = new BossDialogPaylaod { TriggerType = type };
-            ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
+            leftDoor.EmphasizedDoor();
+            rightDoor.EmphasizedDoor();
         }
     }
 }

@@ -3,6 +3,7 @@ using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
+using Boss.Terrapupa;
 using Channels.Type;
 using System.Collections;
 using UnityEngine;
@@ -76,6 +77,10 @@ namespace Assets.Scripts.Item.Stone
                 ICombatant enemy = hitCollider.GetComponentInChildren<ICombatant>();
 
                 if (enemy != null && !hitCollider.gameObject.CompareTag("WeakPoint"))
+                {
+                    OccurEffect(hitCollider.transform);
+                }
+                else if (hitCollider.GetComponent<TerrapupaWeakPoint>() != null)
                 {
                     OccurEffect(hitCollider.transform);
                 }

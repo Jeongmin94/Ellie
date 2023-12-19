@@ -14,6 +14,7 @@ public class AddParticleToTarget : ActionNode
 
     public NodeProperty<bool> isLoop;
     public NodeProperty<bool> isFollowOrigin;
+    public NodeProperty<int> loopCount;
 
     protected override void OnStart()
     {
@@ -22,6 +23,9 @@ public class AddParticleToTarget : ActionNode
 
         if (scale.Value == Vector3.zero)
             scale.Value = Vector3.one;
+
+        if (loopCount.Value <= 0)
+            loopCount.Value = 1;
     }
 
     protected override void OnStop()
@@ -42,6 +46,7 @@ public class AddParticleToTarget : ActionNode
             Rotation = origin.Value.transform.rotation,
             Offset = offset.Value,
             Scale = scale.Value,
+            LoopCount = loopCount.Value,
         });
 
         return State.Success;

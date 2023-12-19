@@ -1,6 +1,5 @@
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Item.Stone;
-using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Boss.Objects;
@@ -13,7 +12,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Controller;
 using UnityEngine;
-using Assets.Scripts.Data.GoogleSheet;
 
 public class TerrapupaMapObjectController : BaseController
 {
@@ -143,7 +141,7 @@ public class TerrapupaMapObjectController : BaseController
         if(!isFirstHitManaFountain)
         {
             isFirstHitManaFountain = true;
-            SendMessageBossDialog(BossDialogTriggerType.GetMagicStoneFirstTime);
+            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetMagicStoneFirstTime, ticketMachine);
         }
 
         StartCoroutine(ManaCooldown(manaPayload));
@@ -207,7 +205,7 @@ public class TerrapupaMapObjectController : BaseController
         if (!isFirstBrokenManaFountain)
         {
             isFirstBrokenManaFountain = true;
-            SendMessageBossDialog(BossDialogTriggerType.DestroyManaFountainFirstTime);
+            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DestroyManaFountainFirstTime, ticketMachine);
         }
 
         // 마나의 샘 재생성 쿨타임
@@ -224,19 +222,15 @@ public class TerrapupaMapObjectController : BaseController
         Transform boss = stalactitePayload.TransformValue2;
         if (boss != null)
         {
-            TerrapupaBTController actor = boss.GetComponent<TerrapupaBTController>();
+            var actor = boss.GetComponent<TerrapupaBTController>();
             if (stalactitePayload.TransformValue2 != null)
             {
                 Debug.Log("보스 타격");
 
-                // 
                 if (canBossStun == true || (canBossStun == false && actor.terrapupaData.isIntake.Value))
                 {
                     Debug.Log("기절");
-
-                    actor.terrapupaData.isStuned.Value = true;
-                    actor.terrapupaData.isTempted.Value = false;
-                    actor.terrapupaData.isIntake.Value = false;
+                    actor.Stun();
                 }
             }
         }
@@ -352,18 +346,6 @@ public class TerrapupaMapObjectController : BaseController
     {
         Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
         return vec.normalized;
-    }
-
-    private void SendMessageBossBattle(BossSituationType type)
-    {
-        var bPayload = new BossBattlePayload { SituationType = type };
-        ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
-    }
-
-    private void SendMessageBossDialog(BossDialogTriggerType type)
-    {
-        var dPayload = new BossDialogPaylaod { TriggerType = type };
-        ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
     }
     #endregion
 }

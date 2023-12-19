@@ -12,7 +12,10 @@ public class TerrapupaIntakeData : BaseBTData
     }
 
     [Title("사운드 설정")]
-    [InfoBox("하단공격 공격 사운드")] public string sound1 = "TerrapupaEatMagicStoneSuccess";
+    [InfoBox("섭취 완료 사운드")] public string sound1 = "TerrapupaEatMagicStoneSuccess";
+
+    [Title("이펙트")]
+    [InfoBox("섭취 완료 이펙트")] public GameObject effect1;
     
     [Title("섭취 상태")]
     [InfoBox("섭취 지속시간")] public float intakeDuration = 5.0f;
@@ -24,6 +27,7 @@ public class TerrapupaIntakeData : BaseBTData
     public override void Init(BehaviourTree tree)
     {
         SetBlackboardValue<string>("sound1", sound1, tree);
+        SetBlackboardValue<GameObject>("effect1", effect1, tree);
         SetBlackboardValue<float>("duration", intakeDuration, tree);
         SetBlackboardValue<int>("healValue", intakeHealValue, tree);
 

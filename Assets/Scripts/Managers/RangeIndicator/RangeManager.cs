@@ -1,7 +1,7 @@
 using Assets.Scripts.Managers;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Assets.Scripts.Utils;
 public enum RangeType
 {
     None,
@@ -41,7 +41,7 @@ public class RangePayload : IBaseEventPayload
 
 public class RangeManager : Singleton<RangeManager>
 {
-    private Material baseMaterial;
+    [SerializeField] private Material baseMaterial;
 
     public override void Awake()
     {
@@ -85,6 +85,7 @@ public class RangeManager : Singleton<RangeManager>
             range.Init(obj, payload);
             range.CreateRange(payload);
             range.StartFadeInAndOut(payload);
+            range.gameObject.GetOrAddComponent<VisibilityControl>();
 
             return obj;
         }

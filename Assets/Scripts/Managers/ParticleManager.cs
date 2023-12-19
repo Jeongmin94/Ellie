@@ -14,6 +14,7 @@ namespace Assets.Scripts.Particle
         public Quaternion Rotation { get; set; }
         public Vector3 Scale { get; set; } = Vector3.one;
         public Vector3 Offset { get; set; }
+        public int LoopCount { get; set; } = 1;
     }
 
     public class ParticleManager : Singleton<ParticleManager>
@@ -87,22 +88,24 @@ namespace Assets.Scripts.Particle
             return particle.gameObject;
         }
 
-        public GameObject GetParticle(GameObject prefab, Transform target, float scale)
+        public GameObject GetParticle(GameObject prefab, Transform target, float scale = 1.0f, int loopCount = 1)
         {
             return GetParticle(prefab, new ParticlePayload
             {
                 Position = target.position,
                 Rotation = target.rotation,
                 Scale = new Vector3(scale, scale, scale),
+                LoopCount = loopCount,
             });
         }
 
-        public GameObject GetParticle(GameObject prefab, Vector3 position, float scale)
+        public GameObject GetParticle(GameObject prefab, Vector3 position, float scale = 1.0f, int loopCount = 1)
         {
             return GetParticle(prefab, new ParticlePayload
             {
                 Position = position,
                 Scale = new Vector3(scale, scale, scale),
+                LoopCount = loopCount,
             });
         }
     }

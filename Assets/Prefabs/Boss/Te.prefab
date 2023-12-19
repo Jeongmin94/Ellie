@@ -132,10 +132,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
     Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: b5f3db58cf5b7e1419025291ecd43606, type: 2}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitDuration: 0.3
   returnDuration: 0.2
-  modelMaterial: {fileID: 2100000, guid: b5f3db58cf5b7e1419025291ecd43606, type: 2}
 --- !u!1 &2955949623555849973
 GameObject:
   m_ObjectHideFlags: 0
@@ -220,6 +220,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: b5f3db58cf5b7e1419025291ecd43606, type: 2}
+  - {fileID: 2100000, guid: 8c57844d5b90a424eb982b8dfb75dcda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
