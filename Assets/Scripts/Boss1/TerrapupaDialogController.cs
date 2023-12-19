@@ -84,6 +84,8 @@ namespace Assets.Scripts.Boss1
             {
                 dialogAchievementDic[data.index] = false;
             }
+
+            dialogFirstAchievementDic = dialogAchievementDic;
         }
 
         private void SaveBossDialog()
