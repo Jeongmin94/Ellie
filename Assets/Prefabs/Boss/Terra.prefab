@@ -1309,7 +1309,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4290592258226659650}
-  - {fileID: 6107341789595571104}
+  - {fileID: 1992655103704576723}
   - {fileID: 4290592258275761824}
   m_Father: {fileID: 4290592258226659616}
   m_RootOrder: 1
@@ -2040,7 +2040,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d1014437cb8727147a949f6b03846f85, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaWeakPoint, Assembly.Ellie
+  m_EditorClassIdentifier: 
 --- !u!135 &3479380302608082880
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2223,9 +2223,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  blinkIntensity: 4
+  blinkIntensity: 3
   blinkDuration: 0.45
-  darkenDuration: 2
+  darkenDuration: 3
 --- !u!1001 &2935722766533192907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2288,7 +2288,7 @@ PrefabInstance:
     - target: {fileID: 4838645850331966280, guid: a7ba64febbefc074aa5aa32d5f1bb42b, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
-      objectReference: {fileID: 2100000, guid: ec551a9b399c51a489fe99cf45b84ff5, type: 2}
+      objectReference: {fileID: 2100000, guid: 5be45783eaf3bd5449c4fdf447c7f90a, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a7ba64febbefc074aa5aa32d5f1bb42b, type: 3}
 --- !u!4 &539340684515209833 stripped
@@ -2296,7 +2296,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3441268208278773410, guid: a7ba64febbefc074aa5aa32d5f1bb42b, type: 3}
   m_PrefabInstance: {fileID: 2935722766533192907}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &8084628579410459600
+--- !u!1001 &4563458579497687715
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -2357,8 +2357,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
---- !u!4 &6107341789595571104 stripped
+--- !u!4 &1992655103704576723 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2662749037228533872, guid: 7db00de82d6c7aa42a6a9280fdfc62c4, type: 3}
-  m_PrefabInstance: {fileID: 8084628579410459600}
+  m_PrefabInstance: {fileID: 4563458579497687715}
   m_PrefabAsset: {fileID: 0}
