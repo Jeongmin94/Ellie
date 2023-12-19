@@ -26,14 +26,14 @@ public class HybridConeRange : BaseRange
 
         DetectionMaterial = payload.DetectionMaterial;
 
+        // MeshFilter와 MeshRenderer 컴포넌트를 추가합니다.
+        MeshFilter meshFilter = RangeObject.AddComponent<MeshFilter>();
+        MeshRenderer meshRenderer = RangeObject.AddComponent<MeshRenderer>();
+
         if (!IsShowRange)
         {
             return;
         }
-
-        // MeshFilter와 MeshRenderer 컴포넌트를 추가합니다.
-        MeshFilter meshFilter = RangeObject.AddComponent<MeshFilter>();
-        MeshRenderer meshRenderer = RangeObject.AddComponent<MeshRenderer>();
 
         Mesh mesh = new Mesh();
 

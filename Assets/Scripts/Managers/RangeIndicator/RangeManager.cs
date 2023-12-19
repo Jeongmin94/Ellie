@@ -42,12 +42,14 @@ public class RangePayload : IBaseEventPayload
 public class RangeManager : Singleton<RangeManager>
 {
     [SerializeField] private Material baseMaterial;
+    [SerializeField] private Material invisibleMaterial;
 
     public override void Awake()
     {
         base.Awake();
 
         baseMaterial = Resources.Load<Material>("Materials/Sensor");
+        invisibleMaterial = Resources.Load<Material>("Materials/Sensor2");
     }
 
     public GameObject CreateRange(RangePayload payload)

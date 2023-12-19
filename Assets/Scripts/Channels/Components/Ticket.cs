@@ -5,7 +5,6 @@ namespace Channels.Components
 {
     public sealed class Ticket
     {
-
         private Action<IBaseEventPayload> sendMessageAction;
         private Action<IBaseEventPayload> channelNotifyAction;
 
