@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59d55fe16cdb0994cb0015cb47af1881, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BossRoomTrigger, Assembly.Ellie
-  situationType: 0
+  situationType: 1
   dialogType: 8100
 --- !u!1 &1729620691537775803
 GameObject:
@@ -452,6 +452,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c00d251117ce0a43a16578693d6111d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BossRoomDoorKnob, Assembly.Ellie
+  emphasizeEffect: {fileID: 168184, guid: 8f5caf07c8efc8e49b7d828ac1df13da, type: 3}
   doorKnob: {fileID: 1909301974547719862}
   isChecked: 0
   openSpeedTime: 0
@@ -515,6 +516,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c00d251117ce0a43a16578693d6111d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: BossRoomDoorKnob, Assembly.Ellie
+  emphasizeEffect: {fileID: 168184, guid: 8f5caf07c8efc8e49b7d828ac1df13da, type: 3}
   doorKnob: {fileID: 1909301975806939899}
   isChecked: 0
   openSpeedTime: 0

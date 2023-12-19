@@ -93,6 +93,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 10199ea6eecc12f47a81a1da895b7353, type: 2}
+  - {fileID: 2100000, guid: ec551a9b399c51a489fe99cf45b84ff5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -146,7 +147,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4691484790888134602}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &4691484790841247765
 SphereCollider:
@@ -1071,6 +1072,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 709ba2df5ef17264bb73f269844edca8, type: 2}
+  - {fileID: 2100000, guid: 466df0718029314439469ca8d8c283a8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1626,6 +1628,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4691484790888134644}
+  - {fileID: 7447519048559996501}
   - {fileID: 4691484790841247766}
   m_Father: {fileID: 4691484790888134550}
   m_RootOrder: 1
@@ -2167,7 +2170,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 28723ba2bff4b6b4780a4c4578ea55b8, type: 2}
   - {fileID: 11400000, guid: 58250ec10b179444eae8bddcd7c17ff1, type: 2}
   - {fileID: 11400000, guid: d35891d5a603d80428f7885aec2b19f4, type: 2}
-  - {fileID: 11400000, guid: 8e4edf6acbc8dba41b5c272970124c3e, type: 2}
+  - {fileID: 11400000, guid: 4278f20a66b47b04bb8c359d78261779, type: 2}
   cameraObj: {fileID: 0}
   terrapupaData: {fileID: 0}
   weakPoint: {fileID: 911217315469005314}
@@ -2233,7 +2236,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76e4f1958280de9489c0be3735bb24e7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Boss1.Terrapupa.TerrapupaCoreController,
+    Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -2243,9 +2247,9 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  blinkIntensity: 3
+  blinkIntensity: 4
   blinkDuration: 0.45
-  darkenDuration: 3
+  darkenDuration: 2
 --- !u!1 &8831768199645564775
 GameObject:
   m_ObjectHideFlags: 0
@@ -2365,7 +2369,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b5d1fc731edddfd45aa07402159e1b47, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaStone, Assembly.Ellie
   isUsing: 0
   movementSpeed: 15
   attackValue: 5
@@ -2390,3 +2394,77 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!1001 &3695994820051998899
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 4691484790888134602}
+    m_Modifications:
+    - target: {fileID: 6057386206599952096, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952097, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[0].m_Value
+      value: 0.7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952099, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_Name
+      value: vfxgraph_StylizedSmoke_v1_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952099, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+--- !u!4 &7447519048559996501 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6057386206599952102, guid: 769cb3618e2a4e04cb769a47ca03cbc7, type: 3}
+  m_PrefabInstance: {fileID: 3695994820051998899}
+  m_PrefabAsset: {fileID: 0}

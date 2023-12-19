@@ -87,8 +87,8 @@ MonoBehaviour:
     - rid: 1683426562437021872
     - rid: 6881097883797946370
     - rid: 116448495133786114
-  viewPosition: {x: 1251.2, y: 519.2, z: 0}
-  viewScale: {x: 0.8695652, y: 0.8695652, z: 1}
+  viewPosition: {x: 1609.6, y: 483.2, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
   references:
     version: 2
     RefIds:
@@ -115,6 +115,10 @@ MonoBehaviour:
           reference:
             rid: 116448495133786114
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011018610442309
       type: {class: MoveToPosLerp, ns: , asm: Assembly.Ellie}
       data:
@@ -865,6 +869,10 @@ MonoBehaviour:
           reference:
             rid: 6881097883797946370
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 6881097883797946370
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
