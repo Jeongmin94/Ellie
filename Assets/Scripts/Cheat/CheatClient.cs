@@ -24,6 +24,7 @@ public class CheatClient : SerializedMonoBehaviour
     [Required] public List<Transform> minions;
 
     private GameObject canvas;
+    private GameObject canvas2;
 
     private void Update()
     {

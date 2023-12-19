@@ -809,29 +809,6 @@ namespace Assets.Scripts.Player
             slingshot.GetComponent<Slingshot>().TurnLineRenderer(b);
         }
 
-        private void OnGUI()
-        {
-#if UNITY_EDITOR
-            GUI.Label(new Rect(10, 10, 200, 20), "Player Status: " + stateMachine.CurrentStateName);
-            GUI.Label(new Rect(10, 20, 200, 20), "Current Time Scale : " + Time.timeScale);
-            GUI.Label(new Rect(10, 30, 200, 20), "Current Fixed Delta Time : " + Time.fixedDeltaTime);
-#endif
-        }
-
-        private void OnDrawGizmos()
-        {
-            Color rayColor = Color.red;
-            Gizmos.color = rayColor;
-
-            Gizmos.DrawRay(stepRayLower.transform.position, stepRayLower.transform.forward * lowerRayLength);
-
-            Gizmos.DrawRay(stepRayUpper.transform.position, stepRayUpper.transform.forward * upperRayLength);
-            
-            Gizmos.color = Color.yellow;
-            if(Input.GetMouseButton(0))
-                Gizmos.DrawWireSphere(shooter.LastPointOfTraj(), 0.4f);
-        }
-
         private void OnNotifyAction(IBaseEventPayload payload)
         {
             //UI페이로드 처리 로직입니다

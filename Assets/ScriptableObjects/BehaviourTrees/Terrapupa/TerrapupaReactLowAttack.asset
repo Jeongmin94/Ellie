@@ -68,8 +68,8 @@ MonoBehaviour:
     - rid: 1683426562437021874
     - rid: 6881097883797946373
     - rid: 116448501211856906
-  viewPosition: {x: -730.4, y: -199.2, z: 0}
-  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  viewPosition: {x: -1322.4, y: 153.6, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -90,6 +90,10 @@ MonoBehaviour:
           reference:
             rid: 116448501211856906
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 116448501211856906
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -185,7 +189,7 @@ MonoBehaviour:
         state: 0
         started: 0
         guid: 404e9ae248b0378488f9f8b5131e571c
-        position: {x: 2580, y: 345}
+        position: {x: 2580, y: 360}
         blackboard:
           keys: []
         description: 
@@ -518,6 +522,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011481676021768
       type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -553,6 +561,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011481676021769
       type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -585,6 +597,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 0
         isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        loopCount:
           reference:
             rid: -2
           defaultValue: 0
@@ -655,7 +671,7 @@ MonoBehaviour:
         isShowRange:
           reference:
             rid: -2
-          defaultValue: 1
+          defaultValue: 0
         origin:
           reference:
             rid: -2
@@ -905,3 +921,7 @@ MonoBehaviour:
           reference:
             rid: 6881097883797946373
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0

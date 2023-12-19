@@ -92,19 +92,6 @@ namespace Assets.Scripts.Player
             }
         }
 
-        private void OnGUI()
-        {
-#if UNITY_EDITOR
-            GUI.Label(new Rect(10, 50, 200, 20), "Can Interact : " + canInteract);
-            string name = "";
-            if (null != interactiveObject)
-                name = interactiveObject.name;
-            else
-                name = "null";
-            GUI.Label(new Rect(10, 60, 200, 20), "Current Interactive Obj : " + name);
-#endif
-        }
-
         public void SetCanInteract(bool b)
         {
             canInteract = b;

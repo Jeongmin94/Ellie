@@ -127,6 +127,16 @@ namespace Assets.Scripts.UI.Player
             barImage =
                 UIManager.Instance.MakeSubItem<UIBarImage>(staminaPanel.transform, UINameBarImage);
             barImage.transform.position = staminaPanel.transform.position;
+
+            AnchorPresets.SetAnchorPreset(healthPanelRect, AnchorPresets.MiddleCenter);
+            healthPanelRect.sizeDelta = playerHealthTransformData.actionRect.Value.GetSize();
+            healthPanelRect.localPosition = playerHealthTransformData.actionRect.Value.ToCanvasPos();
+            healthPanelRect.localScale = playerHealthTransformData.actionScale.Value;
+
+            AnchorPresets.SetAnchorPreset(staminaPanelRect, AnchorPresets.MiddleCenter);
+            staminaPanelRect.sizeDelta = playerStaminaTransformData.actionRect.Value.GetSize();
+            staminaPanelRect.localPosition = playerStaminaTransformData.actionRect.Value.ToCanvasPos();
+            staminaPanelRect.localScale = playerStaminaTransformData.actionScale.Value;
         }
 
         private void InitTransformData()
