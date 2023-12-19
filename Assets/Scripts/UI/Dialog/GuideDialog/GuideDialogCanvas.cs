@@ -157,12 +157,11 @@ namespace UI.Dialog.GuideDialog
                 return;
             if (dialogPayload.canvasType != DialogCanvasType.GuideDialog)
                 return;
-
             if (dialogPayload.dialogAction == DialogAction.Stop)
             {
                 StartCoroutine(Stop());
                 return;
-            }    
+            }
 
             var duration = dialogPayload.dialogDuration;
             if (duration < 0.01f)
@@ -170,7 +169,9 @@ namespace UI.Dialog.GuideDialog
                 // Default
                 duration = showDuration;
             }
-            var guidDialogInfo = GuideDialogInfo.Of(dialogPayload.speaker, dialogPayload.text, dialogPayload.imageName, duration);
+
+            var guidDialogInfo = GuideDialogInfo.Of(dialogPayload.speaker, dialogPayload.text, dialogPayload.imageName,
+                duration);
             dialogInfoQueue.Enqueue(guidDialogInfo);
         }
 
@@ -266,6 +267,7 @@ namespace UI.Dialog.GuideDialog
                 guideDialogImage.color = FadeOutColor(imageColor, ratio);
                 guideDialogBackgroundImage.color = FadeOutColor(backgroundImageColor, ratio);
             }
+
             isFadingOut = false;
             SendPayloadEndingDialog();
             InactiveObjects();

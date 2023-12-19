@@ -279,16 +279,12 @@ namespace Assets.Scripts.Player
             
             InitTicketMachine();
             playerStatus.ControllerTicketMachine = ticketMachine;
-            //stateMachine.CurrentState.
 
             //카메라 흔들림 이벤트 구독
             SubscribeCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
-            SubscribeCameraShakeAction(cinematicAimCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
-            SubscribeCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
             SubscribeStopCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
-            SubscribeStopCameraShakeAction(cinematicAimCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
-            SubscribeStopCameraShakeAction(cinematicDialogCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
-           
+
+            GetComponent<PlayerAim>().canAim = false;
         }
 
         private void InitTicketMachine()
