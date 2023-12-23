@@ -1,22 +1,7 @@
 namespace Assets.Scripts.Monsters.Utility
 {
-
     public static class Enums
     {
-        //Monster
-        //Monster Type
-        public enum MonsterElement
-        {
-            Normal, Fire, Water, Grass, Earth, Light, Dark
-        }
-        public enum MovementType
-        {
-            Ground, Flying, GroundFlying, End
-        }
-        public enum AttackTurnType
-        {
-            Offensive, Deffensive, End
-        }
         public enum AttackSkill
         {
             RunToPlayer,
@@ -30,14 +15,46 @@ namespace Assets.Scripts.Monsters.Utility
             End
         }
 
+        public enum AttackTurnType
+        {
+            Offensive,
+            Deffensive,
+            End
+        }
+
+        //Monster
+        //Monster Type
+        public enum MonsterElement
+        {
+            Normal,
+            Fire,
+            Water,
+            Grass,
+            Earth,
+            Light,
+            Dark
+        }
+
         //Monster State
         public enum MonsterState
         {
-            Wait, Patrol, Chase, Attack, Return, End
+            Wait,
+            Patrol,
+            Chase,
+            Attack,
+            Return,
+            End
+        }
+
+        public enum MovementType
+        {
+            Ground,
+            Flying,
+            GroundFlying,
+            End
         }
 
 
         //Monster Skill
     }
-
 }

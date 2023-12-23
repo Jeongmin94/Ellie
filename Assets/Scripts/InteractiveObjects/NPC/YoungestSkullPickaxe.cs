@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Player;
+﻿using System;
+using Assets.Scripts.Player;
 using Channels.UI;
-using System;
 using Outline;
 using UnityEngine;
 
@@ -9,12 +9,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
     public class YoungestSkullPickaxe : InteractiveObject
     {
         [SerializeField] private Renderer renderer;
-        
+
         public int PickaxeIndex = 9000;
 
-        private Action getPickaxeAction;
-
         public InteractiveType interactiveType = InteractiveType.Acquisition;
+
+        private Action getPickaxeAction;
 
         public override InteractiveType GetInteractiveType()
         {
@@ -33,9 +33,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         public override void Interact(GameObject obj)
         {
-            if (!obj.CompareTag("Player")) return;
+            if (!obj.CompareTag("Player"))
+            {
+                return;
+            }
 
-            PlayerQuest player = obj.GetComponent<PlayerQuest>();
+            var player = obj.GetComponent<PlayerQuest>();
             player.GetPickaxe(PickaxeIndex);
 
             Publish();

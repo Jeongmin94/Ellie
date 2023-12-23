@@ -16,37 +16,30 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "Opening/ConfigComponent";
 
-        private enum GameObjects
-        {
-            OptionPrev,
-            OptionNext,
-        }
-
-        private enum Texts
-        {
-            NameText,
-            OptionValue,
-        }
-
         [SerializeField] private UITransformData transformData;
         [SerializeField] private TextTypographyData typographyData;
 
-        private GameObject optionPrev;
-        private GameObject optionNext;
-
-        private RectTransform rect;
-
-        private TextMeshProUGUI nameText;
-        private TextMeshProUGUI optionValue;
+        private Action<int> componentAction;
 
         private Image componentImage;
         private Color imageColor;
 
-        private Action<int> componentAction;
+        private TextMeshProUGUI nameText;
+        private GameObject optionNext;
+
+        private GameObject optionPrev;
+        private TextMeshProUGUI optionValue;
+
+        private RectTransform rect;
 
         private void Awake()
         {
             Init();
+        }
+
+        private void OnDestroy()
+        {
+            componentAction = null;
         }
 
         protected override void Init()
@@ -119,8 +112,8 @@ namespace Assets.Scripts.UI.PopupMenu
         }
 
         public void SetConfigData(string configName,
-                                  bool readOnly,
-                                  Action<int> onIndexChanged)
+            bool readOnly,
+            Action<int> onIndexChanged)
         {
             optionPrev.SetActive(!readOnly);
             optionNext.SetActive(!readOnly);
@@ -141,9 +134,16 @@ namespace Assets.Scripts.UI.PopupMenu
             optionValue.text = value;
         }
 
-        private void OnDestroy()
+        private enum GameObjects
         {
-            componentAction = null;
+            OptionPrev,
+            OptionNext
+        }
+
+        private enum Texts
+        {
+            NameText,
+            OptionValue
         }
     }
 }

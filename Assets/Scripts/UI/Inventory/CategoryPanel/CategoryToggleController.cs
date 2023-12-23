@@ -16,15 +16,15 @@ namespace Assets.Scripts.UI.Inventory
         [SerializeField] private TextTypographyData enabledPanelData;
         [SerializeField] private TextTypographyData disabledPanelData;
 
-        private ActivateButtonPanelHandler activateButtonPanelCallback;
-
         public string toggleTitle;
         public GroupType type;
 
+        private ActivateButtonPanelHandler activateButtonPanelCallback;
+
         private Graphic checkMark;
-        private TextMeshProUGUI text;
-        private Color pressedColor;
         private Color normalColor;
+        private Color pressedColor;
+        private TextMeshProUGUI text;
 
         private void OnDestroy()
         {

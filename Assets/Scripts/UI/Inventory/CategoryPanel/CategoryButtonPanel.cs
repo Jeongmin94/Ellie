@@ -1,8 +1,8 @@
+using System;
+using System.Collections.Generic;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.Utils;
 using Channels.UI;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using static Assets.Scripts.Managers.InventorySavePayload;
@@ -35,22 +35,32 @@ namespace Assets.Scripts.UI.Inventory
 
     public class CategoryButtonPanel : UIBase
     {
+        private readonly IDictionary<SlotAreaType, List<InventorySlotArea>> slotAreas =
+            new Dictionary<SlotAreaType, List<InventorySlotArea>>();
+
+        private ActivateButtonPanelHandler activateButtonPanelHandler;
+
+        private Action<InventoryEventPayload> panelInventoryAction;
         private RectTransform rect;
         private ToggleGroup toggleGroup;
         private CategoryToggleController[] toggles;
         private GroupType type = GroupType.Item;
-        private ActivateButtonPanelHandler activateButtonPanelHandler;
 
-        private readonly IDictionary<SlotAreaType, List<InventorySlotArea>> slotAreas = new Dictionary<SlotAreaType, List<InventorySlotArea>>();
-
-        private Action<InventoryEventPayload> panelInventoryAction;
+        private void OnDestroy()
+        {
+            activateButtonPanelHandler = null;
+            panelInventoryAction = null;
+        }
 
         public void InitCategoryButtonPanel()
         {
             Init();
         }
 
-        public List<InventorySlotArea> GetSlotAreas(SlotAreaType slotAreaType) => slotAreas[slotAreaType];
+        public List<InventorySlotArea> GetSlotAreas(SlotAreaType slotAreaType)
+        {
+            return slotAreas[slotAreaType];
+        }
 
         public InventorySlotArea GetSlotArea(SlotAreaType slotAreaType, GroupType groupType)
         {
@@ -75,11 +85,13 @@ namespace Assets.Scripts.UI.Inventory
 
             var groupTypes = Enum.GetValues(typeof(GroupType));
             toggles = new CategoryToggleController[groupTypes.Length];
-            for (int i = 0; i < groupTypes.Length; i++)
+            for (var i = 0; i < groupTypes.Length; i++)
             {
                 var child = rect.GetChild(i);
                 if (child == null)
+                {
                     return;
+                }
 
                 var toggle = rect.GetChild(i).gameObject.GetOrAddComponent<CategoryToggleController>();
                 toggles[i] = toggle;
@@ -88,7 +100,7 @@ namespace Assets.Scripts.UI.Inventory
             }
 
             var slotTypes = Enum.GetValues(typeof(SlotAreaType));
-            for (int i = 0; i < slotTypes.Length; i++)
+            for (var i = 0; i < slotTypes.Length; i++)
             {
                 slotAreas.TryAdd((SlotAreaType)slotTypes.GetValue(i), new List<InventorySlotArea>());
             }
@@ -104,7 +116,8 @@ namespace Assets.Scripts.UI.Inventory
             activateButtonPanelHandler?.Invoke(changeInfo);
         }
 
-        public void MoveSlotArea(SlotAreaType areaType, GroupType groupType, Transform target, Transform parent, Rect size)
+        public void MoveSlotArea(SlotAreaType areaType, GroupType groupType, Transform target, Transform parent,
+            Rect size)
         {
             if (slotAreas.TryGetValue(areaType, out var slots))
             {
@@ -138,12 +151,6 @@ namespace Assets.Scripts.UI.Inventory
             panelInventoryAction += listener;
         }
 
-        private void OnDestroy()
-        {
-            activateButtonPanelHandler = null;
-            panelInventoryAction = null;
-        }
-
         #region InventoryEvent
 
         private void OnSlotAreaInventoryAction(InventoryEventPayload payload)
@@ -152,7 +159,9 @@ namespace Assets.Scripts.UI.Inventory
                 payload.eventType != InventoryEventType.UnEquipItem &&
                 payload.eventType != InventoryEventType.UpdateEquipItem &&
                 payload.eventType != InventoryEventType.SendMessageToPlayer)
+            {
                 payload.groupType = type;
+            }
 
 
             if (payload.eventType == InventoryEventType.CopyItemWithShortCut)
@@ -160,17 +169,17 @@ namespace Assets.Scripts.UI.Inventory
                 var groupType = payload.baseSlotItem.SlotItemData.itemData.groupType;
                 if (slotAreas.TryGetValue(SlotAreaType.Equipment, out var area))
                 {
-                    InventorySlot dup = area[(int)groupType].FindSlot(payload.baseSlotItem.SlotItemData.ItemIndex);
+                    var dup = area[(int)groupType].FindSlot(payload.baseSlotItem.SlotItemData.ItemIndex);
                     if (dup != null)
                     {
-                        Debug.Log($"이미 등록되어 있는 아이템");
+                        Debug.Log("이미 등록되어 있는 아이템");
                         return;
                     }
 
-                    InventorySlot emptySlot = area[(int)groupType].FindEmptySlot();
+                    var emptySlot = area[(int)groupType].FindEmptySlot();
                     if (emptySlot == null)
                     {
-                        Debug.Log($"비어있는 슬롯이 없음");
+                        Debug.Log("비어있는 슬롯이 없음");
                         return;
                     }
 
@@ -180,9 +189,9 @@ namespace Assets.Scripts.UI.Inventory
             else if (payload.eventType == InventoryEventType.SortSlotArea)
             {
                 var types = Enum.GetValues(typeof(SlotAreaType));
-                for (int i = 0; i < types.Length; i++)
+                for (var i = 0; i < types.Length; i++)
                 {
-                    SlotAreaType t = (SlotAreaType)types.GetValue(i);
+                    var t = (SlotAreaType)types.GetValue(i);
 
                     if (t == SlotAreaType.Description)
                     {
@@ -201,9 +210,12 @@ namespace Assets.Scripts.UI.Inventory
             {
                 if (slotAreas.TryGetValue(SlotAreaType.Equipment, out var area))
                 {
-                    InventorySlot emptySlot = area[(int)payload.groupType].FindEmptySlot();
+                    var emptySlot = area[(int)payload.groupType].FindEmptySlot();
                     if (emptySlot == null)
+                    {
                         return;
+                    }
+
                     payload.slot = emptySlot;
                 }
             }
@@ -213,13 +225,17 @@ namespace Assets.Scripts.UI.Inventory
                 {
                     var slot = area[(int)payload.groupType].FindSlot(payload.baseItem.ItemIndex);
                     if (slot == null)
+                    {
                         return;
+                    }
+
                     payload.slot = slot;
                 }
             }
             else if (payload.eventType == InventoryEventType.SendMessageToPlayer)
             {
             }
+
             panelInventoryAction?.Invoke(payload);
         }
 
@@ -275,7 +291,7 @@ namespace Assets.Scripts.UI.Inventory
                 // 2. 장착된 아이템이면 해당 장착 슬롯에 아이템 장착
                 if (saveInfo.equipmentSlotIndex != ItemSaveInfo.InvalidIndex)
                 {
-                    InventoryEventPayload eventPayload = new InventoryEventPayload();
+                    var eventPayload = new InventoryEventPayload();
                     eventPayload.eventType = InventoryEventType.CopyItemWithDrag;
 
                     // baseSlotItem + targetSlot

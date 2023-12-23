@@ -21,6 +21,9 @@ namespace Assets.Scripts.UI.Inventory
         {
         }
 
-        public override bool IsOrigin() => true;
+        public override bool IsOrigin()
+        {
+            return true;
+        }
     }
 }

@@ -14,11 +14,11 @@ namespace Assets.Scripts.Puzzle
         [SerializeField] private string attackSound = "puzzle2_stone2";
         [SerializeField] private string hitSound = "puzzle2_stone3";
 
-        private Rigidbody rb;
+        private bool isFallen;
         private LineRenderer lineRenderer;
         private ParticleController particle;
 
-        private bool isFallen = false;
+        private Rigidbody rb;
 
         private void Awake()
         {
@@ -31,6 +31,51 @@ namespace Assets.Scripts.Puzzle
             rb.isKinematic = true;
             SetLineRendererPosition();
             lineRenderer.enabled = true;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (!isFallen)
+            {
+                if (collision.transform.CompareTag("Stone"))
+                {
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
+
+                    rb.useGravity = true;
+                    rb.isKinematic = false;
+
+                    isFallen = true;
+                    particle.Stop();
+                    particle = null;
+                }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (isFallen)
+            {
+                if (other.transform.CompareTag("Ground"))
+                {
+                    Debug.Log($"{other} 충돌!");
+
+                    var puzzle = other.GetComponent<StoneFootboardPuzzle>();
+                    if (puzzle == null)
+                    {
+                        Debug.LogError($"{other} 퍼즐 에러");
+                        return;
+                    }
+
+                    puzzle.Freeze();
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, attackSound);
+
+                    ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
+
+                    lineRenderer.enabled = false;
+                    Destroy(gameObject);
+                }
+            }
         }
 
         private void InitLineRenderer()
@@ -46,7 +91,7 @@ namespace Assets.Scripts.Puzzle
         public void SetLineRendererPosition()
         {
             RaycastHit hit;
-            int layerMask = LayerMask.GetMask("Ground");
+            var layerMask = LayerMask.GetMask("Ground");
 
             if (particle != null)
             {
@@ -63,56 +108,12 @@ namespace Assets.Scripts.Puzzle
                 {
                     Position = hit.point + new Vector3(0.0f, 0.1f, 0.0f),
                     Scale = new Vector3(1.0f, 1.0f, 1.0f),
-                    IsLoop = true,
+                    IsLoop = true
                 }).GetComponent<ParticleController>();
             }
             else
             {
                 lineRenderer.enabled = true;
-            }
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (!isFallen)
-            {
-                if (collision.transform.CompareTag("Stone"))
-                {
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
-                    
-                    rb.useGravity = true;
-                    rb.isKinematic = false;
-                    
-                    isFallen = true;
-                    particle.Stop();
-                    particle = null;
-                } 
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (isFallen)
-            {
-                if (other.transform.CompareTag("Ground"))
-                {
-                    Debug.Log($"{other} 충돌!");
-
-                    var puzzle = other.GetComponent<StoneFootboardPuzzle>();
-                    if(puzzle == null)
-                    {
-                        Debug.LogError($"{other} 퍼즐 에러");
-                        return;
-                    }
-                    puzzle.Freeze();
-
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, attackSound);
-
-                    ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
-
-                    lineRenderer.enabled = false;
-                    Destroy(this.gameObject);
-                }
             }
         }
     }

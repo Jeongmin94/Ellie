@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.Combat;
+﻿using System.Collections;
+using Assets.Scripts.Combat;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Sirenix.OdinInspector;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle
@@ -17,28 +17,16 @@ namespace Assets.Scripts.Puzzle
         public float shakeDuration = 0.1f;
         public float shakeMagnitude = 0.1f;
 
-        [ShowInInspector] private bool isFrozen = false;
+        [ShowInInspector] private bool isFrozen;
         private TicketMachine ticketMachine;
-
-        [Button("히트 테스트", ButtonSizes.Large)]
-        public void Test()
-        {
-            HitByStone(1);
-        }
-
-        public void InitTicketMachine(TicketMachine ticketMachine)
-        {
-            this.ticketMachine = ticketMachine;
-        }
 
         public void Attack(IBaseEventPayload payload)
         {
-            
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
-            CombatPayload combatPayload = payload as CombatPayload;
+            var combatPayload = payload as CombatPayload;
 
             var attackStone = combatPayload.Attacker;
 
@@ -56,11 +44,22 @@ namespace Assets.Scripts.Puzzle
             }
         }
 
+        [Button("히트 테스트", ButtonSizes.Large)]
+        public void Test()
+        {
+            HitByStone(1);
+        }
+
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
+        }
+
         private void HitByStone(int damageValue)
         {
             // 돌맹이 피격 흔들림 처리
             StartCoroutine(ShakeCoroutine());
-            
+
             // 데미지 처리
             GetDamaged(damageValue);
         }
@@ -93,14 +92,14 @@ namespace Assets.Scripts.Puzzle
             ParticleManager.Instance.GetParticle(destroyEffect, transform, 2.0f);
 
             // 돌 삭제
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         private IEnumerator ShakeCoroutine()
         {
-            float elapsed = 0.0f;
+            var elapsed = 0.0f;
 
-            Vector3 originalPosition = transform.position;
+            var originalPosition = transform.position;
 
             while (elapsed < shakeDuration)
             {

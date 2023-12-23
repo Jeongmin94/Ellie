@@ -1,14 +1,15 @@
-﻿using Assets.Scripts.Player;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.Player;
 using UnityEngine;
 
 namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
 {
     public class PlayerStatusEffectBurn : MonoBehaviour, IPlayerStatusEffect
     {
+        private GameObject burnEffectParticle;
         private float duration;
         private PlayerStatus status;
-        private GameObject burnEffectParticle;
+
         public void InitStatusEffect()
         {
             burnEffectParticle = Resources.Load<GameObject>("Prefabs/StatusEffectParticles/BurnEffect");
@@ -20,17 +21,19 @@ namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
             duration = info.effectDuration;
             StartCoroutine(Burn(controller));
         }
+
         private IEnumerator Burn(PlayerStatusEffectController controller)
         {
-            var burnEffectObj = Instantiate(burnEffectParticle, this.transform);
+            var burnEffectObj = Instantiate(burnEffectParticle, transform);
             controller.AddStatusEffect(this);
-            float startTime = Time.time;
+            var startTime = Time.time;
             //화상 로직
             while (Time.time - startTime < duration)
             {
                 yield return new WaitForSeconds(1.0f);
                 status.ReduceHP(1);
             }
+
             controller.RemoveStatusEffect(this);
             Destroy(burnEffectObj);
         }

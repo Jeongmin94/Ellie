@@ -1,22 +1,16 @@
-using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TerrapupaDetection : MonoBehaviour
 {
     [SerializeField] private Transform myTerrapupa;
 
+    public Transform MyTerrapupa => myTerrapupa;
+
     private void Start()
     {
-        if(myTerrapupa == null)
+        if (myTerrapupa == null)
         {
-            Debug.LogError($"{transform} Å×¶óÇªÆÄ Æ®·£½ºÆû Á¤º¸°¡ ¾ø½À´Ï´Ù");
+            Debug.LogError($"{transform} í…Œë¼í‘¸íŒŒ íŠ¸ëœìŠ¤í¼ ì •ë³´ê°€ ì—†ìŠµë‹ˆë‹¤");
         }
-    }
-
-    public Transform MyTerrapupa 
-    { 
-        get { return myTerrapupa; }
     }
 }

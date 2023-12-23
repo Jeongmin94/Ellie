@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,11 +6,11 @@ namespace Assets.Scripts.Environments
 {
     public class FadingObject : MonoBehaviour, IEquatable<FadingObject>
     {
-        public List<Renderer> Renderers = new List<Renderer>();
+        public List<Renderer> Renderers = new();
         public Vector3 Position;
-        public List<Material> Materials = new List<Material>();
-        [HideInInspector]
-        public float InitialAlpha;
+        public List<Material> Materials = new();
+
+        [HideInInspector] public float InitialAlpha;
 
         private void Awake()
         {
@@ -21,7 +20,8 @@ namespace Assets.Scripts.Environments
             {
                 Renderers.AddRange(GetComponentsInChildren<Renderer>());
             }
-            foreach (Renderer renderer in Renderers)
+
+            foreach (var renderer in Renderers)
             {
                 Materials.AddRange(renderer.materials);
             }

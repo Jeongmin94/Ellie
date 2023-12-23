@@ -7,20 +7,20 @@ namespace Assets.Scripts.UI.PopupMenu
     public class ConfigToggleController : ToggleController
     {
         public static readonly string Path = "Opening/ConfigToggleText";
-
-        public ConfigType ToggleConfigType { get; set; }
         private Action<PopupPayload> toggleAction;
 
-        public void Subscribe(Action<PopupPayload> listener)
-        {
-            toggleAction -= listener;
-            toggleAction += listener;
-        }
+        public ConfigType ToggleConfigType { get; set; }
 
         protected override void OnDestroy()
         {
             base.OnDestroy();
             toggleAction = null;
+        }
+
+        public void Subscribe(Action<PopupPayload> listener)
+        {
+            toggleAction -= listener;
+            toggleAction += listener;
         }
 
         public void Init()
@@ -31,7 +31,7 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private void OnValueChanged(bool isOn)
         {
-            PopupPayload payload = new PopupPayload();
+            var payload = new PopupPayload();
             payload.configType = ToggleConfigType;
             payload.isOn = isOn;
             toggleAction?.Invoke(payload);

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TerrapupaMinionSkinController : MonoBehaviour
@@ -12,13 +10,15 @@ public class TerrapupaMinionSkinController : MonoBehaviour
     {
         skinRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
     }
+
     private void Start()
     {
-        if(material != null)
+        if (material != null)
         {
             ApplySkinMaterial();
         }
     }
+
     private void ApplySkinMaterial()
     {
         skinRenderer.material = material;

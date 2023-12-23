@@ -8,9 +8,9 @@ namespace Assets.Scripts.Managers
     public class PoolManager : Singleton<PoolManager>
     {
         public float cleanInterval = 0.1f;
-        public readonly PoolTask poolTask = new PoolTask();
 
         private readonly IDictionary<string, Pool> pools = new Dictionary<string, Pool>();
+        public readonly PoolTask poolTask = new();
 
         private Transform root;
 
@@ -30,7 +30,7 @@ namespace Assets.Scripts.Managers
 
         public Pool CreatePool(GameObject original, int count = 5)
         {
-            Pool pool = new Pool();
+            var pool = new Pool();
             pool.Init(original, count);
 
             pool.Root.SetParent(root);
@@ -45,14 +45,16 @@ namespace Assets.Scripts.Managers
         public Pool GetPool(string poolName)
         {
             if (pools.TryGetValue(poolName, out var pool))
+            {
                 return pool;
+            }
 
             return null;
         }
 
         public void Push(Poolable poolable)
         {
-            string objectName = poolable.name;
+            var objectName = poolable.name;
             var info = poolTask.GetInfo(poolable);
             if (pools.TryGetValue(objectName, out var pool) && info != null)
             {
@@ -73,19 +75,21 @@ namespace Assets.Scripts.Managers
                 return;
             }
 
-            string objectName = poolable.name;
+            var objectName = poolable.name;
             var info = poolTask.GetInfo(poolable);
             if (pools.TryGetValue(objectName, out var pool) && info != null)
             {
-                int version = info.Reserve();
+                var version = info.Reserve();
                 Task.Run(async () =>
                 {
-                    int prevVersion = version;
+                    var prevVersion = version;
 
                     await Task.Delay((int)time * 1000);
 
                     if (info.Validate(prevVersion))
+                    {
                         poolTask.EnqueueInfo(info);
+                    }
                 });
             }
             else
@@ -97,10 +101,14 @@ namespace Assets.Scripts.Managers
         public Poolable Pop(GameObject original, Transform parent = null)
         {
             if (!pools.ContainsKey(original.name))
+            {
                 CreatePool(original);
+            }
 
             if (parent == null)
+            {
                 parent = root;
+            }
 
             return pools[original.name].Pop(parent);
         }
@@ -108,7 +116,9 @@ namespace Assets.Scripts.Managers
         public GameObject GetOriginal(string prefabName)
         {
             if (pools.TryGetValue(prefabName, out var pool))
+            {
                 return pool.Original;
+            }
 
             return null;
         }
@@ -126,7 +136,9 @@ namespace Assets.Scripts.Managers
         private void OnClearPoolAction(Pool pool)
         {
             if (!pool.IsFull())
+            {
                 return;
+            }
 
             StartCoroutine(ClearPool(pool));
         }

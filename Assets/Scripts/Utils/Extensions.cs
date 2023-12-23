@@ -1,6 +1,6 @@
-using Assets.Scripts.UI.Framework;
 using System;
 using System.Linq;
+using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.PopupMenu;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -27,22 +27,26 @@ namespace Assets.Scripts.Utils
         public static T FindChild<T>(this GameObject go, string name = null, bool recursive = false) where T : Object
         {
             if (go == null)
+            {
                 return null;
+            }
 
             if (recursive)
             {
                 return go.GetComponentsInChildren<T>()
-                         .FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name.Equals(name));
+                    .FirstOrDefault(component => string.IsNullOrEmpty(name) || component.name.Equals(name));
             }
 
-            for (int i = 0; i < go.transform.childCount; i++)
+            for (var i = 0; i < go.transform.childCount; i++)
             {
                 var transform = go.transform.GetChild(i);
                 if (string.IsNullOrEmpty(name) || transform.name.Equals(name))
                 {
                     var component = transform.GetComponent<T>();
                     if (component)
+                    {
                         return component;
+                    }
                 }
             }
 
@@ -54,7 +58,7 @@ namespace Assets.Scripts.Utils
         #region UI
 
         /// <summary>
-        /// UI GameObject에 UIEvent를 바인딩
+        ///     UI GameObject에 UIEvent를 바인딩
         /// </summary>
         /// <param name="go"></param>
         /// <param name="action"></param>

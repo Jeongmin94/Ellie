@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -11,18 +10,18 @@ public enum MonsterParticleType
     ProjectileCast,
     ProjectileHit,
     Hit,
-    HeadShot,
+    HeadShot
 }
+
 public class MonsterParticleController : MonoBehaviour
 {
-
     [SerializeField] private MonsterParticleData data;
-    private Dictionary<MonsterParticleType, ParticleSystem> particles;
     private ParticleSystem particle;
+    private Dictionary<MonsterParticleType, ParticleSystem> particles;
 
     private void Awake()
     {
-        particles = new();
+        particles = new Dictionary<MonsterParticleType, ParticleSystem>();
     }
 
     public ParticleSystem GetParticle(MonsterParticleType type)
@@ -32,30 +31,35 @@ public class MonsterParticleController : MonoBehaviour
             particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
             return particle;
         }
-        else
+
+        var particleObj = Instantiate(data.GetParticleSystem(type), transform);
+        particles.Add(type, particleObj);
+        if (particles.TryGetValue(type, out particle))
         {
-            ParticleSystem particleObj = Instantiate(data.GetParticleSystem(type),transform);
-            particles.Add(type, particleObj);
-            if (particles.TryGetValue(type, out particle))
-            {
-                particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
-                return particle;
-            }
+            particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
+            return particle;
         }
+
         return null;
     }
 
     public bool PlayParticle(MonsterParticleType type)
     {
         particle = GetParticle(type);
-        if (particle == null) return false;
+        if (particle == null)
+        {
+            return false;
+        }
+
         particle.Play();
         return true;
     }
 
     public void StopParticle()
     {
-        if(particle!=null)
+        if (particle != null)
+        {
             particle.Stop();
+        }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -24,7 +23,7 @@ namespace Assets.Scripts.UI.Quest
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                UIPayload payload = new UIPayload();
+                var payload = new UIPayload();
 
                 payload.uiType = UIType.Notify;
                 payload.actionType = ActionType.ClearQuest;
@@ -34,7 +33,7 @@ namespace Assets.Scripts.UI.Quest
 
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                UIPayload payload = new UIPayload();
+                var payload = new UIPayload();
 
                 payload.uiType = UIType.Notify;
                 payload.actionType = ActionType.SetQuestName;
@@ -45,7 +44,7 @@ namespace Assets.Scripts.UI.Quest
 
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
-                UIPayload payload = new UIPayload();
+                var payload = new UIPayload();
 
                 payload.uiType = UIType.Notify;
                 payload.actionType = ActionType.SetQuestDesc;

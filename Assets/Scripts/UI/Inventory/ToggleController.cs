@@ -22,6 +22,11 @@ namespace Assets.Scripts.UI.Inventory
             set => toggle.interactable = value;
         }
 
+        protected virtual void OnDestroy()
+        {
+            toggle.onValueChanged.RemoveAllListeners();
+        }
+
         protected void InitToggle()
         {
             toggle = gameObject.GetOrAddComponent<Toggle>();
@@ -30,11 +35,6 @@ namespace Assets.Scripts.UI.Inventory
         protected void SubscribeToggleEvent(UnityAction<bool> listener)
         {
             toggle.onValueChanged.AddListener(listener);
-        }
-
-        protected virtual void OnDestroy()
-        {
-            toggle.onValueChanged.RemoveAllListeners();
         }
     }
 }

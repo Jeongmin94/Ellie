@@ -35,11 +35,17 @@ namespace Centers
     public class BaseCenter : MonoBehaviour
     {
         [SerializeField] private BaseChannelTypeSo channelTypeSo;
-        [ShowInInspector] private readonly IDictionary<ChannelType, BaseEventChannel> channels =
-            new Dictionary<ChannelType, BaseEventChannel>();
         public GameObject Canvases;
         public GameObject[] uiPrefabs;
         public GameObject[] controllerInstances;
+
+        [ShowInInspector] private readonly IDictionary<ChannelType, BaseEventChannel> channels =
+            new Dictionary<ChannelType, BaseEventChannel>();
+
+        protected virtual void Start()
+        {
+            // !TODO Start() 메서드에서 CheckTicket 메서드를 호출하여 GameObject의 티켓을 만들어야 합니다. 
+        }
 
         protected virtual void Init()
         {
@@ -49,19 +55,16 @@ namespace Centers
         private void InitChannels()
         {
             if (channelTypeSo == null)
-                return;
-
-            int length = channelTypeSo.channelTypes.Length;
-            for (int i = 0; i < length; i++)
             {
-                ChannelType type = channelTypeSo.channelTypes[i];
+                return;
+            }
+
+            var length = channelTypeSo.channelTypes.Length;
+            for (var i = 0; i < length; i++)
+            {
+                var type = channelTypeSo.channelTypes[i];
                 channels[type] = ChannelUtil.MakeChannel(type);
             }
-        }
-
-        protected virtual void Start()
-        {
-            // !TODO Start() 메서드에서 CheckTicket 메서드를 호출하여 GameObject의 티켓을 만들어야 합니다. 
         }
 
         protected virtual void InitObjects()
@@ -94,7 +97,9 @@ namespace Centers
         {
             var machines = go.GetComponentsInChildren<TicketMachine>();
             if (machines.Length == 0)
+            {
                 return;
+            }
 
             foreach (var machine in machines)
             {

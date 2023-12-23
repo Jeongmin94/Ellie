@@ -1,13 +1,12 @@
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Environments
 {
     public class MaterialChangableObject : MonoBehaviour
     {
-        private Material material;
-        private Material initialMaterial;
         private Material changingMaterial;
+        private Material initialMaterial;
+        private Material material;
 
         private void Awake()
         {
@@ -18,8 +17,8 @@ namespace Assets.Scripts.Environments
 
         public void SetEmissionValue(float value)
         {
-            Color color = GetComponent<Renderer>().material.GetColor("_EmissionColor");
-            
+            var color = GetComponent<Renderer>().material.GetColor("_EmissionColor");
+
             color *= value;
             changingMaterial.SetColor("_EmissionColor", color);
             GetComponent<Renderer>().material = changingMaterial;

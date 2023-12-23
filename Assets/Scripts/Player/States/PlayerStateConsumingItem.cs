@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
     public class PlayerStateConsumingItem : PlayerBaseState
     {
         private const float ConsumingStateTime = 1.5f;
-        private float accTime = 0;
+        private float accTime;
         private float moveSpeed;
+
         public PlayerStateConsumingItem(PlayerController controller) : base(controller)
         {
         }
@@ -27,7 +23,6 @@ namespace Assets.Scripts.Player.States
         {
             Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Consuming);
             Controller.Anim.SetBool("IsConsuming", false);
-
         }
 
         public override void OnFixedUpdateState()

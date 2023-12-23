@@ -6,17 +6,22 @@
         public float stateDuration;
         public float magnitude;
     }
+
     public abstract class PlayerBaseState
     {
-        protected PlayerController Controller { get; private set; }
-
         public PlayerBaseState(PlayerController controller)
         {
-            this.Controller = controller;
+            Controller = controller;
         }
 
+        protected PlayerController Controller { get; private set; }
+
         public abstract void OnEnterState();
-        public virtual void OnEnterState(StateInfo info) { }
+
+        public virtual void OnEnterState(StateInfo info)
+        {
+        }
+
         public abstract void OnUpdateState();
         public abstract void OnFixedUpdateState();
         public abstract void OnExitState();

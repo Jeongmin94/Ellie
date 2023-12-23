@@ -1,10 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
-
-using Assets.Scripts.Monsters.Utility;
 using Assets.Scripts.Monsters.AbstractClass;
+using Assets.Scripts.Monsters.Utility;
+using UnityEngine;
 
 public enum MonsterName
 {
@@ -12,7 +10,7 @@ public enum MonsterName
     AdventureSkeleton,
     GuildguardSkeleton,
     WizardSkeleton,
-    CaveBat,
+    CaveBat
 }
 
 [Serializable]
@@ -42,33 +40,39 @@ public class SkeletonMonsterData
 }
 
 
-[CreateAssetMenu(fileName = "SkeletonMonster", menuName = "GameData List/Monsters/SkeletonMonsterData", order = int.MaxValue)]
+[CreateAssetMenu(fileName = "SkeletonMonster", menuName = "GameData List/Monsters/SkeletonMonsterData",
+    order = int.MaxValue)]
 public class SkeletonMonsterDataParsingInfo : DataParsingInfo
 {
     public List<SkeletonMonsterData> datas = new();
 
     public override T GetIndexData<T>(int index)
     {
-        if(typeof(T)==typeof(SkeletonMonsterData))
+        if (typeof(T) == typeof(SkeletonMonsterData))
         {
             return datas.Find(m => m.index == index) as T;
         }
-        return default(T);
+
+        return default;
     }
 
     public override void Parse()
     {
         datas.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for(int i=0; i<lines.Length;i++)
+        for (var i = 0; i < lines.Length; i++)
         {
-            if (string.IsNullOrEmpty(lines[i])) continue;
-            string[] entries = lines[i].Split('\t');
+            if (string.IsNullOrEmpty(lines[i]))
+            {
+                continue;
+            }
 
-            SkeletonMonsterData data = new SkeletonMonsterData();
-            data.itemDropTable = new();
+            var entries = lines[i].Split('\t');
+
+            var data = new SkeletonMonsterData();
+            data.itemDropTable = new List<int>();
 
             try
             {
@@ -85,16 +89,16 @@ public class SkeletonMonsterDataParsingInfo : DataParsingInfo
                 data.stopDistance = float.Parse(entries[10]);
                 data.weakRatio = float.Parse(entries[15]);
 
-                string[] dropableItem = entries[16].Trim().Split(',');
-                for (int m = 0; m < dropableItem.Length; m++)
+                var dropableItem = entries[16].Trim().Split(',');
+                for (var m = 0; m < dropableItem.Length; m++)
                 {
-                    int index = int.Parse(dropableItem[m].Trim());
+                    var index = int.Parse(dropableItem[m].Trim());
                     data.itemDropTable.Add(index);
                 }
 
                 data.respawnTime = int.Parse(entries[17]);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Debug.LogError($"Error parsing line {i + 1}: {entries[i]}");
                 Debug.LogError(ex);

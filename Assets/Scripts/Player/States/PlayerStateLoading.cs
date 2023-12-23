@@ -1,11 +1,4 @@
-﻿using Assets.Scripts.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assets.Scripts.Player.States
+﻿namespace Assets.Scripts.Player.States
 {
     public class PlayerStateLoading : PlayerBaseState
     {
@@ -20,7 +13,6 @@ namespace Assets.Scripts.Player.States
         public override void OnExitState()
         {
             Controller.GetComponent<PlayerAim>().canAim = true;
-
         }
 
         public override void OnFixedUpdateState()
@@ -29,7 +21,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
-            
         }
     }
 }

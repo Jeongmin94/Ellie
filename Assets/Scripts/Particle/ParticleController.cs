@@ -5,11 +5,11 @@ namespace Assets.Scripts.Particle
 {
     public class ParticleController : Poolable
     {
-        public ParticleSystem ps { get; private set; }
-
-        private Transform origin;
         private bool isFollowOrigin;
         private int loopCount;
+
+        private Transform origin;
+        public ParticleSystem ps { get; private set; }
 
         private void Awake()
         {
@@ -25,6 +25,20 @@ namespace Assets.Scripts.Particle
             {
                 transform.position = origin.transform.position;
                 transform.rotation = origin.transform.rotation;
+            }
+        }
+
+        private void OnParticleSystemStopped()
+        {
+            loopCount--;
+
+            if (loopCount <= 0)
+            {
+                ParticleManager.Instance.ReturnToPool(this);
+            }
+            else
+            {
+                ps.Play();
             }
         }
 
@@ -48,23 +62,9 @@ namespace Assets.Scripts.Particle
             loopCount = 0;
         }
 
-        private void OnParticleSystemStopped()
-        {
-            loopCount--;
-
-            if(loopCount <= 0)
-            {
-                ParticleManager.Instance.ReturnToPool(this);
-            }
-            else
-            {
-                ps.Play();
-            }
-        }
-
         public override void PoolableDestroy()
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

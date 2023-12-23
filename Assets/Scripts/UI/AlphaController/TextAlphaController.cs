@@ -15,10 +15,10 @@ namespace Assets.Scripts.UI
 
         public override IEnumerator ChangeAlpha(Color start, Color end, float duration)
         {
-            float timeAcc = 0.0f;
+            var timeAcc = 0.0f;
             textMeshProUGUI.color = start;
 
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var wfef = new WaitForEndOfFrame();
             while (timeAcc <= duration)
             {
                 textMeshProUGUI.color = Color.Lerp(start, end, timeAcc / duration);

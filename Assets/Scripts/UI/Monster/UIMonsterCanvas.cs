@@ -12,28 +12,31 @@ namespace Assets.Scripts.UI.Monster
 {
     public class UIMonsterCanvas : UIStatic
     {
-        private enum GameObjects
-        {
-            MonsterPanel
-        }
-
         private const string NameBarImage = "BarImage";
         private const string NameMonsterText = "MonsterText";
 
         [SerializeField] protected float time = 1.0f;
 
+        private readonly Queue<ImageChangeInfo> healthQueue = new();
+        private UIBarImage barImage;
+        private int maxHealth;
+
         protected GameObject monsterPanel;
         protected RectTransform monsterPanelRect;
         private TextMeshProUGUI monsterText;
-        private UIBarImage barImage;
-
-        private readonly Queue<ImageChangeInfo> healthQueue = new Queue<ImageChangeInfo>();
         private int prevHealth;
-        private int maxHealth;
 
         private void Awake()
         {
             Init();
+        }
+
+        protected virtual void Start()
+        {
+            var go = GetGameObject((int)GameObjects.MonsterPanel);
+
+            var image = go.FindChild(NameBarImage, true);
+            barImage = image.GetOrAddComponent<UIBarImage>();
         }
 
         protected override void Init()
@@ -59,14 +62,6 @@ namespace Assets.Scripts.UI.Monster
             monsterText.text = monsterName;
         }
 
-        protected virtual void Start()
-        {
-            var go = GetGameObject((int)GameObjects.MonsterPanel);
-
-            var image = go.FindChild(NameBarImage, true);
-            barImage = image.GetOrAddComponent<UIBarImage>();
-        }
-
         private void OnChangeHealth(int value)
         {
             if (prevHealth == value)
@@ -74,8 +69,8 @@ namespace Assets.Scripts.UI.Monster
                 return;
             }
 
-            float target = value / (float)maxHealth;
-            float t = time;
+            var target = value / (float)maxHealth;
+            var t = time;
 
             if (prevHealth > value)
             {
@@ -99,6 +94,11 @@ namespace Assets.Scripts.UI.Monster
                 var info = healthQueue.Dequeue();
                 yield return barImage.ChangeImageFillAmount(info.Type, info.Target, info.Time);
             }
+        }
+
+        private enum GameObjects
+        {
+            MonsterPanel
         }
     }
 }

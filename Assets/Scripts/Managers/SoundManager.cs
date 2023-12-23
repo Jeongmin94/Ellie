@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -16,42 +15,40 @@ namespace Assets.Scripts.Managers
             End
         }
 
+        private readonly Dictionary<string, Coroutine> ambientCoroutines = new();
+
+        private readonly Dictionary<string, AudioController> ambientDict = new();
+        private float AmbientVolume = 1.0f;
+
+        //오디오 클립들이 담긴 딕셔너리
+        private readonly Dictionary<string, AudioClip> AudioClips = new();
+
         //풀 생성 후, 플레이하고자 하는 bgm을 딕셔너리에서 찾아서 오디오 소스에 붙여서 해당 위치로 이동시킨 후 플레이
         private Pool audioControllerPool;
 
         private AudioController audioControllerPrefab;
 
-        //오디오 클립들이 담긴 딕셔너리
-        private Dictionary<string, AudioClip> AudioClips = new();
-
-        private Coroutine nowPlayingBgmCoroutine;
-        private AudioController nowPlayingBgmController;
-        private bool isBgmPlaying = false;
-        private bool isBgmPaused = false;
-
-        private List<AudioController> nowPlayingSfxAudioControllerList = new();
-
-        private Dictionary<string, AudioController> ambientDict = new();
-        private Dictionary<string, Coroutine> ambientCoroutines = new();
-
-        private Coroutine nowPlayingUISfxCoroutine;
-
-        private Transform soundRoot;
-
         //volmues
         private float BGMVolume = 1.0f;
+        private bool isBgmPaused;
+        private bool isBgmPlaying;
+        private AudioController nowPlayingBgmController;
+
+        private Coroutine nowPlayingBgmCoroutine;
+
+        private readonly List<AudioController> nowPlayingSfxAudioControllerList = new();
+
+        private Coroutine nowPlayingUISfxCoroutine;
         private float SFXVolume = 1.0f;
+
+        private Transform soundRoot;
         private float UISfxVolume = 1.0f;
-        private float AmbientVolume = 1.0f;
-
-
-        public bool IsBgmPlaying() => isBgmPlaying;
 
         public override void Awake()
         {
             base.Awake();
 
-            GameObject root = new GameObject();
+            var root = new GameObject();
             root.name = "@Sound_Root";
             root.transform.SetParent(transform);
             soundRoot = root.transform;
@@ -60,11 +57,17 @@ namespace Assets.Scripts.Managers
             InitAudioSourcePool();
         }
 
+
+        public bool IsBgmPlaying()
+        {
+            return isBgmPlaying;
+        }
+
         private void InitAudioDict()
         {
             audioControllerPrefab = Resources.Load<AudioController>("Prefabs/SoundController/AudioController");
-            AudioClip[] clips = Resources.LoadAll<AudioClip>("Extern/Sounds");
-            foreach (AudioClip clip in clips)
+            var clips = Resources.LoadAll<AudioClip>("Extern/Sounds");
+            foreach (var clip in clips)
             {
                 AudioClips.Add(clip.name, clip);
             }
@@ -75,14 +78,15 @@ namespace Assets.Scripts.Managers
             audioControllerPool = PoolManager.Instance.CreatePool(audioControllerPrefab.gameObject, 10);
         }
 
-        public void PlaySound(SoundType type, string name, Vector3 playingPos = default(Vector3), bool loop = false, float pitch = 1.0f)
+        public void PlaySound(SoundType type, string name, Vector3 playingPos = default, bool loop = false,
+            float pitch = 1.0f)
         {
             switch (type)
             {
                 case SoundType.Bgm:
-                    if (AudioClips.TryGetValue(name, out AudioClip bgmClip))
+                    if (AudioClips.TryGetValue(name, out var bgmClip))
                     {
-                        AudioController audioController = audioControllerPool.Pop(soundRoot) as AudioController;
+                        var audioController = audioControllerPool.Pop(soundRoot) as AudioController;
 
                         //플레이 중인 Bgm이 이미 존재한다면
                         if (isBgmPlaying && nowPlayingBgmCoroutine != null)
@@ -95,19 +99,19 @@ namespace Assets.Scripts.Managers
                         isBgmPlaying = true;
                         audioController.SetVolume(BGMVolume);
                         nowPlayingBgmController = audioController;
-                        nowPlayingBgmCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, bgmClip, pitch, loop));
+                        nowPlayingBgmCoroutine =
+                            StartCoroutine(PlaySoundCoroutine(type, name, audioController, bgmClip, pitch, loop));
                     }
                     else
                     {
                         Debug.Log($"{name}사운드가 존재하지 않습니다.");
-                        return;
                     }
 
                     break;
                 case SoundType.Sfx:
-                    if (AudioClips.TryGetValue(name, out AudioClip sfxClip))
+                    if (AudioClips.TryGetValue(name, out var sfxClip))
                     {
-                        AudioController audioController = audioControllerPool.Pop(soundRoot) as AudioController;
+                        var audioController = audioControllerPool.Pop(soundRoot) as AudioController;
                         //audioController의 위치를 해당 위치로
                         audioController.Activate3DEffect();
                         audioController.transform.position = playingPos;
@@ -120,7 +124,6 @@ namespace Assets.Scripts.Managers
                     else
                     {
                         Debug.Log($"{name}사운드가 존재하지 않습니다.");
-                        return;
                     }
 
                     break;
@@ -132,36 +135,36 @@ namespace Assets.Scripts.Managers
                         return;
                     }
 
-                    if (AudioClips.TryGetValue(name, out AudioClip uiSfxClip))
+                    if (AudioClips.TryGetValue(name, out var uiSfxClip))
                     {
-                        AudioController audioController = audioControllerPool.Pop(soundRoot) as AudioController;
+                        var audioController = audioControllerPool.Pop(soundRoot) as AudioController;
                         audioController.SetVolume(UISfxVolume);
-                        nowPlayingUISfxCoroutine = StartCoroutine(PlaySoundCoroutine(type, name, audioController, uiSfxClip, pitch, loop));
+                        nowPlayingUISfxCoroutine =
+                            StartCoroutine(PlaySoundCoroutine(type, name, audioController, uiSfxClip, pitch, loop));
                     }
                     else
                     {
                         Debug.Log($"{name}사운드가 존재하지 않습니다.");
-                        return;
                     }
 
                     break;
                 case SoundType.Ambient:
-                    if (AudioClips.TryGetValue(name, out AudioClip ambientClip))
+                    if (AudioClips.TryGetValue(name, out var ambientClip))
                     {
-                        AudioController audioController = audioControllerPool.Pop(soundRoot) as AudioController;
+                        var audioController = audioControllerPool.Pop(soundRoot) as AudioController;
                         audioController.SetVolume(AmbientVolume);
 
-                        if (!ambientDict.TryGetValue(name, out AudioController controller))
+                        if (!ambientDict.TryGetValue(name, out var controller))
                         {
                             ambientDict.Add(name, audioController);
                         }
 
-                        ambientCoroutines[name] = StartCoroutine(PlaySoundCoroutine(type, name, audioController, ambientClip, pitch, loop));
+                        ambientCoroutines[name] =
+                            StartCoroutine(PlaySoundCoroutine(type, name, audioController, ambientClip, pitch, loop));
                     }
                     else
                     {
                         Debug.Log($"{name}사운드가 존재하지 않습니다.");
-                        return;
                     }
 
                     break;
@@ -196,13 +199,13 @@ namespace Assets.Scripts.Managers
 
         public void StopAmbient(string name)
         {
-            if (ambientCoroutines.TryGetValue(name, out Coroutine ambientCoroutine))
+            if (ambientCoroutines.TryGetValue(name, out var ambientCoroutine))
             {
                 StopCoroutine(ambientCoroutine);
                 ambientCoroutines.Remove(name);
             }
 
-            if (ambientDict.TryGetValue(name, out AudioController controller))
+            if (ambientDict.TryGetValue(name, out var controller))
             {
                 controller.Stop();
                 audioControllerPool.Push(controller);
@@ -213,7 +216,9 @@ namespace Assets.Scripts.Managers
         private void StopAllAmbients()
         {
             foreach (var controller in ambientDict.Values)
+            {
                 audioControllerPool.Push(controller);
+            }
 
             ambientCoroutines.Clear();
             ambientDict.Clear();
@@ -221,7 +226,11 @@ namespace Assets.Scripts.Managers
 
         public void StopBgm()
         {
-            if (!isBgmPlaying) return;
+            if (!isBgmPlaying)
+            {
+                return;
+            }
+
             isBgmPlaying = false;
             isBgmPaused = false;
             //코루틴 꺼주기
@@ -233,7 +242,11 @@ namespace Assets.Scripts.Managers
 
         public void PauseBgm()
         {
-            if (!isBgmPlaying) return;
+            if (!isBgmPlaying)
+            {
+                return;
+            }
+
             isBgmPaused = true;
         }
 
@@ -253,7 +266,8 @@ namespace Assets.Scripts.Managers
             }
         }
 
-        private IEnumerator PlaySoundCoroutine(SoundType type, string name, AudioController audioController, AudioClip clip, float pitch, bool loop)
+        private IEnumerator PlaySoundCoroutine(SoundType type, string name, AudioController audioController,
+            AudioClip clip, float pitch, bool loop)
         {
             audioController.SetClip(clip);
             audioController.Play(pitch, type);
@@ -275,26 +289,28 @@ namespace Assets.Scripts.Managers
                     yield return null;
                 }
             }
-            else
+
+            yield return new WaitForSeconds(clip.length);
+            if (type == SoundType.Sfx && loop)
             {
-                yield return new WaitForSeconds(clip.length);
-                if (type == SoundType.Sfx && loop)
+                while (true)
                 {
-                    while (true)
+                    if (!audioController.isPlaying)
                     {
-                        if (!audioController.isPlaying) break;
-                        audioController.Play(pitch, type);
-                        yield return new WaitForSeconds(clip.length);
+                        break;
                     }
-                }
 
-                if (type == SoundType.UISfx)
-                {
-                    nowPlayingUISfxCoroutine = null;
+                    audioController.Play(pitch, type);
+                    yield return new WaitForSeconds(clip.length);
                 }
-
-                StopSound(name, audioController);
             }
+
+            if (type == SoundType.UISfx)
+            {
+                nowPlayingUISfxCoroutine = null;
+            }
+
+            StopSound(name, audioController);
         }
 
         public override void ClearAction()

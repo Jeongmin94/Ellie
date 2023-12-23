@@ -12,22 +12,7 @@ namespace Assets.Scripts.Player
 {
     public class PlayerInventory : MonoBehaviour
     {
-        public struct ConsumableItemData
-        {
-            public int HPRecoveryAmount;
-            // !TODO : 추가될 소모품의 효과들에 대한 정의가 필요
-        }
-
         private const int CONSUMABLEEQUIPMENTSLOTCOUNT = 4;
-        private PlayerController controller;
-        private PlayerStatus playerStatus;
-        private TicketMachine ticketMachine;
-        private Inventory inventory;
-
-        public Inventory Inventory
-        {
-            get { return inventory; }
-        }
 
         public ItemMetaData[] consumableEquipmentSlot = new ItemMetaData[CONSUMABLEEQUIPMENTSLOTCOUNT];
         public int curSlotIdx;
@@ -36,10 +21,15 @@ namespace Assets.Scripts.Player
         [SerializeField] private GameGoods gameGoods;
 
         public bool isOpen;
+        private PlayerController controller;
+        private PlayerStatus playerStatus;
+        private TicketMachine ticketMachine;
+
+        public Inventory Inventory { get; private set; }
 
         private void Awake()
         {
-            inventory = UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
+            Inventory = UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
             gameGoods.Init();
         }
 
@@ -54,7 +44,9 @@ namespace Assets.Scripts.Player
         private void Update()
         {
             if (!InputManager.Instance.CanInput)
+            {
                 return;
+            }
 
             if (controller.GetCurState() == PlayerStateName.Loading)
             {
@@ -78,7 +70,7 @@ namespace Assets.Scripts.Player
                 ticketMachine.SendMessage(ChannelType.UI, MakeConsumeItemCCWPayload());
             }
 
-            Vector2 wheelInput = Input.mouseScrollDelta;
+            var wheelInput = Input.mouseScrollDelta;
 
             if (wheelInput != Vector2.zero)
             {
@@ -183,7 +175,7 @@ namespace Assets.Scripts.Player
         private UIPayload GenerateStoneAcquirePayloadTest(int index)
         {
             //for test
-            UIPayload payload = new UIPayload();
+            var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.AddSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
@@ -194,27 +186,33 @@ namespace Assets.Scripts.Player
 
         public void ConsumeItemEvent()
         {
-            ItemData data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
+            var data = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
             playerStatus.ApplyConsumableItemEffect(GenerateConsumableItemData(data));
             ticketMachine.SendMessage(ChannelType.UI, GenerateConsumeItemPayload());
         }
 
         private ConsumableItemData GenerateConsumableItemData(ItemData data)
         {
-            ConsumableItemData consumableItemData = new ConsumableItemData();
+            var consumableItemData = new ConsumableItemData();
             consumableItemData.HPRecoveryAmount = data.increasePoint;
             return consumableItemData;
         }
 
         private UIPayload GenerateConsumeItemPayload()
         {
-            UIPayload payload = new UIPayload();
+            var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.ConsumeSlotItem;
             payload.slotAreaType = SlotAreaType.Item;
             payload.groupType = GroupType.Item;
             payload.itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
             return payload;
+        }
+
+        public struct ConsumableItemData
+        {
+            public int HPRecoveryAmount;
+            // !TODO : 추가될 소모품의 효과들에 대한 정의가 필요
         }
     }
 }

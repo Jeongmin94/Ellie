@@ -1,17 +1,15 @@
 ﻿using Assets.Scripts.Managers;
-using Channels.Combat;
-using Channels.Components;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
     public class PlayerStateShoot : PlayerBaseState
     {
+        private float curTime;
+
         // !TODO : 쏘고나서 짧은 후딜레이, EnterState에서 돌맹이 쏴주고 잠깐 있다가 다음스테이트로 전이 
         // !TODO : 쏘고 난 후의 애니메이션 필요함
-        private float recoilTime;
-        private float curTime;
+        private readonly float recoilTime;
 
         public PlayerStateShoot(PlayerController controller) : base(controller)
         {
@@ -32,9 +30,9 @@ namespace Assets.Scripts.Player.States
             Controller.TurnSlingshotLineRenderer(false);
             SoundManager.Instance.StopSfx("slingshot_sound1");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound2", Controller.PlayerObj.position);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound2", Controller.PlayerObj.position);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "slingshot_sound2",
+                Controller.PlayerObj.position);
             Controller.ShakeCamera(1.0f, 0.2f);
-
         }
 
 

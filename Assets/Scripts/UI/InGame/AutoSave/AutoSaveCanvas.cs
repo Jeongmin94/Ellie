@@ -24,36 +24,25 @@ namespace Assets.Scripts.UI.InGame.AutoSave
         [SerializeField] private float rotateInterval;
         [SerializeField] private float fadeOut;
 
-        private float minimumShowingDuration = 1.0f;
-        private float currentShowingAcc = 0.0f;
-
-        private enum GameObjects
-        {
-            IconPanel,
-            TextPanel,
-        }
-
-        private enum Texts
-        {
-            AutoSaveText
-        }
-
         [SerializeField] private UITransformData[] panelTransform;
         [SerializeField] private TextTypographyData typographyData;
 
-        private readonly List<GameObject> panels = new List<GameObject>();
-        private readonly List<RectTransform> rectTransforms = new List<RectTransform>();
+        private readonly List<GameObject> panels = new();
+        private readonly List<RectTransform> rectTransforms = new();
 
         private Image autoSaveIcon;
-        private RectTransform iconRect;
         private TextMeshProUGUI autoSaveText;
+        private float currentShowingAcc;
+        private IEnumerator fadeOutEnumerator;
+        private RectTransform iconRect;
 
-        private TicketMachine ticketMachine;
+        private bool isRotating;
+
+        private readonly float minimumShowingDuration = 1.0f;
 
         private IEnumerator rotateEnumerator;
-        private IEnumerator fadeOutEnumerator;
 
-        private bool isRotating = false;
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -80,7 +69,7 @@ namespace Assets.Scripts.UI.InGame.AutoSave
             Bind<TextMeshProUGUI>(typeof(Texts));
 
             var gos = Enum.GetValues(typeof(GameObjects));
-            for (int i = 0; i < gos.Length; i++)
+            for (var i = 0; i < gos.Length; i++)
             {
                 var go = GetGameObject(i);
                 rectTransforms.Add(go.GetComponent<RectTransform>());
@@ -93,7 +82,7 @@ namespace Assets.Scripts.UI.InGame.AutoSave
 
         private void InitObjects()
         {
-            for (int i = 0; i < panelTransform.Length; i++)
+            for (var i = 0; i < panelTransform.Length; i++)
             {
                 AnchorPresets.SetAnchorPreset(rectTransforms[i], AnchorPresets.MiddleCenter);
                 rectTransforms[i].sizeDelta = panelTransform[i].actionRect.Value.GetSize();
@@ -118,14 +107,18 @@ namespace Assets.Scripts.UI.InGame.AutoSave
         private void OnNotify(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             switch (uiPayload.actionType)
             {
                 case ActionType.OpenAutoSave:
                 {
                     if (isRotating)
+                    {
                         return;
+                    }
 
                     gameObject.SetActive(true);
                     rotateEnumerator = RotateIcon();
@@ -144,17 +137,19 @@ namespace Assets.Scripts.UI.InGame.AutoSave
         private IEnumerator FadeOut()
         {
             if (currentShowingAcc < minimumShowingDuration)
+            {
                 yield return new WaitForSeconds(minimumShowingDuration - currentShowingAcc);
+            }
 
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
 
-            Color originIconColor = autoSaveIcon.color;
-            Color originTextColor = autoSaveText.color;
+            var originIconColor = autoSaveIcon.color;
+            var originTextColor = autoSaveText.color;
 
-            Color targetIconColor = autoSaveIcon.color;
+            var targetIconColor = autoSaveIcon.color;
             targetIconColor.a = 0.0f;
-            Color targetTextColor = autoSaveText.color;
+            var targetTextColor = autoSaveText.color;
             targetTextColor.a = 0.0f;
 
             while (timeAcc < fadeOut)
@@ -177,11 +172,13 @@ namespace Assets.Scripts.UI.InGame.AutoSave
         {
             currentShowingAcc = 0.0f;
             if (rotateInterval <= 0.0f)
+            {
                 yield break;
+            }
 
             isRotating = true;
-            float rotationSpeed = 360.0f / rotateInterval;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var rotationSpeed = 360.0f / rotateInterval;
+            var wfef = new WaitForEndOfFrame();
 
             while (true)
             {
@@ -193,7 +190,7 @@ namespace Assets.Scripts.UI.InGame.AutoSave
 
         private void OnSaveAction()
         {
-            UIPayload payload = new UIPayload();
+            var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.OpenAutoSave;
 
@@ -202,11 +199,22 @@ namespace Assets.Scripts.UI.InGame.AutoSave
 
         private void OnSaveDoneAction()
         {
-            UIPayload payload = new UIPayload();
+            var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.CloseAutoSave;
 
             OnNotify(payload);
+        }
+
+        private enum GameObjects
+        {
+            IconPanel,
+            TextPanel
+        }
+
+        private enum Texts
+        {
+            AutoSaveText
         }
     }
 }

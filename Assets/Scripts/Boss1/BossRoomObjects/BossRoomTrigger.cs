@@ -1,7 +1,6 @@
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
-using System.Collections;
 using UnityEngine;
 
 public class BossRoomTrigger : MonoBehaviour
@@ -10,11 +9,6 @@ public class BossRoomTrigger : MonoBehaviour
     public BossDialogTriggerType dialogType;
 
     private TicketMachine ticketMachine;
-
-    public void InitTicketMachine(TicketMachine ticketMachine)
-    {
-        this.ticketMachine = ticketMachine;
-    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -26,5 +20,10 @@ public class BossRoomTrigger : MonoBehaviour
             var dPayload = new BossDialogPaylaod { TriggerType = dialogType };
             ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
         }
+    }
+
+    public void InitTicketMachine(TicketMachine ticketMachine)
+    {
+        this.ticketMachine = ticketMachine;
     }
 }

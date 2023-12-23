@@ -1,8 +1,5 @@
-﻿using Assets.Scripts.Combat;
-using Assets.Scripts.Managers;
-using Channels.Combat;
-using System;
-using System.Collections;
+﻿using System;
+using Assets.Scripts.Combat;
 using UnityEngine;
 
 namespace Assets.Scripts.Boss1.TerrapupaMinion
@@ -11,15 +8,8 @@ namespace Assets.Scripts.Boss1.TerrapupaMinion
     {
         private Action<IBaseEventPayload> collisionAction;
 
-        public void SubscribeCollisionAction(Action<IBaseEventPayload> action)
-        {
-            collisionAction -= action;
-            collisionAction += action;
-        }
-
         public void Attack(IBaseEventPayload payload)
         {
-
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
@@ -27,6 +17,12 @@ namespace Assets.Scripts.Boss1.TerrapupaMinion
             // 플레이어 총알 -> Combat Channel -> TerrapupaMinionWeakPoint :: ReceiveDamage() -> TerrapupaMinionController
             Debug.Log($"{name} ReceiveDamage :: 약점 충돌");
             collisionAction?.Invoke(payload);
+        }
+
+        public void SubscribeCollisionAction(Action<IBaseEventPayload> action)
+        {
+            collisionAction -= action;
+            collisionAction += action;
         }
     }
 }

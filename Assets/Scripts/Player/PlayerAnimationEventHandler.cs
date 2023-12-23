@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Equipments;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -9,12 +8,14 @@ namespace Assets.Scripts.Player
         private PlayerController controller;
         private PlayerInventory inventory;
         private Pickaxe pickaxe;
+
         private void Awake()
         {
             pickaxe = GetComponent<PlayerController>().Pickaxe;
             controller = GetComponent<PlayerController>();
             inventory = GetComponent<PlayerInventory>();
         }
+
         public void HandleSmithingAnimationEvent()
         {
             pickaxe.PrintSmithingEffect();

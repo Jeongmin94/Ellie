@@ -1,4 +1,8 @@
-﻿using Assets.Scripts.Channels.Item;
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
@@ -7,12 +11,9 @@ using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Outline;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Assets.Scripts.InteractiveObjects
 {
@@ -33,8 +34,6 @@ namespace Assets.Scripts.InteractiveObjects
         [SerializeField] private Renderer renderer;
 
         public InteractiveType interactiveType = InteractiveType.Mining;
-        private Transform oreBody;
-        private Transform stoneSpawnPos;
         public OreData data;
         public Tier tier;
 
@@ -43,22 +42,40 @@ namespace Assets.Scripts.InteractiveObjects
         public int maxHp;
         public int hp;
 
-        private TicketMachine ticketMachine;
-
-        //체력 4분할
-        private List<int> quateredHP;
-        private int curHpInterval;
-
         public float regenerationTime = 4f;
         public bool canMine;
+        private int curHpInterval;
 
         //npc 이벤트
         private Action firstMineAction;
         private bool isFirstMine = true;
+        private Transform oreBody;
+
+        //체력 4분할
+        private List<int> quateredHP;
+        private Transform stoneSpawnPos;
+
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
             InitTicketMachine();
+        }
+
+        private void Start()
+        {
+            StartCoroutine(InitOre());
+            oreBody = transform.GetChild(0);
+            stoneSpawnPos = transform.GetChild(1);
+            canMine = true;
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(null);
+            }
         }
 
         public override InteractiveType GetInteractiveType()
@@ -74,14 +91,6 @@ namespace Assets.Scripts.InteractiveObjects
         public override Renderer GetRenderer()
         {
             return renderer;
-        }
-
-        private void Start()
-        {
-            StartCoroutine(InitOre());
-            oreBody = transform.GetChild(0);
-            stoneSpawnPos = transform.GetChild(1);
-            canMine = true;
         }
 
         private void InitTicketMachine()
@@ -102,20 +111,12 @@ namespace Assets.Scripts.InteractiveObjects
             SetQuateredHP();
         }
 
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                other.gameObject.GetComponentInParent<PlayerController>().SetCurOre(null);
-            }
-        }
-
         public void Smith(int damage)
         {
             hp -= damage;
-            int idx = 0;
+            var idx = 0;
             //1/4만큼 체력이 감소할 때 마다 아이템 뱉기
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 if (hp >= quateredHP[i] && hp <= quateredHP[i + 1] && curHpInterval != i)
                 {
@@ -153,17 +154,17 @@ namespace Assets.Scripts.InteractiveObjects
 
         private void SetQuateredHP()
         {
-            int temp = maxHp;
+            var temp = maxHp;
             //숫자 더해서 4의 배수로 만들기a
             while (temp % 4 != 0)
             {
                 temp++;
             }
 
-            int segment = temp / 4;
-            quateredHP = new();
+            var segment = temp / 4;
+            quateredHP = new List<int>();
             //4분할된 구간을 만들기
-            for (int i = 0; i < 4; i++)
+            for (var i = 0; i < 4; i++)
             {
                 quateredHP.Add(maxHp - segment * i);
             }
@@ -174,8 +175,8 @@ namespace Assets.Scripts.InteractiveObjects
 
         private void DropStone(List<(int, float)> dropItemList)
         {
-            float rand = UnityEngine.Random.Range(0f, 1.0f);
-            float accChance = 0f;
+            var rand = Random.Range(0f, 1.0f);
+            var accChance = 0f;
             foreach (var item in dropItemList)
             {
                 //item.Item1 : 드롭테이블 인덱스
@@ -186,18 +187,24 @@ namespace Assets.Scripts.InteractiveObjects
                 {
                     //드롭테이블 참조해서 돌맹이 생성
                     //인덱스로 드롭테이블 참조
-                    List<(int, int)> dropDataList = DataManager.Instance.GetIndexData<DropTableData, DropTableDataParsingInfo>(item.Item1).stoneDropDataList;
+                    var dropDataList = DataManager.Instance
+                        .GetIndexData<DropTableData, DropTableDataParsingInfo>(item.Item1).stoneDropDataList;
                     foreach (var dropData in dropDataList)
                     {
-                        for (int i = 0; i < dropData.Item2; i++)
+                        for (var i = 0; i < dropData.Item2; i++)
                         {
                             //TODO : 돌맹이 데이터테이블에서 해당하는 티어의 돌맹이 랜덤하게 뽑아내기
                             //Item2 : 돌맹이 개수
                             //Item1 : 돌맹이 티어
                             //돌맹이 티어로 데이터풀에서 해당 티어에 맞는 돌맹이 && 현재 스테이지 이하의 돌 중 랜덤 생성하기
-                            List<StoneData> tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().stones.Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
-                            if (tempStones.Count <= 0) continue;
-                            int randIndex = UnityEngine.Random.Range(0, tempStones.Count);
+                            var tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().stones
+                                .Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
+                            if (tempStones.Count <= 0)
+                            {
+                                continue;
+                            }
+
+                            var randIndex = Random.Range(0, tempStones.Count);
                             MineStone(tempStones[randIndex].index);
                         }
                     }
@@ -214,15 +221,15 @@ namespace Assets.Scripts.InteractiveObjects
                 Type = StoneEventType.MineStone,
                 StoneSpawnPos = stoneSpawnPos.position,
                 StoneForce = GetRandVector(),
-                StoneIdx = stoneIdx,
+                StoneIdx = stoneIdx
             };
-            Debug.Log("Mine Stone : " + stoneIdx.ToString());
+            Debug.Log("Mine Stone : " + stoneIdx);
             ticketMachine.SendMessage(ChannelType.Stone, payload);
         }
 
         private Vector3 GetRandVector()
         {
-            Vector3 vec = new(UnityEngine.Random.Range(-1.0f, 1.0f), 0.5f, 0);
+            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
             return vec.normalized;
         }
 
@@ -237,10 +244,10 @@ namespace Assets.Scripts.InteractiveObjects
 
         public override void Interact(GameObject obj)
         {
-            PlayerController player = obj.GetComponent<PlayerController>();
+            var player = obj.GetComponent<PlayerController>();
             if (!player.IsPickaxeAvailable)
             {
-                DialogPayload payload = DialogPayload.Play("곡괭이가 있으면 돌멩이를 채광할 수 있을 것 같다..!");
+                var payload = DialogPayload.Play("곡괭이가 있으면 돌멩이를 채광할 수 있을 것 같다..!");
                 payload.canvasType = DialogCanvasType.Simple;
                 ticketMachine.SendMessage(ChannelType.Dialog, payload);
 

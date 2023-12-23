@@ -1,5 +1,3 @@
-using System;
-using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
 using Data.UI.Config;
@@ -18,16 +16,25 @@ namespace Assets.Scripts.UI.PopupMenu
         [SerializeField] private BaseConfigOptionData<Vector2>[] vector2OptionData;
         [SerializeField] private BaseConfigOptionData<string>[] stringOptionData;
 
-        private enum GameObjects
-        {
-            Content,
-        }
-
-        private ConfigType ConfigMenuType { get; set; }
-
         private GameObject content;
 
         private RectTransform rect;
+
+        private ConfigType ConfigMenuType { get; set; }
+
+        public void OnEnable()
+        {
+            ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
+        }
+
+        private void OnDisable()
+        {
+            ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
+            ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
+        }
 
         public void InitMenuList()
         {
@@ -63,7 +70,7 @@ namespace Assets.Scripts.UI.PopupMenu
             ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
             ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
             ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
-            
+
             ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
             ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
             ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
@@ -73,18 +80,9 @@ namespace Assets.Scripts.UI.PopupMenu
             ConfigDataHelper.InitData(vector2OptionData, ConfigMenuType, content.transform);
         }
 
-        public void OnEnable()
+        private enum GameObjects
         {
-            ConfigDataHelper.LoadData(integerOptionData, ConfigMenuType);
-            ConfigDataHelper.LoadData(stringOptionData, ConfigMenuType);
-            ConfigDataHelper.LoadData(vector2OptionData, ConfigMenuType);
-        }
-
-        private void OnDisable()
-        {
-            ConfigDataHelper.SaveData(integerOptionData, ConfigMenuType);
-            ConfigDataHelper.SaveData(stringOptionData, ConfigMenuType);
-            ConfigDataHelper.SaveData(vector2OptionData, ConfigMenuType);
+            Content
         }
     }
 }

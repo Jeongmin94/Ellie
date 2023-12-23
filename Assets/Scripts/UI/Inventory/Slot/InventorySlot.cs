@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
@@ -5,8 +7,6 @@ using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Item.PopupInven;
 using Assets.Scripts.Utils;
 using Channels.UI;
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -15,36 +15,40 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class InventorySlot : UIBase, ISettable
     {
-        private enum Images
-        {
-            ItemImage
-        }
+        private readonly List<InventorySlot> copylist = new();
+
+        // for Equipment Frame
+        private Action<InventoryEventPayload> equipmentFrameAction;
+        private Image itemImage;
+
+        private RectTransform rect;
+
+        private Action<InventoryEventPayload> slotInventoryAction;
 
         public int Index { get; set; }
         public BaseItem SlotItemData { get; set; }
         public SlotAreaType SlotType { get; set; }
         public SlotItemPosition SlotItemPosition { get; private set; }
 
-        private RectTransform rect;
-        private readonly List<InventorySlot> copylist = new List<InventorySlot>();
-        private Image itemImage;
+        private void Awake()
+        {
+            Init();
+        }
 
-        private Action<InventoryEventPayload> slotInventoryAction;
-
-        // for Equipment Frame
-        private Action<InventoryEventPayload> equipmentFrameAction;
+        private void OnDestroy()
+        {
+            slotInventoryAction = null;
+            equipmentFrameAction = null;
+        }
 
         public BaseSlotItem GetBaseSlotItem()
         {
             if (SlotItemData == null)
+            {
                 return null;
+            }
 
             return SlotItemData.slotItems[SlotType];
-        }
-
-        private void Awake()
-        {
-            Init();
         }
 
         protected override void Init()
@@ -97,7 +101,7 @@ namespace Assets.Scripts.UI.Inventory
             var payload = new InventoryEventPayload
             {
                 baseSlotItem = baseSlotItem,
-                slot = this,
+                slot = this
             };
 
             // origin items
@@ -138,7 +142,9 @@ namespace Assets.Scripts.UI.Inventory
         {
             // Description은 읽기 전용
             if (SlotType == SlotAreaType.Description)
+            {
                 return;
+            }
 
             if (SlotItemData != null)
             {
@@ -149,14 +155,16 @@ namespace Assets.Scripts.UI.Inventory
             var droppedItem = data.pointerDrag;
             var baseSlotItem = droppedItem.GetComponent<BaseSlotItem>();
             if (baseSlotItem == null)
+            {
                 return;
+            }
 
             InvokeCopyOrMove(baseSlotItem);
         }
 
         private InventorySlotItem CreateOrigin(UIPayload payload)
         {
-            BaseItem baseItem = new BaseItem();
+            var baseItem = new BaseItem();
             baseItem.itemData = payload.itemData;
             baseItem.InitResources();
 
@@ -177,13 +185,14 @@ namespace Assets.Scripts.UI.Inventory
             InvokeEquipmentFrameEvent(InventoryEventType.EquipItem, payload.itemData.groupType, CreateOrigin(payload));
         }
 
-        public void InvokeEquipmentFrameEvent(InventoryEventType eventType, GroupType groupType, BaseSlotItem baseSlotItem)
+        public void InvokeEquipmentFrameEvent(InventoryEventType eventType, GroupType groupType,
+            BaseSlotItem baseSlotItem)
         {
             var inventoryEventPayload = new InventoryEventPayload
             {
                 eventType = eventType,
                 groupType = groupType,
-                baseSlotItem = baseSlotItem,
+                baseSlotItem = baseSlotItem
             };
 
             slotInventoryAction?.Invoke(inventoryEventPayload);
@@ -218,12 +227,6 @@ namespace Assets.Scripts.UI.Inventory
             }
         }
 
-        private void OnDestroy()
-        {
-            slotInventoryAction = null;
-            equipmentFrameAction = null;
-        }
-
         #region SaveLoad
 
         public void LoadItem(UIPayload payload)
@@ -232,5 +235,10 @@ namespace Assets.Scripts.UI.Inventory
         }
 
         #endregion
+
+        private enum Images
+        {
+            ItemImage
+        }
     }
 }

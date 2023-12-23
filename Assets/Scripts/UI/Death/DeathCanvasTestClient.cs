@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -24,7 +23,7 @@ namespace Assets.Scripts.UI.Death
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                UIPayload payload = new UIPayload();
+                var payload = new UIPayload();
                 payload.uiType = UIType.Notify;
                 payload.actionType = ActionType.OpenDeathCanvas;
 

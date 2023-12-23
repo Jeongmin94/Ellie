@@ -19,38 +19,30 @@ namespace Assets.Scripts.UI.Opening
 
         private static readonly string SoundOpeningBGM = "BGM1";
 
-        private enum GameObjects
-        {
-            TitlePanel,
-            MenuPanel,
-            OuterRim
-        }
-
-        private GameObject titlePanel;
-        private GameObject menuPanel;
-        private GameObject outerRim;
-
-        private RectTransform titlePanelRect;
-        private RectTransform menuPanelRect;
-        private RectTransform outerRimRect;
-
         [SerializeField] private bool useText = true;
         [SerializeField] private UITransformData titleTransformData;
         [SerializeField] private UITransformData menuTransformData;
         [SerializeField] private TextTypographyData titleTypographyTypographyData;
 
-        [Header("Menu Button Data")]
-        [SerializeField]
+        [Header("Menu Button Data")] [SerializeField]
         private TextTypographyData[] buttonsData;
 
-        private readonly TransformController titleController = new TransformController();
-        private readonly TransformController menuController = new TransformController();
+        private readonly List<BlinkMenuButton> menuButtons = new();
+        private readonly TransformController menuController = new();
+        private readonly List<BasePopupCanvas> popupCanvasList = new();
+
+        private readonly TransformController titleController = new();
+        private ConfigCanvas configCanvas;
+        private GameObject menuPanel;
+        private RectTransform menuPanelRect;
+        private GameObject outerRim;
+        private RectTransform outerRimRect;
 
         private OpeningText title;
 
-        private readonly List<BlinkMenuButton> menuButtons = new List<BlinkMenuButton>();
-        private readonly List<BasePopupCanvas> popupCanvasList = new List<BasePopupCanvas>();
-        private ConfigCanvas configCanvas;
+        private GameObject titlePanel;
+
+        private RectTransform titlePanelRect;
 
         private void Awake()
         {
@@ -66,6 +58,14 @@ namespace Assets.Scripts.UI.Opening
                 title.gameObject.SetActive(false);
                 titlePanel.GetComponent<Image>().SetNativeSize();
             }
+        }
+
+        private void LateUpdate()
+        {
+#if UNITY_EDITOR
+            titleController.CheckQueue(titlePanelRect);
+            menuController.CheckQueue(menuPanelRect);
+#endif
         }
 
         protected override void Init()
@@ -127,7 +127,7 @@ namespace Assets.Scripts.UI.Opening
         private void InitMenuButtons()
         {
             var popupTypes = Enum.GetValues(typeof(PopupType));
-            for (int i = 0; i < buttonsData.Length; i++)
+            for (var i = 0; i < buttonsData.Length; i++)
             {
                 var type = (PopupType)popupTypes.GetValue(i);
                 var button = UIManager.Instance.MakeSubItem<BlinkMenuButton>(menuPanelRect, BlinkMenuButton.Path);
@@ -144,7 +144,7 @@ namespace Assets.Scripts.UI.Opening
         private void InitPopupCanvas()
         {
             var popupTypes = Enum.GetValues(typeof(PopupType));
-            for (int i = 0; i < buttonsData.Length; i++)
+            for (var i = 0; i < buttonsData.Length; i++)
             {
                 var type = (PopupType)popupTypes.GetValue(i);
                 var popup = UIManager.Instance.MakePopup<BasePopupCanvas>(BasePopupCanvas.Path);
@@ -169,14 +169,6 @@ namespace Assets.Scripts.UI.Opening
             }
         }
 
-        private void LateUpdate()
-        {
-#if UNITY_EDITOR
-            titleController.CheckQueue(titlePanelRect);
-            menuController.CheckQueue(menuPanelRect);
-#endif
-        }
-
         #region MenuButton
 
         private void OnBlinkButtonAction(PopupPayload payload)
@@ -187,7 +179,7 @@ namespace Assets.Scripts.UI.Opening
             }
             else
             {
-                int idx = (int)payload.popupType;
+                var idx = (int)payload.popupType;
                 popupCanvasList[idx].gameObject.SetActive(true);
             }
         }
@@ -198,35 +190,35 @@ namespace Assets.Scripts.UI.Opening
 
         private void OnPopupCanvasAction(PopupPayload payload)
         {
-            int idx = (int)payload.popupType;
+            var idx = (int)payload.popupType;
             switch (payload.buttonType)
             {
                 case ButtonType.Yes:
+                {
+                    if (payload.popupType == PopupType.Start)
                     {
-                        if (payload.popupType == PopupType.Start)
-                        {
-                            SaveLoadManager.Instance.IsLoadData = false;
-                            SceneLoadManager.Instance.LoadScene(SceneName.NewStart);
-                        }
-                        else if (payload.popupType == PopupType.Load)
-                        {
-                            SaveLoadManager.Instance.IsLoadData = true;
-                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
-                        }
+                        SaveLoadManager.Instance.IsLoadData = false;
+                        SceneLoadManager.Instance.LoadScene(SceneName.NewStart);
                     }
+                    else if (payload.popupType == PopupType.Load)
+                    {
+                        SaveLoadManager.Instance.IsLoadData = true;
+                        SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                    }
+                }
                     break;
 
                 case ButtonType.No:
+                {
+                    if (payload.popupType == PopupType.Config)
                     {
-                        if (payload.popupType == PopupType.Config)
-                        {
-                            configCanvas.gameObject.SetActive(false);
-                        }
-                        else
-                        {
-                            popupCanvasList[idx].gameObject.SetActive(false);
-                        }
+                        configCanvas.gameObject.SetActive(false);
                     }
+                    else
+                    {
+                        popupCanvasList[idx].gameObject.SetActive(false);
+                    }
+                }
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -234,5 +226,12 @@ namespace Assets.Scripts.UI.Opening
         }
 
         #endregion
+
+        private enum GameObjects
+        {
+            TitlePanel,
+            MenuPanel,
+            OuterRim
+        }
     }
 }

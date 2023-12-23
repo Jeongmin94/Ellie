@@ -1,33 +1,146 @@
-﻿using Newtonsoft.Json;
-using Sirenix.OdinInspector;
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
 {
     public class SaveLoadManager : Singleton<SaveLoadManager>
     {
+        private CancellationTokenSource cancellationTokenSource; // 비동기 작업이 계속될 경우 정지시키게 설정
+        private readonly string filename = "EllieSaveFile";
+        private bool isLoading;
+
+        private bool isSaving;
+        [ShowInInspector] [ReadOnly] private Dictionary<SaveLoadType, Delegate> loadAction = new();
+
+        private string path;
+        [ShowInInspector] [ReadOnly] private Dictionary<SaveLoadType, IBaseEventPayload> payloadTable = new();
         [ShowInInspector] [ReadOnly] private Action saveAction;
-        [ShowInInspector] [ReadOnly] private Dictionary<SaveLoadType, Delegate> loadAction = new Dictionary<SaveLoadType, Delegate>();
-        [ShowInInspector] [ReadOnly] private Dictionary<SaveLoadType, IBaseEventPayload> payloadTable = new Dictionary<SaveLoadType, IBaseEventPayload>();
 
         public Action saveDoneAction;
 
-        private float saveloadTimeOut = 5.0f;                    // 비동기 작업이 해당 변수 이상 지속될경우 정지
-        private CancellationTokenSource cancellationTokenSource; // 비동기 작업이 계속될 경우 정지시키게 설정
-
-        private string path;
-        private string filename = "EllieSaveFile";
-
-        private bool isSaving = false;
-        private bool isLoading = false;
+        private readonly float saveloadTimeOut = 5.0f; // 비동기 작업이 해당 변수 이상 지속될경우 정지
 
         public bool IsLoadData { get; set; } = false;
+
+        private string SaveFile(int index)
+        {
+            var type = (SaveLoadType)index;
+
+            switch (type)
+            {
+                case SaveLoadType.Inventory:
+                {
+                    var payload = payloadTable[type] as InventorySavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
+                case SaveLoadType.Player:
+                {
+                    var payload = payloadTable[type] as PlayerSavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
+                case SaveLoadType.NPC:
+                {
+                    var payload = payloadTable[type] as NPCSavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
+                case SaveLoadType.Boss:
+                {
+                    var payload = payloadTable[type] as BossSavePayload;
+                    return JsonConvert.SerializeObject(payload);
+                }
+                default:
+                    return null;
+            }
+        }
+
+        private IBaseEventPayload LoadFile(string data, SaveLoadType type)
+        {
+            switch (type)
+            {
+                case SaveLoadType.Inventory:
+                    return JsonConvert.DeserializeObject<InventorySavePayload>(data);
+                case SaveLoadType.Player:
+                    return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
+                case SaveLoadType.NPC:
+                    return JsonConvert.DeserializeObject<NPCSavePayload>(data);
+                case SaveLoadType.Boss:
+                    return JsonConvert.DeserializeObject<BossSavePayload>(data);
+                default:
+                    return null;
+            }
+        }
+
+        public bool IsSaveFilesExist()
+        {
+            var allFilesExist = true;
+
+            for (var i = 0; i < (int)SaveLoadType.End; i++)
+            {
+                var type = (SaveLoadType)i;
+                var filePath = path + filename + i;
+                if (!File.Exists(filePath))
+                {
+                    Debug.Log($"{type} - 파일이 존재하지 않습니다 : {filePath}");
+                    allFilesExist = false;
+                }
+            }
+
+            return allFilesExist; // 모든 파일이 존재하면 true, 아니면 false 반환
+        }
+
+        public bool IsCurrentSavingOrLoading()
+        {
+            if (isLoading)
+            {
+                Debug.Log("로드가 진행중입니다.");
+                return true;
+            }
+
+            if (isSaving)
+            {
+                Debug.Log("세이브가 진행중입니다.");
+                return true;
+            }
+
+            return false;
+        }
+
+        public IEnumerator CheckIsSaveDone()
+        {
+            var wait = new WaitForSeconds(0.5f);
+            while (isSaving)
+            {
+                yield return wait;
+            }
+
+            Debug.Log("데이터 세이브 완료");
+        }
+
+        public IEnumerator CheckIsLoadDone()
+        {
+            var wait = new WaitForSeconds(0.5f);
+            while (isLoading)
+            {
+                yield return wait;
+            }
+
+            Debug.Log("데이터 로드 완료");
+        }
+
+        public override void ClearAction()
+        {
+            saveAction = null;
+            loadAction = new Dictionary<SaveLoadType, Delegate>();
+
+            saveDoneAction = null;
+        }
 
         #region ### 초기화 메서드 ###
 
@@ -48,7 +161,10 @@ namespace Assets.Scripts.Managers
         public void SubscribeLoadEvent(SaveLoadType eventName, Action<IBaseEventPayload> listener)
         {
             if (!loadAction.ContainsKey(eventName))
+            {
                 loadAction[eventName] = null;
+            }
+
             loadAction[eventName] = Delegate.Combine(loadAction[eventName], listener);
         }
 
@@ -60,7 +176,9 @@ namespace Assets.Scripts.Managers
         public void UnsubscribeLoadEvent<T>(SaveLoadType eventName, Action<T> listener) where T : IBaseEventPayload
         {
             if (loadAction.ContainsKey(eventName))
+            {
                 loadAction[eventName] = Delegate.Remove(loadAction[eventName], listener);
+            }
         }
 
         public void AddPayloadTable(SaveLoadType type, IBaseEventPayload payload)
@@ -88,7 +206,7 @@ namespace Assets.Scripts.Managers
             try
             {
                 var saveTasks = new List<Task>();
-                for (int i = 0; i < (int)SaveLoadType.End; i++)
+                for (var i = 0; i < (int)SaveLoadType.End; i++)
                 {
                     saveTasks.Add(SaveDataAsync(i, cancellationTokenSource.Token));
                 }
@@ -136,7 +254,7 @@ namespace Assets.Scripts.Managers
             try
             {
                 var loadTasks = new List<Task>();
-                for (int i = 0; i < (int)SaveLoadType.End; i++)
+                for (var i = 0; i < (int)SaveLoadType.End; i++)
                 {
                     loadTasks.Add(LoadDataAsync(i, cancellationTokenSource.Token));
                 }
@@ -178,7 +296,7 @@ namespace Assets.Scripts.Managers
             try
             {
                 var saveTasks = new List<Task>();
-                for (int i = 0; i < (int)SaveLoadType.End; i++)
+                for (var i = 0; i < (int)SaveLoadType.End; i++)
                 {
                     saveTasks.Add(SaveDataAsync(i, cancellationTokenSource.Token));
                 }
@@ -216,10 +334,10 @@ namespace Assets.Scripts.Managers
 
             try
             {
-                SaveLoadType type = (SaveLoadType)index;
+                var type = (SaveLoadType)index;
 
                 // 경로 설정
-                string filePath = path + filename + index.ToString();
+                var filePath = path + filename + index;
 
                 // 파일이 이미 존재하면 삭제
                 if (File.Exists(filePath))
@@ -228,10 +346,10 @@ namespace Assets.Scripts.Managers
                 }
 
                 // 클래스를 json 변환
-                string jsonData = SaveFile(index);
+                var jsonData = SaveFile(index);
 
                 // 자동 생성 경로에 파일로 저장
-                await File.WriteAllTextAsync(path + filename + index.ToString(), jsonData);
+                await File.WriteAllTextAsync(path + filename + index, jsonData);
 
                 Debug.Log($"{(SaveLoadType)index} - Save Done");
             }
@@ -245,8 +363,8 @@ namespace Assets.Scripts.Managers
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            SaveLoadType type = (SaveLoadType)index;
-            string filePath = path + filename + index.ToString();
+            var type = (SaveLoadType)index;
+            var filePath = path + filename + index;
 
             try
             {
@@ -256,8 +374,8 @@ namespace Assets.Scripts.Managers
                     return; // 파일이 없으면 로드 작업 건너뛰기
                 }
 
-                string data = await File.ReadAllTextAsync(filePath);
-                IBaseEventPayload payload = LoadFile(data, type);
+                var data = await File.ReadAllTextAsync(filePath);
+                var payload = LoadFile(data, type);
 
                 if (payload != null)
                 {
@@ -277,117 +395,5 @@ namespace Assets.Scripts.Managers
         }
 
         #endregion
-
-        private string SaveFile(int index)
-        {
-            SaveLoadType type = (SaveLoadType)index;
-
-            switch (type)
-            {
-                case SaveLoadType.Inventory:
-                {
-                    InventorySavePayload payload = payloadTable[type] as InventorySavePayload;
-                    return JsonConvert.SerializeObject(payload);
-                }
-                case SaveLoadType.Player:
-                {
-                    PlayerSavePayload payload = payloadTable[type] as PlayerSavePayload;
-                    return JsonConvert.SerializeObject(payload);
-                }
-                case SaveLoadType.NPC:
-                {
-                    NPCSavePayload payload = payloadTable[type] as NPCSavePayload;
-                    return JsonConvert.SerializeObject(payload);
-                }
-                case SaveLoadType.Boss:
-                {
-                    BossSavePayload payload = payloadTable[type] as BossSavePayload;
-                    return JsonConvert.SerializeObject(payload);
-                }
-                default:
-                    return null;
-            }
-        }
-
-        private IBaseEventPayload LoadFile(string data, SaveLoadType type)
-        {
-            switch (type)
-            {
-                case SaveLoadType.Inventory:
-                    return JsonConvert.DeserializeObject<InventorySavePayload>(data);
-                case SaveLoadType.Player:
-                    return JsonConvert.DeserializeObject<PlayerSavePayload>(data);
-                case SaveLoadType.NPC:
-                    return JsonConvert.DeserializeObject<NPCSavePayload>(data);
-                case SaveLoadType.Boss:
-                    return JsonConvert.DeserializeObject<BossSavePayload>(data);
-                default:
-                    return null;
-            }
-        }
-
-        public bool IsSaveFilesExist()
-        {
-            bool allFilesExist = true;
-
-            for (int i = 0; i < (int)SaveLoadType.End; i++)
-            {
-                SaveLoadType type = (SaveLoadType)i;
-                string filePath = path + filename + i.ToString();
-                if (!File.Exists(filePath))
-                {
-                    Debug.Log($"{type} - 파일이 존재하지 않습니다 : {filePath}");
-                    allFilesExist = false;
-                }
-            }
-
-            return allFilesExist; // 모든 파일이 존재하면 true, 아니면 false 반환
-        }
-
-        public bool IsCurrentSavingOrLoading()
-        {
-            if (isLoading)
-            {
-                Debug.Log("로드가 진행중입니다.");
-                return true;
-            }
-            else if (isSaving)
-            {
-                Debug.Log("세이브가 진행중입니다.");
-                return true;
-            }
-
-            return false;
-        }
-
-        public IEnumerator CheckIsSaveDone()
-        {
-            var wait = new WaitForSeconds(0.5f);
-            while (isSaving)
-            {
-                yield return wait;
-            }
-
-            Debug.Log("데이터 세이브 완료");
-        }
-
-        public IEnumerator CheckIsLoadDone()
-        {
-            var wait = new WaitForSeconds(0.5f);
-            while (isLoading)
-            {
-                yield return wait;
-            }
-
-            Debug.Log("데이터 로드 완료");
-        }
-
-        public override void ClearAction()
-        {
-            saveAction = null;
-            loadAction = new();
-
-            saveDoneAction = null;
-        }
     }
 }

@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
+﻿using System.Collections;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
@@ -10,15 +9,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
     public class TalkingSkullEldestNPC : BaseNPC
     {
         private const int PLAYERFIRSTQUESTIDX = 6100;
-        private int hitCount = 0;
+        private int hitCount;
 
         private Coroutine Quest6101_2;
+
         private TalkingSkullEldestTriggerCollider triggerCollider;
-        private enum EldestSkullQuest
-        {
-            quest6101 = 6101,
-            quest6102,
-        }
+
         // !TODO : NPC 로드하여 npc현재 active 상태를 판단하여 저장
         private void Start()
         {
@@ -28,12 +24,25 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             triggerCollider.SubscribeSecondEncounterAction(OnSecondEncounterAction);
             triggerCollider.SubscribePlayerExitAction(OnPlayerExitAction);
         }
+
+        private void OnTriggerExit(Collider other)
+        {
+            //범위에서 나가면 다시 안으로 들어오게 하는 로직
+        }
+
         public override void Interact(GameObject obj)
         {
             //첫 조우해서 보상을 받은 이후부터 상호작용 가능
-            if (player.GetQuestStatus(PLAYERFIRSTQUESTIDX) != QuestStatus.Done) return;
+            if (player.GetQuestStatus(PLAYERFIRSTQUESTIDX) != QuestStatus.Done)
+            {
+                return;
+            }
+
             //콜라이더 내에서 일정 거리 이하일 때만 상호작용 가능
-            if (player == null || Vector3.Distance(player.transform.position, this.transform.position) > 3.0f) return;
+            if (player == null || Vector3.Distance(player.transform.position, transform.position) > 3.0f)
+            {
+                return;
+            }
 
             //고개 돌리기
             //첫 째가 상호작용할 때 로직 -> 대사 출력 후 6101퀘스트를 Accepted 상태로 변경
@@ -42,10 +51,13 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 LookAtPlayer();
                 player.StartConversation();
                 if (Quest6101_2 != null)
+                {
                     StopCoroutine(Quest6101_2);
+                }
 
                 Quest6101_2 = StartCoroutine(Quest6101Coroutine2());
             }
+
             //6102 퀘스트라인
             if (player.GetQuestStatus((int)EldestSkullQuest.quest6102) == QuestStatus.Unaccepted)
             {
@@ -82,18 +94,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private void OnSecondEncounterAction()
         {
-
             StartCoroutine(Quest6101Coroutine1());
         }
 
         private void OnPlayerExitAction()
         {
             StartCoroutine(Quest6101Coroutine3());
-        }
-        private void OnTriggerExit(Collider other)
-        {
-            //범위에서 나가면 다시 안으로 들어오게 하는 로직
-            
         }
 
 
@@ -119,11 +125,13 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetQuestStatus((int)EldestSkullQuest.quest6101, QuestStatus.Accepted);
             player.LockPlayerMovement();
             LookAtPlayer();
-            yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Unaccepted));
+            yield return
+                StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Unaccepted));
             player.ActivateInteractiveUI();
 
             player.UnlockPlayerMovement();
         }
+
         private IEnumerator Quest6101Coroutine2()
         {
             //Accepted 상태의 대사들을 출력한 후, HitCount를 세고, 3번 이상 Hit했다면 그 다음 로직 실행
@@ -139,9 +147,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             {
                 yield return null;
             }
+
             //세 번 맞춘 후 0.5초 세고
             yield return new WaitForSeconds(0.5f);
-            player.GetComponent<PlayerInteraction>().interactiveObject = this.gameObject;
+            player.GetComponent<PlayerInteraction>().interactiveObject = gameObject;
             //플레이어 바라보고
             LookAtPlayer();
             player.StartConversation();
@@ -166,9 +175,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             //플레이어가 범위 밖으로 나가려고 할 때 실행되는 코루틴
             LookAtPlayer();
-            player.GetBackToNPC(this.transform);
+            player.GetBackToNPC(transform);
             player.LockPlayerMovement();
-            yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Accepted, true));
+            yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6101, QuestStatus.Accepted,
+                true));
             player.ActivateInteractiveUI();
 
             player.UnlockPlayerMovement();
@@ -177,7 +187,8 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private IEnumerator Quest6102Coroutine1()
         {
-            yield return StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6102, QuestStatus.Unaccepted));
+            yield return
+                StartCoroutine(player.DialogCoroutine((int)EldestSkullQuest.quest6102, QuestStatus.Unaccepted));
             player.ActivateInteractiveUI();
 
             EndInteract();
@@ -195,20 +206,31 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetQuestStatus(6103, QuestStatus.CantAccept);
             player.SetInteractiveObjToNull();
             //player.DeactivateInteractiveUI();
-            
+
             OnDisableAction?.Invoke(npcData.type);
-            this.gameObject.SetActive(false);
+            gameObject.SetActive(false);
         }
-        
+
         public void HitOnStone()
         {
-            if (player == null || player.GetQuestStatus((int)EldestSkullQuest.quest6101) != QuestStatus.Accepted) return;
+            if (player == null || player.GetQuestStatus((int)EldestSkullQuest.quest6101) != QuestStatus.Accepted)
+            {
+                return;
+            }
+
             if (hitCount < 1)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "NPC1", transform.position);
             }
+
             hitCount++;
             //player.
+        }
+
+        private enum EldestSkullQuest
+        {
+            quest6101 = 6101,
+            quest6102
         }
     }
 }

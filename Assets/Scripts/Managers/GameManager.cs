@@ -17,7 +17,7 @@ namespace Assets.Scripts.Managers
     public class GameManager : Singleton<GameManager>
     {
         public Action<Resolution> changeResolutionAction;
-        public Resolution resolution = new Resolution();
+        public Resolution resolution;
 
         public override void Awake()
         {

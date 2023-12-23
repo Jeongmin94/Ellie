@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Managers;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Managers;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Particle
@@ -19,15 +19,14 @@ namespace Assets.Scripts.Particle
 
     public class ParticleManager : Singleton<ParticleManager>
     {
-        [ShowInInspector] [ReadOnly] private List<ParticleController> particles = new List<ParticleController>();
-
         private Transform particleRoot;
+        [ShowInInspector] [ReadOnly] private List<ParticleController> particles = new();
 
         public override void Awake()
         {
             base.Awake();
 
-            GameObject go = new GameObject();
+            var go = new GameObject();
             go.transform.parent = transform;
             go.name = "@Particle_Root";
             particleRoot = go.transform;
@@ -54,7 +53,7 @@ namespace Assets.Scripts.Particle
                 Debug.Log($"{controller.name} 파티클 회수 실패, Particles {particles.Count}");
             }
         }
-        
+
         public GameObject GetParticle(GameObject prefab, ParticlePayload payload)
         {
             if (prefab == null)
@@ -68,7 +67,7 @@ namespace Assets.Scripts.Particle
             if (payload.Origin != null)
             {
                 // Origin의 로컬 좌표를 기준으로 추가 오프셋 벡터 설정
-                Vector3 transformedOffset = payload.Origin.TransformDirection(payload.Offset);
+                var transformedOffset = payload.Origin.TransformDirection(payload.Offset);
                 particle.transform.position = payload.Origin.position + transformedOffset;
                 particle.transform.rotation = payload.Origin.rotation;
             }
@@ -95,7 +94,7 @@ namespace Assets.Scripts.Particle
                 Position = target.position,
                 Rotation = target.rotation,
                 Scale = new Vector3(scale, scale, scale),
-                LoopCount = loopCount,
+                LoopCount = loopCount
             });
         }
 
@@ -105,7 +104,7 @@ namespace Assets.Scripts.Particle
             {
                 Position = position,
                 Scale = new Vector3(scale, scale, scale),
-                LoopCount = loopCount,
+                LoopCount = loopCount
             });
         }
     }

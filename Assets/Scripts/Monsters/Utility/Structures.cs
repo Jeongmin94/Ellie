@@ -1,6 +1,5 @@
 using UnityEngine;
 
-
 namespace Assets.Scripts.Monsters.Utility
 {
     public class Structures : MonoBehaviour
@@ -13,11 +12,11 @@ namespace Assets.Scripts.Monsters.Utility
             public float detectPlayerDistance;
             public float overtravelDistance;
         }
+
         public struct MonsterType
         {
             public Enums.MovementType type;
             public Enums.AttackTurnType turnType;
         }
-
     }
 }

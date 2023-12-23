@@ -1,11 +1,9 @@
-﻿using Assets.Scripts.Channels.Item;
+﻿using System.Collections;
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
-using Channels.UI;
-using System.Collections;
 using UnityEngine;
 
 namespace Boss.Objects
@@ -23,62 +21,28 @@ namespace Boss.Objects
         public float lightIntensity = 15.0f;
         public float changeLightTime = 1.0f;
         public TerrapupaAttackType banBossAttackType;
-
-        private bool isCooldown;
-        private bool isBroken;
+        public readonly int MAGICSTONE_INDEX = 4020;
 
         public readonly int NORMALSTONE_INDEX = 4000;
-        public readonly int MAGICSTONE_INDEX = 4020;
+
         private TicketMachine ticketMachine;
 
-        public Vector3 SpawnPosition
-        {
-            get { return spawnPosition.position; }
-        }
+        public Vector3 SpawnPosition => spawnPosition.position;
 
-        public bool IsCooldown
-        {
-            get { return isCooldown; }
-            set { isCooldown = value; }
-        }
+        public bool IsCooldown { get; set; }
 
-        public bool IsBroken
-        {
-            get { return isBroken; }
-            set { isBroken = value; }
-        }
+        public bool IsBroken { get; set; }
 
         private void Awake()
         {
             lightComponent = GetComponentInChildren<Light>();
         }
-        
-        public void InitTicketMachine(TicketMachine ticketMachine)
-        {
-            this.ticketMachine = ticketMachine;
-        }
-        
-        public void DestroyManaFountain()
-        {
-            IsBroken = true;
-            isCooldown = false;
-            lightComponent.intensity = lightIntensity;
-            StopAllCoroutines();
-        }
-
-        public void RegenerateManaFountain()
-        {
-            IsBroken = false;
-            IsCooldown = false;
-            
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, manaRegenerateSound, transform.position);
-        }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (!isBroken)
+            if (!IsBroken)
             {
-                if (other.transform.CompareTag("Stone") && !isCooldown)
+                if (other.transform.CompareTag("Stone") && !IsCooldown)
                 {
                     Debug.Log($"{other.name} 돌맹이 충돌");
                     SpawnMagicStone();
@@ -95,23 +59,44 @@ namespace Boss.Objects
                 }
             }
         }
-        
+
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
+        }
+
+        public void DestroyManaFountain()
+        {
+            IsBroken = true;
+            IsCooldown = false;
+            lightComponent.intensity = lightIntensity;
+            StopAllCoroutines();
+        }
+
+        public void RegenerateManaFountain()
+        {
+            IsBroken = false;
+            IsCooldown = false;
+
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, manaRegenerateSound, transform.position);
+        }
+
         private void SpawnMagicStone()
         {
-            isCooldown = true;
+            IsCooldown = true;
 
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, manaHitSound, transform.position);
 
             EventBus.Instance.Publish(EventBusEvents.HitManaByPlayerStone,
                 new BossEventPayload
                 {
-                    TransformValue1 = transform,
+                    TransformValue1 = transform
                 });
         }
 
         private void DestroyManaFounatainByBoss(Transform other)
         {
-            isBroken = true;
+            IsBroken = true;
 
             EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
                 new BossEventPayload
@@ -119,13 +104,13 @@ namespace Boss.Objects
                     PrefabValue = hitEffect,
                     TransformValue1 = transform,
                     AttackTypeValue = banBossAttackType,
-                    Sender = other.transform.root,
+                    Sender = other.transform.root
                 });
         }
 
         private void DestroyManaFountainByBossStone(Transform other)
         {
-            isBroken = true;
+            IsBroken = true;
 
             EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
                 new BossEventPayload
@@ -134,11 +119,11 @@ namespace Boss.Objects
                     TransformValue1 = transform,
                     TransformValue2 = other.transform,
                     AttackTypeValue = banBossAttackType,
-                    Sender = other.transform,
+                    Sender = other.transform
                 });
 
-            Debug.Log("Mine Stone : " + MAGICSTONE_INDEX.ToString());
-            for (int i = 0; i < 3; i++)
+            Debug.Log("Mine Stone : " + MAGICSTONE_INDEX);
+            for (var i = 0; i < 3; i++)
             {
                 ticketMachine.SendMessage(ChannelType.Stone,
                     new StoneEventPayload
@@ -146,7 +131,7 @@ namespace Boss.Objects
                         Type = StoneEventType.MineStone,
                         StoneSpawnPos = spawnPosition.position,
                         StoneForce = GetRandVector(),
-                        StoneIdx = NORMALSTONE_INDEX,
+                        StoneIdx = NORMALSTONE_INDEX
                     });
             }
         }
@@ -164,7 +149,7 @@ namespace Boss.Objects
 
         private IEnumerator ChangeIntensity(float targetIntensity, float duration)
         {
-            float startIntensity = lightComponent.intensity;
+            var startIntensity = lightComponent.intensity;
             float time = 0;
 
             while (time < duration)

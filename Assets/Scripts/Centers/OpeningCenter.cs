@@ -10,7 +10,7 @@ namespace Assets.Scripts
         {
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
-            
+
             MangerControllers.ClearAction(ManagerType.Input);
             MangerControllers.ClearAction(ManagerType.Sound);
 

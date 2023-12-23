@@ -1,23 +1,20 @@
-﻿using Assets.Scripts.Item;
-using Assets.Scripts.UI.Inventory;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Assets.Scripts.Item;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet._4400Etc
 {
     [Serializable]
     public class EtcData : ItemMetaData
-    { }
+    {
+    }
 
     [CreateAssetMenu(fileName = "EtcData", menuName = "GameData List/EtcData")]
-
     public class EtcDataParsingInfo : DataParsingInfo
     {
-        public List<EtcData> etcDatas = new List<EtcData>();
+        public List<EtcData> etcDatas = new();
 
         public override T GetIndexData<T>(int index)
         {
@@ -25,22 +22,26 @@ namespace Assets.Scripts.Data.GoogleSheet._4400Etc
             {
                 return etcDatas.Find(m => m.index == index) as T;
             }
-            return default(T);
+
+            return default;
         }
 
         public override void Parse()
         {
             etcDatas.Clear();
 
-            string[] lines = tsv.Split('\n');
+            var lines = tsv.Split('\n');
 
-            for (int i = 0; i < lines.Length; i++)
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (string.IsNullOrEmpty(lines[i])) continue;
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
 
-                string[] entries = lines[i].Split('\t');
+                var entries = lines[i].Split('\t');
 
-                EtcData data = new EtcData();
+                var data = new EtcData();
 
                 try
                 {

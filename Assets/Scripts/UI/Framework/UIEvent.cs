@@ -11,6 +11,6 @@ namespace Assets.Scripts.UI.Framework
         PointOver,
         Drop,
         PointEnter,
-        PointExit,
+        PointExit
     }
 }

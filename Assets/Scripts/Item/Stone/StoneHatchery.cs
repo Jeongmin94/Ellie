@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
@@ -13,33 +14,35 @@ namespace Assets.Scripts.Item.Stone
     public class StoneHatchery : MonoBehaviour
     {
         private const int STONEIDXSTART = 4000;
-        private TicketMachine ticketMachine;
-        private Pool stonePool;
-        [SerializeField] Mesh[] stoneMeshes;
-        [SerializeField] Material[] materials;
-        [SerializeField] BaseStoneEffect[] stoneEffects;
-        [SerializeField] GameObject stoneTrailTest;
+        private const int initialPoolSize = 10;
+        [SerializeField] private Mesh[] stoneMeshes;
+        [SerializeField] private Material[] materials;
+        [SerializeField] private BaseStoneEffect[] stoneEffects;
+        [SerializeField] private GameObject stoneTrailTest;
 
         [SerializeField] private GameObject stone;
-        private const int initialPoolSize = 10;
+        private Pool stonePool;
 
         private Transform stoneRoot;
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
             SetTicketMachine();
             InitStonePool();
-            
-            GameObject root = new GameObject();
+
+            var root = new GameObject();
             root.name = "@Stone_Root";
             root.transform.SetParent(transform);
             stoneRoot = root.transform;
         }
+
         private void Start()
         {
-            string stoneMaterialsPath = "Materials/StoneMaterials";
+            var stoneMaterialsPath = "Materials/StoneMaterials";
             materials = Resources.LoadAll<Material>(stoneMaterialsPath);
         }
+
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -60,17 +63,19 @@ namespace Assets.Scripts.Item.Stone
 
         public Poolable GetStone(int stoneIdx)
         {
-            Poolable obj = stonePool.Pop(stoneRoot);
-            obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
+            var obj = stonePool.Pop(stoneRoot);
+            obj.GetComponent<BaseStone>().data =
+                DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             if (obj.GetComponent<BaseStone>().data == null)
             {
                 return null;
             }
+
             obj.GetComponent<BaseStone>().hatchery = this;
-            int idx = Random.Range(0, stoneMeshes.Length);
+            var idx = Random.Range(0, stoneMeshes.Length);
             obj.gameObject.GetComponent<MeshFilter>().mesh = stoneMeshes[idx];
             obj.gameObject.GetComponent<MeshCollider>().sharedMesh = stoneMeshes[idx];
-            int matIdx = obj.GetComponent<BaseStone>().data.index % STONEIDXSTART;
+            var matIdx = obj.GetComponent<BaseStone>().data.index % STONEIDXSTART;
             obj.gameObject.GetComponent<MeshRenderer>().material = materials[matIdx];
             AddStoneEffect(obj, stoneIdx);
 
@@ -79,7 +84,7 @@ namespace Assets.Scripts.Item.Stone
 
         public void AddStoneEffect(Poolable obj, int stoneIdx)
         {
-            BaseStoneEffect currentEffect = obj.GetComponent<BaseStoneEffect>();
+            var currentEffect = obj.GetComponent<BaseStoneEffect>();
             if (currentEffect != null)
             {
                 Destroy(currentEffect);
@@ -108,7 +113,8 @@ namespace Assets.Scripts.Item.Stone
                     effect = obj.gameObject.AddComponent<NormalStone>();
                     break;
             }
-            StonePrefab prefab = obj.GetComponent<StonePrefab>();
+
+            var prefab = obj.GetComponent<StonePrefab>();
 
             prefab.StoneEffect = effect;
             effect.InitData(prefab.data, ticketMachine);
@@ -122,17 +128,18 @@ namespace Assets.Scripts.Item.Stone
 
         public void StoneEvent(IBaseEventPayload payload)
         {
-            StoneEventPayload itemPayload = payload as StoneEventPayload;
-            BaseStone stone = GetStone(itemPayload.StoneIdx) as BaseStone;
-            if(stone == null)
+            var itemPayload = payload as StoneEventPayload;
+            var stone = GetStone(itemPayload.StoneIdx) as BaseStone;
+            if (stone == null)
             {
                 Debug.LogError("돌맹이 파싱 중...");
                 return;
             }
-            Vector3 startPos = itemPayload.StoneSpawnPos;
-            Vector3 direction = itemPayload.StoneDirection;
-            Vector3 force = itemPayload.StoneForce;
-            float strength = itemPayload.StoneStrength;
+
+            var startPos = itemPayload.StoneSpawnPos;
+            var direction = itemPayload.StoneDirection;
+            var force = itemPayload.StoneForce;
+            var strength = itemPayload.StoneStrength;
             stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
             if (itemPayload.Type == StoneEventType.ShootStone)
             {
@@ -142,8 +149,8 @@ namespace Assets.Scripts.Item.Stone
                 {
                     uiType = UIType.Notify,
                     actionType = ActionType.ConsumeSlotItem,
-                    slotAreaType = UI.Inventory.SlotAreaType.Item,
-                    itemData = stone.data,
+                    slotAreaType = SlotAreaType.Item,
+                    itemData = stone.data
                 };
                 ticketMachine.SendMessage(ChannelType.UI, uIPayload);
             }
@@ -157,7 +164,7 @@ namespace Assets.Scripts.Item.Stone
         {
             stone.transform.position = position;
             stone.GetComponent<Rigidbody>().AddForce(force * 4f, ForceMode.Impulse);
-            stone.GetComponent<Rigidbody>().AddTorque(2f* Random.onUnitSphere);
+            stone.GetComponent<Rigidbody>().AddTorque(2f * Random.onUnitSphere);
         }
 
         private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
@@ -165,7 +172,7 @@ namespace Assets.Scripts.Item.Stone
             stone.transform.position = startPos;
 
             stone.MoveStone(direction, strength);
-            stone.GetComponent<Rigidbody>().AddTorque(2f*Random.onUnitSphere);
+            stone.GetComponent<Rigidbody>().AddTorque(2f * Random.onUnitSphere);
         }
     }
 }

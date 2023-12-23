@@ -4,18 +4,20 @@ namespace Assets.Scripts.ElliePhysics
 {
     public class CollisionTest : MonoBehaviour
     {
-        [SerializeField] string[] tags;
+        [SerializeField] private string[] tags;
 
         private void OnCollisionEnter(Collision collision)
         {
             if (tags.Length == 0)
+            {
                 return;
+            }
 
-            for (int i = 0; i < tags.Length; i++)
+            for (var i = 0; i < tags.Length; i++)
             {
                 if (collision.gameObject.CompareTag(tags[i]))
                 {
-                    Rigidbody rb = collision.gameObject.GetComponent<Rigidbody>();
+                    var rb = collision.gameObject.GetComponent<Rigidbody>();
                     if (rb)
                     {
                         //Debug.Log($"speed: {rb.velocity.magnitude}");

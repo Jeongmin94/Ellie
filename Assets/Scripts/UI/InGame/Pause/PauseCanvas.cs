@@ -19,17 +19,6 @@ namespace Assets.Scripts.UI.InGame
 {
     public class PauseCanvas : UIPopup
     {
-        private enum GameObjects
-        {
-            ButtonPanel,
-            EscapePanel,
-        }
-
-        private enum Images
-        {
-            EscapeImage,
-        }
-
         private static readonly string SoundOpen = "pause1";
 
 
@@ -44,19 +33,22 @@ namespace Assets.Scripts.UI.InGame
 
         [SerializeField] private string[] buttonNames;
 
+        private readonly IDictionary<PopupType, PauseMenuButton> menuButtonMap =
+            new Dictionary<PopupType, PauseMenuButton>();
+
+        private readonly IDictionary<PopupType, BasePopupCanvas> popupCanvasMap =
+            new Dictionary<PopupType, BasePopupCanvas>();
+
         private GameObject buttonPanel;
-        private GameObject escapePanel;
 
         private RectTransform buttonPanelRect;
-        private RectTransform escapePanelRect;
-        private RectTransform escapeImageRect;
-
-        private Image escapeImage;
 
         private ConfigCanvas configCanvas;
 
-        private readonly IDictionary<PopupType, PauseMenuButton> menuButtonMap = new Dictionary<PopupType, PauseMenuButton>();
-        private readonly IDictionary<PopupType, BasePopupCanvas> popupCanvasMap = new Dictionary<PopupType, BasePopupCanvas>();
+        private Image escapeImage;
+        private RectTransform escapeImageRect;
+        private GameObject escapePanel;
+        private RectTransform escapePanelRect;
 
         private TicketMachine ticketMachine;
 
@@ -123,7 +115,7 @@ namespace Assets.Scripts.UI.InGame
             configCanvas.configCanvasAction -= OnPopupCanvasAction;
             configCanvas.configCanvasAction += OnPopupCanvasAction;
 
-            Color color = configCanvas.Background.color;
+            var color = configCanvas.Background.color;
             color.a = 0.7f;
             configCanvas.Background.color = color;
 
@@ -150,11 +142,11 @@ namespace Assets.Scripts.UI.InGame
         private void InitPauseMenuButtons()
         {
             // menu
-            for (int i = 0; i < buttonNames.Length; i++)
+            for (var i = 0; i < buttonNames.Length; i++)
             {
                 var button = UIManager.Instance.MakeSubItem<PauseMenuButton>(buttonPanelRect, PauseMenuButton.Path);
 
-                string title = buttonNames[i];
+                var title = buttonNames[i];
                 pauseMenuTypographyData.title = title;
                 button.name += $"#{title}";
                 button.InitText();
@@ -177,7 +169,9 @@ namespace Assets.Scripts.UI.InGame
         private void OnEscapeAction()
         {
             if (!InputManager.Instance.CanInput)
+            {
                 return;
+            }
 
             if (!gameObject.activeSelf)
             {
@@ -188,30 +182,34 @@ namespace Assets.Scripts.UI.InGame
                 ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                 {
                     uiType = UIType.Notify,
-                    actionType = ActionType.OpenPauseCanvas,
+                    actionType = ActionType.OpenPauseCanvas
                 });
             }
             else
             {
-                bool allPopupClosed = true;
+                var allPopupClosed = true;
                 foreach (var popup in popupCanvasMap.Values)
                 {
                     if (popup.gameObject.activeSelf)
+                    {
                         allPopupClosed = false;
+                    }
                 }
 
                 if (configCanvas.gameObject.activeSelf)
+                {
                     allPopupClosed = false;
+                }
 
                 if (allPopupClosed)
                 {
                     Cursor.visible = false;
                     gameObject.SetActive(false);
-                    
+
                     ticketMachine.SendMessage(ChannelType.UI, new UIPayload
                     {
                         uiType = UIType.Notify,
-                        actionType = ActionType.ClosePauseCanvas,
+                        actionType = ActionType.ClosePauseCanvas
                     });
                 }
             }
@@ -262,6 +260,17 @@ namespace Assets.Scripts.UI.InGame
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+
+        private enum GameObjects
+        {
+            ButtonPanel,
+            EscapePanel
+        }
+
+        private enum Images
+        {
+            EscapeImage
         }
     }
 }

@@ -1,5 +1,5 @@
-using Assets.Scripts.Particle;
 using System;
+using Assets.Scripts.Particle;
 
 namespace Assets.Scripts.Managers.Singleton
 {
@@ -13,7 +13,7 @@ namespace Assets.Scripts.Managers.Singleton
         UI,
         Sound,
         EventBus,
-        Particle,
+        Particle
     }
 
     public static class MangerControllers

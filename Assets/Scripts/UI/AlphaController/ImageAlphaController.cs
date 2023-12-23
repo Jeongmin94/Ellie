@@ -15,10 +15,10 @@ namespace Assets.Scripts.UI
 
         public override IEnumerator ChangeAlpha(Color start, Color end, float duration)
         {
-            float timeAcc = 0.0f;
+            var timeAcc = 0.0f;
             image.color = start;
 
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var wfef = new WaitForEndOfFrame();
             while (timeAcc <= duration)
             {
                 image.color = Color.Lerp(start, end, timeAcc / duration);

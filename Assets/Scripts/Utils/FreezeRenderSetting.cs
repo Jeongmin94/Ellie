@@ -1,14 +1,13 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Utils
 {
     public class FreezeRenderSetting : MonoBehaviour
     {
-        private MeshRenderer meshRenderer;
         private Material[] materials;
+        private MeshRenderer meshRenderer;
 
-        void Awake()
+        private void Awake()
         {
             meshRenderer = gameObject.GetComponent<MeshRenderer>();
             materials = meshRenderer.materials.Clone() as Material[];
@@ -19,9 +18,10 @@ namespace Assets.Scripts.Utils
         {
             meshRenderer.materials = materials;
         }
+
         public void DeleteFreezeRenderer()
         {
-            Material[] oneMaterial = new Material[1];
+            var oneMaterial = new Material[1];
             oneMaterial[0] = materials[0];
             meshRenderer.materials = oneMaterial;
         }

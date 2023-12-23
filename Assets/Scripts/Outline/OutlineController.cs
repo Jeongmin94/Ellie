@@ -6,7 +6,7 @@ namespace Outline
     public enum OutlineType
     {
         InteractiveOutline,
-        StoneOutline,
+        StoneOutline
     }
 
     public enum OutlineAction
@@ -22,7 +22,7 @@ namespace Outline
         public List<OutlineType> outlineTypes;
         public List<Material> materials;
 
-        private readonly List<Material> buffer = new List<Material>();
+        private readonly List<Material> buffer = new();
 
         public void AddOutline(Renderer targetRenderer, OutlineType type)
         {
@@ -30,7 +30,9 @@ namespace Outline
 
             buffer.AddRange(targetRenderer.sharedMaterials);
             if (buffer.Contains(materials[(int)type]))
+            {
                 return;
+            }
 
             buffer.Add(materials[(int)type]);
 
@@ -43,7 +45,9 @@ namespace Outline
 
             buffer.AddRange(targetRenderer.sharedMaterials);
             if (!buffer.Contains(materials[(int)type]))
+            {
                 return;
+            }
 
             buffer.Remove(materials[(int)type]);
 

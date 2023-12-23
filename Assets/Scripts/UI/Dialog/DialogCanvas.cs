@@ -18,47 +18,36 @@ namespace Assets.Scripts.UI.Dialog
     {
         public static readonly string Path = "Dialog/DialogCanvas";
 
-        private enum GameObjects
-        {
-            DialogPanel,
-            DialogNextPanel,
-            DialogContextPanel,
-        }
-
-        private enum Images
-        {
-            DialogImage,
-        }
-
-        private enum Texts
-        {
-            DialogTitle,
-            DialogNext,
-        }
-
         [SerializeField] private DialogTypographyData dialogContextData;
-
-        private GameObject dialogPanel;
-        private RectTransform dialogPanelRect;
-
-        // 다음 버튼 패널
-        private GameObject dialogNextPanel;
-        private RectTransform dialogNextPanelRect;
 
         // 대사 출력 패널
         private GameObject dialogContextPanel;
         private DialogText dialogContextText;
 
         private Image dialogImage;
+        private TextMeshProUGUI dialogNext;
+
+        // 다음 버튼 패널
+        private GameObject dialogNextPanel;
+        private RectTransform dialogNextPanelRect;
+
+        private GameObject dialogPanel;
+        private RectTransform dialogPanelRect;
 
         private TextMeshProUGUI dialogTitle;
-        private TextMeshProUGUI dialogNext;
 
         private TicketMachine ticketMachine;
 
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            dialogPanel.gameObject.SetActive(false);
+            dialogContextText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
+            //dialogContextText.SubscribeEndingAction(SendPayloadEndingDialog);
         }
 
         protected override void Init()
@@ -69,12 +58,7 @@ namespace Assets.Scripts.UI.Dialog
             InitObjects();
             InitTicketMachine();
         }
-        private void Start()
-        {
-            dialogPanel.gameObject.SetActive(false);
-            dialogContextText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
-            //dialogContextText.SubscribeEndingAction(SendPayloadEndingDialog);
-        }
+
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
@@ -95,7 +79,6 @@ namespace Assets.Scripts.UI.Dialog
             dialogNext = GetText((int)Texts.DialogNext);
 
             //contextText의 정보를 페이로드통해 송신하기 위한 이벤트 구독
-            
         }
 
         private void InitObjects()
@@ -129,55 +112,65 @@ namespace Assets.Scripts.UI.Dialog
 
         private void OnNotify(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload dialogPayload) return;
+            if (payload is not DialogPayload dialogPayload)
+            {
+                return;
+            }
 
-            if (dialogPayload.dialogType != DialogType.Notify) return;
+            if (dialogPayload.dialogType != DialogType.Notify)
+            {
+                return;
+            }
 
-            if (dialogPayload.canvasType != DialogCanvasType.Default) return;
+            if (dialogPayload.canvasType != DialogCanvasType.Default)
+            {
+                return;
+            }
 
             switch (dialogPayload.dialogAction)
             {
                 case DialogAction.Play:
+                {
+                    if (dialogContextText.IsPlaying)
                     {
-                        if (dialogContextText.IsPlaying)
-                        {
-                            //isPlaying일 때 다시 Play 요청이 들어오면 OnNext하도록
-                            dialogContextText.Next();
+                        //isPlaying일 때 다시 Play 요청이 들어오면 OnNext하도록
+                        dialogContextText.Next();
 
-                            break;
-                        }
-                        dialogPanel.gameObject.SetActive(true);
-
-                        dialogTitle.text = dialogPayload.speaker;
-                        dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
+                        break;
                     }
+
+                    dialogPanel.gameObject.SetActive(true);
+
+                    dialogTitle.text = dialogPayload.speaker;
+                    dialogContextText.Play(dialogPayload.text, dialogPayload.interval);
+                }
                     break;
 
                 case DialogAction.Stop:
+                {
+                    if (dialogContextText.Stop())
                     {
-                        if (dialogContextText.Stop())
-                        {
-                            dialogPanel.gameObject.SetActive(false);
-                        }
+                        dialogPanel.gameObject.SetActive(false);
                     }
+                }
                     break;
 
                 case DialogAction.Resume:
-                    {
-                        dialogContextText.SetPause(false);
-                    }
+                {
+                    dialogContextText.SetPause(false);
+                }
                     break;
 
                 case DialogAction.Pause:
-                    {
-                        dialogContextText.SetPause(true);
-                    }
+                {
+                    dialogContextText.SetPause(true);
+                }
                     break;
 
                 case DialogAction.OnNext:
-                    {
-                        dialogContextText.Next();
-                    }
+                {
+                    dialogContextText.Next();
+                }
                     break;
 
                 default:
@@ -187,12 +180,29 @@ namespace Assets.Scripts.UI.Dialog
 
         private void SendPayloadToClientEvent(bool _isPlaying)
         {
-
             ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
             {
                 dialogType = DialogType.NotifyToClient,
                 isPlaying = _isPlaying
             });
+        }
+
+        private enum GameObjects
+        {
+            DialogPanel,
+            DialogNextPanel,
+            DialogContextPanel
+        }
+
+        private enum Images
+        {
+            DialogImage
+        }
+
+        private enum Texts
+        {
+            DialogTitle,
+            DialogNext
         }
     }
 }

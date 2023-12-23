@@ -17,11 +17,16 @@ namespace Assets.Scripts.UI.Opening
         private static readonly string SoundClick = "click2";
 
         [SerializeField] private float blinkInterval = 1.0f;
+        private Action<PopupPayload> blinkMenuAction;
+
+        private bool isBlink;
 
         public PopupType PopupType { get; set; }
 
-        private bool isBlink = false;
-        private Action<PopupPayload> blinkMenuAction;
+        private void OnDestroy()
+        {
+            blinkMenuAction = null;
+        }
 
         public void Subscribe(Action<PopupPayload> listener)
         {
@@ -29,16 +34,11 @@ namespace Assets.Scripts.UI.Opening
             blinkMenuAction += listener;
         }
 
-        private void OnDestroy()
-        {
-            blinkMenuAction = null;
-        }
-
         protected override void Init()
         {
             base.Init();
 
-            Color color = OriginColor();
+            var color = OriginColor();
             color.a = 0.0f;
             SetOriginColor(color);
             imageColor.Value = color;
@@ -73,18 +73,18 @@ namespace Assets.Scripts.UI.Opening
         private IEnumerator BlinkPanelImage()
         {
             isBlink = true;
-            Color color = OriginColor();
+            var color = OriginColor();
             color.a = 0.0f;
             imageColor.Value = color;
 
-            bool toRight = true;
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var toRight = true;
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
             while (isBlink)
             {
                 yield return wfef;
 
-                float alpha = Mathf.Lerp(0.0f, 1.0f, timeAcc / blinkInterval);
+                var alpha = Mathf.Lerp(0.0f, 1.0f, timeAcc / blinkInterval);
                 color.a = alpha;
                 imageColor.Value = color;
 
@@ -98,9 +98,13 @@ namespace Assets.Scripts.UI.Opening
                 }
 
                 if (timeAcc > blinkInterval)
+                {
                     toRight = false;
+                }
                 else if (timeAcc <= 0.0f)
+                {
                     toRight = true;
+                }
             }
 
             ResetImageColor();

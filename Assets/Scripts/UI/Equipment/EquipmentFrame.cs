@@ -11,18 +11,6 @@ namespace Assets.Scripts.UI.Equipment
         public static readonly string DefaultPath = "Slot/Equipment/EquipmentFrame";
         public static readonly string StonePath = "Slot/Equipment/StoneEquipmentFrame";
 
-        private enum Images
-        {
-            ItemImage
-        }
-
-        private enum Texts
-        {
-            ItemText
-        }
-
-        public Transform ImageRect { get; set; }
-
         private Image frameImage;
         private RectTransform frameRect;
 
@@ -31,6 +19,8 @@ namespace Assets.Scripts.UI.Equipment
 
         private Color offColor = Color.white;
         private Color onColor = Color.white;
+
+        public Transform ImageRect { get; set; }
 
         private void Awake()
         {
@@ -97,6 +87,16 @@ namespace Assets.Scripts.UI.Equipment
         public void SetItemText(string text)
         {
             itemText.text = text;
+        }
+
+        private enum Images
+        {
+            ItemImage
+        }
+
+        private enum Texts
+        {
+            ItemText
         }
     }
 }

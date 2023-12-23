@@ -2,11 +2,13 @@
 {
     public class PlayerStateMeleeAttack : PlayerBaseState
     {
-        PlayerStatus status;
+        private readonly PlayerStatus status;
+
         public PlayerStateMeleeAttack(PlayerController controller) : base(controller)
         {
             status = Controller.GetComponent<PlayerStatus>();
         }
+
         public override void OnEnterState()
         {
             //Controller.TurnOnMeleeAttackCollider();
@@ -23,7 +25,6 @@
             Controller.TurnOffSlingshot();
             Controller.Anim.SetBool("IsMeleeAttacking", false);
             Controller.TurnOffMeleeAttackCollider();
-
         }
 
         public override void OnFixedUpdateState()

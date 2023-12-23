@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.UI.Inventory;
-using System;
+﻿using System;
+using Assets.Scripts.UI.Inventory;
 
 namespace Assets.Scripts.Item
 {

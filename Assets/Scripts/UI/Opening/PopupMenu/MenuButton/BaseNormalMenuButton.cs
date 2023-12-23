@@ -21,21 +21,16 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public new static readonly string Path = "Opening/NormalMenuText";
 
-        private enum Images
-        {
-            HoverImage,
-        }
-
         [SerializeField] private Sprite hoverSprite;
         [SerializeField] private float blinkInterval = 0.5f;
         [SerializeField] private TextTypographyData hoverTypography;
+        private IEnumerator blinkEnumerator;
 
         private Image hoverImage;
         private RectTransform hoverImageRect;
-        private Color originHoverImageColor;
 
         private MenuButton menuButton;
-        private IEnumerator blinkEnumerator;
+        private Color originHoverImageColor;
 
         public void Subscribe(Action<PopupPayload> listener)
         {
@@ -106,19 +101,19 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private IEnumerator BlinkImage()
         {
-            bool isBlink = true;
-            Color color = originHoverImageColor;
+            var isBlink = true;
+            var color = originHoverImageColor;
             color.a = 1.0f;
             hoverImage.color = color;
 
-            bool toRight = true;
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var toRight = true;
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
             while (isBlink)
             {
                 yield return wfef;
 
-                float alpha = Mathf.Lerp(0.0f, 1.0f, timeAcc / blinkInterval);
+                var alpha = Mathf.Lerp(0.0f, 1.0f, timeAcc / blinkInterval);
                 color.a = alpha;
                 hoverImage.color = color;
 
@@ -132,10 +127,19 @@ namespace Assets.Scripts.UI.PopupMenu
                 }
 
                 if (timeAcc > blinkInterval)
+                {
                     toRight = false;
+                }
                 else if (timeAcc <= 0.0f)
+                {
                     toRight = true;
+                }
             }
+        }
+
+        private enum Images
+        {
+            HoverImage
         }
     }
 }

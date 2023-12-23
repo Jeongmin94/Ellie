@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
     public class PlayerStateStart : PlayerBaseState
     {
         private const float duration = 3.0f;
-        private float acctime = 0;
+        private float acctime;
+
         public PlayerStateStart(PlayerController controller) : base(controller)
         {
         }

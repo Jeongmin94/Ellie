@@ -18,23 +18,22 @@ namespace Assets.Scripts.Managers
                 return null;
             }
 
-            var go = GameObject.Instantiate(prefab, parent);
+            var go = Instantiate(prefab, parent);
             go.name = prefab.name;
             return go;
         }
 
         public List<GameObject> LoadAll(string path, bool recursive = true)
         {
-            List<GameObject> gos = new List<GameObject>();
-            
-            
+            var gos = new List<GameObject>();
+
 
             return gos;
         }
-        
+
         public T LoadExternResource<T>(string path) where T : Object
         {
-            T resource = Resources.Load<T>($"{PrefixExtern}{path}");
+            var resource = Resources.Load<T>($"{PrefixExtern}{path}");
 
             return resource;
         }
@@ -47,7 +46,9 @@ namespace Assets.Scripts.Managers
         public void Destroy(GameObject go)
         {
             if (go == null)
+            {
                 return;
+            }
 
             GameObject.Destroy(go);
         }

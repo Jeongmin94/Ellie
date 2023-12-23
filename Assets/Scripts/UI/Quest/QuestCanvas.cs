@@ -18,29 +18,11 @@ namespace Assets.Scripts.UI.Quest
 {
     public class QuestCanvas : UIStatic
     {
-        private enum GameObjects
-        {
-            QuestIconPanel,
-            QuestNamePanel,
-            QuestDescPanel,
-        }
-
-        private enum Images
-        {
-            QuestIconImage
-        }
-
-        private enum Texts
-        {
-            QuestNameText,
-            QuestDescText,
-        }
-
         [SerializeField] private UITransformData[] questPanelTransformData;
         [SerializeField] private TextTypographyData[] questTextTypography;
+        private readonly List<TextMeshProUGUI> questTexts = new();
 
-        private readonly List<RectTransform> rectTransforms = new List<RectTransform>();
-        private readonly List<TextMeshProUGUI> questTexts = new List<TextMeshProUGUI>();
+        private readonly List<RectTransform> rectTransforms = new();
 
         private Image questIconImage;
 
@@ -51,17 +33,17 @@ namespace Assets.Scripts.UI.Quest
             Init();
         }
 
+        private void Start()
+        {
+            gameObject.SetActive(false);
+        }
+
         protected override void Init()
         {
             base.Init();
 
             Bind();
             InitObjects();
-        }
-
-        private void Start()
-        {
-            gameObject.SetActive(false);
         }
 
         private void Bind()
@@ -71,14 +53,14 @@ namespace Assets.Scripts.UI.Quest
             Bind<TextMeshProUGUI>(typeof(Texts));
 
             var gos = Enum.GetValues(typeof(GameObjects));
-            for (int i = 0; i < gos.Length; i++)
+            for (var i = 0; i < gos.Length; i++)
             {
                 var go = GetGameObject(i);
                 rectTransforms.Add(go.GetComponent<RectTransform>());
             }
 
             var texts = Enum.GetValues(typeof(Texts));
-            for (int i = 0; i < texts.Length; i++)
+            for (var i = 0; i < texts.Length; i++)
             {
                 questTexts.Add(GetText(i));
             }
@@ -88,7 +70,7 @@ namespace Assets.Scripts.UI.Quest
 
         private void InitObjects()
         {
-            for (int i = 0; i < questPanelTransformData.Length; i++)
+            for (var i = 0; i < questPanelTransformData.Length; i++)
             {
                 AnchorPresets.SetAnchorPreset(rectTransforms[i], AnchorPresets.MiddleCenter);
                 rectTransforms[i].sizeDelta = questPanelTransformData[i].actionRect.Value.GetSize();
@@ -96,7 +78,7 @@ namespace Assets.Scripts.UI.Quest
                 rectTransforms[i].localScale = questPanelTransformData[i].actionScale.Value;
             }
 
-            for (int i = 0; i < questTextTypography.Length; i++)
+            for (var i = 0; i < questTextTypography.Length; i++)
             {
                 questTexts[i].font = questTextTypography[i].fontAsset;
                 questTexts[i].fontSize = questTextTypography[i].fontSize;
@@ -114,7 +96,9 @@ namespace Assets.Scripts.UI.Quest
         private void OnNotifyAction(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             switch (uiPayload.actionType)
             {
@@ -122,11 +106,11 @@ namespace Assets.Scripts.UI.Quest
                 {
                     questIconImage.gameObject.SetActive(false);
                     var texts = Enum.GetValues(typeof(Texts));
-                    for (int i = 0; i < texts.Length; i++)
+                    for (var i = 0; i < texts.Length; i++)
                     {
                         questTexts[i].text = string.Empty;
                     }
-                    
+
                     gameObject.SetActive(false);
                 }
                     break;
@@ -156,6 +140,24 @@ namespace Assets.Scripts.UI.Quest
                 }
                     break;
             }
+        }
+
+        private enum GameObjects
+        {
+            QuestIconPanel,
+            QuestNamePanel,
+            QuestDescPanel
+        }
+
+        private enum Images
+        {
+            QuestIconImage
+        }
+
+        private enum Texts
+        {
+            QuestNameText,
+            QuestDescText
         }
     }
 }

@@ -11,20 +11,19 @@ namespace Assets.Scripts.UI.Dialog
 {
     public class DialogText : MonoBehaviour
     {
-        public bool IsPlaying { get; set; } = false;
+        private readonly Queue<string> dialogQueue = new();
+        private readonly StringBuilder sb = new();
+        private IEnumerator blinkEnumerator;
+        private float currentInterval;
+        private string currentText = string.Empty;
+        private TextMeshProUGUI dialogText;
         private Action<bool> isPlayingAction;
-        private bool OnNext { get; set; } = false;
+        private bool onBlink;
+        private bool onPause;
 
         private IEnumerator playingEnumerator;
-        private IEnumerator blinkEnumerator;
-        private TextMeshProUGUI dialogText;
-
-        private readonly Queue<string> dialogQueue = new Queue<string>();
-        private readonly StringBuilder sb = new StringBuilder();
-        private string currentText = string.Empty;
-        private float currentInterval = 0.0f;
-        private bool onPause = false;
-        private bool onBlink = false;
+        public bool IsPlaying { get; set; }
+        private bool OnNext { get; set; }
 
         private void Awake()
         {
@@ -34,10 +33,14 @@ namespace Assets.Scripts.UI.Dialog
         private void OnDisable()
         {
             if (playingEnumerator != null)
+            {
                 StopCoroutine(playingEnumerator);
+            }
 
             if (blinkEnumerator != null)
+            {
                 StopCoroutine(blinkEnumerator);
+            }
         }
 
         public void InitDialogText()
@@ -78,7 +81,9 @@ namespace Assets.Scripts.UI.Dialog
         public bool Stop()
         {
             if (IsPlaying)
+            {
                 return false;
+            }
 
             onBlink = false;
             return true;
@@ -87,7 +92,9 @@ namespace Assets.Scripts.UI.Dialog
         public void Next()
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             OnNext = true;
         }
@@ -95,7 +102,9 @@ namespace Assets.Scripts.UI.Dialog
         public void SetPause(bool pause)
         {
             if (!IsPlaying)
+            {
                 return;
+            }
 
             onPause = pause;
         }
@@ -111,13 +120,15 @@ namespace Assets.Scripts.UI.Dialog
             currentText = text;
             currentInterval = interval;
 
-            WaitForSeconds wfs = new WaitForSeconds(interval);
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var wfs = new WaitForSeconds(interval);
+            var wfef = new WaitForEndOfFrame();
 
             foreach (var ch in text)
             {
                 if (OnNext)
+                {
                     break;
+                }
 
                 sb.Append(ch);
                 dialogText.text = sb.ToString();
@@ -125,7 +136,9 @@ namespace Assets.Scripts.UI.Dialog
                 yield return wfs;
 
                 while (onPause)
+                {
                     yield return wfef;
+                }
             }
 
             IsPlaying = false;
@@ -140,16 +153,18 @@ namespace Assets.Scripts.UI.Dialog
             blinkEnumerator = Blink(text);
             StartCoroutine(blinkEnumerator);
             if (duration > 0.0f)
+            {
                 yield return StartCoroutine(Reserve(duration));
+            }
         }
 
         // 현재 텍스트 출력 후 깜빡거리는 효과 추가
         // 다음 텍스트 출력이나 DialogText가 비활성화되면 멈춤
         private IEnumerator Blink(string text)
         {
-            WaitForSeconds wfs = new WaitForSeconds(0.5f);
-            bool isBlink = false;
-            string blinkText = text + '|';
+            var wfs = new WaitForSeconds(0.5f);
+            var isBlink = false;
+            var blinkText = text + '|';
 
             while (onBlink)
             {
@@ -162,8 +177,8 @@ namespace Assets.Scripts.UI.Dialog
 
         private IEnumerator Reserve(float duration)
         {
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
 
             while (timeAcc <= duration)
             {
@@ -179,11 +194,10 @@ namespace Assets.Scripts.UI.Dialog
             isPlayingAction -= listener;
             isPlayingAction += listener;
         }
-        
+
         private void PublishIsPlayingAction(bool b)
         {
             isPlayingAction?.Invoke(b);
         }
     }
-
 }

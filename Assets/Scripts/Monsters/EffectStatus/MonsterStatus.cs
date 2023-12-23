@@ -1,19 +1,18 @@
-﻿using Assets.Scripts.Monsters.EffectStatus.StatusEffectConcreteStrategies;
-using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Monsters.EffectStatus.StatusEffectConcreteStrategies;
 using Assets.Scripts.StatusEffects;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 
 namespace Assets.Scripts.Monsters.EffectStatus
 {
     public class MonsterStatus : SerializedMonoBehaviour
     {
-        [ShowInInspector]
-        [ReadOnly]
-        private Dictionary<StatusEffectName, IMonsterStatusEffect> monsterStatusEffects = new Dictionary<StatusEffectName, IMonsterStatusEffect>();
         private MonsterEffectStatusController monsterStatusEffectController;
+
+        [ShowInInspector] [ReadOnly]
+        private Dictionary<StatusEffectName, IMonsterStatusEffect> monsterStatusEffects = new();
 
         private void Awake()
         {
@@ -29,15 +28,17 @@ namespace Assets.Scripts.Monsters.EffectStatus
         {
             monsterStatusEffectController = gameObject.GetOrAddComponent<MonsterEffectStatusController>();
         }
+
         private void AddStatusEffect()
         {
             // 상태이상 여기에 추가
-            monsterStatusEffects.Add(StatusEffectName.Incarceration, gameObject.AddComponent<MonsterStatusEffectFreezing>());
+            monsterStatusEffects.Add(StatusEffectName.Incarceration,
+                gameObject.AddComponent<MonsterStatusEffectFreezing>());
         }
 
         public void ApplyStatusEffect(CombatPayload payload)
         {
-            monsterStatusEffects.TryGetValue(payload.StatusEffectName, out IMonsterStatusEffect effect);
+            monsterStatusEffects.TryGetValue(payload.StatusEffectName, out var effect);
             if (effect != null)
             {
                 monsterStatusEffectController.ApplyStatusEffect(effect, GenerateStatusEffectInfo(payload));
@@ -50,13 +51,13 @@ namespace Assets.Scripts.Monsters.EffectStatus
             ApplyStatusEffect(new CombatPayload
             {
                 StatusEffectName = StatusEffectName.Incarceration,
-                statusEffectduration = 10.0f,
+                statusEffectduration = 10.0f
             });
         }
 
         private MonsterStatusEffectInfo GenerateStatusEffectInfo(CombatPayload payload)
         {
-            MonsterStatusEffectInfo info = new MonsterStatusEffectInfo();
+            var info = new MonsterStatusEffectInfo();
 
             info.EffectDuration = payload.statusEffectduration;
             info.EffectForce = payload.force;

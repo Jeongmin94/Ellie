@@ -6,7 +6,10 @@ namespace InteractingColliders
     public class QuestCollider : MonoBehaviour
     {
         [SerializeField] private NpcType type;
-        
-        public new NpcType GetType() => type;
+
+        public new NpcType GetType()
+        {
+            return type;
+        }
     }
 }

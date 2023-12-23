@@ -1,51 +1,48 @@
 ﻿using Sirenix.OdinInspector;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers.Sound
 {
     public class SoundManagerTestClient : MonoBehaviour
     {
-        void Update()
+        private void Update()
         {
-
         }
+
         [Button("BGM Start", ButtonSizes.Large)]
-        void StartBgm()
+        private void StartBgm()
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BgmTest");
         }
-        [Button("BGM Stop", ButtonSizes.Large)]
 
-        void StopBgm()
+        [Button("BGM Stop", ButtonSizes.Large)]
+        private void StopBgm()
         {
             SoundManager.Instance.StopBgm();
-
         }
-        [Button("BGM Pause", ButtonSizes.Large)]
 
-        void PauseBgm()
+        [Button("BGM Pause", ButtonSizes.Large)]
+        private void PauseBgm()
         {
             SoundManager.Instance.PauseBgm();
         }
-        [Button("BGM Resume", ButtonSizes.Large)]
 
-        void ResumeBgm()
+        [Button("BGM Resume", ButtonSizes.Large)]
+        private void ResumeBgm()
         {
             SoundManager.Instance.ResumeBgm();
         }
-        [Button("SFX Play", ButtonSizes.Large)]
 
-        void PlaySfxtest()
+        [Button("SFX Play", ButtonSizes.Large)]
+        private void PlaySfxtest()
         {
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", new Vector3(0,3,0));
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_sound1", new Vector3(0, 3, 0));
         }
+
         [Button("UISFX Play", ButtonSizes.Large)]
-        void UISfxTest()
+        private void UISfxTest()
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "ellie_sound1");
         }
-
-
     }
 }

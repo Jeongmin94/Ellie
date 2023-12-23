@@ -6,19 +6,22 @@ namespace Assets.Scripts.ActionData
     {
         private T v;
 
+        private Action<T> valueChangeAction;
+
         public T Value
         {
-            get { return this.v; }
+            get => v;
             set
             {
-                this.v = value;
-                this.valueChangeAction?.Invoke(value);
+                v = value;
+                valueChangeAction?.Invoke(value);
             }
         }
 
-        private Action<T> valueChangeAction;
-
-        public void ClearAction() => valueChangeAction = null;
+        public void ClearAction()
+        {
+            valueChangeAction = null;
+        }
 
         public void Subscribe(Action<T> listener)
         {

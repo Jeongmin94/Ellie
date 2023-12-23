@@ -1,5 +1,5 @@
-using Assets.Scripts.Combat;
 using System;
+using Assets.Scripts.Combat;
 using UnityEngine;
 
 namespace Boss.Terrapupa
@@ -8,22 +8,21 @@ namespace Boss.Terrapupa
     {
         private Action<IBaseEventPayload> collisionAction;
 
-        public void SubscribeCollisionAction(Action<IBaseEventPayload> action)
-        {
-            collisionAction -= action;
-            collisionAction += action;
-        }
-
         public void Attack(IBaseEventPayload payload)
         {
-            
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
-            // «√∑π¿ÃæÓ √—æÀ -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
-            Debug.Log($"{name} ReceiveDamage :: æ‡¡° √Êµπ");
+            // ÌîåÎ†àÏù¥Ïñ¥ Ï¥ùÏïå -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
+            Debug.Log($"{name} ReceiveDamage :: ÏïΩÏ†ê Ï∂©Îèå");
             collisionAction?.Invoke(payload);
+        }
+
+        public void SubscribeCollisionAction(Action<IBaseEventPayload> action)
+        {
+            collisionAction -= action;
+            collisionAction += action;
         }
     }
 }

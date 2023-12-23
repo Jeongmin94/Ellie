@@ -7,24 +7,25 @@ namespace Assets.Scripts.UI.Framework
 {
     // Unity Event System Interfaces
     // https://docs.unity.cn/Packages/com.unity.ugui@1.0/api/UnityEngine.EventSystems.html
-    public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler, IDropHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+    public class UIEventHandler : MonoBehaviour, IPointerClickHandler, IDragHandler, IBeginDragHandler, IEndDragHandler,
+        IDropHandler, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
-        public List<UIEvent> events = new List<UIEvent>();
-        
+        public List<UIEvent> events = new();
+        public Action<PointerEventData> beginDragHandlerAction;
+
         // UIManager의 UIEvent 종류에 맞게 생성
         public Action<PointerEventData> clickHandlerAction;
         public Action<PointerEventData> downHandlerAction;
-        public Action<PointerEventData> upHandlerAction;
         public Action<PointerEventData> dragHandlerAction;
-        public Action<PointerEventData> beginDragHandlerAction;
-        public Action<PointerEventData> endDragHandlerAction;
         public Action<PointerEventData> dropHandlerAction;
+        public Action<PointerEventData> endDragHandlerAction;
         public Action<PointerEventData> pointerEnterAction;
         public Action<PointerEventData> pointerExitAction;
+        public Action<PointerEventData> upHandlerAction;
 
-        public void OnPointerClick(PointerEventData eventData)
+        public void OnBeginDrag(PointerEventData eventData)
         {
-            clickHandlerAction?.Invoke(eventData);
+            beginDragHandlerAction?.Invoke(eventData);
         }
 
         public void OnDrag(PointerEventData eventData)
@@ -32,9 +33,9 @@ namespace Assets.Scripts.UI.Framework
             dragHandlerAction?.Invoke(eventData);
         }
 
-        public void OnBeginDrag(PointerEventData eventData)
+        public void OnDrop(PointerEventData eventData)
         {
-            beginDragHandlerAction?.Invoke(eventData);
+            dropHandlerAction?.Invoke(eventData);
         }
 
         public void OnEndDrag(PointerEventData eventData)
@@ -42,19 +43,14 @@ namespace Assets.Scripts.UI.Framework
             endDragHandlerAction?.Invoke(eventData);
         }
 
-        public void OnDrop(PointerEventData eventData)
+        public void OnPointerClick(PointerEventData eventData)
         {
-            dropHandlerAction?.Invoke(eventData);
+            clickHandlerAction?.Invoke(eventData);
         }
 
         public void OnPointerDown(PointerEventData eventData)
         {
             downHandlerAction?.Invoke(eventData);
-        }
-
-        public void OnPointerUp(PointerEventData eventData)
-        {
-            upHandlerAction?.Invoke(eventData);
         }
 
         public void OnPointerEnter(PointerEventData eventData)
@@ -65,6 +61,11 @@ namespace Assets.Scripts.UI.Framework
         public void OnPointerExit(PointerEventData eventData)
         {
             pointerExitAction?.Invoke(eventData);
+        }
+
+        public void OnPointerUp(PointerEventData eventData)
+        {
+            upHandlerAction?.Invoke(eventData);
         }
     }
 }

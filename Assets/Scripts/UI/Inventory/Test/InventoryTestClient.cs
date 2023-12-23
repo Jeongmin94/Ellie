@@ -15,9 +15,9 @@ namespace Assets.Scripts.UI.Inventory.Test
         [SerializeField] private ItemDataParsingInfo consumableItemDataParsingInfo;
         [SerializeField] private GameGoods gameGoods;
 
-        private TicketMachine ticketMachine;
-
         private UIPayload testPayload;
+
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -27,23 +27,9 @@ namespace Assets.Scripts.UI.Inventory.Test
             UIManager.Instance.MakePopup<Inventory>(UIManager.Inventory);
         }
 
-        private void InitTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.UI);
-            TicketManager.Instance.Ticket(ticketMachine);
-        }
-
         private void Start()
         {
             StartCoroutine(CheckParse());
-        }
-
-        private IEnumerator CheckParse()
-        {
-            yield return DataManager.Instance.CheckIsParseDone();
-            Debug.Log($"{consumableItemDataParsingInfo} 파싱 완료");
-            testPayload = MakeAddItemPayload();
         }
 
         private void Update()
@@ -64,7 +50,8 @@ namespace Assets.Scripts.UI.Inventory.Test
             if (Input.GetKeyDown(KeyCode.Q))
             {
                 var payload = MakeAddItemPayload2();
-                var testItemInfo = consumableItemDataParsingInfo.items[Random.Range(1, consumableItemDataParsingInfo.items.Count)];
+                var testItemInfo =
+                    consumableItemDataParsingInfo.items[Random.Range(1, consumableItemDataParsingInfo.items.Count)];
                 testItemInfo.imageName = "UI/Item/ItemDefaultWhite";
                 payload.itemData = testItemInfo;
 
@@ -103,6 +90,20 @@ namespace Assets.Scripts.UI.Inventory.Test
             {
                 ticketMachine.SendMessage(ChannelType.UI, MakeCWPayload());
             }
+        }
+
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.UI);
+            TicketManager.Instance.Ticket(ticketMachine);
+        }
+
+        private IEnumerator CheckParse()
+        {
+            yield return DataManager.Instance.CheckIsParseDone();
+            Debug.Log($"{consumableItemDataParsingInfo} 파싱 완료");
+            testPayload = MakeAddItemPayload();
         }
 
         private UIPayload MakeInventoryOpenPayload()

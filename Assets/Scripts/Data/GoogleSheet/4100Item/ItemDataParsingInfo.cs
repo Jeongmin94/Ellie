@@ -17,7 +17,7 @@ public class ItemData : ItemMetaData
 [CreateAssetMenu(fileName = "ItemData", menuName = "GameData List/ItemData")]
 public class ItemDataParsingInfo : DataParsingInfo
 {
-    public List<ItemData> items = new List<ItemData>();
+    public List<ItemData> items = new();
 
     public override T GetIndexData<T>(int index) where T : class
     {
@@ -26,22 +26,25 @@ public class ItemDataParsingInfo : DataParsingInfo
             return items.Find(m => m.index == index) as T;
         }
 
-        return default(T);
+        return default;
     }
 
     public override void Parse()
     {
         items.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for (int i = 0; i < lines.Length; i++)
+        for (var i = 0; i < lines.Length; i++)
         {
-            if (string.IsNullOrEmpty(lines[i])) continue;
+            if (string.IsNullOrEmpty(lines[i]))
+            {
+                continue;
+            }
 
-            string[] entries = lines[i].Split('\t');
+            var entries = lines[i].Split('\t');
 
-            ItemData data = new ItemData();
+            var data = new ItemData();
 
             try
             {

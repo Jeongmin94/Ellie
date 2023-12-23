@@ -15,13 +15,13 @@ namespace Assets.Scripts.UI.Guide
         public static readonly string Path = "Guide/GuideButton";
         private static readonly string soundButton = "inven1";
 
-        public ButtonType GuideButtonType { get; set; }
-        public Image GuideButtonImage { get; set; }
-        public bool IsActivated { get; set; } = false;
-
         [SerializeField] private TextTypographyData colorData;
 
         private Action<PopupPayload> guideButtonAction;
+
+        public ButtonType GuideButtonType { get; set; }
+        public Image GuideButtonImage { get; set; }
+        public bool IsActivated { get; set; } = false;
 
         public void Subscribe(Action<PopupPayload> listener)
         {
@@ -85,9 +85,11 @@ namespace Assets.Scripts.UI.Guide
             GuideButtonImage.color = colorData.highlightedColor;
 
             if (IsActivated)
+            {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, soundButton, Vector3.zero);
+            }
 
-            PopupPayload payload = new PopupPayload();
+            var payload = new PopupPayload();
             payload.buttonType = GuideButtonType;
             guideButtonAction?.Invoke(payload);
         }

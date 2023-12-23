@@ -6,9 +6,10 @@ namespace Assets.Scripts.Player.States
     internal class PlayerStateDodge : PlayerBaseState
     {
         private readonly Rigidbody rb;
+        private float beforeDrag;
         private Vector3 dodgeDir;
         private float dodgeTime;
-        private float beforeDrag;
+
         public PlayerStateDodge(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
@@ -48,6 +49,7 @@ namespace Assets.Scripts.Player.States
                 rb.velocity = Vector3.zero;
                 rb.AddForce(dodgeDir * Controller.DodgeSpeed, ForceMode.VelocityChange);
             }
+
             //rb.velocity = dodgeDir * Controller.DodgeSpeed;
             dodgeTime += Time.fixedDeltaTime;
             if (dodgeTime > Controller.DodgeInvulnerableTime)

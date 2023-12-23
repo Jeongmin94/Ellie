@@ -20,22 +20,25 @@ namespace Data.GoogleSheet._8200GuideDialog
     {
         private const int InvalidIntValue = -1;
 
-        public List<GuideDialogData> data = new List<GuideDialogData>();
+        public List<GuideDialogData> data = new();
 
         public override void Parse()
         {
             data.Clear();
-            string[] lines = tsv.Split('\n');
-            for (int i = 0; i < lines.Length; i++)
+            var lines = tsv.Split('\n');
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (string.IsNullOrEmpty(lines[i])) continue;
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
 
-                string[] entries = lines[i].Split('\t');
-                GuideDialogData guideDialogData = new GuideDialogData();
+                var entries = lines[i].Split('\t');
+                var guideDialogData = new GuideDialogData();
                 try
                 {
                     // 0. Index
-                    string strIndex = entries[0].Trim();
+                    var strIndex = entries[0].Trim();
                     if (string.IsNullOrEmpty(strIndex))
                     {
                         guideDialogData.index = InvalidIntValue;
@@ -73,7 +76,7 @@ namespace Data.GoogleSheet._8200GuideDialog
                 return data.Find(d => d.index == index) as T;
             }
 
-            return default(T);
+            return default;
         }
     }
 }

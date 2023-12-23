@@ -13,27 +13,21 @@ namespace Assets.Scripts.UI.Opening
     {
         public static readonly string Path = "Opening/OpeningText";
 
-        private enum GameObjects
-        {
-            ImagePanel,
-            TextPanel,
-        }
-
         [SerializeField] private Sprite panelSprite;
 
-        protected GameObject imagePanel;
-        private GameObject textPanel;
+        protected readonly Data<Color> imageColor = new();
 
         private Image image;
+
+        protected GameObject imagePanel;
+        private RectTransform imagePanelRect;
         private Color originImageColor;
 
         private RectTransform rectTransform;
-        private RectTransform imagePanelRect;
-        private RectTransform textPanelRect;
 
         protected TextMeshProUGUI textMeshProUGUI;
-
-        protected readonly Data<Color> imageColor = new Data<Color>();
+        private GameObject textPanel;
+        private RectTransform textPanelRect;
 
         public void InitText()
         {
@@ -110,14 +104,35 @@ namespace Assets.Scripts.UI.Opening
             }
         }
 
-        protected Rect GetRect() => rectTransform.rect;
+        protected Rect GetRect()
+        {
+            return rectTransform.rect;
+        }
 
-        protected void SetOriginColor(Color color) => originImageColor = color;
-        protected void ResetImageColor() => image.color = originImageColor;
-        protected Color OriginColor() => originImageColor;
+        protected void SetOriginColor(Color color)
+        {
+            originImageColor = color;
+        }
 
-        protected void SetImageSprite(Sprite sprite) => image.sprite = sprite;
-        protected void ResetImageSprite() => image.sprite = panelSprite;
+        protected void ResetImageColor()
+        {
+            image.color = originImageColor;
+        }
+
+        protected Color OriginColor()
+        {
+            return originImageColor;
+        }
+
+        protected void SetImageSprite(Sprite sprite)
+        {
+            image.sprite = sprite;
+        }
+
+        protected void ResetImageSprite()
+        {
+            image.sprite = panelSprite;
+        }
 
         protected void SetImageAlpha(float value)
         {
@@ -129,6 +144,12 @@ namespace Assets.Scripts.UI.Opening
         private void OnImageColorChanged(Color value)
         {
             image.color = value;
+        }
+
+        private enum GameObjects
+        {
+            ImagePanel,
+            TextPanel
         }
     }
 }

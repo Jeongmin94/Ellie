@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 [Serializable]
@@ -13,37 +10,41 @@ public class OreData
     public int tier;
     public int HP;
     public int hardness;
-    public List<(int, float)> whileMiningDropItemList;
     public List<(int, float)> miningEndDropItemList;
-
+    public List<(int, float)> whileMiningDropItemList;
 }
-[CreateAssetMenu(fileName = "OreData", menuName = "GameData List/OreData")]
 
+[CreateAssetMenu(fileName = "OreData", menuName = "GameData List/OreData")]
 public class OreDataParsingInfo : DataParsingInfo
 {
     public List<OreData> ores;
+
     public override T GetIndexData<T>(int index)
     {
         if (typeof(T) == typeof(OreData))
         {
             return ores.Find(m => m.index == index) as T;
         }
-        return default(T);
+
+        return default;
     }
 
     public override void Parse()
     {
         ores.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for (int i = 0; i < lines.Length; i++)
+        for (var i = 0; i < lines.Length; i++)
         {
-            if (string.IsNullOrEmpty(lines[i])) continue;
+            if (string.IsNullOrEmpty(lines[i]))
+            {
+                continue;
+            }
 
-            string[] entries = lines[i].Split('\t');
+            var entries = lines[i].Split('\t');
 
-            OreData data = new OreData();
+            var data = new OreData();
             data.whileMiningDropItemList = new List<(int, float)>();
             data.miningEndDropItemList = new List<(int, float)>();
 
@@ -57,18 +58,19 @@ public class OreDataParsingInfo : DataParsingInfo
                 data.tier = int.Parse(entries[2].Trim());
                 data.HP = int.Parse(entries[3].Trim());
                 data.hardness = int.Parse(entries[4].Trim());
-                string[] whileMiningDropItem = entries[5].Trim().Split(',');
-                for (int j = 0; j < whileMiningDropItem.Length / 2; j++)
+                var whileMiningDropItem = entries[5].Trim().Split(',');
+                for (var j = 0; j < whileMiningDropItem.Length / 2; j++)
                 {
-                    int dropTableIndex = int.Parse(whileMiningDropItem[2 * j].Trim());
-                    float chance = float.Parse(whileMiningDropItem[2 * j + 1].Trim());
+                    var dropTableIndex = int.Parse(whileMiningDropItem[2 * j].Trim());
+                    var chance = float.Parse(whileMiningDropItem[2 * j + 1].Trim());
                     data.whileMiningDropItemList.Add((dropTableIndex, chance));
                 }
-                string[] miningEndDropItem = entries[6].Trim().Split(',');
-                for (int j = 0; j < miningEndDropItem.Length / 2; j++)
+
+                var miningEndDropItem = entries[6].Trim().Split(',');
+                for (var j = 0; j < miningEndDropItem.Length / 2; j++)
                 {
-                    int dropTableIndex = int.Parse(miningEndDropItem[2 * j].Trim());
-                    float chance = float.Parse(miningEndDropItem[2 * j + 1].Trim());
+                    var dropTableIndex = int.Parse(miningEndDropItem[2 * j].Trim());
+                    var chance = float.Parse(miningEndDropItem[2 * j + 1].Trim());
                     data.miningEndDropItemList.Add((dropTableIndex, chance));
                 }
             }
@@ -78,6 +80,7 @@ public class OreDataParsingInfo : DataParsingInfo
                 Debug.LogError(e);
                 continue;
             }
+
             ores.Add(data);
         }
     }

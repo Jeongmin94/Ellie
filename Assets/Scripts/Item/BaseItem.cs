@@ -10,9 +10,16 @@ namespace Assets.Scripts.Item
 
     public class BaseItem
     {
-        public ItemMetaData itemData;
+        public readonly IDictionary<SlotAreaType, BaseSlotItem> equipmentSlotItems =
+            new Dictionary<SlotAreaType, BaseSlotItem>();
 
-        public readonly Data<int> itemCount = new Data<int>();
+        public readonly Data<int> itemCount = new();
+
+        public readonly IDictionary<SlotAreaType, BaseSlotItem>
+            slotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
+
+        public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
+        public ItemMetaData itemData;
 
         public int ItemIndex => itemData.index;
         public Sprite ItemSprite { get; private set; }
@@ -23,10 +30,6 @@ namespace Assets.Scripts.Item
             ItemSprite = ResourceManager.Instance.LoadSprite(itemData.imageName);
             itemCount.Value++;
         }
-
-        public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
-        public readonly IDictionary<SlotAreaType, BaseSlotItem> slotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
-        public readonly IDictionary<SlotAreaType, BaseSlotItem> equipmentSlotItems = new Dictionary<SlotAreaType, BaseSlotItem>();
 
         public void ChangeSlot(SlotAreaType type, InventorySlot slot)
         {

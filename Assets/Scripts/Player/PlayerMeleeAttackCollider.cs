@@ -9,16 +9,21 @@ namespace Assets.Scripts.Player
     public class PlayerMeleeAttackCollider : MonoBehaviour
     {
         private TicketMachine ticketMachine;
+
         private void Start()
         {
-            ticketMachine = FindRootParent(this.gameObject).GetComponent<PlayerController>().TicketMachine;
+            ticketMachine = FindRootParent(gameObject).GetComponent<PlayerController>().TicketMachine;
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (FindRootParent(other.gameObject).CompareTag("Player")) return;
-            ICombatant enemy = other.GetComponent<ICombatant>();
-            if (enemy!=null)
+            if (FindRootParent(other.gameObject).CompareTag("Player"))
+            {
+                return;
+            }
+
+            var enemy = other.GetComponent<ICombatant>();
+            if (enemy != null)
             {
                 ticketMachine.SendMessage(ChannelType.Combat, GenerateMeleeAttackPayload(other.transform));
             }
@@ -26,9 +31,9 @@ namespace Assets.Scripts.Player
 
         private GameObject FindRootParent(GameObject obj)
         {
-            Transform parentTransform = obj.transform;
+            var parentTransform = obj.transform;
 
-            while(parentTransform.parent !=null)
+            while (parentTransform.parent != null)
             {
                 parentTransform = parentTransform.parent;
             }
@@ -41,7 +46,7 @@ namespace Assets.Scripts.Player
             var payload = new CombatPayload();
 
             payload.Type = CombatType.Melee;
-            payload.Attacker = FindRootParent(this.gameObject).transform;
+            payload.Attacker = FindRootParent(gameObject).transform;
             payload.Defender = defender;
             payload.Damage = 1;
 

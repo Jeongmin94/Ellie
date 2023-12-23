@@ -12,6 +12,6 @@ namespace Channels.Type
         Monster,
         Camera,
         Portal,
-        BossDialog,
+        BossDialog
     }
 }

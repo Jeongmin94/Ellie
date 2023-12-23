@@ -19,17 +19,6 @@ namespace Assets.Scripts.UI.Interactive
 {
     public class InteractiveCanvas : UIPopup
     {
-        private enum GameObjects
-        {
-            TextPanel,
-            ImagePanel,
-        }
-
-        private enum Texts
-        {
-            InteractiveText
-        }
-
         [SerializeField] private float interval;
 
         [SerializeField] private InteractiveType[] interactiveTypes;
@@ -38,19 +27,20 @@ namespace Assets.Scripts.UI.Interactive
         [SerializeField] private UITransformData[] panelTransforms;
         [SerializeField] private TextTypographyData[] typographyData;
 
-        private readonly List<GameObject> panels = new List<GameObject>();
-        private readonly List<RectTransform> rectTransforms = new List<RectTransform>();
-        private readonly List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
+        private readonly IDictionary<InteractiveType, string> interactiveNameMap =
+            new Dictionary<InteractiveType, string>();
+
+        private readonly List<GameObject> panels = new();
+        private readonly List<RectTransform> rectTransforms = new();
+        private readonly List<TextMeshProUGUI> texts = new();
+        private IEnumerator closeEnumerator;
+        private Color imageColor;
         private Image interactiveImage;
 
         private bool onClosing;
         private Color textColor;
-        private Color imageColor;
-
-        private readonly IDictionary<InteractiveType, string> interactiveNameMap = new Dictionary<InteractiveType, string>();
 
         private TicketMachine ticketMachine;
-        private IEnumerator closeEnumerator;
 
         private void Awake()
         {
@@ -61,6 +51,7 @@ namespace Assets.Scripts.UI.Interactive
         {
             gameObject.SetActive(false);
         }
+
         protected override void Init()
         {
             base.Init();
@@ -78,7 +69,7 @@ namespace Assets.Scripts.UI.Interactive
             Bind<TextMeshProUGUI>(typeof(Texts));
 
             var gos = Enum.GetValues(typeof(GameObjects));
-            for (int i = 0; i < gos.Length; i++)
+            for (var i = 0; i < gos.Length; i++)
             {
                 var go = GetGameObject(i);
                 panels.Add(go);
@@ -86,7 +77,7 @@ namespace Assets.Scripts.UI.Interactive
             }
 
             var interactiveTexts = Enum.GetValues(typeof(Texts));
-            for (int i = 0; i < interactiveTexts.Length; i++)
+            for (var i = 0; i < interactiveTexts.Length; i++)
             {
                 var t = GetText(i);
                 texts.Add(t);
@@ -101,7 +92,7 @@ namespace Assets.Scripts.UI.Interactive
 
         private void InitObjects()
         {
-            for (int i = 0; i < panelTransforms.Length; i++)
+            for (var i = 0; i < panelTransforms.Length; i++)
             {
                 AnchorPresets.SetAnchorPreset(rectTransforms[i], AnchorPresets.MiddleCenter);
                 rectTransforms[i].sizeDelta = panelTransforms[i].actionRect.Value.GetSize();
@@ -109,12 +100,12 @@ namespace Assets.Scripts.UI.Interactive
                 rectTransforms[i].localScale = panelTransforms[i].actionScale.Value;
             }
 
-            for (int i = 0; i < typographyData.Length; i++)
+            for (var i = 0; i < typographyData.Length; i++)
             {
                 SetTypography(texts[i], typographyData[i]);
             }
 
-            for (int i = 0; i < interactiveTypes.Length; i++)
+            for (var i = 0; i < interactiveTypes.Length; i++)
             {
                 interactiveNameMap.TryAdd(interactiveTypes[i], interactiveNames[i]);
             }
@@ -132,7 +123,9 @@ namespace Assets.Scripts.UI.Interactive
         private void OnNotify(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             switch (uiPayload.actionType)
             {
@@ -170,17 +163,17 @@ namespace Assets.Scripts.UI.Interactive
         private IEnumerator CloseCanvas()
         {
             onClosing = true;
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
 
-            Color targetImageColor = imageColor;
+            var targetImageColor = imageColor;
             targetImageColor.a = 0.0f;
-            Color targetTextColor = textColor;
+            var targetTextColor = textColor;
             targetTextColor.a = 0.0f;
 
             while (timeAcc <= interval)
             {
-                float ratio = timeAcc / interval;
+                var ratio = timeAcc / interval;
                 interactiveImage.color = Color.Lerp(imageColor, targetImageColor, ratio);
                 texts[(int)Texts.InteractiveText].color = Color.Lerp(textColor, targetTextColor, ratio);
 
@@ -193,6 +186,17 @@ namespace Assets.Scripts.UI.Interactive
 
             onClosing = false;
             gameObject.SetActive(false);
+        }
+
+        private enum GameObjects
+        {
+            TextPanel,
+            ImagePanel
+        }
+
+        private enum Texts
+        {
+            InteractiveText
         }
     }
 }

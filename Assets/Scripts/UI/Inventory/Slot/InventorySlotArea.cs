@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework;
 using Assets.Scripts.UI.Framework.Presets;
@@ -17,7 +16,7 @@ namespace Assets.Scripts.UI.Inventory
     {
         Item,
         Equipment,
-        Description,
+        Description
     }
 
     public enum SortType
@@ -30,25 +29,33 @@ namespace Assets.Scripts.UI.Inventory
     {
         public static readonly string Path = "Slot/InventorySlotArea";
 
-        private SlotAreaType SlotAreaType { get; set; } = SlotAreaType.Item;
-
-        private RectTransform rect;
-        private GridLayoutGroup grid;
-        private int row;
+        private readonly List<InventorySlot> slots = new();
         private int col;
-
-        private Action<InventoryEventPayload> slotAreaInventoryAction;
-
-        private readonly List<InventorySlot> slots = new List<InventorySlot>();
-
-        public List<InventorySlot> GetSlots() => slots;
+        private GridLayoutGroup grid;
 
         private ISlotSort left, right;
-        private IDictionary<SortType, ISlotSort> sorts = new Dictionary<SortType, ISlotSort>();
+
+        private RectTransform rect;
+        private int row;
+
+        private Action<InventoryEventPayload> slotAreaInventoryAction;
+        private readonly IDictionary<SortType, ISlotSort> sorts = new Dictionary<SortType, ISlotSort>();
+
+        private SlotAreaType SlotAreaType { get; set; } = SlotAreaType.Item;
 
         private void Awake()
         {
             Init();
+        }
+
+        private void OnDestroy()
+        {
+            slotAreaInventoryAction = null;
+        }
+
+        public List<InventorySlot> GetSlots()
+        {
+            return slots;
         }
 
         protected override void Init()
@@ -92,10 +99,11 @@ namespace Assets.Scripts.UI.Inventory
             rect.localPosition = position.ToCanvasPos();
         }
 
-        public void InitGridLayoutGroup(int row, int col, int padding, int spacing, GridLayoutGroup.Corner corner, GridLayoutGroup.Axis axis, TextAnchor anchor)
+        public void InitGridLayoutGroup(int row, int col, int padding, int spacing, GridLayoutGroup.Corner corner,
+            GridLayoutGroup.Axis axis, TextAnchor anchor)
         {
-            float width = rect.rect.width;
-            float height = rect.rect.height;
+            var width = rect.rect.width;
+            var height = rect.rect.height;
 
             var paddingOffset = new RectOffset();
             paddingOffset.SetAllPadding(padding);
@@ -106,7 +114,7 @@ namespace Assets.Scripts.UI.Inventory
             var h = height - paddingOffset.top * 2 - (row - 1) * spacingOffset.y;
             var slotH = h / row;
 
-            float len = Mathf.Min(slotH, slotW);
+            var len = Mathf.Min(slotH, slotW);
             grid.spacing = spacingOffset;
             grid.padding = paddingOffset;
             grid.startCorner = corner;
@@ -121,7 +129,7 @@ namespace Assets.Scripts.UI.Inventory
         public void MakeSlots(SlotAreaType type)
         {
             SlotAreaType = type;
-            for (int i = 0; i < row * col; i++)
+            for (var i = 0; i < row * col; i++)
             {
                 var slot = UIManager.Instance.MakeSubItem<InventorySlot>(rect, UIManager.InventorySlot);
                 slot.Index = i;
@@ -129,11 +137,6 @@ namespace Assets.Scripts.UI.Inventory
                 slot.SlotType = SlotAreaType;
                 slots.Add(slot);
             }
-        }
-
-        private void OnDestroy()
-        {
-            slotAreaInventoryAction = null;
         }
 
         #region InventoryChannel
@@ -181,11 +184,11 @@ namespace Assets.Scripts.UI.Inventory
             if (dup)
             {
                 dup.SlotItemData.itemCount.Value++;
-                slotAreaInventoryAction(new InventoryEventPayload()
+                slotAreaInventoryAction(new InventoryEventPayload
                 {
                     eventType = InventoryEventType.UpdateEquipItem,
                     groupType = dup.SlotItemData.itemData.groupType,
-                    baseItem = dup.SlotItemData,
+                    baseItem = dup.SlotItemData
                 });
             }
             else
@@ -193,7 +196,9 @@ namespace Assets.Scripts.UI.Inventory
                 // 2. 해당 아이템이 없는 경우에는 비어있는 슬롯에 차례대로 추가
                 var emptySlot = FindEmptySlot();
                 if (emptySlot)
+                {
                     emptySlot.CreateSlotItem(payload);
+                }
             }
         }
 
@@ -210,18 +215,18 @@ namespace Assets.Scripts.UI.Inventory
 
             // 2. 존재하는 아이템이면 카운트 감소
             slot.SlotItemData.itemCount.Value--;
-            slotAreaInventoryAction?.Invoke(new InventoryEventPayload()
+            slotAreaInventoryAction?.Invoke(new InventoryEventPayload
             {
                 eventType = InventoryEventType.UpdateEquipItem,
                 groupType = slot.SlotItemData.itemData.groupType,
-                baseItem = slot.SlotItemData,
+                baseItem = slot.SlotItemData
             });
 
             if (slot.SlotItemData.itemCount.Value == 0)
             {
                 Debug.Log($"{slot.Index}의 아이템 삭제");
 
-                InventoryEventPayload inventoryEvent = new InventoryEventPayload();
+                var inventoryEvent = new InventoryEventPayload();
                 inventoryEvent.eventType = InventoryEventType.SortSlotArea;
                 inventoryEvent.groupType = slot.SlotItemData.itemData.groupType;
 
@@ -235,11 +240,13 @@ namespace Assets.Scripts.UI.Inventory
             if (payload.actionType == ActionType.MoveClockwise)
             {
                 BaseSlotItem swapItem = null;
-                for (int i = slots.Count - 1; i >= 0; i--)
+                for (var i = slots.Count - 1; i >= 0; i--)
                 {
                     var cur = slots[i];
                     if (cur.SlotItemData == null)
+                    {
                         continue;
+                    }
 
                     if (i == slots.Count - 1)
                     {
@@ -262,11 +269,13 @@ namespace Assets.Scripts.UI.Inventory
             else if (payload.actionType == ActionType.MoveCounterClockwise)
             {
                 BaseSlotItem swapItem = null;
-                for (int i = 0; i < slots.Count; i++)
+                for (var i = 0; i < slots.Count; i++)
                 {
                     var cur = slots[i];
                     if (cur.SlotItemData == null)
+                    {
                         continue;
+                    }
 
                     if (i == 0)
                     {
@@ -302,21 +311,27 @@ namespace Assets.Scripts.UI.Inventory
         {
             public void Sort(List<InventorySlot> slots, SlotAreaType slotAreaType)
             {
-                for (int i = slots.Count - 1; i >= 0; i--)
+                for (var i = slots.Count - 1; i >= 0; i--)
                 {
                     var current = slots[i];
                     if (current.SlotItemData == null)
+                    {
                         continue;
+                    }
 
                     InventorySlot emptySlot = null;
-                    for (int j = i + 1; j < slots.Count; j++)
+                    for (var j = i + 1; j < slots.Count; j++)
                     {
                         if (slots[j].SlotItemData == null)
+                        {
                             emptySlot = slots[j];
+                        }
                     }
 
                     if (emptySlot == null)
+                    {
                         continue;
+                    }
 
                     var baseSlotItem = current.SlotItemData.slotItems[slotAreaType];
                     emptySlot.InvokeCopyOrMove(baseSlotItem);
@@ -328,22 +343,28 @@ namespace Assets.Scripts.UI.Inventory
         {
             public void Sort(List<InventorySlot> slots, SlotAreaType slotAreaType)
             {
-                for (int i = 0; i < slots.Count; i++)
+                for (var i = 0; i < slots.Count; i++)
                 {
                     var current = slots[i];
                     if (current.SlotItemData == null)
+                    {
                         continue;
+                    }
 
                     InventorySlot emptySlot = null;
-                    for (int j = i - 1; j >= 0; j--)
+                    for (var j = i - 1; j >= 0; j--)
                     {
                         var s = slots[j];
                         if (s.SlotItemData == null)
+                        {
                             emptySlot = s;
+                        }
                     }
 
                     if (emptySlot == null)
+                    {
                         continue;
+                    }
 
                     var baseSlotItem = current.SlotItemData.slotItems[slotAreaType];
                     emptySlot.InvokeCopyOrMove(baseSlotItem);
@@ -357,11 +378,14 @@ namespace Assets.Scripts.UI.Inventory
 
         public List<InventorySlot> GetSlotsWithItem()
         {
-            List<InventorySlot> slotsWithItem = new List<InventorySlot>();
+            var slotsWithItem = new List<InventorySlot>();
 
             slots.ForEach(slot =>
             {
-                if (slot.SlotItemData != null) slotsWithItem.Add(slot);
+                if (slot.SlotItemData != null)
+                {
+                    slotsWithItem.Add(slot);
+                }
             });
 
             return slotsWithItem;

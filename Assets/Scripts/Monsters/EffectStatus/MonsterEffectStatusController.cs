@@ -1,5 +1,3 @@
-using Assets.Scripts.StatusEffects;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,16 +15,19 @@ namespace Assets.Scripts.Monsters.EffectStatus
 
         private void Awake()
         {
-            effects = new();
+            effects = new List<IMonsterStatusEffect>();
         }
+
         public void ApplyStatusEffect(IMonsterStatusEffect effect, MonsterStatusEffectInfo info)
         {
             effect.ApplyStatusEffect(this, info);
         }
+
         public void AddStatusEffect(IMonsterStatusEffect effect)
         {
             effects?.Add(effect);
         }
+
         public void RemoveStatusEffect(IMonsterStatusEffect effect)
         {
             effects?.Remove(effect);

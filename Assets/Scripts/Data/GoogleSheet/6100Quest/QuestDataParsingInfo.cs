@@ -1,6 +1,6 @@
-﻿using Sirenix.OdinInspector;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
@@ -24,13 +24,14 @@ namespace Assets.Scripts.Data.GoogleSheet
         public string questType;
         public string clearCondition;
         public string additionalCondition;
-        public List<(int, int)> rewardList = new();
         public string playableText;
         public List<int> speechBubbleList = new();
-        [ShowInInspector] public Dictionary<QuestStatus, List<int>> DialogListDic = new();
         public List<int> additionalConditionDialogList = new();
         public int acceptanceTerm;
+        [ShowInInspector] public Dictionary<QuestStatus, List<int>> DialogListDic = new();
+        public List<(int, int)> rewardList = new();
     }
+
     [CreateAssetMenu(fileName = "QuestData", menuName = "Quest/QuestData")]
     public class QuestDataParsingInfo : DataParsingInfo
     {
@@ -43,20 +44,24 @@ namespace Assets.Scripts.Data.GoogleSheet
             {
                 return questDatas.Find(m => m.index == index) as T;
             }
-            return default(T);
+
+            return default;
         }
 
         public override void Parse()
         {
             questDatas.Clear();
-            string[] lines = tsv.Split('\n');
-            for (int i = 0; i < lines.Length; i++)
+            var lines = tsv.Split('\n');
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (string.IsNullOrEmpty(lines[i])) continue;
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
 
-                string[] entries = lines[i].Split('\t');
+                var entries = lines[i].Split('\t');
 
-                QuestData data = new QuestData();
+                var data = new QuestData();
                 try
                 {
                     //인덱스
@@ -75,18 +80,17 @@ namespace Assets.Scripts.Data.GoogleSheet
                     data.additionalCondition = entries[6].Trim();
                     //보상 리스트
                     {
-                        if(entries[7].Trim() != "-1")
+                        if (entries[7].Trim() != "-1")
                         {
-                            string[] subEntries = entries[7].Split(';');
-                            foreach (string subEntry in subEntries)
+                            var subEntries = entries[7].Split(';');
+                            foreach (var subEntry in subEntries)
                             {
-                                string[] temp = subEntry.Split(',');
-                                int itemIdx = int.Parse(temp[0].Trim());
-                                int count = int.Parse(temp[1].Trim());
+                                var temp = subEntry.Split(',');
+                                var itemIdx = int.Parse(temp[0].Trim());
+                                var count = int.Parse(temp[1].Trim());
                                 data.rewardList.Add((itemIdx, count));
                             }
                         }
-                        
                     }
                     //플레이블 텍스트
                     data.playableText = entries[8].Trim();
@@ -94,8 +98,8 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         if (entries[9].Trim() != "-1")
                         {
-                            string[] subEntries = entries[9].Split(";");
-                            foreach (string subEntry in subEntries)
+                            var subEntries = entries[9].Split(";");
+                            foreach (var subEntry in subEntries)
                             {
                                 data.speechBubbleList.Add(int.Parse(subEntry.Trim()));
                             }
@@ -105,12 +109,13 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         if (entries[10].Trim() != "-1")
                         {
-                            string[] subEntries = entries[10].Split(";");
+                            var subEntries = entries[10].Split(";");
                             List<int> cantAcceptDialogList = new();
-                            foreach (string subEntry in subEntries)
+                            foreach (var subEntry in subEntries)
                             {
                                 cantAcceptDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+
                             data.DialogListDic.Add(QuestStatus.CantAccept, cantAcceptDialogList);
                         }
                     }
@@ -118,12 +123,13 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         if (entries[11].Trim() != "-1")
                         {
-                            string[] subEntries = entries[11].Split(";");
+                            var subEntries = entries[11].Split(";");
                             List<int> unAcceptedDialogList = new();
-                            foreach (string subEntry in subEntries)
+                            foreach (var subEntry in subEntries)
                             {
                                 unAcceptedDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+
                             data.DialogListDic.Add(QuestStatus.Unaccepted, unAcceptedDialogList);
                         }
                     }
@@ -131,12 +137,13 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         if (entries[12].Trim() != "-1")
                         {
-                            string[] subEntries = entries[12].Split(";");
+                            var subEntries = entries[12].Split(";");
                             List<int> AcceptedDialogList = new();
-                            foreach (string subEntry in subEntries)
+                            foreach (var subEntry in subEntries)
                             {
                                 AcceptedDialogList.Add(int.Parse(subEntry.Trim()));
                             }
+
                             data.DialogListDic.Add(QuestStatus.Accepted, AcceptedDialogList);
                         }
                     }
@@ -144,34 +151,36 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         if (entries[13].Trim() != "-1")
                         {
-                            string[] subEntries = entries[13].Split(";");
+                            var subEntries = entries[13].Split(";");
                             List<int> doneDialogList = new();
-                            foreach (string subEntry in subEntries)
+                            foreach (var subEntry in subEntries)
                             {
                                 doneDialogList.Add(int.Parse(subEntry.Trim()));
                             }
-                            data.DialogListDic.Add(QuestStatus.Done , doneDialogList);
+
+                            data.DialogListDic.Add(QuestStatus.Done, doneDialogList);
                         }
                     }
                     //종료 후 대화 리스트
                     {
                         if (entries[14].Trim() != "-1")
                         {
-                            string[] subEntries = entries[14].Split(";");
+                            var subEntries = entries[14].Split(";");
                             List<int> endDialogList = new();
-                            foreach (string subEntry in subEntries)
+                            foreach (var subEntry in subEntries)
                             {
                                 endDialogList.Add(int.Parse(subEntry.Trim()));
                             }
-                            data.DialogListDic.Add(QuestStatus.End , endDialogList);    
+
+                            data.DialogListDic.Add(QuestStatus.End, endDialogList);
                         }
                     }
                     //부가 조건 대화 리스트
                     {
                         if (entries[15].Trim() != "-1")
                         {
-                            string[] subEntries = entries[15].Split(";");
-                            foreach (string subEntry in subEntries)
+                            var subEntries = entries[15].Split(";");
+                            foreach (var subEntry in subEntries)
                             {
                                 data.additionalConditionDialogList.Add(int.Parse(subEntry.Trim()));
                             }
@@ -185,6 +194,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                     Debug.LogError(e);
                     continue;
                 }
+
                 questDatas.Add(data);
             }
         }

@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -24,7 +23,7 @@ namespace Assets.Scripts.UI.Video
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                UIPayload payload = UIPayload.Notify();
+                var payload = UIPayload.Notify();
                 payload.actionType = ActionType.PlayVideo;
                 ticketMachine.SendMessage(ChannelType.UI, payload);
             }

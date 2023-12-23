@@ -25,7 +25,7 @@ namespace Assets.Scripts.UI.ScreenEffect
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-                UIPayload payload = UIPayload.Notify();
+                var payload = UIPayload.Notify();
                 payload.actionType = ActionType.ShowBlurEffect;
                 payload.blurClarity = clarity;
 

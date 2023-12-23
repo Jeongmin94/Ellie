@@ -1,42 +1,47 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [SerializeField]
 public class MonsterItemDropData
 {
-    public int index;
-    public int dropItemIndex;
-    public int noDropChance;
     public int addDropChance;
+    public int dropItemIndex;
+    public int index;
     public int maximumDrop;
+    public int noDropChance;
 }
 
-[CreateAssetMenu(fileName = "MonsterItemDropData", menuName = "GameData List/Monsters/MonsterItemDropData", order = int.MaxValue)]
+[CreateAssetMenu(fileName = "MonsterItemDropData", menuName = "GameData List/Monsters/MonsterItemDropData",
+    order = int.MaxValue)]
 public class MonsterItemDropDataParsingInfo : DataParsingInfo
 {
     public List<MonsterItemDropData> datas = new();
 
     public override T GetIndexData<T>(int index)
     {
-        if(typeof(T)==typeof(MonsterItemDropData))
+        if (typeof(T) == typeof(MonsterItemDropData))
         {
             return datas.Find(m => m.index == index) as T;
         }
-        return default(T);
+
+        return default;
     }
 
     public override void Parse()
     {
         datas.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for(int i=0; i<lines.Length;i++)
+        for (var i = 0; i < lines.Length; i++)
         {
-            if (string.IsNullOrEmpty(lines[i])) continue;
-            string[] entries = lines[i].Split('\t');
+            if (string.IsNullOrEmpty(lines[i]))
+            {
+                continue;
+            }
+
+            var entries = lines[i].Split('\t');
 
             MonsterItemDropData data = new();
 

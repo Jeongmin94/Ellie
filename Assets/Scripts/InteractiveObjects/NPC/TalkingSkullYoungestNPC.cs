@@ -1,22 +1,16 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.Data.GoogleSheet;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
     public class TalkingSkullYoungestNPC : BaseNPC
     {
-        private enum YoungestSkullQuest
-        {
-            Quest6106 = 6106,
-            Quest6107,
-        }
-
         private const int REQUIREDQUESTIDX = 6105;
-        private bool isPlayerGotPickaxe = false;
-        
-        [SerializeField] YoungestSkullPickaxe pickaxe;
-        [SerializeField] Ore ore;
+
+        [SerializeField] private YoungestSkullPickaxe pickaxe;
+        [SerializeField] private Ore ore;
+        private bool isPlayerGotPickaxe;
 
         private void Start()
         {
@@ -59,11 +53,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             if (player.GetQuestStatus((int)YoungestSkullQuest.Quest6107) == QuestStatus.Accepted)
             {
                 LookAtPlayer();
-                player.StartConversation(); 
+                player.StartConversation();
 
 
                 StartCoroutine(Quest6107Coroutine2());
             }
+
             //6107퀘스트 조건 충족 후
             if (player.GetQuestStatus((int)YoungestSkullQuest.Quest6107) == QuestStatus.Done)
             {
@@ -81,9 +76,11 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             player.SetQuestStatus(REQUIREDQUESTIDX, QuestStatus.End);
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6106, QuestStatus.Unaccepted);
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106, QuestStatus.Unaccepted));
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106,
+                QuestStatus.Unaccepted));
             player.ActivateInteractiveUI();
 
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6106, QuestStatus.Done);
@@ -98,6 +95,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6106, QuestStatus.Done));
             player.ActivateInteractiveUI();
 
@@ -115,7 +113,9 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Unaccepted));
+
+            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107,
+                QuestStatus.Unaccepted));
             player.ActivateInteractiveUI();
 
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6107, QuestStatus.Accepted);
@@ -130,7 +130,9 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Accepted));
+
+            yield return
+                StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Accepted));
             player.ActivateInteractiveUI();
 
             EndInteract();
@@ -144,6 +146,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             yield return StartCoroutine(player.DialogCoroutine((int)YoungestSkullQuest.Quest6107, QuestStatus.Done));
 
             player.GetReward((int)YoungestSkullQuest.Quest6107);
@@ -165,6 +168,12 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             player.SetQuestStatus((int)YoungestSkullQuest.Quest6107, QuestStatus.Done);
             ore.UnSubscribeFirstMineAction(OnFirstMineEvent);
+        }
+
+        private enum YoungestSkullQuest
+        {
+            Quest6106 = 6106,
+            Quest6107
         }
     }
 }

@@ -1,8 +1,7 @@
-﻿using Assets.Scripts.Player;
-using Channels.UI;
-using System;
-using System.Collections;
+﻿using System;
 using Assets.Scripts.Data.GoogleSheet;
+using Assets.Scripts.Player;
+using Channels.UI;
 using Outline;
 using UnityEngine;
 
@@ -14,7 +13,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
         private Action getBackPackAction;
 
-        InteractiveType interactiveType = InteractiveType.Acquisition;
+        private readonly InteractiveType interactiveType = InteractiveType.Acquisition;
 
         public override InteractiveType GetInteractiveType()
         {

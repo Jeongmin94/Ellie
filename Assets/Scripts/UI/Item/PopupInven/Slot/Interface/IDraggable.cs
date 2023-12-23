@@ -1,6 +1,5 @@
 using Assets.Scripts.Item;
 using Assets.Scripts.UI.Inventory;
-using UnityEngine;
 
 namespace Assets.Scripts.UI.Item.PopupInven
 {

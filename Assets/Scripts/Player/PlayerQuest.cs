@@ -1,14 +1,15 @@
-﻿using Assets.Scripts.Centers;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Inventory;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using static Assets.Scripts.Managers.PlayerSavePayload;
@@ -17,17 +18,17 @@ namespace Assets.Scripts.Player
 {
     public class PlayerQuest : SerializedMonoBehaviour
     {
-        [ShowInInspector] private List<QuestData> questDataList;
-        [ShowInInspector] private QuestData curQuestData;
-        [ShowInInspector] private Dictionary<int, QuestStatus> questStatusDic;
-
-        private PlayerController controller;
         private const int FirstQuestDataIdx = 0;
-
-        private TicketMachine ticketMachine;
         public bool isPlaying;
 
-        Sprite QuestUISprite;
+        private PlayerController controller;
+        [ShowInInspector] private QuestData curQuestData;
+        [ShowInInspector] private List<QuestData> questDataList;
+        [ShowInInspector] private Dictionary<int, QuestStatus> questStatusDic;
+
+        private Sprite QuestUISprite;
+
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -37,7 +38,7 @@ namespace Assets.Scripts.Player
         private void Start()
         {
             ticketMachine = controller.TicketMachine;
-            questStatusDic = new();
+            questStatusDic = new Dictionary<int, QuestStatus>();
             StartCoroutine(InitPlayerQuest());
 
             //퀘스트 UI 스프라이트 로드
@@ -60,7 +61,7 @@ namespace Assets.Scripts.Player
             yield return DataManager.Instance.CheckIsParseDone();
 
             questDataList = DataManager.Instance.GetData<QuestDataParsingInfo>().questDatas;
-            foreach (QuestData data in questDataList)
+            foreach (var data in questDataList)
             {
                 if (!questStatusDic.ContainsKey(data.index))
                 {
@@ -79,22 +80,23 @@ namespace Assets.Scripts.Player
             if (questStatusDic[6100] != QuestStatus.CantAccept)
             {
                 if (curQuestData != null)
+                {
                     SendDisplayQuestMessage(curQuestData);
+                }
+
                 InputManager.Instance.CanInput = true;
                 yield break;
             }
-            else
-            {
-                SendClearQuestMessage();
-                curQuestData = questDataList[FirstQuestDataIdx];
-                StartCoroutine(FirstDialogCoroutine());
-            }
+
+            SendClearQuestMessage();
+            curQuestData = questDataList[FirstQuestDataIdx];
+            StartCoroutine(FirstDialogCoroutine());
         }
 
         private IEnumerator FirstDialogCoroutine()
         {
-            int curDialogListIdx = 0;
-            List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
+            var curDialogListIdx = 0;
+            var dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
 
             InputManager.Instance.CanInput = false;
             SendClearQuestMessage();
@@ -115,7 +117,10 @@ namespace Assets.Scripts.Player
                     //isPlaying일 때 페이로드를 보내면 next가 호출되게 함
                     //isPlaying이 아닐 때 페이로드를 보내야 다음 대사가 출력
                     if (!isPlaying)
+                    {
                         curDialogListIdx++;
+                    }
+
                     if (curDialogListIdx < dialogList.Count)
                     {
                         SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "dialogue1");
@@ -139,7 +144,7 @@ namespace Assets.Scripts.Player
                         // 첫 번째 퀘스트 다이얼로그 출력 후 가이드 UI Pop
                         InputManager.Instance.CanInput = true;
 
-                        UIPayload payload = UIPayload.Notify();
+                        var payload = UIPayload.Notify();
                         payload.actionType = ActionType.OpenGuideCanvas;
                         ticketMachine.SendMessage(ChannelType.UI, payload);
 
@@ -155,13 +160,18 @@ namespace Assets.Scripts.Player
 
         public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
         {
-            int curDialogListIdx = 0;
+            var curDialogListIdx = 0;
             List<int> dialogList;
 
             if (isAdditionalDialog)
+            {
                 dialogList = questDataList[questIdx % 6100].additionalConditionDialogList;
+            }
             else
+            {
                 dialogList = questDataList[questIdx % 6100].DialogListDic[status];
+            }
+
             if (dialogList == null)
             {
                 Debug.Log("DialogList is Null");
@@ -181,7 +191,10 @@ namespace Assets.Scripts.Player
                     //isPlaying일 때 페이로드를 보내면 next가 호출되게 함
                     //isPlaying이 아닐 때 페이로드를 보내야 다음 대사가 출력
                     if (!isPlaying)
+                    {
                         curDialogListIdx++;
+                    }
+
                     if (curDialogListIdx < dialogList.Count)
                     {
                         SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "dialogue1");
@@ -210,11 +223,11 @@ namespace Assets.Scripts.Player
 
         private void SendPlayDialogPayload(int dialogIdx, bool first = false)
         {
-            DialogData dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
-            string text = dialogData.dialog;
-            string speaker = "";
+            var dialogData = DataManager.Instance.GetIndexData<DialogData, DialogDataParsingInfo>(dialogIdx);
+            var text = dialogData.dialog;
+            var speaker = "";
 
-            DialogPayload payload = DialogPayload.Play(text, 0.5f);
+            var payload = DialogPayload.Play(text, 0.5f);
 
             switch (dialogData.speaker)
             {
@@ -239,7 +252,7 @@ namespace Assets.Scripts.Player
 
         private void SendStopDialogPayload(DialogCanvasType type)
         {
-            DialogPayload payload = DialogPayload.Stop();
+            var payload = DialogPayload.Stop();
             payload.canvasType = type;
             ticketMachine.SendMessage(ChannelType.Dialog, payload);
         }
@@ -256,9 +269,15 @@ namespace Assets.Scripts.Player
 
         public void SetIsPlaying(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload dialogPayload) return;
+            if (payload is not DialogPayload dialogPayload)
+            {
+                return;
+            }
 
-            if (dialogPayload.dialogType != DialogType.NotifyToClient) return;
+            if (dialogPayload.dialogType != DialogType.NotifyToClient)
+            {
+                return;
+            }
 
             isPlaying = dialogPayload.isPlaying;
             if (isPlaying)
@@ -273,14 +292,12 @@ namespace Assets.Scripts.Player
 
         public QuestStatus GetQuestStatus(int questIdx)
         {
-            if (questStatusDic.TryGetValue(questIdx, out QuestStatus status))
+            if (questStatusDic.TryGetValue(questIdx, out var status))
             {
                 return status;
             }
-            else
-            {
-                throw new KeyNotFoundException($"Quest status not found for quest index {questIdx}");
-            }
+
+            throw new KeyNotFoundException($"Quest status not found for quest index {questIdx}");
         }
 
         public void SetQuestStatus(int questIdx, QuestStatus newStatus)
@@ -294,7 +311,7 @@ namespace Assets.Scripts.Player
                 ////퀘스트 갱신시마다 세이브
                 //SaveLoadManager.Instance.SaveData();
                 //ui채널에 보내기
-                QuestData data = questDataList[questIdx % 6100];
+                var data = questDataList[questIdx % 6100];
                 //newStatus 가 end 이면 clear하고 아무것도 안함
                 //그 이외의 status면 clear하고 다시 띄워주기
                 if (newStatus == QuestStatus.End)
@@ -322,7 +339,7 @@ namespace Assets.Scripts.Player
             controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
                 uiType = UIType.Notify,
-                actionType = ActionType.ClearQuest,
+                actionType = ActionType.ClearQuest
             });
         }
 
@@ -338,27 +355,27 @@ namespace Assets.Scripts.Player
             {
                 uiType = UIType.Notify,
                 actionType = ActionType.SetQuestName,
-                questInfo = info,
+                questInfo = info
             });
             ;
             controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
                 uiType = UIType.Notify,
                 actionType = ActionType.SetQuestDesc,
-                questInfo = info,
+                questInfo = info
             });
             controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
                 uiType = UIType.Notify,
                 actionType = ActionType.SetQuestIcon,
-                questInfo = info,
+                questInfo = info
             });
         }
 
         public void GetReward(int questIdx)
         {
             //해당 퀘스트의 데이터를 가져옴
-            QuestData selectedQuest = questDataList.FirstOrDefault(quest => quest.index == questIdx);
+            var selectedQuest = questDataList.FirstOrDefault(quest => quest.index == questIdx);
             foreach (var itemTuple in selectedQuest.rewardList)
             {
                 AcquireItem(itemTuple.Item1, itemTuple.Item2);
@@ -372,33 +389,35 @@ namespace Assets.Scripts.Player
             //아이템 종류 : 기타(4400~) 돌멩이(4000~), 소모품 및 기타(4100~)
             if (itemIdx >= 4400)
             {
-                payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+                payload.slotAreaType = SlotAreaType.Item;
                 payload.actionType = ActionType.AddSlotItem;
                 payload.itemData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(itemIdx);
                 payload.groupType = payload.itemData.groupType;
             }
             else if (itemIdx >= 4100)
             {
-                payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+                payload.slotAreaType = SlotAreaType.Item;
                 payload.actionType = ActionType.AddSlotItem;
                 payload.itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(itemIdx);
                 payload.groupType = payload.itemData.groupType;
             }
             else if (itemIdx >= 4000)
             {
-                payload.slotAreaType = UI.Inventory.SlotAreaType.Item;
+                payload.slotAreaType = SlotAreaType.Item;
                 payload.actionType = ActionType.AddSlotItem;
                 payload.itemData = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(itemIdx);
                 payload.groupType = payload.itemData.groupType;
             }
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
+            {
                 ticketMachine.SendMessage(ChannelType.UI, payload);
+            }
         }
 
         public void GetBackToNPC(Transform dest)
         {
-            Vector3 direction = dest.position - controller.PlayerObj.position;
+            var direction = dest.position - controller.PlayerObj.position;
             //방향 돌리고
             StartCoroutine(GetBackToNPCCoroutine(dest));
             //앞쪽으로 1만큼만 이동(테스트)
@@ -407,15 +426,20 @@ namespace Assets.Scripts.Player
 
         private IEnumerator GetBackToNPCCoroutine(Transform dest)
         {
-            if (dest == null) yield break;
+            if (dest == null)
+            {
+                yield break;
+            }
+
             while (true)
             {
-                Vector3 direction = dest.position - controller.PlayerObj.position;
+                var direction = dest.position - controller.PlayerObj.position;
                 direction.y = 0;
-                Quaternion rotation = Quaternion.LookRotation(direction);
-                controller.PlayerObj.rotation = Quaternion.Slerp(controller.PlayerObj.rotation, rotation, Time.deltaTime * 10f);
+                var rotation = Quaternion.LookRotation(direction);
+                controller.PlayerObj.rotation =
+                    Quaternion.Slerp(controller.PlayerObj.rotation, rotation, Time.deltaTime * 10f);
 
-                float angleDifference = Quaternion.Angle(controller.PlayerObj.rotation, rotation);
+                var angleDifference = Quaternion.Angle(controller.PlayerObj.rotation, rotation);
 
                 if (angleDifference <= 1.0f)
                 {
@@ -464,7 +488,7 @@ namespace Assets.Scripts.Player
 
         public QuestDataSaveInfo GetQuestDataSaveInfo()
         {
-            QuestDataSaveInfo info = new QuestDataSaveInfo();
+            var info = new QuestDataSaveInfo();
             info.questStatusDic = questStatusDic;
             info.curQuestData = curQuestData;
 
@@ -482,7 +506,9 @@ namespace Assets.Scripts.Player
                 SendDisplayQuestMessage(curQuestData);
             }
             else
+            {
                 curQuestData = null;
+            }
         }
     }
 }

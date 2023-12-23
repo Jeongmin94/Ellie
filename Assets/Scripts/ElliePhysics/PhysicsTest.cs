@@ -5,27 +5,37 @@ namespace Assets.Scripts.ElliePhysics
 {
     public enum GravityMode
     {
-        Imbedded, Custom,
+        Imbedded,
+        Custom
     }
 
     public class PhysicsTest : MonoBehaviour
     {
         public GravityMode gravityMode = GravityMode.Imbedded;
 
-        [Header("Physics Configurations")]
-        public Vector3 initVelocity;
+        [Header("Physics Configurations")] public Vector3 initVelocity;
+
         public Vector3 acceleration;
         public float time;
         public float validDistance;
         public float finalSpeed;
         public int trajectoryLinePoints = 25;
 
-        [Header("Input Configurations")]
-        public float jumpForce = 10.0f;
+        [Header("Input Configurations")] public float jumpForce = 10.0f;
+
         public Transform releaseTransform;
+        private Vector3 accel;
+        private float calcTime;
+        private Vector3 initVel;
+
+        private bool isCalculating;
 
         private new Rigidbody rigidbody;
-        private float totalDistance = 0.0f;
+
+        private Vector3 startPosition;
+
+        private readonly float t = 0.0f;
+        private float totalDistance;
 
 
         private void Awake()
@@ -34,36 +44,28 @@ namespace Assets.Scripts.ElliePhysics
             rigidbody.position = releaseTransform.position;
         }
 
-        Vector3 startPosition;
-
         private void Start()
         {
             startPosition = rigidbody.position;
             rigidbody.AddForce(acceleration, ForceMode.Acceleration);
         }
 
-        float t = 0.0f;
         private void Update()
         {
             if (Time.time > t)
             {
                 // Calculate the expected distance traveled under uniform acceleration
                 // using the equation d = 0.5 * a * t^2
-                float expectedDistance = 0.5f * acceleration.magnitude * Mathf.Pow(time, 2);
+                var expectedDistance = 0.5f * acceleration.magnitude * Mathf.Pow(time, 2);
 
                 // Calculate the actual distance traveled
-                float actualDistance = Vector3.Distance(startPosition, transform.position);
+                var actualDistance = Vector3.Distance(startPosition, transform.position);
 
                 // Output the expected and actual distances
                 Debug.Log("Expected Distance: " + expectedDistance);
                 Debug.Log("Actual Distance: " + actualDistance);
             }
         }
-
-        bool isCalculating = false;
-        Vector3 initVel;
-        Vector3 accel;
-        float calcTime = 0.0f;
 
         private void FixedUpdate()
         {
@@ -80,7 +82,7 @@ namespace Assets.Scripts.ElliePhysics
         {
             if (GUI.Button(new Rect(10, 10, 200, 20), "이동 테스트"))
             {
-                Vector3 expected = initVelocity * time + 0.5f * time * time * acceleration;
+                var expected = initVelocity * time + 0.5f * time * time * acceleration;
                 Debug.Log($"예상 이동거리: {expected.magnitude}");
 
                 isCalculating = true;
@@ -89,12 +91,12 @@ namespace Assets.Scripts.ElliePhysics
 
             if (GUI.Button(new Rect(10, 30, 200, 20), "시작 속도 측정 테스트"))
             {
-                Vector3 vf = finalSpeed * initVelocity.normalized;
-                Vector3 v0 = vf - (acceleration / rigidbody.mass) * time;
+                var vf = finalSpeed * initVelocity.normalized;
+                var v0 = vf - acceleration / rigidbody.mass * time;
 
                 Debug.Log($"목표 거리: {validDistance}, 목표 속도: {finalSpeed}");
                 Debug.Log($"예상 시작 속도(magnitude): {v0.magnitude}, {v0}");
-                Debug.Log($"test");
+                Debug.Log("test");
                 StartCoroutine(CalculateDistance(v0, Vector3.zero));
             }
         }
@@ -106,9 +108,9 @@ namespace Assets.Scripts.ElliePhysics
             //rigidbody.isKinematic = false;
             rigidbody.position = releaseTransform.position;
 
-            float maxTime = time;
-            float currentTime = 0.0f;
-            Vector3 lastPosition = rigidbody.position;
+            var maxTime = time;
+            var currentTime = 0.0f;
+            var lastPosition = rigidbody.position;
             totalDistance = 0.0f;
 
             rigidbody.velocity = init;
@@ -119,7 +121,7 @@ namespace Assets.Scripts.ElliePhysics
                 currentTime += Time.fixedDeltaTime;
                 rigidbody.AddForce(accel, ForceMode.Acceleration);
 
-                float dist = Vector3.Distance(rigidbody.position, lastPosition);
+                var dist = Vector3.Distance(rigidbody.position, lastPosition);
                 totalDistance += dist;
                 lastPosition = rigidbody.position;
             }

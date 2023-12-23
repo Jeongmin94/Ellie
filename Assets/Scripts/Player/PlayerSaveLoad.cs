@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Centers;
+﻿using System.Collections;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
-using System.Collections;
+using Assets.Scripts.Utils;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -9,6 +10,7 @@ namespace Assets.Scripts.Player
     {
         private PlayerController controller;
         private PlayerQuest quest;
+
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
@@ -20,8 +22,8 @@ namespace Assets.Scripts.Player
 
         public void SavePlayerData()
         {
-            PlayerSavePayload payload = new PlayerSavePayload();
-            payload.position = new Utils.SerializableVector3(transform.position);
+            var payload = new PlayerSavePayload();
+            payload.position = new SerializableVector3(transform.position);
             payload.questSaveInfo = quest.GetQuestDataSaveInfo();
             payload.pickaxeSaveInfo = controller.GetPickaxeDataSaveInfo();
 
@@ -32,7 +34,10 @@ namespace Assets.Scripts.Player
 
         public void LoadPlayerData(IBaseEventPayload payload)
         {
-            if (payload is not PlayerSavePayload savePayload) return;
+            if (payload is not PlayerSavePayload savePayload)
+            {
+                return;
+            }
 
             Debug.Log("Player Load");
 

@@ -4,7 +4,13 @@ using UnityEngine;
 
 public abstract class BaseRange : MonoBehaviour
 {
-    // °ü¸®ÇÏ´Â ¹üÀ§ ¿ÀºêÁ§Æ®
+    private const float RAYCAST_STARTPOS_OFFSET = 3.0f;
+    private const float POSITION_OFFSET = 0.1f;
+    private float initialYPosition;
+
+    private bool isFollowOrigin;
+
+    // ê´€ë¦¬í•˜ëŠ” ë²”ìœ„ ì˜¤ë¸Œì íŠ¸
     public GameObject RangeObject { get; private set; }
     public Transform Original { get; private set; }
     public Material DetectionMaterial { get; protected set; }
@@ -13,30 +19,26 @@ public abstract class BaseRange : MonoBehaviour
     public float RemainTime { get; set; }
     public bool IsShowRange { get; set; }
 
-    private const float RAYCAST_STARTPOS_OFFSET = 3.0f;
-    private const float POSITION_OFFSET = 0.1f;
-
-    private bool isFollowOrigin;
-    private float initialYPosition;
-
     private void LateUpdate()
     {
         if (!isFollowOrigin)
+        {
             return;
+        }
 
         FollowOriginal();
     }
 
     private void FollowOriginal()
     {
-        // OriginalÀÇ position°ú rotationÀ» °¡Á®¿É´Ï´Ù.
-        Vector3 position = Original.position;
-        Quaternion rotation = Original.rotation;
+        // Originalì˜ positionê³¼ rotationì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
+        var position = Original.position;
+        var rotation = Original.rotation;
 
-        // positionÀÇ y°ªÀº InitialYPositionÀ¸·Î ¼³Á¤ÇÕ´Ï´Ù.
+        // positionì˜ yê°’ì€ InitialYPositionìœ¼ë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
         position.y = initialYPosition;
 
-        // RangeObjectÀÇ position°ú rotationÀ» °»½ÅÇÕ´Ï´Ù.
+        // RangeObjectì˜ positionê³¼ rotationì„ ê°±ì‹ í•©ë‹ˆë‹¤.
         RangeObject.transform.position = position;
         RangeObject.transform.rotation = rotation;
     }
@@ -60,17 +62,17 @@ public abstract class BaseRange : MonoBehaviour
 
     private void InitTransformByOrigin(GameObject rangeObject, RangePayload payload)
     {
-        // Ground ·¹ÀÌ¾î¸¦ °¡Áö°í ÀÖ´Â ¿ÀºêÁ§Æ®¸¦ °ËÃâÇÏ´Â ·¹ÀÌ¾î ¸¶½ºÅ©¸¦ »ı¼ºÇÕ´Ï´Ù.
-        Vector3 position = Original.position;
-        Quaternion rotation = Original.rotation;
-        int groundLayer = LayerMask.GetMask("Ground");
+        // Ground ë ˆì´ì–´ë¥¼ ê°€ì§€ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê²€ì¶œí•˜ëŠ” ë ˆì´ì–´ ë§ˆìŠ¤í¬ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
+        var position = Original.position;
+        var rotation = Original.rotation;
+        var groundLayer = LayerMask.GetMask("Ground");
 
-        // -Vector3.up ¹æÇâÀ¸·Î Raycast¸¦ ¹ß»çÇÕ´Ï´Ù.
+        // -Vector3.up ë°©í–¥ìœ¼ë¡œ Raycastë¥¼ ë°œì‚¬í•©ë‹ˆë‹¤.
         RaycastHit hit;
-        Vector3 checkPosition = position + new Vector3(0, RAYCAST_STARTPOS_OFFSET, 0);
+        var checkPosition = position + new Vector3(0, RAYCAST_STARTPOS_OFFSET, 0);
         if (Physics.Raycast(checkPosition, -Vector3.up, out hit, Mathf.Infinity, groundLayer))
         {
-            // Raycast°¡ Ground ·¹ÀÌ¾î¸¦ °¡Áö°í ÀÖ´Â ¿ÀºêÁ§Æ®¿¡ ¸Â¾Ò´Ù¸é, ±× À§Ä¡ÀÇ À§¿¡ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÕ´Ï´Ù.
+            // Raycastê°€ Ground ë ˆì´ì–´ë¥¼ ê°€ì§€ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì— ë§ì•˜ë‹¤ë©´, ê·¸ ìœ„ì¹˜ì˜ ìœ„ì— ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
             initialYPosition = hit.point.y + POSITION_OFFSET;
             position = hit.point + new Vector3(0, POSITION_OFFSET, 0);
         }
@@ -81,24 +83,24 @@ public abstract class BaseRange : MonoBehaviour
 
     private void InitTransformByValue(GameObject rangeObject, RangePayload payload)
     {
-        // RangePayload¿¡¼­ StartPosition°ú StartRotation °ªÀ» °¡Á®¿É´Ï´Ù.
-        Vector3 position = payload.StartPosition;
-        Quaternion rotation = payload.StartRotation;
+        // RangePayloadì—ì„œ StartPositionê³¼ StartRotation ê°’ì„ ê°€ì ¸ì˜µë‹ˆë‹¤.
+        var position = payload.StartPosition;
+        var rotation = payload.StartRotation;
 
-        // Ground ·¹ÀÌ¾î¸¦ °¡Áö°í ÀÖ´Â ¿ÀºêÁ§Æ®¸¦ °ËÃâÇÏ´Â ·¹ÀÌ¾î ¸¶½ºÅ©¸¦ »ı¼ºÇÕ´Ï´Ù.
-        int groundLayer = LayerMask.GetMask("Ground");
+        // Ground ë ˆì´ì–´ë¥¼ ê°€ì§€ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ë¥¼ ê²€ì¶œí•˜ëŠ” ë ˆì´ì–´ ë§ˆìŠ¤í¬ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
+        var groundLayer = LayerMask.GetMask("Ground");
 
-        // -Vector3.up ¹æÇâÀ¸·Î Raycast¸¦ ¹ß»çÇÕ´Ï´Ù.
+        // -Vector3.up ë°©í–¥ìœ¼ë¡œ Raycastë¥¼ ë°œì‚¬í•©ë‹ˆë‹¤.
         RaycastHit hit;
-        Vector3 checkPosition = position + new Vector3(0, RAYCAST_STARTPOS_OFFSET, 0);
+        var checkPosition = position + new Vector3(0, RAYCAST_STARTPOS_OFFSET, 0);
         if (Physics.Raycast(checkPosition, -Vector3.up, out hit, Mathf.Infinity, groundLayer))
         {
-            // Raycast°¡ Ground ·¹ÀÌ¾î¸¦ °¡Áö°í ÀÖ´Â ¿ÀºêÁ§Æ®¿¡ ¸Â¾Ò´Ù¸é, ±× À§Ä¡ÀÇ À§¿¡ ¿ÀºêÁ§Æ®¸¦ »ı¼ºÇÕ´Ï´Ù.
+            // Raycastê°€ Ground ë ˆì´ì–´ë¥¼ ê°€ì§€ê³  ìˆëŠ” ì˜¤ë¸Œì íŠ¸ì— ë§ì•˜ë‹¤ë©´, ê·¸ ìœ„ì¹˜ì˜ ìœ„ì— ì˜¤ë¸Œì íŠ¸ë¥¼ ìƒì„±í•©ë‹ˆë‹¤.
             initialYPosition = hit.point.y + POSITION_OFFSET;
             position.y = initialYPosition;
         }
 
-        // RangeObjectÀÇ À§Ä¡¿Í È¸ÀüÀ» ¼³Á¤ÇÕ´Ï´Ù.
+        // RangeObjectì˜ ìœ„ì¹˜ì™€ íšŒì „ì„ ì„¤ì •í•©ë‹ˆë‹¤.
         RangeObject.transform.position = position;
         RangeObject.transform.rotation = rotation;
     }
@@ -146,12 +148,12 @@ public abstract class BaseRange : MonoBehaviour
 
     private IEnumerator FadeRoutine(float startAlpha, float endAlpha, float duration)
     {
-        float elapsed = 0.0f;
-        Color currentColor = DetectionMaterial.GetColor("_TintColor");
+        var elapsed = 0.0f;
+        var currentColor = DetectionMaterial.GetColor("_TintColor");
 
         while (elapsed < duration)
         {
-            float alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
+            var alpha = Mathf.Lerp(startAlpha, endAlpha, elapsed / duration);
             currentColor.a = alpha;
             DetectionMaterial.SetColor("_TintColor", currentColor);
             elapsed += Time.deltaTime;

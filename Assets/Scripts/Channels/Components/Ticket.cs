@@ -1,12 +1,11 @@
 using System;
-using UnityEngine;
 
 namespace Channels.Components
 {
     public sealed class Ticket
     {
-        private Action<IBaseEventPayload> sendMessageAction;
         private Action<IBaseEventPayload> channelNotifyAction;
+        private Action<IBaseEventPayload> sendMessageAction;
 
         public static void RegisterObserver(Ticket ticket, Action<IBaseEventPayload> observer)
         {

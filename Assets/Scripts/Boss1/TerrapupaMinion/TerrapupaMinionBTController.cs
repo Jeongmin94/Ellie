@@ -13,18 +13,15 @@ public class TerrapupaMinionBTController : BehaviourTreeController
     [SerializeField] private TerrapupaMinionHealthBar healthBar;
     [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
-
-    private float shakeDuration = 0.05f;
-    private float shakeMagnitude = 0.05f;
-
     private MaterialHitComponent hitComponent;
-    private TicketMachine ticketMachine;
-    private bool isDead = false;
+    private bool isDead;
 
-    public TerrapupaMinionHealthBar HealthBar
-    {
-        get { return healthBar; }
-    }
+
+    private readonly float shakeDuration = 0.05f;
+    private readonly float shakeMagnitude = 0.05f;
+    private TicketMachine ticketMachine;
+
+    public TerrapupaMinionHealthBar HealthBar => healthBar;
 
     protected override void Awake()
     {
@@ -65,9 +62,9 @@ public class TerrapupaMinionBTController : BehaviourTreeController
     {
         Debug.Log($"ReceiveDamage :: {payload}");
 
-        CombatPayload combatPayload = payload as CombatPayload;
+        var combatPayload = payload as CombatPayload;
         PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
-        int damage = combatPayload.Damage;
+        var damage = combatPayload.Damage;
 
         GetDamaged(damage);
         Debug.Log($"{damage} 데미지 입음 : {minionData.currentHP.Value}");
@@ -75,7 +72,7 @@ public class TerrapupaMinionBTController : BehaviourTreeController
 
     public void GetDamaged(int damageValue)
     {
-        if(!isDead)
+        if (!isDead)
         {
             ShowBillboard();
             StartCoroutine(ShakeCoroutine());
@@ -108,11 +105,12 @@ public class TerrapupaMinionBTController : BehaviourTreeController
             }
         }
     }
+
     private IEnumerator ShakeCoroutine()
     {
-        float elapsed = 0.0f;
+        var elapsed = 0.0f;
 
-        Vector3 originalPosition = transform.position;
+        var originalPosition = transform.position;
 
         while (elapsed < shakeDuration)
         {

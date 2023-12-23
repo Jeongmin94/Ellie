@@ -1,40 +1,60 @@
-﻿using Assets.Scripts.Managers;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle
 {
     public class StoneFootboardPuzzle : MonoBehaviour
     {
-        private new Rigidbody rigidbody;
-        private Vector3 initialPosition;
         [SerializeField] private float moveSpeed;
         [SerializeField] private float rotationSpeed;
 
         public bool isPlayerTouched;
+        private Vector3 initialPosition;
         private bool isRigid;
 
         private Coroutine returnToFirstHeightCoroutine;
+        private new Rigidbody rigidbody;
+
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
             initialPosition = transform.position;
             isRigid = false;
         }
+
+        private void FixedUpdate()
+        {
+            if (isPlayerTouched)
+            {
+                rigidbody.AddForce(-Vector3.up * 5f, ForceMode.Force);
+            }
+
+            if (transform.position.y > initialPosition.y)
+            {
+                transform.position = initialPosition;
+                rigidbody.velocity = Vector3.zero;
+            }
+        }
+
         private void OnCollisionEnter(Collision collision)
         {
             if (collision.gameObject.CompareTag("Player") && !isPlayerTouched)
             {
                 if (!isRigid)
                 {
-                    if(returnToFirstHeightCoroutine != null)
+                    if (returnToFirstHeightCoroutine != null)
+                    {
                         StopCoroutine(returnToFirstHeightCoroutine);
+                    }
+
                     rigidbody.useGravity = true;
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, "puzzle2_stone1");
                     isPlayerTouched = true;
                 }
             }
-            if(collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
+
+            if (collision.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 isPlayerTouched = false;
                 returnToFirstHeightCoroutine = StartCoroutine(OnPlayerExit());
@@ -54,25 +74,13 @@ namespace Assets.Scripts.Puzzle
             GetComponent<BoxCollider>().isTrigger = true;
             while (transform.position.y < initialPosition.y)
             {
-                Vector3 pos = transform.position;
+                var pos = transform.position;
                 pos.y += moveSpeed * Time.deltaTime;
                 transform.position = pos;
                 yield return null;
             }
-            GetComponent<BoxCollider>().isTrigger = false;
-        }
-        private void FixedUpdate()
-        {
-            if(isPlayerTouched)
-            {
-                rigidbody.AddForce(-Vector3.up * 5f, ForceMode.Force);
-            }
 
-            if(transform.position.y > initialPosition.y)
-            {
-                transform.position = initialPosition;
-                rigidbody.velocity = Vector3.zero;
-            }
+            GetComponent<BoxCollider>().isTrigger = false;
         }
     }
 }

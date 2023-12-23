@@ -1,9 +1,9 @@
-using Assets.Scripts.StatusEffects;
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Item;
-using UnityEngine;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Inventory;
+using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
 {
@@ -41,18 +41,23 @@ namespace Assets.Scripts.Data.GoogleSheet
                 return stones.Find(m => m.index == index) as T;
             }
 
-            return default(T);
+            return default;
         }
+
         public override void Parse()
         {
             stones.Clear();
 
-            string[] lines = tsv.Split('\n');
+            var lines = tsv.Split('\n');
 
-            for (int i = 0; i < lines.Length; i++)
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (string.IsNullOrEmpty(lines[i])) continue;
-                string[] entries = lines[i].Split('\t');
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
+
+                var entries = lines[i].Split('\t');
 
                 StoneData data = new();
                 try
@@ -79,14 +84,15 @@ namespace Assets.Scripts.Data.GoogleSheet
                     //�����ϴ� �����
                     data.debuff = (StatusEffectName)Enum.Parse(typeof(StatusEffectName), entries[9].Trim());
                     //Ư�� ȿ���� �߻��ϴ� ������ list
-                    string[] conditions = entries[10].Trim().Split(',');
+                    var conditions = entries[10].Trim().Split(',');
                     if (entries[10] != "None")
                     {
-                        foreach (string condition in conditions)
+                        foreach (var condition in conditions)
                         {
                             data.conditions.Add(int.Parse(condition.Trim()));
                         }
                     }
+
                     //Ư�� ȿ�� �̸�
                     data.specialEffectName = entries[11].Trim();
                     //Ư�� ȿ���� �ε���
@@ -100,15 +106,16 @@ namespace Assets.Scripts.Data.GoogleSheet
                     //
                     data.textureName = entries[16].Trim();
                     //머터리얼 추가
-                    data.stoneMaterial = Resources.Load<Material>("Materials/StoneMaterials/" + data.index.ToString());
+                    data.stoneMaterial = Resources.Load<Material>("Materials/StoneMaterials/" + data.index);
                     //힛 파티클 추가
-                    data.hitParticle = Resources.Load<GameObject>("Prefabs/StoneHitParticles/" + data.index.ToString());
+                    data.hitParticle = Resources.Load<GameObject>("Prefabs/StoneHitParticles/" + data.index);
                     //특수효과 추가
-                    var skillParticle = Resources.Load<GameObject>("Prefabs/StoneSkillParticles/" + data.index.ToString());
-                    if(skillParticle != null)
+                    var skillParticle = Resources.Load<GameObject>("Prefabs/StoneSkillParticles/" + data.index);
+                    if (skillParticle != null)
                     {
                         data.skillEffectParticle = skillParticle;
                     }
+
                     // 임시 상태이상 힘 추가, 나중에 시트에 추가
                     data.force = 10.0f;
                 }
@@ -118,6 +125,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                     Debug.LogError(e);
                     continue;
                 }
+
                 stones.Add(data);
             }
         }

@@ -1,5 +1,4 @@
 using Sirenix.OdinInspector;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -17,7 +16,7 @@ namespace Assets.Scripts.Managers
                     instance = FindObjectOfType<T>();
                     if (instance == null)
                     {
-                        GameObject go = new GameObject();
+                        var go = new GameObject();
                         go.name = typeof(T).Name;
                         instance = go.AddComponent<T>();
                     }

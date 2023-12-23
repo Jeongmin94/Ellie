@@ -1,31 +1,30 @@
-﻿using Assets.Scripts.Channels.Item;
+﻿using System.Collections;
+using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
 using Channels.Boss;
-using Channels.UI;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Item.Stone
 {
     public class MagicStone : BaseStoneEffect
     {
-        public static bool isActivateRange = false;
+        public static bool isActivateRange;
 
         public float attractionRadiusRange = 10.0f;
         public float duration = 10.0f;
         public string activateRangeSound = "MagicStoneActivate";
         public string deactivateRangeSound = "MagicStoneDeactivate";
         public LayerMask bossLayer;
-        
-        private bool isTrigger = false;
-        private bool isCollideGround = false;
-        private Transform target;
-        private Rigidbody rb;
+        private Coroutine durationCoroutine;
+        private bool isCollideGround;
 
-        private GameObject range;
+        private bool isTrigger;
         private Material material;
         private MeshCollider meshCollider;
-        private Coroutine durationCoroutine;
+
+        private GameObject range;
+        private Rigidbody rb;
+        private Transform target;
 
         private void Awake()
         {
@@ -33,6 +32,14 @@ namespace Assets.Scripts.Item.Stone
             meshCollider = GetComponent<MeshCollider>();
             material = Resources.Load<Material>("Materials/Sensor2");
             bossLayer = 1 << LayerMask.NameToLayer("Monster");
+        }
+
+        private void Update()
+        {
+            if (isActivateRange && !isTrigger && isCollideGround)
+            {
+                CheckForBossInRange();
+            }
         }
 
         private void OnDisable()
@@ -46,28 +53,20 @@ namespace Assets.Scripts.Item.Stone
                 range = null;
             }
 
-            if(rb != null)
+            if (rb != null)
             {
                 rb.isKinematic = false;
             }
 
             // 비활성화 소리
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, deactivateRangeSound, transform.position);
-            
+
             //보스의 타겟 초기화
             EventBus.Instance.Publish(EventBusEvents.BossUnattractedByMagicStone, new BossEventPayload
             {
                 TransformValue1 = transform,
-                TransformValue2 = target,
+                TransformValue2 = target
             });
-        }
-
-        private void Update()
-        {
-            if(isActivateRange && !isTrigger && isCollideGround)
-            {
-                CheckForBossInRange();
-            }
         }
 
         protected override void OnCollisionEnter(Collision collision)
@@ -81,7 +80,7 @@ namespace Assets.Scripts.Item.Stone
                 {
                     EventBus.Instance.Publish(EventBusEvents.ActivateMagicStone, new BossEventPayload
                     {
-                        Sender = transform,
+                        Sender = transform
                     });
 
                     isCollideGround = true;
@@ -110,7 +109,7 @@ namespace Assets.Scripts.Item.Stone
 
             // 사운드 시작
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, activateRangeSound, transform.position);
-            
+
             // 지속시간 설정 + 적용 범위 표시
             durationCoroutine = StartCoroutine(StartDurationCheck(duration));
             range = RangeManager.Instance.CreateRange(new RangePayload
@@ -118,13 +117,13 @@ namespace Assets.Scripts.Item.Stone
                 DetectionMaterial = material,
                 Type = RangeType.Circle,
                 Radius = attractionRadiusRange,
-                StartPosition = transform.position,
+                StartPosition = transform.position
             });
         }
 
         private void CheckForBossInRange()
         {
-            Collider[] hitColliders = Physics.OverlapSphere(transform.position, attractionRadiusRange, bossLayer);
+            var hitColliders = Physics.OverlapSphere(transform.position, attractionRadiusRange, bossLayer);
             foreach (var hitCollider in hitColliders)
             {
                 if (hitCollider.CompareTag("Boss"))
@@ -133,9 +132,9 @@ namespace Assets.Scripts.Item.Stone
                     target = hitCollider.transform.root;
                     Debug.Log(target.name);
 
-                    EventBus.Instance.Publish(EventBusEvents.BossAttractedByMagicStone, new BossEventPayload 
-                    { 
-                        TransformValue1 = transform, 
+                    EventBus.Instance.Publish(EventBusEvents.BossAttractedByMagicStone, new BossEventPayload
+                    {
+                        TransformValue1 = transform,
                         TransformValue2 = target
                     });
 
@@ -150,8 +149,8 @@ namespace Assets.Scripts.Item.Stone
 
             yield return new WaitForSeconds(duration);
 
-            Debug.Log($"마법돌맹이 지속시간 종료");
-            PoolManager.Instance.Push(this.GetComponent<Poolable>());
+            Debug.Log("마법돌맹이 지속시간 종료");
+            PoolManager.Instance.Push(GetComponent<Poolable>());
         }
     }
 }

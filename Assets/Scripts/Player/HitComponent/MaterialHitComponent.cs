@@ -1,5 +1,5 @@
-using Sirenix.OdinInspector;
 using System.Collections;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.HitComponent
@@ -9,7 +9,7 @@ namespace Assets.Scripts.Player.HitComponent
         private static readonly string StringBaseColor = "_BaseColor";
         private static readonly string StringEmissionColor = "_EmissionColor";
 
-        [SerializeField][Required] private Material modelMaterial;
+        [SerializeField] [Required] private Material modelMaterial;
         [SerializeField] private Color hitColor = Color.red;
         [SerializeField] private float hitDuration = 0.5f;
         [SerializeField] private float returnDuration = 0.2f;
@@ -18,8 +18,6 @@ namespace Assets.Scripts.Player.HitComponent
         public Color EmissionOriginalColor { get; private set; }
         public Coroutine BaseCoroutine { get; private set; }
         public Coroutine EmissionCoroutine { get; private set; }
-
-        public float HitDuration() => hitDuration;
 
         private void Awake()
         {
@@ -40,6 +38,11 @@ namespace Assets.Scripts.Player.HitComponent
             SetOriginalColor();
         }
 
+        public float HitDuration()
+        {
+            return hitDuration;
+        }
+
         public void Hit()
         {
             if (BaseCoroutine != null || EmissionCoroutine != null)
@@ -58,7 +61,8 @@ namespace Assets.Scripts.Player.HitComponent
                 StopCoroutine(BaseCoroutine);
             }
 
-            BaseCoroutine = StartCoroutine(ChangeColorCoroutine(StringBaseColor, targetColor, startColor, hitDuration, returnDuration));
+            BaseCoroutine = StartCoroutine(ChangeColorCoroutine(StringBaseColor, targetColor, startColor, hitDuration,
+                returnDuration));
         }
 
         public void SetEmissionColor(Color targetColor, Color startColor, float hitDuration, float returnDuration)
@@ -68,22 +72,24 @@ namespace Assets.Scripts.Player.HitComponent
                 StopCoroutine(EmissionCoroutine);
             }
 
-            EmissionCoroutine = StartCoroutine(ChangeColorCoroutine(StringEmissionColor, targetColor, startColor, hitDuration, returnDuration));
+            EmissionCoroutine = StartCoroutine(ChangeColorCoroutine(StringEmissionColor, targetColor, startColor,
+                hitDuration, returnDuration));
         }
 
-        private IEnumerator ChangeColorCoroutine(string colorPropertyName, Color targetColor, Color startColor, float hitDuration, float returnDuration)
+        private IEnumerator ChangeColorCoroutine(string colorPropertyName, Color targetColor, Color startColor,
+            float hitDuration, float returnDuration)
         {
             modelMaterial.SetColor(colorPropertyName, startColor);
             yield return new WaitForSeconds(hitDuration);
 
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
             while (timeAcc <= returnDuration)
             {
                 timeAcc += Time.deltaTime;
                 yield return wfef;
 
-                Color curColor = Color.Lerp(startColor, targetColor, timeAcc / returnDuration);
+                var curColor = Color.Lerp(startColor, targetColor, timeAcc / returnDuration);
                 modelMaterial.SetColor(colorPropertyName, curColor);
             }
 

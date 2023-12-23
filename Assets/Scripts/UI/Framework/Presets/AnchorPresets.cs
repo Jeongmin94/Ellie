@@ -21,6 +21,12 @@ namespace Assets.Scripts.UI.Framework.Presets
 
     public static class AnchorPresets
     {
+        public static readonly AnchorPreset StretchAll =
+            AnchorPreset.Of(new Vector2(0.0f, 0.0f), new Vector2(1.0f, 1.0f));
+
+        public static readonly AnchorPreset MiddleCenter =
+            AnchorPreset.Of(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
+
         public static void SetAnchorPreset(RectTransform transform, AnchorPreset preset)
         {
             transform.anchorMin = preset.AnchorMin;
@@ -31,9 +37,5 @@ namespace Assets.Scripts.UI.Framework.Presets
         {
             SetAnchorPreset(transform.GetComponent<RectTransform>(), preset);
         }
-
-        public static readonly AnchorPreset StretchAll = AnchorPreset.Of(new Vector2(0.0f, 0.0f), new Vector2(1.0f, 1.0f));
-
-        public static readonly AnchorPreset MiddleCenter = AnchorPreset.Of(new Vector2(0.5f, 0.5f), new Vector2(0.5f, 0.5f));
     }
 }

@@ -4,8 +4,9 @@ namespace Assets.Scripts.Player.States
 {
     public class PlayerStateGetUp : PlayerBaseState
     {
-        private float curTime;
         private const float GETUP_DURATION = 1.2f;
+        private float curTime;
+
         public PlayerStateGetUp(PlayerController controller) : base(controller)
         {
         }
@@ -30,7 +31,7 @@ namespace Assets.Scripts.Player.States
         public override void OnUpdateState()
         {
             curTime += Time.deltaTime;
-            if(curTime >= GETUP_DURATION)
+            if (curTime >= GETUP_DURATION)
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }

@@ -1,12 +1,12 @@
+using System;
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Managers;
+using Assets.Scripts.UI.Inventory;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
-using System;
-using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -14,58 +14,52 @@ namespace Assets.Scripts.Player
     [RequireComponent(typeof(LineRenderer))]
     public class Shooter : MonoBehaviour
     {
-        [Header("Trajectory Configurations")]
-        [SerializeField]
+        [Header("Trajectory Configurations")] [SerializeField]
         private LineRenderer lineRenderer;
 
         [Range(10, 25)] [SerializeField] private int linePoints = 10;
 
         [Range(0.0f, 10.0f)] [SerializeField] private float calculatingTime = 1.0f;
 
-        [Header("Shooting Configurations")]
-        [SerializeField]
+        [Header("Shooting Configurations")] [SerializeField]
         private Transform releasePosition;
 
-        [Range(10.0f, 100.0f)]
-        [SerializeField]
+        [Range(10.0f, 100.0f)] [SerializeField]
         private float shootingPower = 25.0f;
 
         [SerializeField] private ChargingData chargingData;
         [SerializeField] private AimTargetData aimTargetData;
-        [SerializeField] private bool withPlayer = false;
+        [SerializeField] private bool withPlayer;
 
         public bool isTargetingEnemy;
+        private Vector3 aimTarget;
+        private float chargingTime;
 
         private Vector3 lastPointOfTraj;
-        public Vector3 LastPointOfTraj() => lastPointOfTraj;
-        
-
-        public float ChargingRatio
-        {
-            get { return chargingRatio; }
-        }
-
-        public ChargingData ChargingData
-        {
-            get { return chargingData; }
-        }
+        private Vector3 launchDirection;
 
         private LayerMask trajectoryCollisionMask;
-        private Vector3 aimTarget;
-        private Vector3 launchDirection;
-        private float chargingTime = 0.0f;
-        private float chargingRatio = 0.0f;
 
-        private void OnEnable()
-        {
-            SubscribeAction();
-        }
+
+        public float ChargingRatio { get; private set; }
+
+        public ChargingData ChargingData => chargingData;
 
         private void Start()
         {
             lineRenderer.enabled = false;
 
             SetLineRendererLayerMask();
+        }
+
+        private void OnEnable()
+        {
+            SubscribeAction();
+        }
+
+        public Vector3 LastPointOfTraj()
+        {
+            return lastPointOfTraj;
         }
 
         public void Init()
@@ -85,12 +79,12 @@ namespace Assets.Scripts.Player
 
         private void SetLineRendererLayerMask()
         {
-            int layer = gameObject.layer;
-            for (int i = 0; i < 32; i++)
+            var layer = gameObject.layer;
+            for (var i = 0; i < 32; i++)
             {
                 if (!Physics.GetIgnoreLayerCollision(layer, i))
                 {
-                    trajectoryCollisionMask |= (1 << i);
+                    trajectoryCollisionMask |= 1 << i;
                 }
             }
         }
@@ -103,7 +97,7 @@ namespace Assets.Scripts.Player
                 Type = StoneEventType.ShootStone,
                 StoneSpawnPos = releasePosition.position,
                 StoneDirection = launchDirection,
-                StoneStrength = shootingPower * chargingRatio,
+                StoneStrength = shootingPower * ChargingRatio,
                 StoneIdx = stoneIdx
             };
             ticketMachine.SendMessage(ChannelType.Stone, payload);
@@ -112,37 +106,38 @@ namespace Assets.Scripts.Player
             {
                 uiType = UIType.Notify,
                 actionType = ActionType.ConsumeSlotItem,
-                groupType = UI.Inventory.GroupType.Stone
+                groupType = GroupType.Stone
             };
             lineRenderer.enabled = false;
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;
         }
+
         private void OnMouseAction()
         {
             if (Input.GetMouseButton(0))
             {
-                float ts = Time.timeScale == 0f ? 1 : Time.timeScale;
+                var ts = Time.timeScale == 0f ? 1 : Time.timeScale;
                 chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / ts, 0.0f,
                     chargingData.timeSteps[chargingData.timeSteps.Length - 1]);
                 chargingData.ChargingValue.Value = chargingTime;
 
                 launchDirection = CalculateDirection();
-                DrawTrajectory(launchDirection, shootingPower * chargingRatio);
+                DrawTrajectory(launchDirection, shootingPower * ChargingRatio);
             }
         }
 
         private Vector3 CalculateDirection()
         {
-            Vector3 direction = Vector3.zero;
+            var direction = Vector3.zero;
             if (withPlayer)
             {
                 direction = (aimTarget - releasePosition.position).normalized;
             }
             else
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity))
+                var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out var hit, Mathf.Infinity))
                 {
                     direction = (hit.point - releasePosition.position).normalized;
                 }
@@ -155,15 +150,15 @@ namespace Assets.Scripts.Player
         {
             if (chargingData.timeSteps.Length == 0)
             {
-                chargingRatio = 1.0f;
+                ChargingRatio = 1.0f;
                 return;
             }
 
-            int count = Math.Min(chargingData.timeSteps.Length, chargingData.percentages.Length);
-            ref float[] steps = ref chargingData.timeSteps;
-            ref float[] percentages = ref chargingData.percentages;
+            var count = Math.Min(chargingData.timeSteps.Length, chargingData.percentages.Length);
+            ref var steps = ref chargingData.timeSteps;
+            ref var percentages = ref chargingData.percentages;
 
-            chargingRatio = Mathf.Lerp(percentages[0], percentages[count - 1], value / steps[count - 1]);
+            ChargingRatio = Mathf.Lerp(percentages[0], percentages[count - 1], value / steps[count - 1]);
         }
 
         private void OnChangeAimTarget(Vector3 value)
@@ -175,7 +170,7 @@ namespace Assets.Scripts.Player
         {
             lineRenderer.enabled = true;
 
-            Vector3[] points = PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength,
+            var points = PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength,
                 calculatingTime, linePoints, trajectoryCollisionMask);
 
             lastPointOfTraj = points.Length > 0 ? points[^1] : releasePosition.position;

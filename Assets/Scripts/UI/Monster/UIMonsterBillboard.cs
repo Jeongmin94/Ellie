@@ -6,15 +6,20 @@ namespace Assets.Scripts.UI.Monster
     public class UIMonsterBillboard : UIMonsterCanvas, IBillboard
     {
         public float scaleFactor = 0.001f;
+        private Camera mainCamera;
 
         private Transform target;
-        private Camera mainCamera;
 
         private void Awake()
         {
             Init();
 
             mainCamera = Camera.main;
+        }
+
+        private void Update()
+        {
+            UpdateBillboard();
         }
 
         public void InitBillboard(Transform parent)
@@ -25,11 +30,6 @@ namespace Assets.Scripts.UI.Monster
         public void UpdateBillboard()
         {
             monsterPanelRect.position = mainCamera.WorldToScreenPoint(target.position);
-        }
-
-        private void Update()
-        {
-            UpdateBillboard();
         }
     }
 }

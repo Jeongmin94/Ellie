@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Utils
@@ -24,5 +23,4 @@ namespace Assets.Scripts.Utils
             return new Vector3(x, y, z);
         }
     }
-
 }

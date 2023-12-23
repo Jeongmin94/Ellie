@@ -5,8 +5,9 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateZoom : PlayerBaseState
     {
-        private float zoomingTime;
         private float curTime;
+        private float zoomingTime;
+
         public PlayerStateZoom(PlayerController controller) : base(controller)
         {
         }
@@ -19,7 +20,10 @@ namespace Assets.Scripts.Player.States
             Controller.TurnOnAimCam();
             curTime = 0;
             if (!Controller.isGrounded)
+            {
                 Controller.isFalling = true;
+            }
+
             Controller.SetTimeScale(Controller.zoomMultiplier);
             //Controller.AimingAnimLayerWeight = 0f;
             //Controller.GrabSlingshotLeather();
@@ -30,7 +34,6 @@ namespace Assets.Scripts.Player.States
         public override void OnExitState()
         {
             Controller.TurnOffSlingshot();
-
         }
 
         public override void OnFixedUpdateState()
@@ -39,13 +42,13 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
-           // Controller.GrabSlingshotLeather();
+            // Controller.GrabSlingshotLeather();
             Controller.Aim();
             Controller.LookAimTarget();
             Controller.IncreaseAnimLayerWeight(PlayerController.AnimLayer.Aiming, 1f);
-            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+            var ts = Time.timeScale == 0f ? 1f : Time.timeScale;
 
-            curTime += Time.deltaTime / ts ;
+            curTime += Time.deltaTime / ts;
             if (curTime >= zoomingTime)
             {
                 Controller.ChangeState(PlayerStateName.Charging);

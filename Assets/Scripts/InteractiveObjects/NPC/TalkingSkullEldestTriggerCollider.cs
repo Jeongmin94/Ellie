@@ -1,16 +1,16 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
+﻿using System;
+using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Player;
-using System;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
     public class TalkingSkullEldestTriggerCollider : MonoBehaviour
     {
-        private PlayerQuest player;
         private Action<Collider> firstEncounterAction;
-        private Action secondEncounterAction;
+        private PlayerQuest player;
         private Action playerExitAction;
+        private Action secondEncounterAction;
 
         private void Update()
         {
@@ -22,9 +22,15 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
         }
 
+        private void OnDisable()
+        {
+            firstEncounterAction = null;
+            secondEncounterAction = null;
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if(other.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
                 player = other.GetComponent<PlayerQuest>();
                 firstEncounterAction?.Invoke(other);
@@ -36,9 +42,15 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             if (other.CompareTag("Player"))
             {
-                if (!other.CompareTag("Player")) return;
+                if (!other.CompareTag("Player"))
+                {
+                    return;
+                }
+
                 if (player.GetQuestStatus(6101) <= QuestStatus.Accepted)
+                {
                     playerExitAction?.Invoke();
+                }
             }
         }
 
@@ -58,12 +70,6 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             playerExitAction -= listener;
             playerExitAction += listener;
-        }
-
-        private void OnDisable()
-        {
-            firstEncounterAction = null;
-            secondEncounterAction = null;
         }
     }
 }

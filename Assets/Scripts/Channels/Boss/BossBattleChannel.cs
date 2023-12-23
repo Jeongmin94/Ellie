@@ -15,7 +15,7 @@ namespace Channels.Boss
         LeftBossRoom,
         OpenLeftDoor,
         StartThirdPhase,
-        EmphasizedDoor,
+        EmphasizedDoor
     }
 
     public class BossBattlePayload : IBaseEventPayload
@@ -35,7 +35,9 @@ namespace Channels.Boss
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             if (payload is not BossBattlePayload bossDialogPayload)
+            {
                 return;
+            }
 
             Publish(payload);
         }

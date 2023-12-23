@@ -1,7 +1,7 @@
-using Assets.Scripts.Managers;
-using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
+using Assets.Scripts.Managers;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public enum EventBusEvents
@@ -25,7 +25,7 @@ public enum EventBusEvents
     DestroyAllManaFountain,
     ApplySingleBossCooldown,
     StartIntakeMagicStone,
-    ActivateMagicStone,
+    ActivateMagicStone
 }
 
 public interface IBaseEventPayload
@@ -42,19 +42,25 @@ public class EventWrapper
         actionEvent += listener;
     }
 
-    public void Invoke(IBaseEventPayload payload) => actionEvent?.Invoke(payload);
+    public void Invoke(IBaseEventPayload payload)
+    {
+        actionEvent?.Invoke(payload);
+    }
 
-    public void Clear() => actionEvent = null;
+    public void Clear()
+    {
+        actionEvent = null;
+    }
 }
 
 public class EventBus : Singleton<EventBus>
 {
-    [ShowInInspector][ReadOnly] private Dictionary<EventBusEvents, EventWrapper> eventTable = new Dictionary<EventBusEvents, EventWrapper>();
+    [ShowInInspector] [ReadOnly] private Dictionary<EventBusEvents, EventWrapper> eventTable = new();
 
     public override void Awake()
     {
         base.Awake();
-        
+
         InitEventTable();
     }
 
@@ -62,7 +68,7 @@ public class EventBus : Singleton<EventBus>
     {
         eventTable.Clear();
         var eventTypes = Enum.GetValues(typeof(EventBusEvents));
-        for (int i = 0; i < eventTypes.Length; i++)
+        for (var i = 0; i < eventTypes.Length; i++)
         {
             eventTable.TryAdd((EventBusEvents)eventTypes.GetValue(i), new EventWrapper());
         }

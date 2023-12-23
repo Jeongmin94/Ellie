@@ -1,7 +1,5 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
-using Channels.Components;
+﻿using Channels.Components;
 using Channels.Type;
-using UnityEngine;
 
 namespace Channels.Boss
 {
@@ -22,7 +20,7 @@ namespace Channels.Boss
         StartThirdPhase,
         GetGolemCoreFirstTime,
         DieAllMinions,
-        FailedToOpenDoor,
+        FailedToOpenDoor
     }
 
     public class BossDialogPaylaod : IBaseEventPayload
@@ -41,7 +39,9 @@ namespace Channels.Boss
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             if (payload is not BossDialogPaylaod bossDialogPayload)
+            {
                 return;
+            }
 
             Publish(payload);
         }

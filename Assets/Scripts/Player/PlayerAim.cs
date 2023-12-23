@@ -1,12 +1,13 @@
 ﻿using Assets.Scripts.Managers;
+using Cinemachine;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerAim : MonoBehaviour
     {
-        public Cinemachine.AxisState xAxis;
-        public Cinemachine.AxisState yAxis;
+        public AxisState xAxis;
+        public AxisState yAxis;
 
         public Transform cameraLookAt;
 
@@ -14,13 +15,19 @@ namespace Assets.Scripts.Player
 
         private float zoomingCoeff;
 
-        void Update()
+        private void Update()
         {
             if (!InputManager.Instance.CanInput)
+            {
                 return;
-            if (!canAim) return;
-            
-            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+            }
+
+            if (!canAim)
+            {
+                return;
+            }
+
+            var ts = Time.timeScale == 0f ? 1f : Time.timeScale;
 
             xAxis.Update(Time.deltaTime / ts);
             yAxis.Update(Time.deltaTime / ts);

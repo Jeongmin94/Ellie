@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Combat;
@@ -17,7 +18,6 @@ using Sirenix.OdinInspector;
 using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.EventSystems;
 using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters.AbstractClass
@@ -29,55 +29,55 @@ namespace Assets.Scripts.Monsters.AbstractClass
         WizardSkeleton = 1002,
         CaveBat = 1003,
         GuildguardSkeleton = 1004,
-        CaveWitch = 1005,
+        CaveWitch = 1005
     }
 
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
     {
-        const float billboardScale = 0.003f;
-        const float battleStateTime = 8.0f;
+        private const float billboardScale = 0.003f;
+        private const float battleStateTime = 8.0f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
         [SerializeField] public GameObject freezeEffect;
-        private TicketMachine ticketMachine;
         public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
-
-        public BlackboardKey<bool> isDamaged;
-        public BlackboardKey<bool> isDead;
-        public BlackboardKey<bool> isReturning;
-
-        protected bool isAttacking;
-        protected AbstractAttack[] skills;
-        protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
-        protected NavMeshAgent agent;
         public Renderer renderer;
         [SerializeField] public SkeletonMesh characterMesh;
-        private bool isHeadShot;
+        public bool isBillboardOn;
+
+        protected readonly MonsterDataContainer dataContainer = new();
+        protected NavMeshAgent agent;
+        protected Animator animator;
 
         public Dictionary<string, AbstractAttack> Attacks = new();
 
-        protected MonsterEffectStatusController statusController;
+        protected MonsterAudioController audioController;
+        private Coroutine battleCoroutine;
 
         protected UIMonsterBillboard billboard;
         protected Transform billboardObject;
-        public bool isBillboardOn;
-        private Coroutine battleCoroutine;
-
-        protected readonly MonsterDataContainer dataContainer = new();
+        private Transform cameraObj;
 
         protected float currentHP;
+        private MaterialHitComponent hitComponent;
+
+        protected bool isAttacking;
+
+        public BlackboardKey<bool> isDamaged;
+        public BlackboardKey<bool> isDead;
+        private bool isHeadShot;
+        public BlackboardKey<bool> isReturning;
+        private MonsterParticleController particleController;
+        protected GameObject player;
+        protected AbstractAttack[] skills;
 
         protected Vector3 spawnPosition;
 
-        protected MonsterAudioController audioController;
-        private MonsterParticleController particleController;
-        private MaterialHitComponent hitComponent;
-        protected GameObject player;
-        private Transform cameraObj;
+        protected MonsterEffectStatusController statusController;
 
         // 디버프 관리 클래스
         private MonsterStatus statusEffect;
+        private TicketMachine ticketMachine;
 
         protected virtual void Awake()
         {
@@ -94,15 +94,45 @@ namespace Assets.Scripts.Monsters.AbstractClass
             MonsterOnPlayerForward();
         }
 
+        public void Attack(IBaseEventPayload payload)
+        {
+            var a = payload as CombatPayload;
+            ticketMachine.SendMessage(ChannelType.Combat, payload);
+        }
+
+        public void ReceiveDamage(IBaseEventPayload payload)
+        {
+            var combatPayload = payload as CombatPayload;
+
+            if (combatPayload.StatusEffectName != StatusEffectName.None && currentHP > 0)
+            {
+                if (statusEffect == null)
+                {
+                    Debug.LogError($"{transform.name} 상태이상 처리 로직 없음, Awake() 추가");
+                }
+
+                // 디버프 처리
+                statusEffect.ApplyStatusEffect(combatPayload);
+            }
+
+            hitComponent.Hit();
+            UpdateHP(combatPayload.Damage);
+        }
+
+        public void MonsterDead(IBaseEventPayload payload)
+        {
+            throw new NotImplementedException();
+        }
+
         public void SetPlayer(GameObject ply)
         {
             player = ply;
         }
 
-        public AbstractAttack AddSkills(string skillName, Enums.AttackSkill attackSkill)
+        public AbstractAttack AddSkills(string skillName, AttackSkill attackSkill)
         {
             AbstractAttack attack = null;
-            GameObject newSkill = new GameObject(skillName);
+            var newSkill = new GameObject(skillName);
             newSkill.transform.SetParent(transform);
             newSkill.tag = gameObject.tag;
             newSkill.transform.localPosition = Vector3.zero;
@@ -110,25 +140,26 @@ namespace Assets.Scripts.Monsters.AbstractClass
             newSkill.transform.localScale = Vector3.one;
             switch (attackSkill)
             {
-                case Enums.AttackSkill.ProjectileAttack:
+                case AttackSkill.ProjectileAttack:
                     attack = newSkill.AddComponent<ProjectileAttack>();
                     break;
-                case Enums.AttackSkill.BoxCollider:
+                case AttackSkill.BoxCollider:
                     attack = newSkill.AddComponent<BoxColliderAttack>();
                     break;
-                case Enums.AttackSkill.SphereCollider:
+                case AttackSkill.SphereCollider:
                     attack = newSkill.AddComponent<SphereColliderAttack>();
                     break;
-                case Enums.AttackSkill.WeaponAttack:
+                case AttackSkill.WeaponAttack:
                     attack = newSkill.AddComponent<WeaponAttack>();
                     break;
-                case Enums.AttackSkill.AOEAttack:
+                case AttackSkill.AOEAttack:
                     attack = newSkill.AddComponent<AOEPrefabAttack>();
                     break;
-                case Enums.AttackSkill.FanshapeAttack:
+                case AttackSkill.FanshapeAttack:
                     attack = newSkill.AddComponent<FanShapeAttack>();
                     break;
             }
+
             if (attack != null)
             {
                 Attacks.Add(skillName, attack);
@@ -142,28 +173,6 @@ namespace Assets.Scripts.Monsters.AbstractClass
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Monster);
         }
-        public void Attack(IBaseEventPayload payload)
-        {
-            CombatPayload a = payload as CombatPayload;
-            ticketMachine.SendMessage(ChannelType.Combat, payload);
-        }
-
-        public void ReceiveDamage(IBaseEventPayload payload)
-        {
-            CombatPayload combatPayload = payload as CombatPayload;
-
-            if(combatPayload.StatusEffectName != StatusEffectName.None && currentHP > 0)
-            {
-                if(statusEffect == null)
-                {
-                    Debug.LogError($"{transform.name} 상태이상 처리 로직 없음, Awake() 추가");
-                }
-                // 디버프 처리
-                statusEffect.ApplyStatusEffect(combatPayload);
-            }
-            hitComponent.Hit();
-            UpdateHP(combatPayload.Damage);
-        }
 
         [Button("몬스터 빙결 상태이상 체크", ButtonSizes.Large)]
         public void Test()
@@ -172,7 +181,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
             {
                 Damage = 1,
                 StatusEffectName = StatusEffectName.Incarceration,
-                statusEffectduration = 10.0f,
+                statusEffectduration = 10.0f
             });
         }
 
@@ -183,18 +192,32 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         public void UpdateHP(float damage)
         {
-            if (isReturning.value) return;
+            if (isReturning.value)
+            {
+                return;
+            }
+
             ShowBillboard();
 
-            if (isHeadShot) damage *= monsterData.weakRatio;
+            if (isHeadShot)
+            {
+                damage *= monsterData.weakRatio;
+            }
 
-            if(battleCoroutine != null) StopCoroutine(battleCoroutine);
+            if (battleCoroutine != null)
+            {
+                StopCoroutine(battleCoroutine);
+            }
+
             battleCoroutine = StartCoroutine(EndBattleState());
 
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
 
-            if (!behaviourTreeInstance.FindBlackboardKey<bool>("IsFreezing").Value) isDamaged.value = true;
+            if (!behaviourTreeInstance.FindBlackboardKey<bool>("IsFreezing").Value)
+            {
+                isDamaged.value = true;
+            }
 
             if (currentHP < 1)
             {
@@ -235,6 +258,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
             {
                 animator = GetComponent<Animator>();
             }
+
             animator.Play("Dead");
             GetComponent<Collider>().enabled = false;
         }
@@ -251,7 +275,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
         }
 
         public virtual void ReturnSpawnLocation()
-        { }
+        {
+        }
 
         public void SendTicket()
         {
@@ -262,17 +287,13 @@ namespace Assets.Scripts.Monsters.AbstractClass
             ticketMachine.SendMessage(ChannelType.Monster, monsterPayload);
         }
 
-        public void MonsterDead(IBaseEventPayload payload)
-        {
-            throw new System.NotImplementedException();
-        }
-
         protected void InitUI()
         {
             billboardObject = Functions.FindChildByName(gameObject, "Billboard").transform;
             cameraObj = Camera.main.transform;
 
-            billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardObject, UIManager.UIMonsterBillboard);
+            billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardObject,
+                UIManager.UIMonsterBillboard);
             HideBillobard();
             billboard.InitBillboard(billboardObject);
         }
@@ -292,8 +313,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
         {
             if (isBillboardOn)
             {
-                Vector3 direction = transform.position - cameraObj.position;
-                float dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
+                var direction = transform.position - cameraObj.position;
+                var dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
 
                 if (dot > 0)
                 {
@@ -305,6 +326,7 @@ namespace Assets.Scripts.Monsters.AbstractClass
                 }
             }
         }
+
         public Transform GetPlayer()
         {
             return player.transform;

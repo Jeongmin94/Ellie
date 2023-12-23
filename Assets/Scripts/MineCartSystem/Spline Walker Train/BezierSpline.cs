@@ -1,28 +1,21 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
 public class BezierSpline : MonoBehaviour
 {
+    [SerializeField] private Vector3[] points;
 
-    [SerializeField]
-    private Vector3[] points;
+    [SerializeField] private BezierControlPointMode[] modes;
 
-    [SerializeField]
-    private BezierControlPointMode[] modes;
-
-    [SerializeField]
-    private bool loop;
+    [SerializeField] private bool loop;
 
     public bool Loop
     {
-        get
-        {
-            return loop;
-        }
+        get => loop;
         set
         {
             loop = value;
-            if (value == true)
+            if (value)
             {
                 modes[modes.Length - 1] = modes[0];
                 SetControlPoint(0, points[0]);
@@ -30,12 +23,24 @@ public class BezierSpline : MonoBehaviour
         }
     }
 
-    public int ControlPointCount
+    public int ControlPointCount => points.Length;
+
+    public int CurveCount => (points.Length - 1) / 3;
+
+    public void Reset()
     {
-        get
+        points = new Vector3[]
         {
-            return points.Length;
-        }
+            new(1f, 0f, 0f),
+            new(2f, 0f, 0f),
+            new(3f, 0f, 0f),
+            new(4f, 0f, 0f)
+        };
+        modes = new[]
+        {
+            BezierControlPointMode.Free,
+            BezierControlPointMode.Free
+        };
     }
 
     public Vector3 GetControlPoint(int index)
@@ -53,7 +58,7 @@ public class BezierSpline : MonoBehaviour
     {
         if (index % 3 == 0)
         {
-            Vector3 delta = point - points[index];
+            var delta = point - points[index];
             if (loop)
             {
                 if (index == 0)
@@ -80,12 +85,14 @@ public class BezierSpline : MonoBehaviour
                 {
                     points[index - 1] += delta;
                 }
+
                 if (index + 1 < points.Length)
                 {
                     points[index + 1] += delta;
                 }
             }
         }
+
         points[index] = point;
         EnforceMode(index);
     }
@@ -97,7 +104,7 @@ public class BezierSpline : MonoBehaviour
 
     public void SetControlPointMode(int index, BezierControlPointMode mode)
     {
-        int modeIndex = (index + 1) / 3;
+        var modeIndex = (index + 1) / 3;
         modes[modeIndex] = mode;
         if (loop)
         {
@@ -110,19 +117,20 @@ public class BezierSpline : MonoBehaviour
                 modes[0] = mode;
             }
         }
+
         EnforceMode(index);
     }
 
     private void EnforceMode(int index)
     {
-        int modeIndex = (index + 1) / 3;
-        BezierControlPointMode mode = modes[modeIndex];
-        if (mode == BezierControlPointMode.Free || !loop && (modeIndex == 0 || modeIndex == modes.Length - 1))
+        var modeIndex = (index + 1) / 3;
+        var mode = modes[modeIndex];
+        if (mode == BezierControlPointMode.Free || (!loop && (modeIndex == 0 || modeIndex == modes.Length - 1)))
         {
             return;
         }
 
-        int middleIndex = modeIndex * 3;
+        var middleIndex = modeIndex * 3;
         int fixedIndex, enforcedIndex;
         if (index <= middleIndex)
         {
@@ -131,6 +139,7 @@ public class BezierSpline : MonoBehaviour
             {
                 fixedIndex = points.Length - 2;
             }
+
             enforcedIndex = middleIndex + 1;
             if (enforcedIndex >= points.Length)
             {
@@ -144,6 +153,7 @@ public class BezierSpline : MonoBehaviour
             {
                 fixedIndex = 1;
             }
+
             enforcedIndex = middleIndex - 1;
             if (enforcedIndex < 0)
             {
@@ -151,21 +161,14 @@ public class BezierSpline : MonoBehaviour
             }
         }
 
-        Vector3 middle = points[middleIndex];
-        Vector3 enforcedTangent = middle - points[fixedIndex];
+        var middle = points[middleIndex];
+        var enforcedTangent = middle - points[fixedIndex];
         if (mode == BezierControlPointMode.Aligned)
         {
             enforcedTangent = enforcedTangent.normalized * Vector3.Distance(middle, points[enforcedIndex]);
         }
-        points[enforcedIndex] = middle + enforcedTangent;
-    }
 
-    public int CurveCount
-    {
-        get
-        {
-            return (points.Length - 1) / 3;
-        }
+        points[enforcedIndex] = middle + enforcedTangent;
     }
 
     public Vector3 GetPoint(float t)
@@ -183,6 +186,7 @@ public class BezierSpline : MonoBehaviour
             t -= i;
             i *= 3;
         }
+
         return transform.TransformPoint(Bezier.GetPoint(points[i], points[i + 1], points[i + 2], points[i + 3], t));
     }
 
@@ -201,7 +205,9 @@ public class BezierSpline : MonoBehaviour
             t -= i;
             i *= 3;
         }
-        return transform.TransformPoint(Bezier.GetFirstDerivative(points[i], points[i + 1], points[i + 2], points[i + 3], t)) - transform.position;
+
+        return transform.TransformPoint(Bezier.GetFirstDerivative(points[i], points[i + 1], points[i + 2],
+            points[i + 3], t)) - transform.position;
     }
 
     public Vector3 GetDirection(float t)
@@ -211,7 +217,7 @@ public class BezierSpline : MonoBehaviour
 
     public void AddCurve()
     {
-        Vector3 point = points[points.Length - 1];
+        var point = points[points.Length - 1];
         Array.Resize(ref points, points.Length + 3);
         point.x += 1f;
         points[points.Length - 3] = point;
@@ -232,41 +238,30 @@ public class BezierSpline : MonoBehaviour
         }
     }
 
-    public void Reset()
-    {
-        points = new Vector3[] {
-            new Vector3(1f, 0f, 0f),
-            new Vector3(2f, 0f, 0f),
-            new Vector3(3f, 0f, 0f),
-            new Vector3(4f, 0f, 0f)
-        };
-        modes = new BezierControlPointMode[] {
-            BezierControlPointMode.Free,
-            BezierControlPointMode.Free
-        };
-    }
-
     public void RemoveAt<T>(ref T[] arr, int index)
     {
-        for (int a = index - 1; a < arr.Length - 1; a++)
+        for (var a = index - 1; a < arr.Length - 1; a++)
         {
             // moving elements downwards, to fill the gap at [index]
             arr[a] = arr[a + 1];
         }
+
         // finally, let's decrement Array's size by one
         Array.Resize(ref arr, arr.Length - 1);
-        for (int a = index; a < arr.Length - 1; a++)
+        for (var a = index; a < arr.Length - 1; a++)
         {
             // moving elements downwards, to fill the gap at [index]
             arr[a] = arr[a + 1];
         }
+
         // finally, let's decrement Array's size by one
         Array.Resize(ref arr, arr.Length - 1);
-        for (int a = index; a < arr.Length - 1; a++)
+        for (var a = index; a < arr.Length - 1; a++)
         {
             // moving elements downwards, to fill the gap at [index]
             arr[a] = arr[a + 1];
         }
+
         // finally, let's decrement Array's size by one
         Array.Resize(ref arr, arr.Length - 1);
     }

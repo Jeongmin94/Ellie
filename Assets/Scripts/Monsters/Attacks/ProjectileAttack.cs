@@ -1,11 +1,10 @@
 using System.Collections;
-using Assets.Scripts.Combat;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Monsters.Others;
+using Assets.Scripts.StatusEffects;
 using Channels.Combat;
 using UnityEngine;
-
 
 namespace Assets.Scripts.Monsters.Attacks
 {
@@ -26,11 +25,12 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public override void ActivateAttack()
         {
-            GameObject obj = Instantiate(projectile, transform.position + offset, transform.rotation);
+            var obj = Instantiate(projectile, transform.position + offset, transform.rotation);
             obj.GetComponent<Projectile>().SetSpeed(attackData.projectileSpeed);
-            if(attackData.projectileChase==1)
+            if (attackData.projectileChase == 1)
             {
-                obj.GetComponent<Projectile>().ChasePlayer(transform.parent.GetComponent<AbstractMonster>().GetPlayer());
+                obj.GetComponent<Projectile>()
+                    .ChasePlayer(transform.parent.GetComponent<AbstractMonster>().GetPlayer());
             }
 
             obj.GetComponent<Projectile>().spawner = gameObject.GetComponent<ProjectileAttack>();
@@ -47,7 +47,7 @@ namespace Assets.Scripts.Monsters.Attacks
         public void ProjectileHitPlayer(Transform otherTransform)
         {
             audioController.PlayAudio(MonsterAudioType.ProjectileHit);
-            ParticleSystem particle = particleController.GetParticle(MonsterParticleType.ProjectileHit);
+            var particle = particleController.GetParticle(MonsterParticleType.ProjectileHit);
             particle.transform.position = otherTransform.position;
             particle.Play();
             SetAndAttack(attackData, otherTransform);
@@ -62,11 +62,10 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.StatusEffectName = StatusEffects.StatusEffectName.Burn;
+            payload.StatusEffectName = StatusEffectName.Burn;
             payload.statusEffectduration = 3.0f;
-            payload.Damage = (int)data.attackValue;
+            payload.Damage = data.attackValue;
             Attack(payload);
         }
     }
-
 }

@@ -11,25 +11,25 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         Setting,
         Controls,
-        Cheat,
+        Cheat
     }
 
     public class ConfigButtonPanel : UIBase
     {
-        private readonly List<ConfigToggleController> toggles = new List<ConfigToggleController>();
+        private readonly List<ConfigToggleController> toggles = new();
+        private Action<PopupPayload> buttonPanelAction;
 
         private ToggleGroup toggleGroup;
-        private Action<PopupPayload> buttonPanelAction;
+
+        private void OnDestroy()
+        {
+            buttonPanelAction = null;
+        }
 
         public void Subscribe(Action<PopupPayload> listener)
         {
             buttonPanelAction -= listener;
             buttonPanelAction += listener;
-        }
-
-        private void OnDestroy()
-        {
-            buttonPanelAction = null;
         }
 
         public void InitConfigButtonPanel()

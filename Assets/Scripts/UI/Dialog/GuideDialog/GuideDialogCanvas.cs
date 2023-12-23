@@ -20,71 +20,39 @@ namespace UI.Dialog.GuideDialog
 {
     public class GuideDialogCanvas : UIPopup
     {
-        private struct GuideDialogInfo
-        {
-            public string Speaker { get; }
-
-            public string Message { get; }
-
-            public string Image { get; }
-
-            public float RemainTime { get; }
-
-            private GuideDialogInfo(string speaker, string message, string image, float remainTime)
-            {
-                Speaker = speaker;
-                Message = message;
-                Image = image;
-                RemainTime = remainTime;
-            }
-
-            public static GuideDialogInfo Of(string speaker, string message, string image, float remainTime)
-            {
-                return new GuideDialogInfo(speaker, message, image, remainTime);
-            }
-        }
-
         // Speaker Image Base Path
         private static readonly string SpeakerImageBasePath = "UI/GuideDialog/SpeakerImage/";
-
-        private enum GameObjects
-        {
-            GuideDialogBackgroundPanel,
-            GuideDialogImagePanel,
-            GuideDialogSpeakerPanel,
-            GuideDialogMessagePanel,
-        }
-
-        private enum Texts
-        {
-            GuideDialogSpeakerText,
-            GuideDialogMessageText,
-        }
 
         [SerializeField] private UITransformData[] transformData;
         [SerializeField] private TextTypographyData[] typographyData;
         [SerializeField] private float showDuration = 5.0f;
         [SerializeField] private float fadeOutDuration = 0.5f;
+        private readonly Queue<GuideDialogInfo> dialogInfoQueue = new();
+        private readonly List<RectTransform> panelRects = new();
 
-        private readonly List<GameObject> panels = new List<GameObject>();
-        private readonly List<RectTransform> panelRects = new List<RectTransform>();
+        private readonly List<GameObject> panels = new();
 
-        private readonly List<TextMeshProUGUI> texts = new List<TextMeshProUGUI>();
-
-        private Image guideDialogImage;
-        private Image guideDialogBackgroundImage;
+        private readonly List<TextMeshProUGUI> texts = new();
+        private Coroutine currentExcuteCoroutine;
 
         private Coroutine excuteCoroutine;
-        private Coroutine currentExcuteCoroutine;
+        private Image guideDialogBackgroundImage;
+
+        private Image guideDialogImage;
         private bool isFadingOut;
 
         private TicketMachine ticketMachine;
-        private readonly Queue<GuideDialogInfo> dialogInfoQueue = new Queue<GuideDialogInfo>();
 
 
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            InactiveObjects();
+            excuteCoroutine = StartCoroutine(Execute());
         }
 
         protected override void Init()
@@ -95,19 +63,13 @@ namespace UI.Dialog.GuideDialog
             InitObjects();
         }
 
-        private void Start()
-        {
-            InactiveObjects();
-            excuteCoroutine = StartCoroutine(Execute());
-        }
-
         private void Bind()
         {
             Bind<GameObject>(typeof(GameObjects));
             Bind<TextMeshProUGUI>(typeof(Texts));
 
             var gos = Enum.GetValues(typeof(GameObjects));
-            for (int i = 0; i < gos.Length; i++)
+            for (var i = 0; i < gos.Length; i++)
             {
                 var go = GetGameObject(i);
                 panelRects.Add(go.GetComponent<RectTransform>());
@@ -115,7 +77,7 @@ namespace UI.Dialog.GuideDialog
             }
 
             var t = Enum.GetValues(typeof(Texts));
-            for (int i = 0; i < t.Length; i++)
+            for (var i = 0; i < t.Length; i++)
             {
                 texts.Add(GetText(i));
             }
@@ -126,7 +88,7 @@ namespace UI.Dialog.GuideDialog
 
         private void InitObjects()
         {
-            for (int i = 0; i < transformData.Length; i++)
+            for (var i = 0; i < transformData.Length; i++)
             {
                 AnchorPresets.SetAnchorPreset(panelRects[i], AnchorPresets.MiddleCenter);
                 panelRects[i].sizeDelta = transformData[i].actionRect.Value.GetSize();
@@ -134,7 +96,7 @@ namespace UI.Dialog.GuideDialog
                 panelRects[i].localScale = transformData[i].actionScale.Value;
             }
 
-            for (int i = 0; i < typographyData.Length; i++)
+            for (var i = 0; i < typographyData.Length; i++)
             {
                 TextTypographyData.SetTextTypographyData(texts[i], typographyData[i]);
             }
@@ -151,12 +113,20 @@ namespace UI.Dialog.GuideDialog
         private void OnNotify(IBaseEventPayload payload)
         {
             if (payload is not DialogPayload dialogPayload)
+            {
                 return;
+            }
 
             if (dialogPayload.dialogType != DialogType.Notify)
+            {
                 return;
+            }
+
             if (dialogPayload.canvasType != DialogCanvasType.GuideDialog)
+            {
                 return;
+            }
+
             if (dialogPayload.dialogAction == DialogAction.Stop)
             {
                 StartCoroutine(Stop());
@@ -177,7 +147,7 @@ namespace UI.Dialog.GuideDialog
 
         private IEnumerator Execute()
         {
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var wfef = new WaitForEndOfFrame();
             while (true)
             {
                 if (dialogInfoQueue.Any() && currentExcuteCoroutine == null)
@@ -195,7 +165,7 @@ namespace UI.Dialog.GuideDialog
 
         private IEnumerator ShowGuideDialog(GuideDialogInfo info)
         {
-            string path = SpeakerImageBasePath + info.Image;
+            var path = SpeakerImageBasePath + info.Image;
             var sprite = ResourceManager.Instance.LoadSprite(path);
 
             guideDialogImage.sprite = sprite;
@@ -242,14 +212,14 @@ namespace UI.Dialog.GuideDialog
 
         private IEnumerator FadeOutObjects()
         {
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
-            float timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
 
-            List<Color> textOriginColors = new List<Color>();
+            var textOriginColors = new List<Color>();
             texts.ForEach(t => textOriginColors.Add(t.color));
 
-            Color imageColor = guideDialogImage.color;
-            Color backgroundImageColor = guideDialogBackgroundImage.color;
+            var imageColor = guideDialogImage.color;
+            var backgroundImageColor = guideDialogBackgroundImage.color;
 
             isFadingOut = true;
             while (timeAcc <= fadeOutDuration)
@@ -257,9 +227,9 @@ namespace UI.Dialog.GuideDialog
                 yield return wfef;
                 timeAcc += Time.deltaTime;
 
-                float ratio = timeAcc / fadeOutDuration;
+                var ratio = timeAcc / fadeOutDuration;
 
-                for (int i = 0; i < texts.Count; i++)
+                for (var i = 0; i < texts.Count; i++)
                 {
                     texts[i].color = FadeOutColor(textOriginColors[i], ratio);
                 }
@@ -307,8 +277,46 @@ namespace UI.Dialog.GuideDialog
             {
                 dialogType = DialogType.NotifyToClient,
                 isPlaying = false,
-                isEnd = true,
+                isEnd = true
             });
+        }
+
+        private struct GuideDialogInfo
+        {
+            public string Speaker { get; }
+
+            public string Message { get; }
+
+            public string Image { get; }
+
+            public float RemainTime { get; }
+
+            private GuideDialogInfo(string speaker, string message, string image, float remainTime)
+            {
+                Speaker = speaker;
+                Message = message;
+                Image = image;
+                RemainTime = remainTime;
+            }
+
+            public static GuideDialogInfo Of(string speaker, string message, string image, float remainTime)
+            {
+                return new GuideDialogInfo(speaker, message, image, remainTime);
+            }
+        }
+
+        private enum GameObjects
+        {
+            GuideDialogBackgroundPanel,
+            GuideDialogImagePanel,
+            GuideDialogSpeakerPanel,
+            GuideDialogMessagePanel
+        }
+
+        private enum Texts
+        {
+            GuideDialogSpeakerText,
+            GuideDialogMessageText
         }
     }
 }

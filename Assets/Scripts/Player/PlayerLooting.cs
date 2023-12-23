@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.Item;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -8,13 +7,13 @@ namespace Assets.Scripts.Player
     {
         private void OnTriggerEnter(Collider other)
         {
-            ILootable lootable = other.gameObject.GetComponent<ILootable>();
+            var lootable = other.gameObject.GetComponent<ILootable>();
             if (lootable != null)
             {
                 Accept(lootable);
             }
         }
-        
+
         private void Accept(ILootable item)
         {
             item.Visit(this);

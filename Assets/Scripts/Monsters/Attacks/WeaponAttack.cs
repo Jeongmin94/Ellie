@@ -1,6 +1,7 @@
 using System.Collections;
 using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.AbstractClass;
+using Assets.Scripts.StatusEffects;
 using Channels.Combat;
 using UnityEngine;
 
@@ -8,19 +9,24 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class WeaponAttack : AbstractAttack
     {
-        private Collider collider;
         private MonsterAttackData attackData;
+        private Collider collider;
 
         public override void InitializeWeapon(MonsterAttackData data)
         {
             attackData = data;
             InitializedBase(data);
-            if(collider==null)
+            if (collider == null)
             {
                 //collider = data.weapon.GetComponent<Collider>();
-                if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
+                if (collider == null)
+                {
+                    Debug.Log("[WeaponAttack] CanNotFindCollider");
+                }
+
                 collider.isTrigger = true;
             }
+
             collider.enabled = false;
         }
 
@@ -30,8 +36,12 @@ namespace Assets.Scripts.Monsters.Attacks
             {
                 collider = gameObject.GetComponent<Collider>();
                 collider.enabled = false;
-                if (collider == null) Debug.Log("[WeaponAttack] CanNotFindCollider");
+                if (collider == null)
+                {
+                    Debug.Log("[WeaponAttack] CanNotFindCollider");
+                }
             }
+
             collider.enabled = true;
             StartCoroutine(DisableCollider());
         }
@@ -69,10 +79,9 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
-            payload.Damage = (int)data.attackValue;
+            payload.StatusEffectName = StatusEffectName.WeakRigidity;
+            payload.Damage = data.attackValue;
             Attack(payload);
         }
-
     }
 }

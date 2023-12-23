@@ -6,16 +6,18 @@ namespace Assets.Scripts.Managers
 {
     public class PoolTask
     {
-        private readonly Dictionary<Poolable, WithdrawScheduleInfo> scheduleInfos = new Dictionary<Poolable, WithdrawScheduleInfo>();
+        private readonly Dictionary<Poolable, WithdrawScheduleInfo> scheduleInfos = new();
 
-        private readonly ConcurrentQueue<WithdrawScheduleInfo> scheduleQueue = new ConcurrentQueue<WithdrawScheduleInfo>();
+        private readonly ConcurrentQueue<WithdrawScheduleInfo> scheduleQueue = new();
 
         public Action<WithdrawScheduleInfo> schedulePushAction;
 
         public WithdrawScheduleInfo GetInfo(Poolable poolable)
         {
             if (scheduleInfos.TryGetValue(poolable, out var info))
+            {
                 return info;
+            }
 
             return null;
         }
@@ -38,13 +40,17 @@ namespace Assets.Scripts.Managers
         public void Handle()
         {
             if (scheduleQueue.IsEmpty)
+            {
                 return;
+            }
 
             while (scheduleQueue.TryDequeue(out var scheduleInfo))
             {
                 if (!scheduleInfo.IsScheduled)
+                {
                     continue;
-                
+                }
+
                 schedulePushAction?.Invoke(scheduleInfo);
             }
         }

@@ -1,5 +1,6 @@
-﻿public enum SplineWalkerMode {
-	Once,
-	Loop,
-	PingPong
+﻿public enum SplineWalkerMode
+{
+    Once,
+    Loop,
+    PingPong
 }

@@ -33,36 +33,27 @@ namespace Assets.Scripts.UI.Framework.Images
 
     public class UIBaseImage : UIBase
     {
-        private enum Images
-        {
-            Background,
-            Midground,
-            Foreground
-        }
-
         public Color backgroundColor = Color.black;
         public Color midgroundColor = Color.black;
         public Color foregroundColor = Color.black;
+        protected Image background;
+
+        private Image changedImage;
+        private float changedTarget;
+        protected Image foreground;
+        protected Image midground;
+
         public Color MidgroundColor
         {
-            get
-            {
-                return midgroundColor;
-            }
+            get => midgroundColor;
             set
             {
                 midgroundColor = value;
                 midground.color = value;
             }
         }
-        private Color midgroundStartColor;
-        public Color MidgroundStartColor { get { return midgroundStartColor; } }
-        protected Image background;
-        protected Image midground;
-        protected Image foreground;
 
-        private Image changedImage;
-        private float changedTarget;
+        public Color MidgroundStartColor { get; private set; }
 
         protected override void Init()
         {
@@ -73,17 +64,17 @@ namespace Assets.Scripts.UI.Framework.Images
             foreground = GetImage((int)Images.Foreground);
 
             background.color = backgroundColor;
-            midgroundStartColor = midground.color = midgroundColor;
+            MidgroundStartColor = midground.color = midgroundColor;
             foreground.color = foregroundColor;
         }
 
         // time 시간만큼 변경
         public virtual IEnumerator ChangeImageFillAmount(FillAmountType type, float target, float time)
         {
-            Image image = GetFillAmountTarget(type);
+            var image = GetFillAmountTarget(type);
 
-            float timeAcc = 0.0f;
-            float current = image.fillAmount;
+            var timeAcc = 0.0f;
+            var current = image.fillAmount;
 
             while (timeAcc <= time)
             {
@@ -102,7 +93,7 @@ namespace Assets.Scripts.UI.Framework.Images
         // 즉시 변경
         public virtual void ChangeImageFillAmount(FillAmountType type, float target)
         {
-            Image image = GetFillAmountTarget(type);
+            var image = GetFillAmountTarget(type);
             image.fillAmount = target;
             changedImage = image;
             changedTarget = target;
@@ -127,6 +118,13 @@ namespace Assets.Scripts.UI.Framework.Images
             }
 
             return image;
+        }
+
+        private enum Images
+        {
+            Background,
+            Midground,
+            Foreground
         }
     }
 }

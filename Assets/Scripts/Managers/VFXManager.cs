@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Particle;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Particle;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -17,7 +17,7 @@ namespace Assets.Scripts.Managers
 
     public class VFXManager : Singleton<VFXManager>
     {
-        [ShowInInspector][ReadOnly] private List<VFXController> vfxControllers = new List<VFXController>();
+        [ShowInInspector] [ReadOnly] private List<VFXController> vfxControllers = new();
 
         private Transform vfxRoot;
 
@@ -25,7 +25,7 @@ namespace Assets.Scripts.Managers
         {
             base.Awake();
 
-            GameObject go = new GameObject("@VFX_Root");
+            var go = new GameObject("@VFX_Root");
             go.transform.parent = transform;
             vfxRoot = go.transform;
         }
@@ -64,7 +64,7 @@ namespace Assets.Scripts.Managers
 
             if (payload.Origin != null)
             {
-                Vector3 transformedOffset = payload.Origin.TransformDirection(payload.Offset);
+                var transformedOffset = payload.Origin.TransformDirection(payload.Offset);
                 vfx.transform.position = payload.Origin.position + transformedOffset;
                 vfx.transform.rotation = payload.Origin.rotation;
             }
@@ -90,7 +90,7 @@ namespace Assets.Scripts.Managers
             {
                 Position = target.position,
                 Rotation = target.rotation,
-                Scale = new Vector3(scale, scale, scale),
+                Scale = new Vector3(scale, scale, scale)
             });
         }
 
@@ -99,7 +99,7 @@ namespace Assets.Scripts.Managers
             return GetVFX(prefab, new VFXPayload
             {
                 Position = position,
-                Scale = new Vector3(scale, scale, scale),
+                Scale = new Vector3(scale, scale, scale)
             });
         }
     }

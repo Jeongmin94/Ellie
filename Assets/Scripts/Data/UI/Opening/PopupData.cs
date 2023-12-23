@@ -11,9 +11,11 @@ namespace Data.UI.Opening
 
         public string GetTitle(PopupType popupType)
         {
-            int idx = (int)popupType;
+            var idx = (int)popupType;
             if (idx >= popupTitles.Length)
+            {
                 return string.Empty;
+            }
 
             return popupTitles[idx];
         }

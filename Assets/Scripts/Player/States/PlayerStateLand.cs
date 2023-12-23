@@ -7,6 +7,7 @@ namespace Assets.Scripts.Player.States
     {
         private float interval;
         private float time;
+
         public PlayerStateLand(PlayerController controller) : base(controller)
         {
         }
@@ -25,12 +26,13 @@ namespace Assets.Scripts.Player.States
             Controller.SetTimeScale(1f);
 
             if (Controller.cinematicAimCam.gameObject.activeSelf)
+            {
                 Controller.TurnOffAimCam();
+            }
 
             Controller.PlayerStatus.isRecoveringStamina = true;
 
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "ellie_move5", Controller.transform.position);
-
         }
 
         public override void OnExitState()
@@ -47,7 +49,9 @@ namespace Assets.Scripts.Player.States
             if (time > interval)
             {
                 if (Controller.PlayerStatus.Stamina < 10f)
+                {
                     Controller.ChangeState(PlayerStateName.Exhaust);
+                }
                 else
                 {
                     Controller.Anim.SetTrigger("Idle");
@@ -55,6 +59,5 @@ namespace Assets.Scripts.Player.States
                 }
             }
         }
-
     }
 }

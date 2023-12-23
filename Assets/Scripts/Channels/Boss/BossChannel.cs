@@ -9,24 +9,26 @@ namespace Channels.Boss
         ThrowStone,
         EarthQuake,
         Roll,
-        LowAttack,
+        LowAttack
     }
 
     public enum TerrapupaEvent
     {
         None,
+
         // 돌 던지기
         GripStone,
         ThrowStone,
-        EarthQuake,
+        EarthQuake
     }
+
     public class TerrapupaPayload : IBaseEventPayload
     {
         // 이벤트 타입
         public TerrapupaEvent Type { get; set; }
 
         // 공격력
-        public int AttackValue { get; set; } 
+        public int AttackValue { get; set; }
 
         // 공격 쿨타임 적용 시
         public float Cooldown { get; set; }
@@ -40,103 +42,48 @@ namespace Channels.Boss
 
     public class BossEventPayload : IBaseEventPayload
     {
-        private GameObject prefabValue;
-        private int intValue;
-        private bool boolValue;
-        private float floatValue;
-        private Vector3 vector3Value;
-        private Transform transformValue1;
-        private Transform transformValue2;
-        private Transform transformValue3;
-        private TerrapupaAttackType attackTypeValue;
-        private Transform sender;
-        private CombatPayload combatPayload;
-
         public BossEventPayload()
         {
-            prefabValue = null;
-            intValue = 0;
-            boolValue = false;
-            floatValue = 0.0f;
-            vector3Value = Vector3.zero;
-            transformValue1 = null;
-            transformValue2 = null;
-            transformValue3 = null;
-            attackTypeValue = TerrapupaAttackType.None;
-            combatPayload = null;
+            PrefabValue = null;
+            IntValue = 0;
+            BoolValue = false;
+            FloatValue = 0.0f;
+            Vector3Value = Vector3.zero;
+            TransformValue1 = null;
+            TransformValue2 = null;
+            TransformValue3 = null;
+            AttackTypeValue = TerrapupaAttackType.None;
+            CombatPayload = null;
         }
 
-        public GameObject PrefabValue
-        {
-            get { return prefabValue; }
-            set { prefabValue = value; }
-        }
+        public GameObject PrefabValue { get; set; }
 
-        public int IntValue
-        {
-            get { return intValue; }
-            set { intValue = value; }
-        }
+        public int IntValue { get; set; }
 
-        public bool BoolValue
-        {
-            get { return boolValue; }
-            set { boolValue = value; }
-        }
+        public bool BoolValue { get; set; }
 
-        public float FloatValue
-        {
-            get { return floatValue; }
-            set { floatValue = value; }
-        }
+        public float FloatValue { get; set; }
 
-        public Vector3 Vector3Value
-        {
-            get { return vector3Value; }
-            set { vector3Value = value; }
-        }
+        public Vector3 Vector3Value { get; set; }
 
-        public Transform TransformValue1
-        {
-            get { return transformValue1; }
-            set { transformValue1 = value; }
-        }
+        public Transform TransformValue1 { get; set; }
 
-        public Transform TransformValue2
-        {
-            get { return transformValue2; }
-            set { transformValue2 = value; }
-        }
+        public Transform TransformValue2 { get; set; }
 
-        public Transform TransformValue3
-        {
-            get { return transformValue3; }
-            set { transformValue3 = value; }
-        }
+        public Transform TransformValue3 { get; set; }
 
-        public TerrapupaAttackType AttackTypeValue
-        {
-            get { return attackTypeValue; }
-            set { attackTypeValue = value; }
-        }
-        public Transform Sender
-        {
-            get { return sender; }
-            set { sender = value; }
-        }
+        public TerrapupaAttackType AttackTypeValue { get; set; }
 
-        public CombatPayload CombatPayload
-        {
-            get { return combatPayload; }
-            set { combatPayload = value; }
-        }
+        public Transform Sender { get; set; }
+
+        public CombatPayload CombatPayload { get; set; }
     }
 
     public class BossChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            TerrapupaPayload terrapupaPayload = payload as TerrapupaPayload;
+            var terrapupaPayload = payload as TerrapupaPayload;
 
             Publish(terrapupaPayload);
         }

@@ -5,7 +5,6 @@ using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Centers.Test
@@ -23,13 +22,15 @@ namespace Assets.Scripts.Centers.Test
         {
             SetTicketMachine();
         }
-        private void SetTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat);
 
-            //ticketMachine.AddTicket(ChannelType.UI, new Ticket<IBaseEventPayload>());
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.P))
+            {
+                TestAttack();
+            }
         }
+
         public void Attack(IBaseEventPayload payload)
         {
             ticketMachine.SendMessage(ChannelType.Combat, payload);
@@ -37,16 +38,16 @@ namespace Assets.Scripts.Centers.Test
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
-
         }
 
-        private void Update()
+        private void SetTicketMachine()
         {
-            if(Input.GetKeyDown(KeyCode.P))
-            {
-                TestAttack();
-            }
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Combat);
+
+            //ticketMachine.AddTicket(ChannelType.UI, new Ticket<IBaseEventPayload>());
         }
+
         private void TestAttack()
         {
             CombatPayload payload = new()

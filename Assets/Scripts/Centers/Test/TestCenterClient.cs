@@ -1,7 +1,6 @@
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
-using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using UnityEngine;
@@ -14,16 +13,30 @@ namespace Centers.Test
         [SerializeField] private int damage = 2;
         [SerializeField] private Transform billboardPosition;
 
-        private TicketMachine ticketMachine;
+        private readonly MonsterDataContainer dataContainer = new();
         private UIMonsterBillboard billboard;
 
-        private readonly MonsterDataContainer dataContainer = new MonsterDataContainer();
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
             SetTicketMachine();
             InitUI();
             InitData();
+        }
+
+        private void OnGUI()
+        {
+            if (GUI.Button(new Rect(10, 10, 100, 20), "attack client"))
+            {
+                dataContainer.CurrentHp.Value -= damage;
+                //ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload { Type = CombatType.Test, HP = dataContainer.CurrentHp.Value }); ;
+            }
+
+            if (GUI.Button(new Rect(10, 30, 100, 20), "heal client"))
+            {
+                dataContainer.CurrentHp.Value += damage;
+            }
         }
 
         private void SetTicketMachine()
@@ -51,20 +64,6 @@ namespace Centers.Test
             dataContainer.Name = "I'm monster";
 
             billboard.InitData(dataContainer);
-        }
-
-        private void OnGUI()
-        {
-            if (GUI.Button(new Rect(10, 10, 100, 20), "attack client"))
-            {
-                dataContainer.CurrentHp.Value -= damage;
-                //ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload { Type = CombatType.Test, HP = dataContainer.CurrentHp.Value }); ;
-            }
-
-            if (GUI.Button(new Rect(10, 30, 100, 20), "heal client"))
-            {
-                dataContainer.CurrentHp.Value += damage;
-            }
         }
     }
 }

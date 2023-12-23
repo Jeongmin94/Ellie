@@ -2,20 +2,22 @@ using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Others
 {
-
     public class DistanceDetectedAI : MonoBehaviour
     {
-        public bool IsDetected { get; private set; }
         private SphereCollider collider;
+        public bool IsDetected { get; private set; }
 
         private void Awake()
         {
             collider = GetComponent<SphereCollider>();
         }
-        public void SetDetectDistance(float playerDetectDistance)
+
+        private void OnTriggerExit(Collider other)
         {
-            collider.isTrigger = true;
-            collider.radius = playerDetectDistance;
+            if (other.tag == "Player")
+            {
+                IsDetected = false;
+            }
         }
 
         private void OnTriggerStay(Collider other)
@@ -25,13 +27,11 @@ namespace Assets.Scripts.Monsters.Others
                 IsDetected = true;
             }
         }
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.tag == "Player")
-            {
-                IsDetected = false;
-            }
-        }
 
+        public void SetDetectDistance(float playerDetectDistance)
+        {
+            collider.isTrigger = true;
+            collider.radius = playerDetectDistance;
+        }
     }
 }

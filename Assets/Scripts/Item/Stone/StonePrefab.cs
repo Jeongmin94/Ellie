@@ -1,9 +1,7 @@
 ﻿using Assets.Scripts.Combat;
-using Assets.Scripts.Particle;
 using Channels.Combat;
-using Channels.Type;
-using System;
 using UnityEngine;
+
 namespace Assets.Scripts.Item.Stone
 {
     public class StonePrefab : BaseStone, ICombatant
@@ -12,17 +10,14 @@ namespace Assets.Scripts.Item.Stone
 
         public void Attack(IBaseEventPayload payload)
         {
-
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
-
         }
 
         public void OccurEffect(Transform defender)
         {
-            Debug.Log($"{defender} 돌 충돌");
             if (gameObject.activeSelf)
             {
                 hatchery.Attack(GenerateStonePayload(defender));
@@ -33,7 +28,7 @@ namespace Assets.Scripts.Item.Stone
         {
             var payload = new CombatPayload();
             // !TODO : 돌맹이 데이터 읽어와서 현재 돌맹이에 맞는 값으로 페이로드 초기화
-            
+
             //=> test
             payload.Type = CombatType.Projectile;
             payload.Attacker = transform;
@@ -48,6 +43,5 @@ namespace Assets.Scripts.Item.Stone
             //<=
             return payload;
         }
-        
     }
 }

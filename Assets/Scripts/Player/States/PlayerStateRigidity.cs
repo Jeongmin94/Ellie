@@ -1,27 +1,23 @@
 ﻿using Assets.Scripts.Managers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.States
 {
     public class PlayerStateRigidity : PlayerBaseState
     {
-        private float duration;
         private float curTime;
+        private float duration;
 
-        private string[] ellieRigiditySound = new string[2];
+        private readonly string[] ellieRigiditySound = new string[2];
+
         public PlayerStateRigidity(PlayerController controller) : base(controller)
         {
             ellieRigiditySound[0] = "ellie_sound3";
             ellieRigiditySound[1] = "ellie_sound4";
         }
+
         public override void OnEnterState()
         {
-
         }
 
         public override void OnEnterState(StateInfo info)
@@ -35,8 +31,9 @@ namespace Assets.Scripts.Player.States
             Controller.isRigid = true;
             duration = info.stateDuration;
             curTime = 0;
-            int soundIdx = UnityEngine.Random.Range(0, ellieRigiditySound.Length);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieRigiditySound[soundIdx], Controller.transform.position);
+            var soundIdx = Random.Range(0, ellieRigiditySound.Length);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieRigiditySound[soundIdx],
+                Controller.transform.position);
         }
 
 
@@ -54,7 +51,7 @@ namespace Assets.Scripts.Player.States
         public override void OnUpdateState()
         {
             curTime += Time.deltaTime;
-            if(curTime >= duration)
+            if (curTime >= duration)
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }

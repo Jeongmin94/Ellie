@@ -7,10 +7,10 @@ public class TerrapupaHealthBar : MonoBehaviour
 {
     [SerializeField] private TerrapupaRootData data;
 
-    private UIMonsterBillboard billboard;
-    private readonly MonsterDataContainer dataContainer = new MonsterDataContainer();
-
     public float scaleFactor = 0.003f;
+    private readonly MonsterDataContainer dataContainer = new();
+
+    private UIMonsterBillboard billboard;
 
     private void Awake()
     {
@@ -19,7 +19,7 @@ public class TerrapupaHealthBar : MonoBehaviour
 
     private void InitUI()
     {
-        Transform billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
+        var billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
 
         billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardPos, UIManager.UIMonsterBillboard);
         billboard.scaleFactor = scaleFactor;

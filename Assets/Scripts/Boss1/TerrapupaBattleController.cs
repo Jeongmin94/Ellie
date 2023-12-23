@@ -1,30 +1,27 @@
 ﻿using Assets.Scripts.Boss1.BossRoomObjects;
 using Assets.Scripts.Controller;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Boss1
 {
     public class TerrapupaBattleController : BaseController
     {
-        [Title("테라푸파 이벤트 관련 오브젝트 객체")]
-        [SerializeField][Required] private BossRoomDoor bossRoomDoor;
-        [SerializeField][Required] private BossRoomTrigger enterTrigger;
-        [SerializeField][Required] private BossRoomTrigger leftTrigger;
-        [SerializeField][Required] private Canvas bossRoomLeftCanvas;
-        [SerializeField][Required] private GameObject bossRoomEnterWall;
+        [Title("테라푸파 이벤트 관련 오브젝트 객체")] [SerializeField] [Required]
+        private BossRoomDoor bossRoomDoor;
 
-        [Title("보스전 설정")]
-        [InfoBox("보스전 BGM")] public string bossBGM = "TerrapupaBGM";
+        [SerializeField] [Required] private BossRoomTrigger enterTrigger;
+        [SerializeField] [Required] private BossRoomTrigger leftTrigger;
+        [SerializeField] [Required] private Canvas bossRoomLeftCanvas;
+        [SerializeField] [Required] private GameObject bossRoomEnterWall;
+
+        [Title("보스전 설정")] [InfoBox("보스전 BGM")] public string bossBGM = "TerrapupaBGM";
+
         [InfoBox("보스전 종료 BGM")] public string endingBGM = "EndingBGM";
 
         private TicketMachine ticketMachine;
@@ -55,7 +52,9 @@ namespace Assets.Scripts.Boss1
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
             if (payload is not BossBattlePayload bPayload)
+            {
                 return;
+            }
 
             switch (bPayload.SituationType)
             {
@@ -76,8 +75,6 @@ namespace Assets.Scripts.Boss1
                     break;
                 case BossSituationType.OpenLeftDoor:
                     OnOpenLeftDoor();
-                    break;
-                default:
                     break;
             }
         }

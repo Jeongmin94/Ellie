@@ -1,24 +1,24 @@
 ﻿using UnityEngine;
 
-public class Slingshot : MonoBehaviour {
+public class Slingshot : MonoBehaviour
+{
     public GameObject rightElastic;
     public GameObject leftElastic;
     public GameObject rightLine;
     public GameObject leftLine;
     public GameObject leather;
     public GameObject leatherLine;
-    private LineRenderer leftLineRenderer;
-    private LineRenderer rightLineRenderer;
 
     public Transform leftPos;
     public Transform rightPos;
-    private float pulled;
     private int i;
+    private LineRenderer leftLineRenderer;
+    private float pulled;
+    private LineRenderer rightLineRenderer;
     private float z;
 
-    void Awake ()
+    private void Awake()
     {
-        
         leftLineRenderer = leftPos.transform.GetComponent<LineRenderer>();
         rightLineRenderer = rightPos.transform.GetComponent<LineRenderer>();
 
@@ -37,13 +37,13 @@ public class Slingshot : MonoBehaviour {
         leather.GetComponent<SkinnedMeshRenderer>().enabled = false;
     }
 
-    void Update()
+    private void Update()
     {
         leftLineRenderer.SetPosition(0, leftPos.position);
         rightLineRenderer.SetPosition(0, rightPos.position);
         leftLineRenderer.SetPosition(1, leather.transform.position);
         rightLineRenderer.SetPosition(1, leather.transform.position);
-        
+
         if (Input.GetMouseButtonUp(0))
         {
             leftLineRenderer.enabled = false;

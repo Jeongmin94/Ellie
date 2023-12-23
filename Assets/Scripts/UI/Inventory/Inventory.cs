@@ -35,112 +35,99 @@ namespace Assets.Scripts.UI.Inventory
         EquipItem,
         UnEquipItem,
         UpdateEquipItem,
-        SendMessageToPlayer,
+        SendMessageToPlayer
     }
 
     public struct InventoryEventPayload
     {
         public InventoryEventType eventType;
         public SlotAreaType slotAreaType; // 슬롯 타입: Item, Equipment, Description
-        public GroupType groupType;       // 아이템 타입: Consumption, Stone, Etc
+        public GroupType groupType; // 아이템 타입: Consumption, Stone, Etc
         public BaseSlotItem baseSlotItem; // 슬롯 아이템 정보
-        public InventorySlot slot;        // 슬롯 위치
-        public BaseItem baseItem;         // 아이템 정보
-        public int equipmentSlotIdx;      // slotAreaType이 Equipment일 경우 Equipment창에서의 아이템의 index
+        public InventorySlot slot; // 슬롯 위치
+        public BaseItem baseItem; // 아이템 정보
+        public int equipmentSlotIdx; // slotAreaType이 Equipment일 경우 Equipment창에서의 아이템의 index
     }
 
     public class Inventory : UIPopup
     {
-        private enum GameObjects
-        {
-            DescriptionPanel,
-            CategoryPanel,
-            GoldAndStonePiecePanel,
-            CategoryButtonPanel, // toggle group
-
-            ItemSlots,
-            EquipmentSlots,
-            OuterRim
-        }
-
-        private enum Images
-        {
-            DescriptionImageArea,
-        }
-
         private static readonly string SoundOpen = "inven1";
         private static readonly string SoundClose = "inven5";
 
         private static readonly string SoundChangeSlot = "inven3";
         private static readonly string SoundEquipment = "inven4";
 
-        [Header("Description Text")]
-        [SerializeField]
+        [Header("Description Text")] [SerializeField]
         private TextTypographyData descriptionData;
 
         [SerializeField] private TextTypographyData descriptionNameData;
 
-        [Header("UI Transform Data")]
-        [SerializeField]
+        [Header("UI Transform Data")] [SerializeField]
         private UITransformData consumptionTransformData;
 
         [SerializeField] private UITransformData stoneTransformData;
 
-        [Header("Game Goods")]
-        [SerializeField]
+        [Header("Game Goods")] [SerializeField]
         private GameGoods goods;
 
-        // GameObject
-        private GameObject descriptionPanel;
-        private GameObject categoryPanel;
-        private GameObject goldAndStonePiecePanel;
-        private GameObject categoryButtonPanel;
-
-        private GameObject itemSlots;
-        private GameObject equipmentSlots;
-        private GameObject outerRim;
-
-        // Image
-        private Image descImageArea;
-
-        // Category Toggle Button
-        private CategoryButtonPanel buttonPanel;
-
-        // Close Button
-        private CloseButton closeButton;
-
-        // Description
-        private DescriptionNamePanel descriptionNamePanel;
-        private DescriptionTextPanel descriptionTextPanel;
-        private InventorySlot descriptionSlot;
-
-        // GameGoods
-        private ImageAndTextArea goldImageAndTextArea;
-        private ImageAndTextArea stonePieceImageAndTextArea;
-
-        // Frame Canvas
-        private FrameCanvas consumptionCanvas;
-        private FrameCanvas stoneCanvas;
-        private readonly IDictionary<GroupType, FrameCanvas> frameCanvasMap = new Dictionary<GroupType, FrameCanvas>();
-
-        [Tooltip("Slot Area Grid")]
-        [SerializeField]
+        [Tooltip("Slot Area Grid")] [SerializeField]
         private int row = 3;
 
         [SerializeField] private int col = 8;
         [SerializeField] private int padding = 1;
         [SerializeField] private int spacing = 2;
+        private readonly int[] equipmentCols = { 4, 5, 0 };
 
-        private TicketMachine ticketMachine;
+        private readonly int equipmentRow = 1;
+        private readonly IDictionary<GroupType, FrameCanvas> frameCanvasMap = new Dictionary<GroupType, FrameCanvas>();
 
-        private bool isOpened = false;
-        public bool IsOpened => isOpened;
+        // Category Toggle Button
+        private CategoryButtonPanel buttonPanel;
+        private GameObject categoryButtonPanel;
+        private GameObject categoryPanel;
+
+        // Close Button
+        private CloseButton closeButton;
+
+        // Frame Canvas
+        private FrameCanvas consumptionCanvas;
+
+        // Image
+        private Image descImageArea;
+
+        // Description
+        private DescriptionNamePanel descriptionNamePanel;
+
+        // GameObject
+        private GameObject descriptionPanel;
+        private InventorySlot descriptionSlot;
+        private DescriptionTextPanel descriptionTextPanel;
+        private GameObject equipmentSlots;
+        private GameObject goldAndStonePiecePanel;
+
+        // GameGoods
+        private ImageAndTextArea goldImageAndTextArea;
+
+        private GameObject itemSlots;
+        private GameObject outerRim;
+        private FrameCanvas stoneCanvas;
+        private ImageAndTextArea stonePieceImageAndTextArea;
 
         private InventorySlot swapBuffer;
+
+        private TicketMachine ticketMachine;
+        public bool IsOpened { get; private set; }
 
         private void Awake()
         {
             Init();
+        }
+
+        private void Start()
+        {
+            buttonPanel.ActivateToggle(GroupType.Stone, true);
+            // OnCloseButtonClickAction();
+            gameObject.SetActive(false);
         }
 
         protected override void Init()
@@ -214,13 +201,6 @@ namespace Assets.Scripts.UI.Inventory
             TicketManager.Instance.Ticket(ticketMachine);
         }
 
-        private void Start()
-        {
-            buttonPanel.ActivateToggle(GroupType.Stone, true);
-            // OnCloseButtonClickAction();
-            gameObject.SetActive(false);
-        }
-
         private void InitGoodsPanel()
         {
             var goldRect = goldAndStonePiecePanel.GetComponent<RectTransform>();
@@ -229,24 +209,32 @@ namespace Assets.Scripts.UI.Inventory
             goldRect.localPosition = InventoryConst.GoldRect.ToCanvasPos();
             goldRect.SetParent(categoryPanel.transform);
 
-            goldImageAndTextArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            goldImageAndTextArea =
+                UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
             goldImageAndTextArea.Rect.sizeDelta = Vector2.zero;
             goldImageAndTextArea.Rect.localPosition = Vector3.zero;
             goldImageAndTextArea.Image.sprite = ResourceManager.Instance.LoadSprite(ImageAndTextArea.GoldPath);
 
-            SetValues(goldImageAndTextArea.Image.GetComponent<RectTransform>(), goldImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
-            SetValues(goldImageAndTextArea.Text.GetComponent<RectTransform>(), goldImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
+            SetValues(goldImageAndTextArea.Image.GetComponent<RectTransform>(), goldImageAndTextArea.transform,
+                AnchorPresets.MiddleCenter, InventoryConst.GoldAreaRect);
+            SetValues(goldImageAndTextArea.Text.GetComponent<RectTransform>(), goldImageAndTextArea.transform,
+                AnchorPresets.MiddleCenter, InventoryConst.GoldAreaCountRect);
 
             goldImageAndTextArea.transform.SetParent(goldRect.transform);
             goods.gold.Subscribe(goldImageAndTextArea.OnGoodsCountChanged);
 
-            stonePieceImageAndTextArea = UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
+            stonePieceImageAndTextArea =
+                UIManager.Instance.MakeSubItem<ImageAndTextArea>(transform, UIManager.ImageAndTextArea);
             stonePieceImageAndTextArea.Rect.sizeDelta = Vector2.zero;
             stonePieceImageAndTextArea.Rect.localPosition = Vector3.zero;
-            stonePieceImageAndTextArea.Image.sprite = ResourceManager.Instance.LoadSprite(ImageAndTextArea.StonePiecePath);
+            stonePieceImageAndTextArea.Image.sprite =
+                ResourceManager.Instance.LoadSprite(ImageAndTextArea.StonePiecePath);
 
-            SetValues(stonePieceImageAndTextArea.Image.GetComponent<RectTransform>(), stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
-            SetValues(stonePieceImageAndTextArea.Text.GetComponent<RectTransform>(), stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaCountRect);
+            SetValues(stonePieceImageAndTextArea.Image.GetComponent<RectTransform>(),
+                stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter, InventoryConst.StonePieceAreaRect);
+            SetValues(stonePieceImageAndTextArea.Text.GetComponent<RectTransform>(),
+                stonePieceImageAndTextArea.transform, AnchorPresets.MiddleCenter,
+                InventoryConst.StonePieceAreaCountRect);
 
             stonePieceImageAndTextArea.transform.SetParent(goldRect.transform);
             goods.stonePiece.Subscribe(stonePieceImageAndTextArea.OnGoodsCountChanged);
@@ -255,12 +243,14 @@ namespace Assets.Scripts.UI.Inventory
         private void InitDescriptionPanel()
         {
             // description panel
-            descriptionNamePanel = UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
+            descriptionNamePanel =
+                UIManager.Instance.MakeSubItem<DescriptionNamePanel>(transform, UIManager.DescriptionNamePanel);
 
             descriptionNamePanel.SetTypographyData(descriptionNameData);
             descriptionNamePanel.transform.SetParent(descriptionPanel.transform);
 
-            descriptionTextPanel = UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
+            descriptionTextPanel =
+                UIManager.Instance.MakeSubItem<DescriptionTextPanel>(transform, UIManager.DescriptionTextPanel);
 
             descriptionTextPanel.SetTypographyData(descriptionData);
             descriptionTextPanel.transform.SetParent(descriptionPanel.transform);
@@ -285,29 +275,30 @@ namespace Assets.Scripts.UI.Inventory
         private void InitItemArea()
         {
             var groupTypes = Enum.GetValues(typeof(GroupType));
-            for (int i = 0; i < groupTypes.Length; i++)
+            for (var i = 0; i < groupTypes.Length; i++)
             {
-                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
+                var slotArea =
+                    UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
 
                 slotArea.InitSlotRect(itemSlots.transform, InventoryConst.SlotAreaRect);
-                slotArea.InitGridLayoutGroup(row, col, padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
+                slotArea.InitGridLayoutGroup(row, col, padding, spacing, GridLayoutGroup.Corner.UpperLeft,
+                    GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
                 slotArea.MakeSlots(SlotAreaType.Item);
 
                 buttonPanel.AddSlotArea(SlotAreaType.Item, slotArea);
             }
         }
 
-        private readonly int equipmentRow = 1;
-        private readonly int[] equipmentCols = new[] { 4, 5, 0 };
-
         private void InitEquipmentArea()
         {
             var groupTypes = Enum.GetValues(typeof(GroupType));
-            for (int i = 0; i < groupTypes.Length; i++)
+            for (var i = 0; i < groupTypes.Length; i++)
             {
-                var slotArea = UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
+                var slotArea =
+                    UIManager.Instance.MakeSubItem<InventorySlotArea>(outerRim.transform, InventorySlotArea.Path);
                 slotArea.InitSlotRect(equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
-                slotArea.InitGridLayoutGroup(equipmentRow, equipmentCols[i], padding, spacing, GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
+                slotArea.InitGridLayoutGroup(equipmentRow, equipmentCols[i], padding, spacing,
+                    GridLayoutGroup.Corner.UpperLeft, GridLayoutGroup.Axis.Horizontal, TextAnchor.MiddleCenter);
                 slotArea.MakeSlots(SlotAreaType.Equipment);
 
                 buttonPanel.AddSlotArea(SlotAreaType.Equipment, slotArea);
@@ -321,13 +312,17 @@ namespace Assets.Scripts.UI.Inventory
             var target = changeInfo.IsOn ? transform : outerRim.transform;
             if (changeInfo.IsOn)
             {
-                buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
-                buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
+                buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform,
+                    InventoryConst.SlotAreaRect);
+                buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, equipmentSlots.transform,
+                    InventoryConst.EquipSlotAreaRect);
             }
             else
             {
-                buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform, InventoryConst.SlotAreaRect);
-                buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, equipmentSlots.transform, InventoryConst.EquipSlotAreaRect);
+                buttonPanel.MoveSlotArea(SlotAreaType.Item, changeInfo.Type, target, itemSlots.transform,
+                    InventoryConst.SlotAreaRect);
+                buttonPanel.MoveSlotArea(SlotAreaType.Equipment, changeInfo.Type, target, equipmentSlots.transform,
+                    InventoryConst.EquipSlotAreaRect);
             }
         }
 
@@ -340,17 +335,34 @@ namespace Assets.Scripts.UI.Inventory
             SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClose);
 
             Cursor.visible = false;
-            isOpened = false;
+            IsOpened = false;
             gameObject.SetActive(false);
             UIPayload payload = new()
             {
                 uiType = UIType.Notify,
-                actionType = ActionType.ClickCloseButton,
+                actionType = ActionType.ClickCloseButton
             };
             ticketMachine.SendMessage(ChannelType.UI, payload);
         }
 
         #endregion
+
+        private enum GameObjects
+        {
+            DescriptionPanel,
+            CategoryPanel,
+            GoldAndStonePiecePanel,
+            CategoryButtonPanel, // toggle group
+
+            ItemSlots,
+            EquipmentSlots,
+            OuterRim
+        }
+
+        private enum Images
+        {
+            DescriptionImageArea
+        }
 
 
         #region UIChannelEvent
@@ -358,7 +370,9 @@ namespace Assets.Scripts.UI.Inventory
         private void OnNotifyAction(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             if (uiPayload.actionType == ActionType.ToggleInventory)
             {
@@ -382,7 +396,6 @@ namespace Assets.Scripts.UI.Inventory
                 uiPayload.actionType == ActionType.MoveCounterClockwise)
             {
                 MoveEquipmentSlot(uiPayload);
-                return;
             }
             // !TODO : 플레이어 돌맹이 불 프로퍼티에 대한 로직 작성
         }
@@ -394,7 +407,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private void ToggleInventory()
         {
-            if (isOpened)
+            if (IsOpened)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundClose);
                 OnCloseButtonClickAction();
@@ -402,7 +415,7 @@ namespace Assets.Scripts.UI.Inventory
             else
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.UISfx, SoundOpen);
-                isOpened = true;
+                IsOpened = true;
                 gameObject.SetActive(true);
             }
         }
@@ -442,7 +455,8 @@ namespace Assets.Scripts.UI.Inventory
                     var baseSlotItem = payload.baseSlotItem;
                     var slot = payload.slot;
 
-                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform,
+                        InventorySlotCopyItem.Path);
                     copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
@@ -460,7 +474,8 @@ namespace Assets.Scripts.UI.Inventory
                     var baseSlotItem = payload.baseSlotItem;
                     var slot = payload.slot;
 
-                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform,
+                        InventorySlotCopyItem.Path);
                     copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
@@ -490,7 +505,8 @@ namespace Assets.Scripts.UI.Inventory
                     var baseSlotItem = payload.baseSlotItem;
                     var slot = payload.slot;
 
-                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform, InventorySlotCopyItem.Path);
+                    var copy = UIManager.Instance.MakeSubItem<InventorySlotCopyItem>(slot.transform,
+                        InventorySlotCopyItem.Path);
                     copy.InitBaseSlotItem();
                     copy.MoveSlot(slot.SlotItemPosition, baseSlotItem.SlotItemData);
                     copy.SetOnDragParent(transform);
@@ -513,7 +529,9 @@ namespace Assets.Scripts.UI.Inventory
                     // !TODO : UIChannel에 플레이어의 has 변수를 바꿔줄 이벤트 쏴야됨
 
                     if (payload.slot != swapBuffer)
+                    {
                         ticketMachine.SendMessage(ChannelType.UI, GeneratePayloadToPlayer(payload));
+                    }
                 }
                     break;
 
@@ -525,7 +543,7 @@ namespace Assets.Scripts.UI.Inventory
 
         private UIPayload GeneratePayloadToPlayer(InventoryEventPayload payload)
         {
-            UIPayload uiPayload = new UIPayload();
+            var uiPayload = new UIPayload();
             uiPayload.uiType = UIType.Notify;
             uiPayload.actionType = ActionType.SetPlayerProperty;
             uiPayload.groupType = payload.groupType;
@@ -567,16 +585,17 @@ namespace Assets.Scripts.UI.Inventory
             consumptionCanvas = UIManager.Instance.MakeStatic<FrameCanvas>(FrameCanvas.Path);
             consumptionCanvas.FrameWidth = 86.0f;
             consumptionCanvas.FrameHeight = 86.0f;
-            consumptionCanvas.FrameImage = ResourceManager.Instance.LoadSprite("UI/Item/Equipment/ConsumptionFrameRotated");
+            consumptionCanvas.FrameImage =
+                ResourceManager.Instance.LoadSprite("UI/Item/Equipment/ConsumptionFrameRotated");
 
             consumptionCanvas.InitFrameCanvas(consumptionTransformData);
 
             Vector2[] directions =
             {
-                new Vector2(0.0f, consumptionCanvas.FrameHeight / 2.0f),
-                new Vector2(-consumptionCanvas.FrameWidth / 2.0f, 0.0f),
-                new Vector2(0.0f, -consumptionCanvas.FrameHeight / 2.0f),
-                new Vector2(consumptionCanvas.FrameWidth / 2.0f, 0.0f),
+                new(0.0f, consumptionCanvas.FrameHeight / 2.0f),
+                new(-consumptionCanvas.FrameWidth / 2.0f, 0.0f),
+                new(0.0f, -consumptionCanvas.FrameHeight / 2.0f),
+                new(consumptionCanvas.FrameWidth / 2.0f, 0.0f)
             };
 
             var consumptionArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Item);
@@ -599,13 +618,13 @@ namespace Assets.Scripts.UI.Inventory
             const float INF = 9999.0f;
             Vector2[] directions =
             {
-                new Vector2(0.0f, stoneCanvas.FrameHeight / 2.0f),
-                new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
-                new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
+                new(0.0f, stoneCanvas.FrameHeight / 2.0f),
+                new(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
+                new(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight / 2.0f),
                 // new Vector2(-stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight * 1.5f),
                 // new Vector2(stoneCanvas.FrameWidth / 2.0f, -stoneCanvas.FrameHeight * 1.5f),
-                new Vector2(INF, INF),
-                new Vector2(INF, INF),
+                new(INF, INF),
+                new(INF, INF)
             };
 
             var stoneArea = buttonPanel.GetSlotArea(SlotAreaType.Equipment, GroupType.Stone);
@@ -622,17 +641,17 @@ namespace Assets.Scripts.UI.Inventory
 
         private void Save()
         {
-            InventorySavePayload savePayload = new InventorySavePayload();
+            var savePayload = new InventorySavePayload();
 
-            List<InventorySlotArea> slotAreas = buttonPanel.GetSlotAreas(SlotAreaType.Item);
+            var slotAreas = buttonPanel.GetSlotAreas(SlotAreaType.Item);
             foreach (var area in slotAreas)
             {
-                List<InventorySlot> slots = area.GetSlotsWithItem();
+                var slots = area.GetSlotsWithItem();
                 foreach (var slot in slots)
                 {
                     var slotItem = slot.SlotItemData;
 
-                    ItemSaveInfo saveInfo = new ItemSaveInfo();
+                    var saveInfo = new ItemSaveInfo();
                     saveInfo.itemCount = slotItem.itemCount.Value;
                     saveInfo.itemIndex = slotItem.ItemIndex;
                     saveInfo.groupType = slotItem.itemData.groupType;
@@ -652,7 +671,7 @@ namespace Assets.Scripts.UI.Inventory
                 }
             }
 
-            savePayload.goodsSaveInfo = new GoodsSaveInfo()
+            savePayload.goodsSaveInfo = new GoodsSaveInfo
             {
                 goldAmount = goods.gold.Value,
                 stoneAmount = goods.stonePiece.Value
@@ -664,10 +683,12 @@ namespace Assets.Scripts.UI.Inventory
         private void Load(IBaseEventPayload payload)
         {
             if (payload is not InventorySavePayload savePayload)
+            {
                 return;
+            }
 
             // 로드전 초기화
-            Debug.Log($"Inventory Load");
+            Debug.Log("Inventory Load");
             buttonPanel.ClearSlotAreas();
 
             goods.gold.Value = savePayload.goodsSaveInfo.goldAmount;
@@ -676,8 +697,8 @@ namespace Assets.Scripts.UI.Inventory
             var saveInfos = savePayload.GetItemSaveInfos();
             foreach (var info in saveInfos)
             {
-                GroupType type = info.groupType;
-                int itemIdx = info.itemIndex;
+                var type = info.groupType;
+                var itemIdx = info.itemIndex;
                 ItemMetaData metaData = null;
 
                 switch (type)
@@ -697,12 +718,12 @@ namespace Assets.Scripts.UI.Inventory
 
                 if (metaData == null)
                 {
-                    string errorMsg = $"GetIndexData Error: {type}.{itemIdx}";
+                    var errorMsg = $"GetIndexData Error: {type}.{itemIdx}";
                     Debug.LogError(errorMsg);
                     throw new DataException(errorMsg);
                 }
 
-                UIPayload uiPayload = new UIPayload();
+                var uiPayload = new UIPayload();
                 uiPayload.itemData = metaData;
                 uiPayload.onDragParent = transform;
 

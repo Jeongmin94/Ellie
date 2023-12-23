@@ -2,21 +2,21 @@ using System.Collections;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Monsters.Others;
+using Assets.Scripts.StatusEffects;
 using Channels.Combat;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Attacks
 {
-
     public class AOEPrefabAttack : AbstractAttack
     {
         [SerializeField] private GameObject prefabObject;
-        private Vector3 position;
-        private Vector3 offset;
-        private float damageInterval;
-        private Transform player;
         public MonsterAttackData attackData;
-        
+        private float damageInterval;
+        private Vector3 offset;
+        private Transform player;
+        private Vector3 position;
+
         public override void InitializeAOE(MonsterAttackData data)
         {
             InitializedBase(data);
@@ -28,10 +28,12 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public override void ActivateAttack()
         {
-            AOE obj = Instantiate(prefabObject, player.position-new Vector3(0,0.9f,0), transform.rotation).GetComponent<AOE>();
+            var obj = Instantiate(prefabObject, player.position - new Vector3(0, 0.9f, 0), transform.rotation)
+                .GetComponent<AOE>();
             obj.spawner = gameObject.GetComponent<AOEPrefabAttack>();
             StartCoroutine(StartAttackReadyCount());
         }
+
         private IEnumerator StartAttackReadyCount()
         {
             IsAttackReady = false;
@@ -44,9 +46,8 @@ namespace Assets.Scripts.Monsters.Attacks
             CombatPayload payload = new();
             payload.Defender = otherTransform;
             payload.Damage = attackData.attackValue;
-            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.StatusEffectName = StatusEffectName.WeakRigidity;
             Attack(payload);
         }
     }
-
 }

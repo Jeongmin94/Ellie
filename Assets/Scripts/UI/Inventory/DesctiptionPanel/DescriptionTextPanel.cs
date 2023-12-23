@@ -8,13 +8,9 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class DescriptionTextPanel : UIBase
     {
-        private enum Texts
-        {
-            DescriptionText,
-        }
+        private TextMeshProUGUI descText;
 
         private RectTransform rect;
-        private TextMeshProUGUI descText;
 
         private void Awake()
         {
@@ -56,6 +52,11 @@ namespace Assets.Scripts.UI.Inventory
         public void SetDescriptionText(string text)
         {
             descText.text = text;
+        }
+
+        private enum Texts
+        {
+            DescriptionText
         }
     }
 }

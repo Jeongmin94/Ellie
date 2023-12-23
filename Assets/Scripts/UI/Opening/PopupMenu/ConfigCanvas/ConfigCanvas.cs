@@ -18,53 +18,46 @@ namespace Assets.Scripts.UI.PopupMenu
 
         private static readonly string SoundCancel = "click3";
 
-        private enum GameObjects
-        {
-            ConfigButtonPanel,
-            ConfigListPanel,
-        }
 
-        private enum Images
-        {
-            Background
-        }
-
-
-        [Header("Config List")]
-        [SerializeField]
+        [Header("Config List")] [SerializeField]
         private ConfigType[] configTypes;
 
-        [Header("UI Transform")]
-        [SerializeField]
+        [Header("UI Transform")] [SerializeField]
         private UITransformData buttonPanelTransform;
 
         [SerializeField] private UITransformData configListTransform;
 
-        [Header("Button Typography")]
-        [SerializeField]
+        [Header("Button Typography")] [SerializeField]
         private TextTypographyData buttonTypographyData;
 
-        private readonly TransformController buttonPanelController = new TransformController();
-        private readonly TransformController configListController = new TransformController();
+        private readonly TransformController buttonPanelController = new();
+        private readonly TransformController configListController = new();
+        private readonly List<ConfigMenuList> menuList = new();
 
         private GameObject buttonPanel;
-        private GameObject listPanel;
 
         private RectTransform buttonPanelRect;
-        private RectTransform listPanelRect;
-
-        public Image Background => background;
-        private Image background;
 
         public Action<PopupPayload> configCanvasAction;
 
         // 환경설정 UI 관리
         private ConfigButtonPanel configToggleGroup;
-        private readonly List<ConfigMenuList> menuList = new List<ConfigMenuList>();
+        private GameObject listPanel;
+        private RectTransform listPanelRect;
+
+        public Image Background { get; private set; }
 
         private void Awake()
         {
             Init();
+        }
+
+        private void LateUpdate()
+        {
+#if UNITY_EDITOR
+            buttonPanelController.CheckQueue(buttonPanelRect);
+            configListController.CheckQueue(listPanelRect);
+#endif
         }
 
         protected override void Init()
@@ -88,7 +81,7 @@ namespace Assets.Scripts.UI.PopupMenu
             buttonPanelRect = buttonPanel.GetComponent<RectTransform>();
             listPanelRect = listPanel.GetComponent<RectTransform>();
 
-            background = GetImage((int)Images.Background);
+            Background = GetImage((int)Images.Background);
         }
 
         private void InitObjects()
@@ -125,7 +118,7 @@ namespace Assets.Scripts.UI.PopupMenu
         private void InitMenuList()
         {
             var configTypes = Enum.GetValues(typeof(ConfigType));
-            for (int i = 0; i < configTypes.Length; i++)
+            for (var i = 0; i < configTypes.Length; i++)
             {
                 var type = (ConfigType)configTypes.GetValue(i);
                 var menu = UIManager.Instance.MakeSubItem<ConfigMenuList>(listPanelRect, ConfigMenuList.Path);
@@ -143,26 +136,18 @@ namespace Assets.Scripts.UI.PopupMenu
             if (gameObject.activeSelf)
             {
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundCancel, Vector3.zero);
-                PopupPayload payload = new PopupPayload();
+                var payload = new PopupPayload();
                 payload.buttonType = ButtonType.No;
                 payload.popupType = PopupType.Config;
                 configCanvasAction?.Invoke(payload);
             }
         }
 
-        private void LateUpdate()
-        {
-#if UNITY_EDITOR
-            buttonPanelController.CheckQueue(buttonPanelRect);
-            configListController.CheckQueue(listPanelRect);
-#endif
-        }
-
         #region ConfigToggleEvent
 
         private void OnButtonPanelAction(PopupPayload payload)
         {
-            int idx = (int)payload.configType;
+            var idx = (int)payload.configType;
             menuList[idx].gameObject.SetActive(payload.isOn);
         }
 
@@ -184,6 +169,17 @@ namespace Assets.Scripts.UI.PopupMenu
                 default:
                     throw new ArgumentOutOfRangeException(nameof(type), type, null);
             }
+        }
+
+        private enum GameObjects
+        {
+            ConfigButtonPanel,
+            ConfigListPanel
+        }
+
+        private enum Images
+        {
+            Background
         }
     }
 }

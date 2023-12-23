@@ -1,4 +1,6 @@
-﻿using Assets.Scripts.Controller;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.Controller;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
@@ -7,29 +9,13 @@ using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Sirenix.OdinInspector;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Boss1
 {
     public class TerrapupaDialogController : BaseController
     {
-        [ShowInInspector][ReadOnly] private Dictionary<int, bool> dialogAchievementDic = new();
-        [ShowInInspector][ReadOnly] private BossDialogData currentData = null;
-        [ShowInInspector][ReadOnly] private List<BossDialog> dialogList = new();
-
-        private BossDialogParsingInfo parsingInfo;
-        private Coroutine dialogCoroutine = null;
-        private DialogCanvasType currentType;
-        private int currentIndex;
-        private bool isInit;
-
-        private Dictionary<int, bool> dialogFirstAchievementDic = new(); // 임시 저장용
-        private TicketMachine ticketMachine;
-
-        public string[] speakers = new string[]
+        public string[] speakers =
         {
             "엘리",
             "말하는 해골 머리 첫 째",
@@ -37,14 +23,28 @@ namespace Assets.Scripts.Boss1
             "말하는 해골 머리 막내",
             "테라푸파"
         };
-        public string[] images = new string[]
+
+        public string[] images =
         {
             "Ellie",
             "talking skull head1",
             "talking skull head2",
             "talking skull head3",
-            "Frame 8",
+            "Frame 8"
         };
+
+        [ShowInInspector] [ReadOnly] private BossDialogData currentData;
+        private int currentIndex;
+        private DialogCanvasType currentType;
+        [ShowInInspector] [ReadOnly] private Dictionary<int, bool> dialogAchievementDic = new();
+        private Coroutine dialogCoroutine;
+
+        private Dictionary<int, bool> dialogFirstAchievementDic = new(); // 임시 저장용
+        [ShowInInspector] [ReadOnly] private List<BossDialog> dialogList = new();
+        private bool isInit;
+
+        private BossDialogParsingInfo parsingInfo;
+        private TicketMachine ticketMachine;
 
         public override void InitController()
         {
@@ -96,8 +96,10 @@ namespace Assets.Scripts.Boss1
 
         private void LoadBossDialog(IBaseEventPayload payload)
         {
-            if (payload is not BossSavePayload savePayload) 
+            if (payload is not BossSavePayload savePayload)
+            {
                 return;
+            }
 
             dialogAchievementDic = savePayload.bossDialogStatusDic;
             dialogFirstAchievementDic = dialogAchievementDic;
@@ -106,14 +108,18 @@ namespace Assets.Scripts.Boss1
         private void OnNotifyDialog(IBaseEventPayload payload)
         {
             if (payload is not DialogPayload dialogPayload)
-                return;
-
-            if (dialogPayload.dialogType != DialogType.NotifyToClient || currentData == null) 
-                return;
-
-            if(isInit)
             {
-                if(dialogPayload.isEnd)
+                return;
+            }
+
+            if (dialogPayload.dialogType != DialogType.NotifyToClient || currentData == null)
+            {
+                return;
+            }
+
+            if (isInit)
+            {
+                if (dialogPayload.isEnd)
                 {
                     if (dialogCoroutine != null)
                     {
@@ -129,6 +135,7 @@ namespace Assets.Scripts.Boss1
                     {
                         EndDialog();
                     }
+
                     dialogCoroutine = null;
                 }
                 else if (currentType != DialogCanvasType.Simple && currentType != DialogCanvasType.GuideDialog)
@@ -140,6 +147,7 @@ namespace Assets.Scripts.Boss1
                         {
                             StopCoroutine(dialogCoroutine);
                         }
+
                         dialogCoroutine = StartCoroutine(DialogCoroutine());
                     }
                 }
@@ -149,10 +157,14 @@ namespace Assets.Scripts.Boss1
         private void OnNotifyBossDialog(IBaseEventPayload payload)
         {
             if (payload is not BossDialogPaylaod dialogPayload)
+            {
                 return;
+            }
 
             if (dialogPayload.TriggerType == BossDialogTriggerType.None)
+            {
                 return;
+            }
 
             var data = parsingInfo.GetIndexData<BossDialogData>((int)dialogPayload.TriggerType);
             Debug.Log($"OnNotifyBossDialog() :: {data.index}");
@@ -173,17 +185,20 @@ namespace Assets.Scripts.Boss1
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
             if (payload is not BossBattlePayload battlePayload)
+            {
                 return;
+            }
 
             Debug.Log(battlePayload.SituationType);
 
             if (battlePayload.SituationType == BossSituationType.EnterBossRoom)
             {
-                bool hasDialogAchievement = dialogAchievementDic.ContainsKey((int)BossDialogTriggerType.EnterBossRoom)
-                                            && dialogAchievementDic[(int)BossDialogTriggerType.EnterBossRoom];
+                var hasDialogAchievement = dialogAchievementDic.ContainsKey((int)BossDialogTriggerType.EnterBossRoom)
+                                           && dialogAchievementDic[(int)BossDialogTriggerType.EnterBossRoom];
 
                 if ((currentData == null && hasDialogAchievement) ||
-                    (currentData != null && currentData.index == (int)BossSituationType.EnterBossRoom && hasDialogAchievement))
+                    (currentData != null && currentData.index == (int)BossSituationType.EnterBossRoom &&
+                     hasDialogAchievement))
                 {
                     BossBattleChannel.SendMessageBossBattle(BossSituationType.StartBattle, ticketMachine);
                 }
@@ -205,9 +220,11 @@ namespace Assets.Scripts.Boss1
                     {
                         EndDialog();
                     }
+
                     dialogCoroutine = null;
                     yield break;
                 }
+
                 yield return null;
             }
         }
@@ -222,13 +239,16 @@ namespace Assets.Scripts.Boss1
             {
                 StopCoroutine(dialogCoroutine);
             }
+
             // 상황 별 이벤트 재생
             var bossDialogType = dialogList[currentIndex].bossDialogType;
             if (bossDialogType != BossSituationType.None)
-            {   
+            {
                 SendBossDialogMessage(bossDialogType);
             }
-            SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType, dialogList[currentIndex].speaker, dialogList[currentIndex].remainTime);
+
+            SendDialogMessage(dialogList[currentIndex].dialog, dialogList[currentIndex].dialogCanvasType,
+                dialogList[currentIndex].speaker, dialogList[currentIndex].remainTime);
         }
 
         private void EndDialog()
@@ -278,14 +298,12 @@ namespace Assets.Scripts.Boss1
         private bool IsCheckedAchievementStatus(BossDialogData data)
         {
             // 세이브하는 데이터인지 체크
-            if(data.isSaveDialog)
+            if (data.isSaveDialog)
             {
                 return dialogFirstAchievementDic[data.index];
             }
-            else
-            {
-                return false;
-            }
+
+            return false;
         }
 
         [Button]
@@ -314,6 +332,7 @@ namespace Assets.Scripts.Boss1
             {
                 dialogAchievementDic[data.index] = false;
             }
+
             SaveLoadManager.Instance.SaveSpecificData(SaveBossDialog);
         }
     }

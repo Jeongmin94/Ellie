@@ -10,7 +10,7 @@ namespace Assets.Scripts.UI.PopupMenu
         public override void Click()
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundOk, Vector3.zero);
-            PopupPayload payload = new PopupPayload();
+            var payload = new PopupPayload();
             payload.buttonType = ButtonType.Yes;
 
             Invoke(payload);

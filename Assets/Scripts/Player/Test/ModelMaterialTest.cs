@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using UnityEngine;
 
@@ -40,14 +39,14 @@ namespace Assets.Scripts.Player.Test
             modelMaterial.SetColor(BaseColor, hitColor);
             yield return new WaitForSeconds(hitDuration);
 
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
             while (timeAcc <= returnDuration)
             {
                 timeAcc += Time.deltaTime;
                 yield return wfef;
 
-                Color c = Color.Lerp(hitColor, originColor, timeAcc / returnDuration);
+                var c = Color.Lerp(hitColor, originColor, timeAcc / returnDuration);
                 modelMaterial.SetColor(BaseColor, c);
             }
 

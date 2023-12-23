@@ -9,20 +9,19 @@ namespace Assets.Scripts.Managers
 {
     public class Pool
     {
+        private readonly Stack<Poolable> poolStack = new();
+        public Action<Pool> clearPoolAction;
         public int MaxCount { get; set; } = 10;
         public GameObject Original { get; private set; }
         public Transform Root { get; set; }
 
-        private readonly Stack<Poolable> poolStack = new Stack<Poolable>();
-        public Action<Pool> clearPoolAction;
-        
         public void Init(GameObject original, int count = 5)
         {
             Original = original;
             Root = new GameObject().transform;
             Root.name = $"{original.name}_Root";
 
-            for (int i = 0; i < count; i++)
+            for (var i = 0; i < count; i++)
             {
                 Push(Create());
             }
@@ -30,7 +29,7 @@ namespace Assets.Scripts.Managers
 
         private Poolable Create()
         {
-            GameObject go = Object.Instantiate(Original);
+            var go = Object.Instantiate(Original);
             go.name = Original.name;
 
             var poolable = go.GetOrAddComponent<Poolable>();
@@ -39,7 +38,10 @@ namespace Assets.Scripts.Managers
             return poolable;
         }
 
-        public int GetStackSize() => poolStack.Count;
+        public int GetStackSize()
+        {
+            return poolStack.Count;
+        }
 
         public void Push(Poolable poolable)
         {
@@ -50,9 +52,11 @@ namespace Assets.Scripts.Managers
                 poolable.isUsing = false;
 
                 poolStack.Push(poolable);
-                
+
                 if (IsFull())
+                {
                     clearPoolAction?.Invoke(this);
+                }
             }
         }
 
@@ -61,9 +65,13 @@ namespace Assets.Scripts.Managers
             Poolable poolable;
 
             if (poolStack.Any())
+            {
                 poolable = poolStack.Pop();
+            }
             else
+            {
                 poolable = Create();
+            }
 
             poolable.transform.SetParent(parent);
             poolable.gameObject.SetActive(true);

@@ -8,13 +8,9 @@ namespace Assets.Scripts.UI.Inventory
 {
     public class DescriptionNamePanel : UIBase
     {
-        private enum Texts
-        {
-            DescriptionNameText
-        }
+        private TextMeshProUGUI descNameText;
 
         private RectTransform rect;
-        private TextMeshProUGUI descNameText;
 
         private void Awake()
         {
@@ -48,13 +44,18 @@ namespace Assets.Scripts.UI.Inventory
             descNameText.fontSize = data.fontSize;
             descNameText.alignment = data.alignmentOptions;
             descNameText.lineSpacing = data.lineSpacing;
-            
+
             descNameText.font = data.fontAsset;
         }
 
         public void SetDescriptionName(string descName)
         {
             descNameText.text = descName;
+        }
+
+        private enum Texts
+        {
+            DescriptionNameText
         }
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Utils;
@@ -23,22 +22,14 @@ namespace InteractingColliders
             StartCoroutine(InitGuideDialogData());
         }
 
-        private void InitTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Dialog);
-        }
-        private IEnumerator InitGuideDialogData()
-        {
-            yield return DataManager.Instance.CheckIsParseDone();
-            data = DataManager.Instance.GetIndexData<GuideDialogData, GuideDialogParsingInfo>(index);
-        }
-
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.CompareTag("Player")) return;
-            
-            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload()
+            if (!other.CompareTag("Player"))
+            {
+                return;
+            }
+
+            ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
             {
                 dialogType = DialogType.Notify,
                 canvasType = DialogCanvasType.GuideDialog,
@@ -46,8 +37,20 @@ namespace InteractingColliders
                 text = data.message,
                 imageName = data.imageName
             });
-            
+
             gameObject.SetActive(false);
+        }
+
+        private void InitTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTickets(ChannelType.Dialog);
+        }
+
+        private IEnumerator InitGuideDialogData()
+        {
+            yield return DataManager.Instance.CheckIsParseDone();
+            data = DataManager.Instance.GetIndexData<GuideDialogData, GuideDialogParsingInfo>(index);
         }
     }
 }

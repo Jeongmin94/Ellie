@@ -1,16 +1,36 @@
 using System.Collections;
+using Assets.Scripts.Combat;
 using Assets.Scripts.Monsters.AbstractClass;
+using Assets.Scripts.StatusEffects;
 using Channels.Combat;
 using UnityEngine;
-using Assets.Scripts.Combat;
 
 namespace Assets.Scripts.Monsters.Attacks
 {
     public class BoxColliderAttack : AbstractAttack
     {
-        private BoxCollider collider;
         private MonsterAttackData attackData;
+        private BoxCollider collider;
         private ParticleSystem particle;
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.CompareTag("Player"))
+            {
+                if (other.gameObject.GetComponent<ICombatant>() != null)
+                {
+                    audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
+                    if (particle == null)
+                    {
+                        particle = particleController.GetParticle(MonsterParticleType.MeleeHit);
+                    }
+
+                    particle.transform.position = other.transform.position;
+                    particle.Play();
+                    SetAndAttack(attackData, other.transform);
+                }
+            }
+        }
 
         public override void InitializeBoxCollider(MonsterAttackData data)
         {
@@ -28,9 +48,14 @@ namespace Assets.Scripts.Monsters.Attacks
             collider.enabled = false;
 
             if (audioController == null)
+            {
                 audioController = transform.parent.GetComponent<MonsterAudioController>();
+            }
+
             if (particleController == null)
+            {
                 particleController = transform.parent.GetComponent<MonsterParticleController>();
+            }
         }
 
         public override void ActivateAttack()
@@ -45,24 +70,6 @@ namespace Assets.Scripts.Monsters.Attacks
             collider.enabled = false;
         }
 
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.CompareTag("Player"))
-            {
-                if (other.gameObject.GetComponent<ICombatant>() != null)
-                {
-                    audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
-                    if (particle == null)
-                    {
-                        particle = particleController.GetParticle(MonsterParticleType.MeleeHit);
-                    }
-                    particle.transform.position = other.transform.position;
-                    particle.Play();
-                    SetAndAttack(attackData, other.transform);
-                }
-            }
-        }
-
         private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
             CombatPayload payload = new();
@@ -72,11 +79,10 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.StatusEffectName = StatusEffectName.WeakRigidity;
             payload.statusEffectduration = 0.3f;
-            payload.Damage = (int)data.attackValue;
+            payload.Damage = data.attackValue;
             Attack(payload);
         }
-
     }
 }

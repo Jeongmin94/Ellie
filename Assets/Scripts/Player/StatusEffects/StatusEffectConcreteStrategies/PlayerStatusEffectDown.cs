@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.StatusEffects;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.StatusEffects;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
@@ -7,7 +7,8 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
     public class PlayerStatusEffectDown : MonoBehaviour, IPlayerStatusEffect
     {
         private float duration;
-        PlayerController playerController;
+        private PlayerController playerController;
+
         public void InitStatusEffect()
         {
         }

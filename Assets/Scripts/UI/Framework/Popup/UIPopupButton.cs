@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
@@ -9,7 +8,7 @@ namespace Assets.Scripts.UI.Framework.Popup
 {
     public class UIPopupButton : UIPopup
     {
-        private int score = 0;
+        private int score;
 
         private void Awake()
         {
@@ -26,16 +25,13 @@ namespace Assets.Scripts.UI.Framework.Popup
             var btn = GetButton((int)UIButtons.Button);
             var text = GetText((int)UITexts.Text);
 
-            btn.gameObject.BindEvent(OnButtonClicked, UIEvent.Click);
-            btn.gameObject.BindEvent(data =>
-            {
-                text.text = score++.ToString();
-            }, UIEvent.Click);
+            btn.gameObject.BindEvent(OnButtonClicked);
+            btn.gameObject.BindEvent(data => { text.text = score++.ToString(); });
         }
 
         private void OnButtonClicked(PointerEventData data)
         {
-            Debug.Log($"Button 클릭됨!");
+            Debug.Log("Button 클릭됨!");
         }
     }
 }

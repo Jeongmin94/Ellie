@@ -5,8 +5,9 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateJump : PlayerBaseState
     {
+        private readonly Rigidbody rb;
         private float jumpInputTime;
-        readonly Rigidbody rb;
+
         public PlayerStateJump(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
@@ -18,7 +19,7 @@ namespace Assets.Scripts.Player.States
             jumpInputTime = 0;
             Controller.isJumping = true;
             Controller.Jump();
-            Controller.Anim.SetBool("IsJumping",true);
+            Controller.Anim.SetBool("IsJumping", true);
             Controller.PlayerStatus.isRecoveringStamina = false;
             Controller.PlayerStatus.ConsumeStamina(Controller.PlayerStatus.JumpStaminaConsumption);
             Controller.SetColliderHeight(1f);
@@ -43,7 +44,7 @@ namespace Assets.Scripts.Player.States
             else
             {
                 //점프 input이 끝나면 Airbourn 스테이트로 넘어가자
-                
+
                 Controller.ChangeState(PlayerStateName.Airborne);
             }
             //if (Input.GetMouseButtonDown(0))
@@ -56,7 +57,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
-
         }
     }
 }

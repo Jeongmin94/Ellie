@@ -6,9 +6,9 @@ namespace Assets.Scripts.UI.Equipment
     {
         #region Rect
 
-        public static Rect ConsumptionPanelRect { get; } = new Rect(44, 804, 172, 172);
+        public static Rect ConsumptionPanelRect { get; } = new(44, 804, 172, 172);
 
-        public static Rect StonePanelRect { get; } = new Rect(1653, 811, 227, 227);
+        public static Rect StonePanelRect { get; } = new(1653, 811, 227, 227);
 
         #endregion
     }

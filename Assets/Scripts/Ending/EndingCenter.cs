@@ -1,4 +1,3 @@
-using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Singleton;
 using Centers;
 using UnityEngine;

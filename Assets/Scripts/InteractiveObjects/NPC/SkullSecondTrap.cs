@@ -1,21 +1,20 @@
-﻿using Assets.Scripts.Utils;
+﻿using System;
+using Assets.Scripts.StatusEffects;
+using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using System;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
     public class SkullSecondTrap : MonoBehaviour
     {
+        private bool isTrapActivated;
         private TicketMachine ticketMachine;
 
         private Action trapHitAction;
 
-        private bool isTrapActivated = false;
-        
 
         private void Awake()
         {
@@ -23,6 +22,28 @@ namespace Assets.Scripts.InteractiveObjects.NPC
 
             ticketMachine.AddTickets(ChannelType.Combat);
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (!isTrapActivated && other.CompareTag("Player"))
+            {
+                //플레이어에 닿으면 상태이상 주고 데미지
+                ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                {
+                    Type = CombatType.Melee,
+                    Damage = 1,
+                    Defender = other.transform,
+                    StatusEffectName = StatusEffectName.KnockedAirborne,
+                    statusEffectduration = 1.5f,
+                    force = 15f
+                });
+
+                isTrapActivated = true;
+
+                Publish();
+            }
+        }
+
         public void SubscribeTrapHitAction(Action listener)
         {
             trapHitAction -= listener;
@@ -32,27 +53,6 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         private void Publish()
         {
             trapHitAction.Invoke();
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if(!isTrapActivated && other.CompareTag("Player"))
-            {
-                //플레이어에 닿으면 상태이상 주고 데미지
-                ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
-                {
-                    Type = CombatType.Melee,
-                    Damage = 1,
-                    Defender = other.transform,
-                    StatusEffectName = StatusEffects.StatusEffectName.KnockedAirborne,
-                    statusEffectduration = 1.5f,
-                    force = 15f
-                });
-
-                isTrapActivated = true;
-
-                Publish();
-            }
         }
     }
 }

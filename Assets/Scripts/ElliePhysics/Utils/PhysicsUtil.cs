@@ -17,7 +17,7 @@ namespace Assets.Scripts.ElliePhysics.Utils
 
         public static Vector3 CalculateInitialVelocity(Vector3 direction, float time, float distance)
         {
-            float speed = (distance - 0.5f * Physics.gravity.magnitude * time * time) / time;
+            var speed = (distance - 0.5f * Physics.gravity.magnitude * time * time) / time;
             return direction.normalized * speed;
         }
 
@@ -29,38 +29,42 @@ namespace Assets.Scripts.ElliePhysics.Utils
             int pointCount,
             LayerMask layerMask)
         {
-            if (Mathf.Equals(time, 0.0f))
+            if (Equals(time, 0.0f))
+            {
                 return new Vector3[1] { releasePosition };
+            }
 
-            Vector3 startPosition = releasePosition;
-            Vector3 startVelocity = direction * strength;
+            var startPosition = releasePosition;
+            var startVelocity = direction * strength;
 
-            List<Vector3> pointList = new List<Vector3>();
-            float timeInterval = time / (float)(pointCount + 1);
-            int i = 0;
+            var pointList = new List<Vector3>();
+            var timeInterval = time / (pointCount + 1);
+            var i = 0;
 
             pointList.Add(startPosition);
-            for (float accInterval = timeInterval; accInterval < time; accInterval += timeInterval)
+            for (var accInterval = timeInterval; accInterval < time; accInterval += timeInterval)
             {
                 i++;
                 if (i >= pointCount + 1)
+                {
                     break;
+                }
 
-                Vector3 currentPosition = startPosition + startVelocity * accInterval;
-                currentPosition.y = startPosition.y + startVelocity.y * accInterval + (Physics.gravity.y / 2.0f * accInterval * accInterval);
+                var currentPosition = startPosition + startVelocity * accInterval;
+                currentPosition.y = startPosition.y + startVelocity.y * accInterval +
+                                    Physics.gravity.y / 2.0f * accInterval * accInterval;
 
-                Vector3 prevPosition = pointList[i - 1];
-                Vector3 prevToCurrent = currentPosition - prevPosition;
+                var prevPosition = pointList[i - 1];
+                var prevToCurrent = currentPosition - prevPosition;
 
-                if (Physics.Raycast(prevPosition, prevToCurrent.normalized, out RaycastHit hit, prevToCurrent.magnitude, layerMask))
+                if (Physics.Raycast(prevPosition, prevToCurrent.normalized, out var hit, prevToCurrent.magnitude,
+                        layerMask))
                 {
                     pointList.Add(hit.point);
                     break;
                 }
-                else
-                {
-                    pointList.Add(currentPosition);
-                }
+
+                pointList.Add(currentPosition);
             }
 
             return pointList.ToArray();

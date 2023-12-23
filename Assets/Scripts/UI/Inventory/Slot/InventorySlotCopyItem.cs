@@ -8,6 +8,12 @@ namespace Assets.Scripts.UI.Inventory
 
         private Action<InventoryEventPayload> copyItemAction;
 
+        private void OnDestroy()
+        {
+            copyItemAction = null;
+            SlotItemData = null;
+        }
+
         public override void InitBaseSlotItem()
         {
             Init();
@@ -19,12 +25,9 @@ namespace Assets.Scripts.UI.Inventory
             copyItemAction += listener;
         }
 
-        private void OnDestroy()
+        public override bool IsOrigin()
         {
-            copyItemAction = null;
-            SlotItemData = null;
+            return false;
         }
-
-        public override bool IsOrigin() => false;
     }
 }

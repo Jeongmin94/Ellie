@@ -18,21 +18,15 @@ namespace Assets.Scripts.UI.Video
 {
     public class VideoCanvas : UIPopup
     {
-        private enum GameObjects
-        {
-            VideoRawImage,
-            VideoPlayer,
-        }
-
         [SerializeField] private VideoData videoData;
 
-        private readonly List<GameObject> gameObjects = new List<GameObject>();
-        private readonly List<RectTransform> rectTransforms = new List<RectTransform>();
-
-        private RawImage videoRawImage;
-        private VideoPlayer videoPlayer;
+        private readonly List<GameObject> gameObjects = new();
+        private readonly List<RectTransform> rectTransforms = new();
 
         private TicketMachine ticketMachine;
+        private VideoPlayer videoPlayer;
+
+        private RawImage videoRawImage;
 
         public bool IsEnd { get; set; } = true;
 
@@ -54,7 +48,7 @@ namespace Assets.Scripts.UI.Video
             Bind<GameObject>(typeof(GameObjects));
 
             var gos = Enum.GetValues(typeof(GameObjects));
-            for (int i = 0; i < gos.Length; i++)
+            for (var i = 0; i < gos.Length; i++)
             {
                 var go = GetGameObject(i);
                 rectTransforms.Add(go.GetComponent<RectTransform>());
@@ -88,7 +82,9 @@ namespace Assets.Scripts.UI.Video
         private void OnNotify(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             if (uiPayload.actionType == ActionType.PlayVideo)
             {
@@ -105,9 +101,9 @@ namespace Assets.Scripts.UI.Video
             InputManager.Instance.CanInput = false;
             IsEnd = false;
             Cursor.visible = false;
-            
+
             videoPlayer.Play();
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var wfef = new WaitForEndOfFrame();
             while (!IsEnd)
             {
                 yield return wfef;
@@ -128,6 +124,12 @@ namespace Assets.Scripts.UI.Video
         private void CheckOver(VideoPlayer vp)
         {
             IsEnd = true;
+        }
+
+        private enum GameObjects
+        {
+            VideoRawImage,
+            VideoPlayer
         }
     }
 }

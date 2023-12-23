@@ -2,20 +2,20 @@ namespace Assets.Scripts.Managers
 {
     public class WithdrawScheduleInfo
     {
-        public readonly Poolable poolable;
         public readonly Pool pool;
-        public bool IsScheduled => isScheduled;
+        public readonly Poolable poolable;
 
-        private bool isScheduled;
         private int version;
 
         public WithdrawScheduleInfo(Poolable poolable, Pool pool)
         {
             this.poolable = poolable;
             this.pool = pool;
-            isScheduled = false;
+            IsScheduled = false;
             version = 0;
         }
+
+        public bool IsScheduled { get; private set; }
 
         public static WithdrawScheduleInfo Of(Poolable poolable, Pool pool)
         {
@@ -24,20 +24,24 @@ namespace Assets.Scripts.Managers
 
         public int Reserve()
         {
-            isScheduled = true;
+            IsScheduled = true;
             return ++version;
         }
 
         public void Cancel()
         {
-            if (!isScheduled) return;
-            isScheduled = false;
+            if (!IsScheduled)
+            {
+                return;
+            }
+
+            IsScheduled = false;
             version++;
         }
 
         public bool Validate(int prevVersion)
         {
-            return isScheduled && (version == prevVersion);
+            return IsScheduled && version == prevVersion;
         }
     }
 }

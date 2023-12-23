@@ -7,15 +7,15 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         private Action<PopupPayload> menuButtonAction;
 
+        protected virtual void OnDestroy()
+        {
+            menuButtonAction = null;
+        }
+
         public void Subscribe(Action<PopupPayload> listener)
         {
             menuButtonAction -= listener;
             menuButtonAction += listener;
-        }
-
-        protected virtual void OnDestroy()
-        {
-            menuButtonAction = null;
         }
 
         protected void Invoke(PopupPayload payload)

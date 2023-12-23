@@ -1,5 +1,4 @@
 ﻿using Assets.Scripts.InteractiveObjects;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
@@ -11,34 +10,44 @@ namespace Assets.Scripts.Player
     public class PlayerInteraction : MonoBehaviour
     {
         [SerializeField] private GameObject outlineControllerPrefab;
+        public bool isInteracting;
+        private bool canInteract;
+        internal GameObject interactiveObject;
 
         private TicketMachine ticketMachine;
-        internal GameObject interactiveObject = null;
-        public bool isInteracting = false;
-        private bool canInteract = false;
-
-        private OutlineController outlineController;
-        public OutlineController OutlineController => outlineController;
+        public OutlineController OutlineController { get; private set; }
 
         private void Start()
         {
             ticketMachine = GetComponent<PlayerController>().TicketMachine;
 
             var go = Instantiate(outlineControllerPrefab);
-            outlineController = go.GetComponent<OutlineController>();
+            OutlineController = go.GetComponent<OutlineController>();
 
             DeactivateInteractiveUI();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                Interact();
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
-            if (!other.gameObject.CompareTag("Interactive")) return;
+            if (!other.gameObject.CompareTag("Interactive"))
+            {
+                return;
+            }
+
             interactiveObject = other.gameObject;
             canInteract = true;
             var io = interactiveObject.GetComponent<InteractiveObject>();
             if (io != null)
             {
-                outlineController.AddOutline(io.GetRenderer(), OutlineType.InteractiveOutline);
+                OutlineController.AddOutline(io.GetRenderer(), OutlineType.InteractiveOutline);
             }
 
             ActivateInteractiveUI();
@@ -46,11 +55,15 @@ namespace Assets.Scripts.Player
 
         private void OnTriggerExit(Collider other)
         {
-            if (!other.gameObject.CompareTag("Interactive")) return;
+            if (!other.gameObject.CompareTag("Interactive"))
+            {
+                return;
+            }
+
             var io = other.gameObject.GetComponent<InteractiveObject>();
             if (io != null)
             {
-                outlineController.RemoveMaterial(io.GetRenderer(), OutlineType.InteractiveOutline);
+                OutlineController.RemoveMaterial(io.GetRenderer(), OutlineType.InteractiveOutline);
             }
 
             interactiveObject = null;
@@ -60,8 +73,12 @@ namespace Assets.Scripts.Player
 
         public void ActivateInteractiveUI()
         {
-            if (interactiveObject == null) return;
-            UIPayload payload = new UIPayload();
+            if (interactiveObject == null)
+            {
+                return;
+            }
+
+            var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.PopupInteractive;
 
@@ -70,7 +87,7 @@ namespace Assets.Scripts.Player
 
         public void DeactivateInteractiveUI()
         {
-            UIPayload payload = new UIPayload();
+            var payload = new UIPayload();
             payload.uiType = UIType.Notify;
             payload.actionType = ActionType.CloseInteractive;
 
@@ -79,17 +96,17 @@ namespace Assets.Scripts.Player
 
         private void Interact()
         {
-            if (GetComponent<PlayerController>().GetCurState() != PlayerStateName.Idle) return;
-            if (!canInteract || isInteracting || null == interactiveObject) return;
-            interactiveObject.GetComponent<InteractiveObject>().Interact(this.gameObject);
-        }
-
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.G))
+            if (GetComponent<PlayerController>().GetCurState() != PlayerStateName.Idle)
             {
-                Interact();
+                return;
             }
+
+            if (!canInteract || isInteracting || null == interactiveObject)
+            {
+                return;
+            }
+
+            interactiveObject.GetComponent<InteractiveObject>().Interact(gameObject);
         }
 
         public void SetCanInteract(bool b)

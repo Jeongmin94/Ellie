@@ -17,34 +17,23 @@ namespace Assets.Scripts.UI.Dialog
 {
     public class SimpleDialogCanvas : UIPopup
     {
-        private enum GameObjects
-        {
-            SimpleDialogPanel,
-            SimpleDialogNextPanel,
-        }
-
-        private enum Texts
-        {
-            SimpleDialogNextText,
-        }
-
         [SerializeField] private DialogTypographyData dialogContextData;
         [SerializeField] private UITransformData nextPanelTransform;
 
-        private GameObject simpleDialogPanel;
-        private GameObject nextPanel;
-
-        private RectTransform simpleDialogPanelRect;
-        private RectTransform nextPanelRect;
-        private RectTransform nextTextRect;
-
-        private TextMeshProUGUI nextText;
+        private readonly TransformController nextPanelController = new();
 
         private DialogText dialogText;
+        private GameObject nextPanel;
+        private RectTransform nextPanelRect;
+
+        private TextMeshProUGUI nextText;
+        private RectTransform nextTextRect;
+
+        private GameObject simpleDialogPanel;
+
+        private RectTransform simpleDialogPanelRect;
 
         private TicketMachine ticketMachine;
-
-        private readonly TransformController nextPanelController = new TransformController();
 
         private void Awake()
         {
@@ -55,7 +44,7 @@ namespace Assets.Scripts.UI.Dialog
         {
             simpleDialogPanel.gameObject.SetActive(false);
             nextPanel.gameObject.SetActive(false);
-            
+
             dialogText.SubscribeIsPlayingAction(SendPayloadToClientEvent);
         }
 
@@ -114,7 +103,7 @@ namespace Assets.Scripts.UI.Dialog
             AnchorPresets.SetAnchorPreset(nextTextRect, AnchorPresets.StretchAll);
             nextTextRect.sizeDelta = Vector2.zero;
             nextTextRect.localPosition = Vector3.zero;
-            
+
             DialogTypographyData.SetDialogTypography(nextText, dialogContextData);
         }
 
@@ -130,10 +119,16 @@ namespace Assets.Scripts.UI.Dialog
 
         private void OnNotify(IBaseEventPayload payload)
         {
-            if (payload is not DialogPayload dialogPayload) return;
+            if (payload is not DialogPayload dialogPayload)
+            {
+                return;
+            }
 
             if (dialogPayload.canvasType != DialogCanvasType.Simple &&
-                dialogPayload.canvasType != DialogCanvasType.SimpleRemaining) return;
+                dialogPayload.canvasType != DialogCanvasType.SimpleRemaining)
+            {
+                return;
+            }
 
             switch (dialogPayload.dialogAction)
             {
@@ -147,8 +142,11 @@ namespace Assets.Scripts.UI.Dialog
                     }
 
                     simpleDialogPanel.SetActive(true);
-                    if(dialogPayload.canvasType == DialogCanvasType.SimpleRemaining)
+                    if (dialogPayload.canvasType == DialogCanvasType.SimpleRemaining)
+                    {
                         nextPanelRect.gameObject.SetActive(true);
+                    }
+
                     Play(dialogPayload);
                 }
                     break;
@@ -185,7 +183,10 @@ namespace Assets.Scripts.UI.Dialog
         private void Play(DialogPayload payload)
         {
             if (payload.canvasType == DialogCanvasType.Simple && dialogText.IsPlaying)
+            {
                 return;
+            }
+
             StartCoroutine(PlaySimpleDialog(payload));
         }
 
@@ -217,14 +218,26 @@ namespace Assets.Scripts.UI.Dialog
                 isPlaying = _isPlaying
             });
         }
+
         private void SendPayloadEndingDialog()
         {
             ticketMachine.SendMessage(ChannelType.Dialog, new DialogPayload
             {
                 dialogType = DialogType.NotifyToClient,
                 isPlaying = false,
-                isEnd = true,
+                isEnd = true
             });
+        }
+
+        private enum GameObjects
+        {
+            SimpleDialogPanel,
+            SimpleDialogNextPanel
+        }
+
+        private enum Texts
+        {
+            SimpleDialogNextText
         }
     }
 }

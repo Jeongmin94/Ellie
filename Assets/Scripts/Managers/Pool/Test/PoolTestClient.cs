@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers.Test
@@ -19,7 +18,7 @@ namespace Assets.Scripts.Managers.Test
 
         private IEnumerator Spawn()
         {
-            int count = 10;
+            var count = 10;
             while (count > 0)
             {
                 yield return new WaitForSeconds(0.5f);

@@ -3,18 +3,24 @@ using System.Linq;
 using Assets.Scripts.ActionData;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
-using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.UI.Transform
 {
     public class TransformController
     {
-        private readonly Queue<Rect> rectQueue = new Queue<Rect>();
-        private readonly Queue<Vector2> scaleQueue = new Queue<Vector2>();
+        private readonly Queue<Rect> rectQueue = new();
+        private readonly Queue<Vector2> scaleQueue = new();
 
-        public void OnRectChange(Rect rect) => rectQueue.Enqueue(rect);
-        public void OnScaleChange(Vector2 scale) => scaleQueue.Enqueue(scale);
+        public void OnRectChange(Rect rect)
+        {
+            rectQueue.Enqueue(rect);
+        }
+
+        public void OnScaleChange(Vector2 scale)
+        {
+            scaleQueue.Enqueue(scale);
+        }
 
         public void CheckQueue(RectTransform owner)
         {
@@ -40,8 +46,8 @@ namespace Assets.Scripts.Data.UI.Transform
         [Header("x, y, width, height")] public Rect rect;
         [Header("x, y scale")] public Vector2 scale = Vector2.one;
 
-        public readonly Data<Rect> actionRect = new Data<Rect>();
-        public readonly Data<Vector2> actionScale = new Data<Vector2>();
+        public readonly Data<Rect> actionRect = new();
+        public readonly Data<Vector2> actionScale = new();
 
         public void OnBeforeSerialize()
         {

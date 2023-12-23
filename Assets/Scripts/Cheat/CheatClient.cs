@@ -1,7 +1,7 @@
+using System.Collections.Generic;
 using Assets.Scripts.Centers;
 using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
 using Assets.Scripts.UI.Inventory;
 using Boss.Terrapupa;
 using Channels.Components;
@@ -9,9 +9,7 @@ using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Sirenix.OdinInspector;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CheatClient : SerializedMonoBehaviour
 {
@@ -23,133 +21,148 @@ public class CheatClient : SerializedMonoBehaviour
     [Required] public Transform pupa;
     [Required] public List<Transform> minions;
 
+    /// <summary>
+    ///     사용자 지정 이동
+    /// </summary>
+    [Title("사용자 지정 텔레포트")] [ValueDropdown("savePositionList")]
+    public Vector3 savePosition = Vector3.zero;
+
     private GameObject canvas;
     private GameObject canvas2;
+    private readonly List<Vector3> savePositionList = new();
 
     private void Update()
     {
-        if(canCheat)
+        if (canCheat)
         {
             if (Input.GetKeyDown(KeyCode.Alpha0))
             {
                 // 영상용 캔버스 끄기
                 OnOffCanvas();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
-
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
-                
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 // ELLIE POWER OVERWHELMING!!
                 // 구르면 풀림
                 player.gameObject.tag = "Untagged";
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha4))
             {
                 // SAVE DATA
                 Save();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha5))
             {
                 // LOAD DATA
                 Load();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha6))
             {
                 // KILL CURRENT PHASE BOSS
                 KillCurrentBoss();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha7))
             {
                 // HIT CURRENT BOSS (-1 DAMAGE)
                 DamageTerrapupa();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha8))
             {
                 // DEACTIVATE BOSS BATTLE
                 DeactivateBoss();
             }
+
             if (Input.GetKeyDown(KeyCode.Alpha9))
             {
                 SkipToEnding();
             }
+
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 // TELEPORT START
                 SetPlayerPosition1();
             }
+
             if (Input.GetKeyDown(KeyCode.F2))
             {
                 // TELEPORT BOSS ROOM
                 SetPlayerPosition2();
             }
+
             if (Input.GetKeyDown(KeyCode.F3))
             {
                 // TELEPORT STONE FOOTBOARD PUZZLE
                 SetPlayerPosition3();
             }
+
             if (Input.GetKeyDown(KeyCode.F4))
             {
                 // TELEPORT BREAKABLE STONE PUZZLE
                 SetPlayerPosition4();
             }
+
             if (Input.GetKeyDown(KeyCode.F5))
             {
                 // TELEPORT PILLAR PUZZLE
                 SetPlayerPosition5();
             }
+
             if (Input.GetKeyDown(KeyCode.F6))
             {
                 // TELEPORT RAIL START
                 SetPlayerPosition6();
             }
+
             if (Input.GetKeyDown(KeyCode.F7))
             {
                 // TELEPORT NPC1
                 SetPlayerPosition7();
             }
+
             if (Input.GetKeyDown(KeyCode.F8))
             {
                 // TELEPORT NPC2
                 SetPlayerPosition8();
             }
+
             if (Input.GetKeyDown(KeyCode.F9))
             {
                 // TELEPORT NPC3
                 SetPlayerPosition9();
             }
+
             if (Input.GetKeyDown(KeyCode.F10))
             {
-
             }
+
             if (Input.GetKeyDown(KeyCode.F11))
             {
-
             }
+
             if (Input.GetKeyDown(KeyCode.F12))
             {
-
             }
+
             if (Input.GetKeyDown(KeyCode.O))
             {
                 AddItem();
             }
         }
     }
-
-    /// <summary>
-    /// 사용자 지정 이동
-    /// </summary>
-
-    [Title("사용자 지정 텔레포트")]
-    [ValueDropdown("savePositionList")]
-    public Vector3 savePosition = Vector3.zero;
-    private List<Vector3> savePositionList = new List<Vector3>();
 
     [Button("플레이어 포지션 저장", ButtonSizes.Large)]
     public void SavePosition()
@@ -171,9 +184,8 @@ public class CheatClient : SerializedMonoBehaviour
     }
 
     /// <summary>
-    /// 고정 위치 이동
+    ///     고정 위치 이동
     /// </summary>
-
     [Title("지정 장소 이동")]
     [Button("시작 지점 이동", ButtonSizes.Large)]
     public void SetPlayerPosition1()
@@ -230,9 +242,8 @@ public class CheatClient : SerializedMonoBehaviour
     }
 
     /// <summary>
-    /// 보스 치트키
+    ///     보스 치트키
     /// </summary>
-
     [Title("보스 치트키")]
     [EnableIf("IsRuntime")]
     [Button("1페이즈 스킵", ButtonSizes.Large)]
@@ -241,6 +252,7 @@ public class CheatClient : SerializedMonoBehaviour
         Debug.Log("테라푸파 사망 치트");
         terrapupa.GetComponent<TerrapupaBTController>().Dead();
     }
+
     [EnableIf("IsRuntime")]
     [Button("2페이즈 스킵", ButtonSizes.Large)]
     public void KillTerraAndPupa()
@@ -250,6 +262,7 @@ public class CheatClient : SerializedMonoBehaviour
         terra.GetComponent<TerrapupaBTController>().Dead();
         pupa.GetComponent<TerrapupaBTController>().Dead();
     }
+
     [EnableIf("IsRuntime")]
     [Button("3페이즈 스킵", ButtonSizes.Large)]
     public void KillMinions()
@@ -261,6 +274,7 @@ public class CheatClient : SerializedMonoBehaviour
             minion.GetComponent<TerrapupaMinionBTController>().Dead();
         }
     }
+
     [EnableIf("IsRuntime")]
     [Button("테라푸파 데미지", ButtonSizes.Large)]
     public void DamageTerrapupa()
@@ -275,6 +289,7 @@ public class CheatClient : SerializedMonoBehaviour
             minion.GetComponent<TerrapupaMinionBTController>().GetDamaged(1);
         }
     }
+
     [EnableIf("IsRuntime")]
     [Button("테라푸파 데미지", ButtonSizes.Large)]
     public void DeactivateBoss()
@@ -291,18 +306,17 @@ public class CheatClient : SerializedMonoBehaviour
     }
 
     /// <summary>
-    /// 아이템 치트키
+    ///     아이템 치트키
     /// </summary>
-    /// 
     [Title("아이템 획득")]
     [EnableIf("IsRuntime")]
     [EnableIf("IsParsingDone")]
     [Button("아이템 획득", ButtonSizes.Large)]
     public void AddItem()
     {
-        TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
+        var ticketMachine = player.GetComponent<TicketMachine>();
 
-        for (int i = 0; i < 100; i++)
+        for (var i = 0; i < 100; i++)
         {
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4000));
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4001));
@@ -315,7 +329,7 @@ public class CheatClient : SerializedMonoBehaviour
             ticketMachine.SendMessage(ChannelType.UI, GenerateStoneAcquirePayloadTest(4021));
         }
 
-        for (int i = 0; i < 20; i++)
+        for (var i = 0; i < 20; i++)
         {
             ticketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
@@ -323,7 +337,7 @@ public class CheatClient : SerializedMonoBehaviour
                 groupType = GroupType.Item,
                 slotAreaType = SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100),
+                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4100)
             });
 
             ticketMachine.SendMessage(ChannelType.UI, new UIPayload
@@ -332,16 +346,15 @@ public class CheatClient : SerializedMonoBehaviour
                 groupType = GroupType.Item,
                 slotAreaType = SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101),
+                itemData = DataManager.Instance.GetIndexData<ItemData, ItemDataParsingInfo>(4101)
             });
         }
     }
 
 
     /// <summary>
-    /// 기타
+    ///     기타
     /// </summary>
-    /// 
     [Title("기타")]
     [EnableIf("IsRuntime")]
     [Button("엔딩 스킵", ButtonSizes.Large)]
@@ -356,12 +369,12 @@ public class CheatClient : SerializedMonoBehaviour
     [Button("캔버스 켰다끄기", ButtonSizes.Large)]
     public void OnOffCanvas()
     {
-        if(canvas == null)
+        if (canvas == null)
         {
             canvas = GameObject.Find("@UI_Root");
         }
 
-        if(canvas.activeSelf)
+        if (canvas.activeSelf)
         {
             canvas.SetActive(false);
         }
@@ -373,7 +386,7 @@ public class CheatClient : SerializedMonoBehaviour
 
     private void KillCurrentBoss()
     {
-        if(terrapupa.gameObject.activeSelf)
+        if (terrapupa.gameObject.activeSelf)
         {
             KillTerrapupa();
         }
@@ -394,9 +407,9 @@ public class CheatClient : SerializedMonoBehaviour
 
     private void Load()
     {
-        TicketMachine ticketMachine = player.GetComponent<TicketMachine>();
+        var ticketMachine = player.GetComponent<TicketMachine>();
 
-        DialogPayload payload = DialogPayload.Stop();
+        var payload = DialogPayload.Stop();
         payload.canvasType = DialogCanvasType.Default;
         ticketMachine.SendMessage(ChannelType.Dialog, payload);
         payload.canvasType = DialogCanvasType.Simple;
@@ -411,7 +424,7 @@ public class CheatClient : SerializedMonoBehaviour
     private UIPayload GenerateStoneAcquirePayloadTest(int index)
     {
         //for test
-        UIPayload payload = new UIPayload();
+        var payload = new UIPayload();
         payload.uiType = UIType.Notify;
         payload.actionType = ActionType.AddSlotItem;
         payload.slotAreaType = SlotAreaType.Item;

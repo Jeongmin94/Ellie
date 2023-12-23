@@ -1,20 +1,20 @@
 using Assets.Scripts.Managers;
-using System.Collections.Generic;
-using UnityEngine;
 using Assets.Scripts.Utils;
+using UnityEngine;
+
 public enum RangeType
 {
     None,
-    Cone,       // ºÎÃ¤²Ã
-    Circle,     // ¿ø
-    Trapezoid,  // »ç´Ù¸®²Ã
-    Rectangle,  // »ç°¢Çü
-    HybridCone, // ºÎÃ¤²Ã + »ç´Ù¸®²Ã
+    Cone, // ë¶€ì±„ê¼´
+    Circle, // ì›
+    Trapezoid, // ì‚¬ë‹¤ë¦¬ê¼´
+    Rectangle, // ì‚¬ê°í˜•
+    HybridCone // ë¶€ì±„ê¼´ + ì‚¬ë‹¤ë¦¬ê¼´
 }
 
 public class RangePayload : IBaseEventPayload
 {
-    // ±âº» ¼³Á¤
+    // ê¸°ë³¸ ì„¤ì •
     public RangeType Type { get; set; }
     public Transform Original { get; set; }
     public Material DetectionMaterial { get; set; }
@@ -23,18 +23,22 @@ public class RangePayload : IBaseEventPayload
     public Vector3 StartPosition { get; set; }
     public Quaternion StartRotation { get; set; }
 
-    // Áö¼Ó½Ã°£, ÆäÀÌµå ÀÎ, ÆäÀÌµå ¾Æ¿ô
-    public float RemainTime { get; set; } = 0.0f; // 0.0fÀÌ¶ó¸é ¹«ÇÑ Áö¼Ó
+    // ì§€ì†ì‹œê°„, í˜ì´ë“œ ì¸, í˜ì´ë“œ ì•„ì›ƒ
+    public float RemainTime { get; set; } = 0.0f; // 0.0fì´ë¼ë©´ ë¬´í•œ ì§€ì†
     public float FadeInTime { get; set; } = 0.3f;
     public float FadeOutTime { get; set; } = 0.3f;
 
-    // ºÎÃ¤²Ã, ¿ø
+    // ë¶€ì±„ê¼´, ì›
     public float Radius { get; set; }
+
     public float Angle { get; set; }
-    // »ç°¢Çü(Width - Á÷¼± ¹üÀ§, Height - Æø)
+
+    // ì‚¬ê°í˜•(Width - ì§ì„  ë²”ìœ„, Height - í­)
     public float Height { get; set; }
+
     public float Width { get; set; }
-    // ºÎÃ¤²Ã(UpperBase - ½ÃÀÛ, LowerBase - ³¡) + Height
+
+    // ë¶€ì±„ê¼´(UpperBase - ì‹œì‘, LowerBase - ë) + Height
     public float UpperBase { get; set; }
     public float LowerBase { get; set; }
 }
@@ -55,12 +59,16 @@ public class RangeManager : Singleton<RangeManager>
     public GameObject CreateRange(RangePayload payload)
     {
         if (payload == null)
+        {
             return null;
+        }
 
         if (payload.DetectionMaterial == null && baseMaterial != null)
+        {
             payload.DetectionMaterial = baseMaterial;
+        }
 
-        GameObject obj = new GameObject();
+        var obj = new GameObject();
         BaseRange range = null;
 
         switch (payload.Type)
@@ -94,6 +102,4 @@ public class RangeManager : Singleton<RangeManager>
 
         return null;
     }
-
-
 }

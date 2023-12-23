@@ -1,5 +1,5 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public enum MonsterAudioType
 {
@@ -12,20 +12,19 @@ public enum MonsterAudioType
     Dead,
     MoveSkill,
     MeleeAttack,
-    MeleeAttackHit, 
+    MeleeAttackHit,
     WeaponAttack,
     WeaponAttackPerform,
     WeaponAttackHit,
     ProjectileAttack,
     ProjectileFire,
     ProjectileHit,
-    HeadShot,
+    HeadShot
 }
 
 
 public class MonsterAudioController : MonoBehaviour
 {
-
     [SerializeField] private MonsterAudioData data;
     private Dictionary<MonsterAudioType, AudioClip> audio;
     private AudioSource audioSource;
@@ -33,23 +32,21 @@ public class MonsterAudioController : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-        audio = new();
+        audio = new Dictionary<MonsterAudioType, AudioClip>();
     }
 
     public AudioClip GetAudio(MonsterAudioType type)
     {
         AudioClip clip;
-        if(audio.TryGetValue(type, out clip))
+        if (audio.TryGetValue(type, out clip))
         {
             return clip;
         }
-        else
+
+        audio.Add(type, data.GetAudioClip(type));
+        if (audio.TryGetValue(type, out clip))
         {
-            audio.Add(type, data.GetAudioClip(type));
-            if (audio.TryGetValue(type, out clip))
-            {
-                return clip;
-            }
+            return clip;
         }
 
         return null;
@@ -57,10 +54,8 @@ public class MonsterAudioController : MonoBehaviour
 
     public void PlayAudio(MonsterAudioType type)
     {
-        AudioClip clip = GetAudio(type);
+        var clip = GetAudio(type);
         audioSource.clip = clip;
         audioSource.Play();
     }
-
 }
-

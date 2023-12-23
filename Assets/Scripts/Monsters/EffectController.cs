@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,7 +9,7 @@ public class EffectController : MonoBehaviour
         MeleeAttack,
         MeleeAttackHit,
         WeaponAttackSwing,
-        WeaponAttackhit,
+        WeaponAttackhit
     }
 
     [SerializeField] private MonsterEffectData data;
@@ -18,26 +17,23 @@ public class EffectController : MonoBehaviour
 
     private void Awake()
     {
-        particles = new();
+        particles = new Dictionary<ParticleType, ParticleSystem>();
     }
 
     public ParticleSystem GetParticle(ParticleType type)
     {
         ParticleSystem particle;
-        if(particles.TryGetValue(type, out particle))
+        if (particles.TryGetValue(type, out particle))
         {
             return particle;
         }
-        else
+
+        particles.Add(type, data.GetParticle(type));
+        if (particles.TryGetValue(type, out particle))
         {
-            particles.Add(type, data.GetParticle(type));
-            if(particles.TryGetValue(type, out particle))
-            {
-                return particle;
-            }
+            return particle;
         }
 
         return null;
     }
-
 }

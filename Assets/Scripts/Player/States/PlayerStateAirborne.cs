@@ -4,10 +4,11 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateAirborne : PlayerBaseState
     {
-        Rigidbody rb;
-        private float moveSpeed = 1;
         private const float AIRBORNE_TIME_THRESHOLD = 3.0f;
+        private readonly float moveSpeed = 1;
+        private Rigidbody rb;
         private float time;
+
         public PlayerStateAirborne(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
@@ -29,7 +30,7 @@ namespace Assets.Scripts.Player.States
 
             Controller.isFalling = false;
             Controller.Anim.SetBool("IsFalling", false);
-        }   
+        }
 
         public override void OnFixedUpdateState()
         {
@@ -43,8 +44,9 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Zoom);
             }
+
             time += Time.deltaTime;
-            if(time>=AIRBORNE_TIME_THRESHOLD)
+            if (time >= AIRBORNE_TIME_THRESHOLD)
             {
                 Controller.ChangeState(PlayerStateName.Land);
             }

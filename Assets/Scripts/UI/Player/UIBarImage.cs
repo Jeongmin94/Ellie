@@ -9,20 +9,14 @@ namespace Assets.Scripts.UI.Player
 {
     public class UIBarImage : UIBaseImage
     {
-        private enum GameObjects
-        {
-            FillObjects,
-            BorderObject
-        }
-
         private const string NameMidSlider = "MidSlider";
         private const string NameForeSlider = "ForeSlider";
-
-        private GameObject fillObjects;
         private readonly IDictionary<FillAmountType, Slider> sliders = new Dictionary<FillAmountType, Slider>();
 
         private Slider changedSlider;
         private float changedSliderTarget;
+
+        private GameObject fillObjects;
 
         private void Awake()
         {
@@ -42,7 +36,7 @@ namespace Assets.Scripts.UI.Player
 
         private void InitSliders(FillAmountType type, Transform parent, RectTransform fillRect)
         {
-            GameObject go = new GameObject($"{type.ToString()}Slider", typeof(Slider));
+            var go = new GameObject($"{type.ToString()}Slider", typeof(Slider));
             go.transform.SetParent(parent);
 
             var slider = go.GetOrAddComponent<Slider>();
@@ -54,17 +48,21 @@ namespace Assets.Scripts.UI.Player
             slider.value = 1.0f;
 
             if (!sliders.ContainsKey(type))
+            {
                 sliders[type] = slider;
+            }
         }
 
         public override IEnumerator ChangeImageFillAmount(FillAmountType type, float target, float time)
         {
             Slider slider = null;
             if (!sliders.TryGetValue(type, out slider))
+            {
                 yield break;
+            }
 
-            float timeAcc = 0.0f;
-            float current = slider.value;
+            var timeAcc = 0.0f;
+            var current = slider.value;
 
             while (timeAcc <= time)
             {
@@ -84,7 +82,9 @@ namespace Assets.Scripts.UI.Player
         {
             Slider slider = null;
             if (!sliders.TryGetValue(type, out slider))
+            {
                 return;
+            }
 
             slider.value = target;
             changedSlider = slider;
@@ -97,14 +97,25 @@ namespace Assets.Scripts.UI.Player
             Slider foreSlider = null;
 
             if (!sliders.TryGetValue(midType, out midSlider))
+            {
                 yield break;
-            if (!sliders.TryGetValue(foreType, out foreSlider))
-                yield break;
+            }
 
-            while (!Mathf.Equals(midSlider.value, foreSlider.value))
+            if (!sliders.TryGetValue(foreType, out foreSlider))
+            {
+                yield break;
+            }
+
+            while (!Equals(midSlider.value, foreSlider.value))
             {
                 yield return new WaitForEndOfFrame();
             }
+        }
+
+        private enum GameObjects
+        {
+            FillObjects,
+            BorderObject
         }
     }
 }

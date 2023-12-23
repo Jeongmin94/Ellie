@@ -1,4 +1,3 @@
-using System;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.PopupMenu;
 using Newtonsoft.Json;
@@ -30,15 +29,19 @@ namespace Data.UI.Config.Save
             foreach (var data in dataArray)
             {
                 if (data.readOnly)
+                {
                     continue;
+                }
 
                 if (data.configType != configType)
+                {
                     continue;
+                }
 
-                string jsonString = JsonConvert.SerializeObject(data);
-                JObject jsonObj = JObject.Parse(jsonString);
+                var jsonString = JsonConvert.SerializeObject(data);
+                var jsonObj = JObject.Parse(jsonString);
 
-                PlayerPrefs.SetInt(jsonObj["name"].ToString(), Int32.Parse(jsonObj["currentIdx"].ToString()));
+                PlayerPrefs.SetInt(jsonObj["name"].ToString(), int.Parse(jsonObj["currentIdx"].ToString()));
             }
 
             PlayerPrefs.Save();
@@ -49,15 +52,19 @@ namespace Data.UI.Config.Save
             foreach (var data in dataArray)
             {
                 if (data.readOnly)
+                {
                     continue;
+                }
 
                 if (data.configType != configType)
+                {
                     continue;
+                }
 
-                string jsonString = JsonConvert.SerializeObject(data);
-                JObject jsonObj = JObject.Parse(jsonString);
+                var jsonString = JsonConvert.SerializeObject(data);
+                var jsonObj = JObject.Parse(jsonString);
 
-                int idx = PlayerPrefs.GetInt(jsonObj["name"].ToString());
+                var idx = PlayerPrefs.GetInt(jsonObj["name"].ToString());
                 data.currentIdx = idx;
             }
         }

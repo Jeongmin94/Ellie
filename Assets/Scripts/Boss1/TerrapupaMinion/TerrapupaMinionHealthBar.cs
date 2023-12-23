@@ -5,12 +5,11 @@ using UnityEngine;
 
 public class TerrapupaMinionHealthBar : MonoBehaviour
 {
-    private TerrapupaMinionRootData data;
-
     public float scaleFactor = 0.003f;
+    private readonly MonsterDataContainer dataContainer = new();
 
     private UIMonsterBillboard billboard;
-    private readonly MonsterDataContainer dataContainer = new MonsterDataContainer();
+    private TerrapupaMinionRootData data;
 
     private void Awake()
     {
@@ -19,7 +18,7 @@ public class TerrapupaMinionHealthBar : MonoBehaviour
 
     private void InitUI()
     {
-        Transform billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
+        var billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
 
         billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardPos, UIManager.UIMonsterBillboard);
         billboard.scaleFactor = scaleFactor;

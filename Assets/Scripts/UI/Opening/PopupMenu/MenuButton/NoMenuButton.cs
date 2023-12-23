@@ -24,7 +24,7 @@ namespace Assets.Scripts.UI.PopupMenu
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, SoundCancel, Vector3.zero);
 
-            PopupPayload payload = new PopupPayload();
+            var payload = new PopupPayload();
             payload.buttonType = ButtonType.No;
 
             Invoke(payload);

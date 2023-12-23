@@ -6,7 +6,6 @@ using Assets.Scripts.Managers;
 using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Utils;
-using Centers;
 using Channels.Components;
 using Channels.Type;
 using UnityEngine;
@@ -19,8 +18,8 @@ public class MonsterController : MonoBehaviour, IMonster
     [SerializeField] private GameObject monsters;
     [SerializeField] private BaseDropItem item;
     [SerializeField] private MonsterItemDropData itemData;
-    private List<AbstractMonster> monster = new();
-    TicketMachine ticketMachine;
+    private readonly List<AbstractMonster> monster = new();
+    private TicketMachine ticketMachine;
 
     private void Awake()
     {
@@ -32,26 +31,27 @@ public class MonsterController : MonoBehaviour, IMonster
         SetMonster();
     }
 
+    public void MonsterDead(IBaseEventPayload payload)
+    {
+        var monsterPayload = payload as MonsterPayload;
+
+        //아이템 드롭
+        DropItem(monsterPayload.ItemDrop, monsterPayload.Monster);
+        StartCoroutine(RespawnMonster(monsterPayload.Monster, monsterPayload.RespawnTime));
+    }
+
     private void SetMonster()
     {
         foreach (Transform child in monsters.transform)
         {
             monster.Add(child.GetComponent<AbstractMonster>());
         }
-        foreach (AbstractMonster mon in monster)
+
+        foreach (var mon in monster)
         {
             mon.SetTicketMachine();
             mon.SetPlayer(player);
         }
-    }
-
-    public void MonsterDead(IBaseEventPayload payload)
-    {
-        MonsterPayload monsterPayload = payload as MonsterPayload;
-
-        //아이템 드롭
-        DropItem(monsterPayload.ItemDrop, monsterPayload.Monster);
-        StartCoroutine(RespawnMonster(monsterPayload.Monster, monsterPayload.RespawnTime));
     }
 
     private IEnumerator RespawnMonster(Transform transform, float time)
@@ -59,7 +59,7 @@ public class MonsterController : MonoBehaviour, IMonster
         Debug.Log("Monster Dead");
         yield return new WaitForSeconds(monsterDisableWait);
         Debug.Log("Monster Disable");
-        Vector3 originalScale = transform.localScale;
+        var originalScale = transform.localScale;
         transform.localScale = Vector3.zero;
         yield return new WaitForSeconds(time - monsterDisableWait);
         Debug.Log("Respawn");
@@ -73,11 +73,11 @@ public class MonsterController : MonoBehaviour, IMonster
         List<(int, int)> dropItem = new();
 
         //Set Drop Item
-        for (int i = 0; i < table.Count; i++)
+        for (var i = 0; i < table.Count; i++)
         {
-            int draw = Random.Range(0, 100);
+            var draw = Random.Range(0, 100);
             itemData = DataManager.Instance.GetIndexData<MonsterItemDropData, MonsterItemDropDataParsingInfo>(table[i]);
-            int j = 0;
+            var j = 0;
             for (; j <= itemData.maximumDrop; j++)
             {
                 if (draw < itemData.noDropChance + itemData.addDropChance * j)
@@ -89,18 +89,18 @@ public class MonsterController : MonoBehaviour, IMonster
         }
 
         //Drop Item
-        for (int i = 0; i < dropItem.Count; i++)
+        for (var i = 0; i < dropItem.Count; i++)
         {
-            if (dropItem[i].Item2<4100) //Stone
+            if (dropItem[i].Item2 < 4100) //Stone
             {
                 StoneEventPayload payload = new()
                 {
                     Type = StoneEventType.MineStone,
                     StoneSpawnPos = monster.position,
                     StoneForce = GetRandVector(),
-                    StoneIdx = dropItem[i].Item2,
+                    StoneIdx = dropItem[i].Item2
                 };
-                for (int j = 0; j < dropItem[i].Item1; j++)
+                for (var j = 0; j < dropItem[i].Item1; j++)
                 {
                     ticketMachine.SendMessage(ChannelType.Stone, payload);
                 }
@@ -108,9 +108,9 @@ public class MonsterController : MonoBehaviour, IMonster
             else //other Items
             {
                 item.SetItemData(dropItem[i].Item2);
-                for (int j = 0; j < dropItem[i].Item1; j++)
+                for (var j = 0; j < dropItem[i].Item1; j++)
                 {
-                    BaseDropItem obj = Instantiate(item, monster.position,monster.rotation);
+                    var obj = Instantiate(item, monster.position, monster.rotation);
                     //obj.SetItemData(dropItem[i].Item2);
                     obj.gameObject.GetComponent<Rigidbody>().AddForce(GetRandVector(), ForceMode.Impulse);
                     obj.gameObject.GetComponent<Rigidbody>().AddTorque(2.0f * Random.onUnitSphere);
@@ -118,10 +118,10 @@ public class MonsterController : MonoBehaviour, IMonster
             }
         }
     }
-    
+
     private Vector3 GetRandVector()
     {
-        Vector3 vec = new(UnityEngine.Random.Range(-0.05f, 0.05f), 0.1f, 0);
+        Vector3 vec = new(Random.Range(-0.05f, 0.05f), 0.1f, 0);
         return vec.normalized;
     }
 }

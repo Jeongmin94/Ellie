@@ -10,10 +10,10 @@ namespace Channels.Components
 {
     public class TicketMachine : SerializedMonoBehaviour
     {
-        private Action<TicketBox> addTicketAction;
-
-        [ShowInInspector][ReadOnly] private readonly IDictionary<ChannelType, Ticket> tickets =
+        [ShowInInspector] [ReadOnly] private readonly IDictionary<ChannelType, Ticket> tickets =
             new Dictionary<ChannelType, Ticket>();
+
+        private Action<TicketBox> addTicketAction;
 
         private void Subscribe(Action<TicketBox> listener)
         {
@@ -28,25 +28,28 @@ namespace Channels.Components
 
         public void SendMessage(ChannelType type, IBaseEventPayload payload)
         {
-
             if (tickets.TryGetValue(type, out var ticket))
+            {
                 ticket.Publish(payload);
+            }
         }
 
         public void Notify(ChannelType type, IBaseEventPayload payload)
         {
             if (tickets.TryGetValue(type, out var ticket))
+            {
                 ticket.Notify(payload);
+            }
         }
 
         /// <summary>
-        /// ChannelType[]에 맞는 티켓을 초기화합니다.
-        /// 기본 Ticket만 생성합니다.
+        ///     ChannelType[]에 맞는 티켓을 초기화합니다.
+        ///     기본 Ticket만 생성합니다.
         /// </summary>
         /// <param name="types"></param>
         public void AddTickets(params ChannelType[] types)
         {
-            foreach (ChannelType type in types)
+            foreach (var type in types)
             {
                 if (tickets.ContainsKey(type))
                 {
@@ -60,8 +63,8 @@ namespace Channels.Components
         }
 
         /// <summary>
-        /// 각 Channel이 ChannelType에 맞는 Ticket의 이벤트를 구독합니다.
-        /// GameCenter에서 호출됩니다.
+        ///     각 Channel이 ChannelType에 맞는 Ticket의 이벤트를 구독합니다.
+        ///     GameCenter에서 호출됩니다.
         /// </summary>
         public void Ticket(BaseCenter center)
         {
@@ -97,7 +100,7 @@ namespace Channels.Components
         }
 
         /// <summary>
-        /// 런타임에 Ticket을 추가합니다.
+        ///     런타임에 Ticket을 추가합니다.
         /// </summary>
         /// <param name="type"></param>
         public void AddTicket(ChannelType type)
@@ -122,7 +125,7 @@ namespace Channels.Components
             else
             {
                 var keys = machine.tickets.Keys;
-                foreach (ChannelType type in keys)
+                foreach (var type in keys)
                 {
                     addTicketAction?.Invoke(TicketBox.Of(type, machine.tickets[type]));
                 }

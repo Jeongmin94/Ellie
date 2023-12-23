@@ -18,20 +18,15 @@ namespace Boss.Objects
         [SerializeField] private string hitSound = "StalactiteHit";
 
         public float respawnValue = 10.0f;
-
-        private Rigidbody rb;
+        private bool isFallen;
         private LineRenderer lineRenderer;
-        private TicketMachine ticketMachine;
+
         private ParticleController particle;
 
-        private int myIndex;
-        private bool isFallen = false;
+        private Rigidbody rb;
+        private TicketMachine ticketMachine;
 
-        public int MyIndex
-        {
-            get { return myIndex; }
-            set { myIndex = value; }
-        }
+        public int MyIndex { get; set; }
 
         private void Awake()
         {
@@ -44,6 +39,71 @@ namespace Boss.Objects
             rb.isKinematic = true;
             SetLineRendererPosition();
             lineRenderer.enabled = true;
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (!isFallen)
+            {
+                if (collision.transform.CompareTag("Stone"))
+                {
+                    Debug.Log(collision.transform.name);
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
+
+                    rb.useGravity = true;
+                    rb.isKinematic = false;
+                    isFallen = true;
+                    particle.Stop();
+                    particle = null;
+                }
+            }
+        }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (isFallen)
+            {
+                // 보스와 충돌
+                if (other.transform.CompareTag("Boss"))
+                {
+                    Debug.Log($"{other} 충돌!");
+
+                    EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
+                        new BossEventPayload
+                        {
+                            IntValue = MyIndex,
+                            FloatValue = respawnValue,
+                            TransformValue1 = transform,
+                            TransformValue2 = other.transform.root
+                        });
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, attackSound, transform.position);
+
+                    ParticleManager.Instance.GetParticle(hitEffect, transform);
+
+                    HitedObject();
+                }
+                // 땅이나 다른 오브젝트에 충돌
+                else if (other.transform.CompareTag("Ground") || other.transform.CompareTag("InteractionObject"))
+                {
+                    Debug.Log($"{other} 충돌!");
+
+                    EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
+                        new BossEventPayload
+                        {
+                            IntValue = MyIndex,
+                            FloatValue = respawnValue,
+                            TransformValue1 = transform
+                        });
+
+                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, attackSound, transform.position);
+
+                    ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
+
+                    HitedObject();
+                }
+            }
         }
 
         private void InitLineRenderer()
@@ -72,9 +132,9 @@ namespace Boss.Objects
         public void SetLineRendererPosition()
         {
             RaycastHit hit;
-            int layerMask = LayerMask.GetMask("Ground");
+            var layerMask = LayerMask.GetMask("Ground");
 
-            if(particle != null)
+            if (particle != null)
             {
                 particle.Stop();
             }
@@ -89,77 +149,12 @@ namespace Boss.Objects
                 {
                     Position = hit.point + new Vector3(0.0f, 0.1f, 0.0f),
                     Scale = new Vector3(1.0f, 1.0f, 1.0f),
-                    IsLoop = true,
+                    IsLoop = true
                 }).GetComponent<ParticleController>();
             }
             else
             {
                 lineRenderer.enabled = true;
-            }
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if (!isFallen)
-            {
-                if (collision.transform.CompareTag("Stone"))
-                {
-                    Debug.Log(collision.transform.name);
-
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
-
-                    rb.useGravity = true;
-                    rb.isKinematic = false;
-                    isFallen = true;
-                    particle.Stop();
-                    particle = null;
-                } 
-            }
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (isFallen)
-            {
-                // 보스와 충돌
-                if (other.transform.CompareTag("Boss"))
-                {
-                    Debug.Log($"{other} 충돌!");
-
-                    EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
-                        new BossEventPayload
-                        {
-                            IntValue = myIndex,
-                            FloatValue = respawnValue,
-                            TransformValue1 = transform,
-                            TransformValue2 = other.transform.root,
-                        });
-
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, attackSound, transform.position);
-
-                    ParticleManager.Instance.GetParticle(hitEffect, transform, 1.0f);
-
-                    HitedObject();
-                }
-                // 땅이나 다른 오브젝트에 충돌
-                else if (other.transform.CompareTag("Ground") || other.transform.CompareTag("InteractionObject"))
-                {
-                    Debug.Log($"{other} 충돌!");
-
-                    EventBus.Instance.Publish(EventBusEvents.DropMagicStalactite,
-                        new BossEventPayload
-                        {
-                            IntValue = myIndex,
-                            FloatValue = respawnValue,
-                            TransformValue1 = transform,
-                        });
-
-                    SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, attackSound, transform.position);
-
-                    ParticleManager.Instance.GetParticle(hitEffect, transform, 0.7f);
-
-                    HitedObject();
-                } 
             }
         }
 

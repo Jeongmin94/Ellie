@@ -1,6 +1,7 @@
-using Assets.Scripts.Monsters.AbstractClass;
-using Channels.Combat;
 using System.Collections;
+using Assets.Scripts.Monsters.AbstractClass;
+using Assets.Scripts.StatusEffects;
+using Channels.Combat;
 using UnityEditor;
 using UnityEngine;
 
@@ -10,9 +11,9 @@ namespace Assets.Scripts.Monsters.Attacks
     {
         private const float angle = 180.0f;
         private const float radius = 2.0f;
+        [SerializeField] private Transform target;
 
         private MonsterAttackData attackData;
-        [SerializeField] private Transform target;
         private AudioSource audioSource;
         private ParticleSystem particle;
 
@@ -21,6 +22,7 @@ namespace Assets.Scripts.Monsters.Attacks
             audioSource = gameObject.AddComponent<AudioSource>();
             monsterController = transform.parent.GetComponent<AbstractMonster>();
         }
+
         private void Start()
         {
             audioSource.clip = audioController.GetAudio(MonsterAudioType.WeaponAttackHit);
@@ -28,24 +30,38 @@ namespace Assets.Scripts.Monsters.Attacks
             audioSource.maxDistance = 50.0f;
         }
 
+#if UNITY_EDITOR
+        private void OnDrawGizmos()
+        {
+            Handles.color = Color.red;
+            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, radius);
+            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angle / 2, radius);
+        }
+#endif
+
         public override void InitializeFanShape(MonsterAttackData data)
         {
             target = GameObject.Find("Player").transform;
             attackData = data;
             base.InitializeFanShape(data);
             if (audioController == null)
+            {
                 audioController = transform.parent.GetComponent<MonsterAudioController>();
+            }
+
             if (particleController == null)
+            {
                 particleController = transform.parent.GetComponent<MonsterParticleController>();
+            }
         }
 
         public bool CaculateDotProduct()
         {
-            Vector3 interV = target.position - transform.position;
+            var interV = target.position - transform.position;
 
-            float dot = Vector3.Dot(interV.normalized, transform.forward.normalized);
-            float theta = Mathf.Acos(dot);
-            float degree = Mathf.Rad2Deg * theta;
+            var dot = Vector3.Dot(interV.normalized, transform.forward.normalized);
+            var theta = Mathf.Acos(dot);
+            var degree = Mathf.Rad2Deg * theta;
 
             if (degree <= angle / 2.0f)
             {
@@ -66,21 +82,23 @@ namespace Assets.Scripts.Monsters.Attacks
 
         public IEnumerator AttackFanshape()
         {
-            float accumTime = 0.0f;
+            var accumTime = 0.0f;
             while (accumTime <= attackData.attackDuration)
             {
                 if (CaculateDotProduct())
                 {
                     if (target.CompareTag("Player"))
                     {
-                        if(audioSource.clip==null)
+                        if (audioSource.clip == null)
                         {
                             audioSource.clip = audioController.GetAudio(MonsterAudioType.WeaponAttackHit);
                         }
-                        if(particle==null)
+
+                        if (particle == null)
                         {
                             particle = particleController.GetParticle(MonsterParticleType.WeaponHit);
                         }
+
                         audioSource.Play();
                         particle.transform.position = target.position;
                         particle.Play();
@@ -88,6 +106,7 @@ namespace Assets.Scripts.Monsters.Attacks
                         break;
                     }
                 }
+
                 accumTime += Time.deltaTime;
                 yield return null;
             }
@@ -95,7 +114,6 @@ namespace Assets.Scripts.Monsters.Attacks
 
         private void SetAndAttack(MonsterAttackData data, Transform otherTransform)
         {
-            Debug.Log("SetPayloadAttack");
             CombatPayload payload = new();
             payload.Type = data.combatType;
             payload.Attacker = transform;
@@ -103,19 +121,10 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.StatusEffectName = StatusEffectName.WeakRigidity;
             payload.statusEffectduration = 0.5f;
-            payload.Damage = (int)data.attackValue;
+            payload.Damage = data.attackValue;
             Attack(payload);
         }
-
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Handles.color = Color.red;
-            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, angle / 2, radius);
-            Handles.DrawSolidArc(transform.position, Vector3.up, transform.forward, -angle / 2, radius);
-        }
-#endif
     }
 }

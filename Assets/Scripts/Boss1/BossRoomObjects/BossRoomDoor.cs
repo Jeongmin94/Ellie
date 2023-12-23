@@ -1,22 +1,22 @@
-﻿using Assets.Scripts.Item.Stone;
+﻿using System.Collections;
+using Assets.Scripts.Item.Stone;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
 using Sirenix.OdinInspector;
-using System.Collections;
 using UnityEngine;
 
 namespace Assets.Scripts.Boss1.BossRoomObjects
 {
     public class BossRoomDoor : MonoBehaviour
     {
-        [SerializeField][Required] private BossRoomDoorKnob leftDoor;
-        [SerializeField][Required] private BossRoomDoorKnob rightDoor;
+        [SerializeField] [Required] private BossRoomDoorKnob leftDoor;
+        [SerializeField] [Required] private BossRoomDoorKnob rightDoor;
 
         [SerializeField] private float doorTimeLimit = 10.0f;
         [SerializeField] private float openSpeedTime = 3.0f;
         [SerializeField] private float openAngle = 120.0f;
-        [SerializeField][ReadOnly] private int golemCoreCount = 0;
+        [SerializeField] [ReadOnly] private int golemCoreCount;
 
         private TicketMachine ticketMachine;
 

@@ -49,6 +49,7 @@ namespace Channels.Utils
                     channel = new BossDialogChannel();
                     break;
             }
+
             return channel;
         }
     }

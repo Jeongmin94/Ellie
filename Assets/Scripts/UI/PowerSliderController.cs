@@ -10,13 +10,14 @@ namespace Assets.Scripts.UI
 
         [SerializeField] private GameObject fillArea;
 
-        [Header("Set Slider Value")]
-        [SerializeField] private Color startColor = Color.white;
+        [Header("Set Slider Value")] [SerializeField]
+        private Color startColor = Color.white;
+
         [SerializeField] private Color endColor = Color.red;
+        private Image fillAreaImage;
 
         private Slider slider;
-        private Image fillAreaImage;
-        
+
         private void Awake()
         {
             slider = gameObject.GetComponent<Slider>();
@@ -32,9 +33,9 @@ namespace Assets.Scripts.UI
         {
             slider.value = value / sliderData.percentages[sliderData.percentages.Length - 1];
 
-            float r = startColor.r * (1.0f - value) + endColor.r * value;
-            float g = startColor.g * (1.0f - value) + endColor.g * value;
-            float b = startColor.b * (1.0f - value) + endColor.b * value;
+            var r = startColor.r * (1.0f - value) + endColor.r * value;
+            var g = startColor.g * (1.0f - value) + endColor.g * value;
+            var b = startColor.b * (1.0f - value) + endColor.b * value;
 
             fillAreaImage.color = new Color(r, g, b);
         }

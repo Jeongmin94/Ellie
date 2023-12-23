@@ -9,19 +9,19 @@ namespace Assets.Scripts
         public AudioClip clip;
         public float volume;
 
+        public bool isPlaying;
+        public bool isPaused;
+
         private AudioSource audioSource;
-
-        public bool isPlaying = false;
-        public bool isPaused = false;
-
-        public override void PoolableDestroy()
-        {
-            SoundManager.Instance.OnPoolableDestroy(this);
-        }
 
         private void OnEnable()
         {
             audioSource = GetComponent<AudioSource>();
+        }
+
+        public override void PoolableDestroy()
+        {
+            SoundManager.Instance.OnPoolableDestroy(this);
         }
 
         public void SetClip(AudioClip clip)

@@ -1,9 +1,9 @@
-using Assets.Scripts.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.UI.Framework.Presets;
 using Assets.Scripts.UI.Inventory;
+using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,13 +15,13 @@ namespace Assets.Scripts.UI.Framework
     {
         // Key: Enum
         // Value: UI Object List
-        private readonly Dictionary<Type, List<Object>> objects = new Dictionary<Type, List<Object>>();
+        private readonly Dictionary<Type, List<Object>> objects = new();
 
         protected abstract void Init();
 
         /// <summary>
-        /// T에 해당하는 Object 들을 objects에 바인딩
-        /// type은 사용자가 정의해서 사용할 enum을 의미함
+        ///     T에 해당하는 Object 들을 objects에 바인딩
+        ///     type은 사용자가 정의해서 사용할 enum을 의미함
         /// </summary>
         /// <param name="type"></param>
         /// <typeparam name="T"></typeparam>
@@ -32,8 +32,8 @@ namespace Assets.Scripts.UI.Framework
                 throw new ArgumentException($"{type} is not an Enum type");
             }
 
-            string[] names = Enum.GetNames(type);
-            List<Object> objectList = new List<Object>();
+            var names = Enum.GetNames(type);
+            var objectList = new List<Object>();
 
             foreach (var enumName in names)
             {
@@ -48,13 +48,19 @@ namespace Assets.Scripts.UI.Framework
                 }
 
                 if (childComponent == null)
+                {
                     Debug.Log($"{enumName} is missing");
+                }
                 else
+                {
                     objectList.Add(childComponent);
+                }
             }
 
             if (objectList.Any())
+            {
                 objects[typeof(T)] = objectList;
+            }
         }
 
         protected T Get<T>(int idx) where T : Object
@@ -63,10 +69,8 @@ namespace Assets.Scripts.UI.Framework
             {
                 return list[idx] as T;
             }
-            else
-            {
-                return null;
-            }
+
+            return null;
         }
 
         protected GameObject GetGameObject(int idx)

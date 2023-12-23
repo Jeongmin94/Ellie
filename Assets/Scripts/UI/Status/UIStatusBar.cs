@@ -8,15 +8,10 @@ namespace Assets.Scripts.UI.Status
 {
     public class UIStatusBar : UIStatic
     {
-        private enum GameObjects
-        {
-            StatusPanel
-        }
-
         private const string SubItemStatus = "Status";
 
         private GameObject statusPanel;
-        private Stack<UIStatus> statusStack = new Stack<UIStatus>();
+        private readonly Stack<UIStatus> statusStack = new();
 
         private void Awake()
         {
@@ -36,7 +31,9 @@ namespace Assets.Scripts.UI.Status
         public void AddStatus()
         {
             if (statusStack.Count > 6)
+            {
                 return;
+            }
 
             var status = UIManager.Instance.MakeSubItem<UIStatus>(statusPanel.transform, SubItemStatus);
 
@@ -46,10 +43,17 @@ namespace Assets.Scripts.UI.Status
         public void RemoveStatus()
         {
             if (!statusStack.Any())
+            {
                 return;
+            }
 
             var status = statusStack.Pop();
             ResourceManager.Instance.Destroy(status.gameObject);
+        }
+
+        private enum GameObjects
+        {
+            StatusPanel
         }
     }
 }

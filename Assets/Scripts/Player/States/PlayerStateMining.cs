@@ -6,8 +6,8 @@ namespace Assets.Scripts.Player.States
     internal class PlayerStateMining : PlayerBaseState
     {
         private Ore curOre;
-        private float miningTime;
         private float curTime;
+        private float miningTime;
 
         public PlayerStateMining(PlayerController controller) : base(controller)
         {
@@ -32,7 +32,6 @@ namespace Assets.Scripts.Player.States
             Controller.Anim.SetBool("IsMining", false);
             Controller.GetComponent<PlayerInteraction>().isInteracting = false;
             Controller.GetComponent<PlayerInteraction>().ActivateInteractiveUI();
-
         }
 
         public override void OnFixedUpdateState()
@@ -47,15 +46,18 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
+
             //점프 입력이나 공격 입력이 들어오면 스테이트 탈출
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Controller.ChangeState(PlayerStateName.Jump);
             }
+
             if (Input.GetMouseButtonDown(0))
             {
                 Controller.ChangeState(PlayerStateName.Zoom);
             }
+
             if (curTime >= miningTime)
             {
                 curTime = 0f;
@@ -65,7 +67,8 @@ namespace Assets.Scripts.Player.States
             {
                 curTime += Time.deltaTime;
             }
-            if(!Controller.CurOre.canMine)
+
+            if (!Controller.CurOre.canMine)
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
@@ -73,17 +76,18 @@ namespace Assets.Scripts.Player.States
 
         private void LookOre()
         {
-            Vector3 directionToTarget = curOre.transform.position - Controller.PlayerObj.position;
+            var directionToTarget = curOre.transform.position - Controller.PlayerObj.position;
             directionToTarget.y = 0;
 
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+            var targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
             Controller.PlayerObj.rotation = targetRotation;
         }
+
         private void Mine()
         {
             Debug.Log("Mine");
-            int smithPower = UnityEngine.Random.Range(Controller.Pickaxe.MinSmithPower, Controller.Pickaxe.MaxSmithPower + 1);
-            int damage = smithPower >= Controller.CurOre.hardness ? smithPower - Controller.CurOre.hardness : 0;
+            var smithPower = Random.Range(Controller.Pickaxe.MinSmithPower, Controller.Pickaxe.MaxSmithPower + 1);
+            var damage = smithPower >= Controller.CurOre.hardness ? smithPower - Controller.CurOre.hardness : 0;
             //광석에 데미지 주기
             if (damage > 0)
             {

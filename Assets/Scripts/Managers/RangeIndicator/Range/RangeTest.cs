@@ -1,6 +1,4 @@
-using Assets.Scripts.Managers;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class RangeTest : MonoBehaviour
@@ -10,46 +8,86 @@ public class RangeTest : MonoBehaviour
 
     public Transform target;
     public Material material;
-    public bool isFollow = false;
+    public bool isFollow;
     public float radius = 10.0f;
     public float angle = 60.0f;
     public float height = 10.0f;
     public float width = 5.0f;
     public float upperBase = 5.0f;
     public float lowerBase = 5.0f;
-
-    private List<Transform> transforms = new List<Transform>();
     private GameObject my;
+
+    private readonly List<Transform> transforms = new();
 
     private void Update()
     {
         GetKey();
     }
 
+    private void OnGUI()
+    {
+        var enemies = RangeCheck();
+        if (enemies == null)
+        {
+            return;
+        }
+
+        // ê¸€ê¼´ ìŠ¤íƒ€ì¼ì„ ìƒì„±í•˜ê³  ì„¤ì •í•©ë‹ˆë‹¤.
+        var style = new GUIStyle();
+        style.normal.textColor = Color.red;
+        style.fontSize = 20;
+
+        // ë°•ìŠ¤ì˜ ìœ„ì¹˜ì™€ í¬ê¸°ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.
+        float boxWidth = 200;
+        float boxHeight = 25 * transforms.Count + 10;
+        var boxX = Screen.width - boxWidth - 10;
+        float boxY = 10;
+
+        // ë°•ìŠ¤ë¥¼ ê·¸ë¦½ë‹ˆë‹¤.
+        GUI.Box(new Rect(boxX, boxY, boxWidth, boxHeight), "");
+
+        // ë¼ë²¨ì„ ê·¸ë¦´ ìœ„ì¹˜ë¥¼ ì„¤ì •í•©ë‹ˆë‹¤.
+        var x = boxX + 5;
+        var y = boxY + 5;
+
+
+        foreach (var enemy in enemies)
+        {
+            // í”Œë ˆì´ì–´ì™€ ì  ì‚¬ì´ì˜ ê±°ë¦¬ë¥¼ ê³„ì‚°í•©ë‹ˆë‹¤.
+            var distance = Vector3.Distance(target.root.position, enemy.position);
+
+            // í™”ë©´ì— í…ìŠ¤íŠ¸ë¥¼ í‘œì‹œí•©ë‹ˆë‹¤.
+            GUI.Label(new Rect(x, y, boxWidth, 20), $"{enemy.name} (Distance: {distance})", style);
+
+            // ë‹¤ìŒ ë¼ë²¨ì˜ y ì¢Œí‘œë¥¼ ê°±ì‹ í•©ë‹ˆë‹¤.
+            y += 25;
+        }
+    }
+
     private List<Transform> RangeCheck()
     {
         if (my == null)
+        {
             return null;
+        }
 
         switch (type)
         {
             case RangeType.Cone:
-                ConeRange cone = my.GetComponent<ConeRange>();
+                var cone = my.GetComponent<ConeRange>();
                 return cone.CheckRange(checkTag);
             case RangeType.Circle:
-                CircleRange circle = my.GetComponent<CircleRange>();
+                var circle = my.GetComponent<CircleRange>();
                 return circle.CheckRange(checkTag);
             case RangeType.Trapezoid:
-                TrapezoidRange trapezoid = my.GetComponent<TrapezoidRange>();
+                var trapezoid = my.GetComponent<TrapezoidRange>();
                 return trapezoid.CheckRange(checkTag);
             case RangeType.Rectangle:
-                RectangleRange rectangle = my.GetComponent<RectangleRange>();
+                var rectangle = my.GetComponent<RectangleRange>();
                 return rectangle.CheckRange(checkTag);
             case RangeType.HybridCone:
-                HybridConeRange hybridCone = my.GetComponent<HybridConeRange>();
+                var hybridCone = my.GetComponent<HybridConeRange>();
                 return hybridCone.CheckRange(checkTag);
-            default:
-                break;
         }
 
         return null;
@@ -60,7 +98,9 @@ public class RangeTest : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (my != null)
+            {
                 Destroy(my);
+            }
 
             my = RangeManager.Instance.CreateRange(new RangePayload
             {
@@ -70,30 +110,36 @@ public class RangeTest : MonoBehaviour
                 Radius = radius,
                 Angle = angle,
 
-                RemainTime = 3.0f,
+                RemainTime = 3.0f
             });
 
             type = RangeType.Cone;
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             if (my != null)
+            {
                 Destroy(my);
+            }
 
             my = RangeManager.Instance.CreateRange(new RangePayload
             {
                 Type = RangeType.Circle,
                 Original = target,
                 IsFollowOrigin = isFollow,
-                Radius = radius,
+                Radius = radius
             });
 
             type = RangeType.Circle;
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             if (my != null)
+            {
                 Destroy(my);
+            }
 
             my = RangeManager.Instance.CreateRange(new RangePayload
             {
@@ -102,15 +148,18 @@ public class RangeTest : MonoBehaviour
                 IsFollowOrigin = isFollow,
                 UpperBase = upperBase,
                 LowerBase = lowerBase,
-                Height = height,
+                Height = height
             });
 
             type = RangeType.Trapezoid;
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             if (my != null)
+            {
                 Destroy(my);
+            }
 
             my = RangeManager.Instance.CreateRange(new RangePayload
             {
@@ -118,15 +167,18 @@ public class RangeTest : MonoBehaviour
                 Original = target,
                 IsFollowOrigin = isFollow,
                 Width = width,
-                Height = height,
+                Height = height
             });
 
             type = RangeType.Rectangle;
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha5))
         {
             if (my != null)
+            {
                 Destroy(my);
+            }
 
             my = RangeManager.Instance.CreateRange(new RangePayload
             {
@@ -135,59 +187,20 @@ public class RangeTest : MonoBehaviour
                 IsFollowOrigin = isFollow,
                 UpperBase = upperBase,
                 Radius = radius,
-                Angle = angle,
+                Angle = angle
             });
 
             type = RangeType.HybridCone;
         }
     }
 
-    void OnGUI()
-    {
-        List<Transform> enemies = RangeCheck();
-        if (enemies == null)
-            return;
-
-        // ±Û²Ã ½ºÅ¸ÀÏÀ» »ı¼ºÇÏ°í ¼³Á¤ÇÕ´Ï´Ù.
-        GUIStyle style = new GUIStyle();
-        style.normal.textColor = Color.red;
-        style.fontSize = 20;
-
-        // ¹Ú½ºÀÇ À§Ä¡¿Í Å©±â¸¦ ¼³Á¤ÇÕ´Ï´Ù.
-        float boxWidth = 200;
-        float boxHeight = 25 * transforms.Count + 10;
-        float boxX = Screen.width - boxWidth - 10;
-        float boxY = 10;
-
-        // ¹Ú½º¸¦ ±×¸³´Ï´Ù.
-        GUI.Box(new Rect(boxX, boxY, boxWidth, boxHeight), "");
-
-        // ¶óº§À» ±×¸± À§Ä¡¸¦ ¼³Á¤ÇÕ´Ï´Ù.
-        float x = boxX + 5;
-        float y = boxY + 5;
-
-
-        foreach (Transform enemy in enemies)
-        {
-            // ÇÃ·¹ÀÌ¾î¿Í Àû »çÀÌÀÇ °Å¸®¸¦ °è»êÇÕ´Ï´Ù.
-            float distance = Vector3.Distance(target.root.position, enemy.position);
-
-            // È­¸é¿¡ ÅØ½ºÆ®¸¦ Ç¥½ÃÇÕ´Ï´Ù.
-            GUI.Label(new Rect(x, y, boxWidth, 20), $"{enemy.name} (Distance: {distance})", style);
-
-            // ´ÙÀ½ ¶óº§ÀÇ y ÁÂÇ¥¸¦ °»½ÅÇÕ´Ï´Ù.
-            y += 25;
-        }
-
-    }
-
     //void OnDrawGizmos()
     //{
-    //    // »ç°¢ÇüÀÇ Áß½É°ú ¹æÇâÀ» °è»êÇÕ´Ï´Ù.
+    //    // ì‚¬ê°í˜•ì˜ ì¤‘ì‹¬ê³¼ ë°©í–¥ì„ ê³„ì‚°í•©ë‹ˆë‹¤.
     //    Vector3 center = target.position;
     //    Quaternion direction = target.rotation;
 
-    //    // Gizmos¸¦ »ç¿ëÇÏ¿© ÇÏÀÌºê¸®µå ¹üÀ§¸¦ ±×¸³´Ï´Ù.
+    //    // Gizmosë¥¼ ì‚¬ìš©í•˜ì—¬ í•˜ì´ë¸Œë¦¬ë“œ ë²”ìœ„ë¥¼ ê·¸ë¦½ë‹ˆë‹¤.
     //    Gizmos.color = Color.red;
     //    Gizmos.matrix = Matrix4x4.TRS(center, direction, Vector3.one);
     //    Gizmos.DrawRay(Vector3.zero, Quaternion.Euler(0, -angle / 2, 0) * Vector3.forward * radius);

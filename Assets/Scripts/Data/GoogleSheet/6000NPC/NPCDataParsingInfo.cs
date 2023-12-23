@@ -16,11 +16,12 @@ namespace Assets.Scripts.Data.GoogleSheet
         public List<int> questList = new();
         public NpcType type;
     }
-    [CreateAssetMenu(fileName = "NPCData", menuName = "GameData List/NPCData")]
 
+    [CreateAssetMenu(fileName = "NPCData", menuName = "GameData List/NPCData")]
     public class NPCDataParsingInfo : DataParsingInfo
     {
-        public List<NPCData> datas = new List<NPCData>();
+        public List<NPCData> datas = new();
+
         public override T GetIndexData<T>(int index)
         {
             if (typeof(T) == typeof(NPCData))
@@ -28,22 +29,25 @@ namespace Assets.Scripts.Data.GoogleSheet
                 return datas.Find(m => m.index == index) as T;
             }
 
-            return default(T);
+            return default;
         }
 
         public override void Parse()
         {
             datas.Clear();
 
-            string[] lines = tsv.Split('\n');
+            var lines = tsv.Split('\n');
 
-            for(int i =  0; i < lines.Length; i++)
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (string.IsNullOrEmpty(lines[i])) continue;
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
 
-                string[] entries = lines[i].Split('\t');
+                var entries = lines[i].Split('\t');
 
-                NPCData data = new NPCData();
+                var data = new NPCData();
 
                 try
                 {
@@ -61,8 +65,8 @@ namespace Assets.Scripts.Data.GoogleSheet
                     {
                         if (entries[5].Trim() != "-1")
                         {
-                            string[] subEntries = entries[5].Split(";");
-                            foreach(string subEntry in subEntries)
+                            var subEntries = entries[5].Split(";");
+                            foreach (var subEntry in subEntries)
                             {
                                 data.questList.Add(int.Parse(subEntry.Trim()));
                             }

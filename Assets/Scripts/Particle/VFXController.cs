@@ -7,10 +7,10 @@ namespace Assets.Scripts.Particle
 {
     public class VFXController : Poolable
     {
-        public VisualEffect VFX { get; private set; }
+        private bool isFollowOrigin;
 
         private Transform origin;
-        private bool isFollowOrigin;
+        public VisualEffect VFX { get; private set; }
 
         private void Awake()
         {
@@ -46,7 +46,7 @@ namespace Assets.Scripts.Particle
 
         public override void PoolableDestroy()
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

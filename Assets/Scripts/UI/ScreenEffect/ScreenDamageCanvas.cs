@@ -14,19 +14,14 @@ namespace Assets.Scripts.UI.ScreenEffect
     {
         public static readonly string Path = "ScreenEffect/ScreenDamageCanvas";
 
-        private enum Images
-        {
-            BlurEffect,
-        }
-
         [SerializeField] private Color blurColor;
         [SerializeField] [Range(0.0f, 5.0f)] private float blurDuration = 0.15f;
         [SerializeField] private float baseClarity = 0.15f;
 
         private Image blurEffectImage;
+        private Color blurEndColor;
 
         private Color blurStartColor;
-        private Color blurEndColor;
 
         private Coroutine fadeInCoroutine;
         private TicketMachine ticketMachine;
@@ -71,14 +66,18 @@ namespace Assets.Scripts.UI.ScreenEffect
         private void OnNotify(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             switch (uiPayload.actionType)
             {
                 case ActionType.ShowBlurEffect:
                 {
                     if (fadeInCoroutine != null)
+                    {
                         StopCoroutine(fadeInCoroutine);
+                    }
 
                     fadeInCoroutine = StartCoroutine(FadeInBlur(uiPayload.blurClarity));
                 }
@@ -88,8 +87,8 @@ namespace Assets.Scripts.UI.ScreenEffect
 
         private IEnumerator FadeInBlur(float clarity)
         {
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
 
             blurEndColor.a = clarity <= 0.0f ? baseClarity : clarity;
 
@@ -104,6 +103,11 @@ namespace Assets.Scripts.UI.ScreenEffect
             yield return new WaitForSeconds(blurDuration);
 
             blurEffectImage.color = blurStartColor;
+        }
+
+        private enum Images
+        {
+            BlurEffect
         }
     }
 }

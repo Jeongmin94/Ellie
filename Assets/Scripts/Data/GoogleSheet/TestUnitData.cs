@@ -13,11 +13,13 @@ public class TestUnitData : MonoBehaviour
             parsingInfo = DataManager.Instance.GetData<MonsterDataParsingInfo>();
             currentData = DataManager.Instance.GetIndexData<MonsterData, MonsterDataParsingInfo>(1000);
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             parsingInfo = DataManager.Instance.GetData<MonsterDataParsingInfo>();
             currentData = DataManager.Instance.GetIndexData<MonsterData, MonsterDataParsingInfo>(1001);
         }
+
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             parsingInfo = DataManager.Instance.GetData<MonsterDataParsingInfo>();

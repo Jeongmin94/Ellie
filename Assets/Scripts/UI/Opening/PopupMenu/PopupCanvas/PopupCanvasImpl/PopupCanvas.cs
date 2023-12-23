@@ -7,6 +7,11 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         private Action<PopupPayload> popupCanvasAction;
 
+        protected virtual void OnDestroy()
+        {
+            popupCanvasAction = null;
+        }
+
         public void Subscribe(Action<PopupPayload> listener)
         {
             popupCanvasAction -= listener;
@@ -16,11 +21,6 @@ namespace Assets.Scripts.UI.PopupMenu
         public virtual void Invoke(PopupPayload payload)
         {
             popupCanvasAction?.Invoke(payload);
-        }
-        
-        protected virtual void OnDestroy()
-        {
-            popupCanvasAction = null;
         }
     }
 }

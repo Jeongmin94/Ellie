@@ -9,18 +9,20 @@
 public class ElasticManager : MonoBehaviour
 {
     [Range(1, 15)] //1 is the minimum number of bones for the elastic to work and 15 is the total number of bones in the FBX file.
-    [SerializeField] private int numberOfBones;
+    [SerializeField]
+    private int numberOfBones;
 
     [Range(0, 7)] //elastic resistance to pull, this value will be caught in the script Slingshot.  
     public float elasticResistance;
 
     //The original values of SpringJoint components of the bones.
     public float spring = 3000f;
-    public float minDistance = 0f;
+    public float minDistance;
     public float maxDistance = 0.15f;
     public float tolerance = 0.05f;
     public float elasticLinesWidth = 0.4f;
-    public float damper = 0f;
+    public float damper;
+
     public float massScale = 0.1f;
     //Controls the width of the line renderers.
 
@@ -35,18 +37,17 @@ public class ElasticManager : MonoBehaviour
     [SerializeField] private GameObject leatherLine;
     [SerializeField] private SpringJoint knotR;
     [SerializeField] private SpringJoint knotL;
-    private FixedJoint[] leatherJoints;
-    private FixedJoint[] leatherLineJoints;
 
     //LineRenderers used in the elastic effect when stretched.
     [SerializeField] private LineRenderer rightElasticLine;
     [SerializeField] private LineRenderer leftElasticLine;
-    
+
     private int i = 1; //Used has index.
-    
-    void Awake()
+    private FixedJoint[] leatherJoints;
+    private FixedJoint[] leatherLineJoints;
+
+    private void Awake()
     {
-      
         //Sets the fixed joints that reference the last bone of the elastics
         leatherJoints = leather.GetComponents<FixedJoint>();
         leatherLineJoints = leatherLine.GetComponents<FixedJoint>();
@@ -56,12 +57,12 @@ public class ElasticManager : MonoBehaviour
         leftElasticLine.SetWidth(elasticLinesWidth, elasticLinesWidth);
 
         //Sets up each bone of the right elastic.
-        foreach (GameObject bone in rightBones)
+        foreach (var bone in rightBones)
         {
-            if(i <= numberOfBones)
+            if (i <= numberOfBones)
             {
                 //Sets the SpringJoint values to the used bones.
-                SpringJoint bsj = bone.GetComponent<SpringJoint>();
+                var bsj = bone.GetComponent<SpringJoint>();
                 bsj.spring = spring;
                 bsj.minDistance = minDistance;
                 bsj.maxDistance = maxDistance;
@@ -93,12 +94,12 @@ public class ElasticManager : MonoBehaviour
         i = 1;
 
         //Sets up each bone of the left elastic.
-        foreach (GameObject bone in leftBones)
+        foreach (var bone in leftBones)
         {
             if (i <= numberOfBones)
             {
                 //Sets the SpringJoint values to the used bones.
-                SpringJoint bsj = bone.GetComponent<SpringJoint>();
+                var bsj = bone.GetComponent<SpringJoint>();
                 bsj.spring = spring;
                 bsj.minDistance = minDistance;
                 bsj.maxDistance = maxDistance;
@@ -125,5 +126,5 @@ public class ElasticManager : MonoBehaviour
 
             i++;
         }
-    }   
+    }
 }

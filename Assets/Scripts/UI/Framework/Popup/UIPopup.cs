@@ -6,7 +6,7 @@ namespace Assets.Scripts.UI.Framework.Popup
     {
         protected override void Init()
         {
-            UIManager.Instance.SetCanvas(gameObject, true);
+            UIManager.Instance.SetCanvas(gameObject);
         }
 
         public virtual void ClosePopup()

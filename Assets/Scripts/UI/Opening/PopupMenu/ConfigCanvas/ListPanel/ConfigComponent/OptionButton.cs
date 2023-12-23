@@ -10,6 +10,11 @@ namespace Data.UI.Config
         private Action<int> buttonAction;
         private int buttonValue;
 
+        private void OnDestroy()
+        {
+            buttonAction = null;
+        }
+
         public void InitOptionButton(int direction)
         {
             buttonValue = direction;
@@ -20,11 +25,6 @@ namespace Data.UI.Config
         {
             buttonAction -= listener;
             buttonAction += listener;
-        }
-
-        private void OnDestroy()
-        {
-            buttonAction = null;
         }
 
         protected override void Init()

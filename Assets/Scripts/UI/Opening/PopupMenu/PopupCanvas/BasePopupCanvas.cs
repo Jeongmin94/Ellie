@@ -35,13 +35,6 @@ namespace Assets.Scripts.UI.PopupMenu
     {
         public static readonly string Path = "PopupMenuCanvas";
 
-        private enum GameObjects
-        {
-            PopupBackground,
-            PopupTextPanel,
-            PopupButtonGridPanel
-        }
-
         [SerializeField] private UITransformData popupMenuTransform;
         [SerializeField] private UITransformData popupTextPanelTransform;
         [SerializeField] private UITransformData popupButtonGridTransform;
@@ -49,28 +42,35 @@ namespace Assets.Scripts.UI.PopupMenu
         [SerializeField] private TextTypographyData popupButtonTypography;
         [SerializeField] private PopupData popupData;
 
-        private readonly TransformController popupBackgroundController = new TransformController();
-        private readonly TransformController popupTextPanelController = new TransformController();
-        private readonly TransformController popupButtonGridController = new TransformController();
+        private readonly List<string> buttonTexts = new() { "예", "아니오" };
+        private readonly List<ButtonType> buttonTypes = new() { ButtonType.Yes, ButtonType.No };
+
+        private readonly TransformController popupBackgroundController = new();
+        private readonly TransformController popupButtonGridController = new();
+        private readonly List<BaseNormalMenuButton> popupButtons = new();
+        private readonly TransformController popupTextPanelController = new();
 
         private GameObject popupBackground;
-        private GameObject popupTextPanel;
-        private GameObject popupButtonGridPanel;
 
         private RectTransform popupBackgroundRect;
-        private RectTransform popupTextPanelRect;
+        private GameObject popupButtonGridPanel;
         private RectTransform popupButtonGridPanelRect;
+        private PopupCanvas popupCanvas;
 
         // 팝업 내용
         private TextMeshProUGUI popupText;
-        private readonly List<BaseNormalMenuButton> popupButtons = new List<BaseNormalMenuButton>();
+        private GameObject popupTextPanel;
+        private RectTransform popupTextPanelRect;
 
         private PopupType popupType;
-        private PopupCanvas popupCanvas;
 
-        public void Subscribe(Action<PopupPayload> listener)
+        private void LateUpdate()
         {
-            popupCanvas.Subscribe(listener);
+#if UNITY_EDITOR
+            popupBackgroundController.CheckQueue(popupBackgroundRect);
+            popupTextPanelController.CheckQueue(popupTextPanelRect);
+            popupButtonGridController.CheckQueue(popupButtonGridPanelRect);
+#endif
         }
 
         private void OnEnable()
@@ -81,6 +81,11 @@ namespace Assets.Scripts.UI.PopupMenu
         private void OnDisable()
         {
             popupButtons.ForEach(button => button.gameObject.SetActive(false));
+        }
+
+        public void Subscribe(Action<PopupPayload> listener)
+        {
+            popupCanvas.Subscribe(listener);
         }
 
         public void InitPopupCanvas(PopupType type)
@@ -149,15 +154,14 @@ namespace Assets.Scripts.UI.PopupMenu
             SetPopupTitleTypography();
         }
 
-        private readonly List<string> buttonTexts = new List<string> { "예", "아니오" };
-        private readonly List<ButtonType> buttonTypes = new List<ButtonType>() { ButtonType.Yes, ButtonType.No };
-
         private void InitButtons()
         {
             // yes, no
-            for (int i = 0; i < buttonTexts.Count; i++)
+            for (var i = 0; i < buttonTexts.Count; i++)
             {
-                var button = UIManager.Instance.MakeSubItem<BaseNormalMenuButton>(popupButtonGridPanelRect, BaseNormalMenuButton.Path);
+                var button =
+                    UIManager.Instance.MakeSubItem<BaseNormalMenuButton>(popupButtonGridPanelRect,
+                        BaseNormalMenuButton.Path);
                 button.name += $"#{buttonTexts[i]}";
                 button.InitText();
                 popupButtonTypography.title = buttonTexts[i];
@@ -179,7 +183,10 @@ namespace Assets.Scripts.UI.PopupMenu
             popupText.lineSpacing = popupTitleTypography.lineSpacing;
         }
 
-        private void SetTitle(string title) => popupText.text = title;
+        private void SetTitle(string title)
+        {
+            popupText.text = title;
+        }
 
         #region PopupEvent
 
@@ -191,13 +198,11 @@ namespace Assets.Scripts.UI.PopupMenu
 
         #endregion
 
-        private void LateUpdate()
+        private enum GameObjects
         {
-#if UNITY_EDITOR
-            popupBackgroundController.CheckQueue(popupBackgroundRect);
-            popupTextPanelController.CheckQueue(popupTextPanelRect);
-            popupButtonGridController.CheckQueue(popupButtonGridPanelRect);
-#endif
+            PopupBackground,
+            PopupTextPanel,
+            PopupButtonGridPanel
         }
     }
 }

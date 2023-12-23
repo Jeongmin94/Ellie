@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Assets.Scripts.Combat;
-using Assets.Scripts.Monsters;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Utils;
 using Channels.Combat;
@@ -19,21 +17,21 @@ public class MonsterHeadShot : MonoBehaviour, ICombatant
         SetTicketMachine();
     }
 
-    private void SetTicketMachine()
-    {
-        ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTicket(ChannelType.Combat);
-    }
-
     public void Attack(IBaseEventPayload payload)
     {
-        throw new System.NotImplementedException();
+        throw new NotImplementedException();
     }
 
     public void ReceiveDamage(IBaseEventPayload payload)
     {
         controller.RecieveHeadShot();
-        CombatPayload combatPayload = payload as CombatPayload;
+        var combatPayload = payload as CombatPayload;
         controller.UpdateHP(combatPayload.Damage);
+    }
+
+    private void SetTicketMachine()
+    {
+        ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+        ticketMachine.AddTicket(ChannelType.Combat);
     }
 }

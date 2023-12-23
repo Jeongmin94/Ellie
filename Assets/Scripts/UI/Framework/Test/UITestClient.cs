@@ -24,15 +24,19 @@ namespace Assets.Scripts.UI.Framework
         private const string UIMonsterCanvas = "Monster/MonsterCanvas";
         private const string UIMonsterBillboard = "Monster/MonsterBillboard";
 
+        private const string PrefixExclamationPath = "UI/Inven/Exclamation/";
+        private const string ExclamationGray = "Exclamation_Gray";
+        private const string ExclamationRed = "Exclamation_Red";
+
         [SerializeField] private Transform billBoardPosition;
         [SerializeField] private PlayerHealthData healthData;
         [SerializeField] private StaminaData staminaData;
         [SerializeField] private MonsterHealthData monsterHealthData;
         [SerializeField] private int damage = 1;
+        private readonly MonsterDataContainer billboardContainer = new();
+        private readonly MonsterDataContainer canvasContainer = new();
 
         private UIStatusBar statusBar;
-        private readonly MonsterDataContainer canvasContainer = new MonsterDataContainer();
-        private readonly MonsterDataContainer billboardContainer = new MonsterDataContainer();
 
         private TicketMachine ticketMachine;
 
@@ -56,20 +60,6 @@ namespace Assets.Scripts.UI.Framework
             ticketMachine.AddTickets(ChannelType.UI);
         }
 
-        private void OnEnable()
-        {
-            InputManager.Instance.keyAction -= OnKeyAction;
-            InputManager.Instance.keyAction += OnKeyAction;
-        }
-
-        private const string PrefixExclamationPath = "UI/Inven/Exclamation/";
-        private const string ExclamationGray = "Exclamation_Gray";
-        private const string ExclamationRed = "Exclamation_Red";
-
-        private void OnKeyAction()
-        {
-        }
-
         private void Start()
         {
             UIManager.Instance.MakePopup<UIPopupButton>(UIButtonCanvas);
@@ -87,19 +77,25 @@ namespace Assets.Scripts.UI.Framework
             billboard.InitData(billboardContainer);
         }
 
+        private void OnEnable()
+        {
+            InputManager.Instance.keyAction -= OnKeyAction;
+            InputManager.Instance.keyAction += OnKeyAction;
+        }
+
         private void OnGUI()
         {
             float w = Screen.width;
             float h = Screen.height;
             if (GUI.Button(new Rect(10, h - 30, 100, 20), "attack player"))
             {
-                int val = Math.Clamp(healthData.CurrentHealth.Value - damage, 0, healthData.MaxHealth);
+                var val = Math.Clamp(healthData.CurrentHealth.Value - damage, 0, healthData.MaxHealth);
                 healthData.CurrentHealth.Value = val;
             }
 
             if (GUI.Button(new Rect(10, h - 60, 100, 20), "heal player"))
             {
-                int val = Math.Clamp(healthData.CurrentHealth.Value + damage, 0, healthData.MaxHealth);
+                var val = Math.Clamp(healthData.CurrentHealth.Value + damage, 0, healthData.MaxHealth);
                 healthData.CurrentHealth.Value = val;
             }
 
@@ -127,27 +123,31 @@ namespace Assets.Scripts.UI.Framework
 
             if (GUI.Button(new Rect(300, h - 30, 100, 20), "attack boss monster"))
             {
-                int val = Math.Clamp(canvasContainer.CurrentHp.Value - damage, 0, canvasContainer.MaxHp);
+                var val = Math.Clamp(canvasContainer.CurrentHp.Value - damage, 0, canvasContainer.MaxHp);
                 canvasContainer.CurrentHp.Value = val;
             }
 
             if (GUI.Button(new Rect(300, h - 60, 100, 20), "heal boss monster"))
             {
-                int val = Math.Clamp(canvasContainer.CurrentHp.Value + damage, 0, canvasContainer.MaxHp);
+                var val = Math.Clamp(canvasContainer.CurrentHp.Value + damage, 0, canvasContainer.MaxHp);
                 canvasContainer.CurrentHp.Value = val;
             }
 
             if (GUI.Button(new Rect(300, h - 90, 100, 20), "attack billboard monster"))
             {
-                int val = Math.Clamp(billboardContainer.CurrentHp.Value - damage, 0, billboardContainer.MaxHp);
+                var val = Math.Clamp(billboardContainer.CurrentHp.Value - damage, 0, billboardContainer.MaxHp);
                 billboardContainer.CurrentHp.Value = val;
             }
 
             if (GUI.Button(new Rect(300, h - 120, 100, 20), "heal billboard monster"))
             {
-                int val = Math.Clamp(billboardContainer.CurrentHp.Value + damage, 0, billboardContainer.MaxHp);
+                var val = Math.Clamp(billboardContainer.CurrentHp.Value + damage, 0, billboardContainer.MaxHp);
                 billboardContainer.CurrentHp.Value = val;
             }
+        }
+
+        private void OnKeyAction()
+        {
         }
     }
 }

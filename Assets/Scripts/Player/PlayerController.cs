@@ -1,5 +1,9 @@
-﻿using Assets.Scripts.Centers;
+﻿using System;
+using System.Collections;
+using System.Linq;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Combat;
 using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Data.GoogleSheet._4400Etc;
 using Assets.Scripts.Environments;
@@ -7,6 +11,7 @@ using Assets.Scripts.Equipments;
 using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Player.States;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.Utils;
 using Channels.Combat;
@@ -15,29 +20,13 @@ using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Cinemachine;
-using System;
-using System.Collections;
-using System.Linq;
-using Assets.Scripts.Combat;
-using Assets.Scripts.StatusEffects;
 using UnityEngine;
-using UnityEngine.Serialization;
 using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
 {
     public class PlayerController : MonoBehaviour
     {
-        private const float MOVE_FORCE = 10f;
-        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
-
-        public enum SlopeStat
-        {
-            Flat,
-            Climable,
-            CantClimb
-        }
-
         public enum AnimLayer
         {
             Base,
@@ -46,21 +35,27 @@ namespace Assets.Scripts.Player
             Consuming
         }
 
-        [Header("Player references")]
-        [SerializeField]
+        public enum SlopeStat
+        {
+            Flat,
+            Climable,
+            CantClimb
+        }
+
+        private const float MOVE_FORCE = 10f;
+        private const float ADDITIONAL_GROUND_CHECK_DIST = 0.3f;
+
+        [Header("Player references")] [SerializeField]
         private Transform playerObj;
 
         [SerializeField] private CapsuleCollider playerCollider;
         [SerializeField] private Transform orientation;
-        private PlayerStatus playerStatus;
 
 
         [Header("Camera")] public Camera mainCam;
         public CinemachineVirtualCamera cinematicMainCam;
         public CinemachineVirtualCamera cinematicAimCam;
         public CinemachineVirtualCamera cinematicDialogCam;
-        private Action<float, float> cameraShakeAction;
-        private Action stopCameraShakeAction;
 
         [Header("Move")] [SerializeField] private float walkSpeed;
         [SerializeField] private float sprintSpeed;
@@ -75,8 +70,7 @@ namespace Assets.Scripts.Player
         [SerializeField] private float additionalGravityForce;
 
 
-        [Header("Ground Check")]
-        [SerializeField]
+        [Header("Ground Check")] [SerializeField]
         private float playerHeight;
 
         [SerializeField] private LayerMask groundLayer;
@@ -86,23 +80,20 @@ namespace Assets.Scripts.Player
 
 
         [Header("Slope")] public float maxSlopeAngle;
-        private RaycastHit slopeHit;
 
-        [Header("Getting Over Step")]
-        [SerializeField]
+        [Header("Getting Over Step")] [SerializeField]
         private GameObject stepRayUpper;
 
         [SerializeField] private GameObject stepRayLower;
-        [SerializeField] float stepHeight;
-        [SerializeField] float stepSmooth;
+        [SerializeField] private float stepHeight;
+        [SerializeField] private float stepSmooth;
         [SerializeField] private float lowerRayLength;
         [SerializeField] private float upperRayLength;
 
         [Header("Dodge")] [SerializeField] private float dodgeInvulnerableTime;
         [SerializeField] private float timeToDodgeAfterDown;
 
-        [Header("ActionData")]
-        [SerializeField]
+        [Header("ActionData")] [SerializeField]
         private AimTargetData aimTargetData;
 
         [Header("Attack")] [SerializeField] private GameObject slingshot;
@@ -111,17 +102,6 @@ namespace Assets.Scripts.Player
         public Shooter shooter;
         public GameObject meleeAttackCollider;
         [SerializeField] private int curStoneIdx;
-        private Vector3 aimTarget;
-
-        public Vector3 AimTarget
-        {
-            get { return aimTarget; }
-            set
-            {
-                aimTargetData.TargetPosition.Value = value;
-                aimTarget = value;
-            }
-        }
 
         public Transform aimTransform;
 
@@ -132,14 +112,7 @@ namespace Assets.Scripts.Player
 
         [Header("Mining")] [SerializeField] private float miningTime;
         [SerializeField] private Pickaxe pickaxe;
-
-        public Pickaxe Pickaxe
-        {
-            get { return pickaxe; }
-        }
-
-        private Ore curOre = null;
-        public bool isPickaxeAvailable = false;
+        public bool isPickaxeAvailable;
         public Pickaxe.Tier curPickaxeTier;
 
         [Header("Inventory")] public PlayerInventory playerInventory;
@@ -156,92 +129,65 @@ namespace Assets.Scripts.Player
         public bool canTurn;
         public bool canAttack;
         public bool isRigid;
+        private Vector3 aimTarget;
+        private Action<float, float> cameraShakeAction;
+
+        private float horizontalInput;
 
         private float initialFixedDeltaTime;
-        private float horizontalInput;
+
+        private float inputMagnitude;
+        private RaycastHit slopeHit;
+
+        private PlayerStateMachine stateMachine;
+        private Action stopCameraShakeAction;
+
         private float verticalInput;
 
-
-        public Transform PlayerObj
+        public Vector3 AimTarget
         {
-            get { return playerObj; }
+            get => aimTarget;
+            set
+            {
+                aimTargetData.TargetPosition.Value = value;
+                aimTarget = value;
+            }
         }
 
-        public PlayerStatus PlayerStatus
-        {
-            get { return playerStatus; }
-            set { playerStatus = value; }
-        }
+        public Pickaxe Pickaxe => pickaxe;
 
-        public float WalkSpeed
-        {
-            get { return walkSpeed; }
-        }
 
-        public float SprintSpeed
-        {
-            get { return sprintSpeed; }
-        }
+        public Transform PlayerObj => playerObj;
 
-        public float DodgeSpeed
-        {
-            get { return dodgeSpeed; }
-        }
+        public PlayerStatus PlayerStatus { get; set; }
 
-        public float PlayerHeight
-        {
-            get { return playerHeight; }
-        }
+        public float WalkSpeed => walkSpeed;
 
-        public LayerMask GroundLayer
-        {
-            get { return groundLayer; }
-        }
+        public float SprintSpeed => sprintSpeed;
 
-        public float AdditionalJumpForce
-        {
-            get { return additionalJumpForce; }
-        }
+        public float DodgeSpeed => dodgeSpeed;
 
-        public float MaximumJumpInputTime
-        {
-            get { return maximumAdditionalJumpInputTime; }
-        }
+        public float PlayerHeight => playerHeight;
 
-        public float AdditionalGravityForce
-        {
-            get { return additionalGravityForce; }
-        }
+        public LayerMask GroundLayer => groundLayer;
 
-        public float LandStateDuration
-        {
-            get { return landStateDuration; }
-        }
+        public float AdditionalJumpForce => additionalJumpForce;
 
-        public float DodgeInvulnerableTime
-        {
-            get { return dodgeInvulnerableTime; }
-        }
+        public float MaximumJumpInputTime => maximumAdditionalJumpInputTime;
 
-        public float TimeToDodgeAfterDown
-        {
-            get { return timeToDodgeAfterDown; }
-        }
+        public float AdditionalGravityForce => additionalGravityForce;
 
-        public Ore CurOre
-        {
-            get { return curOre; }
-        }
+        public float LandStateDuration => landStateDuration;
 
-        public float MiningTime
-        {
-            get { return miningTime; }
-        }
+        public float DodgeInvulnerableTime => dodgeInvulnerableTime;
 
-        public bool IsPickaxeAvailable
-        {
-            get { return isPickaxeAvailable; }
-        }
+        public float TimeToDodgeAfterDown => timeToDodgeAfterDown;
+
+        public Ore CurOre { get; private set; }
+
+        public float MiningTime => miningTime;
+
+        public bool IsPickaxeAvailable => isPickaxeAvailable;
 
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
@@ -249,52 +195,28 @@ namespace Assets.Scripts.Player
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
 
-        public float RecoilTime
-        {
-            get { return recoilTime; }
-        }
+        public float RecoilTime => recoilTime;
 
-        public int CurStoneIdx
-        {
-            get { return curStoneIdx; }
-        }
+        public int CurStoneIdx => curStoneIdx;
 
-        private float inputMagnitude;
-
-        private PlayerStateMachine stateMachine;
-
-        private TicketMachine ticketMachine;
-
-        public TicketMachine TicketMachine
-        {
-            get { return ticketMachine; }
-        }
+        public TicketMachine TicketMachine { get; private set; }
 
         private void Awake()
         {
             Rb = GetComponent<Rigidbody>();
             Anim = GetComponent<Animator>();
-            playerStatus = GetComponent<PlayerStatus>();
+            PlayerStatus = GetComponent<PlayerStatus>();
             playerInventory = GetComponent<PlayerInventory>();
-            
+
             InitTicketMachine();
-            playerStatus.ControllerTicketMachine = ticketMachine;
+            PlayerStatus.ControllerTicketMachine = TicketMachine;
 
             //카메라 흔들림 이벤트 구독
             SubscribeCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().ShakeCamera);
-            SubscribeStopCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>().StopShakeCamera);
+            SubscribeStopCameraShakeAction(cinematicMainCam.gameObject.GetComponent<CameraShakingEffect>()
+                .StopShakeCamera);
 
             GetComponent<PlayerAim>().canAim = false;
-        }
-
-        private void InitTicketMachine()
-        {
-            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog, ChannelType.Camera);
-            ticketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
-            ticketMachine.RegisterObserver(ChannelType.Dialog, GetComponent<PlayerQuest>().SetIsPlaying);
-            ticketMachine.RegisterObserver(ChannelType.Camera, OnNotifyCameraAction);
         }
 
         private void Start()
@@ -324,7 +246,9 @@ namespace Assets.Scripts.Player
             //    InputManager.Instance.CanInput = true;
             //}
             if (!InputManager.Instance.CanInput)
+            {
                 return;
+            }
 
             GetInput();
             CheckGround();
@@ -341,7 +265,7 @@ namespace Assets.Scripts.Player
                 //     Defender = transform,
                 //     Damage = 20
                 // });
-                ticketMachine.SendMessage(ChannelType.Combat, new CombatPayload
+                TicketMachine.SendMessage(ChannelType.Combat, new CombatPayload
                 {
                     Defender = transform,
                     Damage = 1,
@@ -349,7 +273,6 @@ namespace Assets.Scripts.Player
                     statusEffectduration = 5f
                 });
             }
-
         }
 
         private void FixedUpdate()
@@ -357,6 +280,17 @@ namespace Assets.Scripts.Player
             CalculateMoveDirection();
             AddAdditionalGravityForce();
             stateMachine?.FixedUpdateState();
+        }
+
+        private void InitTicketMachine()
+        {
+            TicketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+
+            TicketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Dialog,
+                ChannelType.Camera);
+            TicketMachine.RegisterObserver(ChannelType.UI, OnNotifyAction);
+            TicketMachine.RegisterObserver(ChannelType.Dialog, GetComponent<PlayerQuest>().SetIsPlaying);
+            TicketMachine.RegisterObserver(ChannelType.Camera, OnNotifyCameraAction);
         }
 
         private void InitVariables()
@@ -371,7 +305,8 @@ namespace Assets.Scripts.Player
             TurnOffAimCam();
             TurnOffDialogCam();
 
-            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x, stepRayLower.transform.position.y + stepHeight,
+            stepRayUpper.transform.position = new Vector3(stepRayUpper.transform.position.x,
+                stepRayLower.transform.position.y + stepHeight,
                 stepRayUpper.transform.position.z);
             SetCurOre(null);
             Pickaxe.gameObject.SetActive(false);
@@ -405,7 +340,6 @@ namespace Assets.Scripts.Player
             Anim.SetFloat("Input Magnitude", inputMagnitude, 0.1f, Time.deltaTime);
         }
 
-        
 
         public void SetColliderHeight(float colliderHeight)
         {
@@ -466,7 +400,11 @@ namespace Assets.Scripts.Player
 
         public void MovePlayer(float moveSpeed)
         {
-            if (!canMove) return;
+            if (!canMove)
+            {
+                return;
+            }
+
             switch (CheckSlope())
             {
                 // !TODO : 경사로에서 흘러내리는 문제 수정
@@ -485,11 +423,13 @@ namespace Assets.Scripts.Player
 
         private void ClimbStep()
         {
-            bool flag = false;
-            RaycastHit[] hitLower = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
+            var flag = false;
+            var hitLower = Physics.RaycastAll(stepRayLower.transform.position,
+                PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
             if (hitLower.Any())
             {
-                RaycastHit[] hitUpper = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
+                var hitUpper = Physics.RaycastAll(stepRayUpper.transform.position,
+                    PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
                 if (!hitUpper.Any())
                 {
                     //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
@@ -497,10 +437,12 @@ namespace Assets.Scripts.Player
                 }
             }
 
-            RaycastHit[] hitLower45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
+            var hitLower45 = Physics.RaycastAll(stepRayLower.transform.position,
+                PlayerObj.TransformDirection(Vector3.forward), lowerRayLength, groundLayer);
             if (hitLower45.Any())
             {
-                RaycastHit[] hitUpper45 = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
+                var hitUpper45 = Physics.RaycastAll(stepRayUpper.transform.position,
+                    PlayerObj.TransformDirection(Vector3.forward), upperRayLength, groundLayer);
                 if (!hitUpper45.Any())
                 {
                     //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
@@ -508,10 +450,12 @@ namespace Assets.Scripts.Player
                 }
             }
 
-            RaycastHit[] hitLowerMinus45 = Physics.RaycastAll(stepRayLower.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), lowerRayLength, groundLayer);
+            var hitLowerMinus45 = Physics.RaycastAll(stepRayLower.transform.position,
+                PlayerObj.TransformDirection(-1.5f, 0, 1), lowerRayLength, groundLayer);
             if (hitLowerMinus45.Any())
             {
-                RaycastHit[] hitUpperMinus45 = Physics.RaycastAll(stepRayUpper.transform.position, PlayerObj.TransformDirection(-1.5f, 0, 1), upperRayLength, groundLayer);
+                var hitUpperMinus45 = Physics.RaycastAll(stepRayUpper.transform.position,
+                    PlayerObj.TransformDirection(-1.5f, 0, 1), upperRayLength, groundLayer);
                 if (!hitUpperMinus45.Any())
                 {
                     //Rb.position += new Vector3(0f, stepSmooth * Time.fixedDeltaTime, 0f);
@@ -544,13 +488,21 @@ namespace Assets.Scripts.Player
 
         public void ChangeState(PlayerStateName nextStateName)
         {
-            if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
+            if (stateMachine.CurrentStateName == PlayerStateName.Dead)
+            {
+                return;
+            }
+
             stateMachine.ChangeState(nextStateName);
         }
 
         public void ChangeState(PlayerStateName nextStateName, StateInfo info)
         {
-            if (stateMachine.CurrentStateName == PlayerStateName.Dead) return;
+            if (stateMachine.CurrentStateName == PlayerStateName.Dead)
+            {
+                return;
+            }
+
             stateMachine.ChangeState(nextStateName, info);
         }
 
@@ -563,8 +515,12 @@ namespace Assets.Scripts.Player
 
         private void CheckGround()
         {
-            if (isRigid) return;
-            bool curIsGrounded = Physics.Raycast(transform.position,
+            if (isRigid)
+            {
+                return;
+            }
+
+            var curIsGrounded = Physics.Raycast(transform.position,
                 Vector3.down, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST, groundLayer);
             // !TODO : 플레이어의 State들에서 처리할 수 있도록 수정
 
@@ -601,16 +557,22 @@ namespace Assets.Scripts.Player
         private SlopeStat CheckSlope()
         {
             // 평지 : 0, 경사로 : 1, 올라갈 수 없는 경사로 : -1
-            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit, playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
+            if (Physics.Raycast(transform.position, Vector3.down, out slopeHit,
+                    playerHeight * 0.5f + ADDITIONAL_GROUND_CHECK_DIST))
             {
-                float angle = Vector3.Angle(Vector3.up, slopeHit.normal);
+                var angle = Vector3.Angle(Vector3.up, slopeHit.normal);
                 //Debug.Log("CurrAngle : " + angle.ToString());
                 if (angle < 10f)
+                {
                     return SlopeStat.Flat;
+                }
+
                 if (angle > maxSlopeAngle)
+                {
                     return SlopeStat.CantClimb;
-                else
-                    return SlopeStat.Climable;
+                }
+
+                return SlopeStat.Climable;
             }
 
             return 0;
@@ -624,17 +586,23 @@ namespace Assets.Scripts.Player
         private void CalculateMoveDirection()
         {
             //orientation의 forward를 플레이어가 카메라를 향하는 방향으로 갱신합니다
-            Vector3 viewDir = transform.position - new Vector3(mainCam.transform.position.x, transform.position.y, mainCam.transform.position.z);
+            var viewDir = transform.position - new Vector3(mainCam.transform.position.x, transform.position.y,
+                mainCam.transform.position.z);
             orientation.forward = viewDir.normalized;
             MoveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
         }
 
         private void Turn()
         {
-            if (!canTurn) return;
+            if (!canTurn)
+            {
+                return;
+            }
+
             if (MoveDirection != Vector3.zero)
             {
-                PlayerObj.forward = Vector3.Slerp(PlayerObj.forward, MoveDirection.normalized, Time.deltaTime * rotationSpeed);
+                PlayerObj.forward = Vector3.Slerp(PlayerObj.forward, MoveDirection.normalized,
+                    Time.deltaTime * rotationSpeed);
             }
         }
 
@@ -672,13 +640,16 @@ namespace Assets.Scripts.Player
         public void IncreaseAnimLayerWeight(AnimLayer layer, float weight)
         {
             // 애니메이션의 레이어의 Weight를 증가시킵니다. State의 Update에서 호출합니다
-            float curWeight = Anim.GetLayerWeight((int)layer);
-            if (Mathf.Equals(curWeight, weight)) return;
+            var curWeight = Anim.GetLayerWeight((int)layer);
+            if (Equals(curWeight, weight))
+            {
+                return;
+            }
 
-            float animLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            var animLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
             if (curWeight < weight)
             {
-                float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+                var ts = Time.timeScale == 0f ? 1f : Time.timeScale;
 
                 curWeight += animLayerWeightChangeSpeed * Time.deltaTime / ts;
             }
@@ -693,12 +664,12 @@ namespace Assets.Scripts.Player
 
         private IEnumerator SetAnimToDefaultlayerCoroutine(int layer)
         {
-            float AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
-            float curWeight = Anim.GetLayerWeight(layer);
-            
+            var AnimLayerWeightChangeSpeed = 2 / mainCam.GetComponent<CinemachineBrain>().m_DefaultBlend.BlendTime;
+            var curWeight = Anim.GetLayerWeight(layer);
+
             while (curWeight > 0)
             {
-                float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+                var ts = Time.timeScale == 0f ? 1f : Time.timeScale;
 
                 curWeight -= AnimLayerWeightChangeSpeed * Time.deltaTime / ts;
                 Anim.SetLayerWeight(layer, curWeight);
@@ -715,47 +686,50 @@ namespace Assets.Scripts.Player
 
         public void Aim()
         {
-            Ray shootRay = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+            var shootRay = mainCam.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
             if (Physics.Raycast(shootRay, out var hit, Mathf.Infinity, ~layerToIgnore))
             {
                 AimTarget = hit.point;
-                
             }
             else
             {
                 AimTarget = shootRay.origin + 50f * shootRay.direction.normalized;
             }
-            
+
             aimTransform.position = shootRay.origin + 5f * shootRay.direction.normalized;
             cinematicAimCam.LookAt = aimTransform;
-            
+
             //trajectory의 마지막 포인트를 중심으로 overlapsphere하여 콜라이더 검출
-            Vector3 lastPointOfTraj = shooter.LastPointOfTraj();
-            float radius = 0.4f;
-            Collider[] colliders = Physics.OverlapSphere(lastPointOfTraj, radius);
+            var lastPointOfTraj = shooter.LastPointOfTraj();
+            var radius = 0.4f;
+            var colliders = Physics.OverlapSphere(lastPointOfTraj, radius);
             ICombatant combatant = null;
             foreach (var collider in colliders)
             {
                 combatant = collider.gameObject.GetComponent<ICombatant>();
                 if (combatant != null)
+                {
                     break;
+                }
             }
 
             shooter.ChangeLineRendererColor(combatant != null);
         }
+
         public void LookAimTarget()
         {
-            Vector3 directionToTarget = AimTarget - PlayerObj.position;
+            var directionToTarget = AimTarget - PlayerObj.position;
             directionToTarget.y = 0;
 
-            Quaternion targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
-            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
-            PlayerObj.rotation = Quaternion.Slerp(PlayerObj.rotation, targetRotation, rotationSpeed * Time.deltaTime / Time.timeScale);
+            var targetRotation = Quaternion.LookRotation(directionToTarget, Vector3.up);
+            var ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+            PlayerObj.rotation = Quaternion.Slerp(PlayerObj.rotation, targetRotation,
+                rotationSpeed * Time.deltaTime / Time.timeScale);
         }
 
         public void SetCurOre(Ore ore)
         {
-            curOre = ore;
+            CurOre = ore;
         }
 
         public PlayerStateName GetCurState()
@@ -812,7 +786,7 @@ namespace Assets.Scripts.Player
         private void OnNotifyAction(IBaseEventPayload payload)
         {
             //UI페이로드 처리 로직입니다
-            UIPayload uiPayload = payload as UIPayload;
+            var uiPayload = payload as UIPayload;
             //인벤토리 닫는 이벤트일 경우
             if (uiPayload.actionType == ActionType.ClickCloseButton)
             {
@@ -835,7 +809,11 @@ namespace Assets.Scripts.Player
                 GetComponent<PlayerAim>().canAim = true;
             }
 
-            if (uiPayload.actionType != ActionType.SetPlayerProperty) return;
+            if (uiPayload.actionType != ActionType.SetPlayerProperty)
+            {
+                return;
+            }
+
             switch (uiPayload.groupType)
             {
                 case GroupType.Item:
@@ -879,28 +857,26 @@ namespace Assets.Scripts.Player
                     break;
                 case GroupType.Etc:
                     break;
-                default:
-                    break;
             }
         }
 
         public void GetPickaxe(int pickaxeIdx)
         {
-            int pickaxeUiIdx = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx).uiIdx;
+            var pickaxeUiIdx = DataManager.Instance.GetIndexData<PickaxeData, PickaxeDataParsingInfo>(pickaxeIdx).uiIdx;
             UIPayload payload = new()
             {
                 uiType = UIType.Notify,
-                groupType = UI.Inventory.GroupType.Etc,
-                slotAreaType = UI.Inventory.SlotAreaType.Item,
+                groupType = GroupType.Etc,
+                slotAreaType = SlotAreaType.Item,
                 actionType = ActionType.AddSlotItem,
-                itemData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(pickaxeUiIdx),
+                itemData = DataManager.Instance.GetIndexData<EtcData, EtcDataParsingInfo>(pickaxeUiIdx)
             };
-            ticketMachine.SendMessage(ChannelType.UI, payload);
+            TicketMachine.SendMessage(ChannelType.UI, payload);
 
-            DialogPayload dPayload = DialogPayload.Play("곡괭이를 얻었다!!");
+            var dPayload = DialogPayload.Play("곡괭이를 얻었다!!");
             dPayload.canvasType = DialogCanvasType.Simple;
 
-            ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
+            TicketMachine.SendMessage(ChannelType.Dialog, dPayload);
             //!TODO 플레이어의 상태 세이브/로드 데이터에 해당 항목을 추가
             isPickaxeAvailable = true;
             curPickaxeTier = (Pickaxe.Tier)pickaxeIdx;
@@ -931,7 +907,11 @@ namespace Assets.Scripts.Player
 
         private void OnNotifyCameraAction(IBaseEventPayload payload)
         {
-            if (payload is not CameraPayload cameraPayload) return;
+            if (payload is not CameraPayload cameraPayload)
+            {
+                return;
+            }
+
             switch (cameraPayload.type)
             {
                 case CameraShakingEffectType.Start:
@@ -956,9 +936,13 @@ namespace Assets.Scripts.Player
 
             info.isPickaxeAvailable = isPickaxeAvailable;
             if (isPickaxeAvailable)
+            {
                 info.pickaxeTier = (int)curPickaxeTier;
+            }
             else
+            {
                 info.pickaxeTier = 0;
+            }
 
             return info;
         }
@@ -972,7 +956,9 @@ namespace Assets.Scripts.Player
                 pickaxe.LoadPickaxeData(curPickaxeTier);
             }
             else
+            {
                 curPickaxeTier = 0;
+            }
         }
     }
 }

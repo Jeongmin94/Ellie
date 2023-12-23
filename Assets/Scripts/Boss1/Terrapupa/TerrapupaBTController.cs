@@ -1,76 +1,63 @@
-﻿using Assets.Scripts.Managers;
+﻿using System.Collections;
+using System.Collections.Generic;
+using Assets.Scripts.Boss1.Terrapupa;
+using Assets.Scripts.Channels.Camera;
+using Assets.Scripts.Managers;
+using Assets.Scripts.Particle;
+using Assets.Scripts.Player.HitComponent;
 using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Combat;
 using Channels.Components;
-using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Channels.Camera;
-using Assets.Scripts.Player.HitComponent;
 using Channels.Type;
+using Sirenix.OdinInspector;
 using UnityEngine;
-using Assets.Scripts.Boss1.Terrapupa;
-using TheKiwiCoder;
-using Assets.Scripts.Controller;
-using Assets.Scripts.Particle;
 
 namespace Boss.Terrapupa
 {
     public class TerrapupaBTController : BehaviourTreeController
     {
         [HideInInspector] public TerrapupaRootData terrapupaData;
-        [SerializeField][Required] private TerrapupaWeakPoint weakPoint;
-        [SerializeField][Required] private TerrapupaHealthBar healthBar;
-        [SerializeField][Required] private Transform stone;
-
-        [ShowInInspector] [ReadOnly] private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown =
-            new Dictionary<TerrapupaAttackType, Coroutine>();
+        [SerializeField] [Required] private TerrapupaWeakPoint weakPoint;
+        [SerializeField] [Required] private TerrapupaHealthBar healthBar;
+        [SerializeField] [Required] private Transform stone;
 
         public float shakeDuration = 0.1f;
         public float shakeMagnitude = 0.1f;
 
-        private TicketMachine ticketMachine;
-        private MaterialHitComponent hitComponent;
-        private TerrapupaCoreController coreController;
-        private bool isDead = false;
+        [ShowInInspector] [ReadOnly] private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown = new();
 
         private readonly int stoneHitCompareCount = 5;
-        private bool isFirstReachCompareCount = false;
-        private int stoneHitCount = 0;
 
         private readonly int stoneHitCompareCountFaint = 3;
-        private bool isFirstReachCompareCountFaint = false;
-        private int stoneHitCountFaint = 0;
+        private TerrapupaCoreController coreController;
+        private MaterialHitComponent hitComponent;
 
         private ParticleController intakeEffect;
+        private bool isFirstReachCompareCount;
+        private bool isFirstReachCompareCountFaint;
+        private int stoneHitCount;
+        private int stoneHitCountFaint;
+
+        private TicketMachine ticketMachine;
 
         public Transform Stone
         {
-            get { return stone; }
-            set { stone = value; }
+            get => stone;
+            set => stone = value;
         }
 
         public TerrapupaWeakPoint WeakPoint
         {
-            get { return weakPoint; }
-            set { weakPoint = value; }
+            get => weakPoint;
+            set => weakPoint = value;
         }
 
-        public TerrapupaHealthBar HealthBar
-        {
-            get { return healthBar; }
-        }
+        public TerrapupaHealthBar HealthBar => healthBar;
 
-        public Dictionary<TerrapupaAttackType, Coroutine> AttackCooldown
-        {
-            get { return attackCooldown; }
-        }
+        public Dictionary<TerrapupaAttackType, Coroutine> AttackCooldown => attackCooldown;
 
-        public bool IsDead
-        {
-            get { return isDead; }
-        }
+        public bool IsDead { get; private set; }
 
         protected override void Awake()
         {
@@ -89,6 +76,21 @@ namespace Boss.Terrapupa
             InitStatus();
         }
 
+        private void OnCollisionEnter(Collision collision)
+        {
+            if (terrapupaData.isStart.Value &&
+                !isFirstReachCompareCount && collision.gameObject.CompareTag("Stone"))
+            {
+                stoneHitCount++;
+                if (stoneHitCount >= stoneHitCompareCount)
+                {
+                    isFirstReachCompareCount = true;
+                    BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.AttackBossWithNormalStone,
+                        ticketMachine);
+                }
+            }
+        }
+
         public void InitTicketMachine(TicketMachine ticketMachine)
         {
             this.ticketMachine = ticketMachine;
@@ -104,34 +106,21 @@ namespace Boss.Terrapupa
             weakPoint.SubscribeCollisionAction(OnCollidedCoreByPlayerStone);
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            if(terrapupaData.isStart.Value &&
-                !isFirstReachCompareCount && collision.gameObject.CompareTag("Stone"))
-            {
-                stoneHitCount++;
-                if (stoneHitCount >= stoneHitCompareCount)
-                {
-                    isFirstReachCompareCount = true;
-                    BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.AttackBossWithNormalStone, ticketMachine);
-                }
-            }
-        }
-
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
         {
             // 플레이어 총알 -> Combat Channel -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
             Debug.Log($"OnCollidedCoreByPlayerStone :: {payload}");
 
-            if(stoneHitCount > 0)
+            if (stoneHitCount > 0)
             {
                 stoneHitCount--;
             }
+
             if (terrapupaData.isStuned.value)
             {
-                CombatPayload combatPayload = payload as CombatPayload;
+                var combatPayload = payload as CombatPayload;
                 PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
-                int damage = combatPayload.Damage;
+                var damage = combatPayload.Damage;
 
                 GetDamaged(damage);
                 Debug.Log($"기절 상태, {damage} 데미지 입음 : {terrapupaData.currentHP.Value}");
@@ -140,13 +129,14 @@ namespace Boss.Terrapupa
             {
                 Debug.Log("기절 상태가 아님");
 
-                if(terrapupaData.isStart.Value && !isFirstReachCompareCountFaint)
+                if (terrapupaData.isStart.Value && !isFirstReachCompareCountFaint)
                 {
                     stoneHitCountFaint++;
                     if (stoneHitCountFaint >= stoneHitCompareCountFaint)
                     {
                         isFirstReachCompareCountFaint = true;
-                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DontAttackBossWeakPoint, ticketMachine);
+                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DontAttackBossWeakPoint,
+                            ticketMachine);
                     }
                 }
             }
@@ -154,7 +144,7 @@ namespace Boss.Terrapupa
 
         public void GetDamaged(int damageValue)
         {
-            if(!isDead)
+            if (!IsDead)
             {
                 ShowBillboard();
                 ShakeCamera(damageValue);
@@ -173,7 +163,7 @@ namespace Boss.Terrapupa
 
         public void GetHealed(int healValue)
         {
-            if(!isDead)
+            if (!IsDead)
             {
                 healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
                 terrapupaData.currentHP.Value += healValue;
@@ -197,7 +187,7 @@ namespace Boss.Terrapupa
 
         public void Dead()
         {
-            isDead = true;
+            IsDead = true;
             StopIntakeEffect();
             terrapupaData.currentHP.Value = 0;
             healthBar.RenewHealthBar(0);
@@ -235,7 +225,8 @@ namespace Boss.Terrapupa
 
             var effect = Data<TerrapupaIntakeData>("TerrapupaIntake");
             var payload = new ParticlePayload { Origin = transform, LoopCount = 5 };
-            intakeEffect = ParticleManager.Instance.GetParticle(effect.effect1, payload).GetComponent<ParticleController>();
+            intakeEffect = ParticleManager.Instance.GetParticle(effect.effect1, payload)
+                .GetComponent<ParticleController>();
         }
 
         public void EndIntakeMagicStone(int healValue)
@@ -272,27 +263,41 @@ namespace Boss.Terrapupa
             switch (type)
             {
                 case TerrapupaAttackType.ThrowStone:
-                    if (terrapupaData.stoneUsable) terrapupaData.canThrowStone.Value = isCooldownDone;
+                    if (terrapupaData.stoneUsable)
+                    {
+                        terrapupaData.canThrowStone.Value = isCooldownDone;
+                    }
+
                     break;
                 case TerrapupaAttackType.EarthQuake:
-                    if (terrapupaData.earthQuakeUsable) terrapupaData.canEarthQuake.Value = isCooldownDone;
+                    if (terrapupaData.earthQuakeUsable)
+                    {
+                        terrapupaData.canEarthQuake.Value = isCooldownDone;
+                    }
+
                     break;
                 case TerrapupaAttackType.Roll:
-                    if (terrapupaData.rollUsable) terrapupaData.canRoll.Value = isCooldownDone;
+                    if (terrapupaData.rollUsable)
+                    {
+                        terrapupaData.canRoll.Value = isCooldownDone;
+                    }
+
                     break;
                 case TerrapupaAttackType.LowAttack:
-                    if (terrapupaData.lowAttackUsable) terrapupaData.canLowAttack.Value = isCooldownDone;
-                    break;
-                default:
+                    if (terrapupaData.lowAttackUsable)
+                    {
+                        terrapupaData.canLowAttack.Value = isCooldownDone;
+                    }
+
                     break;
             }
         }
 
         private IEnumerator ShakeCoroutine()
         {
-            float elapsed = 0.0f;
+            var elapsed = 0.0f;
 
-            Vector3 originalPosition = transform.position;
+            var originalPosition = transform.position;
 
             while (elapsed < shakeDuration)
             {
@@ -306,11 +311,11 @@ namespace Boss.Terrapupa
 
         private void ShakeCamera(int damageValue)
         {
-            ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload()
+            ticketMachine.SendMessage(ChannelType.Camera, new CameraPayload
             {
                 type = CameraShakingEffectType.Start,
                 shakeIntensity = damageValue,
-                shakeTime = 0.1f,
+                shakeTime = 0.1f
             });
         }
 

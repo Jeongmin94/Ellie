@@ -5,15 +5,16 @@ namespace Assets.Scripts.Player.States
 {
     public class PlayerStateDown : PlayerBaseState
     {
-        private float duration;
         private float curTime;
-        private bool isForceAdded;
+        private float duration;
+        private readonly string[] ellieGroundedSound = new string[2];
+
+        private readonly string[] ellieRigiditySound = new string[2];
         private float force;
+        private bool isForceAdded;
 
         private bool isGrounded = true;
 
-        private string[] ellieRigiditySound = new string[2];
-        private string[] ellieGroundedSound = new string[2];
         public PlayerStateDown(PlayerController controller) : base(controller)
         {
             ellieRigiditySound[0] = "ellie_sound3";
@@ -25,6 +26,7 @@ namespace Assets.Scripts.Player.States
         public override void OnEnterState()
         {
         }
+
         public override void OnEnterState(StateInfo info)
         {
             isForceAdded = false;
@@ -40,13 +42,13 @@ namespace Assets.Scripts.Player.States
             Controller.ActivateShootPos(false);
             Controller.isRigid = true;
 
-            int soundIdx = UnityEngine.Random.Range(0, ellieRigiditySound.Length);
-            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieRigiditySound[soundIdx], Controller.transform.position);
-
+            var soundIdx = Random.Range(0, ellieRigiditySound.Length);
+            SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieRigiditySound[soundIdx],
+                Controller.transform.position);
         }
+
         public override void OnExitState()
         {
-
         }
 
         public override void OnFixedUpdateState()
@@ -59,16 +61,17 @@ namespace Assets.Scripts.Player.States
             }
 
             //가해지는 힘이 존재한다면
-            if(0 != force)
+            if (0 != force)
             {
-                bool curIsGrounded = Physics.Raycast(Controller.transform.position,
-                Vector3.down, Controller.PlayerHeight * 0.5f + 0.3f, Controller.GroundLayer);
-                if(!isGrounded && isGrounded != curIsGrounded)
+                var curIsGrounded = Physics.Raycast(Controller.transform.position,
+                    Vector3.down, Controller.PlayerHeight * 0.5f + 0.3f, Controller.GroundLayer);
+                if (!isGrounded && isGrounded != curIsGrounded)
                 {
-                    int idx = Random.Range(0, ellieGroundedSound.Length);
+                    var idx = Random.Range(0, ellieGroundedSound.Length);
                     SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, ellieGroundedSound[idx],
                         Controller.transform.position);
                 }
+
                 isGrounded = curIsGrounded;
             }
         }
@@ -80,6 +83,7 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }
+
             if (curTime >= duration)
             {
                 Controller.ChangeState(PlayerStateName.GetUp);

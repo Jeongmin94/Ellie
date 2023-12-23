@@ -1,5 +1,5 @@
-﻿using Assets.Scripts.StatusEffects;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.StatusEffects;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
@@ -8,9 +8,9 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
     {
         private float duration;
         private PlayerController playerController;
+
         public void InitStatusEffect()
         {
-            
         }
 
         public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)
@@ -22,11 +22,15 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
 
         private IEnumerator ImposeRigidity(PlayerStatusEffectController controller)
         {
-            PlayerStateName stateName = playerController.GetCurState();
-            if (!(stateName == PlayerStateName.Idle || stateName == PlayerStateName.Walk || stateName == PlayerStateName.Sprint
-                || stateName == PlayerStateName.Jump || stateName == PlayerStateName.Airborne || stateName == PlayerStateName.Zoom || stateName == PlayerStateName.Charging
-                || stateName == PlayerStateName.Shoot || stateName == PlayerStateName.Rigidity))
+            var stateName = playerController.GetCurState();
+            if (!(stateName == PlayerStateName.Idle || stateName == PlayerStateName.Walk ||
+                  stateName == PlayerStateName.Sprint
+                  || stateName == PlayerStateName.Jump || stateName == PlayerStateName.Airborne ||
+                  stateName == PlayerStateName.Zoom || stateName == PlayerStateName.Charging
+                  || stateName == PlayerStateName.Shoot || stateName == PlayerStateName.Rigidity))
+            {
                 yield break;
+            }
 
             controller.AddStatusEffect(this);
             StateInfo info = new()
@@ -37,6 +41,5 @@ namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
             yield return new WaitForSeconds(duration);
             controller.RemoveStatusEffect(this);
         }
-
     }
 }

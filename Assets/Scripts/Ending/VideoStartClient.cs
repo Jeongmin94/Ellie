@@ -1,5 +1,3 @@
-using Assets.Scripts.Centers;
-using Assets.Scripts.Data.UI.Video;
 using Assets.Scripts.UI.Video;
 using Assets.Scripts.Utils;
 using Channels.Components;
@@ -30,7 +28,7 @@ public class VideoStartClient : MonoBehaviour
     public void SendEndingPayload()
     {
         // 동영상 재생 페이로드
-        UIPayload payload = UIPayload.Notify();
+        var payload = UIPayload.Notify();
         payload.actionType = ActionType.PlayVideo;
         ticketMachine.SendMessage(ChannelType.UI, payload);
     }

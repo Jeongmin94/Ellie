@@ -13,16 +13,19 @@ namespace Assets.Scripts.UI.Equipment
     {
         public static readonly string Path = "Equipment/FrameCanvas";
 
-        private enum GameObjects
-        {
-            FramePanel
-        }
-
         [SerializeField] private Sprite frameImage;
         [SerializeField] private float frameWidth = 86.0f;
         [SerializeField] private float frameHeight = 86.0f;
 
         public GroupType groupType;
+
+        private readonly List<EquipmentFrame> frames = new();
+        private readonly Queue<Rect> rectQueue = new();
+        private readonly Queue<Vector2> scaleQueue = new();
+
+        // frame
+        private GameObject framePanel;
+        private RectTransform panelRect;
         private UITransformData uiTransformData;
 
         public Sprite FrameImage
@@ -43,13 +46,20 @@ namespace Assets.Scripts.UI.Equipment
             set => frameHeight = value;
         }
 
-        // frame
-        private GameObject framePanel;
-        private RectTransform panelRect;
+        private void LateUpdate()
+        {
+#if UNITY_EDITOR
+            if (rectQueue.Any())
+            {
+                SetRect(rectQueue.Dequeue());
+            }
 
-        private readonly List<EquipmentFrame> frames = new List<EquipmentFrame>();
-        private readonly Queue<Rect> rectQueue = new Queue<Rect>();
-        private readonly Queue<Vector2> scaleQueue = new Queue<Vector2>();
+            if (scaleQueue.Any())
+            {
+                SetScale(scaleQueue.Dequeue());
+            }
+#endif
+        }
 
         public void InitFrameCanvas(UITransformData transformData)
         {
@@ -110,19 +120,9 @@ namespace Assets.Scripts.UI.Equipment
         {
         }
 
-        private void LateUpdate()
-        {
-#if UNITY_EDITOR
-            if (rectQueue.Any())
-                SetRect(rectQueue.Dequeue());
-            if (scaleQueue.Any())
-                SetScale(scaleQueue.Dequeue());
-#endif
-        }
-
         public void InitFrame(Vector2[] directions, string uiName)
         {
-            for (int i = 0; i < directions.Length; i++)
+            for (var i = 0; i < directions.Length; i++)
             {
                 var frame = UIManager.Instance.MakeSubItem<EquipmentFrame>(panelRect, uiName);
                 frame.name = $"{frame.name}#{i}";
@@ -141,11 +141,13 @@ namespace Assets.Scripts.UI.Equipment
 
         private void OnEquipmentFrameAction(InventoryEventPayload payload)
         {
-            int slotIdx = payload.slot.Index;
+            var slotIdx = payload.slot.Index;
             if (slotIdx < 0 || slotIdx >= frames.Count)
+            {
                 return;
+            }
 
-            EquipmentFrame frame = frames[slotIdx];
+            var frame = frames[slotIdx];
             if (payload.slot.SlotItemData == null)
             {
                 frame.TurnOffFrameItem();
@@ -156,6 +158,11 @@ namespace Assets.Scripts.UI.Equipment
                 frame.SetItemText(payload.slot.SlotItemData.itemCount.Value.ToString());
                 frame.TurnOnFrameItem();
             }
+        }
+
+        private enum GameObjects
+        {
+            FramePanel
         }
     }
 }

@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ public enum Element
     Fire,
     Water,
     Grass,
-    Light,
+    Light
 }
 
 [Serializable]
@@ -42,63 +41,70 @@ public class MonsterDataParsingInfo : DataParsingInfo
         {
             return monsters.Find(m => m.index == index) as T;
         }
-        return default(T);
+
+        return default;
     }
 
     public override void Parse()
     {
         monsters.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for (int i = 0; i < lines.Length; i++)
+        for (var i = 0; i < lines.Length; i++)
         {
             if (string.IsNullOrEmpty(lines[i]))
+            {
                 continue;
+            }
 
-            string[] entries = lines[i].Split('\t');
+            var entries = lines[i].Split('\t');
 
-            MonsterData data = new MonsterData();
+            var data = new MonsterData();
             data.immuneList = new List<Element>();
 
             try
             {
-                // ÀÎµ¦½º ÄÚµå
+                // ì¸ë±ìŠ¤ ì½”ë“œ
                 data.index = int.Parse(entries[0].Trim());
 
-                // ¸ó½ºÅÍ ÀÌ¸§(Kor)
+                // ëª¬ìŠ¤í„° ì´ë¦„(Kor)
                 data.name = entries[1].Trim();
 
-                // ¼Ó¼º
+                // ì†ì„±
                 data.element = (Element)Enum.Parse(typeof(Element), entries[2].Trim());
 
-                // Ã¼·Â
+                // ì²´ë ¥
                 data.hp = int.Parse(entries[3].Trim());
 
-                // ÀÌµ¿ ¼Óµµ
+                // ì´ë™ ì†ë„
                 data.movement = float.Parse(entries[4].Trim());
 
-                // °ø°İ °¨Áö
+                // ê³µê²© ê°ì§€
                 data.range = float.Parse(entries[5].Trim());
 
-                // °ø°İ °£°İ(¼Óµµ)
+                // ê³µê²© ê°„ê²©(ì†ë„)
                 data.attackInterval = float.Parse(entries[6].Trim());
 
-                // »óÅÂÀÌ»ó ¸é¿ª - ¸®½ºÆ®
-                string[] immuneElements = entries[7].Split(',');
+                // ìƒíƒœì´ìƒ ë©´ì—­ - ë¦¬ìŠ¤íŠ¸
+                var immuneElements = entries[7].Split(',');
                 foreach (var element in immuneElements)
                 {
-                    if (element.Trim() == "None") continue;
+                    if (element.Trim() == "None")
+                    {
+                        continue;
+                    }
+
                     data.immuneList.Add((Element)Enum.Parse(typeof(Element), element.Trim()));
                 }
 
-                // ¼±°ø À¯¹«
+                // ì„ ê³µ ìœ ë¬´
                 data.aggression = bool.Parse(entries[8].Trim());
 
-                // ¾àÁ¡ °è¼ö
+                // ì•½ì  ê³„ìˆ˜
                 data.weakRatio = float.Parse(entries[9].Trim());
 
-                // µå¶ø Å×ÀÌºí ID
+                // ë“œë í…Œì´ë¸” ID
                 data.dropTable = int.Parse(entries[10].Trim());
             }
             catch (Exception ex)

@@ -4,7 +4,6 @@ namespace Channels
 {
     public abstract class BaseEventChannel
     {
-
         private Action<IBaseEventPayload> sendMessageAction;
 
         public abstract void ReceiveMessage(IBaseEventPayload payload);

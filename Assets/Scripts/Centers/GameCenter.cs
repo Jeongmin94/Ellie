@@ -22,23 +22,23 @@ namespace Assets.Scripts.Centers.Test
 
         private void Awake()
         {
-            Debug.Log($"%%%%% GameCenter Awake %%%%%");
+            Debug.Log("%%%%% GameCenter Awake %%%%%");
             MangerControllers.ClearAction(ManagerType.Input);
             MangerControllers.ClearAction(ManagerType.Sound);
             MangerControllers.ClearAction(ManagerType.Particle);
             MangerControllers.ClearAction(ManagerType.EventBus);
-            
+
             Init();
         }
 
         protected override void Start()
         {
             base.InitObjects();
-            
+
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(hatchery.gameObject);
-            foreach (Ore ore in ores)
+            foreach (var ore in ores)
             {
                 CheckTicket(ore.gameObject);
                 ore.curStage = curStage;
@@ -49,18 +49,24 @@ namespace Assets.Scripts.Centers.Test
             {
                 CheckTicket(child.gameObject);
             }
+
             foreach (var controller in controllerInstances)
             {
                 CheckTicket(controller.gameObject);
             }
-            foreach(var SkullSecondTrap in skullSecondTraps)
+
+            foreach (var SkullSecondTrap in skullSecondTraps)
+            {
                 CheckTicket(SkullSecondTrap.gameObject);
+            }
+
             CheckTicket(stonePillarPuzzle.gameObject);
-            
+
             foreach (Transform guidecollider in GuideColliders.transform)
             {
                 CheckTicket(guidecollider.gameObject);
             }
+
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, "BGM3");
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Ambient, "cave 10");
         }

@@ -1,15 +1,15 @@
-﻿using Assets.Scripts.StatusEffects;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.StatusEffects;
 using UnityEngine;
 
 namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
 {
     public class PlayerStatusEffectKnockedAirborne : MonoBehaviour, IPlayerStatusEffect
     {
-        PlayerController playerController;
+        private PlayerController playerController;
+
         public void InitStatusEffect()
         {
-            
         }
 
         public void ApplyStatusEffect(PlayerStatusEffectController controller, StatusEffectInfo info)

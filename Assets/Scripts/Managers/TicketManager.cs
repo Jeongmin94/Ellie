@@ -11,7 +11,8 @@ namespace Assets.Scripts.Managers
     public class TicketManager : Singleton<TicketManager>
     {
         [SerializeField]
-        private readonly IDictionary<ChannelType, BaseEventChannel> channels = new Dictionary<ChannelType, BaseEventChannel>();
+        private readonly IDictionary<ChannelType, BaseEventChannel> channels =
+            new Dictionary<ChannelType, BaseEventChannel>();
 
         public override void Awake()
         {
@@ -23,7 +24,7 @@ namespace Assets.Scripts.Managers
         private void InitBaseChannels()
         {
             var types = Enum.GetValues(typeof(ChannelType));
-            for (int i = 0; i < types.Length; i++)
+            for (var i = 0; i < types.Length; i++)
             {
                 var type = (ChannelType)types.GetValue(i);
                 channels.TryAdd(type, ChannelUtil.MakeChannel(type));
@@ -39,7 +40,9 @@ namespace Assets.Scripts.Managers
         {
             var machines = go.GetComponentsInChildren<TicketMachine>();
             if (machines.Length == 0)
+            {
                 return;
+            }
 
             foreach (var machine in machines)
             {

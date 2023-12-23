@@ -11,25 +11,11 @@ namespace Assets.Scripts.UI.Item
 {
     public class UIStoneInven : UIStatic
     {
-        private enum Buttons
-        {
-            LeftButton,
-            MidButton,
-            RightButton,
-        }
-
-        private enum GameObjects
-        {
-            Left,
-            Mid,
-            Right
-        }
-
         [SerializeField] private float swapTime = 0.5f;
+        private readonly List<Button> buttons = new();
 
         // ui components
-        private readonly List<UIStoneSubItem> subItems = new List<UIStoneSubItem>();
-        private readonly List<Button> buttons = new List<Button>();
+        private readonly List<UIStoneSubItem> subItems = new();
 
         // for swap
         private int equippedNumber = 1;
@@ -47,8 +33,8 @@ namespace Assets.Scripts.UI.Item
             Bind<GameObject>(typeof(GameObjects));
 
             // !TODO: 플레이어가 돌멩이를 획득한 상황에 따라서 subItem의 상황이 달라짐
-            int buttonCount = Enum.GetValues(typeof(Buttons)).Length;
-            for (int i = 0; i < buttonCount; i++)
+            var buttonCount = Enum.GetValues(typeof(Buttons)).Length;
+            for (var i = 0; i < buttonCount; i++)
             {
                 buttons.Add(GetButton(i));
 
@@ -87,16 +73,16 @@ namespace Assets.Scripts.UI.Item
             var mid = subItems[equippedNumber];
 
             // mid => button
-            Vector3 toButton = subItem.transform.localPosition - mid.transform.localPosition;
-            Vector3 toButtonPos = subItem.PrevPosition;
-            Vector3 toButtonScale = subItem.PrevScale;
+            var toButton = subItem.transform.localPosition - mid.transform.localPosition;
+            var toButtonPos = subItem.PrevPosition;
+            var toButtonScale = subItem.PrevScale;
 
             // button => mid
-            Vector3 toMid = mid.transform.localPosition - subItem.transform.localPosition;
-            Vector3 toMidPos = mid.PrevPosition;
-            Vector3 toMidScale = mid.PrevScale;
+            var toMid = mid.transform.localPosition - subItem.transform.localPosition;
+            var toMidPos = mid.PrevPosition;
+            var toMidScale = mid.PrevScale;
 
-            float timeAcc = 0.0f;
+            var timeAcc = 0.0f;
             while (timeAcc <= swapTime)
             {
                 yield return new WaitForEndOfFrame();
@@ -120,6 +106,20 @@ namespace Assets.Scripts.UI.Item
             subItem.transform.localScale = toMidScale;
 
             subItems.ForEach(i => i.ItemImage.enabled = true);
+        }
+
+        private enum Buttons
+        {
+            LeftButton,
+            MidButton,
+            RightButton
+        }
+
+        private enum GameObjects
+        {
+            Left,
+            Mid,
+            Right
         }
     }
 }

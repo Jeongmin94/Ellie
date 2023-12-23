@@ -7,12 +7,9 @@ namespace Assets.Scripts.Data.ActionData.Player
     public class StaminaData : ScriptableObject
     {
         [SerializeField] private float maxStamina;
-        public readonly Data<float> CurrentStamina = new Data<float>();
+        public readonly Data<float> CurrentStamina = new();
 
-        public float MaxStamina
-        {
-            get { return maxStamina; }
-        }
+        public float MaxStamina => maxStamina;
 
         public void InitStamina()
         {

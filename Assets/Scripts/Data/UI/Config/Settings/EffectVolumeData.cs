@@ -10,7 +10,7 @@ namespace Data.UI.Config
         {
             base.OnIndexChanged(value);
 
-            float ratio = (float)currentIdx / (values.Count - 1);
+            var ratio = (float)currentIdx / (values.Count - 1);
             SoundManager.Instance.SetVolume(SoundManager.SoundType.Sfx, ratio);
         }
     }

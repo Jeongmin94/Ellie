@@ -4,20 +4,19 @@ namespace Assets.Scripts.Monsters.AbstractClass
 {
     public abstract class AbstractAttack : MonoBehaviour
     {
+        [SerializeField] protected AbstractMonster monsterController;
+        [SerializeField] protected MonsterAudioController audioController;
+        [SerializeField] protected MonsterParticleController particleController;
         protected float attackValue;
         protected float durationTime;
+
+        protected string owner;
+        protected string prefabName;
 
         public float AttackableDistance { get; private set; }
         public float AttackInterval { get; private set; }
 
         public bool IsAttackReady { get; protected set; }
-
-        protected string owner;
-        protected string prefabName;
-
-        [SerializeField] protected AbstractMonster monsterController;
-        [SerializeField] protected MonsterAudioController audioController;
-        [SerializeField] protected MonsterParticleController particleController;
 
         public abstract void ActivateAttack();
 
@@ -37,30 +36,36 @@ namespace Assets.Scripts.Monsters.AbstractClass
         }
 
         public virtual void InitializeBoxCollider(MonsterAttackData data)
-        { }
+        {
+        }
 
         public virtual void InitializeSphereCollider(MonsterAttackData data)
-        { }
+        {
+        }
 
         public virtual void InitializeProjectile(MonsterAttackData data)
-        { }
+        {
+        }
 
         public virtual void InitializeWeapon(MonsterAttackData data)
-        { }
+        {
+        }
 
         public virtual void InitializeAOE(MonsterAttackData data)
-        { }
+        {
+        }
 
         public virtual void InitializeFanShape(MonsterAttackData data)
-        { }
+        {
+        }
 
         public virtual void ReceiveDamage(IBaseEventPayload payload)
-        { }
+        {
+        }
 
         public void Attack(IBaseEventPayload payload)
         {
             monsterController.Attack(payload);
         }
     }
-
 }

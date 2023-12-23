@@ -10,21 +10,17 @@ namespace Assets.Scripts.UI.Item
     {
         // stone name, image, count etc ...
         private TextMeshProUGUI text;
-        private Image image;
 
         public Vector3 PrevPosition { get; set; }
         public Vector3 PrevScale { get; set; }
         public int ItemIdx { get; set; }
 
-        public Image ItemImage
-        {
-            get { return image; }
-        }
+        public Image ItemImage { get; private set; }
 
         public string ItemText
         {
-            get { return text.text; }
-            set { text.text = value; }
+            get => text.text;
+            set => text.text = value;
         }
 
         private void Awake()
@@ -35,7 +31,7 @@ namespace Assets.Scripts.UI.Item
         protected override void Init()
         {
             text = gameObject.FindChild<TextMeshProUGUI>();
-            image = gameObject.FindChild<Image>();
+            ItemImage = gameObject.FindChild<Image>();
         }
     }
 }

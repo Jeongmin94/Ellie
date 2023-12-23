@@ -1,7 +1,7 @@
-﻿using Channels.Boss;
-using Channels.Dialog;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Channels.Boss;
+using Channels.Dialog;
 using UnityEngine;
 
 namespace Assets.Scripts.Data.GoogleSheet
@@ -10,24 +10,32 @@ namespace Assets.Scripts.Data.GoogleSheet
     public class BossDialogData
     {
         public int index;
+
         // 상황 설명
         public string description;
+
         // 세이브 여부
         public bool isSaveDialog;
+
         // 다이얼로그 내용 리스트
         public List<BossDialog> dialogList;
     }
+
     [Serializable]
     public struct BossDialog
     {
         // 상황 타입
         public BossSituationType bossDialogType;
+
         // 다이얼로그 출력 타입
         public DialogCanvasType dialogCanvasType;
+
         // 발화자 (0 : 없음, 1 : 엘리, 2 : 첫째, 3 : 둘째, 4 : 셋째)
         public int speaker;
+
         // 다이얼로그 내용
         public string dialog;
+
         // 다이얼로그 출력 시간
         public float remainTime;
     }
@@ -46,7 +54,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                 return datas.Find(m => m.index == index) as T;
             }
 
-            return default(T);
+            return default;
         }
 
         public override void Parse()
@@ -54,11 +62,14 @@ namespace Assets.Scripts.Data.GoogleSheet
             datas.Clear();
             BossDialogData currentData = null;
 
-            foreach (string line in tsv.Split('\n'))
+            foreach (var line in tsv.Split('\n'))
             {
-                if (string.IsNullOrEmpty(line)) continue;
+                if (string.IsNullOrEmpty(line))
+                {
+                    continue;
+                }
 
-                string[] entries = line.Split('\t');
+                var entries = line.Split('\t');
                 if (entries[0].Trim() != "-")
                 {
                     // 새 인덱스에 대한 데이터 생성
@@ -79,14 +90,15 @@ namespace Assets.Scripts.Data.GoogleSheet
                 if (currentData != null)
                 {
                     // dialogList에 대화 추가
-                    BossDialog dialog = new BossDialog
+                    var dialog = new BossDialog
                     {
-                        bossDialogType = entries[3].Trim() == "-" ?
-                            BossSituationType.None : (BossSituationType)Enum.Parse(typeof(BossSituationType), entries[3].Trim()),
+                        bossDialogType = entries[3].Trim() == "-"
+                            ? BossSituationType.None
+                            : (BossSituationType)Enum.Parse(typeof(BossSituationType), entries[3].Trim()),
                         dialogCanvasType = (DialogCanvasType)Enum.Parse(typeof(DialogCanvasType), entries[4].Trim()),
                         speaker = int.Parse(entries[5].Trim()),
                         dialog = entries[6].Trim(),
-                        remainTime = float.Parse(entries[7].Trim()),
+                        remainTime = float.Parse(entries[7].Trim())
                     };
 
                     currentData.dialogList.Add(dialog);

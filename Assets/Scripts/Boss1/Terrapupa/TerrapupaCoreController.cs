@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Player.HitComponent;
+﻿using System.Collections;
+using Assets.Scripts.Player.HitComponent;
 using Sirenix.OdinInspector;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.VFX;
 
@@ -11,10 +11,10 @@ namespace Assets.Scripts.Boss1.Terrapupa
         public float blinkIntensity = 4.0f;
         public float blinkDuration = 0.45f;
         public float darkenDuration = 2.0f;
+        private Coroutine blinkCoroutine;
+        private VisualEffect coreEffect;
 
         private MaterialHitComponent hitComponent;
-        private VisualEffect coreEffect;
-        private Coroutine blinkCoroutine;
         private bool isBlinking;
 
         private void Awake()
@@ -74,7 +74,7 @@ namespace Assets.Scripts.Boss1.Terrapupa
                 yield return hitComponent.EmissionCoroutine;
 
                 hitComponent.SetEmissionColor(originColor, originColor * blinkIntensity, 0.0f, blinkDuration);
-                yield return hitComponent.EmissionCoroutine; 
+                yield return hitComponent.EmissionCoroutine;
             }
         }
 

@@ -1,7 +1,5 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Monsters.Utility;
 using Channels.Combat;
 using UnityEngine;
 using static Assets.Scripts.Monsters.Utility.Enums;
@@ -35,7 +33,6 @@ public class MonsterAttackData
     //table 추가
     public string weaponName;
     public string projectilePrefabPath;
-
 }
 
 [CreateAssetMenu(fileName = "MonsterAttackData", menuName = "GameData List/Monsters/AttackData", order = int.MaxValue)]
@@ -49,21 +46,26 @@ public class MonsterAttackDataparsingInfo : DataParsingInfo
         {
             return datas.Find(m => m.index == index) as T;
         }
-        return default(T);
+
+        return default;
     }
 
     public override void Parse()
     {
         datas.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for (int i = 0; i < lines.Length; i++)
+        for (var i = 0; i < lines.Length; i++)
         {
-            if (string.IsNullOrEmpty(lines[i])) continue;
-            string[] entries = lines[i].Split('\t');
+            if (string.IsNullOrEmpty(lines[i]))
+            {
+                continue;
+            }
 
-            MonsterAttackData data = new MonsterAttackData();
+            var entries = lines[i].Split('\t');
+
+            var data = new MonsterAttackData();
 
             try
             {

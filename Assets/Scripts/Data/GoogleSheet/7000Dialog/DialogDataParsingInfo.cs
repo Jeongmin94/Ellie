@@ -8,8 +8,9 @@ namespace Assets.Scripts.Data.GoogleSheet
     {
         NPC,
         Player,
-        Narr,
+        Narr
     }
+
     [Serializable]
     public class DialogData
     {
@@ -22,7 +23,7 @@ namespace Assets.Scripts.Data.GoogleSheet
     public class DialogDataParsingInfo : DataParsingInfo
     {
         private const int InvalidValue = -1;
-        
+
         public List<DialogData> datas = new();
 
         public override T GetIndexData<T>(int index)
@@ -32,22 +33,26 @@ namespace Assets.Scripts.Data.GoogleSheet
                 return datas.Find(m => m.index == index) as T;
             }
 
-            return default(T);
+            return default;
         }
 
         public override void Parse()
         {
             datas.Clear();
-            string[] lines = tsv.Split('\n');
-            for (int i = 0; i < lines.Length; i++)
+            var lines = tsv.Split('\n');
+            for (var i = 0; i < lines.Length; i++)
             {
-                if (string.IsNullOrEmpty(lines[i])) continue;
-                string[] entries = lines[i].Split('\t');
-                DialogData data = new DialogData();
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
+
+                var entries = lines[i].Split('\t');
+                var data = new DialogData();
                 try
                 {
                     //인덱스
-                    string index = entries[0].Trim();
+                    var index = entries[0].Trim();
                     if (string.IsNullOrEmpty(index))
                     {
                         data.index = InvalidValue;
@@ -60,7 +65,7 @@ namespace Assets.Scripts.Data.GoogleSheet
                     //대화 문자열
                     data.dialog = entries[1].Trim();
                     //화자(0은 npc, 1은 플레이어)
-                    string speaker = entries[2].Trim();
+                    var speaker = entries[2].Trim();
                     if (string.IsNullOrEmpty(speaker))
                     {
                         data.speaker = 2;

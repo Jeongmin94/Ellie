@@ -12,13 +12,15 @@ namespace Assets.Scripts.Player.States
         {
             Controller.canTurn = false;
             Controller.canMove = false;
-               
-            if(Controller.GetComponent<PlayerInteraction>().interactiveObject != null)
+
+            if (Controller.GetComponent<PlayerInteraction>().interactiveObject != null)
             {
-                Vector3 direction = Controller.GetComponent<PlayerInteraction>().interactiveObject.transform.position - Controller.PlayerObj.transform.position;
+                var direction = Controller.GetComponent<PlayerInteraction>().interactiveObject.transform.position -
+                                Controller.PlayerObj.transform.position;
                 direction.y = 0;
                 Controller.PlayerObj.rotation = Quaternion.LookRotation(direction);
             }
+
             Controller.SetAnimLayerToDefault(PlayerController.AnimLayer.Aiming);
         }
 
@@ -34,7 +36,6 @@ namespace Assets.Scripts.Player.States
 
         public override void OnUpdateState()
         {
-            
         }
     }
 }

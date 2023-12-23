@@ -1,6 +1,7 @@
-﻿using Assets.Scripts.Item;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Assets.Scripts.Item;
+using Assets.Scripts.UI.Inventory;
 using UnityEngine;
 
 [Serializable]
@@ -16,35 +17,39 @@ public class PickaxeData : ItemMetaData
 }
 
 [CreateAssetMenu(fileName = "PickaxeData", menuName = "GameData List/PickaxeData")]
-
 public class PickaxeDataParsingInfo : DataParsingInfo
 {
     public List<PickaxeData> pickaxes;
+
     public override T GetIndexData<T>(int index)
     {
         if (typeof(T) == typeof(PickaxeData))
         {
             return pickaxes.Find(m => m.index == index) as T;
         }
-        return default(T);
+
+        return default;
     }
 
     public override void Parse()
     {
         pickaxes.Clear();
 
-        string[] lines = tsv.Split('\n');
+        var lines = tsv.Split('\n');
 
-        for (int i = 0; i < lines.Length; i++)
+        for (var i = 0; i < lines.Length; i++)
         {
-            if (string.IsNullOrEmpty(lines[i])) continue;
+            if (string.IsNullOrEmpty(lines[i]))
+            {
+                continue;
+            }
 
-            string[] entries = lines[i].Split('\t');
+            var entries = lines[i].Split('\t');
 
-            PickaxeData data = new PickaxeData();
+            var data = new PickaxeData();
             try
             {
-                data.groupType = Assets.Scripts.UI.Inventory.GroupType.Etc;
+                data.groupType = GroupType.Etc;
                 //인덱스
                 data.index = int.Parse(entries[0].Trim());
                 //이름
@@ -74,6 +79,7 @@ public class PickaxeDataParsingInfo : DataParsingInfo
                 Debug.LogError(e);
                 continue;
             }
+
             pickaxes.Add(data);
         }
     }

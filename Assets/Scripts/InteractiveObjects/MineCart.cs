@@ -18,13 +18,13 @@ namespace Assets.Scripts.InteractiveObjects
         [SerializeField] private bool isActivated;
         [SerializeField] private float duration;
         [SerializeField] private Renderer renderer;
-        private SplineWalker walker = null;
 
-        private bool canJump = false;
-
-        private InteractiveType type = InteractiveType.Default;
+        private bool canJump;
 
         private TicketMachine ticketMachine;
+
+        private readonly InteractiveType type = InteractiveType.Default;
+        private SplineWalker walker;
 
         private void Awake()
         {
@@ -53,11 +53,33 @@ namespace Assets.Scripts.InteractiveObjects
                 JumpToSuccessRail();
             }
         }
+
+        private void OnTriggerEnter(Collider other)
+        {
+            if (other.gameObject.name == "SuccessInterval")
+            {
+                Debug.Log("enter interval");
+                canJump = true;
+            }
+        }
+
+        private void OnTriggerExit(Collider other)
+        {
+            if (other.gameObject.name == "SuccessInterval")
+            {
+                Debug.Log("exit interval");
+                canJump = false;
+            }
+        }
         //TODO : 특정 구간에서 Space를 입력해서 구간 넘어가기
 
         public override void Interact(GameObject obj)
         {
-            if (!obj.CompareTag("Player")) return;
+            if (!obj.CompareTag("Player"))
+            {
+                return;
+            }
+
             player = obj;
             isActivated = true;
             SaveLoadManager.Instance.SaveData();
@@ -97,24 +119,6 @@ namespace Assets.Scripts.InteractiveObjects
         private void LockPlayerPos()
         {
             player.transform.position = playerStandingPos.position;
-        }
-
-        private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.name == "SuccessInterval")
-            {
-                Debug.Log("enter interval");
-                canJump = true;
-            }
-        }
-
-        private void OnTriggerExit(Collider other)
-        {
-            if (other.gameObject.name == "SuccessInterval")
-            {
-                Debug.Log("exit interval");
-                canJump = false;
-            }
         }
 
 

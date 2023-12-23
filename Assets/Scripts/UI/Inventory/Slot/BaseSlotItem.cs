@@ -14,32 +14,48 @@ namespace Assets.Scripts.UI.Inventory
 {
     public abstract class BaseSlotItem : UIBase, IDraggable
     {
-        private enum Texts
-        {
-            ItemText
-        }
-
-        private enum Images
-        {
-            ItemImage
-        }
+        private const int ItemMinCount = 0;
+        private const int ItemMaxCount = 9999;
 
         private static readonly string SoundClick = "inven2";
 
         [SerializeField] private TextTypographyData itemCountData;
-
-        public BaseItem SlotItemData { get; set; }
-
-        private Image raycastImage;
-        private RectTransform rect;
+        private bool isDropped;
 
         // Item
         private Image itemImage;
         private TextMeshProUGUI itemText;
 
         private Transform onDragParent;
+
+        private Image raycastImage;
+        private RectTransform rect;
         private SlotItemPosition slotItemPosition;
-        private bool isDropped;
+
+        public BaseItem SlotItemData { get; set; }
+
+        public BaseItem GetBaseItem()
+        {
+            return SlotItemData;
+        }
+
+        public void SetSlot(SlotItemPosition parent)
+        {
+            isDropped = true;
+
+            if (slotItemPosition != null)
+            {
+                // 이전 슬롯의 아이템 설정 초기화
+                slotItemPosition.ClearItem();
+            }
+
+            slotItemPosition = parent;
+            transform.SetParent(slotItemPosition.transform);
+            AnchorPresets.SetAnchorPreset(rect, AnchorPresets.StretchAll);
+            ResetRect(rect);
+        }
+
+        public abstract bool IsOrigin();
 
         public virtual void InitBaseSlotItem()
         {
@@ -90,7 +106,7 @@ namespace Assets.Scripts.UI.Inventory
             gameObject.BindEvent(OnDragHandler, UIEvent.Drag);
             gameObject.BindEvent(OnEndDragHandler, UIEvent.EndDrag);
             gameObject.BindEvent(OnDropHandler, UIEvent.Drop);
-            gameObject.BindEvent(OnClickHandler, UIEvent.Click);
+            gameObject.BindEvent(OnClickHandler);
         }
 
         private void OnClickHandler(PointerEventData data)
@@ -100,7 +116,9 @@ namespace Assets.Scripts.UI.Inventory
             if (data.button == PointerEventData.InputButton.Left)
             {
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Description)
+                {
                     return;
+                }
 
                 payload.eventType = InventoryEventType.ShowDescription;
             }
@@ -108,7 +126,9 @@ namespace Assets.Scripts.UI.Inventory
             else if (data.button == PointerEventData.InputButton.Right)
             {
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Description)
+                {
                     return;
+                }
 
                 // 장착 + 우클릭 -> 장착 해제
                 if (slotItemPosition.slot.SlotType == SlotAreaType.Equipment)
@@ -136,7 +156,9 @@ namespace Assets.Scripts.UI.Inventory
             var otherSlotItem = droppedItem.GetComponent<BaseSlotItem>();
 
             if (otherSlotItem == null)
+            {
                 return;
+            }
 
             var otherSlot = otherSlotItem.slotItemPosition.slot;
             var thisSlot = slotItemPosition.slot;
@@ -204,7 +226,9 @@ namespace Assets.Scripts.UI.Inventory
         public InventorySlot GetSlot()
         {
             if (slotItemPosition)
+            {
                 return slotItemPosition.slot;
+            }
 
             return null;
         }
@@ -234,41 +258,34 @@ namespace Assets.Scripts.UI.Inventory
             SlotItemData?.ChangeEquipmentSlot(type, item);
         }
 
-        private const int ItemMinCount = 0;
-        private const int ItemMaxCount = 9999;
-
         private void OnItemCountChanged(int value)
         {
             if (value < ItemMinCount)
-                value = ItemMinCount;
-            if (value > ItemMaxCount)
-                value = ItemMaxCount;
-            itemText.text = value.ToString();
-        }
-
-        public BaseItem GetBaseItem() => SlotItemData;
-
-        public void SetSlot(SlotItemPosition parent)
-        {
-            isDropped = true;
-
-            if (slotItemPosition != null)
             {
-                // 이전 슬롯의 아이템 설정 초기화
-                slotItemPosition.ClearItem();
+                value = ItemMinCount;
             }
 
-            slotItemPosition = parent;
-            transform.SetParent(slotItemPosition.transform);
-            AnchorPresets.SetAnchorPreset(rect, AnchorPresets.StretchAll);
-            ResetRect(rect);
-        }
+            if (value > ItemMaxCount)
+            {
+                value = ItemMaxCount;
+            }
 
-        public abstract bool IsOrigin();
+            itemText.text = value.ToString();
+        }
 
         public void SetOnDragParent(Transform parent)
         {
             onDragParent = parent;
+        }
+
+        private enum Texts
+        {
+            ItemText
+        }
+
+        private enum Images
+        {
+            ItemImage
         }
     }
 }

@@ -1,4 +1,7 @@
+using System.Collections;
+using System.Collections.Generic;
 using Assets.Scripts.Channels.Item;
+using Assets.Scripts.Controller;
 using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Particle;
 using Assets.Scripts.Utils;
@@ -8,24 +11,20 @@ using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
 using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
-using Assets.Scripts.Controller;
 using UnityEngine;
 
 public class TerrapupaMapObjectController : BaseController
 {
-    [Title("테라푸파 보스전 오브젝트 객체")]
-    [SerializeField] private GameObject magicStalactitePrefab;
+    [Title("테라푸파 보스전 오브젝트 객체")] [SerializeField]
+    private GameObject magicStalactitePrefab;
+
     [SerializeField] private List<ManaFountain> manaFountains;
-    [SerializeField] private List<List<MagicStalactite>> stalactites = new List<List<MagicStalactite>>();
 
-    [Title("상태 체크")]
-    [SerializeField][ReadOnly] private int manaFountainCount = 4;
+    [Title("상태 체크")] [SerializeField] [ReadOnly]
+    private int manaFountainCount = 4;
 
-    [Title("종마석")]
-    [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n true면 섭취중 아니여도 기절")]
-    public bool canBossStun = false;
+    [Title("종마석")] [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n true면 섭취중 아니여도 기절")]
+    public bool canBossStun;
 
     [InfoBox("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
     [InfoBox("구역 갯수")] public int numberOfSector = 3;
@@ -33,11 +32,12 @@ public class TerrapupaMapObjectController : BaseController
     [InfoBox("생성 구역 반지름")] public float fieldRadius = 25.0f;
     [InfoBox("생성 높이")] public float fieldHeight = 8.0f;
 
-    [Title("마나의 샘")][InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
+    [Title("마나의 샘")] [InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
     [InfoBox("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
 
-    private bool isFirstBrokenManaFountain = false;
-    private bool isFirstHitManaFountain = false;
+    private bool isFirstBrokenManaFountain;
+    private bool isFirstHitManaFountain;
+    [SerializeField] private readonly List<List<MagicStalactite>> stalactites = new();
 
     private TicketMachine ticketMachine;
 
@@ -75,15 +75,15 @@ public class TerrapupaMapObjectController : BaseController
 
     private void SpawnStalactites()
     {
-        for (int i = 0; i < numberOfSector; i++)
+        for (var i = 0; i < numberOfSector; i++)
         {
-            List<MagicStalactite> sectorList = new List<MagicStalactite>();
-            for (int j = 0; j < stalactitePerSector; j++)
+            var sectorList = new List<MagicStalactite>();
+            for (var j = 0; j < stalactitePerSector; j++)
             {
-                Vector3 position = GenerateRandomPositionInSector(i);
-                GameObject stalactite = Instantiate(magicStalactitePrefab, Vector3.zero, Quaternion.identity, transform);
+                var position = GenerateRandomPositionInSector(i);
+                var stalactite = Instantiate(magicStalactitePrefab, Vector3.zero, Quaternion.identity, transform);
                 stalactite.transform.localPosition = position;
-                MagicStalactite instantStalactite = stalactite.GetComponent<MagicStalactite>();
+                var instantStalactite = stalactite.GetComponent<MagicStalactite>();
                 instantStalactite.SetLineRendererPosition();
                 instantStalactite.MyIndex = i;
                 sectorList.Add(instantStalactite);
@@ -101,6 +101,7 @@ public class TerrapupaMapObjectController : BaseController
             mana.coolDownValue = regenerateManaStoneTime;
             mana.respawnValue = respawnManaFountainTime;
         }
+
         manaFountainCount = manaFountains.Count;
     }
 
@@ -111,19 +112,21 @@ public class TerrapupaMapObjectController : BaseController
         EventBus.Instance.Subscribe(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
         EventBus.Instance.Subscribe(EventBusEvents.ActivateMagicStone, OnActivateMagicStone);
     }
+
     #endregion
 
     #region 2. 이벤트 핸들러
+
     private void OnNotifyBossBattle(IBaseEventPayload payload)
     {
         if (payload is not BossBattlePayload bPayload)
+        {
             return;
+        }
 
         switch (bPayload.SituationType)
         {
             case BossSituationType.EnterBossRoom:
-                break;
-            default:
                 break;
         }
     }
@@ -131,14 +134,16 @@ public class TerrapupaMapObjectController : BaseController
     private void OnHitMana(IBaseEventPayload payload)
     {
         if (payload is not BossEventPayload manaPayload)
+        {
             return;
+        }
 
         Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
         var mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
         DropStoneItem(mana.SpawnPosition, mana.MAGICSTONE_INDEX);
 
-        if(!isFirstHitManaFountain)
+        if (!isFirstHitManaFountain)
         {
             isFirstHitManaFountain = true;
             BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetMagicStoneFirstTime, ticketMachine);
@@ -150,7 +155,9 @@ public class TerrapupaMapObjectController : BaseController
     private void OnDestroyedMana(IBaseEventPayload payload)
     {
         if (payload is not BossEventPayload manaPayload)
+        {
             return;
+        }
 
         Debug.Log($"OnDestroyedMana :: {manaPayload.AttackTypeValue} 공격 타입 봉인");
 
@@ -171,13 +178,13 @@ public class TerrapupaMapObjectController : BaseController
         }
 
         // 돌맹이 3개 생성
-        for (int i = 0; i < 3; i++)
+        for (var i = 0; i < 3; i++)
         {
             DropStoneItem(mana.SpawnPosition, mana.NORMALSTONE_INDEX);
         }
 
         // 히트 이펙트 생성
-        GameObject hitEffect = manaPayload.PrefabValue;
+        var hitEffect = manaPayload.PrefabValue;
         if (hitEffect != null)
         {
             ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
@@ -185,12 +192,12 @@ public class TerrapupaMapObjectController : BaseController
                 Position = manaTransform.position,
                 Rotation = manaTransform.rotation,
                 Scale = new Vector3(0.7f, 0.7f, 0.7f),
-                Offset = new Vector3(0.0f, 1.0f, 0.0f),
+                Offset = new Vector3(0.0f, 1.0f, 0.0f)
             });
         }
 
         // 보스의 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
-        TerrapupaAttackType type = mana.banBossAttackType;
+        var type = mana.banBossAttackType;
         if (actor.AttackCooldown.ContainsKey(type) && actor.AttackCooldown[type] != null)
         {
             Debug.Log($"{actor}의 쿨타임 중복 적용");
@@ -215,11 +222,13 @@ public class TerrapupaMapObjectController : BaseController
     private void OnDropMagicStalactite(IBaseEventPayload payload)
     {
         if (payload is not BossEventPayload stalactitePayload)
+        {
             return;
+        }
 
-        Debug.Log($"OnDropMagicStalactite :: 종마석 드랍");
+        Debug.Log("OnDropMagicStalactite :: 종마석 드랍");
 
-        Transform boss = stalactitePayload.TransformValue2;
+        var boss = stalactitePayload.TransformValue2;
         if (boss != null)
         {
             var actor = boss.GetComponent<TerrapupaBTController>();
@@ -227,7 +236,7 @@ public class TerrapupaMapObjectController : BaseController
             {
                 Debug.Log("보스 타격");
 
-                if (canBossStun == true || (canBossStun == false && actor.terrapupaData.isIntake.Value))
+                if (canBossStun || (canBossStun == false && actor.terrapupaData.isIntake.Value))
                 {
                     Debug.Log("기절");
                     actor.Stun();
@@ -240,8 +249,8 @@ public class TerrapupaMapObjectController : BaseController
 
     private void OnActivateMagicStone(IBaseEventPayload basePayload)
     {
-        Debug.Log($"OnActivateMagicStone :: 마법 돌맹이 개수 1개 제한");
-        BossEventPayload payload = basePayload as BossEventPayload;
+        Debug.Log("OnActivateMagicStone :: 마법 돌맹이 개수 1개 제한");
+        var payload = basePayload as BossEventPayload;
 
         var magicStone = payload.Sender.GetComponent<MagicStone>();
 
@@ -257,11 +266,12 @@ public class TerrapupaMapObjectController : BaseController
 
     private IEnumerator ManaCooldown(BossEventPayload manaPayload)
     {
-        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        var mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
         if (mana.isActiveAndEnabled)
         {
             mana.SetLightIntensity(0.0f, mana.changeLightTime);
         }
+
         mana.IsCooldown = true;
 
         yield return new WaitForSeconds(mana.coolDownValue);
@@ -271,24 +281,25 @@ public class TerrapupaMapObjectController : BaseController
         {
             mana.SetLightIntensity(mana.lightIntensity, mana.changeLightTime);
         }
+
         mana.IsCooldown = false;
     }
 
     private IEnumerator RespawnMagicStalactite(BossEventPayload payload)
     {
-        float respawnTime = payload.FloatValue;
+        var respawnTime = payload.FloatValue;
         Debug.Log($"{respawnTime}초 이후 재생성");
 
         yield return new WaitForSeconds(respawnTime);
 
-        Vector3 position = GenerateRandomPositionInSector(payload.IntValue);
+        var position = GenerateRandomPositionInSector(payload.IntValue);
         payload.TransformValue1.localPosition = position;
         payload.TransformValue1.gameObject.SetActive(true);
     }
 
     private IEnumerator ManaRespawn(BossEventPayload manaPayload)
     {
-        ManaFountain mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
+        var mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
 
         manaFountainCount--;
         mana.DestroyManaFountain();
@@ -322,18 +333,18 @@ public class TerrapupaMapObjectController : BaseController
             Type = StoneEventType.MineStone,
             StoneSpawnPos = position,
             StoneForce = GetRandVector(),
-            StoneIdx = index,
+            StoneIdx = index
         });
     }
 
     private Vector3 GenerateRandomPositionInSector(int sectorIndex)
     {
-        float sectorAngleSize = 360f / numberOfSector;
-        float minAngle = sectorAngleSize * sectorIndex;
-        float maxAngle = minAngle + sectorAngleSize;
+        var sectorAngleSize = 360f / numberOfSector;
+        var minAngle = sectorAngleSize * sectorIndex;
+        var maxAngle = minAngle + sectorAngleSize;
 
-        float angle = Random.Range(minAngle, maxAngle) * Mathf.Deg2Rad;
-        float distance = Mathf.Sqrt(Random.Range(0f, 1f)) * fieldRadius;
+        var angle = Random.Range(minAngle, maxAngle) * Mathf.Deg2Rad;
+        var distance = Mathf.Sqrt(Random.Range(0f, 1f)) * fieldRadius;
 
         return new Vector3(
             Mathf.Cos(angle) * distance,
@@ -347,5 +358,6 @@ public class TerrapupaMapObjectController : BaseController
         Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
         return vec.normalized;
     }
+
     #endregion
 }

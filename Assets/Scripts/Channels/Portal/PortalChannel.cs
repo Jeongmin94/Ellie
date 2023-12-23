@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Item.Stone;
+﻿using System.Collections.Generic;
+using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
 using Channels;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Channels
@@ -10,23 +10,25 @@ namespace Assets.Scripts.Channels
     {
         ActivatePortal,
         DeactivatePortal,
-        UsePortal,
+        UsePortal
     }
+
     public class PortalEventPayload : IBaseEventPayload
     {
         public PortalEventType Type { get; set; }
         public Transform Portal { get; set; }
         public Transform Player { get; set; }
     }
+
     public class PortalChannel : BaseEventChannel
     {
         private int portalNumber = 0;
 
-        private LinkedList<Transform> portals = new LinkedList<Transform>();
-        
+        private readonly LinkedList<Transform> portals = new();
+
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            PortalEventPayload portalPayload = payload as PortalEventPayload;
+            var portalPayload = payload as PortalEventPayload;
 
             switch (portalPayload.Type)
             {
@@ -46,11 +48,11 @@ namespace Assets.Scripts.Channels
         {
             portals.AddLast(payload.Portal);
 
-            if(portals.Count > 2)
+            if (portals.Count > 2)
             {
                 DeactivatePortal(new PortalEventPayload
                 {
-                    Portal = portals.First.Value,
+                    Portal = portals.First.Value
                 });
             }
         }
@@ -64,13 +66,13 @@ namespace Assets.Scripts.Channels
 
         private void UsePortal(PortalEventPayload payload)
         {
-            if(portals.Count < 2)
+            if (portals.Count < 2)
             {
                 return;
             }
 
             var player = payload.Player;
-            if(payload.Portal == portals.First.Value)
+            if (payload.Portal == portals.First.Value)
             {
                 player.position = portals.Last.Value.position + new Vector3(0.0f, 2.0f, 0.0f);
             }

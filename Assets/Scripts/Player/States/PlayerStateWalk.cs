@@ -5,17 +5,18 @@ namespace Assets.Scripts.Player.States
 {
     internal class PlayerStateWalk : PlayerBaseState
     {
-        private float moveSpeed;
-        private float expectedMoveSpeed;
-        private float startMoveSpeed;
-        private float interpolateTime;
-        private float duration = 0.2f;
-        private float footPrintInterval = 0.6f;
-
-        private string[] footprint = new string[2];
-        private int footprintIdx = 0;
-        private float accTime;
         private readonly Rigidbody rb;
+        private float accTime;
+        private readonly float duration = 0.2f;
+        private float expectedMoveSpeed;
+
+        private readonly string[] footprint = new string[2];
+        private int footprintIdx;
+        private readonly float footPrintInterval = 0.6f;
+        private float interpolateTime;
+        private float moveSpeed;
+        private float startMoveSpeed;
+
         public PlayerStateWalk(PlayerController controller) : base(controller)
         {
             rb = Controller.Rb;
@@ -38,6 +39,7 @@ namespace Assets.Scripts.Player.States
         {
             SoundManager.Instance.StopAmbient("ellie_move1");
         }
+
         public override void OnUpdateState()
         {
             InterpolateMoveSpeed();
@@ -46,26 +48,34 @@ namespace Assets.Scripts.Player.States
             {
                 Controller.ChangeState(PlayerStateName.Sprint);
             }
+
             if (Input.GetKeyDown(KeyCode.Space) && Controller.isGrounded && Controller.canJump)
             {
-
                 Controller.ChangeState(PlayerStateName.Jump);
             }
+
             if (Controller.MoveInput.magnitude == 0)
             {
                 Controller.ChangeState(PlayerStateName.Idle);
             }
+
             if (Input.GetKeyDown(KeyCode.LeftControl))
             {
                 Controller.ChangeState(PlayerStateName.Dodge);
             }
+
             if (Input.GetMouseButtonDown(0) && Controller.canAttack)
             {
                 if (Controller.hasStone)
+                {
                     Controller.ChangeState(PlayerStateName.Zoom);
+                }
                 else
+                {
                     Controller.ChangeState(PlayerStateName.MeleeAttack);
+                }
             }
+
             PlayFootPrintSound();
         }
 
@@ -85,10 +95,10 @@ namespace Assets.Scripts.Player.States
 
         private void ControlSpeed()
         {
-            Vector3 flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
+            var flatVelocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
             if (flatVelocity.magnitude > moveSpeed)
             {
-                Vector3 limitedVelocity = flatVelocity.normalized * moveSpeed;
+                var limitedVelocity = flatVelocity.normalized * moveSpeed;
                 rb.velocity = new Vector3(limitedVelocity.x, rb.velocity.y, limitedVelocity.z);
             }
         }
@@ -96,14 +106,20 @@ namespace Assets.Scripts.Player.States
         private void PlayFootPrintSound()
         {
             accTime += Time.deltaTime;
-            
-            if(accTime>=footPrintInterval)
+
+            if (accTime >= footPrintInterval)
             {
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, footprint[footprintIdx], Controller.transform.position);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, footprint[footprintIdx],
+                    Controller.transform.position);
                 if (footprintIdx == 1)
+                {
                     footprintIdx = 0;
+                }
                 else
+                {
                     footprintIdx = 1;
+                }
+
                 accTime = 0;
             }
         }

@@ -1,34 +1,30 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
-using System.Collections;
+﻿using System.Collections;
+using Assets.Scripts.Data.GoogleSheet;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
     public class TalkingSkullSecondNPC : BaseNPC
     {
-
-        private enum SecondSkullQuest
-        {
-            Quest6103 = 6103,
-            Quest6104,
-            Quest6105,
-        }
         private const int REQUIREDQUESTIDX = 6102;
 
         // !TODO : 함정과 이벤트 연결해서 피격판정 발생 시 체크
         // !TODO : 가방과 이벤트 연결해서 습득할 시 체크, 둘 다 체크된 경우 퀘스트 클리어
 
-        public bool isTrapped = false;
-        public bool hasBackpack = false;
+        public bool isTrapped;
+        public bool hasBackpack;
 
-        [SerializeField] SkullSecondTrap[] traps;
-        [SerializeField] SkullSecondBackPack backPack;
+        [SerializeField] private SkullSecondTrap[] traps;
+        [SerializeField] private SkullSecondBackPack backPack;
 
         private void Start()
         {
             Init();
-            foreach(var trap in traps)
+            foreach (var trap in traps)
+            {
                 trap.SubscribeTrapHitAction(CheckTrap);
+            }
+
             backPack.SubscribeGetBackPackAction(CheckBackPack);
         }
 
@@ -65,7 +61,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
 
             //6014 퀘스트를 완료하지 못하고 말을 걸었을 경우
-            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Accepted )
+            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Accepted)
             {
                 LookAtPlayer();
                 player.StartConversation();
@@ -99,9 +95,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 player.StartConversation();
 
                 StartCoroutine(Quest6105Coroutine2());
-
             }
-
         }
 
         private IEnumerator Quest6103Coroutine1()
@@ -111,6 +105,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             player.SetQuestStatus(REQUIREDQUESTIDX, QuestStatus.End);
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted));
             player.SetQuestStatus((int)SecondSkullQuest.Quest6103, QuestStatus.Accepted);
@@ -128,6 +123,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6103, QuestStatus.Done));
             player.ActivateInteractiveUI();
 
@@ -144,8 +140,10 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             //함정 피격 및 가방 가져오는 퀘스트
-            yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Unaccepted));
+            yield return
+                StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Unaccepted));
             player.ActivateInteractiveUI();
 
             //6014 퀘스트를 Accepted 상태로 변경
@@ -162,6 +160,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             //6104 퀘스트를 완료하지 못한 경우
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Accepted));
             player.ActivateInteractiveUI();
@@ -177,6 +176,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
+
             //6104 퀘스틀 완료한경우
             yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6104, QuestStatus.Done));
             player.ActivateInteractiveUI();
@@ -195,7 +195,9 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 Debug.Log("Player is Null");
                 yield break;
             }
-            yield return StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Unaccepted));
+
+            yield return
+                StartCoroutine(player.DialogCoroutine((int)SecondSkullQuest.Quest6105, QuestStatus.Unaccepted));
             player.ActivateInteractiveUI();
 
             player.SetQuestStatus((int)SecondSkullQuest.Quest6105, QuestStatus.Done);
@@ -233,15 +235,25 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         {
             isTrapped = true;
             if (hasBackpack)
+            {
                 player.SetQuestStatus((int)SecondSkullQuest.Quest6104, QuestStatus.Done);
+            }
         }
 
         private void CheckBackPack()
         {
             hasBackpack = true;
             if (isTrapped)
+            {
                 player.SetQuestStatus((int)SecondSkullQuest.Quest6104, QuestStatus.Done);
+            }
+        }
 
+        private enum SecondSkullQuest
+        {
+            Quest6103 = 6103,
+            Quest6104,
+            Quest6105
         }
     }
 }

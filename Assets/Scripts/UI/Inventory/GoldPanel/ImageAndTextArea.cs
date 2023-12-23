@@ -11,16 +11,6 @@ namespace Assets.Scripts.UI.Inventory
         public static readonly string GoldPath = "UI/Item/Gold2";
         public static readonly string StonePiecePath = "UI/Item/StonePiece2";
 
-        private enum Images
-        {
-            Image
-        }
-
-        private enum Texts
-        {
-            Text
-        }
-
         [SerializeField] private TextTypographyData goodsData;
 
         public RectTransform Rect { get; private set; }
@@ -66,11 +56,26 @@ namespace Assets.Scripts.UI.Inventory
         public void OnGoodsCountChanged(int value)
         {
             if (value < 0)
+            {
                 value = 0;
+            }
+
             if (value > 9999)
+            {
                 value = 9999;
+            }
 
             Text.text = value.ToString();
+        }
+
+        private enum Images
+        {
+            Image
+        }
+
+        private enum Texts
+        {
+            Text
         }
     }
 }

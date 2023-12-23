@@ -7,10 +7,9 @@ namespace Assets.Scripts.Data.ActionData.Player
     public class ChargingData : ScriptableObject
     {
         public float[] timeSteps;
-        
-        [Range(0.0f, 1.0f)]
-        public float[] percentages;
-        
-        public readonly Data<float> ChargingValue = new Data<float>();
+
+        [Range(0.0f, 1.0f)] public float[] percentages;
+
+        public readonly Data<float> ChargingValue = new();
     }
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Assets.Scripts.Centers;
 using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
 using Assets.Scripts.UI.Framework.Popup;
@@ -13,32 +14,14 @@ using Channels.UI;
 using Data.UI.Opening;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using Assets.Scripts.Centers;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Death
 {
     public class DeathCanvas : UIPopup
     {
-        private enum GameObjects
-        {
-            BackgroundPanel,
-            TextPanel,
-            VolumeProfile
-        }
-
-        private enum Texts
-        {
-            DeathText,
-        }
-
-        private enum Images
-        {
-            FadeOutImage
-        }
-
         [SerializeField] private float grayScaleTime;
         [SerializeField] private float fadeOutTime;
 
@@ -55,26 +38,26 @@ namespace Assets.Scripts.UI.Death
         [SerializeField] private UITransformData[] panelTransforms;
         [SerializeField] private TextTypographyData deathTextTypography;
 
-        private readonly List<GameObject> panels = new List<GameObject>();
-        private readonly List<RectTransform> rectTransforms = new List<RectTransform>();
-
-        private TextMeshProUGUI deathText;
+        private readonly List<GameObject> panels = new();
+        private readonly List<RectTransform> rectTransforms = new();
         private Image backgroundImage;
+        private ColorAdjustments colorAdjustments;
 
         // grayscale
         private Volume deathCanvasVolume;
-        private ColorAdjustments colorAdjustments;
+
+        private TextMeshProUGUI deathText;
 
         // fade-out
         private Image fadeOutImage;
         private Color fadeOutOriginColor;
-
-        private TextAlphaController textAlphaController;
         private ImageAlphaController imageAlphaController;
 
-        private TicketMachine ticketMachine;
+        private bool onPlayingDeath;
 
-        private bool onPlayingDeath = false;
+        private TextAlphaController textAlphaController;
+
+        private TicketMachine ticketMachine;
 
         private void Awake()
         {
@@ -96,7 +79,7 @@ namespace Assets.Scripts.UI.Death
             Bind<Image>(typeof(Images));
 
             var gos = Enum.GetValues(typeof(GameObjects));
-            for (int i = 0; i < gos.Length; i++)
+            for (var i = 0; i < gos.Length; i++)
             {
                 var go = GetGameObject(i);
                 panels.Add(go);
@@ -122,7 +105,7 @@ namespace Assets.Scripts.UI.Death
 
         private void InitObjects()
         {
-            for (int i = 0; i < panelTransforms.Length; i++)
+            for (var i = 0; i < panelTransforms.Length; i++)
             {
                 AnchorPresets.SetAnchorPreset(rectTransforms[i], AnchorPresets.MiddleCenter);
                 rectTransforms[i].sizeDelta = panelTransforms[i].actionRect.Value.GetSize();
@@ -149,7 +132,9 @@ namespace Assets.Scripts.UI.Death
         private void OnNotify(IBaseEventPayload payload)
         {
             if (payload is not UIPayload uiPayload)
+            {
                 return;
+            }
 
             if (uiPayload.actionType == ActionType.OpenDeathCanvas)
             {
@@ -166,15 +151,18 @@ namespace Assets.Scripts.UI.Death
         {
             onPlayingDeath = true;
 
-            yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundStartColor, backgroundTargetColor, backgroundAppearTime));
+            yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundStartColor, backgroundTargetColor,
+                backgroundAppearTime));
 
             StartCoroutine(textAlphaController.ChangeAlpha(textStartColor, textTargetColor, textAppearTime));
 
             yield return StartCoroutine(ToGray());
 
-            yield return StartCoroutine(textAlphaController.ChangeAlpha(textTargetColor, textStartColor, textDisappearTime));
+            yield return StartCoroutine(textAlphaController.ChangeAlpha(textTargetColor, textStartColor,
+                textDisappearTime));
 
-            yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundTargetColor, backgroundStartColor, backgroundDisAppearTime));
+            yield return StartCoroutine(imageAlphaController.ChangeAlpha(backgroundTargetColor, backgroundStartColor,
+                backgroundDisAppearTime));
 
             yield return StartCoroutine(FadeOut());
 
@@ -192,11 +180,11 @@ namespace Assets.Scripts.UI.Death
 
         private IEnumerator ToGray()
         {
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
 
-            float origin = 0.0f;
-            float min = -100.0f;
+            var origin = 0.0f;
+            var min = -100.0f;
 
             while (timeAcc <= grayScaleTime)
             {
@@ -210,12 +198,12 @@ namespace Assets.Scripts.UI.Death
 
         private IEnumerator FadeOut()
         {
-            float timeAcc = 0.0f;
-            WaitForEndOfFrame wfef = new WaitForEndOfFrame();
+            var timeAcc = 0.0f;
+            var wfef = new WaitForEndOfFrame();
 
             fadeOutImage.color = fadeOutOriginColor;
 
-            Color target = fadeOutOriginColor;
+            var target = fadeOutOriginColor;
             target.a = 1.0f;
 
             while (timeAcc <= fadeOutTime)
@@ -226,6 +214,23 @@ namespace Assets.Scripts.UI.Death
             }
 
             fadeOutImage.color = target;
+        }
+
+        private enum GameObjects
+        {
+            BackgroundPanel,
+            TextPanel,
+            VolumeProfile
+        }
+
+        private enum Texts
+        {
+            DeathText
+        }
+
+        private enum Images
+        {
+            FadeOutImage
         }
     }
 }

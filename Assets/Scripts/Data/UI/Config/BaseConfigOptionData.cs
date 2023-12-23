@@ -14,7 +14,7 @@ namespace Data.UI.Config
         Float,
         Vector2
     }
-    
+
     public abstract class BaseConfigOptionData<T> : ScriptableObject
     {
         [SerializeField] public ConfigType configType;
@@ -27,7 +27,10 @@ namespace Data.UI.Config
         protected Action<string> valueChangeAction;
 
         // !TODO: 씬이 전환될 때마다 ClearAction을 호출해야 함
-        public void ClearAction() => valueChangeAction = null;
+        public void ClearAction()
+        {
+            valueChangeAction = null;
+        }
 
         public void InitData()
         {
@@ -43,11 +46,16 @@ namespace Data.UI.Config
 
         public virtual void OnIndexChanged(int value)
         {
-            int idx = currentIdx + value;
+            var idx = currentIdx + value;
             if (idx < 0)
+            {
                 idx = 0;
+            }
+
             if (idx >= values.Count)
+            {
                 idx = values.Count - 1;
+            }
 
             currentIdx = idx;
             if (!readOnly)
@@ -58,7 +66,11 @@ namespace Data.UI.Config
             valueChangeAction?.Invoke(ValueString(values[currentIdx]));
         }
 
-        public bool IsSameType(ConfigType type) => configType == type;
+        public bool IsSameType(ConfigType type)
+        {
+            return configType == type;
+        }
+
         protected abstract string ValueString(T value);
         public abstract DataType GetDataType();
     }

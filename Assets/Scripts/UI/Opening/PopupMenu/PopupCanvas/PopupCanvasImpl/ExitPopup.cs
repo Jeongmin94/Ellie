@@ -1,4 +1,4 @@
-using Application = UnityEngine.Application;
+using UnityEditor;
 
 namespace Assets.Scripts.UI.PopupMenu
 {
@@ -9,7 +9,7 @@ namespace Assets.Scripts.UI.PopupMenu
             if (payload.buttonType == ButtonType.Yes)
             {
 #if UNITY_EDITOR
-                UnityEditor.EditorApplication.isPlaying = false;
+                EditorApplication.isPlaying = false;
 #else
                 Application.Quit();
 #endif

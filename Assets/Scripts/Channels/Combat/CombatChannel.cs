@@ -1,5 +1,4 @@
 using Assets.Scripts.Combat;
-using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.StatusEffects;
 using UnityEngine;
 
@@ -12,7 +11,7 @@ namespace Channels.Combat
         Projectile,
         Movement,
         RequestStone,
-        AOEAttack,
+        AOEAttack
     }
 
     public class CombatPayload : IBaseEventPayload
@@ -28,7 +27,7 @@ namespace Channels.Combat
 
         //공격자의 데미지
         public int Damage { get; set; }
-        
+
         //공격 이벤트 발행시의 공격 방향
         public Vector3 AttackDirection { get; set; }
 
@@ -40,8 +39,10 @@ namespace Channels.Combat
 
         //공격에 피격됐을 때 유발되는 상태이상
         public StatusEffectName StatusEffectName { get; set; }
+
         //상태이상의 지속시간
         public float statusEffectduration { get; set; }
+
         //공격이 유발하는 힘
         public float force { get; set; }
     }
@@ -50,14 +51,14 @@ namespace Channels.Combat
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            CombatPayload combatPayload = payload as CombatPayload;
-            ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
+            var combatPayload = payload as CombatPayload;
+            var combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));
         }
 
         private CombatPayload CalculateCombatLogic(CombatPayload payload)
         {
-            CombatPayload newPayload = payload;
+            var newPayload = payload;
 
             // !TODO : 공격자와 방어자의 transform을 따와서 전투 로직을 실행한 후, Payload를 다시 만들기
 
