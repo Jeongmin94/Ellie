@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Combat;
-using Channels.Combat;
+﻿using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Combat;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerMeleeAttackCollider : MonoBehaviour
     {

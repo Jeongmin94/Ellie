@@ -1,11 +1,12 @@
 using System.Collections;
-using Assets.Scripts.Monsters.AbstractClass;
-using Assets.Scripts.StatusEffects;
 using Channels.Combat;
+using Data.Monster;
+using Monsters.AbstractClass;
+using Player.StatusEffects;
 using UnityEditor;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.Attacks
+namespace Monsters.Attacks
 {
     public class FanShapeAttack : AbstractAttack
     {

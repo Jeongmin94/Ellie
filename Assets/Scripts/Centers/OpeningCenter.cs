@@ -1,8 +1,7 @@
 using Assets.Scripts.Managers.Singleton;
-using Centers;
 using UnityEngine;
 
-namespace Assets.Scripts
+namespace Centers
 {
     public class OpeningCenter : BaseCenter
     {

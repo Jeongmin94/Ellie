@@ -1,7 +1,7 @@
-using Assets.Scripts.Item;
+using Item;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.Slot
 {
     public class SlotItemPosition : MonoBehaviour
     {

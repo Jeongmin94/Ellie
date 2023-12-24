@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.ActionData.Monster
+namespace Data.ActionData.Monster
 {
     [CreateAssetMenu(fileName = "MonsterHealthData", menuName = "Monster/MonsterHealthData", order = 0)]
     public class MonsterHealthData : ScriptableObject

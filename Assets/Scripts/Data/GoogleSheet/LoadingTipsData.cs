@@ -1,8 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "LoadingTipsData", menuName = "GameData List/LoadingTipsData")]
-public class LoadingTipsData : ScriptableObject
+namespace Data.GoogleSheet
 {
-    public List<string> tips;
+    [CreateAssetMenu(fileName = "LoadingTipsData", menuName = "GameData List/LoadingTipsData")]
+    public class LoadingTipsData : ScriptableObject
+    {
+        public List<string> tips;
+    }
 }

@@ -1,14 +1,14 @@
 using System.Collections;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using UI.Framework.Popup;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.ScreenEffect
+namespace UI.ScreenEffect
 {
     public class ScreenDamageCanvas : UIPopup
     {

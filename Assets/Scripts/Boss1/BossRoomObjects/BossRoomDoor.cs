@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using Assets.Scripts.Item.Stone;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
+using Item.Stone;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss1.BossRoomObjects
+namespace Boss1.BossRoomObjects
 {
     public class BossRoomDoor : MonoBehaviour
     {

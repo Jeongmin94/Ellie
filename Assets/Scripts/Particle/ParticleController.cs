@@ -1,7 +1,8 @@
 using Assets.Scripts.Managers;
+using Assets.Scripts.Particle;
 using UnityEngine;
 
-namespace Assets.Scripts.Particle
+namespace Particle
 {
     public class ParticleController : Poolable
     {

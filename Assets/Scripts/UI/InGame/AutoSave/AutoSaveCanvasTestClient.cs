@@ -1,11 +1,11 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.UI.InGame.AutoSave
+namespace UI.InGame.AutoSave
 {
     public class AutoSaveCanvasTestClient : MonoBehaviour
     {

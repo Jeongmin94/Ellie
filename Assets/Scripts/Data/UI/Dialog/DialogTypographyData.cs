@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.UI.Dialog
+namespace Data.UI.Dialog
 {
     [CreateAssetMenu(fileName = "DialogData", menuName = "UI/Dialog/DialogData", order = 0)]
     public class DialogTypographyData : ScriptableObject

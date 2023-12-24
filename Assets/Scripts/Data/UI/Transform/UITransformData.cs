@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.ActionData;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Inventory;
+using Data.ActionData;
+using UI.Framework.Presets;
+using UI.Inventory;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.UI.Transform
+namespace Data.UI.Transform
 {
     public class TransformController
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Assets.Scripts.Player.HitComponent
+namespace Player.HitComponent
 {
     public class MaterialHitComponent : MonoBehaviour
     {

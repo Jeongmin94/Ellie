@@ -1,10 +1,10 @@
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
 using TMPro;
+using UI.Framework;
+using UI.Framework.Presets;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.Equipment
+namespace UI.Equipment
 {
     public class EquipmentFrame : UIBase
     {

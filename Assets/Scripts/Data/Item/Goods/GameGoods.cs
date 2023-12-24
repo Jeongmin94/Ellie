@@ -1,7 +1,7 @@
-using Assets.Scripts.ActionData;
+using Data.ActionData;
 using UnityEngine;
 
-namespace Assets.Scripts.Item.Goods
+namespace Data.Item.Goods
 {
     [CreateAssetMenu(fileName = "GameGoods", menuName = "Item/GameGoods")]
     public class GameGoods : ScriptableObject

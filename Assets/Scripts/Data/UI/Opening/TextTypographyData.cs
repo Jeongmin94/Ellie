@@ -1,4 +1,4 @@
-using Assets.Scripts.Data.UI.Dialog;
+using Data.UI.Dialog;
 using TMPro;
 using UnityEngine;
 

@@ -1,19 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Boss1.Terrapupa;
-using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
-using Assets.Scripts.Player.HitComponent;
-using Assets.Scripts.Utils;
+using Boss1.DataScript.Terrapupa;
 using Channels.Boss;
+using Channels.Camera;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Particle;
+using Player.HitComponent;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utils;
 
-namespace Boss.Terrapupa
+namespace Boss1.Terrapupa
 {
     public class TerrapupaBTController : BehaviourTreeController
     {

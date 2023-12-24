@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.GoogleSheet
+namespace Data.GoogleSheet._6100Quest
 {
     public enum QuestStatus
     {

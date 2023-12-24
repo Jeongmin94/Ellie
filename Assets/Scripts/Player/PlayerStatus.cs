@@ -1,21 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Channels.Camera;
-using Assets.Scripts.Combat;
-using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player.HitComponent;
-using Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies;
-using Assets.Scripts.UI.Framework.Images;
+using Channels.Camera;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Combat;
+using Data.ActionData.Player;
+using Player.HitComponent;
+using Player.StatusEffects;
+using Player.StatusEffects.StatusEffectConcreteStrategies;
+using UI.Framework.Images;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerStatus : MonoBehaviour, ICombatant
     {

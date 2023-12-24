@@ -1,10 +1,10 @@
-using Assets.Scripts.UI.Framework;
 using Data.UI.Opening;
 using TMPro;
+using UI.Framework;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.GoldPanel
 {
     public class ImageAndTextArea : UIBase
     {

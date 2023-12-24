@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Framework.Billboard
+namespace UI.Framework.Billboard
 {
     public interface IBillboard
     {

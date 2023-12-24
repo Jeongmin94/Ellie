@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TheKiwiCoder;
 
-using Assets.Scripts.Monsters.Others;
-
 [System.Serializable]
 public class SetData : ActionNode
 {

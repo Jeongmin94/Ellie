@@ -1,28 +1,31 @@
 using UnityEngine;
 
-public class SkeletonMesh : MonoBehaviour
+namespace Monsters.Controllers
 {
-    private Material[] materials;
-
-    private SkinnedMeshRenderer skinnedMeshRenderer;
-    //[SerializeField] private Material freezeMaterial;
-
-    private void Awake()
+    public class SkeletonMesh : MonoBehaviour
     {
-        skinnedMeshRenderer = gameObject.GetComponent<SkinnedMeshRenderer>();
-        materials = skinnedMeshRenderer.materials.Clone() as Material[];
-        DeleteFreezeRenderer();
-    }
+        private Material[] materials;
 
-    public void AddFreezeRenderer()
-    {
-        skinnedMeshRenderer.materials = materials;
-    }
+        private SkinnedMeshRenderer skinnedMeshRenderer;
+        //[SerializeField] private Material freezeMaterial;
 
-    public void DeleteFreezeRenderer()
-    {
-        var oneMaterial = new Material[1];
-        oneMaterial[0] = materials[0];
-        skinnedMeshRenderer.materials = oneMaterial;
+        private void Awake()
+        {
+            skinnedMeshRenderer = gameObject.GetComponent<SkinnedMeshRenderer>();
+            materials = skinnedMeshRenderer.materials.Clone() as Material[];
+            DeleteFreezeRenderer();
+        }
+
+        public void AddFreezeRenderer()
+        {
+            skinnedMeshRenderer.materials = materials;
+        }
+
+        public void DeleteFreezeRenderer()
+        {
+            var oneMaterial = new Material[1];
+            oneMaterial[0] = materials[0];
+            skinnedMeshRenderer.materials = oneMaterial;
+        }
     }
 }

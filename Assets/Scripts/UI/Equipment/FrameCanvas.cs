@@ -1,13 +1,15 @@
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Framework.Static;
-using Assets.Scripts.UI.Inventory;
+using Data.UI.Transform;
+using UI.Framework.Presets;
+using UI.Framework.Static;
+using UI.Inventory;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Equipment
+namespace UI.Equipment
 {
     public class FrameCanvas : UIStatic
     {

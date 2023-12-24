@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using Assets.Scripts.Player;
 using UnityEngine;
 
-namespace Assets.Scripts.StatusEffects.StatusEffectConcreteStrategies
+namespace Player.StatusEffects.StatusEffectConcreteStrategies
 {
     public class PlayerStatusEffectBurn : MonoBehaviour, IPlayerStatusEffect
     {

@@ -1,6 +1,7 @@
 using Assets.Scripts.Centers;
+using UI.Opening.PopupMenu.MenuButton;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.PopupCanvas.PopupCanvasImpl
 {
     public class MainPopup : PopupCanvas
     {

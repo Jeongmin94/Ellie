@@ -1,14 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.UI.Framework.Images;
-using Assets.Scripts.UI.Framework.Static;
-using Assets.Scripts.UI.Player;
-using Assets.Scripts.Utils;
 using TMPro;
+using UI.Framework.Images;
+using UI.Framework.Static;
+using UI.Player;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.UI.Monster
+namespace UI.Monster
 {
     public class UIMonsterCanvas : UIStatic
     {

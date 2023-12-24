@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using VFXManager = Assets.Scripts.Managers.VFXManager;
 
-namespace Assets.Scripts.Particle
+namespace Particle
 {
     public class VFXController : Poolable
     {

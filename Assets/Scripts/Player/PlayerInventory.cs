@@ -1,14 +1,17 @@
-﻿using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Item;
-using Assets.Scripts.Item.Goods;
-using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Inventory;
+﻿using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet._4000Stone;
+using Data.GoogleSheet._4100Item;
+using Data.Item.Goods;
+using Item;
+using UI.Inventory;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerInventory : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.UI
+namespace UI.Dialog
 {
     public static class DialogConst
     {

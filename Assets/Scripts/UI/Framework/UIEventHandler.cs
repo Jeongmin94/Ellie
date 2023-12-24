@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Assets.Scripts.UI.Framework
+namespace UI.Framework
 {
     // Unity Event System Interfaces
     // https://docs.unity.cn/Packages/com.unity.ugui@1.0/api/UnityEngine.EventSystems.html

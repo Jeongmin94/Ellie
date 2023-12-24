@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Channels.Camera;
-using Assets.Scripts.Environments;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
+using Channels.Camera;
 using Channels.Components;
 using Channels.Type;
+using Environments;
 using UnityEngine;
+using Utils;
 
 namespace Assets.Scripts.Puzzle
 {

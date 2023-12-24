@@ -1,6 +1,7 @@
+using UI.Opening.PopupMenu.MenuButton;
 using UnityEditor;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.PopupCanvas.PopupCanvasImpl
 {
     public class ExitPopup : PopupCanvas
     {

@@ -1,4 +1,4 @@
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.Slot
 {
     public class InventorySlotItem : BaseSlotItem
     {

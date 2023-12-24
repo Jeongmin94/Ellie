@@ -1,12 +1,12 @@
 ﻿using System;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Player.StatusEffects;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class SkullSecondTrap : MonoBehaviour
     {

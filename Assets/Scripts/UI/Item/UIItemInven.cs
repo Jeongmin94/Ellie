@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.UI.Framework.Static;
-using Assets.Scripts.Utils;
+using UI.Framework.Static;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Item
+namespace UI.Item
 {
     public class UIItemInven : UIStatic
     {

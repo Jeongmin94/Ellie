@@ -1,10 +1,11 @@
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
 using Data.UI.Config;
 using Data.UI.Config.Save;
+using UI.Framework;
+using UI.Framework.Presets;
+using UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.ConfigCanvas.ListPanel
 {
     public class ConfigMenuList : UIBase
     {

@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
 using Channels.Boss;
+using Channels.Stone;
 using UnityEngine;
 
-namespace Assets.Scripts.Item.Stone
+namespace Item.Stone
 {
     public class MagicStone : BaseStoneEffect
     {

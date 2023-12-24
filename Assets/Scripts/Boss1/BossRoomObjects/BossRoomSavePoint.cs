@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts.Boss1.BossRoomObjects
+namespace Boss1.BossRoomObjects
 {
     public class BossRoomSavePoint : MonoBehaviour
     {

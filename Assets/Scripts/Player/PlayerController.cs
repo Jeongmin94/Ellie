@@ -2,28 +2,30 @@
 using System.Collections;
 using System.Linq;
 using Assets.Scripts.Centers;
-using Assets.Scripts.Channels.Camera;
-using Assets.Scripts.Combat;
-using Assets.Scripts.Data.ActionData.Player;
-using Assets.Scripts.Data.GoogleSheet._4400Etc;
-using Assets.Scripts.Environments;
-using Assets.Scripts.Equipments;
-using Assets.Scripts.InteractiveObjects;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player.States;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
+using Channels.Camera;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
 using Cinemachine;
+using Combat;
+using Data.ActionData.Player;
+using Data.GoogleSheet;
+using Data.GoogleSheet._4400Etc;
+using Environments;
+using Equipments;
+using InteractiveObjects;
+using Player.States;
+using Player.StatusEffects;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
+using Utils;
 using static Assets.Scripts.Managers.PlayerSavePayload;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerController : MonoBehaviour
     {

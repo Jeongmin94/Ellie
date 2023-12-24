@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.PopupCanvas.PopupCanvasImpl
 {
     public class PopupCanvas : MonoBehaviour
     {

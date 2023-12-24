@@ -1,9 +1,9 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Monster;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
+using UI.Monster;
 using UnityEngine;
+using Utils;
 
 namespace Centers.Test
 {

@@ -1,6 +1,6 @@
 using Sirenix.OdinInspector;
 
-namespace Assets.Scripts.Controller
+namespace Controller
 {
     public abstract class BaseController : SerializedMonoBehaviour
     {

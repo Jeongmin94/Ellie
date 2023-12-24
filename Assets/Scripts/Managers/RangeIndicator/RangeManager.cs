@@ -1,6 +1,6 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using UnityEngine;
+using Utils;
 
 public enum RangeType
 {

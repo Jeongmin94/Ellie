@@ -1,13 +1,13 @@
 ﻿using System;
-using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Combat;
-using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
 using Channels.Components;
+using Channels.Stone;
+using Combat;
+using Data.GoogleSheet._4000Stone;
 using UnityEngine;
 
-namespace Assets.Scripts.Item.Stone
+namespace Item.Stone
 {
     public class BaseStoneEffect : MonoBehaviour
     {

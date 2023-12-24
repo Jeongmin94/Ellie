@@ -1,8 +1,8 @@
-using Assets.Scripts.Data.ActionData.Player;
+using Data.ActionData.Player;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace UI
 {
     public class PowerSliderController : MonoBehaviour
     {

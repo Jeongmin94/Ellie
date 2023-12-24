@@ -1,18 +1,20 @@
 using System.Collections.Generic;
-using Channels;
 using UnityEngine;
 
-public class MonsterPayload : IBaseEventPayload
+namespace Channels.Monsters
 {
-    public float RespawnTime { get; set; }
-    public Transform Monster { get; set; }
-    public List<int> ItemDrop { get; set; }
-}
-
-public class MonsterChannel : BaseEventChannel
-{
-    public override void ReceiveMessage(IBaseEventPayload payload)
+    public class MonsterPayload : IBaseEventPayload
     {
-        Publish(payload);
+        public float RespawnTime { get; set; }
+        public Transform Monster { get; set; }
+        public List<int> ItemDrop { get; set; }
+    }
+
+    public class MonsterChannel : BaseEventChannel
+    {
+        public override void ReceiveMessage(IBaseEventPayload payload)
+        {
+            Publish(payload);
+        }
     }
 }

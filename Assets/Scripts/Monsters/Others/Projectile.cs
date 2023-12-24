@@ -1,8 +1,8 @@
-using Assets.Scripts.Combat;
-using Assets.Scripts.Monsters.Attacks;
+using Combat;
+using Monsters.Attacks;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.Others
+namespace Monsters.Others
 {
     public class Projectile : MonoBehaviour
     {

@@ -1,10 +1,10 @@
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.Utils;
 using TMPro;
+using UI.Framework;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Item
+namespace UI.Item.Stone
 {
     public class UIStoneSubItem : UIBase
     {

@@ -1,37 +1,40 @@
 using System;
-using Assets.Scripts.Combat;
-using Assets.Scripts.Monsters.AbstractClass;
-using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Combat;
+using Monsters.AbstractClass;
 using UnityEngine;
+using Utils;
 
-public class MonsterHeadShot : MonoBehaviour, ICombatant
+namespace Monsters
 {
-    [SerializeField] private AbstractMonster controller;
-    private TicketMachine ticketMachine;
-
-    private void Awake()
+    public class MonsterHeadShot : MonoBehaviour, ICombatant
     {
-        SetTicketMachine();
-    }
+        [SerializeField] private AbstractMonster controller;
+        private TicketMachine ticketMachine;
 
-    public void Attack(IBaseEventPayload payload)
-    {
-        throw new NotImplementedException();
-    }
+        private void Awake()
+        {
+            SetTicketMachine();
+        }
 
-    public void ReceiveDamage(IBaseEventPayload payload)
-    {
-        controller.RecieveHeadShot();
-        var combatPayload = payload as CombatPayload;
-        controller.UpdateHP(combatPayload.Damage);
-    }
+        public void Attack(IBaseEventPayload payload)
+        {
+            throw new NotImplementedException();
+        }
 
-    private void SetTicketMachine()
-    {
-        ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTicket(ChannelType.Combat);
+        public void ReceiveDamage(IBaseEventPayload payload)
+        {
+            controller.RecieveHeadShot();
+            var combatPayload = payload as CombatPayload;
+            controller.UpdateHP(combatPayload.Damage);
+        }
+
+        private void SetTicketMachine()
+        {
+            ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
+            ticketMachine.AddTicket(ChannelType.Combat);
+        }
     }
 }

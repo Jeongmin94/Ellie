@@ -1,6 +1,6 @@
 using Assets.Scripts.Managers;
 
-namespace Assets.Scripts.UI.Framework.Popup
+namespace UI.Framework.Popup
 {
     public class UIPopup : UIBase
     {

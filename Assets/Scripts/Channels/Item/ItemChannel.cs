@@ -1,7 +1,6 @@
-using Channels;
 using UnityEngine;
 
-namespace Assets.Scripts.Channels.Item
+namespace Channels.Item
 {
     public enum ItemEventType
     {

@@ -1,9 +1,9 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using UnityEngine;
+using Utils;
 
 namespace UI.Dialog.Test
 {

@@ -1,4 +1,4 @@
-namespace Assets.Scripts.UI.Framework
+namespace UI.Framework
 {
     /// <summary>
     ///     UI에 오브젝트를 Bind 하기 위해 사용하는 enum의 기본 집합

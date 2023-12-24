@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.InteractiveObjects;
-using Channels.Components;
+﻿using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using InteractiveObjects;
 using Outline;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerInteraction : MonoBehaviour
     {

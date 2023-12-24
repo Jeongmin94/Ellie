@@ -2,12 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
-using Assets.Scripts.Data.UI.Dialog;
-using Assets.Scripts.Utils;
+using Data.UI.Dialog;
 using TMPro;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.UI.Dialog
+namespace UI.Dialog
 {
     public class DialogText : MonoBehaviour
     {

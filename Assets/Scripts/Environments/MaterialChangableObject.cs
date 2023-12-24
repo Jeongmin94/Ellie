@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Environments
+namespace Environments
 {
     public class MaterialChangableObject : MonoBehaviour
     {

@@ -1,8 +1,9 @@
 using System.Collections;
-using Assets.Scripts.Monsters.AbstractClass;
+using Data.Monster;
+using Monsters.AbstractClass;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.Attacks
+namespace Monsters.Attacks
 {
     public class SphereColliderAttack : AbstractAttack
     {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Assets.Scripts.ActionData
+namespace Data.ActionData
 {
     public class Data<T>
     {

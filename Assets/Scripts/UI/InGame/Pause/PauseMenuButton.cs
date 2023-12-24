@@ -1,18 +1,18 @@
 using System;
-using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.UI.Opening;
-using Assets.Scripts.UI.PopupMenu;
-using Assets.Scripts.Utils;
 using Data.UI.Opening;
+using Data.UI.Transform;
+using UI.Framework;
+using UI.Framework.Presets;
+using UI.Inventory;
+using UI.Opening;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.InGame
+namespace UI.InGame.Pause
 {
     public class PauseMenuButton : OpeningText
     {

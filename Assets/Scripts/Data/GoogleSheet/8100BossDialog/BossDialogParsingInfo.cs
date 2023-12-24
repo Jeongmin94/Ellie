@@ -4,7 +4,7 @@ using Channels.Boss;
 using Channels.Dialog;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.GoogleSheet
+namespace Data.GoogleSheet._8100BossDialog
 {
     [Serializable]
     public class BossDialogData

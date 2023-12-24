@@ -1,15 +1,15 @@
 using System;
-using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Data.ActionData.Player;
-using Assets.Scripts.ElliePhysics.Utils;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Inventory;
 using Channels.Components;
+using Channels.Stone;
 using Channels.Type;
 using Channels.UI;
+using Data.ActionData.Player;
+using ElliePhysics.Utils;
+using UI.Inventory.CategoryPanel;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     [RequireComponent(typeof(LineRenderer))]
     public class Shooter : MonoBehaviour

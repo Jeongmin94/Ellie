@@ -1,4 +1,4 @@
-namespace Assets.Scripts.UI.Item.PopupInven
+namespace UI.Item.PopupInven.Slot.Interface
 {
     public interface ISettable
     {

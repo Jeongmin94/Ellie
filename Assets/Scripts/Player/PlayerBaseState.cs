@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Player
+﻿namespace Player
 {
     public struct StateInfo
     {

@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.Player.Test
+namespace Player.Test
 {
     public class ModelMaterialTest : MonoBehaviour
     {

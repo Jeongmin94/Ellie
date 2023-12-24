@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.InteractiveObjects;
+﻿using InteractiveObjects;
 using UnityEngine;
 
-namespace Assets.Scripts.Player.States
+namespace Player.States
 {
     internal class PlayerStateMining : PlayerBaseState
     {

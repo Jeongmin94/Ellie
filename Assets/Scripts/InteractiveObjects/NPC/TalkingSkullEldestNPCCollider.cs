@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class TalkingSkullEldestNPCCollider : MonoBehaviour
     {

@@ -1,14 +1,16 @@
 using System.Collections;
-using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet._4100Item;
+using Data.Item.Goods;
+using UI.Inventory.Slot;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
-namespace Assets.Scripts.UI.Inventory.Test
+namespace UI.Inventory.Test
 {
     public class InventoryTestClient : MonoBehaviour
     {

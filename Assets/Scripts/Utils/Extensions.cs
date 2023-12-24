@@ -1,12 +1,13 @@
 using System;
 using System.Linq;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.PopupMenu;
+using UI.Framework;
+using UI.Opening.PopupMenu.PopupCanvas;
+using UI.Opening.PopupMenu.PopupCanvas.PopupCanvasImpl;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.Utils
+namespace Utils
 {
     public static class Extensions
     {

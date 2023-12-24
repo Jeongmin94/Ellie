@@ -1,14 +1,15 @@
 using System;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.PopupMenu;
-using Assets.Scripts.Utils;
 using Data.UI.Opening;
+using UI.Framework;
+using UI.Opening.PopupMenu.MenuButton;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Guide
+namespace UI.Guide
 {
     public class GuideButton : UIBase
     {

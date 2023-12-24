@@ -4,7 +4,7 @@ using Assets.Scripts.Managers;
 using InteractingColliders;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class NPCController : MonoBehaviour
     {

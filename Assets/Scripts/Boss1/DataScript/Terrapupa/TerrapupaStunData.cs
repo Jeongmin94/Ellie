@@ -2,22 +2,25 @@
 using TheKiwiCoder;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Stun", menuName = "Terrapupa/Stun")]
-public class TerrapupaStunData : BaseBTData
+namespace Boss1.DataScript.Terrapupa
 {
-    [Title("기절 상태")] [InfoBox("기절 지속시간")] public float stunDuration = 10.0f;
-
-    public BlackboardKey<float> duration;
-
-    public TerrapupaStunData()
+    [CreateAssetMenu(fileName = "Stun", menuName = "Terrapupa/Stun")]
+    public class TerrapupaStunData : BaseBTData
     {
-        dataName = "TerrapupaStun";
-    }
+        [Title("기절 상태")] [InfoBox("기절 지속시간")] public float stunDuration = 10.0f;
 
-    public override void Init(BehaviourTree tree)
-    {
-        SetBlackboardValue("duration", stunDuration, tree);
+        public BlackboardKey<float> duration;
 
-        duration = FindBlackboardKey<float>("duration", tree);
+        public TerrapupaStunData()
+        {
+            dataName = "TerrapupaStun";
+        }
+
+        public override void Init(BehaviourTree tree)
+        {
+            SetBlackboardValue("duration", stunDuration, tree);
+
+            duration = FindBlackboardKey<float>("duration", tree);
+        }
     }
 }

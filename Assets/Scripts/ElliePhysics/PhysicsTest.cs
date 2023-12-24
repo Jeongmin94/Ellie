@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.ElliePhysics
+namespace ElliePhysics
 {
     public enum GravityMode
     {

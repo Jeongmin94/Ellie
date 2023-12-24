@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Monsters.Utility
+namespace Monsters.Utility
 {
     public static class Enums
     {

@@ -1,26 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Combat;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Monster;
-using Assets.Scripts.Monsters.Attacks;
-using Assets.Scripts.Monsters.EffectStatus;
-using Assets.Scripts.Monsters.Utility;
-using Assets.Scripts.Player.HitComponent;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.UI.Monster;
-using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
+using Channels.Monsters;
 using Channels.Type;
+using Combat;
+using Data.GoogleSheet;
+using Data.Monster;
+using Monsters.Attacks;
+using Monsters.Controllers;
+using Monsters.EffectStatus;
+using Monsters.Utility;
+using Player.HitComponent;
+using Player.StatusEffects;
 using Sirenix.OdinInspector;
 using TheKiwiCoder;
+using UI.Monster;
 using UnityEngine;
 using UnityEngine.AI;
-using static Assets.Scripts.Monsters.Utility.Enums;
+using Utils;
+using static Monsters.Utility.Enums;
 
-namespace Assets.Scripts.Monsters.AbstractClass
+namespace Monsters.AbstractClass
 {
     public enum MonsterNumber
     {

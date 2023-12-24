@@ -1,13 +1,13 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.Utils;
 using Data.UI.Opening;
 using TMPro;
+using UI.Framework;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.CategoryPanel
 {
     public class CategoryToggleController : ToggleController
     {

@@ -1,10 +1,10 @@
-using Assets.Scripts.Utils;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Framework.Popup
+namespace UI.Framework.Popup
 {
     public class UIPopupButton : UIPopup
     {

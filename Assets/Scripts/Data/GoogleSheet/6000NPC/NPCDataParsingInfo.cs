@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.InteractiveObjects.NPC;
+using InteractiveObjects.NPC;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.GoogleSheet
+namespace Data.GoogleSheet._6000NPC
 {
     [Serializable]
     public class NPCData

@@ -1,6 +1,6 @@
-using Assets.Scripts.ActionData;
+using Data.ActionData;
 
-namespace Assets.Scripts.UI.Monster
+namespace UI.Monster
 {
     public class MonsterDataContainer
     {

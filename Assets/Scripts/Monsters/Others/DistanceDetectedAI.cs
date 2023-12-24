@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.Others
+namespace Monsters.Others
 {
     public class DistanceDetectedAI : MonoBehaviour
     {

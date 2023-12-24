@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI
+namespace UI.AlphaController
 {
     public class ImageAlphaController : AlphaController<Image>
     {

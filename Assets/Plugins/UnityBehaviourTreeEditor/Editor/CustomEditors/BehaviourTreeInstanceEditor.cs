@@ -1,22 +1,23 @@
 using UnityEditor;
-using UnityEngine.UIElements;
 using UnityEditor.UIElements;
+using UnityEngine.UIElements;
 
-namespace TheKiwiCoder {
+namespace TheKiwiCoder
+{
     [CustomEditor(typeof(BehaviourTreeInstance))]
-    public class BehaviourTreeInstanceEditor : Editor {
+    public class BehaviourTreeInstanceEditor : Editor
+    {
+        public override VisualElement CreateInspectorGUI()
+        {
+            var container = new VisualElement();
 
-        public override VisualElement CreateInspectorGUI() {
-
-            VisualElement container = new VisualElement();
-
-            PropertyField treeField = new PropertyField();
+            var treeField = new PropertyField();
             treeField.bindingPath = nameof(BehaviourTreeInstance.behaviourTree);
 
-            PropertyField validateField = new PropertyField();
+            var validateField = new PropertyField();
             validateField.bindingPath = nameof(BehaviourTreeInstance.validate);
 
-            PropertyField publicKeys = new PropertyField();
+            var publicKeys = new PropertyField();
             publicKeys.bindingPath = nameof(BehaviourTreeInstance.blackboardOverrides);
 
             container.Add(treeField);

@@ -2,20 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
+using Channels.Stone;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet;
+using Data.GoogleSheet._4000Stone;
 using Outline;
+using Player;
 using UnityEngine;
+using Utils;
 using Random = UnityEngine.Random;
 
-namespace Assets.Scripts.InteractiveObjects
+namespace InteractiveObjects
 {
     public class Ore : InteractiveObject
     {

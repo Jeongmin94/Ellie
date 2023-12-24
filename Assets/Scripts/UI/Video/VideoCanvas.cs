@@ -2,19 +2,19 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Centers;
-using Assets.Scripts.Data.UI.Video;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Data.UI.Video;
+using UI.Framework.Popup;
+using UI.Framework.Presets;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using Utils;
 
-namespace Assets.Scripts.UI.Video
+namespace UI.Video
 {
     public class VideoCanvas : UIPopup
     {

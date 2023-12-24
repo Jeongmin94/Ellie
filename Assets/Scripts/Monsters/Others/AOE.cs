@@ -1,7 +1,7 @@
-using Assets.Scripts.Monsters.Attacks;
+using Monsters.Attacks;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.Others
+namespace Monsters.Others
 {
     public class AOE : MonoBehaviour
     {

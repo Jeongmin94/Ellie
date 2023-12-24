@@ -1,9 +1,9 @@
-using Assets.Scripts.Utils;
 using UnityEngine;
 using UnityEngine.Events;
+using Utils;
 using Toggle = UnityEngine.UI.Toggle;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory
 {
     [RequireComponent(typeof(Toggle))]
     public class ToggleController : MonoBehaviour

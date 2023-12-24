@@ -1,22 +1,25 @@
 ﻿using TheKiwiCoder;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "MinionMove", menuName = "Terrapupa/MinionMove")]
-public class TerrapupaMinionMoveData : BaseBTData
+namespace Boss1.DataScript.Minion
 {
-    [Header("공격 설정")] [Tooltip("돌진 점프 높이")]
-    public float rotationSpeed = 2.0f;
-
-    [Tooltip("돌진 속도")] public float movementSpeed = 2.0f;
-
-    public TerrapupaMinionMoveData()
+    [CreateAssetMenu(fileName = "MinionMove", menuName = "Terrapupa/MinionMove")]
+    public class TerrapupaMinionMoveData : BaseBTData
     {
-        dataName = "TerrapupaMinionMove";
-    }
+        [Header("공격 설정")] [Tooltip("돌진 점프 높이")]
+        public float rotationSpeed = 2.0f;
 
-    public override void Init(BehaviourTree tree)
-    {
-        SetBlackboardValue("rotationSpeed", rotationSpeed, tree);
-        SetBlackboardValue("movementSpeed", movementSpeed, tree);
+        [Tooltip("돌진 속도")] public float movementSpeed = 2.0f;
+
+        public TerrapupaMinionMoveData()
+        {
+            dataName = "TerrapupaMinionMove";
+        }
+
+        public override void Init(BehaviourTree tree)
+        {
+            SetBlackboardValue("rotationSpeed", rotationSpeed, tree);
+            SetBlackboardValue("movementSpeed", movementSpeed, tree);
+        }
     }
 }

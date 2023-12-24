@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Monsters.EffectStatus.StatusEffectConcreteStrategies;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.Utils;
 using Channels.Combat;
+using Monsters.EffectStatus.StatusEffectConcreteStrategies;
+using Player.StatusEffects;
 using Sirenix.OdinInspector;
+using Utils;
 
-namespace Assets.Scripts.Monsters.EffectStatus
+namespace Monsters.EffectStatus
 {
     public class MonsterStatus : SerializedMonoBehaviour
     {

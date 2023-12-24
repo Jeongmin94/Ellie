@@ -1,6 +1,6 @@
 using Assets.Scripts.Managers;
 
-namespace Assets.Scripts.UI.Framework.Static
+namespace UI.Framework.Static
 {
     public class UIStatic : UIBase
     {

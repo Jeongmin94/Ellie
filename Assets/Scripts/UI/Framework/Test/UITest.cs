@@ -1,9 +1,9 @@
-using Assets.Scripts.UI.Framework.Popup;
 using TMPro;
+using UI.Framework.Popup;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.Framework.Test
+namespace UI.Framework.Test
 {
     public class UITest : UIPopup
     {

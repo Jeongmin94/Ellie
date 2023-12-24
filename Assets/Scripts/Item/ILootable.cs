@@ -1,6 +1,6 @@
-﻿using Assets.Scripts.Player;
+﻿using Player;
 
-namespace Assets.Scripts.Item
+namespace Item
 {
     public interface ILootable
     {

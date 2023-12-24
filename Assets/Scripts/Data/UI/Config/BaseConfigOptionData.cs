@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.PopupMenu;
+using UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel;
 using UnityEngine;
 
 namespace Data.UI.Config

@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEngine.AI;
 using Channels.Components;
-using Assets.Scripts.Monsters.AbstractClass;
+using Data.Monster;
+using Monsters.AbstractClass;
 
 namespace TheKiwiCoder {
     // The context is a shared object every node has access to.

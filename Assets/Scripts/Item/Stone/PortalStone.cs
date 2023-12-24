@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using Assets.Scripts.Channels;
-using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
+using Channels.Portal;
+using Channels.Stone;
 using Channels.Type;
+using Particle;
 using UnityEngine;
 
-namespace Assets.Scripts.Item.Stone
+namespace Item.Stone
 {
     public class PortalStone : BaseStoneEffect
     {

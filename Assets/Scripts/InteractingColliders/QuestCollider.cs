@@ -1,4 +1,4 @@
-using Assets.Scripts.InteractiveObjects.NPC;
+using InteractiveObjects.NPC;
 using UnityEngine;
 
 namespace InteractingColliders

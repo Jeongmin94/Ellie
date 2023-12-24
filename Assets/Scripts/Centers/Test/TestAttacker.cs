@@ -1,13 +1,13 @@
-﻿using Assets.Scripts.Combat;
-using Assets.Scripts.Player;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.Utils;
-using Channels.Combat;
+﻿using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Combat;
+using Player;
+using Player.StatusEffects;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.Centers.Test
+namespace Centers.Test
 {
     public class TestAttacker : MonoBehaviour, ICombatant
     {

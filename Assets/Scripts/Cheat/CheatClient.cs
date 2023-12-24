@@ -1,14 +1,17 @@
 using System.Collections.Generic;
 using Assets.Scripts.Centers;
-using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Inventory;
-using Boss.Terrapupa;
+using Boss1.Terrapupa;
+using Boss1.TerrapupaMinion;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet._4000Stone;
+using Data.GoogleSheet._4100Item;
 using Sirenix.OdinInspector;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
 
 public class CheatClient : SerializedMonoBehaviour

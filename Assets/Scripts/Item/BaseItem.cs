@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Assets.Scripts.ActionData;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Inventory;
+using Data.ActionData;
+using UI.Inventory.Slot;
 using UnityEngine;
 
-namespace Assets.Scripts.Item
+namespace Item
 {
     public delegate void ItemDestroyHandler();
 

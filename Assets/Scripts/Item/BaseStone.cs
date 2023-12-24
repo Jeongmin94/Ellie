@@ -1,14 +1,15 @@
 ﻿using System.Collections;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Item.Stone;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
-using Assets.Scripts.UI.Inventory;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet._4000Stone;
+using Item.Stone;
+using Player;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
 
-namespace Assets.Scripts.Item
+namespace Item
 {
     public class BaseStone : Poolable, ILootable
     {

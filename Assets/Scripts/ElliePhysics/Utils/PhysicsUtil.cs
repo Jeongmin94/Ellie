@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.ElliePhysics.Utils
+namespace ElliePhysics.Utils
 {
     public static class PhysicsUtil
     {

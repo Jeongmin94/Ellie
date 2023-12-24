@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Item;
-using Assets.Scripts.StatusEffects;
-using Assets.Scripts.UI.Inventory;
+using Item;
+using Player.StatusEffects;
+using UI.Inventory.CategoryPanel;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.GoogleSheet
+namespace Data.GoogleSheet._4000Stone
 {
     [Serializable]
     public class StoneData : ItemMetaData

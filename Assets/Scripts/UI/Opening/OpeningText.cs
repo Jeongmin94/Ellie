@@ -1,13 +1,13 @@
-using Assets.Scripts.ActionData;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.Utils;
+using Data.ActionData;
 using Data.UI.Opening;
 using TMPro;
+using UI.Framework;
+using UI.Framework.Presets;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Opening
+namespace UI.Opening
 {
     public class OpeningText : UIBase
     {

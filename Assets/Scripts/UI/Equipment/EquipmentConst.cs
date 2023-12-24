@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Equipment
+namespace UI.Equipment
 {
     public static class EquipmentConst
     {

@@ -1,6 +1,6 @@
-using Assets.Scripts.UI.Framework;
+using UI.Framework;
 
-namespace Assets.Scripts.UI.Status
+namespace UI.Status
 {
     public class UIStatus : UIBase
     {

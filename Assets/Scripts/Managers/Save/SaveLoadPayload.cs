@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.InteractiveObjects.NPC;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
+using Data.GoogleSheet._6100Quest;
+using InteractiveObjects.NPC;
+using UI.Inventory.CategoryPanel;
+using Utils;
 
 namespace Assets.Scripts.Managers
 {

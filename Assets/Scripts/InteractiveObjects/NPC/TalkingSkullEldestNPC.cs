@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
+using Data.GoogleSheet._6100Quest;
+using Player;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class TalkingSkullEldestNPC : BaseNPC
     {

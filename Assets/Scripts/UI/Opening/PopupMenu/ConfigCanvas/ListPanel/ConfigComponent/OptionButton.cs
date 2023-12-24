@@ -1,9 +1,9 @@
 using System;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.Utils;
+using UI.Framework;
 using UnityEngine.EventSystems;
+using Utils;
 
-namespace Data.UI.Config
+namespace UI.Opening.PopupMenu.ConfigCanvas.ListPanel.ConfigComponent
 {
     public class OptionButton : UIBase
     {

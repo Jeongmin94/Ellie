@@ -2,16 +2,16 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Data.ActionData.Player;
-using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Images;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Framework.Static;
-using Assets.Scripts.UI.Inventory;
+using Data.ActionData.Player;
+using Data.UI.Transform;
+using UI.Framework.Images;
+using UI.Framework.Presets;
+using UI.Framework.Static;
+using UI.Inventory;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Player
+namespace UI.Player
 {
     public readonly struct HealthImageInfo
     {

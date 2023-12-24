@@ -1,16 +1,16 @@
-using Assets.Scripts.Item;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Item.PopupInven;
-using Assets.Scripts.Utils;
 using Data.UI.Opening;
+using Item;
 using TMPro;
+using UI.Framework;
+using UI.Framework.Presets;
+using UI.Item.PopupInven.Slot.Interface;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.Slot
 {
     public abstract class BaseSlotItem : UIBase, IDraggable
     {

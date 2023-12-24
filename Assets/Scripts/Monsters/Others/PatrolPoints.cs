@@ -1,18 +1,21 @@
 using UnityEngine;
 
-public class PatrolPoints : MonoBehaviour
+namespace Monsters.Others
 {
-    public Vector3[] GetPatrolPointst()
+    public class PatrolPoints : MonoBehaviour
     {
-        var patrolVectors = new Vector3[transform.childCount];
-        var i = 0;
-        foreach (Transform child in gameObject.transform)
+        public Vector3[] GetPatrolPointst()
         {
-            patrolVectors[i] = child.transform.position;
-            patrolVectors[i].y = transform.position.y;
-            i++;
-        }
+            var patrolVectors = new Vector3[transform.childCount];
+            var i = 0;
+            foreach (Transform child in gameObject.transform)
+            {
+                patrolVectors[i] = child.transform.position;
+                patrolVectors[i].y = transform.position.y;
+                i++;
+            }
 
-        return patrolVectors;
+            return patrolVectors;
+        }
     }
 }

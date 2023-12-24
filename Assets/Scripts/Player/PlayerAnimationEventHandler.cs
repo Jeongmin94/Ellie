@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Equipments;
+﻿using Equipments;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerAnimationEventHandler : MonoBehaviour
     {

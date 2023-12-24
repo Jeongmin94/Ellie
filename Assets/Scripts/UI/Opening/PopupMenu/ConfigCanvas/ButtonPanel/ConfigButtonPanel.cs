@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
 using Data.UI.Opening;
+using UI.Framework;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel
 {
     public enum ConfigType
     {

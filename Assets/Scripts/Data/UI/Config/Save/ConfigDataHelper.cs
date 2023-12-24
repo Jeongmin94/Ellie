@@ -1,14 +1,15 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.PopupMenu;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel;
+using UI.Opening.PopupMenu.ConfigCanvas.ListPanel.ConfigComponent;
 using UnityEngine;
 
 namespace Data.UI.Config.Save
 {
     public static class ConfigDataHelper
     {
-        public static void InitData<T>(BaseConfigOptionData<T>[] dataArray, ConfigType configType, Transform transform)
+        public static void InitData<T>(BaseConfigOptionData<T>[] dataArray, ConfigType configType, UnityEngine.Transform transform)
         {
             foreach (var data in dataArray)
             {

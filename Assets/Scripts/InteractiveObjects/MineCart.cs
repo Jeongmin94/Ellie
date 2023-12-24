@@ -1,12 +1,12 @@
 ﻿using System;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Player;
 using Channels.Components;
 using Channels.UI;
 using Outline;
+using Player;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects
+namespace InteractiveObjects
 {
     public class MineCart : InteractiveObject
     {

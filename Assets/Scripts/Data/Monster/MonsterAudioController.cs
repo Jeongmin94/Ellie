@@ -1,61 +1,64 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterAudioType
+namespace Data.Monster
 {
-    Idle,
-    IdleAttack1,
-    IdleAttack2,
-    Move1,
-    Move2,
-    Hit,
-    Dead,
-    MoveSkill,
-    MeleeAttack,
-    MeleeAttackHit,
-    WeaponAttack,
-    WeaponAttackPerform,
-    WeaponAttackHit,
-    ProjectileAttack,
-    ProjectileFire,
-    ProjectileHit,
-    HeadShot
-}
-
-
-public class MonsterAudioController : MonoBehaviour
-{
-    [SerializeField] private MonsterAudioData data;
-    private Dictionary<MonsterAudioType, AudioClip> audio;
-    private AudioSource audioSource;
-
-    private void Awake()
+    public enum MonsterAudioType
     {
-        audioSource = GetComponent<AudioSource>();
-        audio = new Dictionary<MonsterAudioType, AudioClip>();
+        Idle,
+        IdleAttack1,
+        IdleAttack2,
+        Move1,
+        Move2,
+        Hit,
+        Dead,
+        MoveSkill,
+        MeleeAttack,
+        MeleeAttackHit,
+        WeaponAttack,
+        WeaponAttackPerform,
+        WeaponAttackHit,
+        ProjectileAttack,
+        ProjectileFire,
+        ProjectileHit,
+        HeadShot
     }
 
-    public AudioClip GetAudio(MonsterAudioType type)
+
+    public class MonsterAudioController : MonoBehaviour
     {
-        AudioClip clip;
-        if (audio.TryGetValue(type, out clip))
+        [SerializeField] private MonsterAudioData data;
+        private Dictionary<MonsterAudioType, AudioClip> audio;
+        private AudioSource audioSource;
+
+        private void Awake()
         {
-            return clip;
+            audioSource = GetComponent<AudioSource>();
+            audio = new Dictionary<MonsterAudioType, AudioClip>();
         }
 
-        audio.Add(type, data.GetAudioClip(type));
-        if (audio.TryGetValue(type, out clip))
+        public AudioClip GetAudio(MonsterAudioType type)
         {
-            return clip;
+            AudioClip clip;
+            if (audio.TryGetValue(type, out clip))
+            {
+                return clip;
+            }
+
+            audio.Add(type, data.GetAudioClip(type));
+            if (audio.TryGetValue(type, out clip))
+            {
+                return clip;
+            }
+
+            return null;
         }
 
-        return null;
-    }
-
-    public void PlayAudio(MonsterAudioType type)
-    {
-        var clip = GetAudio(type);
-        audioSource.clip = clip;
-        audioSource.Play();
+        public void PlayAudio(MonsterAudioType type)
+        {
+            var clip = GetAudio(type);
+            audioSource.clip = clip;
+            audioSource.Play();
+        }
     }
 }

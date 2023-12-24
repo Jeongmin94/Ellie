@@ -1,7 +1,7 @@
-using Assets.Scripts.Item;
-using Assets.Scripts.UI.Inventory;
+using Item;
+using UI.Inventory.Slot;
 
-namespace Assets.Scripts.UI.Item.PopupInven
+namespace UI.Item.PopupInven.Slot.Interface
 {
     public interface IDraggable
     {

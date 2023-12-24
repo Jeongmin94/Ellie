@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Static;
+using UI.Framework.Static;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Status
+namespace UI.Status
 {
     public class UIStatusBar : UIStatic
     {

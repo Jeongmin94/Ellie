@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Combat
+﻿namespace Combat
 {
     public interface ICombatant
     {

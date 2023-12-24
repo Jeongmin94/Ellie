@@ -3,22 +3,25 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
-public class GoogleSheetsParser : MonoBehaviour
+namespace Data.GoogleSheet
 {
-    public IEnumerator Parse(List<DataParsingInfo> dataList)
+    public class GoogleSheetsParser : MonoBehaviour
     {
-        foreach (var info in dataList)
+        public IEnumerator Parse(List<DataParsingInfo> dataList)
         {
-            yield return ParseData(info);
+            foreach (var info in dataList)
+            {
+                yield return ParseData(info);
+            }
         }
-    }
 
-    private IEnumerator ParseData(DataParsingInfo info)
-    {
-        var www = UnityWebRequest.Get(info.GetConvertedURL());
-        yield return www.SendWebRequest();
+        private IEnumerator ParseData(DataParsingInfo info)
+        {
+            var www = UnityWebRequest.Get(info.GetConvertedURL());
+            yield return www.SendWebRequest();
 
-        info.tsv = www.downloadHandler.text;
-        print(info.tsv);
+            info.tsv = www.downloadHandler.text;
+            print(info.tsv);
+        }
     }
 }

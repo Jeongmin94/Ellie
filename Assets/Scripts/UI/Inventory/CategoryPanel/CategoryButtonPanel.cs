@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.Utils;
 using Channels.UI;
+using UI.Framework;
+using UI.Inventory.Slot;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using static Assets.Scripts.Managers.InventorySavePayload;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.CategoryPanel
 {
     public enum GroupType
     {

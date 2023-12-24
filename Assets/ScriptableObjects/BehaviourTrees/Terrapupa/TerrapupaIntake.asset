@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
   m_Name: TerrapupaIntake
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TheKiwiCoder.BehaviourTree, Assembly.Ellie
   rootNode:
     rid: 1401849175978016768
   nodes:
@@ -106,6 +106,10 @@ MonoBehaviour:
           reference:
             rid: 116448495133786113
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 116448495133786113
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

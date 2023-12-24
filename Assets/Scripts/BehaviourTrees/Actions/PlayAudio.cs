@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Data.Monster;
 using UnityEngine;
 using TheKiwiCoder;
 

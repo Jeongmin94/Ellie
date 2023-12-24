@@ -1,7 +1,6 @@
-﻿using Assets.Scripts.ActionData;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Data.ActionData.Player
+namespace Data.ActionData.Player
 {
     [CreateAssetMenu(fileName = "ChargingData", menuName = "Player/ChargingData")]
     public class ChargingData : ScriptableObject

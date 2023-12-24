@@ -1,14 +1,16 @@
 ﻿using System.Collections;
-using Assets.Scripts.Combat;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Monsters.AbstractClass;
-using Assets.Scripts.Monsters.Others;
-using Assets.Scripts.Monsters.Utility;
+using Combat;
+using Data.GoogleSheet;
+using Data.Monster;
+using Monsters.AbstractClass;
+using Monsters.Others;
+using Monsters.Utility;
 using TheKiwiCoder;
 using UnityEngine.AI;
-using static Assets.Scripts.Monsters.Utility.Enums;
+using static Monsters.Utility.Enums;
 
-namespace Assets.Scripts.Monsters
+namespace Monsters.Controllers
 {
     public class AdventureSkeletonController : AbstractMonster, ICombatant
     {

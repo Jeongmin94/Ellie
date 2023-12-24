@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Item.Consumption
+namespace Item.Consumption
 {
     public class ItemPie : BaseItem
     {

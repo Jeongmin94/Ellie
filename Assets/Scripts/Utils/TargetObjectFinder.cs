@@ -2,7 +2,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Assets.Scripts.Utils
+namespace Utils
 {
     public class TargetObjectFinder : MonoBehaviour
     {

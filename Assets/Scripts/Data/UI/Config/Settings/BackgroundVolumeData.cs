@@ -1,7 +1,7 @@
 using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Data.UI.Config
+namespace Data.UI.Config.Settings
 {
     [CreateAssetMenu(fileName = "BackgroundVolumeData", menuName = "UI/Config/Settings/BackgroundVolumeData",
         order = 1)]

@@ -1,9 +1,9 @@
 ﻿using System;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Player;
+using Data.GoogleSheet._6100Quest;
+using Player;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class TalkingSkullEldestTriggerCollider : MonoBehaviour
     {

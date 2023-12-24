@@ -2,7 +2,7 @@
 using TheKiwiCoder;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.EffectStatus.StatusEffectConcreteStrategies
+namespace Monsters.EffectStatus.StatusEffectConcreteStrategies
 {
     public class MonsterStatusEffectFreezing : MonoBehaviour, IMonsterStatusEffect
     {

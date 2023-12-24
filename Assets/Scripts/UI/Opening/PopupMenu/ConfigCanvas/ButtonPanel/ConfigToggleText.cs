@@ -1,8 +1,7 @@
-using Assets.Scripts.UI.Opening;
-using Assets.Scripts.Utils;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel
 {
     public class ConfigToggleText : OpeningText
     {

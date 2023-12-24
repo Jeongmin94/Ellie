@@ -1,39 +1,43 @@
 using System.Collections.Generic;
+using Data.Monster;
 using UnityEngine;
 
-public class EffectController : MonoBehaviour
+namespace Monsters
 {
-    public enum ParticleType
+    public class EffectController : MonoBehaviour
     {
-        CastFireball,
-        MeleeAttack,
-        MeleeAttackHit,
-        WeaponAttackSwing,
-        WeaponAttackhit
-    }
-
-    [SerializeField] private MonsterEffectData data;
-    private Dictionary<ParticleType, ParticleSystem> particles;
-
-    private void Awake()
-    {
-        particles = new Dictionary<ParticleType, ParticleSystem>();
-    }
-
-    public ParticleSystem GetParticle(ParticleType type)
-    {
-        ParticleSystem particle;
-        if (particles.TryGetValue(type, out particle))
+        public enum ParticleType
         {
-            return particle;
+            CastFireball,
+            MeleeAttack,
+            MeleeAttackHit,
+            WeaponAttackSwing,
+            WeaponAttackhit
         }
 
-        particles.Add(type, data.GetParticle(type));
-        if (particles.TryGetValue(type, out particle))
+        [SerializeField] private MonsterEffectData data;
+        private Dictionary<ParticleType, ParticleSystem> particles;
+
+        private void Awake()
         {
-            return particle;
+            particles = new Dictionary<ParticleType, ParticleSystem>();
         }
 
-        return null;
+        public ParticleSystem GetParticle(ParticleType type)
+        {
+            ParticleSystem particle;
+            if (particles.TryGetValue(type, out particle))
+            {
+                return particle;
+            }
+
+            particles.Add(type, data.GetParticle(type));
+            if (particles.TryGetValue(type, out particle))
+            {
+                return particle;
+            }
+
+            return null;
+        }
     }
 }

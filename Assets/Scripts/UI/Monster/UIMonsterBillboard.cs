@@ -1,7 +1,7 @@
-using Assets.Scripts.UI.Framework.Billboard;
+using UI.Framework.Billboard;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Monster
+namespace UI.Monster
 {
     public class UIMonsterBillboard : UIMonsterCanvas, IBillboard
     {

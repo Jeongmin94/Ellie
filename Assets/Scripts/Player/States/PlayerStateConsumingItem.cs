@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Assets.Scripts.Player.States
+namespace Player.States
 {
     public class PlayerStateConsumingItem : PlayerBaseState
     {

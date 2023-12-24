@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Item.Stone
+﻿namespace Item.Stone
 {
     public class NormalStone : BaseStoneEffect
     {

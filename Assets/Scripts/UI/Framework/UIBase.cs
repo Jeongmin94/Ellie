@@ -1,15 +1,15 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
 using TMPro;
+using UI.Framework.Presets;
+using UI.Inventory;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.UI.Framework
+namespace UI.Framework
 {
     public abstract class UIBase : MonoBehaviour
     {

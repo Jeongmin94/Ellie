@@ -1,18 +1,19 @@
 using System;
-using Assets.Scripts.ActionData.Monster;
-using Assets.Scripts.Data.ActionData.Player;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.UI.Item;
-using Assets.Scripts.UI.Monster;
-using Assets.Scripts.UI.Player;
-using Assets.Scripts.UI.Status;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
+using Data.ActionData.Monster;
+using Data.ActionData.Player;
+using UI.Framework.Popup;
+using UI.Item;
+using UI.Item.Stone;
+using UI.Monster;
+using UI.Player;
+using UI.Status;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.UI.Framework
+namespace UI.Framework.Test
 {
     public class UITestClient : MonoBehaviour
     {

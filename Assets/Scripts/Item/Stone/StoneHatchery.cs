@@ -1,15 +1,15 @@
-﻿using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Managers;
 using Channels.Combat;
 using Channels.Components;
+using Channels.Stone;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet._4000Stone;
+using UI.Inventory.Slot;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.Item.Stone
+namespace Item.Stone
 {
     public class StoneHatchery : MonoBehaviour
     {

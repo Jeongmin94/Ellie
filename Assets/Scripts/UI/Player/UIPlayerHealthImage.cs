@@ -1,7 +1,7 @@
 using System.Collections;
-using Assets.Scripts.UI.Framework.Images;
+using UI.Framework.Images;
 
-namespace Assets.Scripts.UI.Player
+namespace UI.Player
 {
     public class UIPlayerHealthImage : UIBaseImage
     {

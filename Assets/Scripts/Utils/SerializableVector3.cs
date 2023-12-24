@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Assets.Scripts.Utils
+namespace Utils
 {
     // NewtonJson Vector3 변환용
     [Serializable]

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Data.GoogleSheet._8200GuideDialog;
 using UnityEngine;
+using Utils;
 
 namespace UI.Dialog.GuideDialog
 {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Assets.Scripts.Particle;
+using Particle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

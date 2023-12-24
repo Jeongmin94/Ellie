@@ -1,10 +1,10 @@
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
 using Data.UI.Opening;
 using TMPro;
+using UI.Framework;
+using UI.Framework.Presets;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.DesctiptionPanel
 {
     public class DescriptionNamePanel : UIBase
     {

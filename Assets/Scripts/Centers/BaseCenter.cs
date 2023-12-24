@@ -1,10 +1,10 @@
 using System.Collections.Generic;
-using Assets.Scripts.Controller;
-using Assets.Scripts.Data.Channels;
 using Channels;
 using Channels.Components;
 using Channels.Type;
 using Channels.Utils;
+using Controller;
+using Data.Channels;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

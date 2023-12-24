@@ -1,10 +1,10 @@
 ﻿using System;
-using Assets.Scripts.Player;
 using Channels.UI;
 using Outline;
+using Player;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class YoungestSkullPickaxe : InteractiveObject
     {

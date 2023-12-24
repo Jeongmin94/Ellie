@@ -1,14 +1,14 @@
-﻿using Assets.Scripts.Boss1.BossRoomObjects;
-using Assets.Scripts.Controller;
-using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
+﻿using Assets.Scripts.Managers;
+using Boss1.BossRoomObjects;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
+using Controller;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.Boss1
+namespace Boss1
 {
     public class TerrapupaBattleController : BaseController
     {

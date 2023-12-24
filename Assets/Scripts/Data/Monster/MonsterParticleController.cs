@@ -1,65 +1,68 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum MonsterParticleType
+namespace Data.Monster
 {
-    MeleeAttack,
-    MeleeHit,
-    WeaponAttack,
-    WeaponHit,
-    ProjectileCast,
-    ProjectileHit,
-    Hit,
-    HeadShot
-}
-
-public class MonsterParticleController : MonoBehaviour
-{
-    [SerializeField] private MonsterParticleData data;
-    private ParticleSystem particle;
-    private Dictionary<MonsterParticleType, ParticleSystem> particles;
-
-    private void Awake()
+    public enum MonsterParticleType
     {
-        particles = new Dictionary<MonsterParticleType, ParticleSystem>();
+        MeleeAttack,
+        MeleeHit,
+        WeaponAttack,
+        WeaponHit,
+        ProjectileCast,
+        ProjectileHit,
+        Hit,
+        HeadShot
     }
 
-    public ParticleSystem GetParticle(MonsterParticleType type)
+    public class MonsterParticleController : MonoBehaviour
     {
-        if (particles.TryGetValue(type, out particle))
+        [SerializeField] private MonsterParticleData data;
+        private ParticleSystem particle;
+        private Dictionary<MonsterParticleType, ParticleSystem> particles;
+
+        private void Awake()
         {
-            particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
-            return particle;
+            particles = new Dictionary<MonsterParticleType, ParticleSystem>();
         }
 
-        var particleObj = Instantiate(data.GetParticleSystem(type), transform);
-        particles.Add(type, particleObj);
-        if (particles.TryGetValue(type, out particle))
+        public ParticleSystem GetParticle(MonsterParticleType type)
         {
-            particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
-            return particle;
+            if (particles.TryGetValue(type, out particle))
+            {
+                particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
+                return particle;
+            }
+
+            var particleObj = Instantiate(data.GetParticleSystem(type), transform);
+            particles.Add(type, particleObj);
+            if (particles.TryGetValue(type, out particle))
+            {
+                particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
+                return particle;
+            }
+
+            return null;
         }
 
-        return null;
-    }
-
-    public bool PlayParticle(MonsterParticleType type)
-    {
-        particle = GetParticle(type);
-        if (particle == null)
+        public bool PlayParticle(MonsterParticleType type)
         {
-            return false;
+            particle = GetParticle(type);
+            if (particle == null)
+            {
+                return false;
+            }
+
+            particle.Play();
+            return true;
         }
 
-        particle.Play();
-        return true;
-    }
-
-    public void StopParticle()
-    {
-        if (particle != null)
+        public void StopParticle()
         {
-            particle.Stop();
+            if (particle != null)
+            {
+                particle.Stop();
+            }
         }
     }
 }

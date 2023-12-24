@@ -1,8 +1,9 @@
 using System;
-using Assets.Scripts.UI.Inventory;
+using UI.Inventory;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel
 {
     public class ConfigToggleController : ToggleController
     {

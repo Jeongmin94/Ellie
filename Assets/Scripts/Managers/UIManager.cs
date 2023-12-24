@@ -1,12 +1,12 @@
 using System.Collections.Generic;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.UI.Framework.Static;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
+using UI.Framework;
+using UI.Framework.Popup;
+using UI.Framework.Static;
+using UI.Inventory.Slot;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
 namespace Assets.Scripts.Managers
 {

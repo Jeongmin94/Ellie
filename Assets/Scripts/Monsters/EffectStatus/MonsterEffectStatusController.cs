@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.EffectStatus
+namespace Monsters.EffectStatus
 {
     public struct MonsterStatusEffectInfo
     {

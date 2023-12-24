@@ -1,11 +1,11 @@
-﻿using Assets.Scripts.Channels.Item;
-using Assets.Scripts.Combat;
-using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Managers;
 using Assets.Scripts.Particle;
-using Boss.Terrapupa;
+using Boss1.Terrapupa;
+using Channels.Stone;
+using Combat;
 using UnityEngine;
 
-namespace Assets.Scripts.Item.Stone
+namespace Item.Stone
 {
     public class ExplosionStone : BaseStoneEffect
     {

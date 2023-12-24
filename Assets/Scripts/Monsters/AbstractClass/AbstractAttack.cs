@@ -1,6 +1,7 @@
+using Data.Monster;
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.AbstractClass
+namespace Monsters.AbstractClass
 {
     public abstract class AbstractAttack : MonoBehaviour
     {

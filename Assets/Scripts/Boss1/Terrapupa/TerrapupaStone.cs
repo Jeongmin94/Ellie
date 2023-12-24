@@ -6,7 +6,7 @@ using Channels.Components;
 using Channels.Type;
 using UnityEngine;
 
-namespace Boss.Terrapupa
+namespace Boss1.Terrapupa
 {
     public class TerrapupaStone : Poolable
     {

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Framework.Presets
+namespace UI.Framework.Presets
 {
     public struct AnchorPreset
     {

@@ -1,12 +1,12 @@
 ﻿using System.Collections;
-using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Managers;
 using Channels.Boss;
 using Channels.Components;
+using Channels.Stone;
 using Channels.Type;
 using UnityEngine;
 
-namespace Boss.Objects
+namespace Boss1.BossRoomObjects
 {
     public class ManaFountain : MonoBehaviour
     {

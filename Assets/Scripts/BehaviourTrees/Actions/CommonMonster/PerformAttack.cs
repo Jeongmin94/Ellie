@@ -1,6 +1,6 @@
+using Monsters.AbstractClass;
 using TheKiwiCoder;
-using Assets.Scripts.Monsters.AbstractClass;
-using static Assets.Scripts.Monsters.Utility.Enums;
+using static Monsters.Utility.Enums;
 
 [System.Serializable]
 public class PerformAttack : ActionNode

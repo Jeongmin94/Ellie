@@ -3,7 +3,7 @@ using Channels.Type;
 using Channels.UI;
 using UnityEngine;
 
-namespace Assets.Scripts.Player.States
+namespace Player.States
 {
     public class PlayerStateDead : PlayerBaseState
     {

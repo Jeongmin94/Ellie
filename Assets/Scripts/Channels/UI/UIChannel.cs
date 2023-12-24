@@ -1,5 +1,6 @@
-using Assets.Scripts.Item;
-using Assets.Scripts.UI.Inventory;
+using Item;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
 
 namespace Channels.UI

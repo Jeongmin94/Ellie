@@ -1,36 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UISaturation : MonoBehaviour
+namespace UI.Loading
 {
-    private const float saturationTime = 2.0f;
-    private const float saturationAmount = 50.0f;
-    private float accumTime;
-
-    private Image image;
-    private int saturationUp = -1;
-
-    private void Start()
+    public class UISaturation : MonoBehaviour
     {
-        image = gameObject.GetComponent<Image>();
-    }
+        private const float saturationTime = 2.0f;
+        private const float saturationAmount = 50.0f;
+        private float accumTime;
 
-    private void Update()
-    {
-        accumTime += Time.deltaTime;
-        if (accumTime > saturationTime)
+        private Image image;
+        private int saturationUp = -1;
+
+        private void Start()
         {
-            saturationUp *= -1;
-            accumTime = 0.0f;
+            image = gameObject.GetComponent<Image>();
         }
 
-        image.color = AdjustColor(image.color);
-    }
+        private void Update()
+        {
+            accumTime += Time.deltaTime;
+            if (accumTime > saturationTime)
+            {
+                saturationUp *= -1;
+                accumTime = 0.0f;
+            }
 
-    private Color AdjustColor(Color color)
-    {
-        var saturation = color.r + saturationAmount / saturationTime * Time.deltaTime * saturationUp;
-        Debug.Log(saturation);
-        return new Color(saturation, color.g, color.b, color.a);
+            image.color = AdjustColor(image.color);
+        }
+
+        private Color AdjustColor(Color color)
+        {
+            var saturation = color.r + saturationAmount / saturationTime * Time.deltaTime * saturationUp;
+            Debug.Log(saturation);
+            return new Color(saturation, color.g, color.b, color.a);
+        }
     }
 }

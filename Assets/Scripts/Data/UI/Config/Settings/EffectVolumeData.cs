@@ -1,7 +1,7 @@
 using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Data.UI.Config
+namespace Data.UI.Config.Settings
 {
     [CreateAssetMenu(fileName = "EffectVolumeData", menuName = "UI/Config/Settings/EffectVolume", order = 0)]
     public class EffectVolumeData : IntegerOptionData

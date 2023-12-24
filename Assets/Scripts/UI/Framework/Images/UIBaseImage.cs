@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Assets.Scripts.UI.Framework.Images
+namespace UI.Framework.Images
 {
     public readonly struct ImageChangeInfo
     {

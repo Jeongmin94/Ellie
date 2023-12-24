@@ -1,13 +1,13 @@
 using System;
 using System.Collections;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.PopupMenu;
-using Assets.Scripts.Utils;
+using UI.Framework;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Utils;
 
-namespace Assets.Scripts.UI.Opening
+namespace UI.Opening
 {
     public class BlinkMenuButton : OpeningText
     {

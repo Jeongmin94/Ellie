@@ -1,7 +1,7 @@
-﻿using Assets.Scripts.Item;
+﻿using Item;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerLooting : MonoBehaviour
     {

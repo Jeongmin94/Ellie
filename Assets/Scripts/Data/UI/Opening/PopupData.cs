@@ -1,4 +1,4 @@
-using Assets.Scripts.UI.PopupMenu;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;
 
 namespace Data.UI.Opening

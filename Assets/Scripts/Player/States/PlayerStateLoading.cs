@@ -1,4 +1,4 @@
-﻿namespace Assets.Scripts.Player.States
+﻿namespace Player.States
 {
     public class PlayerStateLoading : PlayerBaseState
     {

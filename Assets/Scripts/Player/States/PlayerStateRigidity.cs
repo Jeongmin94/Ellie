@@ -1,7 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts.Player.States
+namespace Player.States
 {
     public class PlayerStateRigidity : PlayerBaseState
     {

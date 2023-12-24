@@ -1,7 +1,6 @@
-﻿using Channels;
-using UnityEngine;
+﻿using UnityEngine;
 
-namespace Assets.Scripts.Channels.Item
+namespace Channels.Stone
 {
     public enum StoneEventType
     {

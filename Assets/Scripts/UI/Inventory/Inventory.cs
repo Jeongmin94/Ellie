@@ -1,27 +1,32 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Data.GoogleSheet._4400Etc;
-using Assets.Scripts.Data.UI.Transform;
-using Assets.Scripts.Item;
-using Assets.Scripts.Item.Goods;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Equipment;
-using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Data.GoogleSheet._4000Stone;
+using Data.GoogleSheet._4100Item;
+using Data.GoogleSheet._4400Etc;
+using Data.Item.Goods;
 using Data.UI.Opening;
+using Data.UI.Transform;
+using Item;
+using UI.Equipment;
+using UI.Framework.Popup;
+using UI.Framework.Presets;
+using UI.Inventory.CategoryPanel;
+using UI.Inventory.DesctiptionPanel;
+using UI.Inventory.GoldPanel;
+using UI.Inventory.Slot;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 using static Assets.Scripts.Managers.InventorySavePayload;
 using Vector2 = UnityEngine.Vector2;
 using Vector3 = UnityEngine.Vector3;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory
 {
     public delegate void ActivateButtonPanelHandler(ToggleChangeInfo changeInfo);
 

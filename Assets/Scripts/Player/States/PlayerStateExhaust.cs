@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Managers;
 
-namespace Assets.Scripts.Player.States
+namespace Player.States
 {
     internal class PlayerStateExhaust : PlayerBaseState
     {

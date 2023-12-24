@@ -1,7 +1,6 @@
-using Assets.Scripts.ActionData;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.ActionData.Player
+namespace Data.ActionData.Player
 {
     [CreateAssetMenu(fileName = "AimTargetData", menuName = "Player/AimTargetData")]
     public class AimTargetData : ScriptableObject

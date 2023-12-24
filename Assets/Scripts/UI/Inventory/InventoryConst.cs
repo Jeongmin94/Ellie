@@ -1,7 +1,7 @@
 using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory
 {
     public static class RectExtensions
     {

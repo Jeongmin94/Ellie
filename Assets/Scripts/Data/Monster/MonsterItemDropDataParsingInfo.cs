@@ -1,66 +1,70 @@
 using System;
 using System.Collections.Generic;
+using Data.GoogleSheet;
 using UnityEngine;
 
-[SerializeField]
-public class MonsterItemDropData
+namespace Data.Monster
 {
-    public int addDropChance;
-    public int dropItemIndex;
-    public int index;
-    public int maximumDrop;
-    public int noDropChance;
-}
-
-[CreateAssetMenu(fileName = "MonsterItemDropData", menuName = "GameData List/Monsters/MonsterItemDropData",
-    order = int.MaxValue)]
-public class MonsterItemDropDataParsingInfo : DataParsingInfo
-{
-    public List<MonsterItemDropData> datas = new();
-
-    public override T GetIndexData<T>(int index)
+    [SerializeField]
+    public class MonsterItemDropData
     {
-        if (typeof(T) == typeof(MonsterItemDropData))
-        {
-            return datas.Find(m => m.index == index) as T;
-        }
-
-        return default;
+        public int addDropChance;
+        public int dropItemIndex;
+        public int index;
+        public int maximumDrop;
+        public int noDropChance;
     }
 
-    public override void Parse()
+    [CreateAssetMenu(fileName = "MonsterItemDropData", menuName = "GameData List/Monsters/MonsterItemDropData",
+        order = int.MaxValue)]
+    public class MonsterItemDropDataParsingInfo : DataParsingInfo
     {
-        datas.Clear();
+        public List<MonsterItemDropData> datas = new();
 
-        var lines = tsv.Split('\n');
-
-        for (var i = 0; i < lines.Length; i++)
+        public override T GetIndexData<T>(int index)
         {
-            if (string.IsNullOrEmpty(lines[i]))
+            if (typeof(T) == typeof(MonsterItemDropData))
             {
-                continue;
+                return datas.Find(m => m.index == index) as T;
             }
 
-            var entries = lines[i].Split('\t');
+            return default;
+        }
 
-            MonsterItemDropData data = new();
+        public override void Parse()
+        {
+            datas.Clear();
 
-            try
+            var lines = tsv.Split('\n');
+
+            for (var i = 0; i < lines.Length; i++)
             {
-                data.index = int.Parse(entries[0].Trim());
-                data.dropItemIndex = int.Parse(entries[2].Trim());
-                data.noDropChance = int.Parse(entries[3].Trim());
-                data.addDropChance = int.Parse(entries[4].Trim());
-                data.maximumDrop = int.Parse(entries[5].Trim());
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Error parsing line {i + 1}: {entries[i]}");
-                Debug.LogError(ex);
-                continue;
-            }
+                if (string.IsNullOrEmpty(lines[i]))
+                {
+                    continue;
+                }
 
-            datas.Add(data);
+                var entries = lines[i].Split('\t');
+
+                MonsterItemDropData data = new();
+
+                try
+                {
+                    data.index = int.Parse(entries[0].Trim());
+                    data.dropItemIndex = int.Parse(entries[2].Trim());
+                    data.noDropChance = int.Parse(entries[3].Trim());
+                    data.addDropChance = int.Parse(entries[4].Trim());
+                    data.maximumDrop = int.Parse(entries[5].Trim());
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Error parsing line {i + 1}: {entries[i]}");
+                    Debug.LogError(ex);
+                    continue;
+                }
+
+                datas.Add(data);
+            }
         }
     }
 }

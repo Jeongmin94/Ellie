@@ -1,4 +1,4 @@
-namespace Assets.Scripts.Monsters.EffectStatus
+namespace Monsters.EffectStatus
 {
     public interface IMonsterStatusEffect
     {

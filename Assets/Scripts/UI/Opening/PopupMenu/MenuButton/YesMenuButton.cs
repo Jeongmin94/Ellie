@@ -1,7 +1,8 @@
 using Assets.Scripts.Managers;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.MenuButton
 {
     public class YesMenuButton : MenuButton
     {

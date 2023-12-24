@@ -1,9 +1,10 @@
-using Assets.Scripts.Channels;
-using Assets.Scripts.Channels.Camera;
-using Assets.Scripts.Channels.Item;
 using Channels.Boss;
+using Channels.Camera;
 using Channels.Combat;
 using Channels.Dialog;
+using Channels.Monsters;
+using Channels.Portal;
+using Channels.Stone;
 using Channels.Type;
 using Channels.UI;
 

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerStateMachine
     {

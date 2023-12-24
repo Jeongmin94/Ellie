@@ -1,4 +1,4 @@
-namespace Assets.Scripts.UI.Framework
+namespace UI.Framework
 {
     public enum UIEvent
     {

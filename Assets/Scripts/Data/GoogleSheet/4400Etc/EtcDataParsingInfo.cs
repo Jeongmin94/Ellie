@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using Assets.Scripts.Item;
-using Assets.Scripts.UI.Inventory;
+using Item;
+using UI.Inventory.CategoryPanel;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.GoogleSheet._4400Etc
+namespace Data.GoogleSheet._4400Etc
 {
     [Serializable]
     public class EtcData : ItemMetaData

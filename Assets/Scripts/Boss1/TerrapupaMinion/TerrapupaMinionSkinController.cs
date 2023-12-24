@@ -1,26 +1,29 @@
 using UnityEngine;
 
-public class TerrapupaMinionSkinController : MonoBehaviour
+namespace Boss1.TerrapupaMinion
 {
-    public Material material;
-
-    private SkinnedMeshRenderer skinRenderer;
-
-    private void Awake()
+    public class TerrapupaMinionSkinController : MonoBehaviour
     {
-        skinRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
-    }
+        public Material material;
 
-    private void Start()
-    {
-        if (material != null)
+        private SkinnedMeshRenderer skinRenderer;
+
+        private void Awake()
         {
-            ApplySkinMaterial();
+            skinRenderer = GetComponentInChildren<SkinnedMeshRenderer>();
         }
-    }
 
-    private void ApplySkinMaterial()
-    {
-        skinRenderer.material = material;
+        private void Start()
+        {
+            if (material != null)
+            {
+                ApplySkinMaterial();
+            }
+        }
+
+        private void ApplySkinMaterial()
+        {
+            skinRenderer.material = material;
+        }
     }
 }

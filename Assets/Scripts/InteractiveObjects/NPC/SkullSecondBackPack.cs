@@ -1,11 +1,11 @@
 ﻿using System;
-using Assets.Scripts.Data.GoogleSheet;
-using Assets.Scripts.Player;
 using Channels.UI;
+using Data.GoogleSheet._6100Quest;
 using Outline;
+using Player;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class SkullSecondBackPack : InteractiveObject
     {

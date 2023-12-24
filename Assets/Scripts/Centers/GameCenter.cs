@@ -1,12 +1,11 @@
-﻿using Assets.Scripts.InteractiveObjects;
-using Assets.Scripts.Item.Stone;
-using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Managers;
 using Assets.Scripts.Managers.Singleton;
-using Assets.Scripts.Player;
-using Centers;
+using InteractiveObjects;
+using Item.Stone;
+using Player;
 using UnityEngine;
 
-namespace Assets.Scripts.Centers.Test
+namespace Centers
 {
     public class GameCenter : BaseCenter
     {

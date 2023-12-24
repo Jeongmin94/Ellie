@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Monsters.Others;
 using UnityEngine;
 using TheKiwiCoder;
-
-using Assets.Scripts.Monsters.Others;
 
 [System.Serializable]
 public class PatrolToPoint : ActionNode

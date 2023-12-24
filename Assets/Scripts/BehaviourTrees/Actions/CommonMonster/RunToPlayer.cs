@@ -1,6 +1,6 @@
 using UnityEngine;
 using TheKiwiCoder;
-using static Assets.Scripts.Monsters.Utility.Enums;
+using static Monsters.Utility.Enums;
 
 [System.Serializable]
 public class RunToPlayer : ActionNode

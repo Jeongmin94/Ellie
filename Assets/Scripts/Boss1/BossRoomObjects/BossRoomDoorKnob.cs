@@ -1,82 +1,86 @@
 using System;
 using System.Collections;
 using Assets.Scripts.Particle;
+using Particle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using ReadOnlyAttribute = Sirenix.OdinInspector.ReadOnlyAttribute;
 
-public class BossRoomDoorKnob : MonoBehaviour
+namespace Boss1.BossRoomObjects
 {
-    [SerializeField] [Required] private GameObject emphasizeEffect;
-    [SerializeField] [Required] private Transform doorKnob;
-    [SerializeField] [ReadOnly] private bool isChecked;
-    [SerializeField] [ReadOnly] private float openSpeedTime;
-
-    private Action<BossRoomDoorKnob, Transform> golemCoreCheckAction;
-    private ParticleController particle;
-
-    private void OnTriggerEnter(Collider other)
+    public class BossRoomDoorKnob : MonoBehaviour
     {
-        if (isChecked == false && other.CompareTag("Stone"))
+        [SerializeField] [Required] private GameObject emphasizeEffect;
+        [SerializeField] [Required] private Transform doorKnob;
+        [SerializeField] [ReadOnly] private bool isChecked;
+        [SerializeField] [ReadOnly] private float openSpeedTime;
+
+        private Action<BossRoomDoorKnob, Transform> golemCoreCheckAction;
+        private ParticleController particle;
+
+        private void OnTriggerEnter(Collider other)
         {
-            golemCoreCheckAction?.Invoke(this, other.transform);
-        }
-    }
-
-    public void SubScribeAction(Action<BossRoomDoorKnob, Transform> action)
-    {
-        golemCoreCheckAction -= action;
-        golemCoreCheckAction += action;
-    }
-
-    public void EmphasizedDoor()
-    {
-        if (!isChecked)
-        {
-            var temp = new ParticlePayload { Origin = doorKnob, IsFollowOrigin = true, IsLoop = true };
-            particle = ParticleManager.Instance.GetParticle(emphasizeEffect, temp).GetComponent<ParticleController>();
-        }
-    }
-
-    public void Init(Transform golemCoreStone)
-    {
-        golemCoreStone.SetParent(doorKnob);
-        golemCoreStone.localPosition = Vector3.zero;
-
-        var coreRigidbody = golemCoreStone.GetComponent<Rigidbody>();
-        isChecked = true;
-        coreRigidbody.isKinematic = true;
-        coreRigidbody.velocity = Vector3.zero;
-        coreRigidbody.useGravity = false;
-
-        if (particle)
-        {
-            particle.Stop();
-            particle = null;
-        }
-    }
-
-    public void OpenDoor(float openAngle, float openTime)
-    {
-        openSpeedTime = openTime;
-
-        StartCoroutine(OpenDoorRoutine(openAngle));
-    }
-
-    private IEnumerator OpenDoorRoutine(float openAngle)
-    {
-        var startRotation = transform.rotation;
-        var endRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + openAngle,
-            transform.eulerAngles.z);
-
-        var elapsed = 0.0f;
-        while (elapsed < openSpeedTime)
-        {
-            elapsed += Time.deltaTime;
-            transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsed / openSpeedTime);
-            yield return null;
+            if (isChecked == false && other.CompareTag("Stone"))
+            {
+                golemCoreCheckAction?.Invoke(this, other.transform);
+            }
         }
 
-        transform.rotation = endRotation;
+        public void SubScribeAction(Action<BossRoomDoorKnob, Transform> action)
+        {
+            golemCoreCheckAction -= action;
+            golemCoreCheckAction += action;
+        }
+
+        public void EmphasizedDoor()
+        {
+            if (!isChecked)
+            {
+                var temp = new ParticlePayload { Origin = doorKnob, IsFollowOrigin = true, IsLoop = true };
+                particle = ParticleManager.Instance.GetParticle(emphasizeEffect, temp).GetComponent<ParticleController>();
+            }
+        }
+
+        public void Init(Transform golemCoreStone)
+        {
+            golemCoreStone.SetParent(doorKnob);
+            golemCoreStone.localPosition = Vector3.zero;
+
+            var coreRigidbody = golemCoreStone.GetComponent<Rigidbody>();
+            isChecked = true;
+            coreRigidbody.isKinematic = true;
+            coreRigidbody.velocity = Vector3.zero;
+            coreRigidbody.useGravity = false;
+
+            if (particle)
+            {
+                particle.Stop();
+                particle = null;
+            }
+        }
+
+        public void OpenDoor(float openAngle, float openTime)
+        {
+            openSpeedTime = openTime;
+
+            StartCoroutine(OpenDoorRoutine(openAngle));
+        }
+
+        private IEnumerator OpenDoorRoutine(float openAngle)
+        {
+            var startRotation = transform.rotation;
+            var endRotation = Quaternion.Euler(transform.eulerAngles.x, transform.eulerAngles.y + openAngle,
+                transform.eulerAngles.z);
+
+            var elapsed = 0.0f;
+            while (elapsed < openSpeedTime)
+            {
+                elapsed += Time.deltaTime;
+                transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsed / openSpeedTime);
+                yield return null;
+            }
+
+            transform.rotation = endRotation;
+        }
     }
 }

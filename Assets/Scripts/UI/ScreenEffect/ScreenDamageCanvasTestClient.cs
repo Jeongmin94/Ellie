@@ -1,11 +1,11 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.UI.ScreenEffect
+namespace UI.ScreenEffect
 {
     public class ScreenDamageCanvasTestClient : MonoBehaviour
     {

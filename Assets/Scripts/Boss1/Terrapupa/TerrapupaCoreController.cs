@@ -1,10 +1,10 @@
 ﻿using System.Collections;
-using Assets.Scripts.Player.HitComponent;
+using Player.HitComponent;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.VFX;
 
-namespace Assets.Scripts.Boss1.Terrapupa
+namespace Boss1.Terrapupa
 {
     public class TerrapupaCoreController : SerializedMonoBehaviour
     {

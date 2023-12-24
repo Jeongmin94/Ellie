@@ -1,6 +1,4 @@
-﻿using Channels;
-
-namespace Assets.Scripts.Channels.Camera
+﻿namespace Channels.Camera
 {
     public enum CameraShakingEffectType
     {

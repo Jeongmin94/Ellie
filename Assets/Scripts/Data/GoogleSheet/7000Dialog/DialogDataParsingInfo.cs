@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Data.GoogleSheet
+namespace Data.GoogleSheet._7000Dialog
 {
     public enum DialogSpeaker
     {

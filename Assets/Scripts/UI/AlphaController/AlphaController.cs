@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace Assets.Scripts.UI
+namespace UI.AlphaController
 {
     public abstract class AlphaController<T> : MonoBehaviour where T : Component
     {

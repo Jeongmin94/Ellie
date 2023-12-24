@@ -1,111 +1,114 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Monsters.AbstractClass;
-using Assets.Scripts.Monsters.Utility;
+using Monsters.AbstractClass;
+using Monsters.Utility;
 using UnityEngine;
 
-public enum MonsterName
+namespace Data.GoogleSheet
 {
-    NormalSkeleton,
-    AdventureSkeleton,
-    GuildguardSkeleton,
-    WizardSkeleton,
-    CaveBat
-}
-
-[Serializable]
-public class SkeletonMonsterData
-{
-    public int index;
-    public string monsterName;
-
-    public float maxHP;
-    public float movementSpeed;
-    public float returnSpeed;
-    public float rotationSpeed;
-    public float detectPlayerDistance;
-    public float chasePlayerDistance;
-    public float overtravelDistance;
-    public float stopDistance;
-    public float weakRatio;
-    public List<int> itemDropTable;
-    public int respawnTime;
-
-
-    public Enums.MonsterElement element;
-    public Enums.MovementType type;
-    public Enums.AttackTurnType turnType;
-
-    public Dictionary<string, AbstractAttack> skills;
-}
-
-
-[CreateAssetMenu(fileName = "SkeletonMonster", menuName = "GameData List/Monsters/SkeletonMonsterData",
-    order = int.MaxValue)]
-public class SkeletonMonsterDataParsingInfo : DataParsingInfo
-{
-    public List<SkeletonMonsterData> datas = new();
-
-    public override T GetIndexData<T>(int index)
+    public enum MonsterName
     {
-        if (typeof(T) == typeof(SkeletonMonsterData))
-        {
-            return datas.Find(m => m.index == index) as T;
-        }
-
-        return default;
+        NormalSkeleton,
+        AdventureSkeleton,
+        GuildguardSkeleton,
+        WizardSkeleton,
+        CaveBat
     }
 
-    public override void Parse()
+    [Serializable]
+    public class SkeletonMonsterData
     {
-        datas.Clear();
+        public int index;
+        public string monsterName;
 
-        var lines = tsv.Split('\n');
+        public float maxHP;
+        public float movementSpeed;
+        public float returnSpeed;
+        public float rotationSpeed;
+        public float detectPlayerDistance;
+        public float chasePlayerDistance;
+        public float overtravelDistance;
+        public float stopDistance;
+        public float weakRatio;
+        public List<int> itemDropTable;
+        public int respawnTime;
 
-        for (var i = 0; i < lines.Length; i++)
+
+        public Enums.MonsterElement element;
+        public Enums.MovementType type;
+        public Enums.AttackTurnType turnType;
+
+        public Dictionary<string, AbstractAttack> skills;
+    }
+
+
+    [CreateAssetMenu(fileName = "SkeletonMonster", menuName = "GameData List/Monsters/SkeletonMonsterData",
+        order = int.MaxValue)]
+    public class SkeletonMonsterDataParsingInfo : DataParsingInfo
+    {
+        public List<SkeletonMonsterData> datas = new();
+
+        public override T GetIndexData<T>(int index)
         {
-            if (string.IsNullOrEmpty(lines[i]))
+            if (typeof(T) == typeof(SkeletonMonsterData))
             {
-                continue;
+                return datas.Find(m => m.index == index) as T;
             }
 
-            var entries = lines[i].Split('\t');
+            return default;
+        }
 
-            var data = new SkeletonMonsterData();
-            data.itemDropTable = new List<int>();
+        public override void Parse()
+        {
+            datas.Clear();
 
-            try
+            var lines = tsv.Split('\n');
+
+            for (var i = 0; i < lines.Length; i++)
             {
-                data.index = int.Parse(entries[0].Trim());
-                data.monsterName = entries[1].Trim();
-                data.element = (Enums.MonsterElement)Enum.Parse(typeof(Enums.MonsterElement), entries[2].Trim());
-                data.maxHP = float.Parse(entries[3]);
-                data.movementSpeed = float.Parse(entries[4]);
-                data.rotationSpeed = float.Parse(entries[5]);
-                data.detectPlayerDistance = float.Parse(entries[6]);
-                data.chasePlayerDistance = float.Parse(entries[7]);
-                data.overtravelDistance = float.Parse(entries[8]);
-                data.returnSpeed = float.Parse(entries[9]);
-                data.stopDistance = float.Parse(entries[10]);
-                data.weakRatio = float.Parse(entries[15]);
-
-                var dropableItem = entries[16].Trim().Split(',');
-                for (var m = 0; m < dropableItem.Length; m++)
+                if (string.IsNullOrEmpty(lines[i]))
                 {
-                    var index = int.Parse(dropableItem[m].Trim());
-                    data.itemDropTable.Add(index);
+                    continue;
                 }
 
-                data.respawnTime = int.Parse(entries[17]);
-            }
-            catch (Exception ex)
-            {
-                Debug.LogError($"Error parsing line {i + 1}: {entries[i]}");
-                Debug.LogError(ex);
-                continue;
-            }
+                var entries = lines[i].Split('\t');
 
-            datas.Add(data);
+                var data = new SkeletonMonsterData();
+                data.itemDropTable = new List<int>();
+
+                try
+                {
+                    data.index = int.Parse(entries[0].Trim());
+                    data.monsterName = entries[1].Trim();
+                    data.element = (Enums.MonsterElement)Enum.Parse(typeof(Enums.MonsterElement), entries[2].Trim());
+                    data.maxHP = float.Parse(entries[3]);
+                    data.movementSpeed = float.Parse(entries[4]);
+                    data.rotationSpeed = float.Parse(entries[5]);
+                    data.detectPlayerDistance = float.Parse(entries[6]);
+                    data.chasePlayerDistance = float.Parse(entries[7]);
+                    data.overtravelDistance = float.Parse(entries[8]);
+                    data.returnSpeed = float.Parse(entries[9]);
+                    data.stopDistance = float.Parse(entries[10]);
+                    data.weakRatio = float.Parse(entries[15]);
+
+                    var dropableItem = entries[16].Trim().Split(',');
+                    for (var m = 0; m < dropableItem.Length; m++)
+                    {
+                        var index = int.Parse(dropableItem[m].Trim());
+                        data.itemDropTable.Add(index);
+                    }
+
+                    data.respawnTime = int.Parse(entries[17]);
+                }
+                catch (Exception ex)
+                {
+                    Debug.LogError($"Error parsing line {i + 1}: {entries[i]}");
+                    Debug.LogError(ex);
+                    continue;
+                }
+
+                datas.Add(data);
+            }
         }
     }
 }

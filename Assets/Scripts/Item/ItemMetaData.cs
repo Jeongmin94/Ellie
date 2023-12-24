@@ -1,7 +1,7 @@
 ﻿using System;
-using Assets.Scripts.UI.Inventory;
+using UI.Inventory.CategoryPanel;
 
-namespace Assets.Scripts.Item
+namespace Item
 {
     [Serializable]
     public class ItemMetaData

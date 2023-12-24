@@ -1,8 +1,7 @@
 ﻿using System.Collections;
-using Assets.Scripts.StatusEffects;
 using UnityEngine;
 
-namespace Assets.Scripts.Player.StatusEffects.StatusEffectConcreteStrategies
+namespace Player.StatusEffects.StatusEffectConcreteStrategies
 {
     public class PlayerStatusEffectWeakRigidity : MonoBehaviour, IPlayerStatusEffect
     {

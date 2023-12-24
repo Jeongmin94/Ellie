@@ -3,27 +3,30 @@ using Channels.Components;
 using Channels.Type;
 using UnityEngine;
 
-public class BossRoomTrigger : MonoBehaviour
+namespace Boss1.BossRoomObjects
 {
-    public BossSituationType situationType;
-    public BossDialogTriggerType dialogType;
-
-    private TicketMachine ticketMachine;
-
-    private void OnTriggerEnter(Collider other)
+    public class BossRoomTrigger : MonoBehaviour
     {
-        if (other.gameObject.CompareTag("Player"))
+        public BossSituationType situationType;
+        public BossDialogTriggerType dialogType;
+
+        private TicketMachine ticketMachine;
+
+        private void OnTriggerEnter(Collider other)
         {
-            var bPayload = new BossBattlePayload { SituationType = situationType };
-            ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
+            if (other.gameObject.CompareTag("Player"))
+            {
+                var bPayload = new BossBattlePayload { SituationType = situationType };
+                ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
 
-            var dPayload = new BossDialogPaylaod { TriggerType = dialogType };
-            ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
+                var dPayload = new BossDialogPaylaod { TriggerType = dialogType };
+                ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
+            }
         }
-    }
 
-    public void InitTicketMachine(TicketMachine ticketMachine)
-    {
-        this.ticketMachine = ticketMachine;
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
+        }
     }
 }

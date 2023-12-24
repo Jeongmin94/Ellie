@@ -1,8 +1,8 @@
 ﻿using System.Collections;
-using Assets.Scripts.Data.GoogleSheet;
+using Data.GoogleSheet._6100Quest;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects.NPC
+namespace InteractiveObjects.NPC
 {
     public class TalkingSkullSecondNPC : BaseNPC
     {

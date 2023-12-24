@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Monsters.Utility
+namespace Monsters.Utility
 {
     public class Functions : MonoBehaviour
     {

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Assets.Scripts.Item;
-using Assets.Scripts.UI.Inventory;
+using Item;
+using UI.Inventory.CategoryPanel;
 using UnityEngine;
 
 namespace Data.UI.Inventory

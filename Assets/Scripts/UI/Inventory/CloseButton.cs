@@ -1,9 +1,9 @@
 using System;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.Utils;
+using UI.Framework;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory
 {
     public class CloseButton : UIBase
     {

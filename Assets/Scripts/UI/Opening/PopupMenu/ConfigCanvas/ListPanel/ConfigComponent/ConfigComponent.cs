@@ -1,16 +1,15 @@
 using System;
-using Assets.Scripts.Data.UI.Transform;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
-using Data.UI.Config;
 using Data.UI.Opening;
+using Data.UI.Transform;
 using TMPro;
+using UI.Framework;
+using UI.Inventory;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.ConfigCanvas.ListPanel.ConfigComponent
 {
     public class ConfigComponent : UIBase
     {

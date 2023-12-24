@@ -1,6 +1,6 @@
-using Assets.Scripts.UI.Framework;
+using UI.Framework;
 
-namespace Assets.Scripts.UI.Inventory
+namespace UI.Inventory.GoldPanel
 {
     public class GoodsPanel : UIBase
     {

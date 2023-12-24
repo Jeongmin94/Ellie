@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.UI.Framework.Images;
-using Assets.Scripts.Utils;
+using UI.Framework.Images;
 using UnityEngine;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Player
+namespace UI.Player
 {
     public class UIBarImage : UIBaseImage
     {

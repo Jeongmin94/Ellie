@@ -2,7 +2,7 @@
 using Outline;
 using UnityEngine;
 
-namespace Assets.Scripts.InteractiveObjects
+namespace InteractiveObjects
 {
     public abstract class InteractiveObject : MonoBehaviour
     {

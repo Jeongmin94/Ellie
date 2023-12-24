@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Controller;
-using Assets.Scripts.Data.GoogleSheet;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Utils;
 using Channels.Boss;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using Controller;
+using Data.GoogleSheet._8100BossDialog;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using Utils;
 
-namespace Assets.Scripts.Boss1
+namespace Boss1
 {
     public class TerrapupaDialogController : BaseController
     {

@@ -2,23 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Centers;
-using Assets.Scripts.Data.UI.Transform;
 using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Framework.Popup;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Inventory;
-using Assets.Scripts.Utils;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using Data.UI.Opening;
+using Data.UI.Transform;
 using TMPro;
+using UI.AlphaController;
+using UI.Framework.Popup;
+using UI.Framework.Presets;
+using UI.Inventory;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.Death
+namespace UI.Death
 {
     public class DeathCanvas : UIPopup
     {

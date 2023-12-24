@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Assets.Scripts.Environments
+namespace Environments
 {
     public class FadingObject : MonoBehaviour, IEquatable<FadingObject>
     {

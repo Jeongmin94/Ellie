@@ -1,10 +1,10 @@
-﻿using Assets.Scripts.Data.ActionData.Player;
-using Assets.Scripts.Managers;
-using Assets.Scripts.UI.Player;
-using Assets.Scripts.UI.Status;
+﻿using Assets.Scripts.Managers;
+using Data.ActionData.Player;
+using UI.Player;
+using UI.Status;
 using UnityEngine;
 
-namespace Assets.Scripts.Player
+namespace Player
 {
     public class PlayerUI : MonoBehaviour
     {

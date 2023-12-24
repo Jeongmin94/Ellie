@@ -1,15 +1,15 @@
 using System;
 using System.Collections;
-using Assets.Scripts.UI.Framework;
-using Assets.Scripts.UI.Framework.Presets;
-using Assets.Scripts.UI.Opening;
-using Assets.Scripts.Utils;
 using Data.UI.Opening;
+using UI.Framework;
+using UI.Framework.Presets;
+using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Utils;
 
-namespace Assets.Scripts.UI.PopupMenu
+namespace UI.Opening.PopupMenu.MenuButton
 {
     public enum ButtonType
     {
