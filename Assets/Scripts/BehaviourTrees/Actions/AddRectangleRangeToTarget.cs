@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddRectangleRangeToTarget : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -19,7 +20,9 @@ public class AddRectangleRangeToTarget : ActionNode
     protected override void OnStart()
     {
         if (origin.Value == null)
+        {
             origin.Value = context.transform;
+        }
     }
 
     protected override void OnStop()
@@ -36,7 +39,7 @@ public class AddRectangleRangeToTarget : ActionNode
             IsFollowOrigin = isFollowOrigin.Value,
             RemainTime = remainTime.Value,
             Height = height.Value,
-            Width = width.Value,
+            Width = width.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

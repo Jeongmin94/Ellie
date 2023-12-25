@@ -2,7 +2,7 @@ using System;
 using Managers.Event;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class PublishEventBusPayload : ActionNode
 {
     public NodeProperty<EventBusEvents> eventBusEvent;
@@ -14,7 +14,6 @@ public class PublishEventBusPayload : ActionNode
 
     protected override void OnStop()
     {
-        
     }
 
     protected override State OnUpdate()

@@ -1,26 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckTargetDistance : ActionNode
 {
     public NodeProperty<Vector3> targetPosition;
     public NodeProperty<Transform> targetTransform;
     public NodeProperty<float> checkDistanceValue;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
     protected override State OnUpdate()
     {
-        float checkDistanceSqr = checkDistanceValue.Value * checkDistanceValue.Value;
+        var checkDistanceSqr = checkDistanceValue.Value * checkDistanceValue.Value;
 
-        // Vector3¿∏∑Œ ∫Ò±≥
+        // Vector3ÏúºÎ°ú ÎπÑÍµê
         if (targetTransform.Value == null)
         {
             if ((context.transform.position - targetPosition.Value).sqrMagnitude <= checkDistanceSqr)
@@ -28,7 +29,7 @@ public class CheckTargetDistance : ActionNode
                 return State.Success;
             }
         }
-        // Transform¿∏∑Œ ∫Ò±≥
+        // TransformÏúºÎ°ú ÎπÑÍµê
         else
         {
             if ((context.transform.position - targetTransform.Value.position).sqrMagnitude <= checkDistanceSqr)
@@ -36,7 +37,7 @@ public class CheckTargetDistance : ActionNode
                 return State.Success;
             }
         }
+
         return State.Failure;
     }
-
 }

@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TheKiwiCoder;
 using System;
+using UnityEngine;
 
 namespace TheKiwiCoder
 {
-
-    [System.Serializable]
+    [Serializable]
     public class SubTree : ActionNode
     {
-        [Tooltip("Behaviour tree asset to run as a subtree")] public BehaviourTree treeAsset;
+        [Tooltip("Behaviour tree asset to run as a subtree")]
+        public BehaviourTree treeAsset;
+
         [HideInInspector] public BehaviourTree treeInstance;
 
         public NodeProperty<string> controllerNames;
@@ -35,7 +33,7 @@ namespace TheKiwiCoder
 
                 treeInstance.Bind(context);
 
-                if(context.btController != null)
+                if (context.btController != null)
                 {
                     context.btController.RegisterBlackboardData(controllerNames.Value, treeInstance);
                 }
@@ -46,7 +44,7 @@ namespace TheKiwiCoder
         {
             if (treeInstance)
             {
-                treeInstance.treeState = Node.State.Running;
+                treeInstance.treeState = State.Running;
             }
         }
 
@@ -60,6 +58,7 @@ namespace TheKiwiCoder
             {
                 return treeInstance.Update();
             }
+
             return State.Failure;
         }
     }

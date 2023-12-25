@@ -1,30 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class CheckAnimationName : ActionNode
 {
     public NodeProperty<int> layerIndex;
     public NodeProperty<string> animationName;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
-        string check = animationName.Value;
+    protected override State OnUpdate()
+    {
+        var check = animationName.Value;
 
-        if(context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value).IsName(check))
+        if (context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value).IsName(check))
         {
             return State.Success;
         }
-        else
-        {
-            return State.Failure;
-        }
+
+        return State.Failure;
     }
 }

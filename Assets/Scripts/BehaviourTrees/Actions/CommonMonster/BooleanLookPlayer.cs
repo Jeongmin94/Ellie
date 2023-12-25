@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class BooleanLookPlayer : ActionNode
 {
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
         //delete
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         return State.Success;
     }
 }

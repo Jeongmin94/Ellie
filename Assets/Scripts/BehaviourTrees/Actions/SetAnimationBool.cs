@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class SetAnimationBool : ActionNode
 {
     public NodeProperty<bool> animationBool;
@@ -19,7 +17,7 @@ public class SetAnimationBool : ActionNode
 
     protected override State OnUpdate()
     {
-        if(animationBool.Value == true)
+        if (animationBool.Value)
         {
             context.animator.SetBool(animationName.Value, true);
         }

@@ -1,19 +1,23 @@
-using TheKiwiCoder;
+using System;
 using Channels.Type;
+using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class SendMessageToChannel : ActionNode
 {
     public NodeProperty<ChannelType> channelType;
     public NodeProperty<IBaseEventPayload> payload;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         context.ticketMachine.SendMessage(channelType.Value, payload.Value);
 
         return State.Success;

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckRayCast : ActionNode
 {
     public NodeProperty<Vector3> rayDirection;
@@ -29,6 +28,7 @@ public class CheckRayCast : ActionNode
                 return State.Success;
             }
         }
+
         return State.Failure;
     }
 }

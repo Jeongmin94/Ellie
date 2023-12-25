@@ -1,31 +1,33 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckCurrentAnimationTime : ActionNode
 {
     public NodeProperty<int> layerIndex;
     public NodeProperty<float> checkTimeValue;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         if (checkTimeValue.Value < 0.0f || checkTimeValue.Value > 1.0f)
         {
-            Debug.Log("¾Ö´Ï¸ÞÀÌ¼Ç ºñÀ² Ã¼Å© °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+            Debug.Log("ì• ë‹ˆë©”ì´ì…˜ ë¹„ìœ¨ ì²´í¬ ê°’ì´ ìž˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
             return State.Failure;
         }
 
-        AnimatorStateInfo stateInfo = context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value);
+        var stateInfo = context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value);
 
-        float currentAnimationPer = stateInfo.normalizedTime % 1.0f;
-        if(currentAnimationPer >= checkTimeValue.Value)
+        var currentAnimationPer = stateInfo.normalizedTime % 1.0f;
+        if (currentAnimationPer >= checkTimeValue.Value)
         {
             return State.Success;
         }

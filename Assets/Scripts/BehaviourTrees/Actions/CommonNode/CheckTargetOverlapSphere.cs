@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckTargetOverlapSphere : ActionNode
 {
     public NodeProperty<Transform> returnObject;
@@ -27,9 +26,9 @@ public class CheckTargetOverlapSphere : ActionNode
 
     protected override State OnUpdate()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(context.transform.position, radius.Value);
+        var hitColliders = Physics.OverlapSphere(context.transform.position, radius.Value);
 
-        foreach (Collider hitCollider in hitColliders)
+        foreach (var hitCollider in hitColliders)
         {
             if (IsTargetValid(hitCollider))
             {
@@ -58,8 +57,8 @@ public class CheckTargetOverlapSphere : ActionNode
 
     private bool ClearPathToTarget(Collider collider)
     {
-        return !Physics.Linecast(context.transform.position, collider.transform.position, out RaycastHit hit) ||
+        return !Physics.Linecast(context.transform.position, collider.transform.position, out var hit) ||
                hit.collider == collider ||
-               (layer.Value == 0 || (hit.collider.gameObject.layer == Mathf.Log(layer.Value, 2)));
+               layer.Value == 0 || hit.collider.gameObject.layer == Mathf.Log(layer.Value, 2);
     }
 }

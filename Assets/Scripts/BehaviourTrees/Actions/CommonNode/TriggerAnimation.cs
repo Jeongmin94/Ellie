@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class TriggerAnimation : ActionNode
 {
     public NodeProperty<string> animationName;

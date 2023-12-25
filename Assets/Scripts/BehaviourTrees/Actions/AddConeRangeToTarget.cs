@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddConeRangeToTarget : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -19,7 +20,9 @@ public class AddConeRangeToTarget : ActionNode
     protected override void OnStart()
     {
         if (origin.Value == null)
+        {
             origin.Value = context.transform;
+        }
     }
 
     protected override void OnStop()
@@ -36,7 +39,7 @@ public class AddConeRangeToTarget : ActionNode
             IsFollowOrigin = isFollowOrigin.Value,
             RemainTime = remainTime.Value,
             Radius = radius.Value,
-            Angle = angle.Value,
+            Angle = angle.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

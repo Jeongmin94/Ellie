@@ -1,15 +1,15 @@
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class ComparePropertyGreaterer : ActionNode
 {
     public NodeProperty nodeValue;
     public NodeProperty<float> compareValue;
     public NodeProperty<bool> isEqual;
+    private float compare;
 
     private float val;
-    private float compare;
 
     protected override void OnStart()
     {
@@ -22,7 +22,7 @@ public class ComparePropertyGreaterer : ActionNode
 
     protected override State OnUpdate()
     {
-        BlackboardKey<float> valFloat = nodeValue.reference as BlackboardKey<float>;
+        var valFloat = nodeValue.reference as BlackboardKey<float>;
 
         if (valFloat != null)
         {
@@ -30,22 +30,22 @@ public class ComparePropertyGreaterer : ActionNode
         }
         else
         {
-            // BlackboardKey<float> Çüº¯È¯ÀÌ ½ÇÆĞ ½Ã int°ª »ç¿ë
-            BlackboardKey<int> valInt = nodeValue.reference as BlackboardKey<int>;
+            // BlackboardKey<float> í˜•ë³€í™˜ì´ ì‹¤íŒ¨ ì‹œ intê°’ ì‚¬ìš©
+            var valInt = nodeValue.reference as BlackboardKey<int>;
             if (valInt != null)
             {
-                // ¼º°øÀûÀ¸·Î Çüº¯È¯ µÈ °æ¿ì, float·Î Ä³½ºÆÃÇÏ¿© °ªÀ» »ç¿ëÇÕ´Ï´Ù.
-                val = (float)valInt.Value;
+                // ì„±ê³µì ìœ¼ë¡œ í˜•ë³€í™˜ ëœ ê²½ìš°, floatë¡œ ìºìŠ¤íŒ…í•˜ì—¬ ê°’ì„ ì‚¬ìš©í•©ë‹ˆë‹¤.
+                val = valInt.Value;
             }
             else
             {
-                // µÑ ´Ù Çüº¯È¯ÀÌ ½ÇÆĞÇÑ °æ¿ì, Failure¸¦ ¹İÈ¯
+                // ë‘˜ ë‹¤ í˜•ë³€í™˜ì´ ì‹¤íŒ¨í•œ ê²½ìš°, Failureë¥¼ ë°˜í™˜
                 return State.Failure;
             }
         }
 
-        if ((isEqual.Value == true && val >= compare) ||
-           (isEqual.Value == false && val > compare))
+        if ((isEqual.Value && val >= compare) ||
+            (isEqual.Value == false && val > compare))
         {
             return State.Success;
         }

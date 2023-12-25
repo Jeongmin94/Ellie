@@ -1,7 +1,8 @@
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class SetRotationSmooth : ActionNode
 {
     public NodeProperty<float> rotationSpeed;

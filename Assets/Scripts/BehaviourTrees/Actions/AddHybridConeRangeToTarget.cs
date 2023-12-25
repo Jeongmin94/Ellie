@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddHybridConeRangeToTarget : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -20,7 +21,9 @@ public class AddHybridConeRangeToTarget : ActionNode
     protected override void OnStart()
     {
         if (origin.Value == null)
+        {
             origin.Value = context.transform;
+        }
     }
 
     protected override void OnStop()
@@ -38,7 +41,7 @@ public class AddHybridConeRangeToTarget : ActionNode
             RemainTime = remainTime.Value,
             Radius = radius.Value,
             Angle = angle.Value,
-            UpperBase = upperBase.Value,
+            UpperBase = upperBase.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

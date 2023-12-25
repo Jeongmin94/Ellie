@@ -1,27 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Monsters.Others;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckDetection : ActionNode
 {
     public NodeProperty<GameObject> detectAI;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
     protected override State OnUpdate()
     {
-        DistanceDetectedAI detect = detectAI.Value.GetComponent<DistanceDetectedAI>();
+        var detect = detectAI.Value.GetComponent<DistanceDetectedAI>();
         if (detect.IsDetected)
         {
             return State.Success;
         }
+
         return State.Failure;
     }
 }

@@ -1,6 +1,8 @@
+using System;
+
 namespace TheKiwiCoder
 {
-    [System.Serializable]
+    [Serializable]
     public class Inverter : DecoratorNode
     {
         protected override void OnStart()
@@ -27,6 +29,7 @@ namespace TheKiwiCoder
                 case State.Success:
                     return State.Failure;
             }
+
             return State.Failure;
         }
     }

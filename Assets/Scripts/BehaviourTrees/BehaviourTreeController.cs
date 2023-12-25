@@ -1,6 +1,5 @@
-﻿using Sirenix.OdinInspector;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using TheKiwiCoder;
 using UnityEngine;
 
@@ -11,21 +10,17 @@ public abstract class BaseBTData : ScriptableObject
 
     public BehaviourTree Tree
     {
-        get
-        {
-            return tree;
-        }
+        get => tree;
         set
         {
             if (tree == null)
+            {
                 tree = value;
+            }
         }
     }
 
-    public string DataName
-    {
-        get { return dataName; }
-    }
+    public string DataName => dataName;
 
     public BlackboardKey<T> FindBlackboardKey<T>(string keyName, BehaviourTree tree)
     {
@@ -33,6 +28,7 @@ public abstract class BaseBTData : ScriptableObject
         {
             return tree.blackboard.Find<T>(keyName);
         }
+
         return null;
     }
 
@@ -45,7 +41,6 @@ public abstract class BaseBTData : ScriptableObject
     }
 
     public abstract void Init(BehaviourTree tree);
-
 }
 
 public class BehaviourTreeController : SerializedMonoBehaviour
@@ -90,6 +85,7 @@ public class BehaviourTreeController : SerializedMonoBehaviour
                 return setting as T;
             }
         }
+
         return null;
     }
 
@@ -102,12 +98,13 @@ public class BehaviourTreeController : SerializedMonoBehaviour
                 return setting;
             }
         }
+
         return null;
     }
 
     public void RegisterBlackboardData(string dataName, BehaviourTree tree)
     {
-        BaseBTData data = Search(dataName);
+        var data = Search(dataName);
 
         if (data != null)
         {
@@ -131,8 +128,8 @@ public class BehaviourTreeController : SerializedMonoBehaviour
     {
         if (isBillboardOn)
         {
-            Vector3 direction = transform.position - cameraObj.position;
-            float dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
+            var direction = transform.position - cameraObj.position;
+            var dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
 
             if (dot > -0.6f)
             {

@@ -1,25 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class CheckBoolTrueAfterFalse : ActionNode
 {
     public NodeProperty<bool> checkBool;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
-        if(checkBool.Value == true)
+    protected override State OnUpdate()
+    {
+        if (checkBool.Value)
         {
             checkBool.Value = false;
             return State.Success;
         }
+
         return State.Failure;
     }
 }

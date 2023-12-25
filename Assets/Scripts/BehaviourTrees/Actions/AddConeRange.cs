@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddConeRange : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -16,13 +17,16 @@ public class AddConeRange : ActionNode
     public NodeProperty<float> radius;
     public NodeProperty<float> angle;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         targetRange.Value = RangeManager.Instance.CreateRange(new RangePayload
         {
             Type = RangeType.Cone,
@@ -31,7 +35,7 @@ public class AddConeRange : ActionNode
             StartRotation = startRotation.Value,
             RemainTime = remainTime.Value,
             Radius = radius.Value,
-            Angle = angle.Value,
+            Angle = angle.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

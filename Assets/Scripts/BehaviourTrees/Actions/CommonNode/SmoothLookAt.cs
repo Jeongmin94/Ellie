@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class SmoothLookAt : ActionNode
 {
     public NodeProperty<Transform> targetTransform;
@@ -12,13 +11,16 @@ public class SmoothLookAt : ActionNode
 
     public bool reverse;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         Vector3 direction;
 
         if (targetTransform.Value == null)
@@ -37,13 +39,13 @@ public class SmoothLookAt : ActionNode
             return State.Success;
         }
 
-        // π›¥Î πÊ«‚ πŸ∂Û∫∏±‚
-        if(reverse)
+        // Î∞òÎåÄ Î∞©Ìñ• Î∞îÎùºÎ≥¥Í∏∞
+        if (reverse)
         {
             direction *= -1;
         }
 
-        Quaternion rotation = Quaternion.LookRotation(direction);
+        var rotation = Quaternion.LookRotation(direction);
 
         context.transform.rotation = Quaternion.Slerp(context.transform.rotation, rotation, rotationSpeed.Value * Time.deltaTime);
 

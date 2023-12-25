@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckRangeTarget : ActionNode
 {
     public NodeProperty<BaseRange> range;
@@ -17,7 +16,9 @@ public class CheckRangeTarget : ActionNode
     protected override void OnStart()
     {
         if (checkLayer.Value == 0)
+        {
             checkLayer.Value = -1;
+        }
     }
 
     protected override void OnStop()
@@ -32,19 +33,23 @@ public class CheckRangeTarget : ActionNode
             return State.Failure;
         }
 
-        List<Transform> targets = range.Value.CheckRange(checkTag.Value, checkLayer.Value);
-        if(targets == null)
+        var targets = range.Value.CheckRange(checkTag.Value, checkLayer.Value);
+        if (targets == null)
+        {
             return State.Failure;
+        }
 
 
         if (targets.Count == 0)
         {
-            if(target != null)
+            if (target != null)
             {
                 target.Value = null;
             }
+
             return State.Success;
         }
+
         foreach (var item in targets)
         {
             Debug.Log(item);
@@ -53,7 +58,9 @@ public class CheckRangeTarget : ActionNode
         foreach (var item in targets)
         {
             if (item.root == context.transform.root)
+            {
                 continue;
+            }
 
             if (isRootTransform.Value)
             {
@@ -63,6 +70,7 @@ public class CheckRangeTarget : ActionNode
             {
                 target.Value = item;
             }
+
             break;
         }
 

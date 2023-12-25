@@ -1,19 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class StopAnimation : ActionNode
 {
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
         context.animator.speed = 0.0f;
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         return State.Success;
     }
 }

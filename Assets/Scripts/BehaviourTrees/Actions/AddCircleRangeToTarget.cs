@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddCircleRangeToTarget : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -18,7 +19,9 @@ public class AddCircleRangeToTarget : ActionNode
     protected override void OnStart()
     {
         if (origin.Value == null)
+        {
             origin.Value = context.transform;
+        }
     }
 
     protected override void OnStop()
@@ -34,7 +37,7 @@ public class AddCircleRangeToTarget : ActionNode
             Original = origin.Value,
             IsFollowOrigin = isFollowOrigin.Value,
             RemainTime = remainTime.Value,
-            Radius = radius.Value,
+            Radius = radius.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

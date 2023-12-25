@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Data.Monster;
-using UnityEngine;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class PlayAudio : ActionNode
 {
     public NodeProperty<MonsterAudioType> audioType;
@@ -13,7 +11,6 @@ public class PlayAudio : ActionNode
 
     protected override void OnStart()
     {
-
     }
 
     protected override void OnStop()
@@ -39,7 +36,7 @@ public class PlayAudio : ActionNode
             context.audioSource.loop = false;
         }
 
-        AudioClip clip = context.audioController.GetAudio(audioType.Value);
+        var clip = context.audioController.GetAudio(audioType.Value);
         if (clip != null)
         {
             context.audioSource.clip = clip;

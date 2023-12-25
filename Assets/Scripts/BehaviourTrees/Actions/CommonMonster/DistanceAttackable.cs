@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class DistanceAttackable : ActionNode
 {
     public NodeProperty<float> playerDistance;
@@ -12,6 +11,7 @@ public class DistanceAttackable : ActionNode
     public NodeProperty<float> attackInterval;
 
     private float usedTime;
+
     protected override void OnStart()
     {
     }
@@ -26,10 +26,12 @@ public class DistanceAttackable : ActionNode
         {
             return State.Failure;
         }
+
         if (maximumAttackableDistance.Value == 0)
         {
             maximumAttackableDistance.Value = context.controller.monsterData.chasePlayerDistance;
         }
+
         if (playerDistance.Value > maximumAttackableDistance.Value * maximumAttackableDistance.Value)
         {
             return State.Failure;
@@ -39,9 +41,9 @@ public class DistanceAttackable : ActionNode
         {
             return State.Failure;
         }
+
         usedTime = Time.time;
 
         return State.Success;
     }
 }
-

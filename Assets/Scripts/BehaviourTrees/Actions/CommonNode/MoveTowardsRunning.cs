@@ -1,7 +1,8 @@
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class MoveTowardsRunning : ActionNode
 {
     public NodeProperty<Vector3> targetPosition;
@@ -10,7 +11,7 @@ public class MoveTowardsRunning : ActionNode
     public NodeProperty<float> moveDistance;
 
     private float travelledDistance;
-    
+
     protected override void OnStart()
     {
         travelledDistance = 0.0f;
@@ -19,45 +20,46 @@ public class MoveTowardsRunning : ActionNode
     protected override void OnStop()
     {
     }
+
     protected override State OnUpdate()
     {
-        float stoppingDistanceSqr = 0.001f; // 0.000001f
-        float moveDistanceSqr = moveDistance.Value * moveDistance.Value; // ÀÌµ¿ÇØ¾ß ÇÒ °Å¸®ÀÇ Á¦°ö
+        var stoppingDistanceSqr = 0.001f; // 0.000001f
+        var moveDistanceSqr = moveDistance.Value * moveDistance.Value; // ì´ë™í•´ì•¼ í•  ê±°ë¦¬ì˜ ì œê³±
 
-        // Vector3 »ç¿ë
+        // Vector3 ì‚¬ìš©
         if (targetTransform.Value == null)
         {
-            Vector3 currentPosition = context.transform.position;
-            Vector3 directionToTarget = targetPosition.Value - currentPosition;
+            var currentPosition = context.transform.position;
+            var directionToTarget = targetPosition.Value - currentPosition;
             if (directionToTarget.sqrMagnitude < stoppingDistanceSqr)
             {
                 return State.Success;
             }
 
-            Vector3 nextPosition = Vector3.MoveTowards(currentPosition, targetPosition.Value, moveSpeed.Value * Time.deltaTime);
+            var nextPosition = Vector3.MoveTowards(currentPosition, targetPosition.Value, moveSpeed.Value * Time.deltaTime);
             travelledDistance += (nextPosition - currentPosition).magnitude;
 
-            if (travelledDistance * travelledDistance >= moveDistanceSqr) // Á¦°ö°ªÀ¸·Î ºñ±³
+            if (travelledDistance * travelledDistance >= moveDistanceSqr) // ì œê³±ê°’ìœ¼ë¡œ ë¹„êµ
             {
                 return State.Success;
             }
 
             context.transform.position = nextPosition;
         }
-        // Transform »ç¿ë
+        // Transform ì‚¬ìš©
         else
         {
-            Vector3 currentPosition = context.transform.position;
-            Vector3 directionToTarget = targetTransform.Value.position - currentPosition;
+            var currentPosition = context.transform.position;
+            var directionToTarget = targetTransform.Value.position - currentPosition;
             if (directionToTarget.sqrMagnitude < stoppingDistanceSqr)
             {
                 return State.Success;
             }
 
-            Vector3 nextPosition = Vector3.MoveTowards(currentPosition, targetTransform.Value.position, moveSpeed.Value * Time.deltaTime);
+            var nextPosition = Vector3.MoveTowards(currentPosition, targetTransform.Value.position, moveSpeed.Value * Time.deltaTime);
             travelledDistance += (nextPosition - currentPosition).magnitude;
 
-            if (travelledDistance * travelledDistance >= moveDistanceSqr) // Á¦°ö°ªÀ¸·Î ºñ±³
+            if (travelledDistance * travelledDistance >= moveDistanceSqr) // ì œê³±ê°’ìœ¼ë¡œ ë¹„êµ
             {
                 return State.Success;
             }
@@ -65,8 +67,7 @@ public class MoveTowardsRunning : ActionNode
             context.transform.position = nextPosition;
         }
 
-        // ¸ñÇ¥¿¡ µµ´ŞÇÏÁö ¾Ê¾ÒÀ¸¸é Running »óÅÂ À¯Áö
+        // ëª©í‘œì— ë„ë‹¬í•˜ì§€ ì•Šì•˜ìœ¼ë©´ Running ìƒíƒœ ìœ ì§€
         return State.Running;
     }
-
 }

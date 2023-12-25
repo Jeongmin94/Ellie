@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddHybridConeRange : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -17,13 +18,16 @@ public class AddHybridConeRange : ActionNode
     public NodeProperty<float> angle;
     public NodeProperty<float> upperBase;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         targetRange.Value = RangeManager.Instance.CreateRange(new RangePayload
         {
             Type = RangeType.HybridCone,
@@ -33,7 +37,7 @@ public class AddHybridConeRange : ActionNode
             RemainTime = remainTime.Value,
             Radius = radius.Value,
             Angle = angle.Value,
-            UpperBase = upperBase.Value,
+            UpperBase = upperBase.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

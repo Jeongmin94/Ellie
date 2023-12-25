@@ -1,24 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class ShowRenderer : ActionNode
 {
     public NodeProperty<bool> isVisible;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         if (isVisible.Value)
+        {
             context.controller.renderer.enabled = true;
+        }
         else
+        {
             context.controller.renderer.enabled = false;
+        }
+
         return State.Success;
     }
 }

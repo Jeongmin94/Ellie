@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Monsters.Others;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class WaitAndDetect : ActionNode
 {
     public NodeProperty<float> duration;
@@ -12,21 +11,29 @@ public class WaitAndDetect : ActionNode
 
     private float accumTime;
     private DistanceDetectedAI detectAI;
-    protected override void OnStart() {
+
+    protected override void OnStart()
+    {
         accumTime = 0.0f;
         detectAI = chaseDetectAI.Value.GetComponent<DistanceDetectedAI>();
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
         accumTime = 0.0f;
     }
 
-    protected override State OnUpdate() {
-
+    protected override State OnUpdate()
+    {
         if (accumTime > duration.Value)
+        {
             return State.Success;
+        }
+
         if (detectAI.IsDetected)
+        {
             return State.Success;
+        }
 
         accumTime += Time.deltaTime;
         return State.Running;

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckRayCastForward : ActionNode
 {
     public NodeProperty<float> rayCastLength;
@@ -13,7 +12,9 @@ public class CheckRayCastForward : ActionNode
     protected override void OnStart()
     {
         if (layerMask.Value == 0)
+        {
             layerMask.Value = -1;
+        }
     }
 
     protected override void OnStop()
@@ -26,13 +27,14 @@ public class CheckRayCastForward : ActionNode
 
         hits = Physics.RaycastAll(context.transform.position, context.transform.forward, rayCastLength.Value, layerMask.Value);
 
-        foreach (RaycastHit hit in hits)
+        foreach (var hit in hits)
         {
             if (targetTag.Value == "" || hit.collider.CompareTag(targetTag.Value))
             {
                 return State.Success;
             }
         }
+
         return State.Failure;
     }
 }

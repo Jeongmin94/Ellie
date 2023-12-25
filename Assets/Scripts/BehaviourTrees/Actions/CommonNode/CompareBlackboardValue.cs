@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class CompareBlackboardValue : ActionNode
 {
     public BlackboardKeyValuePair target;
@@ -19,8 +17,8 @@ public class CompareBlackboardValue : ActionNode
 
     protected override State OnUpdate()
     {
-        BlackboardKey destination = target.key;
-        BlackboardKey source = node.key;
+        var destination = target.key;
+        var source = node.key;
 
         if (source != null && destination != null)
         {

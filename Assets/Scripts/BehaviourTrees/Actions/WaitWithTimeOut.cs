@@ -1,13 +1,16 @@
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class WaitWithTimeOut : ActionNode
 {
     public NodeProperty<float> timeValue;
 
-    [Tooltip("Amount of time to wait before returning success")] public float duration = 1;
-    float startTime;
+    [Tooltip("Amount of time to wait before returning success")]
+    public float duration = 1;
+
+    private float startTime;
 
     protected override void OnStart()
     {
@@ -15,6 +18,7 @@ public class WaitWithTimeOut : ActionNode
         {
             duration = timeValue.Value;
         }
+
         startTime = Time.time;
     }
 
@@ -24,8 +28,7 @@ public class WaitWithTimeOut : ActionNode
 
     protected override State OnUpdate()
     {
-
-        float timeRemaining = Time.time - startTime;
+        var timeRemaining = Time.time - startTime;
         if (timeRemaining > duration)
         {
             if (timeRemaining - duration > 1.0f)
@@ -33,12 +36,11 @@ public class WaitWithTimeOut : ActionNode
                 Debug.Log($"Wait Return Failure :: {timeRemaining - duration}");
                 return State.Failure;
             }
-            else
-            {
-                return State.Success;
-            }
+
+            return State.Success;
             return State.Success;
         }
+
         return State.Running;
     }
 }

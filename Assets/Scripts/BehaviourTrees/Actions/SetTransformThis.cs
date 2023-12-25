@@ -1,19 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class SetTransformThis : ActionNode
 {
     public NodeProperty<Transform> targetTransform;
-    protected override void OnStart() {
+
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         targetTransform.Value = context.transform;
 
         return State.Success;

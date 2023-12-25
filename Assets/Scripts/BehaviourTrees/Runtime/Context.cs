@@ -1,36 +1,39 @@
-using UnityEngine;
-using UnityEngine.AI;
 using Channels.Components;
 using Data.Monster;
 using Monsters.AbstractClass;
+using UnityEngine;
+using UnityEngine.AI;
 
-namespace TheKiwiCoder {
+namespace TheKiwiCoder
+{
     // The context is a shared object every node has access to.
     // Commonly used components and subsytems should be stored here
     // It will be somewhat specfic to your game exactly what to add here.
     // Feel free to extend this class 
-    public class Context {
-        public GameObject gameObject;
-        public Transform transform;
-        public Animator animator;
-        public Rigidbody physics;
+    public class Context
+    {
         public NavMeshAgent agent;
-        public SphereCollider sphereCollider;
+        public Animator animator;
+        public MonsterAudioController audioController;
+        public AudioSource audioSource;
         public BoxCollider boxCollider;
+
+        public BehaviourTreeController btController;
         public CapsuleCollider capsuleCollider;
         public CharacterController characterController;
 
         public AbstractMonster controller;
-        public MonsterAudioController audioController;
+        public GameObject gameObject;
         public MonsterParticleController particleController;
-        public AudioSource audioSource;
-
-        public BehaviourTreeController btController;
+        public Rigidbody physics;
+        public SphereCollider sphereCollider;
         public TicketMachine ticketMachine;
+        public Transform transform;
 
-        public static Context CreateFromGameObject(GameObject gameObject) {
+        public static Context CreateFromGameObject(GameObject gameObject)
+        {
             // Fetch all commonly used components
-            Context context = new Context();
+            var context = new Context();
             context.gameObject = gameObject;
             context.transform = gameObject.transform;
             context.animator = gameObject.GetComponentInChildren<Animator>();

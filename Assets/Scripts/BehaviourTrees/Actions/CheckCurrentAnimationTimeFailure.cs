@@ -1,7 +1,8 @@
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckCurrentAnimationTimeFailure : ActionNode
 {
     public NodeProperty<int> layerIndex;
@@ -21,13 +22,13 @@ public class CheckCurrentAnimationTimeFailure : ActionNode
     {
         if (checkTimeValue.Value < 0.0f || checkTimeValue.Value > 1.0f)
         {
-            Debug.Log("¾Ö´Ï¸ÞÀÌ¼Ç ºñÀ² Ã¼Å© °ªÀÌ Àß¸øµÇ¾ú½À´Ï´Ù.");
+            Debug.Log("ì• ë‹ˆë©”ì´ì…˜ ë¹„ìœ¨ ì²´í¬ ê°’ì´ ìž˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤.");
             return State.Failure;
         }
 
-        AnimatorStateInfo stateInfo = context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value);
+        var stateInfo = context.animator.GetCurrentAnimatorStateInfo(layerIndex.Value);
 
-        float currentAnimationPer = stateInfo.normalizedTime % 1.0f;
+        var currentAnimationPer = stateInfo.normalizedTime % 1.0f;
         if (currentAnimationPer >= checkTimeValue.Value && currentAnimationPer <= checkTimeValue.Value + tolerance)
         {
             return State.Success;

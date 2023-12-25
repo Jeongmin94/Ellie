@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class CheckBoolFalseAfterTrue : ActionNode
 {
     public NodeProperty<bool> checkBool;
@@ -23,6 +21,7 @@ public class CheckBoolFalseAfterTrue : ActionNode
             checkBool.Value = true;
             return State.Success;
         }
+
         return State.Failure;
     }
 }

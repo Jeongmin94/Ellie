@@ -1,27 +1,26 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class CheckBoolean : ActionNode
 {
     public NodeProperty<bool> checkBoolean;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
-        if(checkBoolean.Value)
+    protected override State OnUpdate()
+    {
+        if (checkBoolean.Value)
         {
             return State.Success;
         }
-        else
-        {
-            return State.Failure;
-        }
+
+        return State.Failure;
     }
 }

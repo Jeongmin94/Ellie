@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Monsters.Others;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class ChasePlayerDetect : ActionNode
 {
     public NodeProperty<GameObject> player;
@@ -15,17 +14,24 @@ public class ChasePlayerDetect : ActionNode
 
     private DistanceDetectedAI detectPlayer;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
         detectPlayer = detectChaseAI.Value.GetComponent<DistanceDetectedAI>();
         detectPlayer.SetDetectDistance(detectChaseDistance.Value);
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
-        if (isReturning.Value) return State.Failure;
-        if(detectPlayer.IsDetected)
+    protected override State OnUpdate()
+    {
+        if (isReturning.Value)
+        {
+            return State.Failure;
+        }
+
+        if (detectPlayer.IsDetected)
         {
             context.agent.destination = player.Value.transform.position;
             return State.Success;

@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckTargetCircularSector : ActionNode
 {
     public NodeProperty<Transform> returnObject;
@@ -28,10 +27,10 @@ public class CheckTargetCircularSector : ActionNode
 
     protected override State OnUpdate()
     {
-        Vector3 forward = context.transform.forward;
-        Collider[] hitColliders = Physics.OverlapSphere(context.transform.position, radius.Value);
+        var forward = context.transform.forward;
+        var hitColliders = Physics.OverlapSphere(context.transform.position, radius.Value);
 
-        foreach (Collider hitCollider in hitColliders)
+        foreach (var hitCollider in hitColliders)
         {
             if (IsTargetValid(hitCollider, forward))
             {
@@ -45,8 +44,8 @@ public class CheckTargetCircularSector : ActionNode
 
     private bool IsTargetValid(Collider collider, Vector3 forward)
     {
-        Vector3 toTarget = (collider.transform.position - context.transform.position).normalized;
-        // ³»ÀûÀ» ÀÌ¿ëÇÏ¿© ¹üÀ§ ³»¿¡ ÀÖ´ÂÁö Ã¼Å©
+        var toTarget = (collider.transform.position - context.transform.position).normalized;
+        // ë‚´ì ì„ ì´ìš©í•˜ì—¬ ë²”ìœ„ ë‚´ì— ìˆëŠ”ì§€ ì²´í¬
         if (Vector3.Dot(forward, toTarget) < Mathf.Cos(angle.Value * Mathf.Deg2Rad / 2))
         {
             return false;
@@ -67,8 +66,8 @@ public class CheckTargetCircularSector : ActionNode
 
     private bool ClearPathToTarget(Collider collider)
     {
-        return !Physics.Linecast(context.transform.position, collider.transform.position, out RaycastHit hit) ||
+        return !Physics.Linecast(context.transform.position, collider.transform.position, out var hit) ||
                hit.collider == collider ||
-               (layer.Value == 0 || (hit.collider.gameObject.layer == Mathf.Log(layer.Value, 2)));
+               layer.Value == 0 || hit.collider.gameObject.layer == Mathf.Log(layer.Value, 2);
     }
 }

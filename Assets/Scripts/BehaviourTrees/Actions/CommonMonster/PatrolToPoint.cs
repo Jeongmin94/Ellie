@@ -1,20 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Monsters.Others;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class PatrolToPoint : ActionNode
 {
     public NodeProperty<GameObject> patrolPoints;
     public NodeProperty<bool> isOnSpawnPosition;
     public NodeProperty<GameObject> chaseDetectAI;
 
-    private int count = 0;
+    private int count;
+    private bool isPointSet;
     private Vector3[] patrolPointList;
     private DistanceDetectedAI playerDetect;
-    private bool isPointSet = false;
+
     protected override void OnStart()
     {
         isOnSpawnPosition.Value = false;
@@ -24,20 +24,19 @@ public class PatrolToPoint : ActionNode
             isPointSet = true;
             playerDetect = chaseDetectAI.Value.GetComponent<DistanceDetectedAI>();
         }
+
         context.agent.stoppingDistance = 0.0f;
         context.agent.destination = patrolPointList[count];
-
     }
 
     protected override void OnStop()
     {
-
     }
 
     protected override State OnUpdate()
     {
         //if (Vector3.Distance(context.transform.position, patrolPointList[count]) < 0.1f)
-        float distance = Vector3.SqrMagnitude(context.transform.position - patrolPointList[count]);
+        var distance = Vector3.SqrMagnitude(context.transform.position - patrolPointList[count]);
 
         if (distance < 0.1f)
         {
@@ -46,9 +45,11 @@ public class PatrolToPoint : ActionNode
             {
                 count = 0;
             }
+
             context.agent.stoppingDistance = context.controller.monsterData.stopDistance;
             return State.Success;
         }
+
         if (playerDetect.IsDetected)
         {
             return State.Success;
@@ -56,6 +57,4 @@ public class PatrolToPoint : ActionNode
 
         return State.Running;
     }
-
-
 }

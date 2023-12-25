@@ -1,24 +1,19 @@
+using System;
 using UnityEngine;
 
 namespace TheKiwiCoder
 {
-
-    [System.Serializable]
+    [Serializable]
     public class RootNode : Node
     {
-
-        [SerializeReference]
-        [HideInInspector]
-        public Node child;
+        [SerializeReference] [HideInInspector] public Node child;
 
         protected override void OnStart()
         {
-
         }
 
         protected override void OnStop()
         {
-
         }
 
         protected override State OnUpdate()
@@ -27,10 +22,8 @@ namespace TheKiwiCoder
             {
                 return child.Update();
             }
-            else
-            {
-                return State.Failure;
-            }
+
+            return State.Failure;
         }
     }
 }

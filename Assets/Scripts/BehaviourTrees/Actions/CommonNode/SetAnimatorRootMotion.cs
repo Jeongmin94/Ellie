@@ -1,19 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class SetAnimatorRootMotion : ActionNode
 {
     public NodeProperty<bool> checkRootMotion;
-    protected override void OnStart() {
+
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         context.animator.applyRootMotion = checkRootMotion.Value;
         return State.Success;
     }

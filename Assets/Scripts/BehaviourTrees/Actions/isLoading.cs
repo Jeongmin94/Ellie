@@ -1,21 +1,25 @@
+using System;
 using Managers.SceneLoad;
 using TheKiwiCoder;
-using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class isLoading : ActionNode
 {
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         if (SceneLoadManager.Instance.IsLoading)
         {
             return State.Failure;
         }
-        else return State.Success;
+
+        return State.Success;
     }
 }

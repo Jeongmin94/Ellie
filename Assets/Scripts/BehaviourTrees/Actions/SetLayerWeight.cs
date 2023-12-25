@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class SetLayerWeight : ActionNode
 {
     public NodeProperty<int> layerIndex;
     public NodeProperty<float> layerWeight;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         context.animator.SetLayerWeight(layerIndex.Value, layerWeight.Value);
         return State.Success;
     }

@@ -1,19 +1,24 @@
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class CheckAnimationTransitionEnd : ActionNode
 {
-    bool wasInTransition = false;
-    protected override void OnStart() {
+    private bool wasInTransition;
+
+    protected override void OnStart()
+    {
         wasInTransition = false;
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
         wasInTransition = false;
     }
 
-    protected override State OnUpdate() {
-        bool isInTransition = context.animator.IsInTransition(0);
+    protected override State OnUpdate()
+    {
+        var isInTransition = context.animator.IsInTransition(0);
 
         if (!isInTransition && wasInTransition)
         {

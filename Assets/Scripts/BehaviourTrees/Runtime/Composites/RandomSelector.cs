@@ -1,8 +1,9 @@
-using UnityEngine;
+using System;
+using Random = UnityEngine.Random;
 
 namespace TheKiwiCoder
 {
-    [System.Serializable]
+    [Serializable]
     public class RandomSelector : CompositeNode
     {
         protected int current;

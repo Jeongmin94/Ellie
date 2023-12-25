@@ -1,20 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class Jump : ActionNode
 {
     public NodeProperty<float> jumpPower;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         context.physics.AddForce(Vector3.up * jumpPower.Value, ForceMode.Impulse);
         return State.Success;
     }

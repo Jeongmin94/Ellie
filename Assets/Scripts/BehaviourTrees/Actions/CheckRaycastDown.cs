@@ -1,7 +1,8 @@
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckRaycastDown : ActionNode
 {
     public NodeProperty<float> rayCastLength;
@@ -11,7 +12,9 @@ public class CheckRaycastDown : ActionNode
     protected override void OnStart()
     {
         if (layerMask.Value == 0)
+        {
             layerMask.Value = -1;
+        }
     }
 
     protected override void OnStop()
@@ -24,9 +27,9 @@ public class CheckRaycastDown : ActionNode
 
         hits = Physics.RaycastAll(context.transform.position, Vector3.down, rayCastLength.Value, layerMask.Value);
 
-        foreach (RaycastHit hit in hits)
+        foreach (var hit in hits)
         {
-            // ·¹ÀÌÄ³½ºÆ®¿¡ ÀÇÇØ Å½ÁöµÈ °Å¸®¸¦ Ãâ·Â
+            // ë ˆì´ìºìŠ¤íŠ¸ì— ì˜í•´ íƒì§€ëœ ê±°ë¦¬ë¥¼ ì¶œë ¥
             Debug.Log("Hit at distance: " + hit.distance);
 
             if (targetTag.Value == "" || hit.collider.CompareTag(targetTag.Value))
@@ -34,6 +37,7 @@ public class CheckRaycastDown : ActionNode
                 return State.Success;
             }
         }
+
         return State.Failure;
     }
 }

@@ -1,21 +1,27 @@
+using System;
 using UnityEngine;
 
 namespace TheKiwiCoder
 {
-    [System.Serializable]
+    [Serializable]
     public class Repeat : DecoratorNode
     {
+        [Tooltip("Restarts the subtree on success")]
+        public bool restartOnSuccess = true;
 
-        [Tooltip("Restarts the subtree on success")] public bool restartOnSuccess = true;
-        [Tooltip("Restarts the subtree on failure")] public bool restartOnFailure = false;
-        [Tooltip("Maximum number of times the subtree will be repeated. Set to 0 to loop forever")] public int maxRepeats = 0;
+        [Tooltip("Restarts the subtree on failure")]
+        public bool restartOnFailure;
+
+        [Tooltip("Maximum number of times the subtree will be repeated. Set to 0 to loop forever")]
+        public int maxRepeats;
+
         public NodeProperty<int> repeatKey;
 
-        int iterationCount = 0;
+        private int iterationCount;
 
         protected override void OnStart()
         {
-            if(repeatKey.Value != 0)
+            if (repeatKey.Value != 0)
             {
                 maxRepeats = repeatKey.Value;
             }
@@ -25,7 +31,6 @@ namespace TheKiwiCoder
 
         protected override void OnStop()
         {
-
         }
 
         protected override State OnUpdate()
@@ -47,15 +52,11 @@ namespace TheKiwiCoder
                         {
                             return State.Failure;
                         }
-                        else
-                        {
-                            return State.Running;
-                        }
+
+                        return State.Running;
                     }
-                    else
-                    {
-                        return State.Failure;
-                    }
+
+                    return State.Failure;
                 case State.Success:
                     if (restartOnSuccess)
                     {
@@ -64,19 +65,14 @@ namespace TheKiwiCoder
                         {
                             return State.Success;
                         }
-                        else
-                        {
-                            return State.Running;
-                        }
+
+                        return State.Running;
                     }
-                    else
-                    {
-                        return State.Success;
-                    }
+
+                    return State.Success;
             }
+
             return State.Running;
         }
     }
-
-
 }

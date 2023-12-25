@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddTrapezoidRangeToTarget : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -22,7 +21,9 @@ public class AddTrapezoidRangeToTarget : ActionNode
     protected override void OnStart()
     {
         if (origin.Value == null)
+        {
             origin.Value = context.transform;
+        }
     }
 
     protected override void OnStop()
@@ -40,7 +41,7 @@ public class AddTrapezoidRangeToTarget : ActionNode
             RemainTime = remainTime.Value,
             Height = height.Value,
             UpperBase = upperBase.Value,
-            LowerBase = lowerBase.Value,
+            LowerBase = lowerBase.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

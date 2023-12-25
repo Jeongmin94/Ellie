@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class MoveDown : ActionNode
 {
     public NodeProperty<float> speed;
@@ -12,19 +11,25 @@ public class MoveDown : ActionNode
     public NodeProperty<float> offsetValue;
 
     private float accumTime;
-    protected override void OnStart() {
+
+    protected override void OnStart()
+    {
         offsetValue.Value = context.agent.baseOffset;
         accumTime = 0.0f;
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
-        while(accumTime<duration.Value)
+    protected override State OnUpdate()
+    {
+        while (accumTime < duration.Value)
         {
-            if(offsetValue.Value-context.agent.baseOffset<length.Value)
+            if (offsetValue.Value - context.agent.baseOffset < length.Value)
+            {
                 context.agent.baseOffset -= speed.Value * Time.deltaTime;
+            }
 
             accumTime += Time.deltaTime;
             return State.Running;

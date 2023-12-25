@@ -1,8 +1,9 @@
+using System;
 using Managers.Range;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddCircleRange : ActionNode
 {
     public NodeProperty<BaseRange> targetRange;
@@ -33,7 +34,7 @@ public class AddCircleRange : ActionNode
             StartPosition = startPosition.Value,
             StartRotation = startRotation.Value,
             RemainTime = remainTime.Value,
-            Radius = radius.Value,
+            Radius = radius.Value
         }).GetComponent<BaseRange>();
         return State.Success;
     }

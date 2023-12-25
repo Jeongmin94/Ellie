@@ -1,8 +1,9 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class CheckRangeTargets : ActionNode
 {
     public NodeProperty<BaseRange> range;
@@ -11,16 +12,21 @@ public class CheckRangeTargets : ActionNode
     public NodeProperty<string> checkTag;
     public NodeProperty<LayerMask> checkLayer;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
         if (checkLayer.Value == 0)
+        {
             checkLayer.Value = -1;
+        }
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
-        if(range == null)
+    protected override State OnUpdate()
+    {
+        if (range == null)
         {
             return State.Failure;
         }

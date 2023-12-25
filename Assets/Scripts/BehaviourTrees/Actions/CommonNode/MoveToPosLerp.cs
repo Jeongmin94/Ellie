@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class MoveToPosLerp : ActionNode
 {
     public NodeProperty<Vector3> targetPosition;
@@ -12,7 +11,7 @@ public class MoveToPosLerp : ActionNode
     public NodeProperty<float> moveDistance;
 
     private Vector3 startPosition;
-    private float t = 0.0f;
+    private float t;
 
     protected override void OnStart()
     {
@@ -27,8 +26,8 @@ public class MoveToPosLerp : ActionNode
 
     protected override State OnUpdate()
     {
-        Vector3 targetPos = targetTransform.Value == null ? targetPosition.Value : targetTransform.Value.position;
-        Vector3 toTarget = targetPos - context.transform.position;
+        var targetPos = targetTransform.Value == null ? targetPosition.Value : targetTransform.Value.position;
+        var toTarget = targetPos - context.transform.position;
 
         if (toTarget.sqrMagnitude < 0.001f)
         {
@@ -37,7 +36,7 @@ public class MoveToPosLerp : ActionNode
 
         t += Time.deltaTime * moveSpeed.Value / Vector3.Distance(startPosition, targetPos);
         t = Mathf.Clamp(t, 0f, 1f);
-        Vector3 nextPosition = Vector3.Lerp(startPosition, targetPos, t);
+        var nextPosition = Vector3.Lerp(startPosition, targetPos, t);
 
         if ((nextPosition - startPosition).sqrMagnitude >= moveDistance.Value * moveDistance.Value)
         {
@@ -48,5 +47,4 @@ public class MoveToPosLerp : ActionNode
 
         return State.Success;
     }
-
 }

@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using Managers.Particle;
-using UnityEngine;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class AddParticle : ActionNode
 {
     public NodeProperty<GameObject> effectPrefab;
@@ -18,11 +17,15 @@ public class AddParticle : ActionNode
 
     protected override void OnStart()
     {
-        if(scale.Value == Vector3.zero)
+        if (scale.Value == Vector3.zero)
+        {
             scale.Value = Vector3.one;
+        }
 
         if (loopCount.Value <= 0)
+        {
             loopCount.Value = 1;
+        }
     }
 
     protected override void OnStop()
@@ -32,7 +35,9 @@ public class AddParticle : ActionNode
     protected override State OnUpdate()
     {
         if (effectPrefab == null)
+        {
             return State.Failure;
+        }
 
         ParticleManager.Instance.GetParticle(effectPrefab.Value, new ParticlePayload
         {
@@ -41,7 +46,7 @@ public class AddParticle : ActionNode
             IsLoop = isLoop.Value,
             Scale = scale.Value,
             Offset = offset.Value,
-            LoopCount = loopCount.Value,
+            LoopCount = loopCount.Value
         });
 
         return State.Success;

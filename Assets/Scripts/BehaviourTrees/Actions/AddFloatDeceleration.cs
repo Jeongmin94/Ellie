@@ -1,14 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
 
-[System.Serializable]
+[Serializable]
 public class AddFloatDeceleration : ActionNode
 {
     public NodeProperty<float> floatValue;
     public NodeProperty<float> decelerationValue;
     public NodeProperty<float> goalValue;
+
     protected override void OnStart()
     {
     }

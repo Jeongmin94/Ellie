@@ -1,10 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TheKiwiCoder;
+using System;
 using Channels.Boss;
+using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class SetTerrapupaEvent : ActionNode
 {
     public NodeProperty<bool> isInit;
@@ -30,7 +29,7 @@ public class SetTerrapupaEvent : ActionNode
 
     protected override State OnUpdate()
     {
-        TerrapupaPayload payload = terrapupaPayload.Value as TerrapupaPayload;
+        var payload = terrapupaPayload.Value as TerrapupaPayload;
         if (payload == null)
         {
             return State.Failure;
@@ -48,11 +47,30 @@ public class SetTerrapupaEvent : ActionNode
         else
         {
             // 기존 값 유지
-            if (attackValue.Value != 0) payload.AttackValue = attackValue.Value;
-            if (cooldown.Value != 0.0f) payload.Cooldown = cooldown.Value;
-            if (sender.Value != null) payload.Sender = sender.Value;
-            if (receiver.Value != null) payload.Receiver = receiver.Value;
-            if (eventType.Value != TerrapupaEvent.None) payload.Type = eventType.Value;
+            if (attackValue.Value != 0)
+            {
+                payload.AttackValue = attackValue.Value;
+            }
+
+            if (cooldown.Value != 0.0f)
+            {
+                payload.Cooldown = cooldown.Value;
+            }
+
+            if (sender.Value != null)
+            {
+                payload.Sender = sender.Value;
+            }
+
+            if (receiver.Value != null)
+            {
+                payload.Receiver = receiver.Value;
+            }
+
+            if (eventType.Value != TerrapupaEvent.None)
+            {
+                payload.Type = eventType.Value;
+            }
         }
 
         terrapupaPayload.Value = payload;

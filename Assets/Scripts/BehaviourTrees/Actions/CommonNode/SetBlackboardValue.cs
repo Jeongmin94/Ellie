@@ -1,10 +1,7 @@
 using System;
-using System.Diagnostics;
 using TheKiwiCoder;
-using UnityEngine;
-using Debug = UnityEngine.Debug;
 
-[System.Serializable]
+[Serializable]
 public class SetBlackboardValue : ActionNode
 {
     public BlackboardKeyValuePair target;
@@ -20,8 +17,8 @@ public class SetBlackboardValue : ActionNode
 
     protected override State OnUpdate()
     {
-        BlackboardKey destination = target.key;
-        BlackboardKey source = node.key;
+        var destination = target.key;
+        var source = node.key;
 
         if (source != null && destination != null)
         {

@@ -1,21 +1,23 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System;
 using TheKiwiCoder;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public class ConvertTransformToPosition : ActionNode
 {
     public NodeProperty<Transform> startTransform;
     public NodeProperty<Vector3> resultPosition;
 
-    protected override void OnStart() {
+    protected override void OnStart()
+    {
     }
 
-    protected override void OnStop() {
+    protected override void OnStop()
+    {
     }
 
-    protected override State OnUpdate() {
+    protected override State OnUpdate()
+    {
         resultPosition.Value = startTransform.Value.position;
 
         return State.Success;
