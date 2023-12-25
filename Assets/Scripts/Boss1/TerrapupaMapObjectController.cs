@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Particle;
 using Boss1.BossRoomObjects;
 using Boss1.Terrapupa;
 using Channels.Boss;
@@ -9,6 +8,8 @@ using Channels.Stone;
 using Channels.Type;
 using Controller;
 using Item.Stone;
+using Managers.Event;
+using Managers.Particle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;

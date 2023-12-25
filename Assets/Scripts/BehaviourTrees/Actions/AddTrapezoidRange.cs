@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Managers.Range;
 using UnityEngine;
 using TheKiwiCoder;
 

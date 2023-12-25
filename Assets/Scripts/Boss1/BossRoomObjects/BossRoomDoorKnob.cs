@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
-using Assets.Scripts.Particle;
-using Particle;
+using Managers.Particle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using ReadOnlyAttribute = Sirenix.OdinInspector.ReadOnlyAttribute;

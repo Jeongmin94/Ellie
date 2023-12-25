@@ -1,7 +1,8 @@
 ﻿using Assets.Scripts.Managers;
-using Assets.Scripts.Managers.Singleton;
 using InteractiveObjects;
 using Item.Stone;
+using Managers;
+using Managers.Sound;
 using Player;
 using UnityEngine;
 

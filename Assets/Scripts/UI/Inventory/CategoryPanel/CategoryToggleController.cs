@@ -1,5 +1,6 @@
 using Assets.Scripts.Managers;
 using Data.UI.Opening;
+using Managers.Sound;
 using TMPro;
 using UI.Framework;
 using UnityEngine;

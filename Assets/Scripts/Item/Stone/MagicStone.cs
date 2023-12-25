@@ -2,6 +2,10 @@
 using Assets.Scripts.Managers;
 using Channels.Boss;
 using Channels.Stone;
+using Managers.Event;
+using Managers.Pool;
+using Managers.Range;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Item.Stone

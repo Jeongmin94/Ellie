@@ -1,4 +1,5 @@
 using Assets.Scripts.Managers;
+using Managers.UI;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel;

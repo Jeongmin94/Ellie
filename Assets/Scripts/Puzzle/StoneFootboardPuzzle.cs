@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts.Managers;
+using Managers.Save;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle

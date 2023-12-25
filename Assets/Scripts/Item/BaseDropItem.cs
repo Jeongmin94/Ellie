@@ -2,6 +2,7 @@ using Assets.Scripts.Managers;
 using Channels.Type;
 using Channels.UI;
 using Data.GoogleSheet._4100Item;
+using Managers.Data;
 using Player;
 using UI.Inventory.CategoryPanel;
 using UI.Inventory.Slot;

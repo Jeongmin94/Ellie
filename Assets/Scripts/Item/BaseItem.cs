@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Data.ActionData;
+using Managers.Resource;
 using UI.Inventory.Slot;
 using UnityEngine;
 

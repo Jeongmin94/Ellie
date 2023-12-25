@@ -1,6 +1,6 @@
 ﻿using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
-using Particle;
+using Managers.Particle;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Assets.Scripts.Puzzle

@@ -1,6 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using Channels.Type;
 using Channels.UI;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Player.States

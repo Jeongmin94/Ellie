@@ -2,6 +2,7 @@ using System.Collections;
 using Assets.Scripts.Managers;
 using Channels.Combat;
 using Data.Monster;
+using Managers.Resource;
 using Monsters.AbstractClass;
 using Monsters.Others;
 using Player.StatusEffects;

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Managers;
+using Managers.Save;
 using UnityEngine;
 
 namespace Boss1.BossRoomObjects

@@ -1,9 +1,12 @@
 using System;
 using System.Collections.Generic;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Data.UI.Opening;
 using Data.UI.Transform;
+using Managers.Save;
+using Managers.SceneLoad;
+using Managers.Sound;
+using Managers.UI;
 using UI.Framework.Presets;
 using UI.Framework.Static;
 using UI.Inventory;

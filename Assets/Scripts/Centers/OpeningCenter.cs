@@ -1,4 +1,4 @@
-using Assets.Scripts.Managers.Singleton;
+using Managers;
 using UnityEngine;
 
 namespace Centers

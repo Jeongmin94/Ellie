@@ -4,6 +4,7 @@ using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Data.GoogleSheet._8200GuideDialog;
+using Managers.Ticket;
 using UnityEngine;
 using Utils;
 

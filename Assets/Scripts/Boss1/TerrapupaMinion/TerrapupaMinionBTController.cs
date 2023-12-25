@@ -3,6 +3,7 @@ using Assets.Scripts.Managers;
 using Boss1.DataScript.Minion;
 using Channels.Combat;
 using Channels.Components;
+using Managers.Pool;
 using Player.HitComponent;
 using UnityEngine;
 using Utils;

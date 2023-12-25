@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Managers.Particle;
 using UnityEngine;
 using TheKiwiCoder;
-using Assets.Scripts.Particle;
 
 [System.Serializable]
 public class AddParticle : ActionNode

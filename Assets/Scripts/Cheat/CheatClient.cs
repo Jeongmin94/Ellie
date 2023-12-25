@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Boss1.Terrapupa;
 using Boss1.TerrapupaMinion;
@@ -9,6 +8,9 @@ using Channels.Type;
 using Channels.UI;
 using Data.GoogleSheet._4000Stone;
 using Data.GoogleSheet._4100Item;
+using Managers.Data;
+using Managers.Save;
+using Managers.SceneLoad;
 using Sirenix.OdinInspector;
 using UI.Inventory.CategoryPanel;
 using UI.Inventory.Slot;

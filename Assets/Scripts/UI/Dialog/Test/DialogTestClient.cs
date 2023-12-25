@@ -2,6 +2,7 @@ using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
+using Managers.Ticket;
 using UnityEngine;
 using Utils;
 

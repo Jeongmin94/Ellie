@@ -3,6 +3,7 @@ using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
+using Managers.Ticket;
 using UI.Framework.Popup;
 using UnityEngine;
 using UnityEngine.UI;

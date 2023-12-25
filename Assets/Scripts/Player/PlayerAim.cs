@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Managers;
 using Cinemachine;
+using Managers.Input;
 using UnityEngine;
 
 namespace Player

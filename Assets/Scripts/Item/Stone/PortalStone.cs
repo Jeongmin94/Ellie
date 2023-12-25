@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Channels.Portal;
 using Channels.Stone;
 using Channels.Type;
-using Particle;
+using Managers.Particle;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Item.Stone

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Boss1.BossRoomObjects;
 using Boss1.Terrapupa;
 using Boss1.TerrapupaMinion;
@@ -12,6 +11,9 @@ using Channels.Stone;
 using Channels.Type;
 using Controller;
 using Item.Stone;
+using Managers.Event;
+using Managers.Particle;
+using Managers.Sound;
 using Player;
 using Sirenix.OdinInspector;
 using TheKiwiCoder;

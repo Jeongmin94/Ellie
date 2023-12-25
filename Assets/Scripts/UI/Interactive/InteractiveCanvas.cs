@@ -7,6 +7,7 @@ using Channels.Type;
 using Channels.UI;
 using Data.UI.Opening;
 using Data.UI.Transform;
+using Managers.Ticket;
 using TMPro;
 using UI.Framework.Popup;
 using UI.Framework.Presets;

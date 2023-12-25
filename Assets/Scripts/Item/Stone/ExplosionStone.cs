@@ -1,8 +1,10 @@
 ﻿using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Boss1.Terrapupa;
 using Channels.Stone;
 using Combat;
+using Managers.Particle;
+using Managers.Pool;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Item.Stone

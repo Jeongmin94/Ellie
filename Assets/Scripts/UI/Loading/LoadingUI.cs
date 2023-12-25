@@ -1,7 +1,10 @@
 using System.Collections;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Data.GoogleSheet;
+using Managers.Data;
+using Managers.Resource;
+using Managers.Save;
+using Managers.SceneLoad;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

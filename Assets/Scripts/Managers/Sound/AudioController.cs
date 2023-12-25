@@ -1,8 +1,8 @@
-﻿using Assets.Scripts.Managers;
+﻿using Managers.Pool;
 using UnityEngine;
-using static Assets.Scripts.Managers.SoundManager;
+using static Managers.Sound.SoundManager;
 
-namespace Assets.Scripts
+namespace Managers.Sound
 {
     public class AudioController : Poolable
     {

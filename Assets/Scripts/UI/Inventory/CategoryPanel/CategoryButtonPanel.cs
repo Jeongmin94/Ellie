@@ -6,7 +6,7 @@ using UI.Inventory.Slot;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
-using static Assets.Scripts.Managers.InventorySavePayload;
+using static Managers.Save.InventorySavePayload;
 
 namespace UI.Inventory.CategoryPanel
 {

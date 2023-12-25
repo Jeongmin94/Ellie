@@ -1,6 +1,6 @@
+using Managers.Particle;
 using UnityEngine;
 using TheKiwiCoder;
-using Assets.Scripts.Particle;
 
 [System.Serializable]
 public class EarthQuakeParticle : ActionNode
@@ -27,21 +27,21 @@ public class EarthQuakeParticle : ActionNode
         if (effectPrefab == null)
             return State.Failure;
 
-        // ½ÃÀÛ À§Ä¡ °è»ê (transformÀÇ ¾ÕÂÊ ¹æÇâ¿¡ forwardOffset¸¸Å­ ÀÌµ¿)
+        // ì‹œì‘ ìœ„ì¹˜ ê³„ì‚° (transformì˜ ì•ìª½ ë°©í–¥ì— forwardOffsetë§Œí¼ ì´ë™)
         Vector3 startPos = context.transform.position + (context.transform.forward * forwardOffset.Value);
         Quaternion startRotation = context.transform.rotation;
 
-        // °¢ ÆÄÆ¼Å¬¿¡ ´ëÇÑ °¢µµ °è»ê
+        // ê° íŒŒí‹°í´ì— ëŒ€í•œ ê°ë„ ê³„ì‚°
         float totalAngle = angle.Value;
         float angleStep = totalAngle / (particleCount.Value - 1);
 
         for (int i = 0; i < particleCount.Value; i++)
         {
-            // ÇöÀç ÆÄÆ¼Å¬ÀÇ °¢µµ °è»ê
+            // í˜„ì¬ íŒŒí‹°í´ì˜ ê°ë„ ê³„ì‚°
             float currentAngle = -totalAngle / 2 + angleStep * i;
             Quaternion rotation = Quaternion.Euler(0, currentAngle, 0) * context.transform.rotation;
 
-            // ÆÄÆ¼Å¬ »ı¼º (¸ğµç ÆÄÆ¼Å¬Àº startPos¿¡¼­ ½ÃÀÛ)
+            // íŒŒí‹°í´ ìƒì„± (ëª¨ë“  íŒŒí‹°í´ì€ startPosì—ì„œ ì‹œì‘)
             CreateParticle(startPos, rotation);
         }
 

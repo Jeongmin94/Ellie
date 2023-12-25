@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Channels.Camera;
 using Channels.Combat;
@@ -17,13 +16,17 @@ using Data.GoogleSheet._4400Etc;
 using Environments;
 using Equipments;
 using InteractiveObjects;
+using Managers.Data;
+using Managers.Input;
+using Managers.SceneLoad;
+using Managers.Sound;
 using Player.States;
 using Player.StatusEffects;
 using UI.Inventory.CategoryPanel;
 using UI.Inventory.Slot;
 using UnityEngine;
 using Utils;
-using static Assets.Scripts.Managers.PlayerSavePayload;
+using static Managers.Save.PlayerSavePayload;
 
 namespace Player
 {

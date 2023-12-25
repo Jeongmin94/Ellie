@@ -1,5 +1,7 @@
 ﻿using Assets.Scripts.Managers;
 using Data.GoogleSheet;
+using Managers.Data;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Equipments

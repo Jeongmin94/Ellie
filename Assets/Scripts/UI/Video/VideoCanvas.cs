@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using Data.UI.Video;
+using Managers.Input;
+using Managers.Save;
+using Managers.SceneLoad;
+using Managers.Ticket;
 using UI.Framework.Popup;
 using UI.Framework.Presets;
 using UnityEngine;

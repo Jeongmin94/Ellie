@@ -4,6 +4,8 @@ using Channels.Boss;
 using Channels.Components;
 using Channels.Stone;
 using Channels.Type;
+using Managers.Event;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Boss1.BossRoomObjects

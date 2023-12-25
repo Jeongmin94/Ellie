@@ -1,6 +1,7 @@
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
+using Managers.UI;
 using UI.Monster;
 using UnityEngine;
 using Utils;

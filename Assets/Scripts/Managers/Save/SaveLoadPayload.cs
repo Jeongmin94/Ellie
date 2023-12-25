@@ -4,7 +4,7 @@ using InteractiveObjects.NPC;
 using UI.Inventory.CategoryPanel;
 using Utils;
 
-namespace Assets.Scripts.Managers
+namespace Managers.Save
 {
     public enum SaveLoadType
     {

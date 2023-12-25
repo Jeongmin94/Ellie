@@ -4,6 +4,7 @@ using Assets.Scripts.Managers;
 using Channels.UI;
 using Data.GoogleSheet._6000NPC;
 using Data.GoogleSheet._6100Quest;
+using Managers.Data;
 using Outline;
 using Player;
 using UnityEngine;

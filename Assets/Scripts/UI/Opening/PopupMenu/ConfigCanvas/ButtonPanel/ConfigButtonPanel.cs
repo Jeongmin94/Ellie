@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Data.UI.Opening;
+using Managers.UI;
 using UI.Framework;
 using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine.UI;

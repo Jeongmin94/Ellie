@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Assets.Scripts.Managers;
+using Managers.Sound;
 using UI.Framework;
 using UI.Opening.PopupMenu.PopupCanvas;
 using UnityEngine;

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Managers;
+using Managers.Sound;
 
 namespace Player.States
 {

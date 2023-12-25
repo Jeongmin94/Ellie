@@ -38,7 +38,7 @@ public class SetTerrapupaEvent : ActionNode
 
         if (isInit.Value)
         {
-            // ÃÊ±âÈ­
+            // ì´ˆê¸°í™”
             payload.AttackValue = attackValue.Value;
             payload.Cooldown = cooldown.Value;
             payload.Sender = sender.Value;
@@ -47,7 +47,7 @@ public class SetTerrapupaEvent : ActionNode
         }
         else
         {
-            // ±âÁ¸ °ª À¯Áö
+            // ê¸°ì¡´ ê°’ ìœ ì§€
             if (attackValue.Value != 0) payload.AttackValue = attackValue.Value;
             if (cooldown.Value != 0.0f) payload.Cooldown = cooldown.Value;
             if (sender.Value != null) payload.Sender = sender.Value;

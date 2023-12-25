@@ -1,5 +1,6 @@
 using Assets.Scripts.Managers;
 using Boss1.DataScript.Terrapupa;
+using Managers.UI;
 using Monsters.Utility;
 using UI.Monster;
 using UnityEngine;

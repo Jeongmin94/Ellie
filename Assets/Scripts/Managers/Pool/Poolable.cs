@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Managers.Pool
 {
     public class Poolable : MonoBehaviour
     {

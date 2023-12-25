@@ -1,8 +1,9 @@
 using System.Collections;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Type;
+using Managers.SceneLoad;
+using Managers.Sound;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;

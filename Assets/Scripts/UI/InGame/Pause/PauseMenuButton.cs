@@ -2,6 +2,7 @@ using System;
 using Assets.Scripts.Managers;
 using Data.UI.Opening;
 using Data.UI.Transform;
+using Managers.Sound;
 using UI.Framework;
 using UI.Framework.Presets;
 using UI.Inventory;

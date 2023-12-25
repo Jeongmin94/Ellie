@@ -1,10 +1,12 @@
 ﻿using System;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Channels.Components;
 using Channels.Stone;
 using Combat;
 using Data.GoogleSheet._4000Stone;
+using Managers.Particle;
+using Managers.Pool;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Item.Stone

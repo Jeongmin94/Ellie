@@ -10,6 +10,8 @@ using Channels.Type;
 using Channels.UI;
 using Data.GoogleSheet;
 using Data.GoogleSheet._4000Stone;
+using Managers.Data;
+using Managers.Sound;
 using Outline;
 using Player;
 using UnityEngine;

@@ -4,6 +4,8 @@ using Channels.Components;
 using Channels.Type;
 using Data.ActionData.Monster;
 using Data.ActionData.Player;
+using Managers.Input;
+using Managers.UI;
 using UI.Framework.Popup;
 using UI.Item;
 using UI.Item.Stone;

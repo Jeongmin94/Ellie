@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Managers;
 using Data.UI.Transform;
+using Managers.UI;
 using UI.Framework.Presets;
 using UI.Framework.Static;
 using UI.Inventory;

@@ -1,4 +1,5 @@
 ﻿using Assets.Scripts.Managers;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Player.States

@@ -7,6 +7,8 @@ using Channels.Dialog;
 using Channels.Type;
 using Controller;
 using Data.GoogleSheet._8100BossDialog;
+using Managers.Data;
+using Managers.Save;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;

@@ -1,9 +1,9 @@
 ﻿using System.Collections;
-using Assets.Scripts.Particle;
 using Channels.Combat;
 using Channels.Components;
 using Combat;
 using Item.Stone;
+using Managers.Particle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;

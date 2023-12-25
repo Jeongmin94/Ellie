@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Channels.Boss;
+using Managers.Event;
 using UnityEngine;
 using TheKiwiCoder;
 

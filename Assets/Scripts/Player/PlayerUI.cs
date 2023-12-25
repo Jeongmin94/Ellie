@@ -1,5 +1,6 @@
 ﻿using Assets.Scripts.Managers;
 using Data.ActionData.Player;
+using Managers.UI;
 using UI.Player;
 using UI.Status;
 using UnityEngine;

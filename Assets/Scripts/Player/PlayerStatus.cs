@@ -8,6 +8,7 @@ using Channels.Type;
 using Channels.UI;
 using Combat;
 using Data.ActionData.Player;
+using Managers.Sound;
 using Player.HitComponent;
 using Player.StatusEffects;
 using Player.StatusEffects.StatusEffectConcreteStrategies;

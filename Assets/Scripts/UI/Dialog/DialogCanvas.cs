@@ -4,6 +4,7 @@ using Channels.Components;
 using Channels.Dialog;
 using Channels.Type;
 using Data.UI.Dialog;
+using Managers.Ticket;
 using TMPro;
 using UI.Framework.Popup;
 using UI.Framework.Presets;

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Assets.Scripts.Managers;
 using Data.GoogleSheet._6100Quest;
+using Managers.Sound;
 using Player;
 using UnityEngine;
 

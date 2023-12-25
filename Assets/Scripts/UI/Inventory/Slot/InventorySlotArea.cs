@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using Assets.Scripts.Managers;
 using Channels.UI;
+using Managers.UI;
 using UI.Framework;
 using UI.Framework.Presets;
 using UnityEngine;
 using UnityEngine.UI;
 using Utils;
-using static Assets.Scripts.Managers.InventorySavePayload;
+using static Managers.Save.InventorySavePayload;
 
 namespace UI.Inventory.Slot
 {

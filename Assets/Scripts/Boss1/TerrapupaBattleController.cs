@@ -4,6 +4,7 @@ using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
 using Controller;
+using Managers.Sound;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;

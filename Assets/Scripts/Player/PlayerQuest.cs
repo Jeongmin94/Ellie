@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
 using Channels.Components;
 using Channels.Dialog;
@@ -13,10 +12,15 @@ using Data.GoogleSheet._4400Etc;
 using Data.GoogleSheet._6000NPC;
 using Data.GoogleSheet._6100Quest;
 using Data.GoogleSheet._7000Dialog;
+using Managers.Data;
+using Managers.Input;
+using Managers.Save;
+using Managers.SceneLoad;
+using Managers.Sound;
 using Sirenix.OdinInspector;
 using UI.Inventory.Slot;
 using UnityEngine;
-using static Assets.Scripts.Managers.PlayerSavePayload;
+using static Managers.Save.PlayerSavePayload;
 
 namespace Player
 {

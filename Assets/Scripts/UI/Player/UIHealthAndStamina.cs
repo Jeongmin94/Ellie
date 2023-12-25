@@ -5,6 +5,7 @@ using System.Linq;
 using Assets.Scripts.Managers;
 using Data.ActionData.Player;
 using Data.UI.Transform;
+using Managers.UI;
 using UI.Framework.Images;
 using UI.Framework.Presets;
 using UI.Framework.Static;

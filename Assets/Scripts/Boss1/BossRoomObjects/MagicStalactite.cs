@@ -1,8 +1,9 @@
 ﻿using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Channels.Boss;
 using Channels.Components;
-using Particle;
+using Managers.Event;
+using Managers.Particle;
+using Managers.Sound;
 using Sirenix.OdinInspector;
 using UnityEngine;
 

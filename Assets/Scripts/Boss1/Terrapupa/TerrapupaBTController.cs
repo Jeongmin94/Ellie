@@ -1,14 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Boss1.DataScript.Terrapupa;
 using Channels.Boss;
 using Channels.Camera;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
-using Particle;
+using Managers.Particle;
+using Managers.Pool;
 using Player.HitComponent;
 using Sirenix.OdinInspector;
 using UnityEngine;

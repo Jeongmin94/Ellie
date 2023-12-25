@@ -4,11 +4,12 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Assets.Scripts.Managers;
 using Newtonsoft.Json;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Managers.Save
 {
     public class SaveLoadManager : Singleton<SaveLoadManager>
     {

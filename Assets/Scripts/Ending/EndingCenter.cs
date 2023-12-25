@@ -1,5 +1,5 @@
-using Assets.Scripts.Managers.Singleton;
 using Centers;
+using Managers;
 using UnityEngine;
 
 namespace Ending

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Data.UI.Opening;
 using Data.UI.Transform;
+using Managers.UI;
 using TMPro;
 using UI.Framework.Popup;
 using UI.Framework.Presets;

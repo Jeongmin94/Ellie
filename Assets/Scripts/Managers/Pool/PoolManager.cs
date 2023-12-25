@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Assets.Scripts.Managers;
 using UnityEngine;
 
-namespace Assets.Scripts.Managers
+namespace Managers.Pool
 {
     public class PoolManager : Singleton<PoolManager>
     {

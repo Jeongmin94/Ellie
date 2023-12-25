@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using Channels.UI;
 using Item;
+using Managers.UI;
 using UI.Framework;
 using UI.Framework.Presets;
 using UI.Inventory.CategoryPanel;

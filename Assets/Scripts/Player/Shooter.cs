@@ -6,6 +6,7 @@ using Channels.Type;
 using Channels.UI;
 using Data.ActionData.Player;
 using ElliePhysics.Utils;
+using Managers.Input;
 using UI.Inventory.CategoryPanel;
 using UnityEngine;
 

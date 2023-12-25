@@ -1,6 +1,8 @@
 ﻿using System.Collections;
-using Assets.Scripts.Centers;
 using Assets.Scripts.Managers;
+using Managers.Input;
+using Managers.Save;
+using Managers.SceneLoad;
 using UnityEngine;
 using Utils;
 

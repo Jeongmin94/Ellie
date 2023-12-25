@@ -5,7 +5,7 @@ using UnityEngine;
 using Utils;
 using Object = UnityEngine.Object;
 
-namespace Assets.Scripts.Managers
+namespace Managers.Pool
 {
     public class Pool
     {

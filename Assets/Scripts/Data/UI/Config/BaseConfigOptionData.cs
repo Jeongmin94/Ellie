@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
+using Managers.Sound;
 using UI.Opening.PopupMenu.ConfigCanvas.ButtonPanel;
 using UnityEngine;
 

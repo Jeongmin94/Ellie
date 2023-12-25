@@ -1,9 +1,12 @@
 using Assets.Scripts.Managers;
-using Assets.Scripts.Particle;
 using Channels.Boss;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Managers.Event;
+using Managers.Particle;
+using Managers.Pool;
+using Managers.Sound;
 using UnityEngine;
 
 namespace Boss1.Terrapupa

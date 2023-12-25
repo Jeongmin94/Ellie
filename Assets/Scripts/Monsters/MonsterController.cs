@@ -7,6 +7,8 @@ using Channels.Stone;
 using Channels.Type;
 using Data.Monster;
 using Item;
+using Managers.Data;
+using Managers.Ticket;
 using Monsters.AbstractClass;
 using UnityEngine;
 using Utils;

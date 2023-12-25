@@ -1,3 +1,4 @@
+using Managers.Range;
 using UnityEngine;
 using TheKiwiCoder;
 

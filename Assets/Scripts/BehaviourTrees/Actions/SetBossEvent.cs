@@ -34,7 +34,7 @@ public class SetBossEvent : ActionNode
 
         if(isInit.Value)
         {
-            // ÃÊ±âÈ­ O
+            // ì´ˆê¸°í™” O
             payload.PrefabValue = prefabValue.Value;
             payload.IntValue = intValue.Value;
             payload.FloatValue = floatValue.Value;
@@ -47,7 +47,7 @@ public class SetBossEvent : ActionNode
         }
         else
         {
-            // ±âÁ¸ °ª À¯Áö
+            // ê¸°ì¡´ ê°’ ìœ ì§€
             if (prefabValue.Value != null) payload.PrefabValue = prefabValue.Value;
             if (intValue.Value != 0) payload.IntValue = intValue.Value;
             if (floatValue.Value != 0.0f) payload.FloatValue = floatValue.Value;

@@ -3,6 +3,7 @@ using Assets.Scripts.Managers;
 using Combat;
 using Data.GoogleSheet;
 using Data.Monster;
+using Managers.Data;
 using Monsters.AbstractClass;
 using Monsters.Others;
 using Monsters.Utility;

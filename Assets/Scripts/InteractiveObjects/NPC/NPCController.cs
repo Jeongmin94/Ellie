@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Assets.Scripts.Managers;
 using InteractingColliders;
+using Managers.Save;
 using UnityEngine;
 
 namespace InteractiveObjects.NPC

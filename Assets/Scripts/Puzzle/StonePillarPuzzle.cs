@@ -5,6 +5,8 @@ using Channels.Camera;
 using Channels.Components;
 using Channels.Type;
 using Environments;
+using Managers.Save;
+using Managers.Sound;
 using UnityEngine;
 using Utils;
 

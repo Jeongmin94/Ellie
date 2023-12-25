@@ -8,6 +8,8 @@ using Channels.Dialog;
 using Channels.Type;
 using Data.UI.Opening;
 using Data.UI.Transform;
+using Managers.Resource;
+using Managers.Ticket;
 using TMPro;
 using UI.Framework.Popup;
 using UI.Framework.Presets;

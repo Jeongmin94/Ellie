@@ -1,4 +1,5 @@
 using Assets.Scripts.Managers;
+using Managers.UI;
 using UnityEngine;
 
 namespace UI.Inventory
