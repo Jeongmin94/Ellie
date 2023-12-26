@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b03dd7f358769e848bb499a8338014b2, type: 3}
+  m_Name: TerrapupaEarthQuake
+  m_EditorClassIdentifier: TerrapupaEarthQuakeData, Assembly.Ellie
+  dataName: TerrapupaEarthQuake
+  sound1: TerrapupaEarthQuake
+  sound2: TerrapupaEarthQuakeJump
+  earthQuakeEffect1: {fileID: 3565353461759489274, guid: 42acbbf3fa818084d851519bf22c627b, type: 3}
+  cooldown: 10
+  rotationSpeed: 10
+  moveDistance: 1
+  movementSpeed: 10
+  attackAngle: 45
+  effectiveRadius: 50
+  attackValue: 3
+  statusEffect: 4
+  statusEffectDuration: 1
+  statusEffectForce: 15

@@ -19,6 +19,7 @@ public enum MonsterAudioType
     ProjectileAttack,
     ProjectileFire,
     ProjectileHit,
+    HeadShot,
 }
 
 

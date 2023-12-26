@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5ef22adceec4f7fbd3f9c9d756dfba, type: 3}
+  m_Name: CaveBatParticleData
+  m_EditorClassIdentifier: MonsterParticleData, Assembly.Ellie
+  meleeAttack: {fileID: 0}
+  meleeAttackOffset: {x: 0, y: 0, z: 0}
+  meleeHit: {fileID: 19892030, guid: 180d4a3d5c8abd7498e720402060634f, type: 3}
+  meleeHitOffset: {x: 0, y: 0, z: 0}
+  weaponAttack: {fileID: 0}
+  weaponAttackOffset: {x: 0, y: 1, z: 0}
+  weaponHit: {fileID: 0}
+  weaponHitOffset: {x: 0, y: 0, z: 1}
+  projectileCast: {fileID: 0}
+  projectileCastOffset: {x: 0, y: 0.1, z: 0}
+  projectileHit: {fileID: 0}
+  projectileHitOffset: {x: 0, y: 0, z: 0}
+  hitParticle: {fileID: 0}
+  hitParticleOffset: {x: 0, y: 0, z: 0}
+  headShotParticle: {fileID: 0}
+  headShotParticleOffset: {x: 0, y: 0, z: 0}

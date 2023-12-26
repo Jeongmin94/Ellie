@@ -9,6 +9,7 @@ using Assets.Scripts.UI.Inventory;
 using Assets.Scripts.UI.PopupMenu;
 using Data.UI.Opening;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Assets.Scripts.UI.Opening
 {
@@ -33,6 +34,7 @@ namespace Assets.Scripts.UI.Opening
         private RectTransform menuPanelRect;
         private RectTransform outerRimRect;
 
+        [SerializeField] private bool useText = true;
         [SerializeField] private UITransformData titleTransformData;
         [SerializeField] private UITransformData menuTransformData;
         [SerializeField] private TextTypographyData titleTypographyTypographyData;
@@ -58,6 +60,12 @@ namespace Assets.Scripts.UI.Opening
         private void Start()
         {
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, SoundOpeningBGM);
+
+            if (!useText)
+            {
+                title.gameObject.SetActive(false);
+                titlePanel.GetComponent<Image>().SetNativeSize();
+            }
         }
 
         protected override void Init()
@@ -198,7 +206,7 @@ namespace Assets.Scripts.UI.Opening
                         if (payload.popupType == PopupType.Start)
                         {
                             SaveLoadManager.Instance.IsLoadData = false;
-                            SceneLoadManager.Instance.LoadScene(SceneName.InGame);
+                            SceneLoadManager.Instance.LoadScene(SceneName.NewStart);
                         }
                         else if (payload.popupType == PopupType.Load)
                         {

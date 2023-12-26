@@ -1,6 +1,7 @@
 using Assets.Scripts.Item;
 using Assets.Scripts.UI.Inventory;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Channels.UI
 {
@@ -45,6 +46,12 @@ namespace Channels.UI
         // Pause Canvas
         OpenPauseCanvas,
         ClosePauseCanvas,
+        
+        // GuideCanvas
+        OpenGuideCanvas,
+        
+        // ScreenDamage
+        ShowBlurEffect,
     }
 
     public struct QuestInfo
@@ -93,13 +100,15 @@ namespace Channels.UI
         
         // Interactive
         public InteractiveType interactiveType;
-
         public static UIPayload Notify()
         {
             UIPayload payload = new UIPayload();
             payload.uiType = UIType.Notify;
             return payload;
         }
+        
+        // ScreenDamage
+        public float blurClarity = -1.0f;
     }
 
     public class UIChannel : BaseEventChannel

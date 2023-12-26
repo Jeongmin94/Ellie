@@ -9,6 +9,7 @@ namespace Assets.Scripts.Particle
 
         private Transform origin;
         private bool isFollowOrigin;
+        private int loopCount;
 
         private void Awake()
         {
@@ -34,6 +35,7 @@ namespace Assets.Scripts.Particle
             origin = payload.Origin;
             main.loop = payload.IsLoop;
             isFollowOrigin = payload.IsFollowOrigin;
+            loopCount = payload.LoopCount;
 
             ps.Play();
         }
@@ -43,11 +45,21 @@ namespace Assets.Scripts.Particle
             var main = ps.main;
             main.loop = false;
             ps.Stop(true, ParticleSystemStopBehavior.StopEmitting);
+            loopCount = 0;
         }
 
         private void OnParticleSystemStopped()
         {
-            ParticleManager.Instance.ReturnToPool(this);
+            loopCount--;
+
+            if(loopCount <= 0)
+            {
+                ParticleManager.Instance.ReturnToPool(this);
+            }
+            else
+            {
+                ps.Play();
+            }
         }
 
         public override void PoolableDestroy()

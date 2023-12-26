@@ -23,7 +23,10 @@ namespace Assets.Scripts.Item.Stone
         public void OccurEffect(Transform defender)
         {
             Debug.Log($"{defender} 돌 충돌");
-            hatchery.Attack(GenerateStonePayload(defender));
+            if (gameObject.activeSelf)
+            {
+                hatchery.Attack(GenerateStonePayload(defender));
+            }
         }
 
         private CombatPayload GenerateStonePayload(Transform defender)
@@ -39,6 +42,9 @@ namespace Assets.Scripts.Item.Stone
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = defender.position;
             payload.Damage = data.damage;
+            payload.StatusEffectName = data.statusEffect;
+            payload.statusEffectduration = data.statusEffectDuration;
+            payload.force = data.force;
             //<=
             return payload;
         }

@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 691b7fac2f20ca640827ad0d597cf3be, type: 3}
+  m_Name: TerrapupaReactLowAttack
+  m_EditorClassIdentifier: TerrapupaLowAttackData, Assembly.Ellie
+  dataName: TerrapupaReactLowAttack
+  sound1: TerrapupaAttackHit
+  sound2: TerrapupaRollStart
+  lowAttackEffect1: {fileID: 8669111835701529733, guid: 39cbe988b3e4d5f4197e864416288f87, type: 3}
+  cooldown: 1
+  rotationSpeed: 10
+  attackValue: 5
+  statusEffect: 3
+  statusEffectDuration: 0.5
+  statusEffectForce: 10

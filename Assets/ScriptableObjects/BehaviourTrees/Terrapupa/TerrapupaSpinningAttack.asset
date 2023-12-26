@@ -1,0 +1,1187 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: TerrapupaSpinningAttack
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 1401849175978016768
+  nodes:
+  - rid: 1401849175978016768
+  - rid: 8619125051680882737
+  - rid: 8619125051680882739
+  - rid: 8619125051680882741
+  - rid: 8619125051680882742
+  - rid: 8619125051680882744
+  - rid: 8619125051680882746
+  - rid: 8619125051680882747
+  - rid: 8619125051680882753
+  - rid: 8619125051680882761
+  - rid: 8619125051680882762
+  - rid: 283011178275274847
+  - rid: 283011198868258869
+  - rid: 283011198868258870
+  - rid: 283011198868258871
+  - rid: 283011198868258873
+  - rid: 283011198868258874
+  - rid: 283011198868258875
+  - rid: 283011198868258877
+  - rid: 283011198868258882
+  - rid: 283011198868258884
+  - rid: 283011198868258893
+  - rid: 283011198868258900
+  - rid: 283011198868258903
+  - rid: 283011198868258906
+  - rid: 283011203418554368
+  - rid: 283011203418554369
+  - rid: 283011203418554370
+  - rid: 283011203418554371
+  - rid: 283011203418554378
+  - rid: 283011203418554380
+  - rid: 283011203418554382
+  - rid: 283011203418554383
+  - rid: 283011203418554385
+  - rid: 283011203418554388
+  - rid: 283011203418554389
+  - rid: 283011203418554391
+  - rid: 283011203418554393
+  - rid: 283011203418554398
+  - rid: 283011203418554405
+  - rid: 283011203418554406
+  - rid: 1683426247750189084
+  - rid: 1683426247750189086
+  - rid: 1683426247750189117
+  - rid: 1683426247750189118
+  - rid: 283011291767373824
+  - rid: 283011291767373855
+  - rid: 6881097883797946422
+  - rid: 116448501211856908
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: 1401849418967941121
+    - rid: 8619125029124177949
+    - rid: 283011198868258876
+    - rid: 283011090204065871
+    - rid: 283011090204065872
+    - rid: 283011090204065873
+    - rid: 283011203418554414
+    - rid: 283011178275274851
+    - rid: 283011198868258862
+    - rid: 283011198868258863
+    - rid: 283011198868258890
+    - rid: 283011203418554399
+    - rid: 283011203418554402
+    - rid: 283011203418554403
+    - rid: 1683426247750189082
+    - rid: 283011291767373849
+    - rid: 1683426562437021875
+    - rid: 6881097883797946379
+    - rid: 116448501211856907
+  viewPosition: {x: -1193.6, y: 435.2, z: 0}
+  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 116448501211856907
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound2
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 116448501211856908
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 91deac686aaaef84fb01a3856ac7c2fc
+        position: {x: 1755, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 116448501211856907
+          defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011090204065871
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: movementSpeed
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011090204065872
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: rotationSpeed
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011090204065873
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: attackValue
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011178275274847
+      type: {class: InterruptSelector, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f47bf778bddee154794a0eae81e32723
+        position: {x: 3150, y: -1425}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011203418554389
+        - rid: 8619125051680882753
+    - rid: 283011178275274851
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: checkInit
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011198868258862
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: animationNameEnd
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: SpinningAttackDone
+    - rid: 283011198868258863
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: animationNameStart
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: SpinningAttackStart
+    - rid: 283011198868258869
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a3d39fe7809e31640915ca22d60ed3ac
+        position: {x: 2190, y: 315}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011198868258870
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011198868258870
+      type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 72141e98e87f37b4681d4f2fc149d02b
+        position: {x: 2160, y: 480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        animationName:
+          reference:
+            rid: 283011198868258890
+          defaultValue: 
+    - rid: 283011198868258871
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: a6cf9502f9e9e5347985166f28cd7a72
+        position: {x: 2190, y: 120}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011198868258873
+        - rid: 283011198868258869
+        - rid: 283011198868258874
+    - rid: 283011198868258873
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 1bcefa34095e8a6459c352183392c5f8
+        position: {x: 1965, y: 480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 0.5
+    - rid: 283011198868258874
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 67525647b7a5ca44bb4b0cc65aeb33c2
+        position: {x: 2415, y: 480}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 1.2
+    - rid: 283011198868258875
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 927eab9a9d9d552438c73354411eff2f
+        position: {x: 3030, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011198868258877
+        restartOnSuccess: 1
+        restartOnFailure: 1
+        maxRepeats: 4
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011198868258876
+      type: {class: IntKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: numberAttacks
+        typeName: System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011198868258877
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e68ccb3e9e659cd4f95623d1db0a38ce
+        position: {x: 3030, y: 210}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011203418554398
+        - rid: 283011198868258906
+        - rid: 283011198868258903
+    - rid: 283011198868258882
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 588a6a80c276dca4b9e1f47f2e619e25
+        position: {x: 4620, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 8619125029124177949
+          value:
+            rid: 283011198868258883
+    - rid: 283011198868258883
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 283011198868258884
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8031eeaa765569145a0e80ca19756ed8
+        position: {x: 750, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 8619125029124177949
+          value:
+            rid: 283011198868258885
+    - rid: 283011198868258885
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011198868258890
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: animationNameProgress1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: Spinning
+    - rid: 283011198868258893
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: dc9f4af43d3f67241b79fbf7e375f02c
+        position: {x: 4305, y: -255}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011203418554388
+        - rid: 283011203418554371
+        - rid: 283011203418554383
+        - rid: 283011198868258882
+        - rid: 283011203418554385
+    - rid: 283011198868258900
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 48dea7ea6a908a847967def598bca474
+        position: {x: 3390, y: -255}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1683426247750189086
+        - rid: 283011203418554368
+        - rid: 283011203418554369
+    - rid: 283011198868258903
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f30dbb50659330549b3e678c163d7b5b
+        position: {x: 3270, y: 435}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: -2
+          defaultValue: 0.2
+        duration: 1
+    - rid: 283011198868258906
+      type: {class: CheckCurrentAnimationTime, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c1bd0766fd7939a44822bbe5c555e44b
+        position: {x: 2970, y: 435}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        checkTimeValue:
+          reference:
+            rid: -2
+          defaultValue: 0.97
+    - rid: 283011203418554368
+      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b8436fad29f7bf44cb605284a6d52311
+        position: {x: 3435, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: 283011198868258862
+          defaultValue: 
+    - rid: 283011203418554369
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 729a7cbf145e2c14f8d6a0299f0bc743
+        position: {x: 3660, y: -75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011203418554370
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011203418554370
+      type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: dec317bda7d746b4c8aff65b0a35b4e2
+        position: {x: 3630, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        animationName:
+          reference:
+            rid: 283011198868258862
+          defaultValue: 
+    - rid: 283011203418554371
+      type: {class: CheckCurrentAnimationTime, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: f79fee4363b05ed4bb6b36ea39822550
+        position: {x: 4080, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        checkTimeValue:
+          reference:
+            rid: -2
+          defaultValue: 0.95
+    - rid: 283011203418554378
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0c41d584edaa7f445a58b5a16234b84f
+        position: {x: 3150, y: -555}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 8619125051680882737
+        - rid: 283011198868258900
+        - rid: 283011198868258893
+    - rid: 283011203418554380
+      type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d63f7aed6dd9708449800bfa090d4056
+        position: {x: 3810, y: -555}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 8619125029124177949
+          value:
+            rid: 283011203418554381
+    - rid: 283011203418554381
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 283011203418554382
+      type: {class: SetLayerWeight, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 6fe8756a6bf952f4892cf16b9cd87f53
+        position: {x: 1575, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        layerWeight:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 283011203418554383
+      type: {class: SetLayerWeight, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 591e236e357a4bd44b9f65e9b295501e
+        position: {x: 4395, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        layerWeight:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011203418554385
+      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 24ece40812952e749922c1e99c325480
+        position: {x: 4800, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: -2
+          defaultValue: Walking
+    - rid: 283011203418554388
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: d6414b727e4e9c24d846c320fc1e0db6
+        position: {x: 3885, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 283011203418554389
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8289c3fee9f7293489e711f0f91b4ee1
+        position: {x: 2625, y: -1230}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011203418554391
+        - rid: 283011203418554393
+    - rid: 283011203418554391
+      type: {class: CompareProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 524299ee36e89a847a06bf7e2bccfd1b
+        position: {x: 2490, y: -1095}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011178275274851
+          value:
+            rid: 283011203418554392
+    - rid: 283011203418554392
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011203418554393
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b2deeb29d3c21ce45ae57a6505fef290
+        position: {x: 2760, y: -1095}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011178275274851
+          value:
+            rid: 283011203418554394
+    - rid: 283011203418554394
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 283011203418554398
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: c44766e0439b15b4088fb02738e6ad6e
+        position: {x: 2700, y: 450}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011291767373855
+        - rid: 1683426247750189117
+        - rid: 1683426247750189118
+        - rid: 283011203418554406
+        - rid: 283011203418554405
+        - rid: 6881097883797946422
+    - rid: 283011203418554399
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: SpinningAttackPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 283011203418554402
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: target1
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011203418554403
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: target2
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011203418554405
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: bbb78271aee1c95409afa68fd38bf656
+        position: {x: 2985, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 12
+        baseEventPayload:
+          reference:
+            rid: 283011203418554399
+    - rid: 283011203418554406
+      type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 427bf3a00126a8c4e9e5ce3250e6e302
+        position: {x: 2790, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isInit:
+          reference:
+            rid: -2
+          defaultValue: 1
+        bossPayload:
+          reference:
+            rid: 283011203418554399
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        intValue:
+          reference:
+            rid: 283011090204065873
+          defaultValue: 0
+        floatValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        vector3Value:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        transformValue1:
+          reference:
+            rid: 283011203418554402
+          defaultValue: {fileID: 0}
+        transformValue2:
+          reference:
+            rid: 283011203418554403
+          defaultValue: {fileID: 0}
+        transformValue3:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        attackTypeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        combatPayload:
+          reference:
+            rid: 1683426562437021875
+    - rid: 283011203418554414
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: effectiveRadius
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011291767373824
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 20b9519ceaeba714a9976432f3dd423c
+        position: {x: 1365, y: 345}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 8619125051680882744
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 283011291767373849
+      type: {class: GameObjectKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: effect1
+        typeName: UnityEngine.GameObject, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011291767373855
+      type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: bc9cd071f11fd03439cfb21446842894
+        position: {x: 2070, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        effectPrefab:
+          reference:
+            rid: 283011291767373849
+          defaultValue: {fileID: 0}
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        scale:
+          reference:
+            rid: -2
+          defaultValue: {x: 1.5, y: 1.5, z: 1.5}
+        offset:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        isLoop:
+          reference:
+            rid: -2
+          defaultValue: 0
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1401849175978016768
+      type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
+        position: {x: 3150, y: -1575}
+        blackboard:
+          keys: []
+        description: "\uADFC\uC811 \uD68C\uC804 \uACF5\uACA9"
+        drawGizmos: 0
+        child:
+          rid: 283011178275274847
+    - rid: 1401849418967941121
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: player
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 1683426247750189082
+      type: {class: RangeKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: range
+        typeName: BaseRange, Assembly.Ellie, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 1683426247750189084
+      type: {class: AddCircleRangeToTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 1abea7ddbfdfe304fa07012598ba40ad
+        position: {x: 495, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189082
+          defaultValue: {fileID: 0}
+        isShowRange:
+          reference:
+            rid: -2
+          defaultValue: 0
+        origin:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 1
+        remainTime:
+          reference:
+            rid: -2
+          defaultValue: 10
+        radius:
+          reference:
+            rid: -2
+          defaultValue: 5
+    - rid: 1683426247750189086
+      type: {class: DeleteRange, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 55aadf9076fad6c43a7803da91673a9c
+        position: {x: 3240, y: 75}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetRange:
+          reference:
+            rid: 1683426247750189082
+          defaultValue: {fileID: 0}
+    - rid: 1683426247750189117
+      type: {class: CheckRangeTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 04ae60bc1378c7e4e934953edc1ff949
+        position: {x: 2325, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        range:
+          reference:
+            rid: 1683426247750189082
+          defaultValue: {fileID: 0}
+        target:
+          reference:
+            rid: 283011203418554402
+          defaultValue: {fileID: 0}
+        checkTag:
+          reference:
+            rid: -2
+          defaultValue: Player
+        checkLayer:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 4
+        isRootTransform:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426247750189118
+      type: {class: CheckRangeTarget, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: aaf3895e0375dcf4f9b2eab6c29badec
+        position: {x: 2565, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        range:
+          reference:
+            rid: 1683426247750189082
+          defaultValue: {fileID: 0}
+        target:
+          reference:
+            rid: 283011203418554403
+          defaultValue: {fileID: 0}
+        checkTag:
+          reference:
+            rid: -2
+          defaultValue: 
+        checkLayer:
+          reference:
+            rid: -2
+          defaultValue:
+            serializedVersion: 2
+            m_Bits: 512
+        isRootTransform:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1683426562437021875
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: combatPayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 6881097883797946379
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: sound1
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 
+    - rid: 6881097883797946422
+      type: {class: PlaySound, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: b00e2304811ac50498b7efecc8b0d3ac
+        position: {x: 3255, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        soundName:
+          reference:
+            rid: 6881097883797946379
+          defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 8619125029124177949
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: conditionCheck
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 8619125051680882737
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e44d88f24550c4a479d23e83000eada3
+        position: {x: 2310, y: -300}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 8619125051680882742
+        - rid: 283011198868258871
+        - rid: 283011198868258875
+    - rid: 8619125051680882739
+      type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0116b14697090584687d9764457ffe30
+        position: {x: 945, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        message:
+          reference:
+            rid: -2
+          defaultValue: SpiningAttack Notice
+    - rid: 8619125051680882741
+      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 1ee6e67f23fd3e542adc5bbec198127c
+        position: {x: 1140, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: 283011198868258863
+          defaultValue: SpiningAttack
+    - rid: 8619125051680882742
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 08b70523fb2507e479bd5f75dd19127b
+        position: {x: 1230, y: -90}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1683426247750189084
+        - rid: 283011198868258884
+        - rid: 8619125051680882739
+        - rid: 8619125051680882741
+        - rid: 283011291767373824
+        - rid: 283011203418554382
+        - rid: 116448501211856908
+    - rid: 8619125051680882744
+      type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 385cc2a986cafe444b8645b68239d93e
+        position: {x: 1335, y: 465}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 1
+        animationName:
+          reference:
+            rid: 283011198868258863
+          defaultValue: SpiningAttack
+    - rid: 8619125051680882746
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 58a85762af929f64e87f26e321af4dfb
+        position: {x: 3630, y: -885}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 8619125051680882747
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 8619125051680882747
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 70e79eaae08f7af449eb43e3449de649
+        position: {x: 3630, y: -750}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 8619125051680882761
+        - rid: 8619125051680882762
+        - rid: 283011203418554380
+    - rid: 8619125051680882753
+      type: {class: Parallel, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 5dac30ba44e9133499d8e9497b4fce06
+        position: {x: 3150, y: -1095}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 283011203418554378
+        - rid: 8619125051680882746
+    - rid: 8619125051680882761
+      type: {class: SmoothLookAt, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: ca976c9da86a541489cdd264786afbbd
+        position: {x: 3450, y: -555}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetTransform:
+          reference:
+            rid: 1401849418967941121
+          defaultValue: {fileID: 0}
+        targetPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        rotationSpeed:
+          reference:
+            rid: 283011090204065872
+          defaultValue: 2
+        reverse: 0
+    - rid: 8619125051680882762
+      type: {class: MoveTowards, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: dc90f605d23147c4ca4221d7b1422a7a
+        position: {x: 3630, y: -555}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        targetPosition:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        targetTransform:
+          reference:
+            rid: 1401849418967941121
+          defaultValue: {fileID: 0}
+        moveSpeed:
+          reference:
+            rid: 283011090204065871
+          defaultValue: 1

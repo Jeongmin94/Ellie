@@ -104,7 +104,8 @@ namespace Assets.Scripts.UI.Video
         {
             InputManager.Instance.CanInput = false;
             IsEnd = false;
-
+            Cursor.visible = false;
+            
             videoPlayer.Play();
             WaitForEndOfFrame wfef = new WaitForEndOfFrame();
             while (!IsEnd)
@@ -112,8 +113,15 @@ namespace Assets.Scripts.UI.Video
                 yield return wfef;
             }
 
+            EndVideo();
+        }
+
+        public void EndVideo()
+        {
+            InputManager.Instance.CanInput = true;
             gameObject.SetActive(false);
-            SaveLoadManager.Instance.IsLoadData = true;
+            Cursor.visible = true;
+            SaveLoadManager.Instance.IsLoadData = videoData.isLoadData;
             SceneLoadManager.Instance.LoadScene(videoData.playAfterScene);
         }
 

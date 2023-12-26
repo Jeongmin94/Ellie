@@ -35,7 +35,6 @@ public class TerrapupaHealthBar : MonoBehaviour
 
         RenewHealthBar(dataContainer.CurrentHp.Value - 1);
         RenewHealthBar(dataContainer.CurrentHp.Value + 1);
-
         billboard.InitData(dataContainer);
     }
 

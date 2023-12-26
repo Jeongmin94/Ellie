@@ -1,0 +1,443 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
+  m_Name: TerrapupaStun
+  m_EditorClassIdentifier: 
+  rootNode:
+    rid: 1401849175978016768
+  nodes:
+  - rid: 1401849175978016768
+  - rid: 1401849447854899217
+  - rid: 1401849447854899219
+  - rid: 1401849447854899224
+  - rid: 1401849447854899225
+  - rid: 1401849447854899226
+  - rid: 1401849447854899234
+  - rid: 1401849447854899235
+  - rid: 1401849447854899236
+  - rid: 283011018610442303
+  - rid: 1683426094593605642
+  - rid: 1683426094593605644
+  - rid: 1683426094593605645
+  - rid: 1683426094593605654
+  - rid: 1683426094593605655
+  - rid: 283011133722066944
+  - rid: 283011291767373841
+  - rid: 283011291767373842
+  treeState: 0
+  blackboard:
+    keys:
+    - rid: 283011090204065936
+    - rid: 283011090204065939
+    - rid: 1401849447854899215
+    - rid: 1683426094593605673
+    - rid: 283011087430582291
+    - rid: 283011090204065827
+    - rid: 283011023650684947
+  viewPosition: {x: 1347.2, y: 506.4, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 283011018610442303
+      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 34d5868c1d7ee624eb1ef2020e4b8270
+        position: {x: -3045, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: 283011023650684947
+          defaultValue: Stuned
+    - rid: 283011023650684947
+      type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: animationName
+        typeName: System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: Stuned
+    - rid: 283011087430582291
+      type: {class: EventPayloadKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: IntakeDonePayload
+        typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
+          PublicKeyToken=null
+    - rid: 283011090204065827
+      type: {class: FloatKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: duration
+        typeName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011090204065936
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: magicStoneTransform
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 283011090204065939
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: isIntake
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 283011133722066944
+      type: {class: TriggerAnimation, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 4349ad17f89bb4e40aec9fdf708ad793
+        position: {x: -1380, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationName:
+          reference:
+            rid: -2
+          defaultValue: Break
+    - rid: 283011291767373841
+      type: {class: CheckAnimationName, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0f9096784ca5062429809490885160c6
+        position: {x: -2595, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        layerIndex:
+          reference:
+            rid: -2
+          defaultValue: 0
+        animationName:
+          reference:
+            rid: 283011023650684947
+          defaultValue: 
+    - rid: 283011291767373842
+      type: {class: Repeat, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 99729cea8ef45ee45850d5eefd832e15
+        position: {x: -2565, y: 15}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        child:
+          rid: 283011291767373841
+        restartOnSuccess: 0
+        restartOnFailure: 1
+        maxRepeats: 0
+        repeatKey:
+          reference:
+            rid: -2
+          defaultValue: 0
+    - rid: 1401849175978016768
+      type: {class: RootNode, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: e36e5729-0575-47a3-91b8-bab7ebc6bacd
+        position: {x: -1980, y: -540}
+        blackboard:
+          keys: []
+        description: "\uAE30\uC808"
+        drawGizmos: 0
+        child:
+          rid: 1401849447854899217
+    - rid: 1401849447854899215
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: isStuned
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849447854899217
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 74b0a69b1ad5db74095fef5309a9a151
+        position: {x: -1980, y: -390}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1683426094593605654
+        - rid: 283011291767373842
+        - rid: 1401849447854899225
+        - rid: 1401849447854899235
+        - rid: 1683426094593605644
+    - rid: 1401849447854899219
+      type: {class: SetAnimatorSpeed, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 19545d9b66834a54f9e60e51ed3c451c
+        position: {x: -3285, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        animationSpeed:
+          reference:
+            rid: -2
+          defaultValue: 1
+    - rid: 1401849447854899224
+      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 8650d01b728054a44986383ab6c77432
+        position: {x: -2310, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        timeValue:
+          reference:
+            rid: 283011090204065827
+          defaultValue: 0
+        duration: 10
+    - rid: 1401849447854899225
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 67584c4301745c34b9081cfc16adc9d2
+        position: {x: -2190, y: -30}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849447854899224
+        - rid: 1401849447854899226
+    - rid: 1401849447854899226
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 96588a331856af847a40989a77b8e0d0
+        position: {x: -2070, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 1401849447854899215
+          value:
+            rid: 1401849447854899227
+    - rid: 1401849447854899227
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1401849447854899234
+      type: {class: SetBossEvent, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 754a985c019eaaf4ab4434cdd8bd9955
+        position: {x: -1830, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        isInit:
+          reference:
+            rid: -2
+          defaultValue: 1
+        bossPayload:
+          reference:
+            rid: 283011087430582291
+        prefabValue:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        intValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        floatValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        vector3Value:
+          reference:
+            rid: -2
+          defaultValue: {x: 0, y: 0, z: 0}
+        transformValue1:
+          reference:
+            rid: 283011090204065936
+          defaultValue: {fileID: 0}
+        transformValue2:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        transformValue3:
+          reference:
+            rid: -2
+          defaultValue: {fileID: 0}
+        attackTypeValue:
+          reference:
+            rid: -2
+          defaultValue: 0
+        combatPayload:
+          reference:
+            rid: -2
+    - rid: 1401849447854899235
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: aabe291d51028984f91b288e0231cd9f
+        position: {x: -1620, y: -30}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849447854899234
+        - rid: 1401849447854899236
+        - rid: 283011133722066944
+    - rid: 1401849447854899236
+      type: {class: PublishEventBusPayload, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 2f154c51f1784ca44a89e8be6e61b712
+        position: {x: -1650, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        eventBusEvent:
+          reference:
+            rid: -2
+          defaultValue: 9
+        baseEventPayload:
+          reference:
+            rid: 283011087430582291
+    - rid: 1683426094593605642
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 3f7c8c90c34ec50469ed326b4741ba1c
+        position: {x: -1170, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011090204065939
+          value:
+            rid: 1683426094593605643
+    - rid: 1683426094593605643
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0
+    - rid: 1683426094593605644
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 23d63816b073bb941b238a3fdcce5182
+        position: {x: -1035, y: -45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1683426094593605642
+        - rid: 1683426094593605645
+    - rid: 1683426094593605645
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7e1e660b383fbbd48af65b206d8c772a
+        position: {x: -915, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 283011090204065936
+          value:
+            rid: 1683426094593605646
+    - rid: 1683426094593605646
+      type: {class: TransformKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: UnityEngine.Transform, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null
+        value: {fileID: 0}
+    - rid: 1683426094593605654
+      type: {class: Sequencer, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7d346cd20663cfa4b932183dfedc915d
+        position: {x: -3030, y: -45}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        children:
+        - rid: 1401849447854899219
+        - rid: 283011018610442303
+        - rid: 1683426094593605655
+    - rid: 1683426094593605655
+      type: {class: SetProperty, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 0f16862a5ab853c4ba0d2125dde0de3e
+        position: {x: -2835, y: 135}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        pair:
+          key:
+            rid: 1401849447854899215
+          value:
+            rid: 1683426094593605656
+    - rid: 1683426094593605656
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: 
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 1
+    - rid: 1683426094593605673
+      type: {class: BooleanKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
+      data:
+        name: checkInit
+        typeName: System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+        value: 0

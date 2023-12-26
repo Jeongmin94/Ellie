@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 396134560}
   - component: {fileID: 396134562}
   - component: {fileID: 396134561}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Point1 (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 599345689}
   - component: {fileID: 599345691}
   - component: {fileID: 599345690}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Point1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,7 +176,7 @@ GameObject:
   m_Component:
   - component: {fileID: 950955895}
   - component: {fileID: 950955896}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: PatrolPoints
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 1258672269}
   - component: {fileID: 1258672271}
   - component: {fileID: 1258672270}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: ChasePlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,7 +270,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &1378685216
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +282,7 @@ GameObject:
   - component: {fileID: 1378685217}
   - component: {fileID: 1378685219}
   - component: {fileID: 1378685218}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: PlayerDetect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,7 +328,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &1597554981
 GameObject:
   m_ObjectHideFlags: 0
@@ -340,7 +340,7 @@ GameObject:
   - component: {fileID: 1597554982}
   - component: {fileID: 1597554984}
   - component: {fileID: 1597554983}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Point1 (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863434811263296864}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854550196471353462}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm1Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -483,7 +483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854992022622691956}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm1Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -515,7 +515,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6854713006667337580}
   - component: {fileID: 6835177988558661332}
-  m_Layer: 10
+  - component: {fileID: 1021999039}
+  m_Layer: 2
   m_Name: Polygonal One Eyed Bat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -558,6 +559,8 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 2a8b673c30077974782619d981973f35, type: 2}
+  - {fileID: 2100000, guid: c45bd59c9989c7446a8a7ab82fb62fca, type: 2}
+  - {fileID: 2100000, guid: 733f10ef6385cff4c92ad87adc0ff293, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -598,6 +601,18 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.09950798, y: -0.006249234, z: 0.00000044703484}
     m_Extent: {x: 0.22593057, y: 0.12294124, z: 0.5668827}
   m_DirtyAABB: 0
+--- !u!114 &1021999039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6859809414522507640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff7408d941de9485dadb1091076c9ea8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: SkeletonMesh, Assembly.Ellie
 --- !u!1 &6859825540127314414
 GameObject:
   m_ObjectHideFlags: 0
@@ -607,7 +622,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863155372969150784}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -638,7 +653,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854483760103612604}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigEyeballGizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -669,7 +684,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854776466017807228}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigMainGizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -700,7 +715,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6855007595427077946}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm2Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -731,7 +746,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854799602367430448}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -762,7 +777,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6855020622004486094}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm3Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -793,7 +808,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863010192248130140}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -825,7 +840,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863412836193463364}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -857,7 +872,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863457542017159038}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigLArm1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -898,6 +913,7 @@ GameObject:
   - component: {fileID: 453060604}
   - component: {fileID: 453060605}
   - component: {fileID: 888380734}
+  - component: {fileID: 3340085693602875231}
   m_Layer: 10
   m_Name: CaveBat
   m_TagString: Monster
@@ -932,6 +948,7 @@ Transform:
   - {fileID: 1258672269}
   - {fileID: 950955895}
   - {fileID: 6257255211013222877}
+  - {fileID: 1276849760}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -989,7 +1006,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 81b9a9bcaa8cd452aa681d99d6e1dbb2, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.CaveBatController, Assembly.Ellie
   monsterData:
     index: 0
     monsterName: 
@@ -1007,6 +1024,7 @@ MonoBehaviour:
     element: 0
     type: 0
     turnType: 0
+  freezeEffect: {fileID: 1277101570}
   attackData:
   - index: 0
     monsterName: 
@@ -1019,6 +1037,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1037,6 +1057,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1055,6 +1077,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1073,6 +1097,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1091,6 +1117,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1109,6 +1137,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1127,6 +1157,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1145,6 +1177,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1153,6 +1187,8 @@ MonoBehaviour:
     weaponName: 
     projectilePrefabPath: 
   behaviourTreeInstance: {fileID: 0}
+  renderer: {fileID: 6835177988558661332}
+  characterMesh: {fileID: 1021999039}
   isBillboardOn: 0
 --- !u!114 &2119480393
 MonoBehaviour:
@@ -1309,7 +1345,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterAudioController, Assembly.Ellie
   data: {fileID: 11400000, guid: 9a904c12f67a8472fa6dd66acb5c0d69, type: 2}
 --- !u!114 &888380734
 MonoBehaviour:
@@ -1322,8 +1358,25 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: bd835a946ce8d4310bac2aff715cf2b9, type: 2}
+--- !u!114 &3340085693602875231
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6860538853240187878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 2a8b673c30077974782619d981973f35, type: 2}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
 --- !u!1 &6860746806608860722
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1386,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854689802900459878}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1365,7 +1418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863069234414157474}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm2Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1396,7 +1449,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6863190328118074968}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigMain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1430,7 +1483,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854690290256568766}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigRArm3Gizmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1461,7 +1514,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6854803659179828628}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: RigEyeball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1492,7 +1545,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6257255211013222877}
-  m_Layer: 10
+  m_Layer: 2
   m_Name: Billboard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1514,3 +1567,170 @@ Transform:
   m_Father: {fileID: 6863236723056871730}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1277032926
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6863236723056871730}
+    m_Modifications:
+    - target: {fileID: 160264, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 196572, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Name
+      value: FreezeEffect
+      objectReference: {fileID: 0}
+    - target: {fileID: 196572, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401198, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: MeshObject
+      value: 
+      objectReference: {fileID: 6859809414522507640}
+    - target: {fileID: 11401198, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: StartScaleMultiplier
+      value: 0.01
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.type
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.0024518522
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.00003064815
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.0012259261
+      objectReference: {fileID: 0}
+    - target: {fileID: 19843368, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.m_SkinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 6835177988558661332}
+    - target: {fileID: 1310559048633638, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1378059735237970, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1426763655552172, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: m_Layer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.type
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.0024518522
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.00003064815
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.0012259261
+      objectReference: {fileID: 0}
+    - target: {fileID: 198028478861547250, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.m_SkinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 6835177988558661332}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.type
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.radiusThickness
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.00091944454
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 0.00003064815
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.00061296305
+      objectReference: {fileID: 0}
+    - target: {fileID: 198643651687204062, guid: a027108eca869824e93bcef13617c227, type: 3}
+      propertyPath: ShapeModule.m_SkinnedMeshRenderer
+      value: 
+      objectReference: {fileID: 6835177988558661332}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a027108eca869824e93bcef13617c227, type: 3}
+--- !u!4 &1276849760 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 448446, guid: a027108eca869824e93bcef13617c227, type: 3}
+  m_PrefabInstance: {fileID: 1277032926}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1277101570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 196572, guid: a027108eca869824e93bcef13617c227, type: 3}
+  m_PrefabInstance: {fileID: 1277032926}
+  m_PrefabAsset: {fileID: 0}

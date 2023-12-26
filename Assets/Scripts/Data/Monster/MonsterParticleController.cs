@@ -10,12 +10,15 @@ public enum MonsterParticleType
     WeaponHit,
     ProjectileCast,
     ProjectileHit,
+    Hit,
+    HeadShot,
 }
 public class MonsterParticleController : MonoBehaviour
 {
 
     [SerializeField] private MonsterParticleData data;
     private Dictionary<MonsterParticleType, ParticleSystem> particles;
+    private ParticleSystem particle;
 
     private void Awake()
     {
@@ -24,7 +27,6 @@ public class MonsterParticleController : MonoBehaviour
 
     public ParticleSystem GetParticle(MonsterParticleType type)
     {
-        ParticleSystem particle;
         if (particles.TryGetValue(type, out particle))
         {
             particle.transform.position = gameObject.transform.position + data.GetParticleOffset(type);
@@ -45,9 +47,15 @@ public class MonsterParticleController : MonoBehaviour
 
     public bool PlayParticle(MonsterParticleType type)
     {
-        ParticleSystem particle = GetParticle(type);
+        particle = GetParticle(type);
         if (particle == null) return false;
         particle.Play();
         return true;
+    }
+
+    public void StopParticle()
+    {
+        if(particle!=null)
+            particle.Stop();
     }
 }

@@ -9,21 +9,20 @@ using Channels.UI;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using static Assets.Scripts.Managers.PlayerSavePayload;
 
 namespace Assets.Scripts.Player
 {
-    public class PlayerQuest : MonoBehaviour
+    public class PlayerQuest : SerializedMonoBehaviour
     {
-        private PlayerController controller;
-        private List<QuestData> questDataList;
-        //!TODO : curQuestData의 상태에 맞게 UI를 출력해주어야 함
-        //!TODO : NPC들에서 플레이어의 curQuest를 변경해주어야 함
-        private QuestData curQuestData;
-        private const int FirstQuestDataIdx = 0;
-        private Dictionary<int, QuestStatus> questStatusDic;
+        [ShowInInspector] private List<QuestData> questDataList;
+        [ShowInInspector] private QuestData curQuestData;
+        [ShowInInspector] private Dictionary<int, QuestStatus> questStatusDic;
 
+        private PlayerController controller;
+        private const int FirstQuestDataIdx = 0;
 
         private TicketMachine ticketMachine;
         public bool isPlaying;
@@ -33,9 +32,6 @@ namespace Assets.Scripts.Player
         private void Awake()
         {
             controller = GetComponent<PlayerController>();
-
-            //퀘스트 세이브 로드
-           
         }
 
         private void Start()
@@ -47,35 +43,18 @@ namespace Assets.Scripts.Player
             //퀘스트 UI 스프라이트 로드
             QuestUISprite = Resources.Load<Sprite>("Images/UI/QuestUI");
 
-            //DeactivateInteractiveUI();
             //6100번 퀘스트 시작
             StartCoroutine(OnDataLoadedCoroutine());
-            
-
         }
 
-        private void Update()
-        {
-            //퀘스트 상태 디버깅용
-            if (Input.GetKeyDown(KeyCode.B))
-            {
-                SaveLoadManager.Instance.SaveData();
-                DebugCurrentPlayerQuestDict();
-            }
-            if (Input.GetKeyDown(KeyCode.V))
-            {
-                SaveLoadManager.Instance.LoadData();
-                DebugCurrentPlayerQuestDict();
-            }
-        }
-
-        private void DebugCurrentPlayerQuestDict()
+        public void DebugCurrentPlayerQuestDict()
         {
             foreach (var item in questStatusDic)
             {
                 Debug.Log($"{item.Key}번 째 퀘스트 상태 : {item.Value}");
             }
         }
+
         private IEnumerator InitPlayerQuest()
         {
             yield return DataManager.Instance.CheckIsParseDone();
@@ -83,10 +62,11 @@ namespace Assets.Scripts.Player
             questDataList = DataManager.Instance.GetData<QuestDataParsingInfo>().questDatas;
             foreach (QuestData data in questDataList)
             {
-                questStatusDic.Add(data.index, QuestStatus.CantAccept);
+                if (!questStatusDic.ContainsKey(data.index))
+                {
+                    questStatusDic.Add(data.index, QuestStatus.CantAccept);
+                }
             }
-
-            // !TODO : 플레이어의 퀘스트 데이터를 로딩합니다
         }
 
         private IEnumerator OnDataLoadedCoroutine()
@@ -96,11 +76,13 @@ namespace Assets.Scripts.Player
             // 1. 맨 처음 시작
             // 2. 퀘스트 중에 껐다 켰을 경우
             // 3. 모든 퀘스트 다 깼을 경우
-            if (curQuestData != null)
+            if (questStatusDic[6100] != QuestStatus.CantAccept)
             {
-                SendDisplayQuestMessage(curQuestData);
+                if (curQuestData != null)
+                    SendDisplayQuestMessage(curQuestData);
+                InputManager.Instance.CanInput = true;
                 yield break;
-            } 
+            }
             else
             {
                 SendClearQuestMessage();
@@ -108,18 +90,20 @@ namespace Assets.Scripts.Player
                 StartCoroutine(FirstDialogCoroutine());
             }
         }
+
         private IEnumerator FirstDialogCoroutine()
         {
-
             int curDialogListIdx = 0;
             List<int> dialogList = questDataList[FirstQuestDataIdx].DialogListDic[QuestStatus.Unaccepted];
 
+            InputManager.Instance.CanInput = false;
             SendClearQuestMessage();
             if (dialogList == null)
             {
                 Debug.Log("DialogList is Null");
                 yield break;
             }
+
             LockPlayerMovement();
             SendPlayDialogPayload(dialogList[curDialogListIdx]);
 
@@ -139,6 +123,7 @@ namespace Assets.Scripts.Player
                         SendPlayDialogPayload(dialogList[curDialogListIdx]);
                     }
                 }
+
                 if (curDialogListIdx == dialogList.Count)
                 {
                     //player.EndConversation();
@@ -150,13 +135,22 @@ namespace Assets.Scripts.Player
                         SetQuestStatus(questDataList[FirstQuestDataIdx].index, QuestStatus.Accepted);
                         SendStopDialogPayload(DialogCanvasType.Default);
                         SendStopDialogPayload(DialogCanvasType.SimpleRemaining);
+
+                        // 첫 번째 퀘스트 다이얼로그 출력 후 가이드 UI Pop
+                        InputManager.Instance.CanInput = true;
+
+                        UIPayload payload = UIPayload.Notify();
+                        payload.actionType = ActionType.OpenGuideCanvas;
+                        ticketMachine.SendMessage(ChannelType.UI, payload);
+
                         UnlockPlayerMovement();
+
                         yield break;
                     }
                 }
+
                 yield return null;
             }
-
         }
 
         public IEnumerator DialogCoroutine(int questIdx, QuestStatus status, bool isAdditionalDialog = false)
@@ -173,6 +167,7 @@ namespace Assets.Scripts.Player
                 Debug.Log("DialogList is Null");
                 yield break;
             }
+
             DeactivateInteractiveUI();
 
             //첫 대사 출력
@@ -194,6 +189,7 @@ namespace Assets.Scripts.Player
                         SendPlayDialogPayload(dialogList[curDialogListIdx]);
                     }
                 }
+
                 if (curDialogListIdx == dialogList.Count)
                 {
                     //player.EndConversation();
@@ -207,6 +203,7 @@ namespace Assets.Scripts.Player
                         yield break;
                     }
                 }
+
                 yield return null;
             }
         }
@@ -246,10 +243,12 @@ namespace Assets.Scripts.Player
             payload.canvasType = type;
             ticketMachine.SendMessage(ChannelType.Dialog, payload);
         }
+
         public void StartConversation()
         {
             controller.StartConversation();
         }
+
         public void EndConversation()
         {
             controller.EndConversation();
@@ -283,13 +282,14 @@ namespace Assets.Scripts.Player
                 throw new KeyNotFoundException($"Quest status not found for quest index {questIdx}");
             }
         }
+
         public void SetQuestStatus(int questIdx, QuestStatus newStatus)
         {
             if (questStatusDic.ContainsKey(questIdx))
             {
                 //현재 퀘스트를 갱신
                 curQuestData = questDataList[questIdx % 6100];
-                
+
                 questStatusDic[questIdx] = newStatus;
                 ////퀘스트 갱신시마다 세이브
                 //SaveLoadManager.Instance.SaveData();
@@ -307,6 +307,8 @@ namespace Assets.Scripts.Player
                     SendClearQuestMessage();
                     SendDisplayQuestMessage(data);
                 }
+
+                //퀘스트 상태 변경할 때 마다 세이브
                 SaveLoadManager.Instance.SaveData();
             }
             else
@@ -337,7 +339,8 @@ namespace Assets.Scripts.Player
                 uiType = UIType.Notify,
                 actionType = ActionType.SetQuestName,
                 questInfo = info,
-            }); ;
+            });
+            ;
             controller.TicketMachine.SendMessage(ChannelType.UI, new UIPayload
             {
                 uiType = UIType.Notify,
@@ -351,6 +354,7 @@ namespace Assets.Scripts.Player
                 questInfo = info,
             });
         }
+
         public void GetReward(int questIdx)
         {
             //해당 퀘스트의 데이터를 가져옴
@@ -417,10 +421,11 @@ namespace Assets.Scripts.Player
                 {
                     yield break;
                 }
+
                 yield return null;
             }
-
         }
+
         public void LockPlayerMovement()
         {
             controller.canMove = false;
@@ -433,7 +438,6 @@ namespace Assets.Scripts.Player
             controller.canMove = true;
             controller.canTurn = true;
             controller.ChangeState(PlayerStateName.Idle);
-
         }
 
         public void GetPickaxe(int pickaxeIdx)
@@ -441,12 +445,12 @@ namespace Assets.Scripts.Player
             controller.GetPickaxe(pickaxeIdx);
         }
 
-        
 
         public void ActivateInteractiveUI()
         {
             GetComponent<PlayerInteraction>().ActivateInteractiveUI();
         }
+
         public void DeactivateInteractiveUI()
         {
             GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
@@ -456,11 +460,6 @@ namespace Assets.Scripts.Player
         {
             GetComponent<PlayerInteraction>().interactiveObject = null;
             GetComponent<PlayerInteraction>().SetCanInteract(false);
-        }
-
-        public void SetCurQuest(int questidx)
-        {
-            curQuestData = questDataList[questidx % 6100];
         }
 
         public QuestDataSaveInfo GetQuestDataSaveInfo()
@@ -477,8 +476,10 @@ namespace Assets.Scripts.Player
             questStatusDic = info.questStatusDic;
             if (info.curQuestData != null)
             {
-                curQuestData = info.curQuestData;
+                StopAllCoroutines();
 
+                curQuestData = info.curQuestData;
+                SendDisplayQuestMessage(curQuestData);
             }
             else
                 curQuestData = null;

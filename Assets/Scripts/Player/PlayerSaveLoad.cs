@@ -1,4 +1,5 @@
-﻿using Assets.Scripts.Managers;
+﻿using Assets.Scripts.Centers;
+using Assets.Scripts.Managers;
 using System.Collections;
 using UnityEngine;
 
@@ -24,6 +25,8 @@ namespace Assets.Scripts.Player
             payload.questSaveInfo = quest.GetQuestDataSaveInfo();
             payload.pickaxeSaveInfo = controller.GetPickaxeDataSaveInfo();
 
+            //퀘스트 디버그
+            GetComponent<PlayerQuest>().DebugCurrentPlayerQuestDict();
             SaveLoadManager.Instance.AddPayloadTable(SaveLoadType.Player, payload);
         }
 
@@ -32,9 +35,20 @@ namespace Assets.Scripts.Player
             if (payload is not PlayerSavePayload savePayload) return;
 
             Debug.Log("Player Load");
+
             transform.position = savePayload.position.ToVector3();
             quest.LoadQuestData(savePayload.questSaveInfo);
             controller.LoadPickaxeData(savePayload.pickaxeSaveInfo);
+
+            StartCoroutine(SceneLoadCoroutine());
+        }
+
+        private IEnumerator SceneLoadCoroutine()
+        {
+            yield return SceneLoadManager.Instance.CheckIsLoadDone();
+
+            controller.ChangeState(PlayerStateName.Start);
+            InputManager.Instance.CanInput = true;
         }
     }
 }

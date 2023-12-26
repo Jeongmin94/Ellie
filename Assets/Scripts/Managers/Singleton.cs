@@ -1,4 +1,5 @@
 using Sirenix.OdinInspector;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -33,10 +34,15 @@ namespace Assets.Scripts.Managers
                 instance = this as T;
                 DontDestroyOnLoad(instance);
             }
-            else
+            else if (instance != this)
             {
                 Destroy(gameObject);
             }
+        }
+
+        private void OnDestroy()
+        {
+            instance = null;
         }
 
         public virtual void ClearAction()

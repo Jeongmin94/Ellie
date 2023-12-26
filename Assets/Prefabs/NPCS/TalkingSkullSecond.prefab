@@ -58,12 +58,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fea82e96caa58084ab081b902b7faa38, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.InteractiveObjects.NPC.TalkingSkullSecondNPC,
+    Assembly.Ellie
+  interactiveType: 1
   NPCIndex: 6001
   rotationSpeed: 10
+  renderer: {fileID: 2920556847722434176}
   isTrapped: 0
   hasBackpack: 0
-  trap: {fileID: 0}
+  traps: []
   backPack: {fileID: 0}
 --- !u!1 &2941091344669483920
 GameObject:

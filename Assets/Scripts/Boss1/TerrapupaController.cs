@@ -15,35 +15,39 @@ using Assets.Scripts.Utils;
 using Assets.Scripts.Channels.Item;
 using Assets.Scripts.Controller;
 using TheKiwiCoder;
+using Assets.Scripts.Boss1.Terrapupa;
+using Assets.Scripts.Data.GoogleSheet;
+using Channels.UI;
+using Assets.Scripts.Managers;
 
 public class TerrapupaController : BaseController
 {
-    [Title("테라푸파 보스 객체")] [SerializeField] private TerrapupaBTController terrapupa;
-    [SerializeField] private TerrapupaBTController terra;
-    [SerializeField] private TerrapupaBTController pupa;
-    [SerializeField] private List<TerrapupaMinionBTController> minions;
-    [SerializeField] private PlayerController player;
+    [Title("테라푸파 보스 객체")] 
+    [SerializeField][Required] private TerrapupaBTController terrapupa;
+    [SerializeField][Required] private TerrapupaBTController terra;
+    [SerializeField][Required] private TerrapupaBTController pupa;
+    [SerializeField][Required] private List<TerrapupaMinionBTController> minions;
+    [SerializeField][Required] private PlayerController player;
 
     [Title("현재 페이즈 상태 체크용")]
-    [ReadOnly]
-    [SerializeField]
-    private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
-
-    [ReadOnly] [SerializeField] private int minionDeathCheck = 4; // 3페이즈 미니언 4마리 체크
-    [ReadOnly] [SerializeField] private int currentMinionSpawnIndex = 0;
-    [ReadOnly] [SerializeField] private float fallCheckLatency = 5.0f;
+    [SerializeField][ReadOnly] private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
+    [SerializeField][ReadOnly] private int minionDeathCheck = 4; // 3페이즈 미니언 4마리 체크
+    [SerializeField][ReadOnly] private int currentMinionSpawnIndex = 0;
+    [SerializeField][ReadOnly] private float fallCheckLatency = 5.0f;
 
     [Title("보스몬스터 생성 여부")]
     [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")]
     public bool isActiveTerrapupa = true;
-
     public bool isActiveTerra = false;
     public bool isActivePupa = false;
     public bool isActiveMinions = false;
+    private const int GOLEM_CORE_INDEX = 4021;
 
     private TicketMachine ticketMachine;
 
-    private const int GOLEM_CORE_INDEX = 4021;
+    private bool isFirstTerrapupaHeal = false;
+    private bool isFirstDestroyAllManaFountain = false;
+    private int golemCoreCount = 0;
 
     public override void InitController()
     {
@@ -58,6 +62,7 @@ public class TerrapupaController : BaseController
         ShuffleMinions();
         SetBossInfo();
         StartCoroutine(FallCheck());
+        StartCoroutine(NullCheck());
     }
 
     #region 1. 초기화 함수
@@ -87,7 +92,8 @@ public class TerrapupaController : BaseController
     public void InitTicketMachine()
     {
         ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat);
+        ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat, ChannelType.Camera, ChannelType.BossBattle, ChannelType.BossDialog);
+        ticketMachine.RegisterObserver(ChannelType.BossBattle, OnNotifyBossBattle);
 
         terrapupa.InitTicketMachine(ticketMachine);
         terra.InitTicketMachine(ticketMachine);
@@ -100,7 +106,6 @@ public class TerrapupaController : BaseController
 
     private void SubscribeEvents()
     {
-        EventBus.Instance.Subscribe(EventBusEvents.EnterBossRoom, OnEnterBossRoom);
         EventBus.Instance.Subscribe(EventBusEvents.GripStoneByBoss1, OnSpawnStone);
         EventBus.Instance.Subscribe(EventBusEvents.ThrowStoneByBoss1, OnThrowStone);
         EventBus.Instance.Subscribe(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
@@ -134,19 +139,55 @@ public class TerrapupaController : BaseController
 
     #region 2. 이벤트 핸들러
 
-    private void OnEnterBossRoom(IBaseEventPayload baseEventPayload)
+    private void OnNotifyBossBattle(IBaseEventPayload payload)
     {
-        if (baseEventPayload is not BossEventPayload payload)
+        if (payload is not BossBattlePayload bPayload)
             return;
 
-        terrapupa.terrapupaData.isStart.Value = true;
+        switch (bPayload.SituationType)
+        {
+            case BossSituationType.StartBattle:
+                OnStartBattle();
+                break;
+            case BossSituationType.StartSeconPhase:
+                OnStartSecondPhase();
+                break;
+            case BossSituationType.StartThirdPhase:
+                //OnStartThirdPhase(bPayload.Sender);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnStartBattle()
+    {
+        Debug.Log("OnStartBattle()");
+        // 전투 시작 시, 테라푸파 활성화
+        terrapupa.StartBattle(player.transform);
+    }
+    
+    private void OnStartSecondPhase()
+    {
+        Debug.Log("OnStartSeconPhase()");
+        // 테라, 푸파 활성화
+        SpawnTerraAndPupa();
+        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.StartSecondPhase, ticketMachine);
+    }
+    private void OnStartThirdPhase(Transform boss)
+    {
+        Debug.Log("OnStartThirdPhase()");
+        // 테라, 푸파 활성화
+        SpawnMinions(boss.position);
+        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.StartThirdPhase, ticketMachine);
     }
 
     private void OnSpawnStone(IBaseEventPayload payload)
     {
         Debug.Log("OnSpawnStone :: 보스의 돌맹이 줍기");
         BossEventPayload stonePayload = payload as BossEventPayload;
-        TerrapupaBTController actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
+
+        var actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
 
         actor.Stone.gameObject.SetActive(true);
     }
@@ -156,7 +197,7 @@ public class TerrapupaController : BaseController
         Debug.Log("OnThrowStone :: 보스의 돌맹이 던지기");
 
         BossEventPayload stonePayload = payload as BossEventPayload;
-        TerrapupaBTController actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
+        var actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
 
         GameObject stone = Instantiate(actor.Stone.gameObject, transform);
         stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale, stonePayload.FloatValue, stonePayload.CombatPayload, stonePayload.PrefabValue, stonePayload.Sender, ticketMachine);
@@ -196,7 +237,7 @@ public class TerrapupaController : BaseController
         Transform manaTransform = payload.TransformValue2;
         Transform hitBossTransform = payload.TransformValue3;
         Transform boss = payload.Sender;
-
+        
         // 1. 플레이어 피격
         if (playerTransform != null)
         {
@@ -229,7 +270,7 @@ public class TerrapupaController : BaseController
         if (hitBossTransform != null)
         {
             hitBossTransform = hitBossTransform.GetComponent<TerrapupaDetection>().MyTerrapupa;
-            TerrapupaBTController hitBossControllers = hitBossTransform.GetComponent<TerrapupaBTController>();
+            var hitBossControllers = hitBossTransform.GetComponent<TerrapupaBTController>();
             if (hitBossControllers?.terrapupaData != null)
             {
                 hitBossControllers.terrapupaData.hitEarthQuake.Value = true;
@@ -249,10 +290,9 @@ public class TerrapupaController : BaseController
         Transform target = magicStonePayload.TransformValue2;
         if (target)
         {
-            TerrapupaBTController actor = target.GetComponent<TerrapupaBTController>();
-            actor.terrapupaData.isTempted.Value = true;
-            actor.terrapupaData.isIntake.Value = false;
-            actor.terrapupaData.magicStoneTransform.Value = magicStone;
+            var actor = target.GetComponent<TerrapupaBTController>();
+
+            actor.AttractMagicStone(magicStone);
         }
     }
 
@@ -266,10 +306,8 @@ public class TerrapupaController : BaseController
         Transform target = magicStonePayload.TransformValue2;
         if (target)
         {
-            TerrapupaBTController actor = target.GetComponent<TerrapupaBTController>();
-            actor.terrapupaData.isTempted.Value = false;
-            actor.terrapupaData.isIntake.Value = false;
-            actor.terrapupaData.magicStoneTransform.Value = null;
+            var bossController = target.GetComponent<TerrapupaBTController>();
+            bossController.UnattractMagicStone();
         }
     }
 
@@ -279,14 +317,17 @@ public class TerrapupaController : BaseController
 
         BossEventPayload payload = bossPayload as BossEventPayload;
 
+        var actor = payload.Sender.GetComponent<TerrapupaBTController>();
         Transform _magicStone = payload.TransformValue1;
         int healValue = payload.IntValue;
 
-        TerrapupaBTController actor = payload.Sender.GetComponent<TerrapupaBTController>();
-        actor.GetHealed(healValue);
-        actor.terrapupaData.isTempted.Value = false;
-        actor.terrapupaData.isIntake.Value = false;
-        actor.terrapupaData.magicStoneTransform.Value = null;
+        actor.EndIntakeMagicStone(healValue);
+
+        if (!actor.IsDead && healValue != 0 && !isFirstTerrapupaHeal)
+        {
+            isFirstTerrapupaHeal = true;
+            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
+        }
 
         if (_magicStone != null)
         {
@@ -307,28 +348,37 @@ public class TerrapupaController : BaseController
             if (bossName == "Terrapupa")
             {
                 Debug.Log("테라푸파 사망, 2페이즈");
-                SpawnTerraAndPupa();
+                OnStartSecondPhase();
             }
             else if (bossName == "Terra" || bossName == "Pupa")
             {
                 Debug.Log("테라 혹은 푸파 사망, 미니언 2마리 소환");
-                SpawnMinions(payload.Sender);
+                OnStartThirdPhase(payload.Sender);
             }
             else
             {
                 minionDeathCheck--;
                 Debug.Log($"미니언 사망, 남은 미니언 {minionDeathCheck}");
+
+                if (minionDeathCheck == 2 || minionDeathCheck == 0)
+                {
+                    Debug.Log("골렘의 눈 드랍");
+                    Vector3 position = payload.Sender.position;
+
+                    DropStoneItem(position, GOLEM_CORE_INDEX);
+                    golemCoreCount++;
+                    if (golemCoreCount == 1)
+                    {
+                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetGolemCoreFirstTime, ticketMachine);
+                    }
+                    else if (golemCoreCount == 2)
+                    {
+                        BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DieAllMinions, ticketMachine);
+                    }
+                }
             }
 
             payload.Sender.gameObject.SetActive(false);
-        }
-
-        if (minionDeathCheck == 2 || minionDeathCheck == 0)
-        {
-            Debug.Log("골렘의 눈 드랍");
-            Vector3 position = payload.Sender.position;
-
-            DropStoneItem(position, GOLEM_CORE_INDEX);
         }
     }
 
@@ -354,6 +404,7 @@ public class TerrapupaController : BaseController
             return;
         }
 
+        GameObject hitEffect = payload.PrefabValue;
         Transform playerTransform = payload.TransformValue1;
         Transform manaTransform = payload.TransformValue2;
         Transform boss = payload.Sender;
@@ -362,6 +413,11 @@ public class TerrapupaController : BaseController
         if (playerTransform != null)
         {
             HitedPlayer(boss, playerTransform, payload.CombatPayload);
+            if(hitEffect != null)
+            {
+                ParticleManager.Instance.GetParticle(hitEffect, playerTransform, 0.5f);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, "TerrapupaRollHit", boss.position);
+            }
         }
 
         if (manaTransform != null)
@@ -432,6 +488,7 @@ public class TerrapupaController : BaseController
         StartCoroutine(MinionAttackCooldown(payload));
     }
 
+    [Button]
     private void OnDestroyAllManaFountains(IBaseEventPayload payload)
     {
         Debug.Log($"OnDestroyAllManaFountains :: 모든 보스 기절");
@@ -440,13 +497,19 @@ public class TerrapupaController : BaseController
         {
             case 1:
                 Debug.Log("테라푸파 기절");
-                StunBoss(terrapupa);
+                terrapupa.Stun();
                 break;
             case 2:
                 Debug.Log("테라, 푸파 기절");
-                StunBoss(terra);
-                StunBoss(pupa);
+                terra.Stun();
+                pupa.Stun();
                 break;
+        }
+
+        if(!isFirstDestroyAllManaFountain)
+        {
+            isFirstDestroyAllManaFountain = true;
+            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DestroyAllManaFountains, ticketMachine);
         }
     }
 
@@ -466,10 +529,12 @@ public class TerrapupaController : BaseController
     {
         BossEventPayload payload = bossPayload as BossEventPayload;
 
+        var bossController = payload.Sender.GetComponent<TerrapupaBTController>();
         Transform magicStone = payload.TransformValue1;
 
         // 지속시간 체크 정지
         magicStone.GetComponent<MagicStone>().StopCheckDuration();
+        bossController.StartIntakeMagicStone();
     }
 
     #endregion
@@ -537,7 +602,7 @@ public class TerrapupaController : BaseController
 
     private void HitedManaFountaine(Transform attacker, Transform manaTransform, GameObject hitEffect = null)
     {
-        ManaFountain manaFountain = manaTransform.GetComponent<ManaFountain>();
+        var manaFountain = manaTransform.GetComponent<ManaFountain>();
 
         if (manaFountain != null)
         {
@@ -554,37 +619,28 @@ public class TerrapupaController : BaseController
         }
     }
 
-    private void StunBoss(TerrapupaBTController target)
-    {
-        Debug.Log($"{target.name} 보스 기절");
-
-        target.terrapupaData.isStuned.Value = true;
-        target.terrapupaData.isTempted.Value = false;
-        target.terrapupaData.isIntake.Value = false;
-    }
-
     private void SpawnTerraAndPupa()
     {
         Debug.Log("SpawnTerraAndPupa :: 테라, 푸파 소환");
 
+        float interval = 1.5f;
+        float angle = 90.0f;
+
         terra.gameObject.SetActive(true);
         pupa.gameObject.SetActive(true);
 
-        terra.terrapupaData.isStart.Value = true;
-        pupa.terrapupaData.isStart.Value = true;
+        terra.StartBattle(player.transform);
+        pupa.StartBattle(player.transform);
 
-        terra.transform.position = terrapupa.transform.position;
-        pupa.transform.position = terrapupa.transform.position;
-
-        terra.terrapupaData.player.Value = player.transform;
-        pupa.terrapupaData.player.Value = player.transform;
+        terra.transform.position = terrapupa.transform.position + new Vector3(0.0f, 0.0f, -interval);
+        pupa.transform.position = terrapupa.transform.position + new Vector3(0.0f, 0.0f, interval);
+        terra.transform.rotation = Quaternion.Euler(terrapupa.transform.eulerAngles + new Vector3(0.0f, -angle, 0.0f));
+        pupa.transform.rotation = Quaternion.Euler(terrapupa.transform.eulerAngles + new Vector3(0.0f, angle, 0.0f));
     }
 
-    private void SpawnMinions(Transform obj)
+    private void SpawnMinions(Vector3 position)
     {
         Debug.Log("SpawnMinions :: 테, 라, 푸, 파 랜덤 2마리 소환");
-
-        Vector3 position = obj.position;
 
         for (int i = 0; i < 2; i++)
         {
@@ -593,6 +649,8 @@ public class TerrapupaController : BaseController
             minion.gameObject.SetActive(true);
             minion.transform.position = position;
             minion.minionData.player.Value = player.transform;
+
+            minion.HideBillboard();
 
             // 미니언 인덱스 갱신 ( +1 )
             currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;
@@ -643,6 +701,5 @@ public class TerrapupaController : BaseController
         Vector3 vec = new(UnityEngine.Random.Range(-1.0f, 1.0f), 0.5f, 0);
         return vec.normalized;
     }
-
     #endregion
 }

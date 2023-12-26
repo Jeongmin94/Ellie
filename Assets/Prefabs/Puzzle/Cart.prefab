@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 9066127736972206292}
   - component: {fileID: 9066127736972206294}
   - component: {fileID: 9066127736972206290}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cart
   m_TagString: Interactive
   m_Icon: {fileID: 0}
@@ -88,7 +88,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9066127736972206313}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 32.2, y: 11.133, z: 162.956}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -109,14 +109,15 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8cab3371c3dfab44787111f0f53c0f05, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.InteractiveObjects.MineCart, Assembly.Ellie
   playerStandingPos: {fileID: 9066127735280706639}
   spline: {fileID: 0}
   successSpline: {fileID: 0}
   player: {fileID: 0}
   playerEndPos: {fileID: 9066127736181460788}
   isActivated: 0
-  duration: 50
+  duration: 30
+  renderer: {fileID: 9066127736861344975}
 --- !u!54 &9066127736972206294
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -243,5 +244,10 @@ Rigidbody:
 --- !u!4 &9066127736859008473 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 498650, guid: 5c00c5f03c23f3b44af6d75077362432, type: 3}
+  m_PrefabInstance: {fileID: 9066127736858969603}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &9066127736861344975 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 2376396, guid: 5c00c5f03c23f3b44af6d75077362432, type: 3}
   m_PrefabInstance: {fileID: 9066127736858969603}
   m_PrefabAsset: {fileID: 0}

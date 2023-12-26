@@ -63,7 +63,7 @@ public class BehaviourTreeController : SerializedMonoBehaviour
         cameraObj = Camera.main.transform;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
         MonsterOnPlayerForward();
     }
@@ -122,7 +122,7 @@ public class BehaviourTreeController : SerializedMonoBehaviour
         isBillboardOn = true;
     }
 
-    public void HideBillobard()
+    public void HideBillboard()
     {
         billboardObject.transform.localScale = Vector3.zero;
     }
@@ -140,7 +140,7 @@ public class BehaviourTreeController : SerializedMonoBehaviour
             }
             else
             {
-                HideBillobard();
+                HideBillboard();
             }
         }
     }

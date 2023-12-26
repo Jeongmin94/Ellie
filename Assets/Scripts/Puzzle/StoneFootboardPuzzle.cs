@@ -7,7 +7,7 @@ namespace Assets.Scripts.Puzzle
     public class StoneFootboardPuzzle : MonoBehaviour
     {
         private new Rigidbody rigidbody;
-        private Vector3 InitialPosition;
+        private Vector3 initialPosition;
         [SerializeField] private float moveSpeed;
         [SerializeField] private float rotationSpeed;
 
@@ -18,7 +18,7 @@ namespace Assets.Scripts.Puzzle
         private void Awake()
         {
             rigidbody = GetComponent<Rigidbody>();
-            InitialPosition = transform.position;
+            initialPosition = transform.position;
             isRigid = false;
         }
         private void OnCollisionEnter(Collision collision)
@@ -52,7 +52,7 @@ namespace Assets.Scripts.Puzzle
         {
             rigidbody.useGravity = false;
             GetComponent<BoxCollider>().isTrigger = true;
-            while (transform.position.y < InitialPosition.y)
+            while (transform.position.y < initialPosition.y)
             {
                 Vector3 pos = transform.position;
                 pos.y += moveSpeed * Time.deltaTime;
@@ -60,7 +60,6 @@ namespace Assets.Scripts.Puzzle
                 yield return null;
             }
             GetComponent<BoxCollider>().isTrigger = false;
-
         }
         private void FixedUpdate()
         {
@@ -69,13 +68,11 @@ namespace Assets.Scripts.Puzzle
                 rigidbody.AddForce(-Vector3.up * 5f, ForceMode.Force);
             }
 
-            if(transform.position.y > InitialPosition.y)
+            if(transform.position.y > initialPosition.y)
             {
-                transform.position = InitialPosition;
+                transform.position = initialPosition;
                 rigidbody.velocity = Vector3.zero;
             }
-
         }
-
     }
 }

@@ -47,21 +47,18 @@ namespace Assets.Scripts.Monsters.Attacks
 
         private void OnTriggerEnter(Collider other)
         {
-            if (owner == "Monster")
+            if (other.CompareTag("Player"))
             {
-                if (other.CompareTag("Player"))
+                if (other.gameObject.GetComponent<ICombatant>() != null)
                 {
-                    if (other.gameObject.GetComponent<ICombatant>() != null)
+                    audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
+                    if (particle == null)
                     {
-                        audioController.PlayAudio(MonsterAudioType.MeleeAttackHit);
-                        if (particle == null)
-                        {
-                            particle = particleController.GetParticle(MonsterParticleType.MeleeHit);
-                        }
-                        particle.transform.position = other.transform.position;
-                        particle.Play();
-                        SetAndAttack(attackData, other.transform);
+                        particle = particleController.GetParticle(MonsterParticleType.MeleeHit);
                     }
+                    particle.transform.position = other.transform.position;
+                    particle.Play();
+                    SetAndAttack(attackData, other.transform);
                 }
             }
         }
@@ -75,7 +72,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
             payload.statusEffectduration = 0.3f;
             payload.Damage = (int)data.attackValue;
             Attack(payload);

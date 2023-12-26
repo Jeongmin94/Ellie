@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5ef22adceec4f7fbd3f9c9d756dfba, type: 3}
+  m_Name: WitchSkeletonParticleData
+  m_EditorClassIdentifier: MonsterParticleData, Assembly.Ellie
+  meleeAttack: {fileID: 2350094142135824482, guid: 8509f5f998682b7449cebbf0cddbae4e, type: 3}
+  meleeAttackOffset: {x: 0, y: 0, z: 0}
+  meleeHit: {fileID: 198000010650799676, guid: ba611309d09ff2d4184f2b68929c5b61, type: 3}
+  meleeHitOffset: {x: 0, y: 0, z: 0}
+  weaponAttack: {fileID: 0}
+  weaponAttackOffset: {x: 0, y: 1, z: 0}
+  weaponHit: {fileID: 0}
+  weaponHitOffset: {x: 0, y: 0, z: 1}
+  projectileCast: {fileID: 19884194, guid: 8f3db2ef4b3fd674eafb97a117b99408, type: 3}
+  projectileCastOffset: {x: 0, y: 0.1, z: 0}
+  projectileHit: {fileID: 19827778, guid: ec1c5863f61e8ff4a84dbdb8a282a7ac, type: 3}
+  projectileHitOffset: {x: 0, y: 0, z: 0}
+  hitParticle: {fileID: 198445459358545838, guid: a1076c3c7e8bc484faf518679bb3faa4, type: 3}
+  hitParticleOffset: {x: 0, y: 1, z: 0}
+  headShotParticle: {fileID: 198000010650799676, guid: 138787a5a15d4e148ac9c4e8caddf136, type: 3}
+  headShotParticleOffset: {x: 0, y: 2, z: 0}

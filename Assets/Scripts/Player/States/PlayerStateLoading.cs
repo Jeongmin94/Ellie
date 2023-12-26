@@ -19,6 +19,8 @@ namespace Assets.Scripts.Player.States
 
         public override void OnExitState()
         {
+            Controller.GetComponent<PlayerAim>().canAim = true;
+
         }
 
         public override void OnFixedUpdateState()

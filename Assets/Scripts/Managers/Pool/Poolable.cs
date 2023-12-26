@@ -8,7 +8,7 @@ namespace Assets.Scripts.Managers
 
         public virtual void PoolableDestroy()
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
     }
 }

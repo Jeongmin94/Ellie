@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1295090791050318078
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1295090791050318077}
+  - component: {fileID: 7113304291599684338}
+  m_Layer: 0
+  m_Name: TerrapupaDialogController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1295090791050318077
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295090791050318078}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -193.4, y: 13.71, z: 646.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7113304291599684338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1295090791050318078}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6f831cc1f1270144912655049f7a32d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Boss1.TerrapupaDialogController, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  speakers:
+  - "\uC5D8\uB9AC"
+  - "\uB9D0\uD558\uB294 \uD574\uACE8 \uBA38\uB9AC \uCCAB \uC9F8"
+  - "\uB9D0\uD558\uB294 \uD574\uACE8 \uBA38\uB9AC \uB458 \uC9F8"
+  - "\uB9D0\uD558\uB294 \uD574\uACE8 \uBA38\uB9AC \uB9C9\uB0B4"
+  - "\uD14C\uB77C\uD478\uD30C"
+  images:
+  - Ellie
+  - talking skull head1
+  - talking skull head2
+  - talking skull head3
+  - Frame 8

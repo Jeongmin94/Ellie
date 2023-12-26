@@ -97,7 +97,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 74f0af75f0c73194fb13604569f8e75f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Item.Stone.StonePrefab, Assembly.Ellie
   isUsing: 0
   data:
     groupType: 1
@@ -118,9 +118,8 @@ MonoBehaviour:
     combineCost: 0
     sellCost: 0
     textureName: 
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 0
+    stoneMaterial: {fileID: 0}
+    hitParticle: {fileID: 0}
 --- !u!54 &1087265509129993356
 Rigidbody:
   m_ObjectHideFlags: 0

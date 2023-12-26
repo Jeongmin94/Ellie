@@ -17,38 +17,40 @@ namespace Assets.Scripts.Item.Stone
         private Pool stonePool;
         [SerializeField] Mesh[] stoneMeshes;
         [SerializeField] Material[] materials;
-        [SerializeField] GameObject[] stoneHitParticles;
         [SerializeField] BaseStoneEffect[] stoneEffects;
         [SerializeField] GameObject stoneTrailTest;
 
         [SerializeField] private GameObject stone;
         private const int initialPoolSize = 10;
 
+        private Transform stoneRoot;
+
         private void Awake()
         {
             SetTicketMachine();
             InitStonePool();
+            
+            GameObject root = new GameObject();
+            root.name = "@Stone_Root";
+            root.transform.SetParent(transform);
+            stoneRoot = root.transform;
         }
         private void Start()
         {
             string stoneMaterialsPath = "Materials/StoneMaterials";
-            string stoneHitParticlesPath = "Prefabs/StoneHitParticles";
             materials = Resources.LoadAll<Material>(stoneMaterialsPath);
-            stoneHitParticles = Resources.LoadAll<GameObject>(stoneHitParticlesPath);
         }
         private void SetTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
-            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI);
-            //ticketMachine.GetTicket(ChannelType.Combat).SubscribeNotifyAction(ReleaseStoneEvent);
+            ticketMachine.AddTickets(ChannelType.Combat, ChannelType.Stone, ChannelType.UI, ChannelType.Portal);
             ticketMachine.RegisterObserver(ChannelType.Stone, StoneEvent);
         }
 
         private void InitStonePool()
         {
             //돌맹이 일정량만큼 풀에서 받아서 걔네 티켓 만들어주고 해처리의 공격함수 구독
-            stonePool = PoolManager.Instance.CreatePool(stone, 0);
-            
+            stonePool = PoolManager.Instance.CreatePool(stone, 10);
         }
 
         public void Attack(CombatPayload payload)
@@ -58,7 +60,7 @@ namespace Assets.Scripts.Item.Stone
 
         public Poolable GetStone(int stoneIdx)
         {
-            Poolable obj = stonePool.Pop();
+            Poolable obj = stonePool.Pop(stoneRoot);
             obj.GetComponent<BaseStone>().data = DataManager.Instance.GetIndexData<StoneData, StoneDataParsingInfo>(stoneIdx);
             if (obj.GetComponent<BaseStone>().data == null)
             {
@@ -87,6 +89,15 @@ namespace Assets.Scripts.Item.Stone
             // 추후 enum + 데이터테이블 + 딕셔너리로 수정
             switch (stoneIdx)
             {
+                case 4003:
+                    effect = obj.gameObject.AddComponent<ExplosionStone>();
+                    break;
+                case 4005:
+                    effect = obj.gameObject.AddComponent<IceStone>();
+                    break;
+                case 4019:
+                    effect = obj.gameObject.AddComponent<PortalStone>();
+                    break;
                 case 4020:
                     effect = obj.gameObject.AddComponent<MagicStone>();
                     break;
@@ -97,13 +108,10 @@ namespace Assets.Scripts.Item.Stone
                     effect = obj.gameObject.AddComponent<NormalStone>();
                     break;
             }
-            ////힛 파티클을 붙여줌
-            //effect.hitParticle = stoneHitParticles[stoneIdx % STONEIDXSTART];
-
             StonePrefab prefab = obj.GetComponent<StonePrefab>();
 
             prefab.StoneEffect = effect;
-            effect.InitData(prefab.data);
+            effect.InitData(prefab.data, ticketMachine);
             effect.SubscribeAction(prefab.OccurEffect);
         }
 
@@ -128,7 +136,6 @@ namespace Assets.Scripts.Item.Stone
             stone.GetComponent<StonePrefab>().StoneEffect.Type = itemPayload.Type;
             if (itemPayload.Type == StoneEventType.ShootStone)
             {
-                
                 ReleaseStone(stone, startPos, direction, strength);
                 //UI 페이로드 작성
                 UIPayload uIPayload = new()
@@ -155,7 +162,8 @@ namespace Assets.Scripts.Item.Stone
 
         private void ReleaseStone(BaseStone stone, Vector3 startPos, Vector3 direction, float strength)
         {
-            stone.SetPosition(startPos);
+            stone.transform.position = startPos;
+
             stone.MoveStone(direction, strength);
             stone.GetComponent<Rigidbody>().AddTorque(2f*Random.onUnitSphere);
         }

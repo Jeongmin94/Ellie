@@ -1,4 +1,5 @@
-using System;
+using Assets.Scripts.Channels;
+using Assets.Scripts.Channels.Camera;
 using Assets.Scripts.Channels.Item;
 using Channels.Boss;
 using Channels.Combat;
@@ -24,11 +25,11 @@ namespace Channels.Utils
                 case ChannelType.Stone:
                     channel = new StoneChannel();
                     break;
-                case ChannelType.BossInteraction:
-                    channel = new BossInteractionChannel();
+                case ChannelType.BossBattle:
+                    channel = new BossBattleChannel();
                     break;
                 case ChannelType.Terrapupa:
-                    channel = new TerrapupaChannel();
+                    channel = new BossChannel();
                     break;
                 case ChannelType.Dialog:
                     channel = new DialogChannel();
@@ -37,7 +38,15 @@ namespace Channels.Utils
                     channel = new MonsterChannel();
                     break;
                 case ChannelType.Camera:
-                    channel = new MonsterChannel();
+                    channel = new CameraChannel();
+                    break;
+                case ChannelType.Item:
+                    break;
+                case ChannelType.Portal:
+                    channel = new PortalChannel();
+                    break;
+                case ChannelType.BossDialog:
+                    channel = new BossDialogChannel();
                     break;
             }
             return channel;

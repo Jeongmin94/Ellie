@@ -1,4 +1,5 @@
 using Assets.Scripts.Combat;
+using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.StatusEffects;
 using UnityEngine;
 
@@ -10,7 +11,8 @@ namespace Channels.Combat
         Weapon,
         Projectile,
         Movement,
-        RequestStone
+        RequestStone,
+        AOEAttack,
     }
 
     public class CombatPayload : IBaseEventPayload
@@ -37,7 +39,7 @@ namespace Channels.Combat
         public Vector3 AttackStartPosition { get; set; }
 
         //공격에 피격됐을 때 유발되는 상태이상
-        public StatusEffectName PlayerStatusEffectName { get; set; }
+        public StatusEffectName StatusEffectName { get; set; }
         //상태이상의 지속시간
         public float statusEffectduration { get; set; }
         //공격이 유발하는 힘
@@ -48,7 +50,6 @@ namespace Channels.Combat
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            Debug.Log("Recieve activate");
             CombatPayload combatPayload = payload as CombatPayload;
             ICombatant combatant = combatPayload.Defender.GetComponent<ICombatant>();
             combatant?.ReceiveDamage(CalculateCombatLogic(combatPayload));

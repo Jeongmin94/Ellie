@@ -1,6 +1,8 @@
 using System.Collections;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Monsters.AbstractClass;
 using Assets.Scripts.Monsters.Others;
+using Channels.Combat;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.Attacks
@@ -8,25 +10,26 @@ namespace Assets.Scripts.Monsters.Attacks
 
     public class AOEPrefabAttack : AbstractAttack
     {
-        private AOE prefabObject;
+        [SerializeField] private GameObject prefabObject;
         private Vector3 position;
         private Vector3 offset;
         private float damageInterval;
-
+        private Transform player;
+        public MonsterAttackData attackData;
+        
         public override void InitializeAOE(MonsterAttackData data)
         {
             InitializedBase(data);
-            Debug.Log("ParameterOBJ : " + prefabObject);
+            attackData = data;
             damageInterval = data.attackInterval;
-            //prefabObject = data.prefabObject.GetComponent<AOE>();
-            if (prefabObject == null)
-                Debug.Log("[AOEPrefabAttack] PrefabObject is Null");
+            player = transform.parent.GetComponent<AbstractMonster>().GetPlayer();
+            prefabObject = ResourceManager.Instance.LoadExternResource<GameObject>(data.projectilePrefabPath);
         }
 
         public override void ActivateAttack()
         {
-            AOE obj = Instantiate(prefabObject, position + offset, transform.rotation);
-            obj.SetPrefabData(attackValue, durationTime, damageInterval, gameObject.tag.ToString());
+            AOE obj = Instantiate(prefabObject, player.position-new Vector3(0,0.9f,0), transform.rotation).GetComponent<AOE>();
+            obj.spawner = gameObject.GetComponent<AOEPrefabAttack>();
             StartCoroutine(StartAttackReadyCount());
         }
         private IEnumerator StartAttackReadyCount()
@@ -36,10 +39,13 @@ namespace Assets.Scripts.Monsters.Attacks
             IsAttackReady = true;
         }
 
-        public void SetPrefabPosition(Vector3 position, Vector3 offset)
+        public void SetAndAttack(Transform otherTransform)
         {
-            this.position = position;
-            this.offset = offset;
+            CombatPayload payload = new();
+            payload.Defender = otherTransform;
+            payload.Damage = attackData.attackValue;
+            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            Attack(payload);
         }
     }
 

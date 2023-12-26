@@ -8,7 +8,7 @@ namespace Assets.Scripts.Monsters.Attacks
 {
     public class FanShapeAttack : AbstractAttack
     {
-        private const float angle = 90.0f;
+        private const float angle = 180.0f;
         private const float radius = 2.0f;
 
         private MonsterAttackData attackData;
@@ -103,7 +103,7 @@ namespace Assets.Scripts.Monsters.Attacks
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
+            payload.StatusEffectName = StatusEffects.StatusEffectName.WeakRigidity;
             payload.statusEffectduration = 0.5f;
             payload.Damage = (int)data.attackValue;
             Attack(payload);

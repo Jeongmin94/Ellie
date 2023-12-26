@@ -1,13 +1,7 @@
-using Assets.Scripts.Combat;
-using Assets.Scripts.Monsters.Utility;
-using Assets.Scripts.Utils;
-using Channels.Components;
-using Channels.Type;
 using UnityEngine;
 
 namespace Assets.Scripts.Monsters.AbstractClass
 {
-
     public abstract class AbstractAttack : MonoBehaviour
     {
         protected float attackValue;
@@ -29,8 +23,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
         protected void InitializedBase(MonsterAttackData attackData)
         {
-            this.attackValue = attackData.attackValue;
-            this.durationTime = attackData.attackDuration;
+            attackValue = attackData.attackValue;
+            durationTime = attackData.attackDuration;
             AttackInterval = attackData.attackInterval;
             AttackableDistance = attackData.attackableDistance;
 

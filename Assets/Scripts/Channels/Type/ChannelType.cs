@@ -5,11 +5,13 @@ namespace Channels.Type
         Combat,
         UI,
         Stone,
-        BossInteraction,
+        BossBattle,
         Terrapupa,
         Item,
         Dialog,
         Monster,
-        Camera
+        Camera,
+        Portal,
+        BossDialog,
     }
 }

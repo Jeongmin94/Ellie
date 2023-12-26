@@ -21,13 +21,14 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         public bool isTrapped = false;
         public bool hasBackpack = false;
 
-        [SerializeField] SkullSecondTrap trap;
+        [SerializeField] SkullSecondTrap[] traps;
         [SerializeField] SkullSecondBackPack backPack;
 
         private void Start()
         {
             Init();
-            trap.SubscribeTrapHitAction(CheckTrap);
+            foreach(var trap in traps)
+                trap.SubscribeTrapHitAction(CheckTrap);
             backPack.SubscribeGetBackPackAction(CheckBackPack);
         }
 
@@ -64,7 +65,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             }
 
             //6014 퀘스트를 완료하지 못하고 말을 걸었을 경우
-            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Accepted)
+            if (player.GetQuestStatus((int)SecondSkullQuest.Quest6104) == QuestStatus.Accepted )
             {
                 LookAtPlayer();
                 player.StartConversation();
@@ -223,7 +224,7 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             player.SetInteractiveObjToNull();
             //player.DeactivateInteractiveUI();
 
-            OnDisableAction?.Invoke(npcData.name);
+            OnDisableAction?.Invoke(npcData.type);
             gameObject.SetActive(false);
         }
 

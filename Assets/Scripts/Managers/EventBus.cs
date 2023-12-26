@@ -25,9 +25,7 @@ public enum EventBusEvents
     DestroyAllManaFountain,
     ApplySingleBossCooldown,
     StartIntakeMagicStone,
-    BossRoomDoorOpen,
-    EnterBossRoom,
-    LeftBossRoom,
+    ActivateMagicStone,
 }
 
 public interface IBaseEventPayload

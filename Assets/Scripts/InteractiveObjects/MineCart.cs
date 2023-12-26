@@ -1,15 +1,14 @@
-﻿using Assets.Scripts.Managers;
+﻿using System;
+using Assets.Scripts.Managers;
 using Assets.Scripts.Player;
-using Assets.Scripts.Utils;
 using Channels.Components;
-using Channels.Type;
 using Channels.UI;
-using System.Collections;
+using Outline;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
 {
-    public class MineCart : MonoBehaviour, IInteractiveObject
+    public class MineCart : InteractiveObject
     {
         [SerializeField] private Transform playerStandingPos;
         [SerializeField] private BezierSpline spline;
@@ -18,6 +17,7 @@ namespace Assets.Scripts.InteractiveObjects
         [SerializeField] private Transform playerEndPos;
         [SerializeField] private bool isActivated;
         [SerializeField] private float duration;
+        [SerializeField] private Renderer renderer;
         private SplineWalker walker = null;
 
         private bool canJump = false;
@@ -25,9 +25,9 @@ namespace Assets.Scripts.InteractiveObjects
         private InteractiveType type = InteractiveType.Default;
 
         private TicketMachine ticketMachine;
+
         private void Awake()
         {
-
         }
 
         private void Start()
@@ -42,18 +42,20 @@ namespace Assets.Scripts.InteractiveObjects
             {
                 LockPlayerPos();
             }
-            if (walker && isActivated && walker.Progress == 1f)
+
+            if (walker && isActivated && Math.Abs(walker.Progress - 1f) < float.Epsilon)
             {
                 EndRailSystem();
             }
-            if(canJump && Input.GetKeyDown(KeyCode.Space))
+
+            if (canJump && Input.GetKeyDown(KeyCode.Space))
             {
                 JumpToSuccessRail();
             }
         }
         //TODO : 특정 구간에서 Space를 입력해서 구간 넘어가기
-        
-        public void Interact(GameObject obj)
+
+        public override void Interact(GameObject obj)
         {
             if (!obj.CompareTag("Player")) return;
             player = obj;
@@ -62,13 +64,17 @@ namespace Assets.Scripts.InteractiveObjects
             StartRailSystem();
             player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
         }
+
         private void StartRailSystem()
         {
-            player.GetComponent<PlayerController>().PlayerObj.transform.rotation = playerStandingPos.rotation;
-            player.GetComponent<PlayerController>().canJump = false;
-            player.GetComponent<PlayerInteraction>().interactiveObject = null;
-            player.GetComponent<PlayerInteraction>().SetCanInteract(false);
-            player.GetComponent<PlayerInteraction>().DeactivateInteractiveUI();
+            var playerController = player.GetComponent<PlayerController>();
+            var playerinteraction = player.GetComponent<PlayerInteraction>();
+            playerController.PlayerObj.transform.rotation = playerStandingPos.rotation;
+            playerController.canJump = false;
+            playerinteraction.interactiveObject = null;
+            playerinteraction.SetCanInteract(false);
+            playerinteraction.DeactivateInteractiveUI();
+            playerinteraction.OutlineController.RemoveMaterial(renderer, OutlineType.InteractiveOutline);
             walker = gameObject.AddComponent<SplineWalker>();
             walker.duration = duration;
             walker.spline = spline;
@@ -76,6 +82,7 @@ namespace Assets.Scripts.InteractiveObjects
             walker.mode = SplineWalkerMode.Once;
             isActivated = true;
         }
+
         private void EndRailSystem()
         {
             isActivated = false;
@@ -86,6 +93,7 @@ namespace Assets.Scripts.InteractiveObjects
             Destroy(walker);
             gameObject.tag = "Untagged";
         }
+
         private void LockPlayerPos()
         {
             player.transform.position = playerStandingPos.position;
@@ -93,7 +101,7 @@ namespace Assets.Scripts.InteractiveObjects
 
         private void OnTriggerEnter(Collider other)
         {
-            if(other.gameObject.name == "SuccessInterval")
+            if (other.gameObject.name == "SuccessInterval")
             {
                 Debug.Log("enter interval");
                 canJump = true;
@@ -108,7 +116,7 @@ namespace Assets.Scripts.InteractiveObjects
                 canJump = false;
             }
         }
-        
+
 
         private void JumpToSuccessRail()
         {
@@ -119,12 +127,21 @@ namespace Assets.Scripts.InteractiveObjects
             walker.lookForward = true;
             walker.mode = SplineWalkerMode.Once;
             canJump = false;
-
         }
 
-        public InteractiveType GetInteractiveType()
+        public override InteractiveType GetInteractiveType()
         {
             return type;
+        }
+
+        public override OutlineType GetOutlineType()
+        {
+            return OutlineType.InteractiveOutline;
+        }
+
+        public override Renderer GetRenderer()
+        {
+            return renderer;
         }
     }
 }

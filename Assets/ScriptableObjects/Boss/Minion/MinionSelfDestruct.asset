@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4f07355730675049920603e09314f4c, type: 3}
+  m_Name: MinionSelfDestruct
+  m_EditorClassIdentifier: TerrapupaMinionSelfDestructData, Assembly.Ellie
+  dataName: TerrapupaMinionSelfDestruct
+  sound1: MinionSelfDestruct
+  attackEffect1: {fileID: 3021054868888071029, guid: 83a1c81d1b1c3c54cb3c8b6bc888765a, type: 3}
+  rotationSpeed: 2
+  jumpPower: 4
+  rushSpeed: 6
+  attackValue: 6
+  statusEffect: 4
+  statusEffectDuration: 1
+  statusEffectForce: 10

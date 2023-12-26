@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 903360848592381736}
   m_Layer: 10
   m_Name: HeadShot
-  m_TagString: Untagged
+  m_TagString: WeakPoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2e096b59c7a8420c977887b8ea3a021, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterHeadShot, Assembly.Ellie
   controller: {fileID: 75047580125934228}
 --- !u!1 &574987668
 GameObject:
@@ -1358,6 +1358,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
+  - {fileID: 2100000, guid: 733f10ef6385cff4c92ad87adc0ff293, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1705,6 +1706,7 @@ GameObject:
   - component: {fileID: 5872819883924350083}
   - component: {fileID: 7946567599469075429}
   - component: {fileID: 1390045670}
+  - component: {fileID: 483112142822361699}
   m_Layer: 10
   m_Name: AdventureSkeleton
   m_TagString: Monster
@@ -1744,7 +1746,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 748f79fe9d2c14a3c9b648ecd5d49b0a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.AdventureSkeletonController, Assembly.Ellie
   monsterData:
     index: 0
     monsterName: 
@@ -1762,6 +1764,7 @@ MonoBehaviour:
     element: 0
     type: 0
     turnType: 0
+  freezeEffect: {fileID: 0}
   attackData:
   - index: 0
     monsterName: 
@@ -1774,6 +1777,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1792,6 +1797,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1810,6 +1817,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1828,6 +1837,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1846,6 +1857,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1864,6 +1877,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1882,6 +1897,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1900,6 +1917,8 @@ MonoBehaviour:
     attackDuration: 0
     offset: {x: 0, y: 0, z: 0}
     size: {x: 0, y: 0, z: 0}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 0
     fleeDistance: 0
     stopDistance: 0
@@ -1908,6 +1927,8 @@ MonoBehaviour:
     weaponName: 
     projectilePrefabPath: 
   behaviourTreeInstance: {fileID: 0}
+  renderer: {fileID: 0}
+  characterMesh: {fileID: 0}
   isBillboardOn: 0
 --- !u!114 &1390045677
 MonoBehaviour:
@@ -1920,7 +1941,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f84f7f233335045a68404cfb038289c3, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterAudioController, Assembly.Ellie
   data: {fileID: 11400000, guid: c820c946f59004cb3832834d4cb87342, type: 2}
 --- !u!114 &1731138202
 MonoBehaviour:
@@ -1933,7 +1954,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 10c1b8bd8441641d681ab1c2ad921155, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: MonsterParticleController, Assembly.Ellie
   data: {fileID: 11400000, guid: b5eb79329df1549d3a18c06cb09e3c91, type: 2}
 --- !u!114 &7659240725079815480
 MonoBehaviour:
@@ -2122,6 +2143,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &483112142822361699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4412197747154225357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 1a64cf0a23f83924f9debcb452685f6f, type: 2}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
 --- !u!1 &4556069370795293131
 GameObject:
   m_ObjectHideFlags: 0
@@ -2528,7 +2566,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2a2f1a7f540ee4084ae09420e2ce4bec, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: PatrolPoints, Assembly.Ellie
 --- !u!1 &5374335118979370753
 GameObject:
   m_ObjectHideFlags: 0
@@ -3205,7 +3243,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &7946567601255918653
 GameObject:
   m_ObjectHideFlags: 0
@@ -3263,7 +3301,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a66237c2e40504e6aa9967dd9008537e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Monsters.Others.DistanceDetectedAI, Assembly.Ellie
 --- !u!1 &7964537898988176375
 GameObject:
   m_ObjectHideFlags: 0

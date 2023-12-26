@@ -6,6 +6,7 @@ using Channels.Components;
 using Channels.Type;
 using Channels.UI;
 using System;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Player
@@ -31,19 +32,13 @@ namespace Assets.Scripts.Player
 
         [SerializeField] private ChargingData chargingData;
         [SerializeField] private AimTargetData aimTargetData;
-
-        // !TODO: stone을 가져와서 사용할 수 있도록 변경해야 함(인벤토리 시스템 추가 후 변경)
-        // !TODO: 현재는 테스트 용도로 인스턴스 받아와 사용
-        //[Header("Objects")] [SerializeField] private BaseStone stone;
-
         [SerializeField] private bool withPlayer = false;
 
+        public bool isTargetingEnemy;
 
-        //public BaseStone Stone
-        //{
-        //    get { return stone; }
-        //    set { stone = value; }
-        //}
+        private Vector3 lastPointOfTraj;
+        public Vector3 LastPointOfTraj() => lastPointOfTraj;
+        
 
         public float ChargingRatio
         {
@@ -123,45 +118,20 @@ namespace Assets.Scripts.Player
             chargingTime = 0.0f;
             chargingData.ChargingValue.Value = 0.0f;
         }
-        //private void ReleaseStone(BaseStone stone, Vector3 direction, float strength)
-        //{
-        //    stone.SetPosition(releasePosition.position);
-        //    stone.MoveStone(direction, strength);
-
-        //}
-
         private void OnMouseAction()
         {
             if (Input.GetMouseButton(0))
             {
-                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / Time.timeScale, 0.0f,
+                float ts = Time.timeScale == 0f ? 1 : Time.timeScale;
+                chargingTime = Mathf.Clamp(chargingTime + Time.deltaTime / ts, 0.0f,
                     chargingData.timeSteps[chargingData.timeSteps.Length - 1]);
                 chargingData.ChargingValue.Value = chargingTime;
 
                 launchDirection = CalculateDirection();
                 DrawTrajectory(launchDirection, shootingPower * chargingRatio);
             }
-            //else if (Input.GetMouseButtonUp(0))
-            //{
-            //    // shooting
-            //    Shoot(launchDirection, shootingPower * chargingRatio);
-
-            //    // after shooting
-            //    lineRenderer.enabled = false;
-            //    chargingTime = 0.0f;
-            //    chargingData.ChargingValue.Value = 0.0f;
-            //}
         }
 
-        //public void Shoot(Poolable obj)
-        //{
-        //    // !TODO : SendMessage를 통해 StoneHatchery가 지정된 위치에서 돌 생성, 돌 발사 로직 실행
-        //    BaseStone stone = obj as BaseStone;
-        //    ReleaseStone(stone, launchDirection, shootingPower * chargingRatio);
-        //    lineRenderer.enabled = false;
-        //    chargingTime = 0.0f;
-        //    chargingData.ChargingValue.Value = 0.0f;
-        //}
         private Vector3 CalculateDirection()
         {
             Vector3 direction = Vector3.zero;
@@ -208,8 +178,25 @@ namespace Assets.Scripts.Player
             Vector3[] points = PhysicsUtil.CalculateTrajectoryPoints(releasePosition.position, direction, strength,
                 calculatingTime, linePoints, trajectoryCollisionMask);
 
+            lastPointOfTraj = points.Length > 0 ? points[^1] : releasePosition.position;
             lineRenderer.positionCount = points.Length;
             lineRenderer.SetPositions(points);
+        }
+
+        public void ChangeLineRendererColor(bool _isTargeting)
+        {
+            //조준하지 않고 있다가 새롭게 조준
+            if (_isTargeting && !isTargetingEnemy)
+            {
+                lineRenderer.material.color = Color.red;
+                isTargetingEnemy = true;
+            }
+
+            if (!_isTargeting && isTargetingEnemy)
+            {
+                lineRenderer.material.color = Color.white;
+                isTargetingEnemy = false;
+            }
         }
     }
 }

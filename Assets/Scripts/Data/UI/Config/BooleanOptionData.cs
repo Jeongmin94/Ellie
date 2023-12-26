@@ -9,5 +9,10 @@ namespace Data.UI.Config
         {
             return value.ToString();
         }
+
+        public override DataType GetDataType()
+        {
+            return DataType.Boolean;
+        }
     }
 }

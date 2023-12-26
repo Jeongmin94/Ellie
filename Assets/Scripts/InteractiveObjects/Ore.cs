@@ -11,21 +11,28 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Outline;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects
 {
-    public class Ore : MonoBehaviour, IInteractiveObject
+    public class Ore : InteractiveObject
     {
         public enum Tier
         {
             Tier3 = 9100,
             Tier2,
             Tier1,
+            Boom,
+            Ice,
+            Dark,
+            Portal,
+            Normal
         }
 
+        [SerializeField] private Renderer renderer;
+
         public InteractiveType interactiveType = InteractiveType.Mining;
-        [SerializeField] private GameObject stonePrefabTest;
         private Transform oreBody;
         private Transform stoneSpawnPos;
         public OreData data;
@@ -48,14 +55,27 @@ namespace Assets.Scripts.InteractiveObjects
         //npc 이벤트
         private Action firstMineAction;
         private bool isFirstMine = true;
+
         private void Awake()
         {
             InitTicketMachine();
         }
-        public InteractiveType GetInteractiveType()
+
+        public override InteractiveType GetInteractiveType()
         {
             return interactiveType;
         }
+
+        public override OutlineType GetOutlineType()
+        {
+            return OutlineType.InteractiveOutline;
+        }
+
+        public override Renderer GetRenderer()
+        {
+            return renderer;
+        }
+
         private void Start()
         {
             StartCoroutine(InitOre());
@@ -73,7 +93,7 @@ namespace Assets.Scripts.InteractiveObjects
         private IEnumerator InitOre()
         {
             yield return DataManager.Instance.CheckIsParseDone();
-            
+
             data = DataManager.Instance.GetIndexData<OreData, OreDataParsingInfo>((int)tier);
             hardness = data.hardness;
             maxHp = data.HP;
@@ -110,7 +130,7 @@ namespace Assets.Scripts.InteractiveObjects
                 Debug.Log("during mining");
                 DropStone(data.whileMiningDropItemList);
                 idx--;
-                if(isFirstMine)
+                if (isFirstMine)
                 {
                     Publish();
                     isFirstMine = false;
@@ -175,13 +195,13 @@ namespace Assets.Scripts.InteractiveObjects
                             //Item2 : 돌맹이 개수
                             //Item1 : 돌맹이 티어
                             //돌맹이 티어로 데이터풀에서 해당 티어에 맞는 돌맹이 && 현재 스테이지 이하의 돌 중 랜덤 생성하기
-                            List<StoneData> tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().
-                                stones.Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
+                            List<StoneData> tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().stones.Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
                             if (tempStones.Count <= 0) continue;
                             int randIndex = UnityEngine.Random.Range(0, tempStones.Count);
                             MineStone(tempStones[randIndex].index);
                         }
                     }
+
                     break;
                 }
             }
@@ -215,7 +235,7 @@ namespace Assets.Scripts.InteractiveObjects
             hp = maxHp;
         }
 
-        public void Interact(GameObject obj)
+        public override void Interact(GameObject obj)
         {
             PlayerController player = obj.GetComponent<PlayerController>();
             if (!player.IsPickaxeAvailable)
@@ -223,9 +243,10 @@ namespace Assets.Scripts.InteractiveObjects
                 DialogPayload payload = DialogPayload.Play("곡괭이가 있으면 돌멩이를 채광할 수 있을 것 같다..!");
                 payload.canvasType = DialogCanvasType.Simple;
                 ticketMachine.SendMessage(ChannelType.Dialog, payload);
-                
+
                 return;
             }
+
             player.SetCurOre(this);
         }
 
@@ -234,10 +255,12 @@ namespace Assets.Scripts.InteractiveObjects
             firstMineAction -= listener;
             firstMineAction += listener;
         }
+
         public void UnSubscribeFirstMineAction(Action listener)
         {
             firstMineAction -= listener;
         }
+
         private void Publish()
         {
             firstMineAction?.Invoke();

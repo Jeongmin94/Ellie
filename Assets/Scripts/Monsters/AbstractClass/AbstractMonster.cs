@@ -6,14 +6,18 @@ using Assets.Scripts.Monster;
 using Assets.Scripts.Monsters.Attacks;
 using Assets.Scripts.Monsters.EffectStatus;
 using Assets.Scripts.Monsters.Utility;
+using Assets.Scripts.Player.HitComponent;
+using Assets.Scripts.StatusEffects;
 using Assets.Scripts.UI.Monster;
 using Assets.Scripts.Utils;
 using Channels.Combat;
 using Channels.Components;
 using Channels.Type;
+using Sirenix.OdinInspector;
 using TheKiwiCoder;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.EventSystems;
 using static Assets.Scripts.Monsters.Utility.Enums;
 
 namespace Assets.Scripts.Monsters.AbstractClass
@@ -25,13 +29,16 @@ namespace Assets.Scripts.Monsters.AbstractClass
         WizardSkeleton = 1002,
         CaveBat = 1003,
         GuildguardSkeleton = 1004,
+        CaveWitch = 1005,
     }
+
     public abstract class AbstractMonster : MonoBehaviour, ICombatant, IMonster
     {
         const float billboardScale = 0.003f;
         const float battleStateTime = 8.0f;
 
         [SerializeField] public SkeletonMonsterData monsterData;
+        [SerializeField] public GameObject freezeEffect;
         private TicketMachine ticketMachine;
         public MonsterAttackData[] attackData = new MonsterAttackData[(int)AttackSkill.End];
 
@@ -44,6 +51,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Animator animator;
         public BehaviourTreeInstance behaviourTreeInstance;
         protected NavMeshAgent agent;
+        public Renderer renderer;
+        [SerializeField] public SkeletonMesh characterMesh;
         private bool isHeadShot;
 
         public Dictionary<string, AbstractAttack> Attacks = new();
@@ -62,8 +71,23 @@ namespace Assets.Scripts.Monsters.AbstractClass
         protected Vector3 spawnPosition;
 
         protected MonsterAudioController audioController;
+        private MonsterParticleController particleController;
+        private MaterialHitComponent hitComponent;
         protected GameObject player;
         private Transform cameraObj;
+
+        // 디버프 관리 클래스
+        private MonsterStatus statusEffect;
+
+        protected virtual void Awake()
+        {
+            statusEffect = gameObject.GetOrAddComponent<MonsterStatus>();
+            particleController = gameObject.GetOrAddComponent<MonsterParticleController>();
+            hitComponent = gameObject.GetOrAddComponent<MaterialHitComponent>();
+
+            freezeEffect = transform.Find("FreezeEffect").gameObject;
+            freezeEffect.SetActive(false);
+        }
 
         private void Update()
         {
@@ -120,16 +144,36 @@ namespace Assets.Scripts.Monsters.AbstractClass
         }
         public void Attack(IBaseEventPayload payload)
         {
-            Debug.Log("SEND");
             CombatPayload a = payload as CombatPayload;
-            Debug.Log(a.Defender.name);
             ticketMachine.SendMessage(ChannelType.Combat, payload);
         }
 
         public void ReceiveDamage(IBaseEventPayload payload)
         {
             CombatPayload combatPayload = payload as CombatPayload;
+
+            if(combatPayload.StatusEffectName != StatusEffectName.None && currentHP > 0)
+            {
+                if(statusEffect == null)
+                {
+                    Debug.LogError($"{transform.name} 상태이상 처리 로직 없음, Awake() 추가");
+                }
+                // 디버프 처리
+                statusEffect.ApplyStatusEffect(combatPayload);
+            }
+            hitComponent.Hit();
             UpdateHP(combatPayload.Damage);
+        }
+
+        [Button("몬스터 빙결 상태이상 체크", ButtonSizes.Large)]
+        public void Test()
+        {
+            ReceiveDamage(new CombatPayload
+            {
+                Damage = 1,
+                StatusEffectName = StatusEffectName.Incarceration,
+                statusEffectduration = 10.0f,
+            });
         }
 
         public void RecieveHeadShot()
@@ -140,8 +184,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
         public void UpdateHP(float damage)
         {
             if (isReturning.value) return;
-            //if (currentHP == monsterData.maxHP)
             ShowBillboard();
+
             if (isHeadShot) damage *= monsterData.weakRatio;
 
             if(battleCoroutine != null) StopCoroutine(battleCoroutine);
@@ -149,7 +193,8 @@ namespace Assets.Scripts.Monsters.AbstractClass
 
             currentHP -= damage;
             dataContainer.CurrentHp.Value = (int)currentHP;
-            isDamaged.value = true;
+
+            if (!behaviourTreeInstance.FindBlackboardKey<bool>("IsFreezing").Value) isDamaged.value = true;
 
             if (currentHP < 1)
             {
@@ -161,7 +206,16 @@ namespace Assets.Scripts.Monsters.AbstractClass
             }
             else
             {
-                audioController.PlayAudio(MonsterAudioType.Hit);
+                if (!isHeadShot)
+                {
+                    audioController.PlayAudio(MonsterAudioType.Hit);
+                    particleController.PlayParticle(MonsterParticleType.Hit);
+                }
+                else
+                {
+                    audioController.PlayAudio(MonsterAudioType.HeadShot);
+                    particleController.PlayParticle(MonsterParticleType.HeadShot);
+                }
             }
 
             isHeadShot = false;
@@ -250,6 +304,10 @@ namespace Assets.Scripts.Monsters.AbstractClass
                     HideBillobard();
                 }
             }
+        }
+        public Transform GetPlayer()
+        {
+            return player.transform;
         }
     }
 }

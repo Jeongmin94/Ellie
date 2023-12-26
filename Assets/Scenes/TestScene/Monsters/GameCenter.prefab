@@ -1,0 +1,76 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6207184824476312728
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6207184824476312730}
+  - component: {fileID: 6207184824476312731}
+  m_Layer: 0
+  m_Name: GameCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6207184824476312730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207184824476312728}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6207184824476312731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6207184824476312728}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f67bf0165d8a554985357ac39a59651, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Centers.Test.GameCenter, Assembly.Ellie
+  channelTypeSo: {fileID: 11400000, guid: cbc40e0854e2543f6bc292832c59b97f, type: 2}
+  Canvases: {fileID: 0}
+  uiPrefabs:
+  - {fileID: 5104706258619150005, guid: 4dc8354293d07c04d90209ce39fe6e3a, type: 3}
+  - {fileID: 8056075410326717546, guid: 8aa015324f5530340ba419dc5deab6ad, type: 3}
+  - {fileID: 7598413077527920233, guid: 53eeff4ee01cce54198b25165fd06187, type: 3}
+  - {fileID: 2166433793142977793, guid: f78c32f9c85843c4ba9f9f45f56963bd, type: 3}
+  - {fileID: 7484534240791527979, guid: 9c6b4cf931bbeee4b84cf70743d2a3bf, type: 3}
+  - {fileID: 2055902367612378151, guid: a92df51cb51576b4ca78012bc259f926, type: 3}
+  controllerInstances:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  player: {fileID: 0}
+  hatchery: {fileID: 0}
+  ores:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  monsterController: {fileID: 0}
+  monsters: {fileID: 0}
+  skullSecondTraps:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  stonePillarPuzzle: {fileID: 0}
+  GuideColliders: {fileID: 0}
+  curStage: 1

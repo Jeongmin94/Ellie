@@ -27,6 +27,11 @@ namespace Assets.Scripts.Monsters.Attacks
         public override void ActivateAttack()
         {
             GameObject obj = Instantiate(projectile, transform.position + offset, transform.rotation);
+            obj.GetComponent<Projectile>().SetSpeed(attackData.projectileSpeed);
+            if(attackData.projectileChase==1)
+            {
+                obj.GetComponent<Projectile>().ChasePlayer(transform.parent.GetComponent<AbstractMonster>().GetPlayer());
+            }
 
             obj.GetComponent<Projectile>().spawner = gameObject.GetComponent<ProjectileAttack>();
             StartCoroutine(StartAttackReadyCount());
@@ -52,13 +57,13 @@ namespace Assets.Scripts.Monsters.Attacks
         {
             CombatPayload payload = new();
             payload.Type = data.combatType;
-            Debug.Log("Payload Type : " + payload.Type);
             payload.Attacker = transform;
             payload.Defender = otherTransform;
             payload.AttackDirection = Vector3.zero;
             payload.AttackStartPosition = transform.position;
             payload.AttackPosition = otherTransform.position;
-            payload.PlayerStatusEffectName = StatusEffects.StatusEffectName.Burn;
+            payload.StatusEffectName = StatusEffects.StatusEffectName.Burn;
+            payload.statusEffectduration = 3.0f;
             payload.Damage = (int)data.attackValue;
             Attack(payload);
         }

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Scripts.Managers
@@ -22,6 +23,15 @@ namespace Assets.Scripts.Managers
             return go;
         }
 
+        public List<GameObject> LoadAll(string path, bool recursive = true)
+        {
+            List<GameObject> gos = new List<GameObject>();
+            
+            
+
+            return gos;
+        }
+        
         public T LoadExternResource<T>(string path) where T : Object
         {
             T resource = Resources.Load<T>($"{PrefixExtern}{path}");

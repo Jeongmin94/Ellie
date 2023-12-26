@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Scripts.Managers;
+using UnityEngine;
 
 namespace Assets.Scripts.Player
 {
@@ -12,16 +13,17 @@ namespace Assets.Scripts.Player
         public bool canAim = true;
 
         private float zoomingCoeff;
-        void Start()
-        {
-
-        }
 
         void Update()
         {
+            if (!InputManager.Instance.CanInput)
+                return;
             if (!canAim) return;
-            xAxis.Update(Time.deltaTime / Time.timeScale);
-            yAxis.Update(Time.deltaTime / Time.timeScale);
+            
+            float ts = Time.timeScale == 0f ? 1f : Time.timeScale;
+
+            xAxis.Update(Time.deltaTime / ts);
+            yAxis.Update(Time.deltaTime / ts);
 
             cameraLookAt.eulerAngles = new Vector3(yAxis.Value, xAxis.Value, 0);
         }

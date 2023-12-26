@@ -214,7 +214,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78ddb7d521940714bbfc1dd80d4a77cf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Environments.CameraShakingEffect, Assembly.Ellie
 --- !u!1 &1118183893
 GameObject:
   m_ObjectHideFlags: 0
@@ -321,8 +321,8 @@ Camera:
   m_GameObject: {fileID: 1346398095}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -417,7 +417,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1048577
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -462,6 +462,37 @@ Transform:
   m_Father: {fileID: 8457071790924498306}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 9.635, y: -13.571, z: -88.892}
+--- !u!1 &1487057442
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1487057443}
+  m_Layer: 2
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1487057443
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487057442}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4016927572337565217}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1491971374
 GameObject:
   m_ObjectHideFlags: 0
@@ -818,7 +849,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f225cfc3a1b75a743872d07bf740e399, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerLooting, Assembly.Ellie
 --- !u!1 &1740075190
 GameObject:
   m_ObjectHideFlags: 0
@@ -898,7 +929,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ee5bc0606b696834c862c9e83356bb9e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.Shooter, Assembly.Ellie
   lineRenderer: {fileID: 1833054887}
   linePoints: 25
   calculatingTime: 1
@@ -907,6 +938,7 @@ MonoBehaviour:
   chargingData: {fileID: 11400000, guid: fe7a62ed10e7c10478ec6dde2e561d6d, type: 2}
   aimTargetData: {fileID: 11400000, guid: 6c5e36dfd4a7f43acab1c66e5a52271c, type: 2}
   withPlayer: 1
+  isTargetingEnemy: 0
 --- !u!120 &1833054887
 LineRenderer:
   m_ObjectHideFlags: 0
@@ -995,7 +1027,7 @@ LineRenderer:
       atime5: 0
       atime6: 0
       atime7: 0
-      m_Mode: 0
+      m_Mode: 1
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -7164,7 +7196,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78ddb7d521940714bbfc1dd80d4a77cf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Environments.CameraShakingEffect, Assembly.Ellie
 --- !u!1 &4016927572337565216
 GameObject:
   m_ObjectHideFlags: 0
@@ -7188,6 +7220,7 @@ GameObject:
   - component: {fileID: 1523587299}
   - component: {fileID: 267577083}
   - component: {fileID: 1144504781}
+  - component: {fileID: 1878870944}
   m_Layer: 2
   m_Name: Player
   m_TagString: Player
@@ -7218,6 +7251,7 @@ Transform:
   - {fileID: 1693604417}
   - {fileID: 1346398098}
   - {fileID: 354825457}
+  - {fileID: 1487057443}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7232,7 +7266,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fdbd3ad25e979c34ea6414ff87c7dd8f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerUI, Assembly.Ellie
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
 --- !u!114 &3433591422980594333
@@ -7246,10 +7280,10 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8027749db19f86642b16a488f1dc6344, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerStatus, Assembly.Ellie
   maxHP: 20
   maxStamina: 200
-  staminaRecoveryPerSec: 10
+  staminaRecoveryPerSec: 20
   sprintStaminaConsumptionPerSec: 10
   jumpStaminaConsumption: 0
   dodgeStaminaConsumption: 40
@@ -7257,7 +7291,7 @@ MonoBehaviour:
   chargeStaminaConsumptionPerSec: 5
   healthData: {fileID: 11400000, guid: 9aee77ea84abf4e22bf0c1b635b07510, type: 2}
   staminaData: {fileID: 11400000, guid: a259df0ec05b7456eb57ba7189b51677, type: 2}
-  invulnerableTimeAfterHit: 1.5
+  invulnerableTimeAfterHit: 0.5
   isDead: 0
   isRecoveringStamina: 0
 --- !u!114 &6030200240847392581
@@ -7271,7 +7305,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f638288dc4d17c44bc5dd67da9465dc, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerController, Assembly.Ellie
   playerObj: {fileID: 3473479438722185937}
   playerCollider: {fileID: 4016927572169917174}
   orientation: {fileID: 4016927572048160162}
@@ -7283,7 +7317,7 @@ MonoBehaviour:
   sprintSpeed: 8
   dodgeSpeed: 10
   rotationSpeed: 10
-  jumpForce: 9
+  jumpForce: 10
   additionalJumpForce: 9
   jumpCooldown: 0.5
   maximumAdditionalJumpInputTime: 0.3
@@ -7310,14 +7344,14 @@ MonoBehaviour:
   slingshot: {fileID: 1909137930736894}
   rightHand: {fileID: 1725367716419406830}
   hasStone: 0
-  shooter: {fileID: 1833054885}
-  MeleeAttackCollider: {fileID: 1626558121}
+  shooter: {fileID: 1833054888}
+  meleeAttackCollider: {fileID: 1626558121}
   curStoneIdx: 0
   aimTransform: {fileID: 354825457}
   zoomMultiplier: 0.5
   recoilTime: 0.3
   stone: {fileID: 5557161655972076161, guid: 33825c72b58b00942a935503a37415e6, type: 3}
-  miningTime: 4
+  miningTime: 1
   pickaxe: {fileID: 2136787205}
   isPickaxeAvailable: 0
   curPickaxeTier: 0
@@ -7344,7 +7378,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f3bb12339e0b744cbec4b4146886772, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerAim, Assembly.Ellie
   xAxis:
     Value: 0
     m_SpeedMode: 0
@@ -7394,7 +7428,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d77062f56d5eea418d416de7fd7d02c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerAnimationEventHandler, Assembly.Ellie
 --- !u!114 &1552748587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7406,7 +7440,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c29014ea0449fd548bc599e8d2f20757, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerInteraction, Assembly.Ellie
+  outlineControllerPrefab: {fileID: 1331362273742217626, guid: 1544c6372219ed6448cbb7029809584d, type: 3}
   isInteracting: 0
 --- !u!95 &108283330
 Animator:
@@ -7456,7 +7491,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ea1257c15496c345bb03195de494479, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.StatusEffects.PlayerStatusEffectController,
+    Assembly.Ellie
 --- !u!136 &1523587310
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -7482,7 +7518,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e4ac7b9f0eda0304ca0d33b10a55017c, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerInventory, Assembly.Ellie
   consumableEquipmentSlot:
   - groupType: 1
     index: 0
@@ -7520,7 +7556,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e6db831980fd61c48b0ad0cbf6242770, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Environments.FadeObjectBlockingObject,
+    Assembly.Ellie
   LayerMask:
     serializedVersion: 2
     m_Bits: 3072
@@ -7542,7 +7579,16 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6affbb72b17d351408e34d137f197a63, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerQuest, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
   isPlaying: 0
 --- !u!114 &1144504781
 MonoBehaviour:
@@ -7555,7 +7601,24 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2de266ccd7bb1d34ebbb4c753ff22049, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.PlayerSaveLoad, Assembly.Ellie
+--- !u!114 &1878870944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4016927572337565216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
+    Assembly.Ellie
+  modelMaterial: {fileID: 2100000, guid: 5dd8de00ede3fa84ea9e8726a78ebf61, type: 2}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitDuration: 0.5
+  returnDuration: 0.2
 --- !u!1 &4016927572422116014
 GameObject:
   m_ObjectHideFlags: 0
@@ -7639,7 +7702,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 78ddb7d521940714bbfc1dd80d4a77cf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Environments.CameraShakingEffect, Assembly.Ellie
 --- !u!1 &4016927573013624958
 GameObject:
   m_ObjectHideFlags: 0
@@ -8247,7 +8310,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7081990673131531117}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 167.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8275,6 +8338,7 @@ SkinnedMeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 5dd8de00ede3fa84ea9e8726a78ebf61, type: 2}
+  - {fileID: 2100000, guid: 8c57844d5b90a424eb982b8dfb75dcda, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -8982,7 +9046,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1ad52945635a9404a828f58d138ce4b1, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: Assets.Scripts.Equipments.Pickaxe, Assembly.Ellie
 --- !u!4 &4692122521253568810 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4692122520935946692, guid: 35b7c9f0fe348de4eaa1467263cde907, type: 3}

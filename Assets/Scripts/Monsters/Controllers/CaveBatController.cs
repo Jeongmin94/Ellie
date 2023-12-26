@@ -15,12 +15,21 @@ using static Assets.Scripts.Monsters.Utility.Enums;
 namespace Assets.Scripts.Monsters
 {
     public class CaveBatController : AbstractMonster, ICombatant
-    {        
-        private void Awake()
+    {
+        private enum ParshingSkills
         {
+            MeleeAttack = 2010,
+            Flee = 2011,
+            RunToPlayer = 2012,
+        }
+
+        protected override void Awake()
+        {
+            base.Awake();
+
             behaviourTreeInstance = GetComponent<BehaviourTreeInstance>();
             audioController = GetComponent<MonsterAudioController>();
-
+            
             SetTicketMachine();
         }
 
@@ -47,9 +56,9 @@ namespace Assets.Scripts.Monsters
                 attackData[i] = null;
             }
 
-            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2010);
-            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2012);
-            attackData[(int)AttackSkill.Flee]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>(2011);
+            attackData[(int)AttackSkill.BoxCollider]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.MeleeAttack);
+            attackData[(int)AttackSkill.RunToPlayer] = DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.RunToPlayer);
+            attackData[(int)AttackSkill.Flee]= DataManager.Instance.GetIndexData<MonsterAttackData, MonsterAttackDataparsingInfo>((int)ParshingSkills.Flee);
 
             for (int i = 0; i < (int)AttackSkill.End; i++)
             {
@@ -57,7 +66,6 @@ namespace Assets.Scripts.Monsters
                 if (temp == null) continue;
 
                 AbstractAttack tempAttack = AddSkills(temp.attackName, temp.attackType);
-                Debug.Log(temp.attackName);
 
                 switch (temp.attackType)
                 {

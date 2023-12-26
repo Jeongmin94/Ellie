@@ -16,7 +16,14 @@ namespace Assets.Scripts.Managers
         public Action keyAction;
         public Action mouseAction;
         public Action escapeAction;
-        public bool CanInput { get; set; } = true;
+
+        private bool canInput = false;
+        public bool CanInput
+        {
+            get { return canInput; }
+            set { canInput = value; Debug.Log($"호출시점 확인 :: 인풋 매니저 밸류 {value}"); }
+        }
+        public bool PrevCanInput { get; private set; } = false;
 
         private bool isMousePressed = false;
 
@@ -47,6 +54,10 @@ namespace Assets.Scripts.Managers
             if (Input.GetKeyDown(KeyCode.Escape))
                 escapeAction?.Invoke();
 
+            PrevCanInput = CanInput;
+            if (!CanInput)
+                return;
+
             if (EventSystem.current && EventSystem.current.IsPointerOverGameObject())
                 return;
 
@@ -65,7 +76,6 @@ namespace Assets.Scripts.Managers
 
                 isMousePressed = false;
             }
-            
         }
 
         public override void ClearAction()

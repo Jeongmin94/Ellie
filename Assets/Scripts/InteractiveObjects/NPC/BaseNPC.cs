@@ -4,11 +4,18 @@ using Assets.Scripts.Player;
 using Channels.UI;
 using System;
 using System.Collections;
+using Outline;
 using UnityEngine;
 
 namespace Assets.Scripts.InteractiveObjects.NPC
 {
-    public class BaseNPC : MonoBehaviour, IInteractiveObject
+    public enum NpcType
+    {
+        TalkingSkullEldest,
+        TalkingSkullSecond,
+        TalkingSkullYoungest,
+    }
+    public class BaseNPC : InteractiveObject
     {
         //NPC 및 퀘스트 데이터
         protected NPCData npcData;
@@ -26,10 +33,11 @@ namespace Assets.Scripts.InteractiveObjects.NPC
         protected PlayerQuest player;
 
         //npc 로직 완료 후 비활성화 시 실행해줄 이벤트
-        protected Action<string> OnDisableAction;
+        protected Action<NpcType> OnDisableAction;
 
         [SerializeField] private int NPCIndex;
         [SerializeField] private float rotationSpeed;
+        [SerializeField] private Renderer renderer;
 
         WaitForEndOfFrame wff = new WaitForEndOfFrame();
 
@@ -41,31 +49,19 @@ namespace Assets.Scripts.InteractiveObjects.NPC
                 NPCObj = transform.GetChild(0);
         }
 
-        private void Start()
-        {
-            
-        }
-
         protected void Init()
         {
             StartCoroutine(InitCoroutine());
         }
+        
         private IEnumerator InitCoroutine()
         {
             yield return DataManager.Instance.CheckIsParseDone();
             npcData = DataManager.Instance.GetIndexData<NPCData, NPCDataParsingInfo>(NPCIndex);
-            //questDataDict = new();
-            //foreach(int dataIdx in npcData.questList)
-            //{
-            //    QuestData data = DataManager.Instance.GetIndexData<QuestData, QuestDataParsingInfo>(dataIdx);
-            //    questDataDict.Add(dataIdx, data);
-            //}
-            //curQuestData = questDataDict[npcData.questList[0]];
         }
-        public virtual void Interact(GameObject obj)
+        public override void Interact(GameObject obj)
         {
             player = obj.GetComponent<PlayerQuest>();
-            //LookAtPlayer();
         }
 
         protected void LookAtPlayer()
@@ -113,12 +109,22 @@ namespace Assets.Scripts.InteractiveObjects.NPC
             NPCObj.rotation = targetRotation;
         }
 
-        public InteractiveType GetInteractiveType()
+        public override InteractiveType GetInteractiveType()
         {
             return interactiveType;
         }
 
-        public void SubscribeOnDisableAction(Action<string> listener)
+        public override OutlineType GetOutlineType()
+        {
+            return OutlineType.InteractiveOutline;
+        }
+
+        public override Renderer GetRenderer()
+        {
+            return renderer;
+        }
+
+        public void SubscribeOnDisableAction(Action<NpcType> listener)
         {
             OnDisableAction -= listener;
             OnDisableAction += listener;
