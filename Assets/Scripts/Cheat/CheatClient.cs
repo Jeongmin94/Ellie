@@ -250,7 +250,7 @@ public class CheatClient : SerializedMonoBehaviour
     ///     보스 치트키
     /// </summary>
     [Title("보스 치트키")]
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("1페이즈 스킵", ButtonSizes.Large)]
     public void KillTerrapupa()
     {
@@ -258,7 +258,7 @@ public class CheatClient : SerializedMonoBehaviour
         terrapupa.GetComponent<TerrapupaBTController>().Dead();
     }
 
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("2페이즈 스킵", ButtonSizes.Large)]
     public void KillTerraAndPupa()
     {
@@ -268,7 +268,7 @@ public class CheatClient : SerializedMonoBehaviour
         pupa.GetComponent<TerrapupaBTController>().Dead();
     }
 
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("3페이즈 스킵", ButtonSizes.Large)]
     public void KillMinions()
     {
@@ -280,7 +280,7 @@ public class CheatClient : SerializedMonoBehaviour
         }
     }
 
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("테라푸파 데미지", ButtonSizes.Large)]
     public void DamageTerrapupa()
     {
@@ -295,7 +295,7 @@ public class CheatClient : SerializedMonoBehaviour
         }
     }
 
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("테라푸파 데미지", ButtonSizes.Large)]
     public void DeactivateBoss()
     {
@@ -314,8 +314,7 @@ public class CheatClient : SerializedMonoBehaviour
     ///     아이템 치트키
     /// </summary>
     [Title("아이템 획득")]
-    [EnableIf("IsRuntime")]
-    [EnableIf("IsParsingDone")]
+    [HideInEditorMode]
     [Button("아이템 획득", ButtonSizes.Large)]
     public void AddItem()
     {
@@ -361,7 +360,7 @@ public class CheatClient : SerializedMonoBehaviour
     ///     기타
     /// </summary>
     [Title("기타")]
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("엔딩 스킵", ButtonSizes.Large)]
     public void SkipToEnding()
     {
@@ -370,7 +369,7 @@ public class CheatClient : SerializedMonoBehaviour
         SceneLoadManager.Instance.LoadScene(SceneName.Closing);
     }
 
-    [EnableIf("IsRuntime")]
+    [HideInEditorMode]
     [Button("캔버스 켰다끄기", ButtonSizes.Large)]
     public void OnOffCanvas()
     {

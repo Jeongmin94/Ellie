@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
   m_Name: TerrapupaMinionDead
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TheKiwiCoder.BehaviourTree, Assembly.Ellie
   rootNode:
     rid: 1401849175978016768
   nodes:
@@ -61,8 +61,8 @@ MonoBehaviour:
     - rid: 1683426571690704898
     - rid: 1683426571690704900
     - rid: 116448479611715584
-  viewPosition: {x: 2112.8, y: 939.2, z: 0}
-  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
+  viewPosition: {x: 2413.6, y: 1064.8, z: 0}
+  viewScale: {x: 0.7561437, y: 0.7561437, z: 1}
   references:
     version: 2
     RefIds:
@@ -89,6 +89,10 @@ MonoBehaviour:
           reference:
             rid: 116448479611715584
           defaultValue: 
+        isUISfx:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011090204065825
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:
@@ -806,6 +810,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 0
         isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        loopCount:
           reference:
             rid: -2
           defaultValue: 0

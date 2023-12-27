@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d285eb63c2cdd74180de7cfceaa96ad, type: 3}
   m_Name: TerrapupaMinionAttack
-  m_EditorClassIdentifier: 
+  m_EditorClassIdentifier: TheKiwiCoder.BehaviourTree, Assembly.Ellie
   rootNode:
     rid: 1401849175978016768
   nodes:
@@ -432,6 +432,10 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: 0
+        loopCount:
+          reference:
+            rid: -2
+          defaultValue: 0
     - rid: 283011470369751055
       type: {class: AddParticleToTarget, ns: , asm: Assembly.Ellie}
       data:
@@ -464,6 +468,10 @@ MonoBehaviour:
             rid: -2
           defaultValue: 0
         isFollowOrigin:
+          reference:
+            rid: -2
+          defaultValue: 0
+        loopCount:
           reference:
             rid: -2
           defaultValue: 0
