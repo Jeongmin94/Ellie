@@ -255,7 +255,7 @@ public class CheatClient : SerializedMonoBehaviour
     public void KillTerrapupa()
     {
         Debug.Log("테라푸파 사망 치트");
-        terrapupa.GetComponent<TerrapupaBTController>().Dead();
+        terrapupa.GetComponent<TerrapupaBehaviourController>().Dead();
     }
 
     [HideInEditorMode]
@@ -264,8 +264,8 @@ public class CheatClient : SerializedMonoBehaviour
     {
         Debug.Log("테라, 푸파 사망 치트");
 
-        terra.GetComponent<TerrapupaBTController>().Dead();
-        pupa.GetComponent<TerrapupaBTController>().Dead();
+        terra.GetComponent<TerrapupaBehaviourController>().Dead();
+        pupa.GetComponent<TerrapupaBehaviourController>().Dead();
     }
 
     [HideInEditorMode]
@@ -276,7 +276,7 @@ public class CheatClient : SerializedMonoBehaviour
 
         foreach (var minion in minions)
         {
-            minion.GetComponent<TerrapupaMinionBTController>().Dead();
+            minion.GetComponent<TerrapupaMinionBehaviourController>().Dead();
         }
     }
 
@@ -286,12 +286,12 @@ public class CheatClient : SerializedMonoBehaviour
     {
         Debug.Log("테라, 푸파 데미지 입히기");
 
-        terrapupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
-        terra.GetComponent<TerrapupaBTController>().GetDamaged(1);
-        pupa.GetComponent<TerrapupaBTController>().GetDamaged(1);
+        terrapupa.GetComponent<TerrapupaBehaviourController>().GetDamaged(1);
+        terra.GetComponent<TerrapupaBehaviourController>().GetDamaged(1);
+        pupa.GetComponent<TerrapupaBehaviourController>().GetDamaged(1);
         foreach (var minion in minions)
         {
-            minion.GetComponent<TerrapupaMinionBTController>().GetDamaged(1);
+            minion.GetComponent<TerrapupaMinionBehaviourController>().GetDamaged(1);
         }
     }
 

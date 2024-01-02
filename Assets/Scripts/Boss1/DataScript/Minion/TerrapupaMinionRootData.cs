@@ -1,4 +1,5 @@
-﻿using TheKiwiCoder;
+﻿using Sirenix.OdinInspector;
+using TheKiwiCoder;
 using UnityEngine;
 
 namespace Boss1.DataScript.Minion
@@ -6,15 +7,19 @@ namespace Boss1.DataScript.Minion
     [CreateAssetMenu(fileName = "Root", menuName = "Terrapupa/MinionRoot")]
     public class TerrapupaMinionRootData : BaseBTData
     {
-        [Header("기본 수치")] [Tooltip("보스 이름")] public string bossName;
+        [Header("기본 수치")] 
+        [InfoBox("보스 이름")] public string bossName;
+        [InfoBox("보스의 체력")] public int hp = 5;
 
-        [Tooltip("보스의 체력")] public int hp = 5;
+        [Header("미니언 특성")] 
+        [InfoBox("패턴 전환 시간")] public float transferTime = 2.0f;
 
-        [Header("미니언 특성")] [Tooltip("패턴 전환 시간")]
-        public float transferTime = 2.0f;
-
-        [Header("공격 감지 범위")] [Tooltip("감지 범위")]
-        public float attackDetectionDistance = 4.0f;
+        [Header("공격 감지 범위")]
+        [InfoBox("감지 범위")] public float attackDetectionDistance = 4.0f;
+        
+        [Title("피격시 카메라 강도")] 
+        [InfoBox("카메라 흔들림 강도")] public float cameraShakeIntensity = 0.05f;
+        [InfoBox("카메라 흔들림 지속시간")] public float cameraShakeDuration = 0.05f;
 
         public BlackboardKey<bool> canAttack;
         public BlackboardKey<int> currentHP;

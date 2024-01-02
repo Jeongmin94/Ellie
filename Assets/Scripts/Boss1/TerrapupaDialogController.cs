@@ -158,12 +158,12 @@ namespace Boss1
 
         private void OnNotifyBossDialog(IBaseEventPayload payload)
         {
-            if (payload is not BossDialogPaylaod dialogPayload)
+            if (payload is not TerrapupaDialogPaylaod dialogPayload)
             {
                 return;
             }
 
-            if (dialogPayload.TriggerType == BossDialogTriggerType.None)
+            if (dialogPayload.TriggerType == TerrapupaDialogTriggerType.None)
             {
                 return;
             }
@@ -186,23 +186,23 @@ namespace Boss1
 
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
-            if (payload is not BossBattlePayload battlePayload)
+            if (payload is not TerrapupaBattlePayload battlePayload)
             {
                 return;
             }
 
             Debug.Log(battlePayload.SituationType);
 
-            if (battlePayload.SituationType == BossSituationType.EnterBossRoom)
+            if (battlePayload.SituationType == TerrapupaSituationType.EnterBossRoom)
             {
-                var hasDialogAchievement = dialogAchievementDic.ContainsKey((int)BossDialogTriggerType.EnterBossRoom)
-                                           && dialogAchievementDic[(int)BossDialogTriggerType.EnterBossRoom];
+                var hasDialogAchievement = dialogAchievementDic.ContainsKey((int)TerrapupaDialogTriggerType.EnterBossRoom)
+                                           && dialogAchievementDic[(int)TerrapupaDialogTriggerType.EnterBossRoom];
 
                 if ((currentData == null && hasDialogAchievement) ||
-                    (currentData != null && currentData.index == (int)BossSituationType.EnterBossRoom &&
+                    (currentData != null && currentData.index == (int)TerrapupaSituationType.EnterBossRoom &&
                      hasDialogAchievement))
                 {
-                    BossBattleChannel.SendMessageBossBattle(BossSituationType.StartBattle, ticketMachine);
+                    TerrapupaBattleChannel.SendMessage(TerrapupaSituationType.StartBattle, ticketMachine);
                 }
             }
         }
@@ -243,8 +243,8 @@ namespace Boss1
             }
 
             // 상황 별 이벤트 재생
-            var bossDialogType = dialogList[currentIndex].bossDialogType;
-            if (bossDialogType != BossSituationType.None)
+            var bossDialogType = dialogList[currentIndex].terrapupaDialogType;
+            if (bossDialogType != TerrapupaSituationType.None)
             {
                 SendBossDialogMessage(bossDialogType);
             }
@@ -291,9 +291,9 @@ namespace Boss1
             ticketMachine.SendMessage(ChannelType.Dialog, dPayload);
         }
 
-        private void SendBossDialogMessage(BossSituationType type)
+        private void SendBossDialogMessage(TerrapupaSituationType type)
         {
-            var payload = new BossBattlePayload { SituationType = type };
+            var payload = new TerrapupaBattlePayload { SituationType = type };
             ticketMachine.SendMessage(ChannelType.BossBattle, payload);
         }
 
@@ -309,9 +309,9 @@ namespace Boss1
         }
 
         [Button]
-        private void SendMessageBossDialog(BossDialogTriggerType type = BossDialogTriggerType.EnterBossRoom)
+        private void SendMessageBossDialog(TerrapupaDialogTriggerType type = TerrapupaDialogTriggerType.EnterBossRoom)
         {
-            var dPayload = new BossDialogPaylaod { TriggerType = type };
+            var dPayload = new TerrapupaDialogPaylaod { TriggerType = type };
             ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
         }
 

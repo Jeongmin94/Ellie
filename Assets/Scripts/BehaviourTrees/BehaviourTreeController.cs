@@ -45,24 +45,14 @@ public abstract class BaseBTData : ScriptableObject
 
 public class BehaviourTreeController : SerializedMonoBehaviour
 {
-    [SerializeField] protected BehaviourTreeInstance behaviourTreeInstance;
     [SerializeField] protected BaseBTData rootTreeData;
-    [SerializeField] protected Transform billboardObject;
     [SerializeField] private List<BaseBTData> settingList;
-
-    [SerializeField] private Transform cameraObj;
-    private bool isBillboardOn;
-
+    
     protected virtual void Awake()
     {
-        cameraObj = Camera.main.transform;
+        // 추후 추가사항
     }
-
-    private void LateUpdate()
-    {
-        MonsterOnPlayerForward();
-    }
-
+    
     public void InitRootTree(BehaviourTree tree)
     {
         if (tree != null)
@@ -110,35 +100,6 @@ public class BehaviourTreeController : SerializedMonoBehaviour
         {
             data.Tree = tree;
             data.Init(tree);
-        }
-    }
-
-    public void ShowBillboard()
-    {
-        billboardObject.transform.localScale = Vector3.one;
-        isBillboardOn = true;
-    }
-
-    public void HideBillboard()
-    {
-        billboardObject.transform.localScale = Vector3.zero;
-    }
-
-    public void MonsterOnPlayerForward()
-    {
-        if (isBillboardOn)
-        {
-            var direction = transform.position - cameraObj.position;
-            var dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
-
-            if (dot > -0.6f)
-            {
-                ShowBillboard();
-            }
-            else
-            {
-                HideBillboard();
-            }
         }
     }
 }

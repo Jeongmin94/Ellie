@@ -36,7 +36,7 @@ namespace Boss1.BossRoomObjects
             // 제한시간(60초)안에 못열면 다이얼로그 출력
             yield return new WaitForSeconds(doorTimeLimit);
 
-            BossDialogChannel.SendMessage(BossDialogTriggerType.FailedToOpenDoor, ticketMachine);
+            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.FailedToOpenDoor, ticketMachine);
             EmphasizedDoor();
         }
 
@@ -59,7 +59,7 @@ namespace Boss1.BossRoomObjects
 
         private void OpenDoor()
         {
-            var payload = new BossBattlePayload { SituationType = BossSituationType.OpenLeftDoor };
+            var payload = new TerrapupaBattlePayload { SituationType = TerrapupaSituationType.OpenLeftDoor };
             ticketMachine.SendMessage(ChannelType.BossBattle, payload);
 
             leftDoor.OpenDoor(-openAngle, openSpeedTime);

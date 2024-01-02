@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Channels.Boss;
 using Channels.Dialog;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Data.GoogleSheet._8100BossDialog
 {
@@ -25,7 +26,7 @@ namespace Data.GoogleSheet._8100BossDialog
     public struct BossDialog
     {
         // 상황 타입
-        public BossSituationType bossDialogType;
+        [FormerlySerializedAs("bossDialogType")] public TerrapupaSituationType terrapupaDialogType;
 
         // 다이얼로그 출력 타입
         public DialogCanvasType dialogCanvasType;
@@ -92,9 +93,9 @@ namespace Data.GoogleSheet._8100BossDialog
                     // dialogList에 대화 추가
                     var dialog = new BossDialog
                     {
-                        bossDialogType = entries[3].Trim() == "-"
-                            ? BossSituationType.None
-                            : (BossSituationType)Enum.Parse(typeof(BossSituationType), entries[3].Trim()),
+                        terrapupaDialogType = entries[3].Trim() == "-"
+                            ? TerrapupaSituationType.None
+                            : (TerrapupaSituationType)Enum.Parse(typeof(TerrapupaSituationType), entries[3].Trim()),
                         dialogCanvasType = (DialogCanvasType)Enum.Parse(typeof(DialogCanvasType), entries[4].Trim()),
                         speaker = int.Parse(entries[5].Trim()),
                         dialog = entries[6].Trim(),

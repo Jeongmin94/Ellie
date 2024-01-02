@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Assets.Scripts.Managers;
 using Boss1.BossRoomObjects;
 using Boss1.Terrapupa;
 using Boss1.TerrapupaMinion;
@@ -27,11 +26,11 @@ namespace Boss1
         private const int GOLEM_CORE_INDEX = 4021;
 
         [Title("테라푸파 보스 객체")] [SerializeField] [Required]
-        private TerrapupaBTController terrapupa;
+        private TerrapupaBehaviourController terrapupa;
 
-        [SerializeField] [Required] private TerrapupaBTController terra;
-        [SerializeField] [Required] private TerrapupaBTController pupa;
-        [SerializeField] [Required] private List<TerrapupaMinionBTController> minions;
+        [SerializeField] [Required] private TerrapupaBehaviourController terra;
+        [SerializeField] [Required] private TerrapupaBehaviourController pupa;
+        [SerializeField] [Required] private List<TerrapupaMinionBehaviourController> minions;
         [SerializeField] [Required] private PlayerController player;
 
         [Title("현재 페이즈 상태 체크용")] [SerializeField] [ReadOnly]
@@ -147,20 +146,20 @@ namespace Boss1
 
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
-            if (payload is not BossBattlePayload bPayload)
+            if (payload is not TerrapupaBattlePayload bPayload)
             {
                 return;
             }
 
             switch (bPayload.SituationType)
             {
-                case BossSituationType.StartBattle:
+                case TerrapupaSituationType.StartBattle:
                     OnStartBattle();
                     break;
-                case BossSituationType.StartSeconPhase:
+                case TerrapupaSituationType.StartSeconPhase:
                     OnStartSecondPhase();
                     break;
-                case BossSituationType.StartThirdPhase:
+                case TerrapupaSituationType.StartThirdPhase:
                     //OnStartThirdPhase(bPayload.Sender);
                     break;
             }
@@ -178,7 +177,7 @@ namespace Boss1
             Debug.Log("OnStartSeconPhase()");
             // 테라, 푸파 활성화
             SpawnTerraAndPupa();
-            BossDialogChannel.SendMessage(BossDialogTriggerType.StartSecondPhase, ticketMachine);
+            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.StartSecondPhase, ticketMachine);
         }
 
         private void OnStartThirdPhase(Transform boss)
@@ -186,7 +185,7 @@ namespace Boss1
             Debug.Log("OnStartThirdPhase()");
             // 테라, 푸파 활성화
             SpawnMinions(boss.position);
-            BossDialogChannel.SendMessage(BossDialogTriggerType.StartThirdPhase, ticketMachine);
+            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.StartThirdPhase, ticketMachine);
         }
 
         private void OnSpawnStone(IBaseEventPayload payload)
@@ -194,7 +193,7 @@ namespace Boss1
             Debug.Log("OnSpawnStone :: 보스의 돌맹이 줍기");
             var stonePayload = payload as BossEventPayload;
 
-            var actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
+            var actor = stonePayload.Sender.GetComponent<TerrapupaBehaviourController>();
 
             actor.Stone.gameObject.SetActive(true);
         }
@@ -204,7 +203,7 @@ namespace Boss1
             Debug.Log("OnThrowStone :: 보스의 돌맹이 던지기");
 
             var stonePayload = payload as BossEventPayload;
-            var actor = stonePayload.Sender.GetComponent<TerrapupaBTController>();
+            var actor = stonePayload.Sender.GetComponent<TerrapupaBehaviourController>();
 
             var stone = Instantiate(actor.Stone.gameObject, transform);
             stone.GetComponent<TerrapupaStone>().Init(actor.Stone.position, actor.transform.localScale,
@@ -282,7 +281,7 @@ namespace Boss1
             if (hitBossTransform != null)
             {
                 hitBossTransform = hitBossTransform.GetComponent<TerrapupaDetection>().MyTerrapupa;
-                var hitBossControllers = hitBossTransform.GetComponent<TerrapupaBTController>();
+                var hitBossControllers = hitBossTransform.GetComponent<TerrapupaBehaviourController>();
                 if (hitBossControllers?.terrapupaData != null)
                 {
                     hitBossControllers.terrapupaData.hitEarthQuake.Value = true;
@@ -304,7 +303,7 @@ namespace Boss1
             var target = magicStonePayload.TransformValue2;
             if (target)
             {
-                var actor = target.GetComponent<TerrapupaBTController>();
+                var actor = target.GetComponent<TerrapupaBehaviourController>();
 
                 actor.AttractMagicStone(magicStone);
             }
@@ -322,7 +321,7 @@ namespace Boss1
             var target = magicStonePayload.TransformValue2;
             if (target)
             {
-                var bossController = target.GetComponent<TerrapupaBTController>();
+                var bossController = target.GetComponent<TerrapupaBehaviourController>();
                 bossController.UnattractMagicStone();
             }
         }
@@ -333,7 +332,7 @@ namespace Boss1
 
             var payload = bossPayload as BossEventPayload;
 
-            var actor = payload.Sender.GetComponent<TerrapupaBTController>();
+            var actor = payload.Sender.GetComponent<TerrapupaBehaviourController>();
             var _magicStone = payload.TransformValue1;
             var healValue = payload.IntValue;
 
@@ -342,7 +341,7 @@ namespace Boss1
             if (!actor.IsDead && healValue != 0 && !isFirstTerrapupaHeal)
             {
                 isFirstTerrapupaHeal = true;
-                BossDialogChannel.SendMessage(BossDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
+                TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
             }
 
             if (_magicStone != null)
@@ -381,16 +380,17 @@ namespace Boss1
                         Debug.Log("골렘의 눈 드랍");
                         var position = payload.Sender.position;
 
-                        DropStoneItem(position, GOLEM_CORE_INDEX);
+                        StoneChannel.DropStone(ticketMachine, position, GOLEM_CORE_INDEX);
+                        
                         golemCoreCount++;
                         if (golemCoreCount == 1)
                         {
-                            BossDialogChannel.SendMessage(BossDialogTriggerType.GetGolemCoreFirstTime,
+                            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.GetGolemCoreFirstTime,
                                 ticketMachine);
                         }
                         else if (golemCoreCount == 2)
                         {
-                            BossDialogChannel.SendMessage(BossDialogTriggerType.DieAllMinions, ticketMachine);
+                            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.DieAllMinions, ticketMachine);
                         }
                     }
                 }
@@ -408,7 +408,7 @@ namespace Boss1
 
             Debug.Log("OnHitStone :: 보스가 돌에 맞음");
 
-            var target = bossPayload.TransformValue1.GetComponent<TerrapupaBTController>().terrapupaData;
+            var target = bossPayload.TransformValue1.GetComponent<TerrapupaBehaviourController>().terrapupaData;
             target.hitThrowStone.Value = true;
         }
 
@@ -473,7 +473,7 @@ namespace Boss1
                 Debug.Log($"Raycast distance: {hit.distance}");
                 if (!isJumping)
                 {
-                    var bossController = boss.GetComponent<TerrapupaBTController>();
+                    var bossController = boss.GetComponent<TerrapupaBehaviourController>();
                     HitedPlayer(boss, playerTransform, payload.CombatPayload);
                 }
             }
@@ -529,7 +529,7 @@ namespace Boss1
             if (!isFirstDestroyAllManaFountain)
             {
                 isFirstDestroyAllManaFountain = true;
-                BossDialogChannel.SendMessage(BossDialogTriggerType.DestroyAllManaFountains, ticketMachine);
+                TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.DestroyAllManaFountains, ticketMachine);
             }
         }
 
@@ -538,7 +538,7 @@ namespace Boss1
             Debug.Log("ApplyBossAttackCooldown :: 쿨타임 적용");
             var payload = cooldownPayload as BossEventPayload;
 
-            var bossController = payload.Sender.GetComponent<TerrapupaBTController>();
+            var bossController = payload.Sender.GetComponent<TerrapupaBehaviourController>();
             var cooldown = payload.FloatValue;
             var banType = payload.AttackTypeValue;
 
@@ -549,7 +549,7 @@ namespace Boss1
         {
             var payload = bossPayload as BossEventPayload;
 
-            var bossController = payload.Sender.GetComponent<TerrapupaBTController>();
+            var bossController = payload.Sender.GetComponent<TerrapupaBehaviourController>();
             var magicStone = payload.TransformValue1;
 
             // 지속시간 체크 정지
@@ -563,7 +563,7 @@ namespace Boss1
 
         private IEnumerator MinionAttackCooldown(BossEventPayload payload)
         {
-            var minionController = payload.Sender.GetComponent<TerrapupaMinionBTController>();
+            var minionController = payload.Sender.GetComponent<TerrapupaMinionBehaviourController>();
             Debug.Log($"{minionController} 공격 봉인");
             minionController.minionData.canAttack.Value = false;
 
@@ -673,24 +673,13 @@ namespace Boss1
                 minion.transform.position = position;
                 minion.minionData.player.Value = player.transform;
 
-                minion.HideBillboard();
+                minion.HealthBar.HideBillboard();
 
                 // 미니언 인덱스 갱신 ( +1 )
                 currentMinionSpawnIndex = (currentMinionSpawnIndex + 1) % minions.Count;
             }
         }
-
-        public void DropStoneItem(Vector3 position, int index)
-        {
-            ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload
-            {
-                Type = StoneEventType.MineStone,
-                StoneSpawnPos = position,
-                StoneForce = GetRandVector(),
-                StoneIdx = index
-            });
-        }
-
+        
         private void CheckFalling(Transform target)
         {
             LayerMask groundMask = LayerMask.GetMask("Ground");
@@ -720,13 +709,7 @@ namespace Boss1
                 targetPlayer.Value = player.transform;
             }
         }
-
-        private Vector3 GetRandVector()
-        {
-            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
-            return vec.normalized;
-        }
-
+        
         #endregion
     }
 }

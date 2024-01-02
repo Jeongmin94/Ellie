@@ -5,6 +5,7 @@ using Channels.Components;
 using Channels.Stone;
 using Channels.Type;
 using Managers.Event;
+using Managers.Particle;
 using Managers.Sound;
 using UnityEngine;
 
@@ -12,7 +13,6 @@ namespace Boss1.BossRoomObjects
 {
     public class ManaFountain : MonoBehaviour
     {
-        [SerializeField] private Transform spawnPosition;
         [SerializeField] private GameObject hitEffect;
         [SerializeField] private Light lightComponent;
         [SerializeField] private string manaHitSound = "ManaFountainHit";
@@ -23,13 +23,11 @@ namespace Boss1.BossRoomObjects
         public float lightIntensity = 15.0f;
         public float changeLightTime = 1.0f;
         public TerrapupaAttackType banBossAttackType;
-        public readonly int MAGICSTONE_INDEX = 4020;
 
-        public readonly int NORMALSTONE_INDEX = 4000;
+        private readonly int MAGICSTONE_INDEX = 4020;
+        private readonly int NORMALSTONE_INDEX = 4000;
 
         private TicketMachine ticketMachine;
-
-        public Vector3 SpawnPosition => spawnPosition.position;
 
         public bool IsCooldown { get; set; }
 
@@ -39,32 +37,33 @@ namespace Boss1.BossRoomObjects
         {
             lightComponent = GetComponentInChildren<Light>();
         }
+        
+        public void InitTicketMachine(TicketMachine ticketMachine)
+        {
+            this.ticketMachine = ticketMachine;
+        }
 
         private void OnTriggerEnter(Collider other)
         {
             if (!IsBroken)
             {
+                var target = other.transform;
                 if (other.transform.CompareTag("Stone") && !IsCooldown)
                 {
                     Debug.Log($"{other.name} 돌맹이 충돌");
-                    SpawnMagicStone();
+                    SpawnMagicStone(target.position);
                 }
                 else if (other.transform.CompareTag("Boss"))
                 {
                     Debug.Log($"{other.name} 보스 충돌");
-                    DestroyManaFounatainByBoss(other.transform);
+                    DestroyManaFounatainByBoss(target.position, target);
                 }
                 else if (other.transform.CompareTag("BattleObject"))
                 {
                     Debug.Log($"{other.name} 보스 바위 충돌");
-                    DestroyManaFountainByBossStone(other.transform);
+                    DestroyManaFountainByBossStone(target.position, target);
                 }
             }
-        }
-
-        public void InitTicketMachine(TicketMachine ticketMachine)
-        {
-            this.ticketMachine = ticketMachine;
         }
 
         public void DestroyManaFountain()
@@ -83,7 +82,7 @@ namespace Boss1.BossRoomObjects
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, manaRegenerateSound, transform.position);
         }
 
-        private void SpawnMagicStone()
+        private void SpawnMagicStone(Vector3 position)
         {
             IsCooldown = true;
 
@@ -94,54 +93,50 @@ namespace Boss1.BossRoomObjects
                 {
                     TransformValue1 = transform
                 });
-        }
-
-        private void DestroyManaFounatainByBoss(Transform other)
-        {
-            IsBroken = true;
-
-            EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                new BossEventPayload
-                {
-                    PrefabValue = hitEffect,
-                    TransformValue1 = transform,
-                    AttackTypeValue = banBossAttackType,
-                    Sender = other.transform.root
-                });
-        }
-
-        private void DestroyManaFountainByBossStone(Transform other)
-        {
-            IsBroken = true;
-
-            EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
-                new BossEventPayload
-                {
-                    PrefabValue = hitEffect,
-                    TransformValue1 = transform,
-                    TransformValue2 = other.transform,
-                    AttackTypeValue = banBossAttackType,
-                    Sender = other.transform
-                });
-
-            Debug.Log("Mine Stone : " + MAGICSTONE_INDEX);
-            for (var i = 0; i < 3; i++)
+            
+            for (int i = 0; i < 3; i++)
             {
-                ticketMachine.SendMessage(ChannelType.Stone,
-                    new StoneEventPayload
-                    {
-                        Type = StoneEventType.MineStone,
-                        StoneSpawnPos = spawnPosition.position,
-                        StoneForce = GetRandVector(),
-                        StoneIdx = NORMALSTONE_INDEX
-                    });
+                StoneChannel.DropStone(ticketMachine, position, MAGICSTONE_INDEX);
             }
         }
 
-        private Vector3 GetRandVector()
+        private void DestroyManaFounatainByBoss(Vector3 position, Transform other)
         {
-            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
-            return vec.normalized;
+            IsBroken = true;
+
+            EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
+                new BossEventPayload
+                {
+                    TransformValue1 = transform,
+                    AttackTypeValue = banBossAttackType,
+                    Sender = other.root
+                });
+            
+            ParticleManager.Instance.GetParticle(hitEffect, position, 0.7f);
+            for (int i = 0; i < 3; i++)
+            {
+                StoneChannel.DropStone(ticketMachine, position, NORMALSTONE_INDEX);
+            }
+        }
+
+        private void DestroyManaFountainByBossStone(Vector3 position, Transform other)
+        {
+            IsBroken = true;
+
+            EventBus.Instance.Publish(EventBusEvents.DestroyedManaByBoss1,
+                new BossEventPayload
+                {
+                    TransformValue1 = transform,
+                    TransformValue2 = other,
+                    AttackTypeValue = banBossAttackType,
+                    Sender = other
+                });
+
+            ParticleManager.Instance.GetParticle(hitEffect, position, 0.7f);
+            for (int i = 0; i < 3; i++)
+            {
+                StoneChannel.DropStone(ticketMachine, position, NORMALSTONE_INDEX);
+            }
         }
 
         public void SetLightIntensity(float targetIntensity, float duration)

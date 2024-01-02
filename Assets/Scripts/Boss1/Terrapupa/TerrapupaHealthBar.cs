@@ -1,53 +1,23 @@
-using Assets.Scripts.Managers;
 using Boss1.DataScript.Terrapupa;
-using Managers.UI;
-using Monsters.Utility;
-using UI.Monster;
 using UnityEngine;
 
 namespace Boss1.Terrapupa
 {
-    public class TerrapupaHealthBar : MonoBehaviour
+    public class TerrapupaHealthBar : HelathBarController
     {
-        [SerializeField] private TerrapupaRootData data;
-
-        public float scaleFactor = 0.003f;
-        private readonly MonsterDataContainer dataContainer = new();
-
-        private UIMonsterBillboard billboard;
-
-        private void Awake()
+        private TerrapupaRootData terrapupaData;
+        
+        public override void InitData(BaseBTData data)
         {
-            InitUI();
-        }
+            terrapupaData = data as TerrapupaRootData;
 
-        private void InitUI()
-        {
-            var billboardPos = Functions.FindChildByName(gameObject, "Billboard").transform;
-
-            billboard = UIManager.Instance.MakeStatic<UIMonsterBillboard>(billboardPos, UIManager.UIMonsterBillboard);
-            billboard.scaleFactor = scaleFactor;
-            billboard.InitBillboard(billboardPos);
-        }
-
-        public void InitData(TerrapupaRootData data)
-        {
-            this.data = data;
-            dataContainer.MaxHp = data.hp;
-            dataContainer.CurrentHp.Value = (int)Mathf.Ceil(data.hp);
-            dataContainer.Name = data.bossName;
+            dataContainer.MaxHp = terrapupaData.hp;
+            dataContainer.CurrentHp.Value = (int)Mathf.Ceil(terrapupaData.hp);
+            dataContainer.Name = terrapupaData.bossName;
 
             RenewHealthBar(dataContainer.CurrentHp.Value - 1);
             RenewHealthBar(dataContainer.CurrentHp.Value + 1);
             billboard.InitData(dataContainer);
-        }
-
-        public void RenewHealthBar(int currentHP)
-        {
-            if (currentHP >= 0)
-            {
-                dataContainer.CurrentHp.Value = currentHP;
-            }
         }
     }
 }
