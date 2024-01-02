@@ -35,5 +35,12 @@ namespace Utils
         {
             targetObjects.Clear();
         }
+
+        [Button]
+        public void GC()
+        {
+            Resources.UnloadUnusedAssets();
+            System.GC.Collect();
+        }
     }
 }

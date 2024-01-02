@@ -53,7 +53,7 @@ public class CheatClient : SerializedMonoBehaviour
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
             }
-
+            
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 // ELLIE POWER OVERWHELMING!!

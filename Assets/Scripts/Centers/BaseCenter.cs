@@ -6,6 +6,7 @@ using Channels.Utils;
 using Controller;
 using Data.Channels;
 using Sirenix.OdinInspector;
+using Spawner;
 using UnityEngine;
 
 namespace Centers
@@ -38,6 +39,7 @@ namespace Centers
         public GameObject Canvases;
         public GameObject[] uiPrefabs;
         public GameObject[] controllerInstances;
+        public GameObject[] spawnerInstances;
 
         [ShowInInspector] private readonly IDictionary<ChannelType, BaseEventChannel> channels =
             new Dictionary<ChannelType, BaseEventChannel>();
@@ -89,6 +91,14 @@ namespace Centers
                 foreach (var controller in controllerInstances)
                 {
                     controller.GetComponent<BaseController>().InitController();
+                }
+            }
+
+            if (spawnerInstances != null)
+            {
+                foreach (var spawner in spawnerInstances)
+                {
+                    spawner.GetComponent<BaseSpanwer>().InitSpawner();
                 }
             }
         }
