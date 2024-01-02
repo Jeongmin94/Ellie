@@ -70,7 +70,7 @@ namespace Channels.Boss
         public CombatPayload CombatPayload { get; set; }
     }
 
-    public class BossChannel : BaseEventChannel
+    public class TerrapupaChannel : BaseEventChannel
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {

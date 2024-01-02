@@ -86,7 +86,7 @@ namespace Boss1.Terrapupa
                 if (stoneHitCount >= stoneHitCompareCount)
                 {
                     isFirstReachCompareCount = true;
-                    BossDialogChannel.SendMessage(BossDialogTriggerType.AttackBossWithNormalStone,
+                    TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.AttackBossWithNormalStone,
                         ticketMachine);
                 }
             }
@@ -136,7 +136,7 @@ namespace Boss1.Terrapupa
                     if (stoneHitCountFaint >= stoneHitCompareCountFaint)
                     {
                         isFirstReachCompareCountFaint = true;
-                        BossDialogChannel.SendMessage(BossDialogTriggerType.DontAttackBossWeakPoint,
+                        TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.DontAttackBossWeakPoint,
                             ticketMachine);
                     }
                 }

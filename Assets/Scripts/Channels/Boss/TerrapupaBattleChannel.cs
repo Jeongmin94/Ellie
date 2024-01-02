@@ -4,9 +4,10 @@ using UnityEngine;
 
 namespace Channels.Boss
 {
-    public enum BossSituationType
+    public enum TerrapupaSituationType
     {
         None,
+        
         EnterBossRoom,
         StartBattle,
         StartSeconPhase,
@@ -15,25 +16,30 @@ namespace Channels.Boss
         LeftBossRoom,
         OpenLeftDoor,
         StartThirdPhase,
+        
+        HitManaByPlayerStone,
+        DestroyedManaByBoss1,
+        DropMagicStalactite,
+        ActivateMagicStone,
     }
 
-    public class BossBattlePayload : IBaseEventPayload
+    public class TerrapupaBattlePayload : IBaseEventPayload
     {
-        public BossSituationType SituationType { get; set; }
+        public TerrapupaSituationType SituationType { get; set; }
         public Transform Sender { get; set; }
     }
 
-    public class BossBattleChannel : BaseEventChannel
+    public class TerrapupaBattleChannel : BaseEventChannel
     {
-        public static void SendMessageBossBattle(BossSituationType type, TicketMachine ticketMachine)
+        public static void SendMessage(TerrapupaSituationType type, TicketMachine ticketMachine)
         {
-            var bPayload = new BossBattlePayload { SituationType = type };
+            var bPayload = new TerrapupaBattlePayload { SituationType = type };
             ticketMachine.SendMessage(ChannelType.BossBattle, bPayload);
         }
 
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            if (payload is not BossBattlePayload bossDialogPayload)
+            if (payload is not TerrapupaBattlePayload bossDialogPayload)
             {
                 return;
             }

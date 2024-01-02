@@ -27,10 +27,10 @@ namespace Channels.Utils
                     channel = new StoneChannel();
                     break;
                 case ChannelType.BossBattle:
-                    channel = new BossBattleChannel();
+                    channel = new TerrapupaBattleChannel();
                     break;
                 case ChannelType.Terrapupa:
-                    channel = new BossChannel();
+                    channel = new TerrapupaChannel();
                     break;
                 case ChannelType.Dialog:
                     channel = new DialogChannel();
@@ -47,7 +47,7 @@ namespace Channels.Utils
                     channel = new PortalChannel();
                     break;
                 case ChannelType.BossDialog:
-                    channel = new BossDialogChannel();
+                    channel = new TerrapupaDialogChannel();
                     break;
             }
 

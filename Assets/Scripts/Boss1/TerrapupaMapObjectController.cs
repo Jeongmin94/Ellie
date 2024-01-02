@@ -125,14 +125,20 @@ namespace Boss1
 
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
-            if (payload is not BossBattlePayload bPayload)
+            if (payload is not TerrapupaBattlePayload bPayload)
             {
                 return;
             }
 
             switch (bPayload.SituationType)
             {
-                case BossSituationType.EnterBossRoom:
+                case TerrapupaSituationType.HitManaByPlayerStone:
+                    break;
+                case TerrapupaSituationType.DestroyedManaByBoss1:
+                    break;
+                case TerrapupaSituationType.DropMagicStalactite:
+                    break;
+                case TerrapupaSituationType.ActivateMagicStone:
                     break;
             }
         }
@@ -147,12 +153,11 @@ namespace Boss1
             Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
             var mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-            StoneChannel.DropStone(ticketMachine, mana.SpawnPosition, mana.MAGICSTONE_INDEX);
 
             if (!isFirstHitManaFountain)
             {
                 isFirstHitManaFountain = true;
-                BossDialogChannel.SendMessage(BossDialogTriggerType.GetMagicStoneFirstTime, ticketMachine);
+                TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.GetMagicStoneFirstTime, ticketMachine);
             }
 
             StartCoroutine(ManaCooldown(manaPayload));
@@ -182,26 +187,7 @@ namespace Boss1
                 actor = manaPayload.Sender.GetComponent<TerrapupaStone>().Owner.GetComponent<TerrapupaBTController>();
                 manaPayload.Sender = actor.transform;
             }
-
-            // 돌맹이 3개 생성
-            for (var i = 0; i < 3; i++)
-            {
-                StoneChannel.DropStone(ticketMachine, mana.SpawnPosition, mana.NORMALSTONE_INDEX);
-            }
-
-            // 히트 이펙트 생성
-            var hitEffect = manaPayload.PrefabValue;
-            if (hitEffect != null)
-            {
-                ParticleManager.Instance.GetParticle(hitEffect, new ParticlePayload
-                {
-                    Position = manaTransform.position,
-                    Rotation = manaTransform.rotation,
-                    Scale = new Vector3(0.7f, 0.7f, 0.7f),
-                    Offset = new Vector3(0.0f, 1.0f, 0.0f)
-                });
-            }
-
+            
             // 보스의 개별 공격 쿨타임 적용 멈추고, 파괴 쿨타임으로 새로 적용시킴
             var type = mana.banBossAttackType;
             if (actor.AttackCooldown.ContainsKey(type) && actor.AttackCooldown[type] != null)
@@ -218,7 +204,7 @@ namespace Boss1
             if (!isFirstBrokenManaFountain)
             {
                 isFirstBrokenManaFountain = true;
-                BossDialogChannel.SendMessage(BossDialogTriggerType.DestroyManaFountainFirstTime, ticketMachine);
+                TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.DestroyManaFountainFirstTime, ticketMachine);
             }
 
             // 마나의 샘 재생성 쿨타임

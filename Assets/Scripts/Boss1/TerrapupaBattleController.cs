@@ -52,29 +52,29 @@ namespace Boss1
 
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
-            if (payload is not BossBattlePayload bPayload)
+            if (payload is not TerrapupaBattlePayload bPayload)
             {
                 return;
             }
 
             switch (bPayload.SituationType)
             {
-                case BossSituationType.EnterBossRoom:
+                case TerrapupaSituationType.EnterBossRoom:
                     OnEnterBossRoom();
                     break;
-                case BossSituationType.StartBattle:
+                case TerrapupaSituationType.StartBattle:
                     OnStartBattle();
                     break;
-                case BossSituationType.EndBattle:
+                case TerrapupaSituationType.EndBattle:
                     OnEndBattle();
                     break;
-                case BossSituationType.EndDialog:
+                case TerrapupaSituationType.EndDialog:
                     OnEndDialog();
                     break;
-                case BossSituationType.LeftBossRoom:
+                case TerrapupaSituationType.LeftBossRoom:
                     OnLeftBossRoom();
                     break;
-                case BossSituationType.OpenLeftDoor:
+                case TerrapupaSituationType.OpenLeftDoor:
                     OnOpenLeftDoor();
                     break;
             }

@@ -3,7 +3,7 @@ using Channels.Type;
 
 namespace Channels.Boss
 {
-    public enum BossDialogTriggerType
+    public enum TerrapupaDialogTriggerType
     {
         // 트리거 타입
         // https://docs.google.com/spreadsheets/d/1DlHsnJDvkPX63VSBQC0I_Bg3tRGKPfGMpX1gIgggWEQ/edit#gid=98615154
@@ -23,22 +23,22 @@ namespace Channels.Boss
         FailedToOpenDoor
     }
 
-    public class BossDialogPaylaod : IBaseEventPayload
+    public class TerrapupaDialogPaylaod : IBaseEventPayload
     {
-        public BossDialogTriggerType TriggerType { get; set; } = BossDialogTriggerType.None;
+        public TerrapupaDialogTriggerType TriggerType { get; set; } = TerrapupaDialogTriggerType.None;
     }
 
-    public class BossDialogChannel : BaseEventChannel
+    public class TerrapupaDialogChannel : BaseEventChannel
     {
-        public static void SendMessage(BossDialogTriggerType type, TicketMachine ticketMachine)
+        public static void SendMessage(TerrapupaDialogTriggerType type, TicketMachine ticketMachine)
         {
-            var dPayload = new BossDialogPaylaod { TriggerType = type };
+            var dPayload = new TerrapupaDialogPaylaod { TriggerType = type };
             ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);
         }
 
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            if (payload is not BossDialogPaylaod bossDialogPayload)
+            if (payload is not TerrapupaDialogPaylaod bossDialogPayload)
             {
                 return;
             }

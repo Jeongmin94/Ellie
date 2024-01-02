@@ -147,20 +147,20 @@ namespace Boss1
 
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
-            if (payload is not BossBattlePayload bPayload)
+            if (payload is not TerrapupaBattlePayload bPayload)
             {
                 return;
             }
 
             switch (bPayload.SituationType)
             {
-                case BossSituationType.StartBattle:
+                case TerrapupaSituationType.StartBattle:
                     OnStartBattle();
                     break;
-                case BossSituationType.StartSeconPhase:
+                case TerrapupaSituationType.StartSeconPhase:
                     OnStartSecondPhase();
                     break;
-                case BossSituationType.StartThirdPhase:
+                case TerrapupaSituationType.StartThirdPhase:
                     //OnStartThirdPhase(bPayload.Sender);
                     break;
             }
@@ -178,7 +178,7 @@ namespace Boss1
             Debug.Log("OnStartSeconPhase()");
             // 테라, 푸파 활성화
             SpawnTerraAndPupa();
-            BossDialogChannel.SendMessage(BossDialogTriggerType.StartSecondPhase, ticketMachine);
+            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.StartSecondPhase, ticketMachine);
         }
 
         private void OnStartThirdPhase(Transform boss)
@@ -186,7 +186,7 @@ namespace Boss1
             Debug.Log("OnStartThirdPhase()");
             // 테라, 푸파 활성화
             SpawnMinions(boss.position);
-            BossDialogChannel.SendMessage(BossDialogTriggerType.StartThirdPhase, ticketMachine);
+            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.StartThirdPhase, ticketMachine);
         }
 
         private void OnSpawnStone(IBaseEventPayload payload)
@@ -342,7 +342,7 @@ namespace Boss1
             if (!actor.IsDead && healValue != 0 && !isFirstTerrapupaHeal)
             {
                 isFirstTerrapupaHeal = true;
-                BossDialogChannel.SendMessage(BossDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
+                TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
             }
 
             if (_magicStone != null)
@@ -385,12 +385,12 @@ namespace Boss1
                         golemCoreCount++;
                         if (golemCoreCount == 1)
                         {
-                            BossDialogChannel.SendMessage(BossDialogTriggerType.GetGolemCoreFirstTime,
+                            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.GetGolemCoreFirstTime,
                                 ticketMachine);
                         }
                         else if (golemCoreCount == 2)
                         {
-                            BossDialogChannel.SendMessage(BossDialogTriggerType.DieAllMinions, ticketMachine);
+                            TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.DieAllMinions, ticketMachine);
                         }
                     }
                 }
@@ -529,7 +529,7 @@ namespace Boss1
             if (!isFirstDestroyAllManaFountain)
             {
                 isFirstDestroyAllManaFountain = true;
-                BossDialogChannel.SendMessage(BossDialogTriggerType.DestroyAllManaFountains, ticketMachine);
+                TerrapupaDialogChannel.SendMessage(TerrapupaDialogTriggerType.DestroyAllManaFountains, ticketMachine);
             }
         }
 
