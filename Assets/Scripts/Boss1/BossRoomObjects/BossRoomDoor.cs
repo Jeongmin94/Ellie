@@ -36,7 +36,7 @@ namespace Boss1.BossRoomObjects
             // 제한시간(60초)안에 못열면 다이얼로그 출력
             yield return new WaitForSeconds(doorTimeLimit);
 
-            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.FailedToOpenDoor, ticketMachine);
+            BossDialogChannel.SendMessage(BossDialogTriggerType.FailedToOpenDoor, ticketMachine);
             EmphasizedDoor();
         }
 

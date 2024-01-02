@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Channels.Components;
+using Channels.Type;
+using UnityEngine;
 
 namespace Channels.Stone
 {
@@ -22,6 +24,17 @@ namespace Channels.Stone
 
     public class StoneChannel : BaseEventChannel
     {
+        public static void DropStone(TicketMachine ticketMachine, Vector3 position, int index)
+        {
+            ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload
+            {
+                Type = StoneEventType.MineStone,
+                StoneSpawnPos = position,
+                StoneForce = new Vector3(Random.Range(-1.0f, 1.0f), 0.5f, 0.0f),
+                StoneIdx = index
+            });
+        }
+        
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
             var stonePayload = payload as StoneEventPayload;

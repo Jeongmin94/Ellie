@@ -30,7 +30,7 @@ namespace Channels.Boss
 
     public class BossDialogChannel : BaseEventChannel
     {
-        public static void SendMessageBossDialog(BossDialogTriggerType type, TicketMachine ticketMachine)
+        public static void SendMessage(BossDialogTriggerType type, TicketMachine ticketMachine)
         {
             var dPayload = new BossDialogPaylaod { TriggerType = type };
             ticketMachine.SendMessage(ChannelType.BossDialog, dPayload);

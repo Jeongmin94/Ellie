@@ -94,7 +94,7 @@ namespace Boss1
             currentLevel = isActiveTerrapupa ? 1 : 2;
         }
 
-        public void InitTicketMachine()
+        private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat, ChannelType.Camera, ChannelType.BossBattle,
@@ -178,7 +178,7 @@ namespace Boss1
             Debug.Log("OnStartSeconPhase()");
             // 테라, 푸파 활성화
             SpawnTerraAndPupa();
-            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.StartSecondPhase, ticketMachine);
+            BossDialogChannel.SendMessage(BossDialogTriggerType.StartSecondPhase, ticketMachine);
         }
 
         private void OnStartThirdPhase(Transform boss)
@@ -186,7 +186,7 @@ namespace Boss1
             Debug.Log("OnStartThirdPhase()");
             // 테라, 푸파 활성화
             SpawnMinions(boss.position);
-            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.StartThirdPhase, ticketMachine);
+            BossDialogChannel.SendMessage(BossDialogTriggerType.StartThirdPhase, ticketMachine);
         }
 
         private void OnSpawnStone(IBaseEventPayload payload)
@@ -342,7 +342,7 @@ namespace Boss1
             if (!actor.IsDead && healValue != 0 && !isFirstTerrapupaHeal)
             {
                 isFirstTerrapupaHeal = true;
-                BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
+                BossDialogChannel.SendMessage(BossDialogTriggerType.IntakeMagicStoneFirstTime, ticketMachine);
             }
 
             if (_magicStone != null)
@@ -385,12 +385,12 @@ namespace Boss1
                         golemCoreCount++;
                         if (golemCoreCount == 1)
                         {
-                            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetGolemCoreFirstTime,
+                            BossDialogChannel.SendMessage(BossDialogTriggerType.GetGolemCoreFirstTime,
                                 ticketMachine);
                         }
                         else if (golemCoreCount == 2)
                         {
-                            BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DieAllMinions, ticketMachine);
+                            BossDialogChannel.SendMessage(BossDialogTriggerType.DieAllMinions, ticketMachine);
                         }
                     }
                 }
@@ -529,7 +529,7 @@ namespace Boss1
             if (!isFirstDestroyAllManaFountain)
             {
                 isFirstDestroyAllManaFountain = true;
-                BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DestroyAllManaFountains, ticketMachine);
+                BossDialogChannel.SendMessage(BossDialogTriggerType.DestroyAllManaFountains, ticketMachine);
             }
         }
 

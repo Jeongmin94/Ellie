@@ -16,10 +16,25 @@ namespace Channels.Boss
     {
         None,
 
-        // 돌 던지기
-        GripStone,
-        ThrowStone,
-        EarthQuake
+        GripStoneByBoss1,
+        ThrowStoneByBoss1,
+        HitManaByPlayerStone,
+        DestroyedManaByBoss1,
+        OccurEarthQuake,
+        DropMagicStalactite,
+        BossAttractedByMagicStone,
+        BossUnattractedByMagicStone,
+        IntakeMagicStoneByBoss1,
+        BossDeath,
+        HitStone,
+        BossMeleeAttack,
+        BossLowAttack,
+        ApplyBossCooldown,
+        BossMinionAttack,
+        DestroyAllManaFountain,
+        ApplySingleBossCooldown,
+        StartIntakeMagicStone,
+        ActivateMagicStone
     }
 
     public class TerrapupaPayload : IBaseEventPayload
@@ -42,40 +57,16 @@ namespace Channels.Boss
 
     public class BossEventPayload : IBaseEventPayload
     {
-        public BossEventPayload()
-        {
-            PrefabValue = null;
-            IntValue = 0;
-            BoolValue = false;
-            FloatValue = 0.0f;
-            Vector3Value = Vector3.zero;
-            TransformValue1 = null;
-            TransformValue2 = null;
-            TransformValue3 = null;
-            AttackTypeValue = TerrapupaAttackType.None;
-            CombatPayload = null;
-        }
-
         public GameObject PrefabValue { get; set; }
-
         public int IntValue { get; set; }
-
         public bool BoolValue { get; set; }
-
         public float FloatValue { get; set; }
-
         public Vector3 Vector3Value { get; set; }
-
         public Transform TransformValue1 { get; set; }
-
         public Transform TransformValue2 { get; set; }
-
         public Transform TransformValue3 { get; set; }
-
         public TerrapupaAttackType AttackTypeValue { get; set; }
-
         public Transform Sender { get; set; }
-
         public CombatPayload CombatPayload { get; set; }
     }
 

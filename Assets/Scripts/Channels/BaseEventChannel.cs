@@ -12,6 +12,7 @@ namespace Channels
         {
             sendMessageAction?.Invoke(payload);
         }
+        
 
         public void Subscribe(Action<IBaseEventPayload> listener)
         {

@@ -13,34 +13,43 @@ using Managers.Particle;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Utils;
+using Quaternion = UnityEngine.Quaternion;
+using Vector3 = UnityEngine.Vector3;
 
 namespace Boss1
 {
     public class TerrapupaMapObjectController : BaseController
     {
-        [Title("테라푸파 보스전 오브젝트 객체")] [SerializeField]
-        private GameObject magicStalactitePrefab;
-
+        [Title("테라푸파 보스전 오브젝트 객체")] 
+        [SerializeField] private GameObject magicStalactitePrefab;
         [SerializeField] private List<ManaFountain> manaFountains;
 
-        [Title("상태 체크")] [SerializeField] [ReadOnly]
-        private int manaFountainCount = 4;
-
-        [Title("종마석")] [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n true면 섭취중 아니여도 기절")]
+        [Title("종마석")] 
+        [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n" +
+                 "true면 섭취중 아니여도 기절")]
         public bool canBossStun;
+        [InfoBox("재생성 쿨타임")] 
+        public float regenerateStalactiteTime = 10.0f;
+        [InfoBox("구역 갯수")] 
+        public int numberOfSector = 3;
+        [InfoBox("구역 당 종마석 갯수")] 
+        public int stalactitePerSector = 3;
+        [InfoBox("생성 구역 반지름")] 
+        public float fieldRadius = 25.0f;
+        [InfoBox("생성 높이")] 
+        public float fieldHeight = 8.0f;
+        private readonly List<List<MagicStalactite>> stalactites = new();
 
-        [InfoBox("재생성 쿨타임")] public float regenerateStalactiteTime = 10.0f;
-        [InfoBox("구역 갯수")] public int numberOfSector = 3;
-        [InfoBox("구역 당 종마석 갯수")] public int stalactitePerSector = 3;
-        [InfoBox("생성 구역 반지름")] public float fieldRadius = 25.0f;
-        [InfoBox("생성 높이")] public float fieldHeight = 8.0f;
-
-        [Title("마나의 샘")] [InfoBox("재생성 쿨타임")] public float respawnManaFountainTime = 10.0f;
-        [InfoBox("마법 돌맹이 재생성 쿨타임")] public float regenerateManaStoneTime = 10.0f;
-
+        [Title("마나의 샘")] 
+        [InfoBox("재생성 쿨타임")] 
+        public float respawnManaFountainTime = 10.0f;
+        [InfoBox("마법 돌맹이 재생성 쿨타임")] 
+        public float regenerateManaStoneTime = 10.0f;
+        [InfoBox("현재 마나의 샘 개수")]
+        private int manaFountainCount = 4;
+        
         private bool isFirstBrokenManaFountain;
         private bool isFirstHitManaFountain;
-        [SerializeField] private readonly List<List<MagicStalactite>> stalactites = new();
 
         private TicketMachine ticketMachine;
 
@@ -53,9 +62,7 @@ namespace Boss1
             InitManaFountains();
             InitTicketMachine();
         }
-
-        #region 1. 초기화 함수
-
+        
         private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
@@ -83,7 +90,7 @@ namespace Boss1
                 var sectorList = new List<MagicStalactite>();
                 for (var j = 0; j < stalactitePerSector; j++)
                 {
-                    var position = GenerateRandomPositionInSector(i);
+                    var position = CalculateHelper.RandomPositionInSector(numberOfSector, i, fieldRadius, fieldHeight);
                     var stalactite = Instantiate(magicStalactitePrefab, Vector3.zero, Quaternion.identity, transform);
                     stalactite.transform.localPosition = position;
                     var instantStalactite = stalactite.GetComponent<MagicStalactite>();
@@ -97,7 +104,7 @@ namespace Boss1
             }
         }
 
-        public void InitManaFountains()
+        private void InitManaFountains()
         {
             foreach (var mana in manaFountains)
             {
@@ -115,10 +122,6 @@ namespace Boss1
             EventBus.Instance.Subscribe(EventBusEvents.DropMagicStalactite, OnDropMagicStalactite);
             EventBus.Instance.Subscribe(EventBusEvents.ActivateMagicStone, OnActivateMagicStone);
         }
-
-        #endregion
-
-        #region 2. 이벤트 핸들러
 
         private void OnNotifyBossBattle(IBaseEventPayload payload)
         {
@@ -144,12 +147,12 @@ namespace Boss1
             Debug.Log("OnHitMana :: 마나의 샘 쿨타임 적용");
 
             var mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
-            DropStoneItem(mana.SpawnPosition, mana.MAGICSTONE_INDEX);
+            StoneChannel.DropStone(ticketMachine, mana.SpawnPosition, mana.MAGICSTONE_INDEX);
 
             if (!isFirstHitManaFountain)
             {
                 isFirstHitManaFountain = true;
-                BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.GetMagicStoneFirstTime, ticketMachine);
+                BossDialogChannel.SendMessage(BossDialogTriggerType.GetMagicStoneFirstTime, ticketMachine);
             }
 
             StartCoroutine(ManaCooldown(manaPayload));
@@ -183,7 +186,7 @@ namespace Boss1
             // 돌맹이 3개 생성
             for (var i = 0; i < 3; i++)
             {
-                DropStoneItem(mana.SpawnPosition, mana.NORMALSTONE_INDEX);
+                StoneChannel.DropStone(ticketMachine, mana.SpawnPosition, mana.NORMALSTONE_INDEX);
             }
 
             // 히트 이펙트 생성
@@ -215,7 +218,7 @@ namespace Boss1
             if (!isFirstBrokenManaFountain)
             {
                 isFirstBrokenManaFountain = true;
-                BossDialogChannel.SendMessageBossDialog(BossDialogTriggerType.DestroyManaFountainFirstTime, ticketMachine);
+                BossDialogChannel.SendMessage(BossDialogTriggerType.DestroyManaFountainFirstTime, ticketMachine);
             }
 
             // 마나의 샘 재생성 쿨타임
@@ -262,11 +265,7 @@ namespace Boss1
                 magicStone.ActivateRange();
             }
         }
-
-        #endregion
-
-        #region 3. 코루틴 함수
-
+        
         private IEnumerator ManaCooldown(BossEventPayload manaPayload)
         {
             var mana = manaPayload.TransformValue1.GetComponent<ManaFountain>();
@@ -295,7 +294,7 @@ namespace Boss1
 
             yield return new WaitForSeconds(respawnTime);
 
-            var position = GenerateRandomPositionInSector(payload.IntValue);
+            var position = CalculateHelper.RandomPositionInSector(numberOfSector, payload.IntValue, fieldRadius, fieldHeight);
             payload.TransformValue1.localPosition = position;
             payload.TransformValue1.gameObject.SetActive(true);
         }
@@ -324,44 +323,5 @@ namespace Boss1
             manaPayload.BoolValue = true;
             EventBus.Instance.Publish(EventBusEvents.ApplyBossCooldown, manaPayload);
         }
-
-        #endregion
-
-        #region 4. 기타 함수
-
-        public void DropStoneItem(Vector3 position, int index)
-        {
-            ticketMachine.SendMessage(ChannelType.Stone, new StoneEventPayload
-            {
-                Type = StoneEventType.MineStone,
-                StoneSpawnPos = position,
-                StoneForce = GetRandVector(),
-                StoneIdx = index
-            });
-        }
-
-        private Vector3 GenerateRandomPositionInSector(int sectorIndex)
-        {
-            var sectorAngleSize = 360f / numberOfSector;
-            var minAngle = sectorAngleSize * sectorIndex;
-            var maxAngle = minAngle + sectorAngleSize;
-
-            var angle = Random.Range(minAngle, maxAngle) * Mathf.Deg2Rad;
-            var distance = Mathf.Sqrt(Random.Range(0f, 1f)) * fieldRadius;
-
-            return new Vector3(
-                Mathf.Cos(angle) * distance,
-                fieldHeight,
-                Mathf.Sin(angle) * distance
-            );
-        }
-
-        private Vector3 GetRandVector()
-        {
-            Vector3 vec = new(Random.Range(-1.0f, 1.0f), 0.5f, 0);
-            return vec.normalized;
-        }
-
-        #endregion
     }
 }
