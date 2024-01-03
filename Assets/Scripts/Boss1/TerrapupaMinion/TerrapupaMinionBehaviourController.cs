@@ -80,37 +80,41 @@ namespace Boss1.TerrapupaMinion
 
         public void ApplyDamage(int damageValue)
         {
-            if (!isDead)
+            if (!gameObject.activeSelf || isDead)
             {
-                StartCoroutine(ShakeCoroutine(damageValue, MinionData.cameraShakeDuration));
-                healthBar.ShowBillboard();
-                hitComponent.Hit();
-
-                healthBar.RenewHealthBar(MinionData.currentHP.value - damageValue);
-                MinionData.currentHP.Value -= damageValue;
-
-                if (MinionData.currentHP.value <= 0)
-                {
-                    Dead();
-                }
-
-                MinionData.isHit.Value = true;
+                return;
             }
+
+            StartCoroutine(ShakeCoroutine(MinionData.cameraShakeIntensity, MinionData.cameraShakeDuration));
+            healthBar.ShowBillboard();
+            hitComponent.Hit();
+
+            healthBar.RenewHealthBar(MinionData.currentHP.value - damageValue);
+            MinionData.currentHP.Value -= damageValue;
+
+            if (MinionData.currentHP.value <= 0)
+            {
+                Dead();
+            }
+
+            MinionData.isHit.Value = true;
         }
 
         public void ApplyHeal(int healValue)
         {
-            if (!isDead)
+            if (!gameObject.activeSelf || isDead)
             {
-                healthBar.RenewHealthBar(MinionData.currentHP.value + healValue);
-                MinionData.currentHP.Value += healValue;
+                return;
+            }
 
-                if (MinionData.currentHP.value > MinionData.hp)
-                {
-                    healthBar.ShowBillboard();
-                    MinionData.currentHP.Value = MinionData.hp;
-                    healthBar.RenewHealthBar(MinionData.currentHP.value);
-                }
+            healthBar.RenewHealthBar(MinionData.currentHP.value + healValue);
+            MinionData.currentHP.Value += healValue;
+
+            if (MinionData.currentHP.value > MinionData.hp)
+            {
+                healthBar.ShowBillboard();
+                MinionData.currentHP.Value = MinionData.hp;
+                healthBar.RenewHealthBar(MinionData.currentHP.value);
             }
         }
 

@@ -1,4 +1,3 @@
-using Assets.Scripts.Managers;
 using Channels.Boss;
 using Channels.Combat;
 using Channels.Components;
@@ -13,12 +12,13 @@ namespace Boss1.Terrapupa
 {
     public class TerrapupaStone : Poolable
     {
-        [SerializeField] private float movementSpeed = 15.0f;
-        [SerializeField] private int attackValue = 5;
-        [SerializeField] private LayerMask layerMask;
-        [SerializeField] private string hitSound = "TerrapupaAttackHit";
+        private float movementSpeed = 15.0f;
+        private int attackValue = 5;
+        private LayerMask layerMask;
+        private string hitSound = "TerrapupaAttackHit";
 
         public float remainTime = 10.0f;
+        
         private CombatPayload combatPayload;
         private Vector3 direction;
 
@@ -53,10 +53,10 @@ namespace Boss1.Terrapupa
             if (collision.gameObject.CompareTag("Player"))
             {
                 ParticleManager.Instance.GetParticle(effect, transform, 0.7f);
+                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
 
                 combatPayload.Attacker = Owner;
                 combatPayload.Defender = collision.transform.root;
-                SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
                 ticketMachine.SendMessage(ChannelType.Combat, combatPayload);
             }
 
@@ -64,6 +64,7 @@ namespace Boss1.Terrapupa
             {
                 ParticleManager.Instance.GetParticle(effect, transform);
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);
+                
                 Destroy(gameObject);
             }
         }

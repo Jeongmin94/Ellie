@@ -64,7 +64,6 @@ namespace Boss1.Terrapupa
         private void Start()
         {
             InitStatus();
-            InitQuest();
         }
 
         public void InitTicketMachine(TicketMachine ticketMachine)
@@ -75,10 +74,6 @@ namespace Boss1.Terrapupa
         private void InitStatus()
         {
             healthBar.InitData(TerrapupaData);
-        }
-
-        private void InitQuest()
-        {
             terrapupaQuest.InitData(TerrapupaData);
             terrapupaQuest.InitTicketMachine(ticketMachine);
         }
@@ -110,35 +105,39 @@ namespace Boss1.Terrapupa
 
         public void ApplyDamage(int damageValue)
         {
-            if (!IsDead)
+            if (!gameObject.activeSelf || IsDead)
             {
-                StartCoroutine(ShakeCoroutine(damageValue, TerrapupaData.cameraShakeDuration));
-                healthBar.ShowBillboard();
-                hitComponent.Hit();
+                return;
+            }
 
-                healthBar.RenewHealthBar(TerrapupaData.currentHP.value - damageValue);
-                TerrapupaData.currentHP.Value -= damageValue;
+            StartCoroutine(ShakeCoroutine(TerrapupaData.cameraShakeIntensity, TerrapupaData.cameraShakeDuration));
+            healthBar.ShowBillboard();
+            hitComponent.Hit();
 
-                if (TerrapupaData.currentHP.value <= 0)
-                {
-                    Dead();
-                }
+            healthBar.RenewHealthBar(TerrapupaData.currentHP.value - damageValue);
+            TerrapupaData.currentHP.Value -= damageValue;
+
+            if (TerrapupaData.currentHP.value <= 0)
+            {
+                Dead();
             }
         }
 
         public void ApplyHeal(int healValue)
         {
-            if (!IsDead)
+            if (!gameObject.activeSelf || IsDead)
             {
-                healthBar.RenewHealthBar(TerrapupaData.currentHP.value + healValue);
-                TerrapupaData.currentHP.Value += healValue;
+                return;
+            }
 
-                if (TerrapupaData.currentHP.value > TerrapupaData.hp)
-                {
-                    healthBar.HideBillboard();
-                    TerrapupaData.currentHP.Value = TerrapupaData.hp;
-                    healthBar.RenewHealthBar(TerrapupaData.currentHP.value);
-                }
+            healthBar.RenewHealthBar(TerrapupaData.currentHP.value + healValue);
+            TerrapupaData.currentHP.Value += healValue;
+
+            if (TerrapupaData.currentHP.value > TerrapupaData.hp)
+            {
+                healthBar.HideBillboard();
+                TerrapupaData.currentHP.Value = TerrapupaData.hp;
+                healthBar.RenewHealthBar(TerrapupaData.currentHP.value);
             }
         }
 
@@ -190,8 +189,8 @@ namespace Boss1.Terrapupa
 
             var effect = Data<TerrapupaIntakeData>("TerrapupaIntake");
             var payload = new ParticlePayload { Origin = transform, LoopCount = 5 };
-            intakeEffect = ParticleManager.Instance.GetParticle(effect.effect1, payload)
-                .GetComponent<ParticleController>();
+            intakeEffect = ParticleManager.Instance.
+                GetParticle(effect.effect1, payload).GetComponent<ParticleController>();
         }
 
         public void EndIntakeMagicStone(int healValue)

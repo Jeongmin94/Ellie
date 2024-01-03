@@ -9,11 +9,11 @@ namespace Controller.Camera
 {
     public class CameraController : BaseController
     {
-        private UnityEngine.Camera camera;
+        private Transform camera;
         
         private void Awake()
         {
-            camera = UnityEngine.Camera.main;
+            camera = UnityEngine.Camera.main.transform;
         }
 
         public override void InitController()
@@ -43,16 +43,16 @@ namespace Controller.Camera
         {
             var elapsed = 0.0f;
 
-            var originalPosition = transform.position;
+            var originalPosition = camera.position;
 
             while (elapsed < shakeDuration)
             {
-                transform.position = originalPosition + Random.insideUnitSphere * shakeIntensity;
+                camera.position = originalPosition + Random.insideUnitSphere * shakeIntensity;
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            transform.position = originalPosition;
+            camera.position = originalPosition;
         }
     }
 }
