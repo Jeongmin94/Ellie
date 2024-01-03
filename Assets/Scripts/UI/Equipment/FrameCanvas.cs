@@ -33,20 +33,20 @@ namespace UI.Equipment
 
         public Sprite FrameImage
         {
-            get => frameImage;
-            set => frameImage = value;
+            get { return frameImage; }
+            set { frameImage = value; }
         }
 
         public float FrameWidth
         {
-            get => frameWidth;
-            set => frameWidth = value;
+            get { return frameWidth; }
+            set { frameWidth = value; }
         }
 
         public float FrameHeight
         {
-            get => frameHeight;
-            set => frameHeight = value;
+            get { return frameHeight; }
+            set { frameHeight = value; }
         }
 
         private void LateUpdate()

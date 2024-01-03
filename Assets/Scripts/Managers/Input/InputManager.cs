@@ -23,7 +23,7 @@ namespace Managers.Input
 
         public bool CanInput
         {
-            get => canInput;
+            get { return canInput; }
             set
             {
                 canInput = value;

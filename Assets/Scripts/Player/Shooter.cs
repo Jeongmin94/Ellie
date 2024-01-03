@@ -44,7 +44,10 @@ namespace Player
 
         public float ChargingRatio { get; private set; }
 
-        public ChargingData ChargingData => chargingData;
+        public ChargingData ChargingData
+        {
+            get { return chargingData; }
+        }
 
         private void Start()
         {

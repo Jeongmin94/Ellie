@@ -45,7 +45,7 @@ namespace UI.Framework.Images
 
         public Color MidgroundColor
         {
-            get => midgroundColor;
+            get { return midgroundColor; }
             set
             {
                 midgroundColor = value;

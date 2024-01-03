@@ -29,17 +29,17 @@ namespace Environments
             {
                 ShakeCamera(1f, 0.2f);
             }
-
+        
             if (Input.GetKeyDown(KeyCode.Alpha2))
             {
                 ShakeCamera(2f, 0.3f);
             }
-
+        
             if (Input.GetKeyDown(KeyCode.Alpha3))
             {
                 ShakeCamera(3f, 0.4f);
             }
-
+        
             if (timer > 0)
             {
                 timer -= Time.deltaTime;

@@ -151,7 +151,7 @@ namespace Player
 
         public Vector3 AimTarget
         {
-            get => aimTarget;
+            get { return aimTarget; }
             set
             {
                 aimTargetData.TargetPosition.Value = value;
@@ -159,40 +159,85 @@ namespace Player
             }
         }
 
-        public Pickaxe Pickaxe => pickaxe;
+        public Pickaxe Pickaxe
+        {
+            get { return pickaxe; }
+        }
 
 
-        public Transform PlayerObj => playerObj;
+        public Transform PlayerObj
+        {
+            get { return playerObj; }
+        }
 
         public PlayerStatus PlayerStatus { get; set; }
 
-        public float WalkSpeed => walkSpeed;
+        public float WalkSpeed
+        {
+            get { return walkSpeed; }
+        }
 
-        public float SprintSpeed => sprintSpeed;
+        public float SprintSpeed
+        {
+            get { return sprintSpeed; }
+        }
 
-        public float DodgeSpeed => dodgeSpeed;
+        public float DodgeSpeed
+        {
+            get { return dodgeSpeed; }
+        }
 
-        public float PlayerHeight => playerHeight;
+        public float PlayerHeight
+        {
+            get { return playerHeight; }
+        }
 
-        public LayerMask GroundLayer => groundLayer;
+        public LayerMask GroundLayer
+        {
+            get { return groundLayer; }
+        }
 
-        public float AdditionalJumpForce => additionalJumpForce;
+        public float AdditionalJumpForce
+        {
+            get { return additionalJumpForce; }
+        }
 
-        public float MaximumJumpInputTime => maximumAdditionalJumpInputTime;
+        public float MaximumJumpInputTime
+        {
+            get { return maximumAdditionalJumpInputTime; }
+        }
 
-        public float AdditionalGravityForce => additionalGravityForce;
+        public float AdditionalGravityForce
+        {
+            get { return additionalGravityForce; }
+        }
 
-        public float LandStateDuration => landStateDuration;
+        public float LandStateDuration
+        {
+            get { return landStateDuration; }
+        }
 
-        public float DodgeInvulnerableTime => dodgeInvulnerableTime;
+        public float DodgeInvulnerableTime
+        {
+            get { return dodgeInvulnerableTime; }
+        }
 
-        public float TimeToDodgeAfterDown => timeToDodgeAfterDown;
+        public float TimeToDodgeAfterDown
+        {
+            get { return timeToDodgeAfterDown; }
+        }
 
         public Ore CurOre { get; private set; }
 
-        public float MiningTime => miningTime;
+        public float MiningTime
+        {
+            get { return miningTime; }
+        }
 
-        public bool IsPickaxeAvailable => isPickaxeAvailable;
+        public bool IsPickaxeAvailable
+        {
+            get { return isPickaxeAvailable; }
+        }
 
         public Vector2 MoveInput { get; private set; }
         public Vector3 MoveDirection { get; private set; }
@@ -200,9 +245,15 @@ namespace Player
         public Animator Anim { get; private set; }
         public float AimingAnimLayerWeight { get; set; }
 
-        public float RecoilTime => recoilTime;
+        public float RecoilTime
+        {
+            get { return recoilTime; }
+        }
 
-        public int CurStoneIdx => curStoneIdx;
+        public int CurStoneIdx
+        {
+            get { return curStoneIdx; }
+        }
 
         public TicketMachine TicketMachine { get; private set; }
 

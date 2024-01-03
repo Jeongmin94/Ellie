@@ -8,7 +8,10 @@ namespace Data.ActionData.Player
         [SerializeField] private float maxStamina;
         public readonly Data<float> CurrentStamina = new();
 
-        public float MaxStamina => maxStamina;
+        public float MaxStamina
+        {
+            get { return maxStamina; }
+        }
 
         public void InitStamina()
         {

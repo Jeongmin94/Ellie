@@ -1,5 +1,4 @@
 using System.Collections;
-using Assets.Scripts.Managers;
 using Boss1.DataScript.Minion;
 using Channels.Combat;
 using Channels.Components;
@@ -12,23 +11,29 @@ namespace Boss1.TerrapupaMinion
 {
     public class TerrapupaMinionBehaviourController : BehaviourTreeController
     {
-        [HideInInspector] public TerrapupaMinionRootData minionData;
-        
         [SerializeField] private TerrapupaMinionHealthBar healthBar;
         [SerializeField] private TerrapupaMinionWeakPoint[] weakPoints;
 
         private MaterialHitComponent hitComponent;
-        private bool isDead;
-        
         private TicketMachine ticketMachine;
+        
+        private bool isDead;
 
-        public TerrapupaMinionHealthBar HealthBar => healthBar;
+        public TerrapupaMinionRootData MinionData
+        {
+            get; private set;
+        }
+        
+        public TerrapupaMinionHealthBar HealthBar
+        {
+            get { return healthBar; }
+        }
 
         protected override void Awake()
         {
             base.Awake();
 
-            minionData = rootTreeData as TerrapupaMinionRootData;
+            MinionData = rootTreeData as TerrapupaMinionRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaMinionHealthBar>();
             weakPoints = GetComponentsInChildren<TerrapupaMinionWeakPoint>();
             hitComponent = gameObject.GetComponent<MaterialHitComponent>();
@@ -56,79 +61,81 @@ namespace Boss1.TerrapupaMinion
 
         private void InitStatus()
         {
-            healthBar.InitData(minionData);
+            healthBar.InitData(MinionData);
         }
 
         private void OnCollidedCoreByPlayerStone(IBaseEventPayload payload)
         {
             Debug.Log($"ReceiveDamage :: {payload}");
 
-            var combatPayload = payload as CombatPayload;
-            PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
-            var damage = combatPayload.Damage;
+            if (payload is CombatPayload combatPayload)
+            {
+                PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
+                var damage = combatPayload.Damage;
 
-            GetDamaged(damage);
-            Debug.Log($"{damage} 데미지 입음 : {minionData.currentHP.Value}");
+                ApplyDamage(damage);
+                Debug.Log($"{damage} 데미지 입음 : {MinionData.currentHP.Value}");
+            }
         }
 
-        public void GetDamaged(int damageValue)
+        public void ApplyDamage(int damageValue)
         {
             if (!isDead)
             {
+                StartCoroutine(ShakeCoroutine(damageValue, MinionData.cameraShakeDuration));
                 healthBar.ShowBillboard();
-                StartCoroutine(ShakeCoroutine());
                 hitComponent.Hit();
 
-                healthBar.RenewHealthBar(minionData.currentHP.value - damageValue);
-                minionData.currentHP.Value -= damageValue;
+                healthBar.RenewHealthBar(MinionData.currentHP.value - damageValue);
+                MinionData.currentHP.Value -= damageValue;
 
-                if (minionData.currentHP.value <= 0)
+                if (MinionData.currentHP.value <= 0)
                 {
                     Dead();
                 }
 
-                minionData.isHit.Value = true;
+                MinionData.isHit.Value = true;
             }
         }
 
-        public void GetHealed(int healValue)
+        public void ApplyHeal(int healValue)
         {
             if (!isDead)
             {
-                healthBar.RenewHealthBar(minionData.currentHP.value + healValue);
-                minionData.currentHP.Value += healValue;
+                healthBar.RenewHealthBar(MinionData.currentHP.value + healValue);
+                MinionData.currentHP.Value += healValue;
 
-                if (minionData.currentHP.value > minionData.hp)
+                if (MinionData.currentHP.value > MinionData.hp)
                 {
                     healthBar.ShowBillboard();
-                    minionData.currentHP.Value = minionData.hp;
-                    healthBar.RenewHealthBar(minionData.currentHP.value);
+                    MinionData.currentHP.Value = MinionData.hp;
+                    healthBar.RenewHealthBar(MinionData.currentHP.value);
                 }
             }
-        }
-
-        private IEnumerator ShakeCoroutine()
-        {
-            var elapsed = 0.0f;
-
-            var originalPosition = transform.position;
-
-            while (elapsed < minionData.cameraShakeDuration)
-            {
-                transform.position = originalPosition + Random.insideUnitSphere * minionData.cameraShakeIntensity;
-                elapsed += Time.deltaTime;
-                yield return null; // 다음 프레임까지 기다림
-            }
-
-            transform.position = originalPosition; // 원래 위치로 돌아감
         }
 
         public void Dead()
         {
             isDead = true;
-            minionData.currentHP.Value = 0;
+            MinionData.currentHP.Value = 0;
             healthBar.RenewHealthBar(0);
             healthBar.BillboardObject.gameObject.SetActive(false);
+        }
+        
+        private IEnumerator ShakeCoroutine(float shakeIntensity, float shakeDuration)
+        {
+            var elapsed = 0.0f;
+
+            var originalPosition = transform.position;
+
+            while (elapsed < shakeDuration)
+            {
+                transform.position = originalPosition + Random.insideUnitSphere * shakeIntensity;
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            transform.position = originalPosition;
         }
     }
 }

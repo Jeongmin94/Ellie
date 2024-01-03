@@ -29,12 +29,19 @@ namespace Equipments
 
         public int Durability
         {
-            get => durability;
-            set => durability = value;
+            get { return durability; }
+            set { durability = value; }
         }
 
-        public int MinSmithPower => data.minSmithPower;
-        public int MaxSmithPower => data.maxSmithPower;
+        public int MinSmithPower
+        {
+            get { return data.minSmithPower; }
+        }
+
+        public int MaxSmithPower
+        {
+            get { return data.maxSmithPower; }
+        }
 
         private void Start()
         {

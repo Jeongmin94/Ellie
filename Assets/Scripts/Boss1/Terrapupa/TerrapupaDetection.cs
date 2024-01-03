@@ -6,7 +6,10 @@ namespace Boss1.Terrapupa
     {
         [SerializeField] private Transform myTerrapupa;
 
-        public Transform MyTerrapupa => myTerrapupa;
+        public Transform MyTerrapupa
+        {
+            get { return myTerrapupa; }
+        }
 
         private void Start()
         {

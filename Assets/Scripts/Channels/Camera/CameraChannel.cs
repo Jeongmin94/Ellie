@@ -1,5 +1,6 @@
 ﻿using Channels.Components;
 using Channels.Type;
+using UnityEngine;
 
 namespace Channels.Camera
 {
@@ -34,7 +35,7 @@ namespace Channels.Camera
             {
                 return;
             }
-
+            
             Publish(payload);
         }
     }

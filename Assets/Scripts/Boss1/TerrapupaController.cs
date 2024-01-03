@@ -23,15 +23,14 @@ namespace Boss1
 {
     public class TerrapupaController : BaseController
     {
-        private const int GOLEM_CORE_INDEX = 4021;
 
         [Title("테라푸파 보스 객체")] [SerializeField] [Required]
         private TerrapupaBehaviourController terrapupa;
 
+        [SerializeField] [Required] private PlayerController player;
         [SerializeField] [Required] private TerrapupaBehaviourController terra;
         [SerializeField] [Required] private TerrapupaBehaviourController pupa;
         [SerializeField] [Required] private List<TerrapupaMinionBehaviourController> minions;
-        [SerializeField] [Required] private PlayerController player;
 
         [Title("현재 페이즈 상태 체크용")] [SerializeField] [ReadOnly]
         private int currentLevel = 1; // 1페이즈, 2페이즈 체크용
@@ -40,7 +39,7 @@ namespace Boss1
         [SerializeField] [ReadOnly] private int currentMinionSpawnIndex;
         [SerializeField] [ReadOnly] private float fallCheckLatency = 5.0f;
 
-        [Title("보스몬스터 생성 여부")] [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")]
+        [Title("보스몬스터 생성 여부")] [InfoBox("박스 체크 시 해당 몬스터가 활성화 됩니다")] 
         public bool isActiveTerrapupa = true;
 
         public bool isActiveTerra;
@@ -52,6 +51,8 @@ namespace Boss1
         private bool isFirstTerrapupaHeal;
 
         private TicketMachine ticketMachine;
+        
+        private const int GOLEM_CORE_INDEX = 4021;
 
         private void Start()
         {
@@ -73,12 +74,12 @@ namespace Boss1
 
         private void SetBossInfo()
         {
-            terrapupa.terrapupaData.player.Value = player.transform;
-            terra.terrapupaData.player.Value = player.transform;
-            pupa.terrapupaData.player.Value = player.transform;
+            terrapupa.TerrapupaData.player.Value = player.transform;
+            terra.TerrapupaData.player.Value = player.transform;
+            pupa.TerrapupaData.player.Value = player.transform;
             foreach (var minion in minions)
             {
-                minion.minionData.player.Value = player.transform;
+                minion.MinionData.player.Value = player.transform;
             }
 
             terrapupa.gameObject.SetActive(isActiveTerrapupa);
@@ -282,9 +283,9 @@ namespace Boss1
             {
                 hitBossTransform = hitBossTransform.GetComponent<TerrapupaDetection>().MyTerrapupa;
                 var hitBossControllers = hitBossTransform.GetComponent<TerrapupaBehaviourController>();
-                if (hitBossControllers?.terrapupaData != null)
+                if (hitBossControllers?.TerrapupaData != null)
                 {
-                    hitBossControllers.terrapupaData.hitEarthQuake.Value = true;
+                    hitBossControllers.TerrapupaData.hitEarthQuake.Value = true;
                     ParticleManager.Instance.GetParticle(hitEffect, hitBossTransform);
                 }
             }
@@ -408,7 +409,7 @@ namespace Boss1
 
             Debug.Log("OnHitStone :: 보스가 돌에 맞음");
 
-            var target = bossPayload.TransformValue1.GetComponent<TerrapupaBehaviourController>().terrapupaData;
+            var target = bossPayload.TransformValue1.GetComponent<TerrapupaBehaviourController>().TerrapupaData;
             target.hitThrowStone.Value = true;
         }
 
@@ -565,12 +566,12 @@ namespace Boss1
         {
             var minionController = payload.Sender.GetComponent<TerrapupaMinionBehaviourController>();
             Debug.Log($"{minionController} 공격 봉인");
-            minionController.minionData.canAttack.Value = false;
+            minionController.MinionData.canAttack.Value = false;
 
             yield return new WaitForSeconds(payload.FloatValue);
 
             Debug.Log($"MinionAttackCooldown :: {minionController} 쿨다운 완료");
-            minionController.minionData.canAttack.Value = true;
+            minionController.MinionData.canAttack.Value = true;
         }
 
         private IEnumerator FallCheck()
@@ -671,7 +672,7 @@ namespace Boss1
 
                 minion.gameObject.SetActive(true);
                 minion.transform.position = position;
-                minion.minionData.player.Value = player.transform;
+                minion.MinionData.player.Value = player.transform;
 
                 minion.HealthBar.HideBillboard();
 

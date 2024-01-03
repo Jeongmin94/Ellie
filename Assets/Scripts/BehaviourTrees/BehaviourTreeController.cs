@@ -10,7 +10,7 @@ public abstract class BaseBTData : ScriptableObject
 
     public BehaviourTree Tree
     {
-        get => tree;
+        get { return tree; }
         set
         {
             if (tree == null)
@@ -20,7 +20,10 @@ public abstract class BaseBTData : ScriptableObject
         }
     }
 
-    public string DataName => dataName;
+    public string DataName
+    {
+        get { return dataName; }
+    }
 
     public BlackboardKey<T> FindBlackboardKey<T>(string keyName, BehaviourTree tree)
     {

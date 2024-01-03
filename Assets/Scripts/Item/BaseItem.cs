@@ -22,9 +22,16 @@ namespace Item
         public readonly IDictionary<SlotAreaType, InventorySlot> slots = new Dictionary<SlotAreaType, InventorySlot>();
         public ItemMetaData itemData;
 
-        public int ItemIndex => itemData.index;
+        public int ItemIndex
+        {
+            get { return itemData.index; }
+        }
+
         public Sprite ItemSprite { get; private set; }
-        public string ItemName => itemData.name;
+        public string ItemName
+        {
+            get { return itemData.name; }
+        }
 
         public virtual void InitResources()
         {

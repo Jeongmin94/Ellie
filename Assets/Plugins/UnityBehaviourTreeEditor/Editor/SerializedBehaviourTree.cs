@@ -36,13 +36,25 @@ namespace TheKiwiCoder
             this.tree = tree;
         }
 
-        public SerializedProperty RootNode => serializedObject.FindProperty(sPropRootNode);
+        public SerializedProperty RootNode
+        {
+            get { return serializedObject.FindProperty(sPropRootNode); }
+        }
 
-        public SerializedProperty Nodes => serializedObject.FindProperty(sPropNodes);
+        public SerializedProperty Nodes
+        {
+            get { return serializedObject.FindProperty(sPropNodes); }
+        }
 
-        public SerializedProperty Blackboard => serializedObject.FindProperty(sPropBlackboard);
+        public SerializedProperty Blackboard
+        {
+            get { return serializedObject.FindProperty(sPropBlackboard); }
+        }
 
-        public SerializedProperty BlackboardKeys => serializedObject.FindProperty($"{sPropBlackboard}.{sPropBlackboardKeys}");
+        public SerializedProperty BlackboardKeys
+        {
+            get { return serializedObject.FindProperty($"{sPropBlackboard}.{sPropBlackboardKeys}"); }
+        }
 
         public SerializedProperty FindNode(SerializedProperty array, Node node)
         {

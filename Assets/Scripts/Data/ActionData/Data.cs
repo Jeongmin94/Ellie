@@ -10,7 +10,7 @@ namespace Data.ActionData
 
         public T Value
         {
-            get => v;
+            get { return v; }
             set
             {
                 v = value;

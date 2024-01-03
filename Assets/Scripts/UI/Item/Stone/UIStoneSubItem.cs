@@ -19,8 +19,8 @@ namespace UI.Item.Stone
 
         public string ItemText
         {
-            get => text.text;
-            set => text.text = value;
+            get { return text.text; }
+            set { text.text = value; }
         }
 
         private void Awake()

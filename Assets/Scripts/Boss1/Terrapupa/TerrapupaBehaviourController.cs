@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Boss1.DataScript.Terrapupa;
 using Channels.Boss;
-using Channels.Camera;
 using Channels.Combat;
 using Channels.Components;
 using Managers.Particle;
@@ -15,41 +14,48 @@ using Utils;
 namespace Boss1.Terrapupa
 {
     public class TerrapupaBehaviourController : BehaviourTreeController
-    {
-        [HideInInspector] public TerrapupaRootData terrapupaData;
-        
+    { 
         [SerializeField] [Required] private TerrapupaWeakPoint weakPoint;
         [SerializeField] [Required] private TerrapupaHealthBar healthBar;
         [SerializeField] [Required] private Transform stone;
-        
-        [ShowInInspector] [ReadOnly] 
-        private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown = new();
-        
+
+        [ShowInInspector] [ReadOnly] private readonly Dictionary<TerrapupaAttackType, Coroutine> attackCooldown = new();
+
         private TerrapupaQuestController terrapupaQuest;
-        private TerrapupaCoreController coreController;
+        private TerrapupaGolemCore golemCore;
         private MaterialHitComponent hitComponent;
         private ParticleController intakeEffect;
-        
         private TicketMachine ticketMachine;
-
-        public Transform Stone
+        
+        public Dictionary<TerrapupaAttackType, Coroutine> AttackCooldown
         {
-            get => stone;
-            set => stone = value;
+            get { return attackCooldown; }
         }
         
-        public Dictionary<TerrapupaAttackType, Coroutine> AttackCooldown => attackCooldown;
+        public Transform Stone
+        {
+            get { return stone; }
+            set { stone = value; }
+        }
+        
+        public TerrapupaRootData TerrapupaData
+        {
+            get; private set;
+        }
 
-        public bool IsDead { get; private set; }
+        public bool IsDead
+        {
+            get; private set;
+        }
 
         protected override void Awake()
         {
             base.Awake();
 
-            terrapupaData = rootTreeData as TerrapupaRootData;
+            TerrapupaData = rootTreeData as TerrapupaRootData;
             healthBar = gameObject.GetOrAddComponent<TerrapupaHealthBar>();
             hitComponent = gameObject.GetComponent<MaterialHitComponent>();
-            coreController = gameObject.GetComponent<TerrapupaCoreController>();
+            golemCore = gameObject.GetComponent<TerrapupaGolemCore>();
             terrapupaQuest = gameObject.GetComponent<TerrapupaQuestController>();
 
             SubscribeEvent();
@@ -60,7 +66,7 @@ namespace Boss1.Terrapupa
             InitStatus();
             InitQuest();
         }
-        
+
         public void InitTicketMachine(TicketMachine ticketMachine)
         {
             this.ticketMachine = ticketMachine;
@@ -68,12 +74,12 @@ namespace Boss1.Terrapupa
 
         private void InitStatus()
         {
-            healthBar.InitData(terrapupaData);
+            healthBar.InitData(TerrapupaData);
         }
 
         private void InitQuest()
         {
-            terrapupaQuest.InitData(terrapupaData);
+            terrapupaQuest.InitData(TerrapupaData);
             terrapupaQuest.InitTicketMachine(ticketMachine);
         }
 
@@ -86,13 +92,15 @@ namespace Boss1.Terrapupa
         {
             // 플레이어 총알 -> Combat Channel
             // -> TerrapupaWeakPoint :: ReceiveDamage() -> TerrapupaController
-            if (terrapupaData.isStuned.value)
+            if (TerrapupaData.isStuned.value)
             {
-                var combatPayload = payload as CombatPayload;
-                PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
-                
-                var damage = combatPayload.Damage;
-                GetDamaged(damage);
+                if (payload is CombatPayload combatPayload)
+                {
+                    PoolManager.Instance.Push(combatPayload.Attacker.GetComponent<Poolable>());
+
+                    var damage = combatPayload.Damage;
+                    ApplyDamage(damage);
+                }
             }
             else
             {
@@ -100,46 +108,45 @@ namespace Boss1.Terrapupa
             }
         }
 
-        public void GetDamaged(int damageValue)
+        public void ApplyDamage(int damageValue)
         {
             if (!IsDead)
             {
+                StartCoroutine(ShakeCoroutine(damageValue, TerrapupaData.cameraShakeDuration));
                 healthBar.ShowBillboard();
-                CameraChannel.ShakeCamera(ticketMachine, damageValue);
-                StartCoroutine(ShakeCoroutine());
                 hitComponent.Hit();
 
-                healthBar.RenewHealthBar(terrapupaData.currentHP.value - damageValue);
-                terrapupaData.currentHP.Value -= damageValue;
+                healthBar.RenewHealthBar(TerrapupaData.currentHP.value - damageValue);
+                TerrapupaData.currentHP.Value -= damageValue;
 
-                if (terrapupaData.currentHP.value <= 0)
+                if (TerrapupaData.currentHP.value <= 0)
                 {
                     Dead();
                 }
             }
         }
 
-        public void GetHealed(int healValue)
+        public void ApplyHeal(int healValue)
         {
             if (!IsDead)
             {
-                healthBar.RenewHealthBar(terrapupaData.currentHP.value + healValue);
-                terrapupaData.currentHP.Value += healValue;
+                healthBar.RenewHealthBar(TerrapupaData.currentHP.value + healValue);
+                TerrapupaData.currentHP.Value += healValue;
 
-                if (terrapupaData.currentHP.value > terrapupaData.hp)
+                if (TerrapupaData.currentHP.value > TerrapupaData.hp)
                 {
                     healthBar.HideBillboard();
-                    terrapupaData.currentHP.Value = terrapupaData.hp;
-                    healthBar.RenewHealthBar(terrapupaData.currentHP.value);
+                    TerrapupaData.currentHP.Value = TerrapupaData.hp;
+                    healthBar.RenewHealthBar(TerrapupaData.currentHP.value);
                 }
             }
         }
 
         public void StartBattle(Transform player)
         {
-            terrapupaData.isStart.Value = true;
-            coreController.PlayCoreEffect();
-            terrapupaData.player.Value = player;
+            TerrapupaData.isStart.Value = true;
+            golemCore.PlayCoreEffect();
+            TerrapupaData.player.Value = player;
             healthBar.HideBillboard();
         }
 
@@ -147,39 +154,39 @@ namespace Boss1.Terrapupa
         {
             IsDead = true;
             StopIntakeEffect();
-            terrapupaData.currentHP.Value = 0;
+            TerrapupaData.currentHP.Value = 0;
             healthBar.RenewHealthBar(0);
-            coreController.DarkenCore();
+            golemCore.DarkenCore();
             healthBar.BillboardObject.gameObject.SetActive(false);
         }
 
         public void Stun()
         {
             StopIntakeEffect();
-            coreController.StopCoreEffect();
-            coreController.StopBlinkCore();
-            terrapupaData.isStuned.Value = true;
-            terrapupaData.isTempted.Value = false;
-            terrapupaData.isIntake.Value = false;
+            golemCore.StopCoreEffect();
+            golemCore.StopBlinkCore();
+            TerrapupaData.isStuned.Value = true;
+            TerrapupaData.isTempted.Value = false;
+            TerrapupaData.isIntake.Value = false;
         }
 
         public void AttractMagicStone(Transform magicStone)
         {
-            terrapupaData.isTempted.Value = true;
-            terrapupaData.isIntake.Value = false;
-            terrapupaData.magicStoneTransform.Value = magicStone;
+            TerrapupaData.isTempted.Value = true;
+            TerrapupaData.isIntake.Value = false;
+            TerrapupaData.magicStoneTransform.Value = magicStone;
         }
 
         public void UnattractMagicStone()
         {
-            terrapupaData.isTempted.Value = false;
-            terrapupaData.isIntake.Value = false;
-            terrapupaData.magicStoneTransform.Value = null;
+            TerrapupaData.isTempted.Value = false;
+            TerrapupaData.isIntake.Value = false;
+            TerrapupaData.magicStoneTransform.Value = null;
         }
 
         public void StartIntakeMagicStone()
         {
-            coreController.StartBlinkCore();
+            golemCore.StartBlinkCore();
 
             var effect = Data<TerrapupaIntakeData>("TerrapupaIntake");
             var payload = new ParticlePayload { Origin = transform, LoopCount = 5 };
@@ -190,11 +197,11 @@ namespace Boss1.Terrapupa
         public void EndIntakeMagicStone(int healValue)
         {
             StopIntakeEffect();
-            GetHealed(healValue);
-            coreController.StopBlinkCore();
-            terrapupaData.isTempted.Value = false;
-            terrapupaData.isIntake.Value = false;
-            terrapupaData.magicStoneTransform.Value = null;
+            ApplyHeal(healValue);
+            golemCore.StopBlinkCore();
+            TerrapupaData.isTempted.Value = false;
+            TerrapupaData.isIntake.Value = false;
+            TerrapupaData.magicStoneTransform.Value = null;
         }
 
         public void Cooldown(float cooldown, TerrapupaAttackType type)
@@ -221,59 +228,61 @@ namespace Boss1.Terrapupa
             switch (type)
             {
                 case TerrapupaAttackType.ThrowStone:
-                    if (terrapupaData.stoneUsable)
+                    if (TerrapupaData.stoneUsable)
                     {
-                        terrapupaData.canThrowStone.Value = isCooldownDone;
+                        TerrapupaData.canThrowStone.Value = isCooldownDone;
                     }
 
                     break;
                 case TerrapupaAttackType.EarthQuake:
-                    if (terrapupaData.earthQuakeUsable)
+                    if (TerrapupaData.earthQuakeUsable)
                     {
-                        terrapupaData.canEarthQuake.Value = isCooldownDone;
+                        TerrapupaData.canEarthQuake.Value = isCooldownDone;
                     }
 
                     break;
                 case TerrapupaAttackType.Roll:
-                    if (terrapupaData.rollUsable)
+                    if (TerrapupaData.rollUsable)
                     {
-                        terrapupaData.canRoll.Value = isCooldownDone;
+                        TerrapupaData.canRoll.Value = isCooldownDone;
                     }
 
                     break;
                 case TerrapupaAttackType.LowAttack:
-                    if (terrapupaData.lowAttackUsable)
+                    if (TerrapupaData.lowAttackUsable)
                     {
-                        terrapupaData.canLowAttack.Value = isCooldownDone;
+                        TerrapupaData.canLowAttack.Value = isCooldownDone;
                     }
 
                     break;
             }
         }
-
-        private IEnumerator ShakeCoroutine()
+        
+        private IEnumerator ShakeCoroutine(float shakeIntensity, float shakeDuration)
         {
             var elapsed = 0.0f;
 
             var originalPosition = transform.position;
 
-            while (elapsed < terrapupaData.cameraShakeDuration)
+            while (elapsed < shakeDuration)
             {
-                transform.position = originalPosition + Random.insideUnitSphere * terrapupaData.cameraShakeIntensity;
+                transform.position = originalPosition + Random.insideUnitSphere * shakeIntensity;
                 elapsed += Time.deltaTime;
-                yield return null; // 다음 프레임까지 기다림
+                yield return null;
             }
 
-            transform.position = originalPosition; // 원래 위치로 돌아감
+            transform.position = originalPosition;
         }
 
         private void StopIntakeEffect()
         {
-            if (intakeEffect)
+            if (!intakeEffect)
             {
-                intakeEffect.Stop();
-                intakeEffect = null;
+                return;
             }
+
+            intakeEffect.Stop();
+            intakeEffect = null;
         }
     }
 }

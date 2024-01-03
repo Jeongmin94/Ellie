@@ -53,33 +53,57 @@ namespace Player
         private float tempStamina;
         public TicketMachine ControllerTicketMachine { get; set; }
 
-        public int MaxHP => maxHP;
+        public int MaxHP
+        {
+            get { return maxHP; }
+        }
 
-        public int MaxStamina => maxStamina;
+        public int MaxStamina
+        {
+            get { return maxStamina; }
+        }
 
-        public int StaminaRecoveryPerSec => staminaRecoveryPerSec;
+        public int StaminaRecoveryPerSec
+        {
+            get { return staminaRecoveryPerSec; }
+        }
 
-        public int SprintStaminaConsumptionPerSec => sprintStaminaConsumptionPerSec;
+        public int SprintStaminaConsumptionPerSec
+        {
+            get { return sprintStaminaConsumptionPerSec; }
+        }
 
-        public int JumpStaminaConsumption => jumpStaminaConsumption;
+        public int JumpStaminaConsumption
+        {
+            get { return jumpStaminaConsumption; }
+        }
 
-        public int DodgeStaminaConsumption => dodgeStaminaConsumption;
+        public int DodgeStaminaConsumption
+        {
+            get { return dodgeStaminaConsumption; }
+        }
 
-        public int HangStaminaConsumption => HangStaminaConsumption;
+        public int HangStaminaConsumption
+        {
+            get { return HangStaminaConsumption; }
+        }
 
-        public float ChargeStaminaComsumptionPerSec => chargeStaminaConsumptionPerSec;
+        public float ChargeStaminaComsumptionPerSec
+        {
+            get { return chargeStaminaConsumptionPerSec; }
+        }
 
 
         public int HP
         {
-            get => healthData.CurrentHealth.Value;
-            set => healthData.CurrentHealth.Value = value;
+            get { return healthData.CurrentHealth.Value; }
+            set { healthData.CurrentHealth.Value = value; }
         }
 
         public float Stamina
         {
-            get => staminaData.CurrentStamina.Value;
-            set => staminaData.CurrentStamina.Value = value;
+            get { return staminaData.CurrentStamina.Value; }
+            set { staminaData.CurrentStamina.Value = value; }
         }
 
         private void Awake()

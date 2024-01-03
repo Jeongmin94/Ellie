@@ -8,7 +8,10 @@ namespace Data.ActionData.Player
         [SerializeField] private int maxHealth;
         public readonly Data<int> CurrentHealth = new();
 
-        public int MaxHealth => maxHealth;
+        public int MaxHealth
+        {
+            get { return maxHealth; }
+        }
 
         public void InitHealth()
         {

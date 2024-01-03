@@ -37,7 +37,7 @@ namespace Assets.Scripts.Puzzle
             InitTicketMachine();
         }
 
-        public void InitTicketMachine()
+        private void InitTicketMachine()
         {
             ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Stone, ChannelType.Combat);

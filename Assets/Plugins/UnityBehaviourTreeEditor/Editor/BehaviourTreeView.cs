@@ -106,15 +106,34 @@ namespace TheKiwiCoder
             viewTransformChanged += OnViewTransformChanged;
         }
 
-        protected override bool canCopySelection => true;
+        protected override bool canCopySelection
+        {
+            get { return true; }
+        }
 
-        protected override bool canCutSelection => false; // Cut not supported right now
+        protected override bool canCutSelection
+        {
+            get
+            {
+                return false;
+                // Cut not supported right now
+            }
+        }
 
-        protected override bool canPaste => true;
+        protected override bool canPaste
+        {
+            get { return true; }
+        }
 
-        protected override bool canDuplicateSelection => true;
+        protected override bool canDuplicateSelection
+        {
+            get { return true; }
+        }
 
-        protected override bool canDeleteSelection => true;
+        protected override bool canDeleteSelection
+        {
+            get { return true; }
+        }
 
         private void OnViewTransformChanged(GraphView graphView)
         {

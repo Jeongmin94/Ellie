@@ -28,6 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2955949621655329702}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: -196.95, y: 12.76, z: 641.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -36,7 +37,6 @@ Transform:
   - {fileID: 5835557318538777494}
   - {fileID: 2955949623555849974}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &2955949621655329698
 MonoBehaviour:
@@ -67,7 +67,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7edf593c56a01c64195709729aafb242, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: TerrapupaMinionBTController, Assembly.Ellie
+  m_EditorClassIdentifier: Boss1.TerrapupaMinion.TerrapupaMinionBehaviourController,
+    Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -77,16 +78,13 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  behaviourTreeInstance: {fileID: 2955949621655329698}
   rootTreeData: {fileID: 11400000, guid: ad8d5520e0abf2c4d846e618444271fa, type: 2}
-  billboardObject: {fileID: 2955949623555849974}
   settingList:
   - {fileID: 11400000, guid: b5f95f1ab53e484439690aad8c274640, type: 2}
   - {fileID: 11400000, guid: 85feaf96c2706b741b04f113a1d6fb4d, type: 2}
   - {fileID: 11400000, guid: fc96f4a472ffbad4aaeeadd3412fda2e, type: 2}
   - {fileID: 11400000, guid: 63475ebee65b79b47a39a8516b3a2c6d, type: 2}
   - {fileID: 11400000, guid: 52f59fc9b6bbf7845b4375d9119b3f2a, type: 2}
-  cameraObj: {fileID: 0}
   minionData: {fileID: 0}
   healthBar: {fileID: 2955949621655329703}
   weakPoints: []
@@ -97,10 +95,21 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2955949621655329702}
-  serializedVersion: 2
+  serializedVersion: 4
   m_Mass: 1
   m_Drag: 0
   m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
@@ -117,7 +126,17 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8d272579a7920be49b84e9ae5bf8773e, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: TerrapupaMinionHealthBar, Assembly.Ellie
+  m_EditorClassIdentifier: Boss1.TerrapupaMinion.TerrapupaMinionHealthBar, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  billboardObject: {fileID: 2955949623555849974}
   scaleFactor: 0.002
 --- !u!114 &1893857260
 MonoBehaviour:
@@ -130,8 +149,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 478b7b82e1a2496ab39fa9950499aa87, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assets.Scripts.Player.HitComponent.MaterialHitComponent,
-    Assembly.Ellie
+  m_EditorClassIdentifier: Player.HitComponent.MaterialHitComponent, Assembly.Ellie
   modelMaterial: {fileID: 2100000, guid: b5f3db58cf5b7e1419025291ecd43606, type: 2}
   hitColor: {r: 1, g: 0, b: 0, a: 1}
   hitDuration: 0.3
@@ -159,13 +177,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2955949623555849973}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 2.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2955949621655329699}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5835557318538350512
 GameObject:
@@ -191,13 +209,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350512}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5835557318538777494}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!137 &5835557318526780084
 SkinnedMeshRenderer:
@@ -283,13 +301,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350514}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.67726725, y: 0.7357371, z: 0.00000000775225, w: 0.0000000071361703}
   m_LocalPosition: {x: -0.118109725, y: 0.00979148, z: 2.0634003e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5835557318538777496}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2955949623575591662
 CapsuleCollider:
@@ -299,8 +317,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350514}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.09255636
   m_Height: 0.18511271
   m_Direction: 1
@@ -341,6 +368,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350516}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: -0.69487643, w: 0.7191292}
   m_LocalPosition: {x: -0, y: 0.038799692, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -348,7 +376,6 @@ Transform:
   m_Children:
   - {fileID: 5835557318538777496}
   m_Father: {fileID: 5835557318538777502}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5835557318538350518
 GameObject:
@@ -374,6 +401,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350518}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -0.079, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
@@ -382,7 +410,6 @@ Transform:
   - {fileID: 5835557318538777488}
   - {fileID: 5835557318538777502}
   m_Father: {fileID: 2955949621655329699}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &5835557318531071092
 Animator:
@@ -428,6 +455,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350520}
+  serializedVersion: 2
   m_LocalRotation: {x: 0.998289, y: -0.05847297, z: -6.161128e-10, w: 0.000000010518684}
   m_LocalPosition: {x: -0.25039193, y: 0.008591879, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -436,7 +464,6 @@ Transform:
   - {fileID: 5835557318538777490}
   - {fileID: 5835557318538777500}
   m_Father: {fileID: 5835557318538777492}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5835557318538350524
 GameObject:
@@ -461,13 +488,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350524}
+  serializedVersion: 2
   m_LocalRotation: {x: -0.67726725, y: 0.7357371, z: 0.00000000775225, w: 0.0000000071361703}
   m_LocalPosition: {x: -0.16105567, y: 0.013351765, z: 2.8136743e-10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5835557318538777496}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5835557318538350526
 GameObject:
@@ -494,6 +521,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350526}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -501,7 +529,6 @@ Transform:
   m_Children:
   - {fileID: 5835557318538777492}
   m_Father: {fileID: 5835557318538777494}
-  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!136 &2955949623575591663
 CapsuleCollider:
@@ -511,8 +538,17 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5835557318538350526}
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
   m_IsTrigger: 0
+  m_ProvidesContacts: 0
   m_Enabled: 1
+  serializedVersion: 2
   m_Radius: 0.13508296
   m_Height: 0.34002548
   m_Direction: 1

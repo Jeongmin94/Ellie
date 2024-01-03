@@ -9,6 +9,7 @@ namespace Boss1.Terrapupa
     public class TerrapupaQuestController : SerializedMonoBehaviour
     {
         private TerrapupaRootData terrapupaData;
+        private TicketMachine ticketMachine;
         
         private readonly int stoneHitCompareCount = 5;
         private readonly int stoneHitCompareCountFaint = 3;
@@ -17,8 +18,6 @@ namespace Boss1.Terrapupa
         private bool isFirstReachCompareCountFaint;
         private int stoneHitCount;
         private int stoneHitCountFaint;
-
-        private TicketMachine ticketMachine;
 
         public void InitData(TerrapupaRootData data)
         {

@@ -210,7 +210,11 @@ namespace Asset_Cleaner {
             var store = Globals<BacklinkStore>.Value;
             EditorGUIUtility.labelWidth = windowData.Window.position.width * .7f;
 
-            int Hash() => DirtyUtils.HashCode(conf.Locked);
+            int Hash()
+            {
+                return DirtyUtils.HashCode(conf.Locked);
+            }
+
             var active = SearchArgMain.Get1[0];
             if (conf.Locked && (windowData.FindFrom == FindModeEnum.File &&
                                 (active == null || active.Main == null || !AssetDatabase.Contains(active.Main)))) {
@@ -912,8 +916,15 @@ namespace Asset_Cleaner {
 
         class ResultComp : IEqualityComparer<Result> {
             public static ResultComp Instance { get; } = new ResultComp();
-            public bool Equals(Result x, Result y) => GetHashCode(x) == GetHashCode(y);
-            public int GetHashCode(Result obj) => obj.RootGo.GetInstanceID();
+            public bool Equals(Result x, Result y)
+            {
+                return GetHashCode(x) == GetHashCode(y);
+            }
+
+            public int GetHashCode(Result obj)
+            {
+                return obj.RootGo.GetInstanceID();
+            }
         }
 
         static void DrawRowScene(SearchResultGui gui) {

@@ -17,13 +17,19 @@
                 if (!was && HasValue())
                     __GlobalsCounter.Counter += 1;
 
-                bool HasValue() => _instance != null;
+                bool HasValue()
+                {
+                    return _instance != null;
+                }
             }
         }
     }
 
     static class __GlobalsCounter {
         internal static int Counter;
-        public static bool HasAnyValue() => Counter > 0;
+        public static bool HasAnyValue()
+        {
+            return Counter > 0;
+        }
     }
 }

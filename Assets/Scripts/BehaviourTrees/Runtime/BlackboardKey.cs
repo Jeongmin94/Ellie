@@ -50,7 +50,7 @@ namespace TheKiwiCoder
 
         public T Value
         {
-            get => value;
+            get { return value; }
             set
             {
                 this.value = value;

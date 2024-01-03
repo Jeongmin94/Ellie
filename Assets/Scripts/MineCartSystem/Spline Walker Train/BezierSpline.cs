@@ -11,7 +11,7 @@ public class BezierSpline : MonoBehaviour
 
     public bool Loop
     {
-        get => loop;
+        get { return loop; }
         set
         {
             loop = value;
@@ -23,9 +23,15 @@ public class BezierSpline : MonoBehaviour
         }
     }
 
-    public int ControlPointCount => points.Length;
+    public int ControlPointCount
+    {
+        get { return points.Length; }
+    }
 
-    public int CurveCount => (points.Length - 1) / 3;
+    public int CurveCount
+    {
+        get { return (points.Length - 1) / 3; }
+    }
 
     public void Reset()
     {

@@ -47,7 +47,10 @@ namespace Asset_Cleaner {
             return serializableData;
         }
 
-        static string Path => $"{Application.temporaryCachePath}/AssetCleaner_{AufSerializableData.CurrentVersion}.json";
+        static string Path
+        {
+            get { return $"{Application.temporaryCachePath}/AssetCleaner_{AufSerializableData.CurrentVersion}.json"; }
+        }
 
         // [MenuItem("Tools/LogPath")]
         static void Log() {

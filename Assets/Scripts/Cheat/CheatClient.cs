@@ -286,12 +286,12 @@ public class CheatClient : SerializedMonoBehaviour
     {
         Debug.Log("테라, 푸파 데미지 입히기");
 
-        terrapupa.GetComponent<TerrapupaBehaviourController>().GetDamaged(1);
-        terra.GetComponent<TerrapupaBehaviourController>().GetDamaged(1);
-        pupa.GetComponent<TerrapupaBehaviourController>().GetDamaged(1);
+        terrapupa.GetComponent<TerrapupaBehaviourController>().ApplyDamage(1);
+        terra.GetComponent<TerrapupaBehaviourController>().ApplyDamage(1);
+        pupa.GetComponent<TerrapupaBehaviourController>().ApplyDamage(1);
         foreach (var minion in minions)
         {
-            minion.GetComponent<TerrapupaMinionBehaviourController>().GetDamaged(1);
+            minion.GetComponent<TerrapupaMinionBehaviourController>().ApplyDamage(1);
         }
     }
 

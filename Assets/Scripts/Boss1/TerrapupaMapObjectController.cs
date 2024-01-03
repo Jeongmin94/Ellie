@@ -228,7 +228,7 @@ namespace Boss1
                 {
                     Debug.Log("보스 타격");
 
-                    if (canBossStun || (canBossStun == false && actor.terrapupaData.isIntake.Value))
+                    if (canBossStun || (canBossStun == false && actor.TerrapupaData.isIntake.Value))
                     {
                         Debug.Log("기절");
                         actor.Stun();

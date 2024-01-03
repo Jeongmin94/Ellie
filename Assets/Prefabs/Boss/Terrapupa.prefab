@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4a844601393ab64189eb458ba12bf26, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Boss1.Terrapupa.TerrapupaBTController, Assembly.Ellie
+  m_EditorClassIdentifier: Boss1.Terrapupa.TerrapupaBehaviourController, Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -179,9 +179,7 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
-  behaviourTreeInstance: {fileID: 8979523351519513281}
   rootTreeData: {fileID: 11400000, guid: a4189abdd4b7ce546a91d5e9f68d38c6, type: 2}
-  billboardObject: {fileID: 73700366}
   settingList:
   - {fileID: 11400000, guid: ae8aa0420c605194f9a66fcb81d01bed, type: 2}
   - {fileID: 11400000, guid: e65378943eff62b418d692ad7878539b, type: 2}
@@ -194,13 +192,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bf8b870d1c8660a49959005e2a25cf76, type: 2}
   - {fileID: 11400000, guid: 44b083a90fce3164fbc841180fc0acfe, type: 2}
   - {fileID: 11400000, guid: c954d1a9b8c3fc5479212c5e4460a7fc, type: 2}
-  cameraObj: {fileID: 0}
   terrapupaData: {fileID: 0}
   weakPoint: {fileID: 3540787206911723075}
   healthBar: {fileID: 5739336596423150777}
   stone: {fileID: 3623519102850700817}
-  shakeDuration: 0.1
-  shakeMagnitude: 0.1
 --- !u!54 &8979523351519513295
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -240,7 +235,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20d22ba26721a6249bebbd234e7b2075, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Boss1.Terrapupa.TerrapupaHealthBar, Assembly.Ellie
-  data: {fileID: 11400000, guid: a4189abdd4b7ce546a91d5e9f68d38c6, type: 2}
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
+  billboardObject: {fileID: 73700366}
   scaleFactor: 0.003
 --- !u!114 &986809399633441117
 MonoBehaviour:

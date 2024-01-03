@@ -4,7 +4,10 @@ using Leopotam.Ecs;
 namespace Asset_Cleaner {
     static class Ext {
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        public static bool Eq(this string s1, string s2) => (s1 == s2);
+        public static bool Eq(this string s1, string s2)
+        {
+            return (s1 == s2);
+        }
         // public static bool Eq(this string s1, string s2) => StringComparer.Ordinal.Equals(s1, s2);
 
 

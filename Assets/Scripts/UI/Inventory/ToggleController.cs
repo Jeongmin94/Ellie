@@ -12,14 +12,14 @@ namespace UI.Inventory
 
         public bool IsOn
         {
-            get => toggle.isOn;
-            set => toggle.isOn = value;
+            get { return toggle.isOn; }
+            set { toggle.isOn = value; }
         }
 
         public bool Interactable
         {
-            get => toggle.interactable;
-            set => toggle.interactable = value;
+            get { return toggle.interactable; }
+            set { toggle.interactable = value; }
         }
 
         protected virtual void OnDestroy()

@@ -264,9 +264,10 @@ namespace Leopotam.Ecs {
                 _filter.Lock ();
             }
 
-            public int Current {
+            public int Current
+            {
                 [MethodImpl (MethodImplOptions.AggressiveInlining)]
-                get => _idx;
+                get { return _idx; }
             }
 
 #if ENABLE_IL2CPP

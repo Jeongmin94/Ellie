@@ -1,6 +1,4 @@
-﻿using System;
-using Managers.UI;
-using Monsters.Utility;
+﻿using Managers.UI;
 using Sirenix.OdinInspector;
 using UI.Monster;
 using UnityEngine;
@@ -10,13 +8,13 @@ namespace Boss1
     public abstract class HelathBarController : SerializedMonoBehaviour
     {
         [SerializeField][Required] private Transform billboardObject;
-        
         public float scaleFactor = 0.003f;
         
         protected readonly MonsterDataContainer dataContainer = new();
         protected UIMonsterBillboard billboard;
-        
         private Transform cameraObj;
+        
+        private readonly float criterion = -0.6f;
         private bool isBillboardOn;
 
         public Transform BillboardObject
@@ -50,7 +48,7 @@ namespace Boss1
                 var direction = transform.position - cameraObj.position;
                 var dot = Vector3.Dot(direction.normalized, cameraObj.forward.normalized);
 
-                if (dot > -0.6f)
+                if (dot > criterion)
                 {
                     ShowBillboard();
                 }

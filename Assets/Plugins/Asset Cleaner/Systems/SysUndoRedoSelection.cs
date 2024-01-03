@@ -104,7 +104,10 @@ namespace Asset_Cleaner {
             undoRedoState.UndoEnabled = state.Id != MinId;
             undoRedoState.RedoEnabled = state.Id != MaxId();
 
-            int MaxId() => Mathf.Max(0, state.History.Count - 1);
+            int MaxId()
+            {
+                return Mathf.Max(0, state.History.Count - 1);
+            }
         }
 
         void OnSelectionChanged() {
@@ -186,6 +189,9 @@ namespace Asset_Cleaner {
         double _nextClick;
 
         // 5 back, 6 fw
-        static bool Pressed(int keyCode) => (GetKeyState(keyCode) & 0x100) != 0;
+        static bool Pressed(int keyCode)
+        {
+            return (GetKeyState(keyCode) & 0x100) != 0;
+        }
     }
 }
