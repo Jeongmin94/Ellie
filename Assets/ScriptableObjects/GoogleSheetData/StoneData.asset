@@ -11,21 +11,20 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9c31d4ef64dc2d840a569bf23922240c, type: 3}
   m_Name: StoneData
-  m_EditorClassIdentifier: Assets.Scripts.Data.GoogleSheet.StoneDataParsingInfo,
-    Assembly.Ellie
+  m_EditorClassIdentifier: Data.GoogleSheet._4000Stone.StoneDataParsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1m8XT27AvWyf-EnIbF3EJLNJ3lFX0Tixh_Y8ip3eutsA/edit#gid=0
   startCell: B6
   endColumn: R
   tsv: "4000\t\uB3CC\uBA69\uC774\t\uB358\uC804\uC5D0\uC11C \uC27D\uAC8C \uCC3E\uC744
     \uC218 \uC788\uB294 \uB3CC\uBA69\uC774. \uC704\uB825\uC740 \uC57D\uD558\uC9C0\uB9CC
     \uC27D\uAC8C \uAD6C\uD560 \uC218 \uC788\uB2E4.\t1\t4\tNormal\t1\tWeakRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t4000\t4000\r\n4001\t\uB2E8\uB2E8\uD55C
-    \uB3CC\uBA69\uC774\t\uAC15\uD55C \uD798\uC73C\uB85C \uC751\uC9D1\uB418\uC5B4
-    \uC788\uC5B4 \uAC15\uB825\uD55C \uBB3C\uB9AC \uD53C\uD574\uB97C \uC904 \uC218
-    \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4. \t1\t3\tNormal\t1\tStrongRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t4001\t4001\r\n4002\t\uD654\uC5FC
-    \uB3CC\uBA69\uC774\t-\t2\t2\tFire\t3\tNone\t0\tBurn\tNone\tNone\t-1\t8\t1\t4002\t4002\r\n4003\t\uD3ED\uBC1C\uC131
+    \uB3CC\uBA69\uC774\t\uB0A0\uCE74\uB85C\uC6B4 \uBAA8\uC591\uC73C\uB85C \uAE4E\uC778
+    \uB3CC\uBA69\uC774. \uD2B9\uBCC4\uD55C \uD798\uC740 \uC5C6\uC9C0\uB9CC \uBCF4\uB2E4
+    \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uB97C \uAC00\uD560 \uC218 \uC788\uB2E4.\t1\t3\tNormal\t2\tStrongRigidity\t0\tNone\tNone\tNone\t-1\t8\t1\t4001\t4001\r\n4002\t\uD654\uC5FC
+    \uB3CC\uBA69\uC774\t-\t2\t2\tFire\t3\tNone\t0\tBurn\tNone\tNone\t-1\t8\t1\t4002\t4002\r\n4003\t\uD3ED\uBC1C
     \uB3CC\uBA69\uC774\t\uD3ED\uBC1C\uC131 \uBB3C\uC9C8\uC774 \uB2E8\uB2E8\uD558\uAC8C
     \uAD73\uC5B4 \uB3CC\uBA69\uC774\uC758 \uD615\uD0DC\uB97C \uAC16\uCD94\uACE0 \uC788\uB2E4.
-    \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!\t1\t2\tFire\t1\tKnockedAirborne\t0.5\tNone\tNone\t\uD3ED\uBC1C\t-1\t8\t1\t4003\t4003\r\n4004\t\uC6A9\uC554
+    \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!\t1\t2\tFire\t2\tKnockedAirborne\t0.5\tNone\tNone\t\uD3ED\uBC1C\t-1\t8\t1\t4003\t4003\r\n4004\t\uC6A9\uC554
     \uB3CC\uBA69\uC774\t-\t3\t1\tFire\t2\tNone\t0\tNone\t1,3\t\uC6A9\uC554\uC9C0\uB300\t2100\t8\t1\t4004\t4004\r\n4005\t\uC5BC\uC74C
     \uB3CC\uBA69\uC774\t\uB3D9\uAD74\uC758 \uC11C\uB9AC\uB97C \uC624\uB798\uD1A0\uB85D
     \uBA38\uAE08\uC73C\uBA70 \uCC28\uAC11\uAC8C \uC5BC\uC5B4\uBD99\uC740 \uACB0\uC815\uC758
@@ -36,22 +35,22 @@ MonoBehaviour:
     \uB3CC\uBA69\uC774\t-\t2\t3\tGrass\t1\tSnare\t0\tNone\tNone\tNone\t-1\t8\t1\t4009\t4009\r\n4010\t\uB048\uB048\uC774
     \uB3CC\uBA69\uC774\t\uB3D9\uAD74\uAC70\uBBF8\uC758 \uAC70\uBBF8\uC904\uC774 \uC624\uB79C
     \uC2DC\uAC04\uC744 \uC9C0\uB098 \uB9C8\uB825\uC758 \uD798\uC744 \uBA38\uAE08\uACE0
-    \uC751\uCD95\uB418\uC5B4\uC9C4 \uB3CC\uBA69\uC774\uB2E4.\t1\t2\tEarth\t3\tNone\t0\tNone\t1,3\t\uB048\uB048\uC774
+    \uC751\uCD95\uB418\uC5B4\uC9C4 \uB3CC\uBA69\uC774\uB2E4.\t2\t2\tEarth\t3\tNone\t0\tNone\t1,3\t\uB048\uB048\uC774
     \uB36B\t2103\t8\t1\t4010\t4010\r\n4011\t\uB370\uAD74\uB370\uAD74 \uB3CC\uBA69\uC774\t\uC5B4\uB290
     \uC720\uB839\uC774 \uC7A5\uB09C\uC744 \uAC78\uC5B4\uB450\uC5B4, \uB358\uC9C0\uB294
     \uC21C\uAC04 \uD06C\uAE30\uAC00 \uCEE4\uC9C0\uAE30 \uC2DC\uC791\uD558\uB294 \uAD34\uC0C1\uD55C
-    \uB3CC\uBA69\uC774\uB2E4.\t1\t2\tEarth\t1\tKnockback\t0\tNone\tNone\t\uB2E4\uB2E8\uD788\uD2B8\t-1\t8\t1\t4011\t4011\r\n4012\t\uC9C0\uC9C4
+    \uB3CC\uBA69\uC774\uB2E4.\t2\t2\tEarth\t1\tKnockback\t0\tNone\tNone\t\uB2E4\uB2E8\uD788\uD2B8\t-1\t8\t1\t4011\t4011\r\n4012\t\uC9C0\uC9C4
     \uB3CC\uBA69\uC774\t-\t2\t3\tEarth\t1\tNone\t0\tDown\tNone\tNone\t-1\t8\t1\t4012\t4012\r\n4013\t\uC57C\uAD11
     \uB3CC\uBA69\uC774\t-\t3\t3\tLight\t2\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4013\t4013\r\n4014\t\uC12C\uAD11
     \uB3CC\uBA69\uC774\t-\t2\t3\tLight\t1\tNone\t0\tBlind\tNone\tNone\t-1\t8\t1\t4014\t4014\r\n4015\t\uBE5B\uC758
-    \uB3CC\uBA69\uC774\t-\t1\t2\tLight\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4015\t4015\r\n4016\t\uADC0\uC2E0
+    \uB3CC\uBA69\uC774\t-\t2\t2\tLight\t1\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4015\t4015\r\n4016\t\uADC0\uC2E0
     \uB3CC\uBA69\uC774\t-\t3\t1\tDarkness\t1\tNone\t0\tNone\t1,2,3\t\uADC0\uC2E0
     \uC720\uB839\t2101\t8\t1\t4016\t4016\r\n4017\t\uC5B4\uB460\uC758 \uB3CC\uBA69\uC774\t\uC5B4\uB460\uC758
     \uD798\uC744 \uB2F4\uC740 \uAC15\uB825\uD55C \uB3CC\uBA69\uC774\uB2E4. \uC704\uB825\uC740
-    \uAC00\uD788 \uC0C1\uC0C1\uC744 \uCD08\uC6D4\uD55C\uB2E4.\t1\t2\tDarkness\t5\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4017\t4017\r\n4018\t\uBCC4\uB625\uBCC4
+    \uAC00\uD788 \uC0C1\uC0C1\uC744 \uCD08\uC6D4\uD55C\uB2E4.\t1\t2\tDarkness\t3\tNone\t0\tNone\tNone\tNone\t-1\t8\t1\t4017\t4017\r\n4018\t\uBCC4\uB625\uBCC4
     \uB3CC\uBA69\uC774\t\uC790\uCCB4\uC758 \uB370\uBBF8\uC9C0\uB294 \uC57D\uD558\uC9C0\uB9CC
     \uBCC4\uC758 \uC778\uB825\uC744 \uC774\uC6A9\uD574 \uC801\uB4E4\uC744 \uB04C\uC5B4\uB2F9\uAE30\uB294
-    \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4.\t1\t2\tNormal\t1\tAirborne\t0\tNone\tNone\t\uBE14\uB799\uD640\t-1\t8\t1\t4018\t4018\r\n4019\t\uC21C\uAC04\uC774\uB3D9
+    \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4.\t2\t2\tNormal\t1\tAirborne\t0\tNone\tNone\t\uBE14\uB799\uD640\t-1\t8\t1\t4018\t4018\r\n4019\t\uC21C\uAC04\uC774\uB3D9
     \uB3CC\uBA69\uC774\t\uB9C8\uBC95\uC740 \uC5B8\uC81C\uB098 \uC54C \uC218 \uC5C6\uB294
     \uD798\uC73C\uB85C \uAC00\uB4DD\uD558\uB2E4. \uD574\uB2F9 \uB3CC\uBA69\uC774\uB97C
     \uC0AC\uC6A9\uD558\uBA74 \uC21C\uAC04\uC774\uB3D9 \uD3EC\uD0C8\uC744 \uC5F4 \uC218
@@ -93,14 +92,14 @@ MonoBehaviour:
   - groupType: 1
     index: 4001
     name: "\uB2E8\uB2E8\uD55C \uB3CC\uBA69\uC774"
-    description: "\uAC15\uD55C \uD798\uC73C\uB85C \uC751\uC9D1\uB418\uC5B4 \uC788\uC5B4
-      \uAC15\uB825\uD55C \uBB3C\uB9AC \uD53C\uD574\uB97C \uC904 \uC218 \uC788\uB294
-      \uB3CC\uBA69\uC774\uB2E4."
+    description: "\uB0A0\uCE74\uB85C\uC6B4 \uBAA8\uC591\uC73C\uB85C \uAE4E\uC778
+      \uB3CC\uBA69\uC774. \uD2B9\uBCC4\uD55C \uD798\uC740 \uC5C6\uC9C0\uB9CC \uBCF4\uB2E4
+      \uAC15\uB825\uD55C \uB370\uBBF8\uC9C0\uB97C \uAC00\uD560 \uC218 \uC788\uB2E4."
     imageName: UI/Item/Stone/4001
     appearanceStage: 1
     tier: 3
     element: 2
-    damage: 1
+    damage: 2
     statusEffect: 2
     statusEffectDuration: 0
     force: 10
@@ -138,7 +137,7 @@ MonoBehaviour:
     skillEffectParticle: {fileID: 0}
   - groupType: 1
     index: 4003
-    name: "\uD3ED\uBC1C\uC131 \uB3CC\uBA69\uC774"
+    name: "\uD3ED\uBC1C \uB3CC\uBA69\uC774"
     description: "\uD3ED\uBC1C\uC131 \uBB3C\uC9C8\uC774 \uB2E8\uB2E8\uD558\uAC8C
       \uAD73\uC5B4 \uB3CC\uBA69\uC774\uC758 \uD615\uD0DC\uB97C \uAC16\uCD94\uACE0
       \uC788\uB2E4. \uC790\uB098\uAE68\uB098 \uBD88\uC870\uC2EC!"
@@ -146,7 +145,7 @@ MonoBehaviour:
     appearanceStage: 1
     tier: 2
     element: 4
-    damage: 1
+    damage: 2
     statusEffect: 4
     statusEffectDuration: 0.5
     force: 10
@@ -193,7 +192,7 @@ MonoBehaviour:
     tier: 2
     element: 5
     damage: 1
-    statusEffect: 11
+    statusEffect: 6
     statusEffectDuration: 0
     force: 10
     debuff: 0
@@ -205,7 +204,7 @@ MonoBehaviour:
     textureName: 4005
     stoneMaterial: {fileID: 2100000, guid: 0319c20f9827a8e4597d9d9d307de589, type: 2}
     hitParticle: {fileID: 1215768559362038, guid: 29bf85c12c98a9a4aa9a04043809c205, type: 3}
-    skillEffectParticle: {fileID: 0}
+    skillEffectParticle: {fileID: 5065804187445697859, guid: 9949e59518df6a340b4c1ac66980b9d6, type: 3}
   - groupType: 1
     index: 4006
     name: "\uBB3C\uACB0 \uB3CC\uBA69\uC774"
@@ -301,7 +300,7 @@ MonoBehaviour:
       \uC2DC\uAC04\uC744 \uC9C0\uB098 \uB9C8\uB825\uC758 \uD798\uC744 \uBA38\uAE08\uACE0
       \uC751\uCD95\uB418\uC5B4\uC9C4 \uB3CC\uBA69\uC774\uB2E4."
     imageName: UI/Item/Stone/4010
-    appearanceStage: 1
+    appearanceStage: 2
     tier: 2
     element: 3
     damage: 3
@@ -325,11 +324,11 @@ MonoBehaviour:
       \uB358\uC9C0\uB294 \uC21C\uAC04 \uD06C\uAE30\uAC00 \uCEE4\uC9C0\uAE30 \uC2DC\uC791\uD558\uB294
       \uAD34\uC0C1\uD55C \uB3CC\uBA69\uC774\uB2E4."
     imageName: UI/Item/Stone/4011
-    appearanceStage: 1
+    appearanceStage: 2
     tier: 2
     element: 3
     damage: 1
-    statusEffect: 7
+    statusEffect: 8
     statusEffectDuration: 0
     force: 10
     debuff: 0
@@ -413,7 +412,7 @@ MonoBehaviour:
     name: "\uBE5B\uC758 \uB3CC\uBA69\uC774"
     description: '-'
     imageName: UI/Item/Stone/4015
-    appearanceStage: 1
+    appearanceStage: 2
     tier: 2
     element: 7
     damage: 1
@@ -462,7 +461,7 @@ MonoBehaviour:
     appearanceStage: 1
     tier: 2
     element: 0
-    damage: 5
+    damage: 3
     statusEffect: 0
     statusEffectDuration: 0
     force: 10
@@ -483,11 +482,11 @@ MonoBehaviour:
       \uBCC4\uC758 \uC778\uB825\uC744 \uC774\uC6A9\uD574 \uC801\uB4E4\uC744 \uB04C\uC5B4\uB2F9\uAE30\uB294
       \uD798\uC744 \uAC00\uC9C0\uACE0 \uC788\uB294 \uB3CC\uBA69\uC774\uB2E4."
     imageName: UI/Item/Stone/4018
-    appearanceStage: 1
+    appearanceStage: 2
     tier: 2
     element: 2
     damage: 1
-    statusEffect: 6
+    statusEffect: 7
     statusEffectDuration: 0
     force: 10
     debuff: 0

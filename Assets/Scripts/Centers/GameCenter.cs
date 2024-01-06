@@ -12,7 +12,7 @@ namespace Centers
     {
         public GameObject player;
         public StoneHatchery hatchery;
-        public Ore[] ores;
+        public GameObject ores;
         public GameObject monsterController;
         public GameObject monsters;
         public GameObject[] skullSecondTraps;
@@ -38,10 +38,11 @@ namespace Centers
             CheckTicket(player.gameObject);
             CheckTicket(player.GetComponent<PlayerInventory>().Inventory.gameObject);
             CheckTicket(hatchery.gameObject);
-            foreach (var ore in ores)
+            
+
+            foreach (Transform child in ores.transform)
             {
-                CheckTicket(ore.gameObject);
-                ore.curStage = curStage;
+                CheckTicket(child.gameObject);
             }
 
             CheckTicket(monsterController.gameObject);

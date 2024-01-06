@@ -2311,7 +2311,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 58250ec10b179444eae8bddcd7c17ff1, type: 2}
   - {fileID: 11400000, guid: d35891d5a603d80428f7885aec2b19f4, type: 2}
   - {fileID: 11400000, guid: 4278f20a66b47b04bb8c359d78261779, type: 2}
-  terrapupaData: {fileID: 0}
   weakPoint: {fileID: 911217315469005314}
   healthBar: {fileID: 4358872970538757724}
   stone: {fileID: 9073804491225900255}
@@ -2392,7 +2391,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 76e4f1958280de9489c0be3735bb24e7, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Boss1.Terrapupa.TerrapupaCoreController, Assembly.Ellie
+  m_EditorClassIdentifier: Boss1.Terrapupa.TerrapupaGolemCore, Assembly.Ellie
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
@@ -2543,12 +2542,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Boss.Terrapupa.TerrapupaStone, Assembly.Ellie
   isUsing: 0
-  movementSpeed: 15
-  attackValue: 5
-  layerMask:
-    serializedVersion: 2
-    m_Bits: 64
-  hitSound: TerrapupaAttackHit
   remainTime: 10
 --- !u!54 &5921519033301202650
 Rigidbody:

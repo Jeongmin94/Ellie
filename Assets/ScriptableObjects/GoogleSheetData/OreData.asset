@@ -11,50 +11,50 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6446aba20b8c334cbf18b0ffe140fa7, type: 3}
   m_Name: OreData
-  m_EditorClassIdentifier: OreDataParsingInfo, Assembly.Ellie
+  m_EditorClassIdentifier: Data.GoogleSheet.OreDataParsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1m8XT27AvWyf-EnIbF3EJLNJ3lFX0Tixh_Y8ip3eutsA/edit#gid=1389931706
   startCell: A5
   endColumn: G
-  tsv: "9100\tOre_Tier3\t3\t20\t0\t4200,0.2,4201,0.8\t4205,1.0\r\n9101\tOre_Tier2\t2\t26\t2\t4202,0.7,4203,0.3\t4206,0.8,4207,0.2\r\n9102\tOre_Tier1\t1\t35\t5\t4203,0.3,4204,0.7\t4209,0.3,4210,0.7
-    \r\n9103\tOre_boom\t3\t20\t0\t4218,0.3,4221,0.7\t4219,1.0\r\n9104\tOre_Ice\t3\t23\t0\t4212,0.2,4224,0.8\t4223,1.0\r\n9105\tOre_dark\t3\t23\t0\t4221,0.5,4227,0.5\t4226,1.0\r\n9106\tOre_portal\t3\t23\t0\t4217,0.4,4229,0.6\t4228,1.0\r\n9107\tOre_normal\t3\t21\t0\t4212,0.5,4213,0.5\t4216,0.5,4217,0.5"
+  tsv: "9100\tOre_Tier3\t3\t10\t0\t4200,0.2,4201,0.8\t4205,1.0\r\n9101\tOre_Tier2\t2\t10\t0\t4202,0.7,4203,0.3\t4206,0.8,4207,0.2\r\n9102\tOre_Tier1\t1\t10\t0\t4203,0.3,4204,0.7\t4209,0.3,4210,0.7
+    \r\n9103\tOre_boom\t3\t10\t0\t4218,0.3,4221,0.7\t4219,1.0\r\n9104\tOre_Ice\t3\t10\t0\t4212,0.2,4224,0.8\t4223,1.0\r\n9105\tOre_dark\t3\t10\t0\t4221,0.5,4227,0.5\t4226,1.0\r\n9106\tOre_portal\t3\t10\t0\t4217,0.4,4229,0.6\t4228,1.0\r\n9107\tOre_normal\t3\t10\t0\t4212,0.5,4213,0.5\t4216,0.5,4217,0.5"
   ores:
   - index: 9100
     name: Ore_Tier3
     tier: 3
-    HP: 20
+    HP: 10
     hardness: 0
   - index: 9101
     name: Ore_Tier2
     tier: 2
-    HP: 26
-    hardness: 2
+    HP: 10
+    hardness: 0
   - index: 9102
     name: Ore_Tier1
     tier: 1
-    HP: 35
-    hardness: 5
+    HP: 10
+    hardness: 0
   - index: 9103
     name: Ore_boom
     tier: 3
-    HP: 20
+    HP: 10
     hardness: 0
   - index: 9104
     name: Ore_Ice
     tier: 3
-    HP: 23
+    HP: 10
     hardness: 0
   - index: 9105
     name: Ore_dark
     tier: 3
-    HP: 23
+    HP: 10
     hardness: 0
   - index: 9106
     name: Ore_portal
     tier: 3
-    HP: 23
+    HP: 10
     hardness: 0
   - index: 9107
     name: Ore_normal
     tier: 3
-    HP: 21
+    HP: 10
     hardness: 0
