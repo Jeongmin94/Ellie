@@ -182,37 +182,43 @@ namespace InteractiveObjects
             var accChance = 0f;
             foreach (var item in dropItemList)
             {
-                //item.Item1 : 드롭테이블 인덱스
-                //item.Item2 : 확률
-                accChance += item.Item2;
-
-                if (rand <= accChance)
+                //special 드롭테이블인지 먼저 확인
+                var dropTableData =
+                    DataManager.Instance.GetIndexData<DropTableData, DropTableDataParsingInfo>(item.Item1);
+                
+                if (dropTableData.isSpecialDropTable)
                 {
-                    //드롭테이블 참조해서 돌맹이 생성
-                    //인덱스로 드롭테이블 참조
-                    var dropDataList = DataManager.Instance
-                        .GetIndexData<DropTableData, DropTableDataParsingInfo>(item.Item1).stoneDropDataList;
-                    foreach (var dropData in dropDataList)
+                    //special 드롭테이블이라면
+                    var dropDataTuple = dropTableData.specialDropDataTuple;
+                    for (int i = 0; i < dropDataTuple.Item2; i++)
                     {
-                        for (var i = 0; i < dropData.Item2; i++)
-                        {
-                            //TODO : 돌맹이 데이터테이블에서 해당하는 티어의 돌맹이 랜덤하게 뽑아내기
-                            //Item2 : 돌맹이 개수
-                            //Item1 : 돌맹이 티어
-                            //돌맹이 티어로 데이터풀에서 해당 티어에 맞는 돌맹이 && 현재 스테이지 이하의 돌 중 랜덤 생성하기
-                            var tempStones = DataManager.Instance.GetData<StoneDataParsingInfo>().stones
-                                .Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
-                            if (tempStones.Count <= 0)
-                            {
-                                continue;
-                            }
-
-                            var randIndex = Random.Range(0, tempStones.Count);
-                            MineStone(tempStones[randIndex].index);
-                        }
+                        MineStone(dropDataTuple.Item1);
                     }
+                }
+                else
+                {
+                    //아니라면
+                    var dropDataList = dropTableData.stoneDropDataList;
+                    accChance += item.Item2;
+                    if (rand <= accChance)
+                    {
+                        foreach (var dropData in dropDataList)
+                        {
+                            for (var i = 0; i < dropData.Item2; i++)
+                            {
+                                var stoneList = DataManager.Instance.GetData<StoneDataParsingInfo>().stones
+                                    .Where(obj => obj.tier == dropData.Item1 && obj.appearanceStage <= curStage).ToList();
+                                if (stoneList.Count <= 0)
+                                {
+                                    continue;
+                                }
 
-                    break;
+                                var randIndex = Random.Range(0, stoneList.Count);
+                                MineStone(stoneList[randIndex].index);
+                            }
+                        }
+                        break;
+                    }
                 }
             }
         }
