@@ -25,7 +25,7 @@ namespace Controller.Camera
         {
             var ticketMachine = gameObject.GetOrAddComponent<TicketMachine>();
             ticketMachine.AddTickets(ChannelType.Camera);
-            ticketMachine.RegisterObserver(ChannelType.Camera, OnNotifyCamera);
+            // ticketMachine.RegisterObserver(ChannelType.Camera, OnNotifyCamera);
         }
 
         private void OnNotifyCamera(IBaseEventPayload payload)

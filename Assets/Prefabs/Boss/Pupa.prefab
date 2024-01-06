@@ -2229,12 +2229,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4691484792249310849}
+  - component: {fileID: 4691484792249310862}
   - component: {fileID: 4691484792249310848}
   - component: {fileID: 4691484792249310863}
-  - component: {fileID: 4691484792249310862}
   - component: {fileID: 4358872970538757724}
   - component: {fileID: 6555073082771406715}
   - component: {fileID: 2102300570}
+  - component: {fileID: 8697581303600100529}
   m_Layer: 10
   m_Name: Pupa
   m_TagString: Boss
@@ -2259,6 +2260,33 @@ Transform:
   - {fileID: 743274801}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+--- !u!54 &4691484792249310862
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4691484792249310850}
+  serializedVersion: 4
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.35
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!114 &4691484792249310848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2314,33 +2342,6 @@ MonoBehaviour:
   weakPoint: {fileID: 911217315469005314}
   healthBar: {fileID: 4358872970538757724}
   stone: {fileID: 9073804491225900255}
---- !u!54 &4691484792249310862
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4691484792249310850}
-  serializedVersion: 4
-  m_Mass: 100
-  m_Drag: 0
-  m_AngularDrag: 0.35
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!114 &4358872970538757724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2404,6 +2405,27 @@ MonoBehaviour:
   blinkIntensity: 4
   blinkDuration: 0.45
   darkenDuration: 2
+--- !u!114 &8697581303600100529
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4691484792249310850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eea5d27ca034d51a74d79c0434371aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Boss1.Terrapupa.TerrapupaQuestController, Assembly.Ellie
+  serializationData:
+    SerializedFormat: 2
+    SerializedBytes: 
+    ReferencedUnityObjects: []
+    SerializedBytesString: 
+    Prefab: {fileID: 0}
+    PrefabModificationsReferencedUnityObjects: []
+    PrefabModifications: []
+    SerializationNodes: []
 --- !u!1 &8831768199645564775
 GameObject:
   m_ObjectHideFlags: 0
