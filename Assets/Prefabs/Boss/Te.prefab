@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2955949621655329699}
+  - component: {fileID: 2955949621655329696}
   - component: {fileID: 2955949621655329698}
   - component: {fileID: 2955949621655329697}
-  - component: {fileID: 2955949621655329696}
   - component: {fileID: 2955949621655329703}
   - component: {fileID: 1893857260}
   m_Layer: 10
@@ -38,6 +38,33 @@ Transform:
   - {fileID: 2955949623555849974}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+--- !u!54 &2955949621655329696
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2955949621655329702}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!114 &2955949621655329698
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,36 +112,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: fc96f4a472ffbad4aaeeadd3412fda2e, type: 2}
   - {fileID: 11400000, guid: 63475ebee65b79b47a39a8516b3a2c6d, type: 2}
   - {fileID: 11400000, guid: 52f59fc9b6bbf7845b4375d9119b3f2a, type: 2}
-  minionData: {fileID: 0}
   healthBar: {fileID: 2955949621655329703}
   weakPoints: []
---- !u!54 &2955949621655329696
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2955949621655329702}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!114 &2955949621655329703
 MonoBehaviour:
   m_ObjectHideFlags: 0

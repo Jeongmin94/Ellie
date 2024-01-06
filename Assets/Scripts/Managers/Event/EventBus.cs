@@ -9,6 +9,7 @@ namespace Managers.Event
     public enum EventBusEvents
     {
         None,
+        
         GripStoneByBoss1,
         ThrowStoneByBoss1,
         HitManaByPlayerStone,

@@ -15,9 +15,11 @@ namespace Channels.Boss
     public enum TerrapupaEvent
     {
         None,
-
+        
         GripStoneByBoss1,
         ThrowStoneByBoss1,
+        HitManaByPlayerStone,
+        DestroyedManaByBoss1,
         OccurEarthQuake,
         DropMagicStalactite,
         BossAttractedByMagicStone,
@@ -33,24 +35,6 @@ namespace Channels.Boss
         ApplySingleBossCooldown,
         StartIntakeMagicStone,
         ActivateMagicStone
-    }
-
-    public class TerrapupaPayload : IBaseEventPayload
-    {
-        // 이벤트 타입
-        public TerrapupaEvent Type { get; set; }
-
-        // 공격력
-        public int AttackValue { get; set; }
-
-        // 공격 쿨타임 적용 시
-        public float Cooldown { get; set; }
-
-        // 상호작용하는 대상 (객체 -> 객체)
-        public Transform Sender { get; set; }
-
-        // 상호작용 받는 대상 (객체 <- 객체)
-        public Transform Receiver { get; set; }
     }
 
     public class BossEventPayload : IBaseEventPayload
@@ -72,7 +56,7 @@ namespace Channels.Boss
     {
         public override void ReceiveMessage(IBaseEventPayload payload)
         {
-            var terrapupaPayload = payload as TerrapupaPayload;
+            var terrapupaPayload = payload as BossEventPayload;
 
             Publish(terrapupaPayload);
         }

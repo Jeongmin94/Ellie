@@ -64,6 +64,7 @@ MonoBehaviour:
   - rid: 283011291767373855
   - rid: 6881097883797946422
   - rid: 116448501211856908
+  - rid: 3355707429988073472
   treeState: 0
   blackboard:
     keys:
@@ -86,8 +87,8 @@ MonoBehaviour:
     - rid: 1683426562437021875
     - rid: 6881097883797946379
     - rid: 116448501211856907
-  viewPosition: {x: -1193.6, y: 435.2, z: 0}
-  viewScale: {x: 0.57175326, y: 0.57175326, z: 1}
+  viewPosition: {x: -1388, y: 104, z: 0}
+  viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
     RefIds:
@@ -975,6 +976,24 @@ MonoBehaviour:
         name: combatPayload
         typeName: IBaseEventPayload, Assembly.Ellie, Version=0.0.0.0, Culture=neutral,
           PublicKeyToken=null
+    - rid: 3355707429988073472
+      type: {class: SendTicketMessage, ns: , asm: Assembly.Ellie}
+      data:
+        state: 0
+        started: 0
+        guid: 7427499e2895bd84aba081222867f831
+        position: {x: 3435, y: 675}
+        blackboard:
+          keys: []
+        description: 
+        drawGizmos: 0
+        channelType:
+          reference:
+            rid: -2
+          defaultValue: 0
+        baseEventPayload:
+          reference:
+            rid: -2
     - rid: 6881097883797946379
       type: {class: StringKey, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

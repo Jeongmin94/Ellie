@@ -10,6 +10,7 @@ public class PublishEventBusPayload : ActionNode
 
     protected override void OnStart()
     {
+        
     }
 
     protected override void OnStop()
