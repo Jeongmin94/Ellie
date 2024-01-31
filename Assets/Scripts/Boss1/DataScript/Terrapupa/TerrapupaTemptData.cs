@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Terrapupa
 {
     [CreateAssetMenu(fileName = "Tempt", menuName = "Terrapupa/Tempt")]
-    public class TerrapupaTemptData : BaseBTData
+    public class TerrapupaTemptData : BehaviourTreeData
     {
         [Title("유인 상태")] [InfoBox("유인 이동속도")] public float temptMovementSpeed = 2.0f;
 

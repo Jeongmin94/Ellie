@@ -22,7 +22,6 @@ namespace TheKiwiCoder
         {
             Insert(0, new GridBackground());
 
-
             this.AddManipulator(new ContentZoomer());
             this.AddManipulator(new ContentDragger());
             this.AddManipulator(new HierarchySelector());

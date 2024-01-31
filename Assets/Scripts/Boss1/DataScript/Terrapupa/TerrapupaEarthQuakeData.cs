@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Terrapupa
 {
     [CreateAssetMenu(fileName = "EarthQuake", menuName = "Terrapupa/EarthQuake")]
-    public class TerrapupaEarthQuakeData : BaseBTData
+    public class TerrapupaEarthQuakeData : BehaviourTreeData
     {
         [Title("사운드 설정")] [InfoBox("땅 뒤집기 공격 사운드")]
         public string sound1 = "TerrapupaEarthQuake";

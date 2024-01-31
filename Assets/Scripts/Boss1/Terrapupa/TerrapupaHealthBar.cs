@@ -7,7 +7,7 @@ namespace Boss1.Terrapupa
     {
         private TerrapupaRootData terrapupaData;
         
-        public override void InitData(BaseBTData data)
+        public override void InitData(BehaviourTreeData data)
         {
             terrapupaData = data as TerrapupaRootData;
 

@@ -11,16 +11,16 @@ namespace Managers.Data
 {
     public class DataManager : Singleton<DataManager>
     {
-        [InfoBox("체크 시 실시간 데이터 파싱을 진행합니다!\n빌드 시에는 꼭 체크해주세요!!!")] [SerializeField]
+        [InfoBox("체크 시 실시간 데이터 파싱을 진행합니다!\n빌드 시에는 꼭 체크해주세요!!!")] [SerializeField] 
         private bool isDataParseInit = true;
-
-        [SerializeField] private List<DataParsingInfo> dataList = new();
-
-        [ShowInInspector] [ReadOnly] private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new();
+        [SerializeField] 
+        private List<DataParsingInfo> dataList = new();
+        [ShowInInspector] [ReadOnly] 
+        private readonly Dictionary<Type, DataParsingInfo> dataDictionary = new();
 
         private GoogleSheetsParser parser;
 
-        public bool isParseDone { get; private set; }
+        private bool isParseDone { get; set; }
 
         public override void Awake()
         {

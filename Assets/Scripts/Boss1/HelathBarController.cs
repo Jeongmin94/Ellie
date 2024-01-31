@@ -78,6 +78,6 @@ namespace Boss1
             }
         }
 
-        public abstract void InitData(BaseBTData data);
+        public abstract void InitData(BehaviourTreeData data);
     }
 }

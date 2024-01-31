@@ -16,9 +16,7 @@ namespace Boss1.Terrapupa
         private int attackValue = 5;
         private LayerMask layerMask;
         private string hitSound = "TerrapupaAttackHit";
-
-        public float remainTime = 10.0f;
-        
+        private float remainTime = 10.0f;
         private CombatPayload combatPayload;
         private Vector3 direction;
 
@@ -73,7 +71,11 @@ namespace Boss1.Terrapupa
         {
             var detection = other.GetComponent<TerrapupaDetection>();
 
-            if (((1 << other.gameObject.layer) & layerMask) != 0 && detection.MyTerrapupa != Owner)
+            if (detection == null)
+                return;
+
+            //if (((1 << other.gameObject.layer) & layerMask) != 0 && detection.MyTerrapupa != Owner)
+            if (detection.MyTerrapupa != Owner)
             {
                 ParticleManager.Instance.GetParticle(effect, transform);
                 SoundManager.Instance.PlaySound(SoundManager.SoundType.Sfx, hitSound, transform.position);

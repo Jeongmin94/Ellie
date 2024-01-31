@@ -94,10 +94,7 @@ namespace Boss1.BossRoomObjects
                     TransformValue1 = transform
                 });
             
-            for (int i = 0; i < 3; i++)
-            {
-                StoneChannel.DropStone(ticketMachine, position, MAGICSTONE_INDEX);
-            }
+            StoneChannel.DropStone(ticketMachine, position, MAGICSTONE_INDEX);
         }
 
         private void DestroyManaFounatainByBoss(Vector3 position, Transform other)

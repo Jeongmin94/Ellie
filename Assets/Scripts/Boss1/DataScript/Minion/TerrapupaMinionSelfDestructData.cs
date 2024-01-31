@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Minion
 {
     [CreateAssetMenu(fileName = "SelfDestruct", menuName = "Terrapupa/MinionSelfDestruct")]
-    public class TerrapupaMinionSelfDestructData : BaseBTData
+    public class TerrapupaMinionSelfDestructData : BehaviourTreeData
     {
         [Title("사운드 설정")] [InfoBox("땅 뒤집기 공격 사운드")]
         public string sound1 = "MinionSelfDestruct";

@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Minion
 {
     [CreateAssetMenu(fileName = "Attack", menuName = "Terrapupa/MinionAttack")]
-    public class TerrapupaMinionAttackData : BaseBTData
+    public class TerrapupaMinionAttackData : BehaviourTreeData
     {
         [Header("이펙트 설정")] [Tooltip("공격 이펙트")] public GameObject attackEffect1;
 

@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using TheKiwiCoder;
 using UnityEngine;
 
-public abstract class BaseBTData : ScriptableObject
+public abstract class BehaviourTreeData : ScriptableObject
 {
     public string dataName;
     protected BehaviourTree tree;
@@ -48,12 +48,12 @@ public abstract class BaseBTData : ScriptableObject
 
 public class BehaviourTreeController : SerializedMonoBehaviour
 {
-    [SerializeField] protected BaseBTData rootTreeData;
-    [SerializeField] private List<BaseBTData> settingList;
+    [SerializeField] protected BehaviourTreeData rootTreeData;
+    [SerializeField] private List<BehaviourTreeData> settingList;
     
     protected virtual void Awake()
     {
-        // 추후 추가사항
+        // 추가사항
     }
     
     public void InitRootTree(BehaviourTree tree)
@@ -69,7 +69,7 @@ public class BehaviourTreeController : SerializedMonoBehaviour
         }
     }
 
-    public T Data<T>(string dataName) where T : BaseBTData
+    public T Data<T>(string dataName) where T : BehaviourTreeData
     {
         foreach (var setting in settingList)
         {
@@ -82,7 +82,7 @@ public class BehaviourTreeController : SerializedMonoBehaviour
         return null;
     }
 
-    public BaseBTData Search(string dataName)
+    public BehaviourTreeData Search(string dataName)
     {
         foreach (var setting in settingList)
         {

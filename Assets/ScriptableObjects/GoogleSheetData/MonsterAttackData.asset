@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9cb0f7fc84e614e1da05685ce69c47df, type: 3}
   m_Name: MonsterAttackData
-  m_EditorClassIdentifier: MonsterAttackDataparsingInfo, Assembly.Ellie
+  m_EditorClassIdentifier: Data.Monster.MonsterAttackDataparsingInfo, Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1GYuPFPnkAFIRdZj5y3eVHvvbrY4T2yDQCfcae04vraI/edit#gid=0
   startCell: B7
   endColumn: AC
@@ -40,6 +40,8 @@ MonoBehaviour:
     attackDuration: 0.5
     offset: {x: 0, y: 0, z: 0.5}
     size: {x: 2, y: 1, z: 1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: -1
     fleeDistance: -1
     stopDistance: 2
@@ -58,6 +60,8 @@ MonoBehaviour:
     attackDuration: 0.5
     offset: {x: 0, y: 0, z: 0.5}
     size: {x: 3, y: 2, z: 2}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: -1
     fleeDistance: -1
     stopDistance: 2
@@ -76,6 +80,8 @@ MonoBehaviour:
     attackDuration: 0.5
     offset: {x: 0, y: 0, z: 0.5}
     size: {x: 3, y: 2, z: 2}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: -1
     fleeDistance: -1
     stopDistance: 2
@@ -94,6 +100,8 @@ MonoBehaviour:
     attackDuration: 0.5
     offset: {x: 0, y: 0, z: 1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: -1
     fleeDistance: -1
     stopDistance: 2
@@ -112,6 +120,8 @@ MonoBehaviour:
     attackDuration: 0.5
     offset: {x: 0, y: 0, z: 1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: -1
     fleeDistance: -1
     stopDistance: 2
@@ -130,6 +140,8 @@ MonoBehaviour:
     attackDuration: 2
     offset: {x: -1, y: -1, z: -1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 6
     fleeDistance: -1
     stopDistance: 2
@@ -148,6 +160,8 @@ MonoBehaviour:
     attackDuration: 2
     offset: {x: -1, y: -1, z: -1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 7
     fleeDistance: -1
     stopDistance: 2
@@ -166,6 +180,8 @@ MonoBehaviour:
     attackDuration: 2
     offset: {x: -1, y: -1, z: -1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 7
     fleeDistance: -1
     stopDistance: 2
@@ -184,6 +200,8 @@ MonoBehaviour:
     attackDuration: 2
     offset: {x: -1, y: -1, z: -1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 15
     fleeDistance: 15
     stopDistance: 2
@@ -202,6 +220,8 @@ MonoBehaviour:
     attackDuration: 4
     offset: {x: 0, y: 1, z: 0}
     size: {x: 1, y: 1, z: 1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: -1
     fleeDistance: -1
     stopDistance: 2
@@ -220,6 +240,8 @@ MonoBehaviour:
     attackDuration: 1
     offset: {x: 0, y: 0, z: 0.5}
     size: {x: 1, y: 1, z: 1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 8
     fleeDistance: 2
     stopDistance: 1.5
@@ -238,6 +260,8 @@ MonoBehaviour:
     attackDuration: -1
     offset: {x: -1, y: -1, z: -1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 10
     fleeDistance: 10
     stopDistance: 1.5
@@ -256,6 +280,8 @@ MonoBehaviour:
     attackDuration: 2
     offset: {x: -1, y: -1, z: -1}
     size: {x: -1, y: -1, z: -1}
+    projectileChase: 0
+    projectileSpeed: 0
     movementSpeed: 10
     fleeDistance: -1
     stopDistance: 1.5

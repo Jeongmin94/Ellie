@@ -16,9 +16,10 @@ namespace Boss1.BossRoomObjects
         [SerializeField] private float doorTimeLimit = 10.0f;
         [SerializeField] private float openSpeedTime = 3.0f;
         [SerializeField] private float openAngle = 120.0f;
-        [SerializeField] [ReadOnly] private int golemCoreCount;
-
+        
         private TicketMachine ticketMachine;
+        
+        private int golemCoreCount;
 
         public void Start()
         {

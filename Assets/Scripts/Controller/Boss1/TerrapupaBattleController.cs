@@ -2,6 +2,7 @@
 using Channels.Boss;
 using Channels.Components;
 using Channels.Type;
+using Managers.Input;
 using Managers.Sound;
 using Sirenix.OdinInspector;
 using UnityEngine;
@@ -11,17 +12,18 @@ namespace Controller.Boss1
 {
     public class TerrapupaBattleController : BaseController
     {
-        [Title("테라푸파 이벤트 관련 오브젝트 객체")] [SerializeField] [Required]
-        private BossRoomDoor bossRoomDoor;
-
+        [Title("테라푸파 이벤트 관련 오브젝트 객체")] 
+        [SerializeField] [Required] private BossRoomDoor bossRoomDoor;
         [SerializeField] [Required] private BossRoomTrigger enterTrigger;
         [SerializeField] [Required] private BossRoomTrigger leftTrigger;
         [SerializeField] [Required] private Canvas bossRoomLeftCanvas;
         [SerializeField] [Required] private GameObject bossRoomEnterWall;
+        
+        [InfoBox("보스전 BGM")] 
+        [SerializeField] private string bossBGM = "TerrapupaBGM";
 
-        [Title("보스전 설정")] [InfoBox("보스전 BGM")] public string bossBGM = "TerrapupaBGM";
-
-        [InfoBox("보스전 종료 BGM")] public string endingBGM = "EndingBGM";
+        [InfoBox("보스전 종료 BGM")] 
+        [SerializeField] private string endingBGM = "EndingBGM";
 
         private TicketMachine ticketMachine;
 
@@ -82,8 +84,8 @@ namespace Controller.Boss1
         {
             Debug.Log("OnEnterBossRoom()");
             // 인풋 설정 제거, 트리거 제거, 벽 추가, 로드상태 확인해서 넘어가기
+            
             //InputManager.Instance.CanInput = false;
-
             enterTrigger.gameObject.SetActive(false);
             bossRoomEnterWall.SetActive(true);
         }
@@ -92,6 +94,7 @@ namespace Controller.Boss1
         {
             Debug.Log("OnStartBattle()");
             // 인풋 설정 제거 + 노래 전환
+            
             //InputManager.Instance.CanInput = true;
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, bossBGM);
         }
@@ -100,6 +103,7 @@ namespace Controller.Boss1
         {
             Debug.Log("OnEndBattle()");
             // 전투 끝났을때
+            
             //InputManager.Instance.CanInput = false;
         }
 
@@ -107,14 +111,15 @@ namespace Controller.Boss1
         {
             Debug.Log("OnEndDialog()");
             // 제한시간 코루틴 설정
+            
             StartCoroutine(bossRoomDoor.OpenDoorTimeLimit());
-            //InputManager.Instance.CanInput = true;
         }
 
         private void OnOpenLeftDoor()
         {
             Debug.Log("OnLeftBossRoom()");
             // 보스 문 열렸을 때
+            
             SoundManager.Instance.PlaySound(SoundManager.SoundType.Bgm, endingBGM);
         }
 
@@ -122,6 +127,7 @@ namespace Controller.Boss1
         {
             Debug.Log("OnLeftBossRoom()");
             // 보스 방에서 나갔을 때 (트리거)
+            
             bossRoomLeftCanvas.gameObject.SetActive(true);
         }
 

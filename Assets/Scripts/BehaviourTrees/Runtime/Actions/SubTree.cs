@@ -24,7 +24,6 @@ namespace TheKiwiCoder
                     var keyInstance = treeInstance.blackboard.Find(key.name);
                     if (keyInstance != null)
                     {
-                        //treeInstance.blackboard.ReplaceKey(key.name, key);
                         keyInstance.Subscribe(key);
                         key.Subscribe(keyInstance);
                         keyInstance.CopyFrom(key);

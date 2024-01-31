@@ -10,8 +10,8 @@ namespace Channels.Components
 {
     public class TicketMachine : SerializedMonoBehaviour
     {
-        [ShowInInspector] [ReadOnly] private readonly IDictionary<ChannelType, Ticket> tickets =
-            new Dictionary<ChannelType, Ticket>();
+        [ShowInInspector] [ReadOnly] 
+        private readonly IDictionary<ChannelType, Ticket> tickets = new Dictionary<ChannelType, Ticket>();
 
         private Action<TicketBox> addTicketAction;
 

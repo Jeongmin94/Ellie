@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Minion
 {
     [CreateAssetMenu(fileName = "MinionJump", menuName = "Terrapupa/MinionJump")]
-    public class TerrapupaMinionJumpData : BaseBTData
+    public class TerrapupaMinionJumpData : BehaviourTreeData
     {
         [Header("공격 설정")] [Tooltip("돌진 점프 높이")]
         public float jumpPower = 4.0f;

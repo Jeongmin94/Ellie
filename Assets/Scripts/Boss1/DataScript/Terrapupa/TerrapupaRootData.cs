@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Terrapupa
 {
     [CreateAssetMenu(fileName = "Root", menuName = "Terrapupa/Root")]
-    public class TerrapupaRootData : BaseBTData
+    public class TerrapupaRootData : BehaviourTreeData
     {
         [Title("사운드 설정")] 
         [InfoBox("일어날 때 소리")] public string sound1 = "TerrapupaGripStone";

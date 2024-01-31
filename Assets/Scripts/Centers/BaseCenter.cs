@@ -71,6 +71,7 @@ namespace Centers
 
         protected virtual void InitObjects()
         {
+	        // UI의 이벤트를 연결하고, 채널에 입장시킵니다.
             if (Canvases != null)
             {
                 foreach (Transform child in Canvases.transform)
@@ -78,27 +79,19 @@ namespace Centers
                     CheckTicket(child.gameObject);
                 }
             }
-
+			// 등록한 UI를 생성하고, 채널에 입장시킵니다.
             foreach (var ui in uiPrefabs)
             {
                 var canvas = Instantiate(ui, Canvases.transform);
                 CheckTicket(canvas.gameObject);
             }
-
-            // instance only
+            // BaseController(객체)를 상속받는 클래스들을 초기화하고, 채널에 입장시킵니다.
             if (controllerInstances != null)
             {
                 foreach (var controller in controllerInstances)
                 {
                     controller.GetComponent<BaseController>().InitController();
-                }
-            }
-
-            if (spawnerInstances != null)
-            {
-                foreach (var spawner in spawnerInstances)
-                {
-                    spawner.GetComponent<BaseSpanwer>().InitSpawner();
+                    CheckTicket(controller);
                 }
             }
         }

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Terrapupa
 {
     [CreateAssetMenu(fileName = "Intake", menuName = "Terrapupa/Intake")]
-    public class TerrapupaIntakeData : BaseBTData
+    public class TerrapupaIntakeData : BehaviourTreeData
     {
         [Title("사운드 설정")] [InfoBox("섭취 완료 사운드")]
         public string sound1 = "TerrapupaEatMagicStoneSuccess";

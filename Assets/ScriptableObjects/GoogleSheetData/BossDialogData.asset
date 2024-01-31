@@ -11,7 +11,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b15c82019570db545a98455f51395a09, type: 3}
   m_Name: BossDialogData
-  m_EditorClassIdentifier: Assets.Scripts.Data.GoogleSheet.BossDialogParsingInfo,
+  m_EditorClassIdentifier: Data.GoogleSheet._8100BossDialog.BossDialogParsingInfo,
     Assembly.Ellie
   url: https://docs.google.com/spreadsheets/d/1DlHsnJDvkPX63VSBQC0I_Bg3tRGKPfGMpX1gIgggWEQ/edit#gid=98615154
   startCell: B6
@@ -54,18 +54,18 @@ MonoBehaviour:
     description: "\uBCF4\uC2A4\uBC29 \uCCAB \uC785\uC7A5"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 1
+    - terrapupaDialogType: 1
       dialogCanvasType: 3
       speaker: 1
       dialog: "\uC774 \uACF5\uAC04\uC740 \uBB50\uC9C0...?"
       remainTime: 1
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 1
       dialog: "\uC800 \uBB38\uC744 \uC9C0\uB098\uBA74 \uC544\uBC84\uC9C0\uB97C \uB9CC\uB0A0
         \uC218 \uC788\uC744\uB824\uB098?"
       remainTime: 3
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 2
       dialog: "\uC800 \uB140\uC11D\uC740 \uC131\uBB38\uC744 \uC9C0\uD0A4\uB294 \uACE8\uB818
@@ -75,7 +75,7 @@ MonoBehaviour:
     description: "\uB9C8\uB098\uC758 \uC0D8 \uD30C\uAD34"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 4
       dialog: "\uB9C8\uB098\uC758 \uC0D8\uC774 \uBD80\uC11C\uC84C\uB354\uB2C8, \uC800
@@ -85,7 +85,7 @@ MonoBehaviour:
     description: "\uB3CC\uB9F9\uC774\uB85C \uD14C\uB77C\uD478\uD30C 5\uBC88 \uD0C0\uACA9"
     isSaveDialog: 0
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 1
       dialog: "(\uC77C\uBC18 \uACF5\uACA9\uC73C\uB85C\uB294 \uC544\uBB34\uB7F0 \uD0C0\uACA9\uB3C4
@@ -97,7 +97,7 @@ MonoBehaviour:
       \uB54C"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 2
       dialog: "\uC800\uAC74.. \uB9C8\uBC95\uB3CC\uBA69\uC774? \uD14C\uB77C\uD478\uD30C\uB294
@@ -108,7 +108,7 @@ MonoBehaviour:
       3\uD68C"
     isSaveDialog: 0
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 4
       dialog: "\uACE8\uB818\uC758 \uD575 \uBD80\uBD84\uC744 \uB9DE\uCDB0\uC57C \uC81C\uB300\uB85C
@@ -118,12 +118,12 @@ MonoBehaviour:
     description: "\uD14C\uB77C\uD478\uD30C \uCD5C\uCD08 \uD68C\uBCF5 \uC2DC"
     isSaveDialog: 0
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 2
       dialog: "\uB140\uC11D\uC774 \uB3CC\uB9F9\uC774\uB97C \uD761\uC218\uD574\uBC84\uB838\uC5B4!"
       remainTime: 3
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 3
       dialog: "\uD14C\uB77C\uD478\uD30C\uC758 \uC0DD\uBA85\uB825\uC774 \uCDA9\uB9CC\uD574\uC9C0\uACE0
@@ -134,7 +134,7 @@ MonoBehaviour:
     description: "2\uD398\uC774\uC988 \uCD5C\uCD08 \uC804\uD658"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 2
       dialog: 
@@ -144,7 +144,7 @@ MonoBehaviour:
       \uB54C"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 2
       dialog: "\uB140\uC11D\uB4E4\uC774 \uD798\uC744 \uC783\uC5C8\uC5B4! \uC5B4\uC11C
@@ -154,7 +154,7 @@ MonoBehaviour:
     description: "3\uD398\uC774\uC988 \uBBF8\uB2C8\uC5B8 \uCD5C\uCD08 \uC0DD\uC131"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 3
       dialog: "\uC544\uC9C1\uB3C4 \uBD84\uD574\uB418\uB2E4\uB2C8...."
@@ -163,7 +163,7 @@ MonoBehaviour:
     description: "\uACE8\uB818\uC758 \uD575 \uCD5C\uCD08 \uD68D\uB4DD"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 2
       speaker: 0
       dialog: "(\uC774\uC0C1\uD55C \uB3CC\uB9F9\uC774\uB97C \uC8FC\uC6E0\uB2E4.)"
@@ -173,13 +173,13 @@ MonoBehaviour:
       (\uC804\uD22C\uC885\uB8CC)"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 1
       dialog: "\uD798\uB4E0 \uC804\uD22C\uC600\uC5B4.. \uC774\uC81C \uC5EC\uAE30\uC11C
         \uC5B4\uB5BB\uAC8C \uB098\uAC00\uC57C \uD558\uC9C0...?"
       remainTime: 3
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 4
       dialog: "\uC8FC\uBCC0\uC744 \uC880 \uB458\uB7EC\uBCFC\uAE4C\uC694?"
@@ -189,7 +189,7 @@ MonoBehaviour:
       \uC5F4\uC9C0 \uBABB\uD588\uC744 \uB54C"
     isSaveDialog: 1
     dialogList:
-    - bossDialogType: 0
+    - terrapupaDialogType: 0
       dialogCanvasType: 3
       speaker: 3
       dialog: "\uD14C\uB77C\uD478\uD30C\uAC00 \uB0A8\uAE34 \uC5D0\uB108\uC9C0\uB97C

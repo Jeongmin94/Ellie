@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Minion
 {
     [CreateAssetMenu(fileName = "Root", menuName = "Terrapupa/MinionRoot")]
-    public class TerrapupaMinionRootData : BaseBTData
+    public class TerrapupaMinionRootData : BehaviourTreeData
     {
         [Header("기본 수치")] 
         [InfoBox("보스 이름")] public string bossName;

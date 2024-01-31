@@ -4,7 +4,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Minion
 {
     [CreateAssetMenu(fileName = "MinionMove", menuName = "Terrapupa/MinionMove")]
-    public class TerrapupaMinionMoveData : BaseBTData
+    public class TerrapupaMinionMoveData : BehaviourTreeData
     {
         [Header("공격 설정")] [Tooltip("돌진 점프 높이")]
         public float rotationSpeed = 2.0f;

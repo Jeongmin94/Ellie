@@ -25,9 +25,9 @@ namespace Controller.Boss1
         [InfoBox("보스가 종마석 맞고 섭취중 아니여도 기절하는지의 여부\n" +
                  "true면 섭취중 아니여도 기절")]
         public bool canBossStun;
-        [InfoBox("재생성 쿨타임")] 
+        [InfoBox("재생성 쿨타임")]
         public float regenerateStalactiteTime = 10.0f;
-        [InfoBox("구역 갯수")] 
+        [InfoBox("구역 갯수")]
         public int numberOfSector = 3;
         [InfoBox("구역 당 종마석 갯수")] 
         public int stalactitePerSector = 3;
@@ -37,7 +37,7 @@ namespace Controller.Boss1
         public float fieldHeight = 8.0f;
         private readonly List<List<MagicStalactite>> stalactites = new();
 
-        [Title("마나의 샘")] 
+        [Title("마나의 샘")]
         [InfoBox("재생성 쿨타임")] 
         public float respawnManaFountainTime = 10.0f;
         [InfoBox("마법 돌맹이 재생성 쿨타임")] 

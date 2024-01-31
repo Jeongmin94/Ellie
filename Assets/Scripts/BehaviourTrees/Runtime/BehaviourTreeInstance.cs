@@ -1,11 +1,12 @@
 using System;
 using System.Collections.Generic;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace TheKiwiCoder
 {
     [AddComponentMenu("BehaviourTree/BehaviourTreeInstance")]
-    public class BehaviourTreeInstance : MonoBehaviour
+    public class BehaviourTreeInstance : SerializedMonoBehaviour
     {
         // The main behaviour tree asset
         [Tooltip("BehaviourTree asset to instantiate during Awake")]
@@ -13,10 +14,10 @@ namespace TheKiwiCoder
 
         [Tooltip("Run behaviour tree validation at startup (Can be disabled for release)")]
         public bool validate = true;
-
+        
         // These values override the keys in the blackboard
         public List<BlackboardKeyValuePair> blackboardOverrides = new();
-
+        
         // Storage container object to hold game object subsystems
         private Context context;
         private BehaviourTree runtimeTree;
@@ -37,12 +38,9 @@ namespace TheKiwiCoder
         // Update is called once per frame
         private void Update()
         {
-            if (runtimeTree)
-            {
-                runtimeTree.Update();
-            }
+	        runtimeTree.Update();
         }
-
+        
         // Start is called before the first frame update
         private void OnEnable()
         {

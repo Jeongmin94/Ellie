@@ -43,6 +43,7 @@ namespace Controller.Boss1
             EventBus.Instance.Subscribe(EventBusEvents.OccurEarthQuake, OnStartEarthQuake);
             EventBus.Instance.Subscribe(EventBusEvents.BossMeleeAttack, OnBossMeleeAttack);
             EventBus.Instance.Subscribe(EventBusEvents.BossLowAttack, OnBossLowAttack);
+            
             EventBus.Instance.Subscribe(EventBusEvents.BossMinionAttack, OnBossMinionAttack);
             
             EventBus.Instance.Subscribe(EventBusEvents.BossAttractedByMagicStone, OnBossAtrractedByMagicStone);
@@ -53,10 +54,6 @@ namespace Controller.Boss1
             EventBus.Instance.Subscribe(EventBusEvents.HitStone, OnHitStone);
             EventBus.Instance.Subscribe(EventBusEvents.ApplySingleBossCooldown, OnApplySingleBossCooldown);
         }
-
-        /*
-         * 
-         */
         
         private void OnSpawnStone(IBaseEventPayload payload)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Terrapupa
 {
     [CreateAssetMenu(fileName = "Trace", menuName = "Terrapupa/Trace")]
-    public class TerrapupaTraceData : BaseBTData
+    public class TerrapupaTraceData : BehaviourTreeData
     {
         [Title("사운드 설정")] [InfoBox("이동 사운드")] public string sound1 = "TerrapupaWalk";
 

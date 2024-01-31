@@ -18,7 +18,6 @@ MonoBehaviour:
   - rid: 1401849175978016768
   - rid: 8619125030485229572
   - rid: 8619125030485229575
-  - rid: 8619125030485229576
   - rid: 8619125030485229577
   - rid: 8619125030485229582
   - rid: 8619125030485229583
@@ -102,7 +101,7 @@ MonoBehaviour:
     - rid: 116448501211856901
     - rid: 6881098230567796748
     - rid: 116448501211856902
-  viewPosition: {x: 1863.2, y: 510.4, z: 0}
+  viewPosition: {x: 3445.6, y: 353.6, z: 0}
   viewScale: {x: 0.65751624, y: 0.65751624, z: 1}
   references:
     version: 2
@@ -667,7 +666,6 @@ MonoBehaviour:
         children:
         - rid: 283011198868258830
         - rid: 8619125030485229577
-        - rid: 8619125030485229576
         - rid: 8619125030485229575
         - rid: 8619125030485229582
         - rid: 116448501211856903
@@ -1102,22 +1100,6 @@ MonoBehaviour:
           reference:
             rid: -2
           defaultValue: RollStart
-    - rid: 8619125030485229576
-      type: {class: Wait, ns: TheKiwiCoder, asm: Assembly.Ellie}
-      data:
-        state: 0
-        started: 0
-        guid: d689a4de6c42d7346ac026281cdbf737
-        position: {x: -4530, y: -150}
-        blackboard:
-          keys: []
-        description: 
-        drawGizmos: 0
-        timeValue:
-          reference:
-            rid: -2
-          defaultValue: 0
-        duration: 1
     - rid: 8619125030485229577
       type: {class: Log, ns: TheKiwiCoder, asm: Assembly.Ellie}
       data:

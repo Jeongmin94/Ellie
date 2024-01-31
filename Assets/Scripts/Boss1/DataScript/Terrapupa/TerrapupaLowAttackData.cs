@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Boss1.DataScript.Terrapupa
 {
     [CreateAssetMenu(fileName = "LowAttack", menuName = "Terrapupa/LowAttack")]
-    public class TerrapupaLowAttackData : BaseBTData
+    public class TerrapupaLowAttackData : BehaviourTreeData
     {
         [Title("사운드 설정")] [InfoBox("하단공격 공격 사운드")]
         public string sound1 = "TerrapupaAttackHit";
